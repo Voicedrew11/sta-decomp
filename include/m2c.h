@@ -12,6 +12,8 @@ typedef long long s64;
 typedef unsigned long long u64;
 typedef float f32;
 typedef double f64;
+typedef __int128 s128;
+typedef unsigned __int128 u128;
 
 typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;
