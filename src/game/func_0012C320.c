@@ -3,8 +3,8 @@ void func_001313A0(void);
 void func_0012F880(void);
 
 void func_0012C320(void) {
-    char *p;
     int i;
+    char *p;
     func_001313A0();
     func_0012F880();
     p = D_0022CBC0;

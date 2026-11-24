@@ -1,8 +1,8 @@
 extern char D_0022CBC0[];
 
 void func_0012C260(void) {
-    char *p = D_0022CBC0;
     int i = 0;
+    char *p = D_0022CBC0;
     do {
         if (p[0] && p[0xF] && p[0xE] == 2) {
             p[3] = 1;
