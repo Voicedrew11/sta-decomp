@@ -45,3 +45,4 @@ register and scheduling differences.
 | func_00136DB0 | inlined axis-angle rotation (as func_0015EBB0 times a vector): float scheduling/regs only |
 | func_0017EAF0 | adapted func_0017E940 inlines; shape identical, temp regs only (slot pointer v1 vs a2) |
 | func_0016EF70 | right size/branches, loop regalloc differs (orig spills a0, i in t9); far (155 words) |
+| func_001777C0 | ~50 words, regs only (size calc reuses a0; func_00176BF0 result in a1; TEX0 bitfield temps t0/v0 vs ours t1/t0) |

@@ -126,6 +126,13 @@ Function names point at examples in `src/`.
 - WRAP-style macros repeat their argument: put a call result in a temp first (func_001BC320).
 - Copy float params into locals declared in the target's register order to fix float regalloc (func_001472A0).
 
+- Stack slots overlapping a live matrix: the original passed its rows (`(Vec *)m.m[2]`); separate locals never share space (func_001C8F90). A static inline used twice gets one stack local per copy; pass a caller-declared scratch pointer to share it (func_001BE050).
+- Unexplained 16-byte gap next to a Vec: `Vec c[2]`. Pointer out-params in 16-byte slots: `T *p[4]` (top of frame) or a struct typedef with `aligned(16)` (bottom of frame).
+- Two locals holding copies of one value with swapped saved regs: make one `u32`, the other `s32` (func_0018EDA0). When all s-regs are used, declaration order decides which local spills (func_00165DF0).
+- Global reloaded after a store through a pointer: `*(volatile T *)&D_X` at that one use (func_001A40A0). Element pointer whose fields reload: `volatile B *b` (func_00168A40).
+- u32->float of a call result that must come first: wrap call+conversion in a `static inline f32` (a temp gets copy-propagated) (func_001C73C0).
+- `u8 = (s32)(float expr)` gives cvt.w + sb; a plain assignment adds the unsigned 0x4F000000 path (func_0018C140).
+
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
