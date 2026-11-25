@@ -5,6 +5,7 @@ Function names point at examples in `src/`.
 
 ## General
 
+- **First, look for a matched sibling.** grep `src/` for the same callees / GS register numbers / globals; many functions are near-copies (rotate-around-centre family 00184040/00184DF0/00185510/00186440, GS setup in 00156CE0, Node helpers in 001AC4A0/001AF150). Copying and adjusting offsets/constants matched first try 5 times in one round.
 - Saved regs assigned in declaration order from the top (first local -> highest s-reg); declaration order also sets temp regs. Try permutations of local order first.
 - Stack locals laid out in reverse declaration order (last declared = lowest address). Buffer sizes set frame size (`addiu sp,-N`).
 - `T x = {0};` gives the compiler's clear loop (no pad nop); hand loops get padded. Can go inside a case block.
@@ -98,6 +99,14 @@ Function names point at examples in `src/`.
 - `return a || b;` with `a` read into a local earlier gives `sltu/bnez/sltu` without padding; pointer select without padding: `p = &h[0]; if (c) p = &h[1];`.
 - Long runs of independent bitfield writes: random-search the statement order (keep each byte's writes in sequence), then local swaps from the best; 1500 orders took ~2 min (func_0012BC80).
 - Checker gotcha: the function name is taken from the first `func_X(` line without `;`, so a `#define` calling `func_X()` confuses it; write `(func_X)()`.
+
+- Unrolled `mula.s/madd.s` runs at constant offsets: write each statement out (`d[i] = p[i]*u + q[i]*t`); a for-loop isn't unrolled (func_0017BD70). `neg.s`+`add.s` = literal `(-j + k)`; `k - j` gives `sub.s` (func_001294A0).
+- Float products: name each product temp (`xy = x*y`) and write `t * xy` inline; temps already containing `t` don't match. Declare the product temps before x/y/z (func_0015EBB0).
+- gp-relative globals: declare with a size (`extern u8 D_X[4];`) or as a scalar indexed via `((T *)&D_X)[i]`; `extern T D_X[];` gives lui/absolute addressing. Many globals near one base that overflow small data: one big struct extern (func_00159A60).
+- `andi rN,zero,1` + shifted copies for several bitfield stores = separate `bf = 0;` statements (or one `z = 0` local), not a chained assignment (func_001AEC00, func_0012B600).
+- `daddiu v0,zero,K` returns without a u8 variable: body in `static inline u8 inner()`, real function `return inner(...);` (func_001432F0).
+- Stack-struct stores scheduled around float math: interleave the constant stores between the float->int stores in source (func_0012B600). Bitfield runs that need a saved reg: try natural per-element order before random search (func_00159A60).
+- `dsll` for a shift feeding an s64 param needs `(u64)` on the operand; `(a.b5 ? 2 : 0) | (a.b6 ? 1 : 0)` gives sltu+or (func_0016F280).
 
 ## Struct candidates
 
