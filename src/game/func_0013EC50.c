@@ -1,3 +1,4 @@
-int func_0013EC50(char * a0) {
-    return (*(unsigned char *)(a0 + 0x5B0) & 1);
+#include "actor.h"
+int func_0013EC50(Actor *a0) {
+    return (a0->flags5B0.b & 1);
 }

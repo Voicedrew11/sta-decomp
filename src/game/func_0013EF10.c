@@ -1,6 +1,7 @@
-void func_0013EF10(char *a0) {
-    (*(unsigned char *)(a0 + 0x6B9))++;
-    if (*(unsigned char *)(a0 + 0x6B9) > 0x80) {
-        *(unsigned char *)(a0 + 0x6B9) = 0x80;
+#include "actor.h"
+void func_0013EF10(Actor *a0) {
+    (a0->unk6B9)++;
+    if (a0->unk6B9 > 0x80) {
+        a0->unk6B9 = 0x80;
     }
 }

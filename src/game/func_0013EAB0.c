@@ -1,5 +1,4 @@
-typedef struct { unsigned char p : 3; unsigned char v : 1; } BF_3_1;
-
-void func_0013EAB0(char * a0, int a1) {
-    ((BF_3_1 *)(a0 + 0x5B6))->v = a1;
+#include "actor.h"
+void func_0013EAB0(Actor *a0, int a1) {
+    a0->flags5B6.f.b3 = a1;
 }

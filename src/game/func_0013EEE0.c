@@ -1,3 +1,4 @@
-int func_0013EEE0(char * a0) {
-    return (*(unsigned char *)(*(char **)(*(char **)(a0 + 0x518) + 0x190) + 0x120) & 1);
+#include "actor.h"
+int func_0013EEE0(Actor *a0) {
+    return (*(unsigned char *)(*(char **)(a0->unk518 + 0x190) + 0x120) & 1);
 }

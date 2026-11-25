@@ -1,3 +1,4 @@
-float func_0013DD40(char * a0) {
-    return *(float *)(*(char **)(a0 + 0x4B0) + 0x298);
+#include "actor.h"
+float func_0013DD40(Actor *a0) {
+    return *(float *)(a0->unk4B0 + 0x298);
 }

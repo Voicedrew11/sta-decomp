@@ -1,11 +1,12 @@
-char * func_0013E060(char * a0) {
-    return *(char **)(a0 + 0x4B0) + 0x210;
+#include "actor.h"
+char * func_0013E060(Actor *a0) {
+    return a0->unk4B0 + 0x210;
 }
 
-char * func_0013E070(char * a0) {
-    return *(char **)(a0 + 0x4B0) + 0x10;
+char * func_0013E070(Actor *a0) {
+    return a0->unk4B0 + 0x10;
 }
 
-unsigned char func_0013E080(char * a0) {
-    return *(unsigned char *)(*(char **)(a0 + 0x4B0) + 0x6);
+unsigned char func_0013E080(Actor *a0) {
+    return *(unsigned char *)(a0->unk4B0 + 0x6);
 }
