@@ -174,3 +174,21 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **Relocation against a symbol at address 0** not in the ELF: `(u32)(D_4A0 - 0x4A0)` gives the same bytes (func_00155460).
 - **`if (flag) {...}` whose `beqz` lands on `b end`**: write `if (!flag) return;`.
 - **Brute-force permutations** of declaration lines or statement groups (`perm.py` in the agent kit): 720 variants take ~1-3 minutes and fixed several functions.
+
+### More tricks (round X, 0x4A0-0x5D0 functions)
+
+- **A call that reuses a0/t0 or other temps across a jal** means the callee is a `static` function defined earlier in the same file (MWCC tracks the registers it preserves). batch.py can't check that layout yet (wip/func_0013CBC0.c, func_001797E0.c).
+- **Non-static functions defined earlier in the same file are auto-inlined at -O4**; code that looks like a known function's body is a static inline copy.
+- **Trailing `move v0,zero` plus v0/v1 swaps mid-function**: the function returns `s32 0`, not void.
+- **Unexplained s-reg swap around `&local.field`**: add an explicit pointer local for it. Gp-relative `&D_X` in an s-reg: `extern T *D_X[2];` and index past the end.
+- **Stuck `addu` operand order on `base + idx*K`**: repeat the expression that computes `base` inside the index expression, or load the table value into an `s32` temp first (`t = D.v[i]; x += t;`).
+- **Switch case blocks follow source case order**; reorder cases to match the target layout. `switch ((s32)u16field)` swaps value/constant registers.
+- **Block layout first**: when diffs start with delay slots/nops, try gotos so an else-path's setup sits after the return (func_0015A470).
+- **Shared final `return 0;`** gives `beq ... ret0`; inline `return 0` gives `b end; move v0,zero`.
+- **Self-recursive function with arg setup out of order**: permute where the f32 params sit in its own signature.
+- **`while (!(x <= k))` materialises a bool**; `while (x > k)` gives the clean c.le.s loop. Float loop guard: `if (x < 0) do {...} while (x < 0);`.
+- **Globals at lui addresses reloaded after an indexed array store** are one struct containing the array. A large constant via `lui; ori; addu` is pointer arithmetic (`(u128 *)p + 0x1982`).
+- **Unrolled 8x fill loop**: hoist the count into a local. Stack slot order wrong between two aggregates: pad one (`f32[3]` to `f32[4]`) before reordering.
+- **A u32 4th param read as `andi 0xFFFF` / `srl 16`** is split into two s16 halves; a struct param spills to the stack instead.
+- **An unexplained nop before a loop head** can be alignment padding; it goes away when the code before it has the right length.
+- **Statement-order permutation** (perm.py) fixes scheduling diffs that declaration order doesn't.

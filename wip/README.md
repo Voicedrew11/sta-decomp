@@ -66,3 +66,24 @@ register and scheduling differences.
 | func_0014E230 | 65 words, stack offsets only: orig spills pointer params o1/o2 to 16-aligned slots (frame 0x2A0) |
 | func_00185740 | 40 words; orig reloads `o->x38` after `o->x38 += 4.0f` |
 | func_001B51F0 | 56 words; prologue moves a2 to s3, saved regs for n/cur/&PP(n) rotated |
+| func_0013CBC0 | code identical when func_0013C360 is a `static` definition earlier in the same file (MWCC then knows a0/t0 survive the call); needs file regrouping |
+| func_00137E60 | 16 words; f22/f23 swap for t/dd, `out` param spill slot 0xC0 vs 0xC4 |
+| func_001797E0 | 118 words; needs static func_00179720 earlier in file (included); r/n v1/a0 swap in inlined bit reads |
+| func_001B9F10 | 14 words, stack only: orig spills pos/rot params to 16-byte slots |
+| func_0014E680 | 60 words; frame 0x10 bigger in orig (unknown 8-byte slots), one mov.s swap |
+| func_0016D380 | 126 words; `flag & 1` kept in s5 from prologue, spills differ |
+| func_001973F0 | 169 words; saved-reg order only (orig sel=s4,n=s3,k=s2,id=s1,o=s0) |
+| func_001C0020 | 1 word; `addu a1,a0,s2` operand order |
+| func_0015F540 | 177 words; s-reg choice only (p/q/converted value) |
+| func_0016C7E0 | far: 16 bytes short, ctx spill not reproduced |
+| func_001D31E0 | 48 words; innermost `h + n4*20` operand order, pointer table regs |
+| func_00137870 | far; orig spills outer counter i and count na, keeps inner k in s3 |
+| func_0016BD00 | far; right size, float temp allocation off throughout |
+| func_00185D70 | 2 words; temp reg of the 24-byte `buf = D_001F26B0` lq/sq copy (a2 vs a0) |
+| func_00148D00 | angle-wrap `PI + a` sum shared (orig recomputes), bitfield `++` reuses reg |
+| func_0014FA30 | one extra spill slot, frame 16 bytes bigger |
+| func_001B6190 | uses string literals "STMI"/"STEM"/"STOI" (>8 bytes padded); batch.py can't link literals |
+| func_00196330 | 3 words; `func_001AFC90()[a3]` index temp a0 vs a2 (same as func_0019CEF0) |
+| func_001A4990 | ~50 instrs; 11-entry loops start with `addu sN,v1,zero` + pad nop |
+| func_00168480 | 73 words; GS setup regalloc, missing pad nop after clamp |
+| func_0016CD80 | 29 words; hdr/q swapped (orig keeps q in reg, hdr on stack) |
