@@ -108,6 +108,13 @@ Function names point at examples in `src/`.
 - Stack-struct stores scheduled around float math: interleave the constant stores between the float->int stores in source (func_0012B600). Bitfield runs that need a saved reg: try natural per-element order before random search (func_00159A60).
 - `dsll` for a shift feeding an s64 param needs `(u64)` on the operand; `(a.b5 ? 2 : 0) | (a.b6 ? 1 : 0)` gives sltu+or (func_0016F280).
 
+- `addi` (not `addiu`) marked "handwritten instruction" at a switch range check: `static inline s32 cls(s32 x) { s32 t; asm("addi %0, %1, -7" : "=r"(t) : "r"(x)); switch ((u32)t) {...} }` (func_001CE7D0; same `addi` in func_001CBC20, func_001CE4B0, func_001D1D50).
+- Compare result kept in v0 (`slti v0` + `bnez v0`): `if (!(x < K)) return NULL;` instead of `x > K-1` (func_001AEE80). Branch with the failure store in the delay slot: write the failure case first, `if (x <= 0) { fail } else { ok }` (func_0017C2A0).
+- Early null-check returns followed by an `andi 0xFF` later = an `s32` param copied into a `u8` local after the checks (func_001B2180). u8 param masked again at each use: plain param in the first use, `(u8)p` cast in later ones (func_00139330).
+- `sd` of -1 built with `pcpyld` = `u64` field. Pointer sum stuck on `addu` order: integer sum with `* 16` instead of `<< 4` (func_001B2F30). Byte pair to u16: inline `u16 mk(u16 lo, u16 hi) { return (u8)lo | ((u8)hi << 8); }` (func_001409A0).
+- Float accumulator that should end in f0: `sum *= g; return sum;`, not `return sum * g;` (func_0015F040). u16 arg `base + expr` in the wrong temp: `base += expr; f(base);` (func_001C6D40).
+- Saved regs can follow statement order rather than declaration order: move the statement that first computes the value (func_00139330).
+
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
