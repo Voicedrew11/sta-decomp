@@ -1,0 +1,3 @@
+# Japanese retail, Shadow Tower Abyss (SLPS-25217)
+453dec1fb7f64de7cc6b08cc15719b1266231d59  SLPS_252.17
+e2742b309441802b4a6809a346760a2dfcc6fd4d  sta.rom

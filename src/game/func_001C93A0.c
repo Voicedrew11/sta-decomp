@@ -1,0 +1,23 @@
+#include "common.h"
+
+typedef struct { char pad[0x518]; u8 *p; } S;
+extern S *D_002022E4;
+typedef struct { char p[0x10]; f32 v[4]; } V;
+typedef struct { char pad[0x18]; V *v; } T;
+void sceVu0CopyVector(f32 *v0, f32 *v1);
+
+void func_001C93A0(f32 *out)
+{
+    T *t;
+    if (D_002022E4 == NULL) {
+        t = NULL;
+    } else {
+        u8 *p = D_002022E4->p;
+        if (p == NULL)
+            t = NULL;
+        else
+            t = (T *)(p + 0x180);
+    }
+    if (t != NULL)
+        sceVu0CopyVector(out, t->v->v);
+}

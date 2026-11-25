@@ -1,0 +1,81 @@
+#!/usr/bin/env bash
+# Compile one source to an object with the period toolchain.
+#
+#   tools/compile_c.sh src/<path>.c build/src/<path>.c.o
+#   tools/compile_c.sh src/<path>.s build/src/<path>.s.o   (hand-written asm)
+#
+# The compiler follows where the code came from:
+#   src/sce/libc|libm|libgcc   ee-gcc 2.96-ee-001003-1 -O2 -G 0 -fno-builtin,
+#                              SCE ee-as 2.10 (find_lib_matches: 69 of ICO's
+#                              91 libc functions match under 2.96, 12 under 2.9)
+#   src/sce/*                  Sony SDK 2.5 archives: ee-gcc 2.9-ee-991111-01
+#                              -O2 -G 0, SCE ee-as 2.10 (286 of 301 libkernl
+#                              functions match under 2.9, 168 under 2.96)
+#   src/game/ee/*              the game's three ee-gcc modules (0x1D3A90-0x1D7EC0,
+#                              0x1DC328-0x1DC900, 0x1E19A0-0x1E5E80): ee-gcc 2.96 -O2 -G 8
+#                              -fno-strict-aliasing, SCE ee-as 2.10
+#   everything else (the game) Metrowerks CodeWarrior mwccps2 3.0 beta -O4,p,
+#                              run under wibo
+#
+# tools/probe_compiler.py settles the game's compilers: its probes match
+# under mwccps2 3.0b38, 3.0b50 and 3.0b52 at -O4,p only (b50 and b52 emit
+# identical code on everything tried; b38 differs from them only on runs of
+# *p++ stores, which the game does not show), and the gcc modules under
+# ee-gcc 2.96 with -fno-strict-aliasing only. MWCC overrides the CodeWarrior
+# build (a directory name under tools/cc/), GAME_CFLAGS its flags.
+set -eu
+[ $# -eq 2 ] || { echo "usage: $0 <src.c|src.s> <out.o>" >&2; exit 2; }
+SRC="$1"; OUT="$2"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+CC9="${ROOT}/tools/cc/ee-gcc2.9-991111-01"
+CC96="${ROOT}/tools/cc/ee-gcc2.96"
+AS_SDK="${CC96}/bin/as"
+MWCC_DIR="${ROOT}/tools/cc/${MWCC:-mwcps2-3.0b52-030722}"
+WIBO="${ROOT}/tools/cc/wibo"
+
+INCS="-I${ROOT}/include"
+for d in "${ROOT}"/src/sce/*/; do [ -d "$d" ] && INCS="${INCS} -I${d%/}"; done
+
+# Game code is matched from plain C: inline asm would only re-type the
+# retail instructions, so it is refused.
+case "${SRC}" in
+    src/game/*.c)
+        if grep -nE '\b(__asm__|asm)\b' "${SRC}" >&2; then
+            echo "compile_c.sh: ${SRC}: inline asm is not allowed in game code" >&2
+            exit 1
+        fi ;;
+esac
+
+mkdir -p "$(dirname "${OUT}")"
+case "${SRC}" in
+    src/sce/libc/*|src/sce/libm/*|src/sce/libgcc/*)
+        GCC="${CC96}/bin/gcc -B ${CC96}/gcc-lib/ee/2.96-ee-001003-1/"; FLAGS="-G 0 -fno-builtin" ;;
+    src/sce/*)
+        GCC="${CC9}/ee-gcc -B ${CC9}/gcc-lib/ee/2.9-ee-991111-01/"; FLAGS="-G 0" ;;
+    src/game/ee/*.c)
+        GCC="${CC96}/bin/gcc -B ${CC96}/gcc-lib/ee/2.96-ee-001003-1/"; FLAGS="-G 8 -fno-strict-aliasing"
+        INCS="${INCS} -I${ROOT}/src/game" ;;
+    *.s)
+        exec "${ROOT}/tools/period_env.sh" "${AS_SDK}" -EL -mcpu=5900 -mabi=eabi -G 8 -Iinclude -o "${OUT}" "${SRC}" ;;
+    *)
+        # mwccps2 writes the object itself; it reads its system include path
+        # from MWCIncludes and warns when that is unset.
+        INCS="${INCS} -I${ROOT}/src/game"
+        # tools/mwfix.py retypes the .mwcats section, which ld 2.10 cannot read
+        MWCIncludes="${ROOT}/include" "${WIBO}" "${MWCC_DIR}/mwccps2.exe" -c -nostdinc \
+            ${GAME_CFLAGS:--O4,p} ${INCS} -o "${OUT}" "${SRC}"
+        exec python3 "${ROOT}/tools/mwfix.py" "${OUT}" ;;
+esac
+
+GNUM=0
+case "${SRC}" in src/game/*) GNUM=8 ;; esac
+case "${SRC}" in
+    *.s) exec "${ROOT}/tools/period_env.sh" "${AS_SDK}" -EL -mcpu=5900 -mabi=eabi -G "${GNUM}" -o "${OUT}" "${SRC}" ;;
+esac
+S="${OUT%.o}.s"
+# ee-gcc records the path it is given in __FILE__ strings, so compile from the
+# source's directory with its bare name.
+SRC_DIR="$(cd "$(dirname "${SRC}")" && pwd)"
+( cd "${SRC_DIR}" && "${ROOT}/tools/period_env.sh" ${GCC} \
+    -S -O2 -mips3 -EL -nostdinc ${FLAGS} ${INCS} -o "${ROOT}/${S}" "$(basename "${SRC}")" )
+"${ROOT}/tools/period_env.sh" "${AS_SDK}" -EL -mcpu=5900 -mabi=eabi -G "${GNUM}" -o "${OUT}" "${S}"

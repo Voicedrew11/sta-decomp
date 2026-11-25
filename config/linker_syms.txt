@@ -1,0 +1,7 @@
+/* Addresses the asm refers to that fall inside a C unit's section, where
+ * splat expects the C object to define a symbol and it does not. Given to ld
+ * as an implicit linker script with splat's undefined_*_auto.txt. */
+
+/* mprec.o's _pow5mult (still asm) indexes p05[(k & 3) - 1], so it forms
+ * p05 - 4, which is the last word of mktime.o's .rodata. */
+D_001FA7B4 = 0x001FA7B4;

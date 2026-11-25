@@ -1,0 +1,19 @@
+--- m2c
++++ matched
+@@ -1,8 +1,10 @@
+ #include "common.h"
+-s32 func_00166F80(s32, s32, void *);            /* extern */
+-void func_00141DA0(void *arg0) {
+-    s32 temp_16;
+-    temp_16 = func_00166F80(*M2C_FIELD(arg0, s32 **, 0x4A4), 0x2010, arg0);
+-    do {
+-    } while (((s64) (func_00166C10(*M2C_FIELD(arg0, s32 **, 0x4A4), temp_16) << 0x38) >> 0x38) != 0);
++typedef struct { char pad[0x4A4]; s32 *p; } Obj;
++s32 func_00166F80(s32 a, s32 b, Obj *o);
++s32 func_00166C10(s32 a, s32 h);
++void func_00141DA0(Obj *o)
++{
++    s32 h = func_00166F80(*o->p, 0x2010, o);
++    while ((s8)func_00166C10(*o->p, h)) {
++    }
+ }

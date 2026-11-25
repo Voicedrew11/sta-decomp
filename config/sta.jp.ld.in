@@ -1,0 +1,28 @@
+/* Linker script for SLPS_252.17 (Japanese retail), GNU ld 2.10.
+ * Output-section addresses are the retail ELF's. tools/gen_ninja.py expands
+ * each @INPUTS:<section>@ into that section's inputs in link order and writes
+ * build/sta.ld (ld 2.10 has no INCLUDE inside an output section).
+ * The retail ELF was linked by mwldps2 into one PROGBITS blob; the section
+ * boundaries are the ones recorded in config/sta.jp.yaml. mwldps2 placed
+ * every unit's .data and then every unit's .rodata in one range, so both go
+ * into .data here. */
+ENTRY(_start)
+SECTIONS
+{
+    _gp = 0x00209B70;
+
+    .text    0x00100000 : {
+        @INPUTS:text@
+    }
+    .data    0x001EDE80 : {
+        @INPUTS:data@
+        @INPUTS:rodata@
+    }
+    .sdata   0x00201B80 : { *(.sdata) }
+    _fbss = 0x00201E80;
+    .sbss    0x00201E80 (NOLOAD) : { *(.sbss) *(.scommon) }
+    .bss     0x00202480 (NOLOAD) : { *(.bss) *(COMMON) }
+    _end = .;
+
+    /DISCARD/ : { *(.reginfo) *(.mwcats) *(.mdebug) *(.pdr) *(.comment) *(.gnu.attributes) *(.MIPS.abiflags) }
+}

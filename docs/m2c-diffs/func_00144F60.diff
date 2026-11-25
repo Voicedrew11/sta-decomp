@@ -1,0 +1,22 @@
+--- m2c
++++ matched
+@@ -1,10 +1,11 @@
+ #include "common.h"
+-s16 *func_00165130();                               /* extern */
+-extern void *D_00201FA8;
+-void func_00144F60(void) {
+-    s16 *temp_16_2;
+-    void *temp_16;
+-    temp_16 = M2C_FIELD(D_00201FA8, void **, 0x154);
+-    temp_16_2 = func_00165130();
+-    *temp_16_2 = func_0013E110(temp_16);
++typedef struct { char pad[0x154]; void *p; } S;
++extern S *D_00201FA8;
++s16 *func_00165130(s32 a, s32 b);
++s16 func_0013E110(void *p);
++void func_00144F60(s32 a)
++{
++    void *p = D_00201FA8->p;
++    s16 *q = func_00165130(a, 0);
++    *q = func_0013E110(p);
+ }

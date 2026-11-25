@@ -1,0 +1,6 @@
+#include "common.h"
+extern s16 D_00201EE2;
+
+void func_001304B0(s16 arg0) {
+    D_00201EE2 = arg0;
+}

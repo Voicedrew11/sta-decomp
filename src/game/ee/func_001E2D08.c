@@ -1,0 +1,11 @@
+#include "common.h"
+
+typedef struct { s32 v[4]; } Q;
+typedef struct { char pad[0x4C]; Q q; } S;
+extern S *D_00201E60;
+
+Q *func_001E2D08(Q *dst)
+{
+    *dst = D_00201E60->q;
+    return dst;
+}
