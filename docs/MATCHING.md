@@ -67,6 +67,15 @@ Function names point at examples in `src/`.
 - Values passed to u8/u16 params from int locals get andi masks; load them into s32 locals (not u8) to reproduce `lbu` + `andi 0xFF`.
 - A for-loop walking `(&a0->arr)[i]` from the object base becomes an IV on a0 itself: write `((T **)a0)[i + OFF/4]` to get `lw X, OFF(s1)` with s1 = a0 + 4i.
 - `if (a0 != 0 && ...) { body }` (single return path) avoids the bnez/b early-exit shape that `if (...) return;` gives.
+- Unrolled xyz stores: `for (k = 0; k < 3; k++) { pos[k] = (&e->x)[k]; ... }` unrolls with direct sp offsets; written out by hand, MWCC routes non-zero stack offsets through an address register (func_001B5CA0).
+- Shared angle-wrap `(ang + π)`: repeat the expression inline (macro-style) instead of a temp; the temp flips `add.s` operand order. Likewise `u = 200.0f; lo = p - u; hi = p + u;` fixes operand order.
+- Float-arg prototype position also moves float-constant `lui` loads: if a `lui` (e.g. 1.0f) lands before/after the wrong instruction, try the f32 param first, middle, or last (func_0018B150 takes it last).
+- `if ((u8)(x == 0))` gives the `xor`/`sltiu` + `beqz` shape.
+- A second `= {0}` clear in its own nested block (`{ Vec E = {0}; ... }`) gets its own stack slot; an unexplained stack gap often means an array local (`Vec C[2]`).
+- `*(s32 *)w = 0; *w = 0.0f;` lets MWCC drop a store; assign `0.0f` twice to keep both.
+- `do`-while loops with an explicit `if (i < n)` guard; duplicated loops only match with block-scoped locals per copy.
+- One-case `switch` on a magic number gives the beq / `b end` shape.
+- Table entries stored as unions: whole-union assignment (`D[x][0] = t;`) vs member copy (`t.q`) differ; try both.
 
 ## Struct candidates
 
@@ -76,6 +85,7 @@ Globals accessed at many offsets across unmatched code, worth a shared header in
 - `D_004AC630`, `D_004AC970`, `D_004AE370`: arrays of 0xD0-byte elements (local `Obj` typedefs in several files).
 - `D_0022CBC0`: 63 elements of 0x80 bytes.
 - `D_003407E0`: elements of 0xED0 bytes.
+- `D_0022F080`: struct `{ off, state, n, left, buf }` (func_0012F0F0 near-miss).
 - `Actor->unk518`: sub-object; +0x180, +0x190 used.
 
 ## Compiler builds

@@ -17,7 +17,6 @@ register and scheduling differences.
 | func_0015DBF0 | ~18 instrs: v70[3] store order, table-update regs, a0/a1 swap |
 | func_0013D8A0 | else-branch: `negu` scheduled before the `andi`/`sw` of `*q` (Actor accessor block) |
 | func_001AF4A0 | case-1 list remove: orig reloads count each pass and puts the shift loop's setup after the function |
-| func_0018D7B0 | `addiu a1,a0,0x81` should come before `lui v0` (1.0f) |
 | func_001B85B0 | ours keeps idx*0x30 in s4 across calls (extra s-reg, frame +0x10) |
 | func_001B87C0 | first block regs: load from 0x180 to t1 (ours a2) |
 | func_00167310 | `b` delay slot left empty (orig fills with next `lwc1 f21`); `move s0,a0` before null check |
@@ -26,3 +25,6 @@ register and scheduling differences.
 | func_0014C890 | &v should be s1 below the loop pointers; multiply operand order |
 | func_001BA3F0 | `mul.s` operand order and `lbu` of t+0x13 scheduled late |
 | func_00147E90 | last flag: orig writes `c = 0` in a branch delay slot; ours gets an else branch or `sltu` |
+| func_0012F0F0 | arg setup of the `func_001DAC70` call in state 1: orig loads `ch` first and `off` before `addr[arg1]` |
+| func_00162700 | shared inline count helper: orig has 2 nops before `div` in the `rate < fp` branch, `(f32)period` in $f1 (ours $f2) |
+| func_001629E0 | same inline helper as func_00162700; fixing one should fix both |
