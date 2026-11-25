@@ -1,0 +1,119 @@
+#include "common.h"
+typedef struct { s32 x0; u8 p4[0xB]; u8 xF; } Ent;
+typedef struct { s32 x0; u8 p4[0xC]; } E16;
+typedef struct {
+    u8 p0[0xC]; f32 xC; s32 *x10; u16 x14; u16 x16; u16 x18; u16 x1A; u16 x1C; u16 x1E; u8 p20[0x20];
+    E16 e[1];
+} Obj;
+typedef struct { u8 p0[0x24]; Flags8 x24; } Oth;
+typedef struct { f32 x110; f32 x114; f32 x118; f32 x11C; f32 x120; f32 x124; f32 x128; f32 x12C; } Fr;
+typedef struct { Obj *o; Oth *p; s32 i; u8 *e; Vec v; f32 a; f32 b; s32 n; s32 pad; } Rec;
+typedef struct { s32 x; } Z;
+extern Flags8 D_00222A50[];
+extern f32 D_00222A40[];
+extern Mtx D_002F15C0;
+extern f32 D_00201C18;
+extern f32 D_00201C1C;
+void func_00102870(Vec *, Vec *);
+void func_00102A60(Vec *, Vec *);
+f32 func_0011DB00(f32);
+s8 func_0016BD00(u8 *, void *, Vec *, f32 *, Fr *);
+void func_001327B0(void);
+void func_001325F0(void);
+void func_0016DED0(Ent *, Oth *, u8 *, Z);
+void func_00176AE0(void);
+void func_00132A70(Rec *);
+static inline f32 rsq(f32 n, f32 d) { f32 r; asm("rsqrt.s %0, %1, %2" : "=f"(r) : "f"(n), "f"(d)); return r; }
+
+void func_0016C350(Obj *obj, Oth *oth, u8 *ctx, Vec *src) {
+    u32 n;
+    s32 j;
+    s32 *base;
+    u32 i;
+    s8 m;
+    Ent *t;
+    E16 *pe;
+    s32 *pp;
+    u8 *e;
+    s8 r;
+    f32 a;
+    f32 b;
+    f32 k;
+    f32 k2;
+    f32 s;
+    f32 s2;
+    Z z;
+    Vec u;
+    Fr fr;
+    Vec v;
+    Rec rec;
+
+    if (D_00222A50[0].f.b6) return;
+    if (!oth->x24.f.b1) return;
+    if (!obj->x1E) return;
+    v.x = src->x;
+    v.y = src->y;
+    v.z = src->z;
+    v.w = 0.0f;
+    func_00102870(&v, &v);
+    u.x = D_002F15C0.m[0].x * v.x + D_002F15C0.m[1].x * v.y + D_002F15C0.m[2].x * v.z;
+    u.y = D_002F15C0.m[0].y * v.x + D_002F15C0.m[1].y * v.y + D_002F15C0.m[2].y * v.z;
+    u.z = D_002F15C0.m[0].z * v.x + D_002F15C0.m[1].z * v.y + D_002F15C0.m[2].z * v.z;
+    func_00102870(&u, &u);
+    u.w = 2.0f * (D_00222A50[0].f.b3 ? 500.0f : obj->xC);
+    s = func_0011DB00(1.5f * (3.1415927f * D_00222A40[0]) / 360.0f);
+    k = 1.0f / s;
+    k2 = k * k;
+    s2 = 0.48999998f;
+    s2 = rsq(1.0f, k2 + s2);
+    s = rsq(1.0f, 1.0f + k2);
+    fr.x120 = k * s;
+    fr.x128 = k * s2;
+    fr.x118 = D_00201C18;
+    fr.x124 = s;
+    fr.x12C = 0.7f * s2;
+    fr.x11C = D_00201C1C;
+    if (D_00222A50[0].f.b3) {
+        m = 2;
+    } else {
+        m = func_0016BD00(ctx + 0x200, obj, &u, (f32 *)((u8 *)&fr + 0x10), &fr);
+        if (m < 0) return;
+        u.w = u.w * (fr.x110 + fr.x114);
+    }
+    func_001327B0();
+    base = (s32 *)*obj->x10;
+    pe = obj->e;
+    n = obj->x14;
+    i = 0;
+    pp = (s32 *)((u8 *)&pe[n] + obj->x16 * 8 + obj->x18 * 4 + obj->x1C * 0x50);
+    for (; i < n; i++, pe++, pp++) {
+        b = u.w;
+        a = 0.0f;
+        e = ctx + (i + 1) * 0x140;
+        if (((Flags8 *)(e + 0x1F8))->f.b3) continue;
+        if (((Flags8 *)(e + 0x1F8))->f.b5) continue;
+        {
+            t = (Ent *)((u8 *)base + pe->x0);
+            if ((t->xF & 1) && m == 2) {
+                r = func_0016BD00(e + 0xC0, (u8 *)t + 0x10, &u, (f32 *)((u8 *)&fr + 0x10), &fr);
+                if (r < 0) continue;
+                a = u.w * fr.x110;
+                b = u.w * fr.x114;
+            }
+            z.x = 0;
+            func_0016DED0(t, oth, ctx, z);
+            func_00176AE0();
+            rec.o = obj;
+            rec.p = oth;
+            rec.i = i;
+            rec.e = (u8 *)base + *pp;
+            v.w = u.w;
+            func_00102A60(&rec.v, &v);
+            rec.a = a;
+            rec.b = b;
+            rec.n = obj->x10[1] - obj->x10[0];
+            func_00132A70(&rec);
+        }
+    }
+    func_001325F0();
+}

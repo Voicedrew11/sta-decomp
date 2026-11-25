@@ -149,3 +149,28 @@ Globals accessed at many offsets across unmatched code, worth a shared header in
 3.0.1b44, b51 and b74 don't pad `bc1t` targets the way 3.0b52 does, but 3.0.1b44 fails 27 of 51 sampled
 matched files, so they are not the game's compiler. Padding differences are fixed in the source instead
 (ternaries, `= {0}`).
+
+### More tricks (round W, 0x360-0x420 functions)
+
+- **Reuse one loop counter** across consecutive loops before brute-forcing declaration order; it fixed IV/counter s-reg swaps several times. (The opposite, a separate counter per pointer chain, fixed an a2/a3 swap once, so try both.)
+- **Spill slots follow declaration order**: the first-declared local spills highest; compiler temps (hoisted addresses) come after all locals.
+- **Loop whose saved regs are reversed**: reverse the declaration order of that loop's own variables.
+- **Param copies after the loop guard**: `if (i < n) { o = a2; ...; do {...} while (i < n); }`.
+- **Chained assignment `a = b = K` stores right to left**; reverse it to flip the store order.
+- **Callee args hidden in `li`/`move` right before a jal** (or a0 left over from a delay-slot `addiu a0,sp,X`) are real arguments; check before every call.
+- **`*(u32 *)&reg |= bit`** gives lw/ori/sw; a u64 bitfield gives lbu/sb.
+- **A small param `sw`'d at entry but read with `lbu` + bit extracts** is a 4-byte struct passed by value.
+- **`&Vec` kept in a saved register across calls** (`addiu s0,sp,X` reused): it's `Vec S[2]` and `&S[1]`. Two struct locals that cost an extra s-reg/frame: try `Obj m[2]`.
+- **Multiply/add operand order ignores source order**; put a sub-expression in a named temp (`y = ry + rz; y * dt`) or use an inline `mu(u32 x, f32 k) { f32 f = x; return f * k; }`.
+- **Float clamp** with zero branch later: `d > b ? d - b : 0.0f`. **Unsigned clamp without pad nop**: inline `umin(a,b) { return a > b ? b : a; }`.
+- **`!(x != 0)`** gives `sltu`+`xori`; `x == 0` gives `xor`/`sltiu`. **u8 flag `andi; bnez`** needs `if (done == 0)`, not `if (!done)`. Bare `a ? ... : 0.0f` and `a != 0.0f` give different `c.eq.s` operand order.
+- **strcat via memcpy**: compute `n = strlen(s);` first; args evaluate left to right.
+- **Struct-array indexing stops address-sum CSE** (`m[idx].x130`); `off + m` vs `m + off` does not. `(Mtx *)((s32)na + off + 0x100)` also stops reuse of `na + off`.
+- **Array/global used as `s32` pins its address in an s-reg**; declaring the callee param as a pointer gets `lui/addiu` at each use.
+- **Force a reload without volatile**: read through a pointer local (`s32 *z = &D[k]; (f32)*z` twice). Angle-wrap that reloads x: use a different lvalue (or `*(volatile f32 *)&x`) inside the `< 0` ternary.
+- **`rsqrt.s`**: inline asm helper `rsqrt.s %0, %1, %2`. 0x3EFAE147 is 0.48999998f (0.7f*0.7f).
+- **12/20-byte local initialised from rodata (`ld`/`lq` + `lwc1`)**: struct copy from an extern with `aligned(8/16)` after the typedef name; a literal initializer goes to .data, which batch.py discards.
+- **FOURCC built from `&D[1..3]` in s-regs with `D[0]` via `lui; lb`** means a string literal; batch.py can't link literals (see wip/func_001ADD30.c).
+- **Relocation against a symbol at address 0** not in the ELF: `(u32)(D_4A0 - 0x4A0)` gives the same bytes (func_00155460).
+- **`if (flag) {...}` whose `beqz` lands on `b end`**: write `if (!flag) return;`.
+- **Brute-force permutations** of declaration lines or statement groups (`perm.py` in the agent kit): 720 variants take ~1-3 minutes and fixed several functions.

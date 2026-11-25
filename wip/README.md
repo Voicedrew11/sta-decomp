@@ -46,3 +46,23 @@ register and scheduling differences.
 | func_0017EAF0 | adapted func_0017E940 inlines; shape identical, temp regs only (slot pointer v1 vs a2) |
 | func_0016EF70 | right size/branches, loop regalloc differs (orig spills a0, i in t9); far (155 words) |
 | func_001777C0 | ~50 words, regs only (size calc reuses a0; func_00176BF0 result in a1; TEX0 bitfield temps t0/v0 vs ours t1/t0) |
+| func_00176FB0 | 159 words; saved-reg swap (orig: sign-extended idx/return in s2, raw param s1) shifts all temps |
+| func_0016FB80 | 6 words; only a0/a1 spill slots (orig 0x110/0x10C) |
+| func_001BBCC0 | 8 words; one `mult1` dest v1 vs a0 (2800 statement orders tried) |
+| func_00177BB0 | 88 words; free-list unlink/insert regalloc (idx in a3 vs v1, idx*48 reused) |
+| func_0013A720 | 2 words; `addu` operand order in `p->x2C + p->x18->xB5*0x140 + 0x234` |
+| func_001A8700 | 45 words; saved-reg assignment / setup scheduling |
+| func_001ADD30 | uses string literal `"CAPS"` (non-small-data); code matches but batch.py can't link literals |
+| func_0016D830 | 6 words; byte from `m[idx].x130` in a3 vs a1 |
+| func_00148120 | 8 words; float temps of the early constant multiplies |
+| func_0018B860 | 3 words; `move s0,zero` vs loop-entry `sltu/beqz` order |
+| func_001C6590 | 6 words; case 8 temp v1/v0 for 30.0f, final-call arg order |
+| func_00189740 | 57 words; unrolled 2nd loop wants `p+0x10` in t1 |
+| func_00134960 | 2 words; masked `func_001435D0` result in a0 vs a2 |
+| func_00153770 | 6 words; t1/t2 swap in last 3 GS pushes |
+| func_00165A30 | 5 words; orig has empty then-branch `bnez isf -> load; b join` |
+| func_0013F210 | 16 words; v0/v1 swap in the two clamps of the `flag` branch |
+| func_0019CEF0 | 3 words; `a3*9` temp a0 vs a2 in case 400 |
+| func_0014E230 | 65 words, stack offsets only: orig spills pointer params o1/o2 to 16-aligned slots (frame 0x2A0) |
+| func_00185740 | 40 words; orig reloads `o->x38` after `o->x38 += 4.0f` |
+| func_001B51F0 | 56 words; prologue moves a2 to s3, saved regs for n/cur/&PP(n) rotated |
