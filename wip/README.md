@@ -87,3 +87,7 @@ register and scheduling differences.
 | func_001A4990 | ~50 instrs; 11-entry loops start with `addu sN,v1,zero` + pad nop |
 | func_00168480 | 73 words; GS setup regalloc, missing pad nop after clamp |
 | func_0016CD80 | 29 words; hdr/q swapped (orig keeps q in reg, hdr on stack) |
+| func_00164440 | 3 words; param a2 spills to 0xDC instead of 0xD0 |
+| func_00184280 | 3 words; `id*9` temp a0 vs a2 in case 0x261 (same pattern as func_0019CEF0/00196330) |
+| func_001D2CB0 | 45 words; i/mask a0/a2 swap in loop 1, two addu orders, byte-load order at end |
+| func_0019FD00 | 61 words; case 1 s16 truncation late, case 6 regalloc |
