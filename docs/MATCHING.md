@@ -192,3 +192,16 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **A u32 4th param read as `andi 0xFFFF` / `srl 16`** is split into two s16 halves; a struct param spills to the stack instead.
 - **An unexplained nop before a loop head** can be alignment padding; it goes away when the code before it has the right length.
 - **Statement-order permutation** (perm.py) fixes scheduling diffs that declaration order doesn't.
+
+### More tricks (rounds Y/Z: big functions and m2c leftovers)
+
+- **Start small functions from the m2c draft** (`tools/m2cgen.py`): agents matched 90% of 0x100-0x140 functions this way.
+- **FOURCC tags without a string literal**: `extern const s8 D_X[];` with `D_X[0] | ((const s8 *)D_X)[1] << 8 | ...`, or pointer locals `s8 *c1 = &D_X[1];` etc. Both reproduce the hoisted `&D[1..3]` s-regs. Worth retrying the literal near-misses in wip/.
+- **Float saved regs are coloured in reverse declaration order**: declare float locals in the target's f-reg order.
+- **Param still live in a0** (switch value loaded into a1, or a jal with no a0 setup): the callee takes the param. Likewise a float loaded into f12 before a compare is the next call's float argument.
+- **4-byte union `sw` before a call and `lw` before a later one**: pass it by value in the callee prototype.
+- **`x * 1.0f` / `x - 0.0f` kept in the target**: pass the constant through a local or an inline param; literals get folded.
+- **Two identical calls in if/else get merged**: make one argument opaque (`on - on`).
+- **Multi-table switch functions**: MWCC emits one .rodata per switch in code order; some originals have them reversed (wip/func_001A1C80.c, code bytes match).
+- **Static callee earlier in the same file** (temps kept live across the jal): see wip/func_001889E0.c (pair with func_00188910); batch.py can't check it yet.
+- **SDK-compiled function in game code**: func_001D3BF0 saves with `sd` and is gcc-scheduled; skip it.
