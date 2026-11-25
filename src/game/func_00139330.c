@@ -1,5 +1,4 @@
 #include "actor.h"
-typedef struct { f32 x, y, z, w; } Vec;
 typedef struct { u8 pad[0x40]; Vec a, b, c, d; } Ent;
 typedef struct { u8 pad[0xA]; u16 hA; u8 bC; u8 pD; u16 hE; } Key;
 typedef struct { Vec a, b; f32 m[4][4]; Vec pad; } Buf;

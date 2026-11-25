@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 typedef struct { Vec p; Vec d; } Seg;
 typedef struct { Vec a; Vec b; Vec c; s32 r2C; } Hdr;
 typedef struct { Vec a; Vec b; Vec c; s32 hit; f32 t1; f32 t2; } Res;

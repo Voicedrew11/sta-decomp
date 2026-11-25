@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 f32 func_00102848(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
 void func_001029A8(Vec *, Vec *, Vec *, f32);

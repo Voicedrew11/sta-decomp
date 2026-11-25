@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 typedef struct {
     Vec a;          /* 0x00 */
     Vec b;          /* 0x10 */

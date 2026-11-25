@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 typedef struct { u8 pad[8]; u16 id; u8 pada[2]; f32 x; f32 y; } Anim;
 typedef struct { u8 pad[0x10]; Vec v; u8 pad20[0xA0]; s32 xC0; } Sub10;
 typedef struct { u8 pad[0x40]; Vec v; } Sub18;

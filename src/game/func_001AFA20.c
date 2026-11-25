@@ -1,11 +1,7 @@
-#include "m2c.h"
-typedef struct { u8 pad[0x9C]; s16 a; s16 type; u8 p[7]; s8 c; u8 p2[6]; s16 d; u8 p3[4]; f32 f; u8 p4[0x18]; } E;
+#include "obj3d.h"
 void func_00123C40(void *, s32, s32);
-extern E D_004AC5A0[];
-extern E D_004AC630[4];
-extern E D_004AC970[2][16];
-extern E D_004AE370[2][64];
-static inline void init(E *e, s16 t) { e->a = -1; e->type = t; e->f = 1.0f; e->d = -1; e->c = -1; }
+extern u8 D_004AC5A0[];
+static inline void init(Obj3D *e, s16 t) { e->x9C = -1; e->x9E = t; e->xB4 = 1.0f; e->xAE = -1; e->xA7 = -1; }
 
 void func_001AFA20(void) {
     u32 i;

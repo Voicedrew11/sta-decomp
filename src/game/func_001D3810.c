@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
 typedef struct { u16 x0; u16 x2; u16 x4; u16 x6; s32 x8; s32 xC; s32 x10; s32 x14; u16 x18; u16 x1A; } E;
 extern s8 D_001FDE10[];

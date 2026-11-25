@@ -1,8 +1,7 @@
 #include "actor.h"
-typedef struct { f32 x, y, z, w; } Vec;
 typedef union { u32 w; struct { u16 id; u8 f2; u8 f3; } s; } K;
 typedef struct { u8 pad[0x20]; Vec a; Vec b; } M;
-typedef struct { u8 m[0x40]; } Mtx;
+typedef struct { u8 m[0x40]; } MtxB;
 typedef struct {
     u8 pad0[0x50];
     Vec x50;
@@ -20,8 +19,8 @@ s8 *func_00146EF0(f32, Vec *, f32, Vec *, f32, s32);
 Vec *func_0013FFA0(s8 *);
 void func_00102A60(Vec *, Vec *);
 void func_001029E8(Vec *, Vec *, void *);
-void func_00146600(Actor *, Mtx *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void func_00146600(Actor *, MtxB *);
+void func_001027B0(Vec *, MtxB *, Vec *);
 float sqrtf(float);
 
 void func_0014D700(O *o) {
@@ -31,7 +30,7 @@ void func_0014D700(O *o) {
     Vec a0;
     Vec v90;
     Vec v80;
-    Mtx m;
+    MtxB m;
     s8 *p;
     u16 id;
     f32 t;

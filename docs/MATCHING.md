@@ -131,7 +131,7 @@ Function names point at examples in `src/`.
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
 
 - `D_00201DC0`: pointer to a struct of about 0x7C1C bytes (67 fields seen); slot table at 0x5C00, 0x1C0-byte groups at 0x10E0 (func_001A95A0).
-- `D_004AC630`, `D_004AC970`, `D_004AE370`: arrays of 0xD0-byte elements (local `Obj` typedefs in several files).
+- Done: `D_004AC630`, `D_004AC970`, `D_004AE370` (0xD0-byte objects) are `Obj3D` in `include/obj3d.h`. Several matched files still carry local partial copies; migrate them when touched.
 - `D_0022CBC0`: 63 elements of 0x80 bytes.
 - `D_003407E0`: elements of 0xED0 bytes.
 - `D_0022F080`: struct `{ off, state, n, left, buf }` (func_0012F0F0 near-miss).

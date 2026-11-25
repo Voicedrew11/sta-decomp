@@ -1,6 +1,5 @@
 #include "actor.h"
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-typedef struct { f32 x, y, z, w; } Vec;
 typedef struct { u8 pad[0x18]; s8 *o; u8 pad2[0x3A1 - 0x1C]; u8 r:7; u8 b7:1; } P;
 f32 sqrtf(f32);
 s32 func_001A9410(void);

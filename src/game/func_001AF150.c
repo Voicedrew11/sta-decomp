@@ -1,6 +1,5 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
-typedef struct { Vec m[4]; } __attribute__((aligned(16))) Mtx;
+#include "common.h"
+typedef struct { Vec m[4]; } __attribute__((aligned(16))) MtxA;
 typedef struct {
     u8 pad[0x10];
     s32 f10;
@@ -55,10 +54,10 @@ void func_001AF4A0(Obj *);
 void func_001B59E0(Src *, Vec *, Vec *, Vec *);
 void func_00102A60(Vec *, Vec *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
-void func_001027E0(void *, void *, Mtx *);
+void func_001027E0(void *, void *, MtxA *);
 void func_001029D0(Vec *, Vec *, Vec *);
 static inline void update(Obj *o) {
-    Mtx m;
+    MtxA m;
     Ent *e;
     Ent *ents = D_002022B0;
     if (o == NULL) return;

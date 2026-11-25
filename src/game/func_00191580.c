@@ -1,4 +1,4 @@
-#include "m2c.h"
+#include "common.h"
 typedef union {
     u32 w;
     struct { u8 r, g, b, a; } c;
@@ -7,7 +7,6 @@ typedef struct {
     u64 a, b;
     f32 x, y;
 } S191110;
-typedef struct { f32 x, y, z, w; } Vec;
 typedef struct {
     Vec v0;
     Vec v10;

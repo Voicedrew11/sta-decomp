@@ -1,5 +1,4 @@
-#include "m2c.h"
-typedef struct { f32 x, y, z, w; } Vec;
+#include "common.h"
 extern s8 *D_00201FA8;
 s8 *func_00165130(s8 *, s32);
 s8 func_001CA960(void);
