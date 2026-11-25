@@ -1,0 +1,28 @@
+# Near-misses
+
+Best attempts at functions that don't match yet. Each compiles; what still differs is noted below.
+Check one with `tools/diff_func.sh wip/func_X.c START END`. `tools/order_search.py` can help with
+register and scheduling differences.
+
+| Function | What still differs |
+|---|---|
+| func_001544C0 | register choice only (orig p=a0, c=a1, div/n=v1). volatile globals give the reloads |
+| func_001B1D00 | one `addu` operand order (orig `addu a2,a1,a0`) |
+| func_00132A70 | orig moves the loop setup after the loop and branches back into it; ours keeps invariants in s-regs (frame 0x70 vs 0xA0) |
+| func_001B1050 | t1/t2 swapped between the two slot pointers (inline helpers from func_001B16E0) |
+| func_0017E5B0 | regalloc of inlined find-object temps; likely same fix as func_001B1050 |
+| func_001B0EB0 | regalloc in inlined `find` (orig slots t1/t2, result a3); same family as func_001B1050 |
+| func_001A4420 | store of `a.n` lands 2 slots late; all 24 store orders tried |
+| func_0016A9D0 | one `addu` operand order (orig `addu v0,a0,v0`) |
+| func_0015DBF0 | ~18 instrs: v70[3] store order, table-update regs, a0/a1 swap |
+| func_0013D8A0 | else-branch: `negu` scheduled before the `andi`/`sw` of `*q` (Actor accessor block) |
+| func_001AF4A0 | case-1 list remove: orig reloads count each pass and puts the shift loop's setup after the function |
+| func_0018D7B0 | `addiu a1,a0,0x81` should come before `lui v0` (1.0f) |
+| func_001B85B0 | ours keeps idx*0x30 in s4 across calls (extra s-reg, frame +0x10) |
+| func_001B87C0 | first block regs: load from 0x180 to t1 (ours a2) |
+| func_00167310 | `b` delay slot left empty (orig fills with next `lwc1 f21`); `move s0,a0` before null check |
+| func_00146EF0 | float regs: hh/d swapped between $f22/$f24 |
+| func_001717A0 | 4 words, regs only: orig tbl=a1 and keeps q+0x40 in a2 |
+| func_0014C890 | &v should be s1 below the loop pointers; multiply operand order |
+| func_001BA3F0 | `mul.s` operand order and `lbu` of t+0x13 scheduled late |
+| func_00147E90 | last flag: orig writes `c = 0` in a branch delay slot; ours gets an else branch or `sltu` |

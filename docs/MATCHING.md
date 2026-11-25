@@ -67,3 +67,19 @@ Function names point at examples in `src/`.
 - Values passed to u8/u16 params from int locals get andi masks; load them into s32 locals (not u8) to reproduce `lbu` + `andi 0xFF`.
 - A for-loop walking `(&a0->arr)[i]` from the object base becomes an IV on a0 itself: write `((T **)a0)[i + OFF/4]` to get `lw X, OFF(s1)` with s1 = a0 + 4i.
 - `if (a0 != 0 && ...) { body }` (single return path) avoids the bnez/b early-exit shape that `if (...) return;` gives.
+
+## Struct candidates
+
+Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
+
+- `D_00201DC0`: pointer to a struct of about 0x7C1C bytes (67 fields seen); slot table at 0x5C00, 0x1C0-byte groups at 0x10E0 (func_001A95A0).
+- `D_004AC630`, `D_004AC970`, `D_004AE370`: arrays of 0xD0-byte elements (local `Obj` typedefs in several files).
+- `D_0022CBC0`: 63 elements of 0x80 bytes.
+- `D_003407E0`: elements of 0xED0 bytes.
+- `Actor->unk518`: sub-object; +0x180, +0x190 used.
+
+## Compiler builds
+
+3.0.1b44, b51 and b74 don't pad `bc1t` targets the way 3.0b52 does, but 3.0.1b44 fails 27 of 51 sampled
+matched files, so they are not the game's compiler. Padding differences are fixed in the source instead
+(ternaries, `= {0}`).
