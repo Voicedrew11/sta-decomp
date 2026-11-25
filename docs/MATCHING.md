@@ -77,6 +77,28 @@ Function names point at examples in `src/`.
 - One-case `switch` on a magic number gives the beq / `b end` shape.
 - Table entries stored as unions: whole-union assignment (`D[x][0] = t;`) vs member copy (`t.q`) differ; try both.
 
+## Floats, sqrt, switches, inline asm
+
+- `c1 0x...4` / `c1 0x...84` in the disassembly is a misdecoded `sqrt.s`. Declare `f32 sqrtf(f32);` (no math.h) and call it: it inlines to `sqrt.s` (with `mula.s/madd.s` when fed `x*x + z*z`). The result is dropped if unused, but a call feeding it stays (dot-product calls with no visible use, func_00133D00). Exact pad nops: `static inline f32 sq(f32 v) { f32 r; asm("sqrt.s %0, %1" : "=f"(r) : "f"(v)); return r; }` (func_00163A10).
+- Double math goes through the game's own helpers; plain `double` makes MWCC call `fptodp`/`dpadd`, which don't exist. Call `func_0011F8C0` (f32->double), `func_0011DB78` (pow), `func_0011FCF8` (add), `func_00120478` (double->f32) explicitly. Nested helper calls in one expression are evaluated left to right; use a temp to force the order.
+- Float temp/constant order: pre-subtract into locals (`ox = fx - 735.0f; oz = fz - 129.0f; d = sqrtf(ox*ox + oz*oz);`) after loading fields into locals; or move the math into an inline helper with its own locals (func_00184040, func_00185510). `aa = a*a; ... while (d > aa + 0.01f)` beat ~90 permutations (func_00156CE0).
+- `d = call(); d += k; if (d < 0.0f) return 0.0f;` keeps the operand order and returns the zero reg; folded `d = call() + k` flips both (func_0015B720). `r = s / sqrtf(...)` (own local) puts `div.s` in a fresh reg.
+- Float abs/clamp with no pad nop: ternary (`y = y < 0.0f ? -y : y;`); an `if` adds the pad. float->u16 with `andi 0xFFFF`: `q = (z < 30000.0f) ? (u16)(u32)z : 30000;`.
+- Constants a target keeps in registers after storing them to a local struct: use the literal again in later math instead of reading the struct back (func_00196070). `3.141592f` = 0x40490FD8, `3.1415925f` = 0x40490FDA.
+- Two float variables sharing one register in the target: reuse one variable (`dy = ang + f;`).
+- Switch jump tables (`jtbl_` in the asm): `batch.py` links the table and compares it. A table spanning 0..N-1 needs every missing case written as an empty `case X: break;`, or MWCC emits a compare chain (func_001BE510). Fallthrough state machines need an explicit `case N:` label for every state (func_0012ED60).
+- Inline asm works: GCC-style `asm("..." : outs : ins)` and MW-style `asm { sync; L: nop; bc0f L; nop }` (labels are function-scoped, unique per site). VU0 `lqc2/vmul/sqc2` in a `static inline` must be non-volatile with no `"memory"` clobber, or scheduling and saved regs change (func_00145A80).
+- Fields loaded in strict source order against normal scheduling = a `volatile` struct pointer parameter (func_0017C6F0). u8 params reloaded from their home slot (`lbu` from sp): `*(volatile u8 *)&param`.
+- Linear search with lazily reloaded key and a `bne` + `b found` shape = `static inline` helper taking `(s32 *it, K *k)`; declare the iterator in the caller (func_0017C6F0).
+- 4-byte stack struct copied with `lw/sw`: copy the union's `u32` member; whole-union copy gives `lwc1/swc1`. 12-byte `ld`+`lwc1` copy: 8-aligned struct, whole-struct assignment (func_00128D10). Whole-struct copy from a global materializes both addresses (`lq 0(a1)/sq 0(a0)`); member copy folds the address.
+- Float globals that overflow small data at link ("small-data section too large"): `extern f32 D_X[];` and use `D_X[0]`.
+- Callee-saved reg used where a temp is expected: the value may be a compiler temp from right-to-left evaluation of one big expression; writing it with an explicit local gives a t-reg instead.
+- A callee whose `a3` is never set before the call has a 3-arg prototype; a 4th param makes MWCC hoist a bogus `move a3`.
+- `goto cond; body: ...; cond: if (x > K) goto body;` gives the `b cond` loop entry with constants hoisted ahead; `do { f(o); j++; } while (j < (o = **q)->n);` reuses the loop-bottom load as the next call arg.
+- `return a || b;` with `a` read into a local earlier gives `sltu/bnez/sltu` without padding; pointer select without padding: `p = &h[0]; if (c) p = &h[1];`.
+- Long runs of independent bitfield writes: random-search the statement order (keep each byte's writes in sequence), then local swaps from the best; 1500 orders took ~2 min (func_0012BC80).
+- Checker gotcha: the function name is taken from the first `func_X(` line without `;`, so a `#define` calling `func_X()` confuses it; write `(func_X)()`.
+
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):

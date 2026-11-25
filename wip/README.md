@@ -28,3 +28,12 @@ register and scheduling differences.
 | func_0012F0F0 | arg setup of the `func_001DAC70` call in state 1: orig loads `ch` first and `off` before `addr[arg1]` |
 | func_00162700 | shared inline count helper: orig has 2 nops before `div` in the `rate < fp` branch, `(f32)period` in $f1 (ours $f2) |
 | func_001629E0 | same inline helper as func_00162700; fixing one should fix both |
+| func_00146C70 | 4 words, regs only: loaded entry `e` (`lw 0x4B4(s0)`) lands in a1, orig a3 |
+| func_001BC610 | 23 words, scheduling: orig computes the `b1` bitfield value (`andi t0,zero,1`) before the `f&1` andi |
+| func_0014BC90 | final float block: orig computes `2.0f * 0.05f` at runtime; MWCC folds it to 0.1f in every form tried |
+| func_001C55A0 | arg copies land one temp reg higher in orig (a2→t5, a1→t6, a3→t4, t0→t3, t1→t2) |
+| func_00182C10 | float load/mul order for pos[0..3]; `lq` vs `ld`/`sd` on a 24-byte copy; loop init not in `beqz` delay slot |
+| func_001789E0 | tail copy: orig keeps dead pointer updates `a1/a0 += a2<<4` that MWCC removes (pragmas didn't help) |
+| func_00181420 | orig uses the loop induction pointer as the final `sq` dest; ours copies it (`move t2,v0`) |
+| func_0013FCC0 | `f32 sz[2]` kept in memory needs `&sz`, which hoists the address into s0; orig uses sp offsets |
+| func_001B3240 | saved-reg allocation (orig spills d/cb/b0/off at 0xD0..0xA0) and 0xEE/0xEF home-slot swap of the u8 args |
