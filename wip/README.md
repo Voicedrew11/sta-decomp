@@ -37,3 +37,11 @@ register and scheduling differences.
 | func_00181420 | orig uses the loop induction pointer as the final `sq` dest; ours copies it (`move t2,v0`) |
 | func_0013FCC0 | `f32 sz[2]` kept in memory needs `&sz`, which hoists the address into s0; orig uses sp offsets |
 | func_001B3240 | saved-reg allocation (orig spills d/cb/b0/off at 0xD0..0xA0) and 0xEE/0xEF home-slot swap of the u8 args |
+| func_001CE4B0 | 1 word: default 3 set with `daddiu t0,zero,3` (orig) vs `li`; `u16 h` gives daddiu but breaks the mask/float conversion |
+| func_00151E50 | 1 word: late clear loop count `li v0,16` vs orig 8; the C slot only lands at 0x40 with a 16-byte struct |
+| func_0015DFA0 | quaternion slerp; saved regs only: orig `out` in s6, ours s0 (permuter candidate) |
+| func_0016DC70 | GIF packet; saved regs rotated (orig gives p and &q.w[1]/[3] the high s-regs) (permuter candidate) |
+| func_001B8350 | first block regs shifted by one; orig `li v1,1; movz v1,zero,a2` for `a2 ? 1 : 0` (MWCC gives sltu) |
+| func_00136DB0 | inlined axis-angle rotation (as func_0015EBB0 times a vector): float scheduling/regs only |
+| func_0017EAF0 | adapted func_0017E940 inlines; shape identical, temp regs only (slot pointer v1 vs a2) |
+| func_0016EF70 | right size/branches, loop regalloc differs (orig spills a0, i in t9); far (155 words) |

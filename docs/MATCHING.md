@@ -115,6 +115,17 @@ Function names point at examples in `src/`.
 - Float accumulator that should end in f0: `sum *= g; return sum;`, not `return sum * g;` (func_0015F040). u16 arg `base + expr` in the wrong temp: `base += expr; f(base);` (func_001C6D40).
 - Saved regs can follow statement order rather than declaration order: move the statement that first computes the value (func_00139330).
 
+- Jump table contents (cases that share code): read the table from the exe, file offset = vaddr - 0xFFF80 (`xxd -s $((0x1FDB60-0xFFF80)) -l 32 -e SLPS_252.17`).
+- Static inlines nest only one level; an inline called from an inline is emitted out of line (func_0014BA10).
+- Stack layout: aggregates of <= 8 bytes and scalars always go at the top of the frame; an aggregate at the bottom is > 8 bytes (func_00151E50).
+- `c ? 1 : 0` always becomes sltu; `li 1; movz` only appears for other constants. `daddiu r,zero,K` for a constant = assignment to a `u16` variable; s32/u32 give `li`.
+- Call result in a u8 compare without an `andi` after the jal: s32 callee/inline, cast at the compare `(u8)f() != 3` (func_001B0450).
+- A param store before a `= {0}` clear: thin wrapper doing the store, then a `static inline` holding the body (C89 has no mixed declarations).
+- `0 < x` gives `slt at,zero,x` + `beqz`; `x > 0` gives `blez` (func_001D3810). `(base - K)[idx]` instead of `base[idx - K]` fixes addu order (func_0013C0D0).
+- Max of two floats with `bc1t`: `if (!(a <= b)) x = a; else x = b;` (func_00151900). FOURCC from bytes: `D[0] | D[1]<<8 | D[2]<<16 | D[3]<<24` with `extern s8 D[]`.
+- WRAP-style macros repeat their argument: put a call result in a temp first (func_001BC320).
+- Copy float params into locals declared in the target's register order to fix float regalloc (func_001472A0).
+
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
