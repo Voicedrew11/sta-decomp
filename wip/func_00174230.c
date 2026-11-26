@@ -1,3 +1,4 @@
+// NEAR: 2 of 232 words differ (b52; b38 same). Fixed spill slots: whole body is an inline taking src (= *arg1, becomes a 16-aligned temp) and &off (off lives at its param home). Remaining: the h==NULL early return in the inline stores 0 to h slot and branches to the shared return (b 0xA4; sw zero,0xE0) instead of retail b 0xAE; daddu v0,zero,zero.
 /* round 3 near-miss: 12 words: only two spill slots differ (h is a temp in retail) */
 #include "common.h"
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; } Ent;
@@ -34,11 +35,10 @@ void memset(Obj *, s32, s32);
 void sceVu0CopyMatrix(Mtx *, Mtx *);
 extern Mtx D_001F2340[];
 static inline Blk *getb(s32 d, u32 i, s32 sz) { return (Blk *)(d + i * sz); }
-Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
+static inline Obj **body(s32 *arg0, Src **arg1, s32 *poff, s32 arg3, Src *src) {
     s32 n;
     Obj *o;
     s32 size;
-    Src *src;
     Obj **h;
     s32 i;
     s32 j;
@@ -50,9 +50,8 @@ Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
     u8 c;
 
     n = 0;
-    src = *arg1;
-    if (off == -1) {
-        off = 0;
+    if (*poff == -1) {
+        *poff = 0;
         if (arg3 == -1) {
             n = src->x14;
         }
@@ -70,7 +69,7 @@ Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
     memset(*h, 0, size);
     o = *h;
     o->x0 = arg1;
-    o->x4 = off;
+    o->x4 = *poff;
     o->x6 = n;
     o->x8 = 0;
     o->xC = 0;
@@ -100,7 +99,7 @@ Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
             blk->x0 = src->x3C & 7;
             blk->x4 = 0;
             for (j = 0; j < n; j++) {
-                e = (Ent *)(es + (off + j) * 16);
+                e = (Ent *)(es + (*poff + j) * 16);
                 if (e->x8 == 0) {
                     sceVu0CopyMatrix(&blk->nd[j + 1].m0, D_001F2340);
                     sceVu0CopyMatrix(&blk->nd[j + 1].m1, D_001F2340);
@@ -111,7 +110,7 @@ Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
                 c = (base + e->x0)[2];
                 v = 0;
                 if (c != 0xFF) {
-                    v = c - off + 1;
+                    v = c - *poff + 1;
                     if (v <= 0) {
                         v = 0;
                     }
@@ -125,3 +124,5 @@ Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) {
     }
     return h;
 }
+
+Obj **func_00174230(s32 *arg0, Src **arg1, s32 off, s32 arg3) { return body(arg0, arg1, &off, arg3, *arg1); }

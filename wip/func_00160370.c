@@ -1,3 +1,6 @@
+// NEAR: 1 of 816 words differ. Only diff: `or a0,a0,v0` vs retail `or a0,v0,a0` for the cv(o->x40.y, 8) | cc step.
+// Fixed vs prev (9 words): kq s32 temp so the k-bitfield is tested unmasked, then kk = kq inside the if.
+// Tried for the or: operand order, temps, c2 vars, inline orr/cv3, +/^, casts, cc types, barrier, b38: no change or block merge (812 words).
 
 
 
@@ -121,6 +124,7 @@ s32 func_00160370(O *o, R *r, f32 dt) {
     u32 c2;
     u32 c3;
     u8 kk;
+    s32 kq;
     u16 tw;
     u16 th;
     u16 nf;
@@ -242,8 +246,8 @@ s32 func_00160370(O *o, R *r, f32 dt) {
             r->x2D.f.b4 = 1;
         }
     }
-    kk = a->x12.k;
-    if (kk) uv(r, o, a, kk);
+    kq = a->x12.k;
+    if (kq) { kk = kq; uv(r, o, a, kk); }
     if (!(t->x17C == 1.0f) || o->x114.f.b3 || (a->x2A & 0x18)) {
         cc = cv(t->x17C * (o->x40.w * *(f32 *)((u8 *)t->e[0] + 0x8C)), 24);
         cc |= cv(o->x40.z, 16);

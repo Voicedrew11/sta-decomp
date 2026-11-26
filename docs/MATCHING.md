@@ -82,6 +82,22 @@ Function names point at examples in `src/`.
 - One-case `switch` on a magic number gives the beq / `b end` shape.
 - Table entries stored as unions: whole-union assignment (`D[x][0] = t;`) vs member copy (`t.q`) differ; try both.
 
+Near-miss round (CodeWarrior unless marked gcc):
+- **Hidden extra call argument**: an unexplained param copy at entry, or an a3/t0 set up but never used, is an extra argument of the next call. Copy the matched callee's exact prototype from src/game first; fake extra args share constant regs.
+- **Float arg loaded before an int stack arg** (`lwc1 f12` before `lw a2`): read the float through `((volatile T *)p)->f` at that call. Swapped float temp regs in `const * field`: read the field via `*(volatile f32 *)&o->f`.
+- **Stuck `addu` operand order** on `ptr + idx*size`: `(T *)((u8 *)(idx * sizeof(T)) + (s32)ptr)`; or a local pointer of a padded struct type with an element array (`tb->e[i].f`); or `&((T (*)[sizeof(E)/sizeof(T)])&tbl->field)[i][0]`; or put `byte*20` in its own temp. `(T *)((s32)q + 0x40 + n * 16)` keeps `q+0x40` in its own reg.
+- **Param stored to its home and reloaded, plus a 16-aligned temp for `*arg`**: move the body into an inline taking `&param` and `*arg`.
+- **Args set up in the wrong order**: change a pointer param in the callee prototype to s32 and cast the args. An f32-params-first prototype reorders only some call sites; try it anyway.
+- **All regs shifted by one**: reorder independent pointer setups at the top. Two loops with counter/cursor swapped: walk the second with a dead variable and a fresh counter.
+- **Inner `if (X) c = 1;` turning into `sltu`**: add `else { c = c; }`. Subtraction in a `bc1f` delay slot: make it the first statement of the then-block.
+- **Bitfield tested unmasked, `andi 0xFF` inside the if**: s32 temp, test it, assign to the u8 inside. u8 call result masked too early: fresh `s32 jj = j;` right before first use.
+- **u16 `x += f(x) * k` with a reload before `addu`**: `x += (u16)(expr)`.
+- **Pointer bump** `p = (G += K) - K;` orders temps differently from `p = G; G = p + K;`. Loop-hoisted loads scheduled oddly: the stored global may be a field of the same struct as the loaded ones; fold them into one struct.
+- **Constant-store blocks / inline load order**: brute-force statement order with perm.py.
+- gcc: a hand-unrolled first iteration of a binary search is gcc loop copying; write a plain `for (;;)`. Float temps from a returned struct follow the later store order, not load order.
+- Library functions must be called by their real name (`memset`, `fabsf`), not `func_<addr>`, or carve/splat hit a duplicate symbol.
+- Generate variants with python `str.replace`, not sed/bash substitution (`*(volatile` in BRE and `&` in `${s/pat/rep}` silently corrupt the C).
+
 ## Floats, sqrt, switches, inline asm
 
 - `c1 0x...4` / `c1 0x...84` in the disassembly is a misdecoded `sqrt.s`. Declare `f32 sqrtf(f32);` (no math.h) and call it: it inlines to `sqrt.s` (with `mula.s/madd.s` when fed `x*x + z*z`). The result is dropped if unused, but a call feeding it stays (dot-product calls with no visible use, func_00133D00). Exact pad nops: `static inline f32 sq(f32 v) { f32 r; asm("sqrt.s %0, %1" : "=f"(r) : "f"(v)); return r; }` (func_00163A10).

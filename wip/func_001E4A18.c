@@ -1,4 +1,4 @@
-/* round 2 near-miss: ee-gcc, 4 words: first two float loads have f3/f0 swapped */
+/* NEAR 2 of 104 words: loads/regs now match retail (x->f3, y->f0); only the swc1 order of o.x/o.y is swapped (stores y first). Stores x-first flip the regs back. */
 #include "common.h"
 typedef struct { f32 x, y, w, h; } R4;
 typedef struct { f32 x, y, w, h; } __attribute__((aligned(8))) R;
@@ -7,7 +7,7 @@ R4 func_001E4BB8(s32, s32);
 
 void func_001E4A18(s32 a, s32 b, V *v, u8 flags) {
     R4 t; R r; R o; f32 x, y, w, h;
-    t = func_001E4BB8(a, b); y = t.y; x = t.x; w = t.w; h = t.h; o.x = x; o.y = y; o.w = w; o.h = h; r = o;
+    t = func_001E4BB8(a, b); x = t.x; y = t.y; w = t.w; h = t.h; o.y = y; o.x = x; o.w = w; o.h = h; r = o;
     switch (flags & 0xF) {
     case 0: default: r.x -= r.w * 0.5f; break;
     case 1: break;

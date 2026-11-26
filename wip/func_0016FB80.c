@@ -1,3 +1,4 @@
+// NEAR 6/256: only a0/a1 home slots (ours 0x11C/0x100, retail 0x110/0x10C). void* params + local copies with a1 declared first gives 0x110/0x10C but swapped (a1 0x110, a0 0x10C); extra params/decl moves/b38 no help.
 #include "m2c.h"
 typedef struct { u8 a:3; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
 typedef struct {

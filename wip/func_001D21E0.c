@@ -1,3 +1,4 @@
+// NEAR: 3 of 63 words differ (b52 and b38 same). x-address fixed via (u8 *)(a*20) + (s32)e cast trick. Remaining: prologue e-load regalloc: retail sll a2,v1,2 / addiu v1,a1,0x210 / addu v1,v1,a2; ours coalesces sll into v1 and addiu into a1.
 #include "common.h"
 typedef struct { u16 id; u8 pad[0x26]; } X;
 typedef struct { u8 pad[4]; u8 a, b, c; Flags8 f7; u8 pad8[0x100]; f32 t[1][5]; } E;
@@ -14,10 +15,11 @@ void func_001D21E0(O *o, s32 id) {
     s32 i;
 
     if (e->f7.f.b2) {
-        x = (X *)((e->f7.f.b1 ? 4 : 0) * 16 + (e->c * 12 + (e->b * 4 + ((s32)e + e->a * 20))) + 0x108);
+        x = (X *)((e->f7.f.b1 ? 4 : 0) * 16 + (e->c * 12 + (e->b * 4 + (s32)((u8 *)(e->a * 20) + (s32)e))) + 0x108);
         func_00163C80(o, &m);
         for (i = 0; i < 4; i++, x++) {
             if (x->id == id) func_001D3810(o, id, x, &m, 0, 0, 0);
         }
     }
 }
+

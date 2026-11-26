@@ -1,3 +1,4 @@
+// NEAR 4/165: still t1/a2 swap on lw 0x180 base + sll/addu (retail: base t1, off a2, addu a1,a1,a2). Tried stmt/decl perms, struct p, inline getters, E80 index, b38, idx via E30* temp (fixes addu order but 6 words).
 #include "m2c.h"
 typedef struct { u8 p:3; u8 v:1; } BF3;
 typedef struct { s8 pad[0x18]; u16 x18; s8 pad1A[0x16]; } E30;

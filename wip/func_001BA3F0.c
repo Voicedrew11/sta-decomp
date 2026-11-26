@@ -1,11 +1,12 @@
+// NEAR: 1 of 162 words differ: final mul.s f12,f1,f0 vs retail f0,f1 (u2f(t+0xE) operand should come first). r as s8* fixed the lbu 0x13 order.
 #include "m2c.h"
 typedef struct { u8 p:2; u8 v:1; } BF2;
 typedef struct { u8 p:3; u8 v:1; } BF3;
 typedef struct { u8 p:4; u8 v:1; } BF4;
 typedef struct { u8 p:6; u8 v:1; } BF6;
 typedef struct { u8 p:2; u8 v:2; } BF2_2;
-s32 func_001715B0(s32);
-s32 func_001B9E00(s32, s32, f32);
+s8 *func_001715B0(s32);
+s32 func_001B9E00(s8 *, s32, f32);
 void func_001B87C0(s8 *, u32, s32, s32, f32, f32);
 void func_001BA680(s8 *, u32, f32, f32);
 void func_001BA850(s8 *, f32, u32, f32);
@@ -18,7 +19,7 @@ void func_001BA3F0(s8 *p, u32 i, f32 dt, f32 x) {
     s8 *e30;
     s8 *e;
     s8 *t;
-    s32 r;
+    s8 *r;
     f32 a;
     f32 b;
 

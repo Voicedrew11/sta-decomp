@@ -1,4 +1,4 @@
-/* near-miss 12/170: case-1 call args: orig loads ch (lb a0) first and off before addr[arg1], addu a1,addr,off */
+/* NEAR 11 of 170 (was 14): case-1 call: volatile read of off into a local fixes memory-op order (sw n, lb ch, lw off, lw addr); left: off gets coalesced into a1 (retail: off in v0, &addr[i] in v1, addu a1,v1,v0) and sll/lb scheduling. */
 #include "m2c.h"
 void FlushCache(s32);
 void memcpy(s32 *, s8 *, u32);
@@ -33,7 +33,7 @@ s32 func_0012F0F0(s8 *arg0, u32 arg1) {
             n = 0x40000;
         }
         D_0022F080.n = n;
-        func_001DAC70(D_0022EBC0.ch[arg1], D_0022EBC0.addr[arg1] + D_0022F080.off, n);
+        { u32 off = *(volatile u32 *)&D_0022F080.off; func_001DAC70(D_0022EBC0.ch[arg1], D_0022EBC0.addr[arg1] + off, n); }
         if (D_0022F080.n > 0x1000) {
             FlushCache(0);
             func_001789E0(D_0022F080.buf, p, ((D_0022F080.n + 0xF) & ~0xF) >> 4);
