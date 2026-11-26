@@ -1,3 +1,6 @@
+/* NEAR 1 word: the clear loop of RPair C counts 0x10, retail 8. An 8-byte C clears 8
+ * but moves to the small-object group at the top of the frame (45 words off); C[2],
+ * aligned(16) types or vars and extra locals did not give an 8-byte clear in a 16-byte slot. */
 #include "m2c.h"
 typedef struct { f32 x, y, z, w; } Vec;
 typedef struct { Vec p; Vec d; } Seg;

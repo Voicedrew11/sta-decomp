@@ -31,3 +31,7 @@ func_00100000 = 0x00100000;
 /* libc's abs: CodeWarrior inlines calls spelled abs, so the game code that
  * calls the function keeps its address name. */
 func_00120570 = 0x00120570;
+
+/* func_00188910 is static in src/game/func_00188910.c (its caller
+ * func_001889E0 relies on that); the asm callers still reach it here. */
+func_00188910 = 0x00188910;

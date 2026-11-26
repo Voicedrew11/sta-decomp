@@ -68,13 +68,13 @@ static inline s32 cls(s32 x) {
 static inline s32 nx(s32 x) {
     s32 r;
     switch (x) {
-    case 0: r = func_00195B80(1, &D_00202220); break;
-    case 1: r = func_00195B80(2, &D_00202220); break;
-    case 2: r = func_00195B80(3, &D_00202220); break;
-    case 3: r = func_00195B80(4, &D_00202220); break;
-    case 4: r = func_00195B80(5, &D_00202220); break;
-    case 5: r = func_00195B80(6, &D_00202220); break;
-    case 6:
+    case 1: r = func_00195B80(1, &D_00202220); break;
+    case 2: r = func_00195B80(2, &D_00202220); break;
+    case 3: r = func_00195B80(3, &D_00202220); break;
+    case 4: r = func_00195B80(4, &D_00202220); break;
+    case 5: r = func_00195B80(5, &D_00202220); break;
+    case 6: r = func_00195B80(6, &D_00202220); break;
+    case 0:
     default: r = -1; break;
     }
     return r;
