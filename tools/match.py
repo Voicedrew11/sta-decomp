@@ -33,6 +33,7 @@ BASE = 0x00100000
 EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]
 MASK = {4: 0xFC000000, 5: 0xFFFF0000, 6: 0xFFFF0000, 7: 0xFFFF0000}
 GP = 0x00209B70
+TEXT_END = 0x001EDE80                         # .text end (config/sta.jp.yaml)
 
 
 def is_jump(w: int) -> bool:
@@ -70,7 +71,7 @@ def func_bounds(addr: int) -> tuple[int, int]:
     starts = sorted(set(starts))
     if addr not in starts:
         sys.exit(f"{addr:#x} is not the start of a function splat found")
-    nxt = next((s for s in starts if s > addr), addr + 4)
+    nxt = next((s for s in starts if s > addr), TEXT_END)
     return addr, nxt
 
 

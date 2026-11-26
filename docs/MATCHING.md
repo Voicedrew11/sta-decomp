@@ -209,3 +209,41 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **Multi-table switch functions**: MWCC emits one .rodata per switch in code order; some originals have them reversed (wip/func_001A1C80.c, code bytes match).
 - **Static callee earlier in the same file** (temps kept live across the jal): see wip/func_001889E0.c (pair with func_00188910); batch.py can't check it yet.
 - **SDK-compiled function in game code**: func_001D3BF0 saves with `sd` and is gcc-scheduled; skip it.
+
+### More tricks (round 2 of the merged repo: 0x100-0x200 functions, 76 of 83 matched)
+
+MWCC:
+- **Pointer advanced by repeated `addiu +0x10`** (GS/DMA packet builders): every qword goes through a `static inline Q *put(Q *p, ...)` that writes `p[0]` and returns `p + 1`. A `u64 v` split as `w0 = v & 0xFFFFFFFF; w1 = v >> 32;` gives the `and`/`dsrl32`, `dsll32`/`dsra32` + two `sw` stores.
+- **`(u32)p & 0x0FFFFFFF` gives `dsll32 4; dsrl32 4`** with no sign extension, and `| 0x20000000` then works as an uncached pointer. u64 forms give `pcpyld`/`and` or `dsra32`. A u32 param passed on to a u32 callee param keeps the same shape.
+- **Range compares**: `(u32)(r-3) < 2` gives `sltiu v1`; `r == 3 || r == 4`, `<= 1` or `x > 0x4000` (not `>= 0x4001`) give `sltiu $at`.
+- **Args loaded in the wrong order before a jal**: change a callee param's signedness (u32 to s32), or write the last arg as `(&e->addr)[1]`.
+- **jalr through `lui/addiu` addresses**: function-pointer locals assigned right where the target builds them; assignment order picks the s-reg.
+- **Keep a `mult` in a loop** (no strength reduction): `static inline u8 *get(u32 i)` called with an s32 counter.
+- **Only the source pointer strength-reduced in a copy loop**: declare it `void *` and copy `dst[i] = ((u8 *)src)[i]`. An 8x unrolled byte copy behind a `beqz` on the source is `if (D_X) for (...) d[i] = D_X[i];`.
+- **IV pointer at base+0x80 with fields at +0x50/+0x60**: index the array directly (`D[idx].e[i].f`); an `e++` pointer folds the offsets.
+- **Separate `%lo` relocations per field**: an explicit `off = i << 6` local and `*(f32 *)((u8 *)&D[0].x + off)`.
+- **Immovable `sw $zero` scheduling**: try f32 fields assigned `0.0f`.
+- **`sltu`/`xori`**: an inline helper `return !(x != 0);`.
+- **Float globals**: operate on the global itself (`D -= 8.0f; if (D > 128.0f)`); temps change the code.
+- **A global reloaded after a store**: declare it volatile.
+- **Busy-wait loops**: `while (!f() != 0) {}`. **The gp value stored in a field** (`addiu rX,$gp,0`): `extern s32 _gp; x = &_gp;`.
+- **Variadic functions** (no stdarg header): `__builtin_args_info(2)` is the count of named int-register args (the unfolded `li 3; slti 8`; args 0 and 1 crash the compiler). va_start: `ap = (char *)__builtin_next_arg(last) - ((__builtin_args_info(2) >= 8) ? 0 : (8 - __builtin_args_info(2)) * 8)`; va_arg: `(ap += 8, *(T *)(ap - 8))`. See src/game/func_001D8680.c.
+- **The last switch case falls into the epilogue without a `b`**: end it with `break`, not `return`.
+
+ee-gcc 2.96:
+- **Loads hoisted ahead of a switch's jump**: read those fields into locals before the `switch`.
+- **Loops**: a list walk starting with `b cond` is a `goto check;` loop; a test-at-top loop is `for (;;) { if (!(i < n)) {...; return;} ... }`. `while`/`for` get rotated.
+- **Switch layout follows source order.** A `case 0:` sharing the default body moves the decision-tree pivot from 2 to 1.
+- **Dead constant in a `bnel` delay slot**: an else-if chain where two branches assign the same value (`if (r == -2) v = 3; else if (r == -4) v = 100; else v = 100;`).
+- **Constant in the delay slot of the first `beqz`**: the local is initialised at its declaration (`s32 n = 5;`).
+- **`movn v0,a0,a0` with v0 preset**: `s = K; if (r) s = r; return s;`. **`bnel v0; sw $0`**: `if (!call()) x = 1; else x = 0;`.
+- **Early `return -1` in v0**: one combined `&&` condition; nested ifs pick another register.
+- **Stuck saved-register swap**: change control flow (split `if (!(a || (b && c)))` into nested ifs with duplicated fail code); declaration order rarely helps.
+- **Extra `daddu sN,vX` copy of a loop pointer**: strength-reduced `&base[i]` with its own counter.
+- **Separately kept `%hi` register + `addiu r,sHI,%lo` rebuild**: some paths use the global directly while the rest go through `T *t = &D_X`.
+- **`ldl/ldr/sdl/sdr`**: assignment of a byte-aligned `struct { u8 b[8]; }`. A u32 stored as 4 `sb` (srl 8/16/24) is explicit byte stores into a `u8[4]`. A loop with a fixed ldl source and moving destination fills an array of those structs.
+- **Float register pairing**: `x = y = 0.0f;` gives the `mtc1 zero` + `mov.s` pair. Chained assignments store right to left.
+
+Tools:
+- **Jump tables in build/m2c/*.s can be cut short**; read the full table from the exe (file offset = vaddr - 0xFFF80).
+- **An asm function that addresses data through a biased symbol** inside a newly matched C unit's .rodata breaks the link: add the symbol to config/linker_syms.txt.

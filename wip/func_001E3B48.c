@@ -1,0 +1,44 @@
+/* round 2 near-miss: ee-gcc, s1/s2 swap, switch store merging, &g->data in own register */
+#include "common.h"
+typedef struct { u8 pad[4]; f32 rate; u8 *data; u8 pad0C[8]; s32 size; u8 pad18[4]; u8 *x1C[3]; u8 *x28[3]; u8 pad34[0x4C]; } G;
+extern G D_004BC2F0;
+extern f32 D_00201B88;
+extern f32 D_00201B8C;
+void *memset(void *, s32, u32);
+void func_001E3DB8(u32);
+void func_001E3DD8(void);
+s32 func_001E3EC0(void);
+
+s32 func_001E3B48(u8 *data, s32 size) {
+    G *g;
+    s32 i;
+    u32 *h;
+    u32 a, b;
+    memset(&D_004BC2F0, 0, 0x80);
+    if (data != NULL && size != 0) {
+        D_004BC2F0.data = data;
+        D_004BC2F0.size = size;
+        switch (data[0xB]) {
+        case 3: D_004BC2F0.rate = 40.0f; break;
+        case 2: D_004BC2F0.rate = D_00201B8C; break;
+        case 0: default: D_004BC2F0.rate = D_00201B88; break;
+        case 1: D_004BC2F0.rate = 20.0f; break;
+        }
+        g = &D_004BC2F0;
+        if (*(u32 *)(g->data + 0xC) != 0) {
+            h = (u32 *)(g->data + *(u32 *)(g->data + 0xC));
+            for (i = 0; i < 3; i++) {
+                if ((a = h[i + 4]) != 0 && (b = h[i]) != 0) {
+                    u8 *p = g->data + a; u8 *q = D_004BC2F0.data + b;
+                    g->x1C[i] = p; g->x28[i] = q;
+                }
+            }
+            func_001E3DD8();
+        }
+        func_001E3DB8(0);
+        return func_001E3EC0();
+    }
+    return -1;
+}
+
+

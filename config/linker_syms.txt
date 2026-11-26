@@ -5,3 +5,7 @@
 /* mprec.o's _pow5mult (still asm) indexes p05[(k & 3) - 1], so it forms
  * p05 - 4, which is the last word of mktime.o's .rodata. */
 D_001FA7B4 = 0x001FA7B4;
+
+/* func_001E5B18 (still asm, Shift-JIS decoder) reads a halfword table through
+ * a biased address that lands inside func_001E2D70's jump table. */
+D_001FE918 = 0x001FE918;

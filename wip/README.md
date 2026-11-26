@@ -135,3 +135,9 @@ register and scheduling differences.
 | func_001D2890 | round Y/Z near-miss (agent's best attempt; see comments in file) |
 | func_001D2A80 | round Y/Z near-miss (agent's best attempt; see comments in file) |
 | func_001D3BF0 | round Y/Z near-miss (agent's best attempt; see comments in file) |
+| func_001CBCD0 | round 2 near-miss: 1 word: retail has a hand-written addi $3,$3,-7 at the switch range check (ASM-ONLY) |
+| func_001E3B48 | round 2 near-miss: ee-gcc, s1/s2 swap, switch store merging, &g->data in own register |
+| func_001E03C0 | round 2 near-miss: 8 words: li constants scheduled between the two lw of the loop-2 preheader |
+| func_001E3058 | round 2 near-miss: ee-gcc, 5 words: lo+hi in a2 instead of v0, one slt in v1 |
+| func_001E4A18 | round 2 near-miss: ee-gcc, 4 words: first two float loads have f3/f0 swapped |
+| func_001D8AB0 | round 2 near-miss: ~2 insns: missing addu a1,v1,$zero before the unrolled copy, plus a nop |
