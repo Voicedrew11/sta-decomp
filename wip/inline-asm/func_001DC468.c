@@ -1,0 +1,44 @@
+#include "common.h"
+void func_001DC468(void *a0, void *a1, void *a2, void *a3, void *t0, void *t1) {
+    asm("lqc2       $vf16, 0x0(%0)" : : "r"(a3));
+    asm("vmulax.xyzw ACC, $vf1, $vf16x");
+    asm("vmadday.xyzw ACC, $vf2, $vf16y");
+    asm("vmaddaz.xyzw ACC, $vf3, $vf16z");
+    asm("vmaddw.xyzw $vf16, $vf4, $vf16w");
+    asm("lqc2       $vf17, 0x0(%0)" : : "r"(t0));
+    asm("lqc2       $vf18, 0x0(%0)" : : "r"(t1));
+    asm("vnop");
+    asm("vdiv       Q, $vf0w, $vf16w");
+    asm("vnop");
+    asm("vmulax.xyzw ACC, $vf1, $vf17x");
+    asm("vmadday.xyzw ACC, $vf2, $vf17y");
+    asm("vmaddaz.xyzw ACC, $vf3, $vf17z");
+    asm("vmaddw.xyzw $vf17, $vf4, $vf17w");
+    asm("vmulax.xyzw ACC, $vf1, $vf18x");
+    asm("vmulq.xyzw $vf26, $vf16, Q");
+    asm("vmadday.xyzw ACC, $vf2, $vf18y");
+    asm("vdiv       Q, $vf0w, $vf17w");
+    asm("vnop");
+    asm("vmaddaz.xyzw ACC, $vf3, $vf18z");
+    asm("vmaddw.xyzw $vf18, $vf4, $vf18w");
+    asm("vftoi4.xyzw $vf16, $vf26");
+    asm("vnop");
+    asm("vnop");
+    asm("vmulq.xyzw $vf27, $vf17, Q");
+    asm("vdiv       Q, $vf0w, $vf18w");
+    asm("sqc2       $vf16, 0x0(%0)" : : "r"(a0));
+    asm("vnop");
+    asm("vftoi4.xyzw $vf17, $vf27");
+    asm("vnop");
+    asm("vnop");
+    asm("vnop");
+    asm("vmulq.xyzw $vf28, $vf18, Q");
+    asm("sqc2       $vf17, 0x0(%0)" : : "r"(a1));
+    asm("vnop");
+    asm("vnop");
+    asm("vftoi4.xyzw $vf18, $vf28");
+    asm("vnop");
+    asm("vnop");
+    asm("vnop");
+    asm("sqc2      $vf18, 0x0(%0)" : : "r"(a2));
+}
