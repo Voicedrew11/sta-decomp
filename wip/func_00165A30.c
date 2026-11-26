@@ -1,3 +1,4 @@
+/* NEAR 5 of 238 words (unchanged). Retail: empty then-branch `bnez isf -> lw s2,0xCC(f bits); b join (delay = join lw)`, store `sw s2` merged at join. Tried ~60 variants: self-assign then, if(isf) acc=f, ternary, r-temp, inline early-return helpers, union acc/f, isf u8/u32/s8, b38. if(!isf){if(acc&&acc){}} gets the exact branch shape but with nop delay + pad nop (240 words). */
 #include "m2c.h"
 typedef struct { s32 type; union { s32 i; f32 f; } v; } Val;
 typedef struct { u8 pad[8]; u32 *pc; } Ctx;

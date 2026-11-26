@@ -1,4 +1,6 @@
-/* round 3 near-miss: ee-gcc, 7 words: v0/v1 swap after func_001E2D08, bnel vs bne */
+/* NEAR 3 of 176 words (ee-gcc). Was 7: func_001E2D08 is void (fixed the v0/v1 swap). Left: delay-slot fill at the
+   `r == 1 && ...` break test: retail `bne s3,v0` + shared `addiu s0,s1,2` and next bnel delay `daddu s1,s0`;
+   ours `bnel` and a repeated `addiu s0,s1,2`. Tried &&/nested/goto/for/continue/else-first/inline forms. */
 #include "common.h"
 typedef struct { s32 v[4]; } Q;
 typedef struct { u8 pad[8]; u16 x8; } F;
@@ -10,7 +12,7 @@ s32 func_001E23C8(void);
 void func_001E2430(void);
 void func_001E2B18(f32 *);
 s32 func_001E2B88(u16 *, f32 *, f32 *, s32);
-Q *func_001E2D08(Q *);
+void func_001E2D08(Q *);
 void func_001E2D38(Q *);
 u16 *func_001E2D70(u16 *, Q *);
 void *func_001E3058(s32);

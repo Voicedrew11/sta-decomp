@@ -3,15 +3,15 @@
   {
    "id": "game",
    "measures": {
-    "fuzzy_match_percent": 80.9934,
-    "matched_code": 641376,
-    "matched_code_percent": 80.3625,
-    "matched_functions": 2017,
-    "matched_functions_percent": 90.6924,
+    "fuzzy_match_percent": 84.9828,
+    "matched_code": 673216,
+    "matched_code_percent": 84.3519,
+    "matched_functions": 2057,
+    "matched_functions_percent": 92.491,
     "total_code": 798104,
-    "total_data": 2896096,
+    "total_data": 2896076,
     "total_functions": 2224,
-    "total_units": 2192
+    "total_units": 2205
    },
    "name": "Game"
   },
@@ -45,17 +45,17 @@
   "complete_data": 896,
   "complete_data_percent": 0.0304,
   "complete_units": 10,
-  "fuzzy_match_percent": 75.8405,
-  "matched_code": 721788,
-  "matched_code_percent": 75.1155,
+  "fuzzy_match_percent": 79.154,
+  "matched_code": 753628,
+  "matched_code_percent": 78.4291,
   "matched_data": 20653,
   "matched_data_percent": 0.7002,
-  "matched_functions": 2622,
-  "matched_functions_percent": 84.8269,
+  "matched_functions": 2662,
+  "matched_functions_percent": 86.121,
   "total_code": 960904,
-  "total_data": 2949548,
+  "total_data": 2949528,
   "total_functions": 3091,
-  "total_units": 2339
+  "total_units": 2352
  },
  "units": [
   {
@@ -2652,15 +2652,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 216,
    "code_total": 216,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0012E810"
+   "fuzzy": 100.0,
+   "name": "game/func_0012E810"
   },
   {
    "category": "game",
@@ -3348,15 +3348,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1040,
    "code_total": 1040,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00134960"
+   "fuzzy": 100.0,
+   "name": "game/func_00134960"
   },
   {
    "category": "game",
@@ -3588,15 +3588,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1932,
    "code_total": 1932,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001395A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001395A0"
   },
   {
    "category": "game",
@@ -3672,15 +3672,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 984,
    "code_total": 984,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0013A720"
+   "fuzzy": 100.0,
+   "name": "game/func_0013A720"
   },
   {
    "category": "game",
@@ -5640,15 +5640,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 912,
    "code_total": 912,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0013F210"
+   "fuzzy": 100.0,
+   "name": "game/func_0013F210"
   },
   {
    "category": "game",
@@ -7872,15 +7872,27 @@
   },
   {
    "category": "game",
+   "code_matched": 636,
+   "code_total": 636,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00146C70"
+  },
+  {
+   "category": "game",
    "code_matched": 0,
-   "code_total": 1148,
+   "code_total": 512,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
-   "name": "text_00146C70"
+   "name": "text_00146EF0"
   },
   {
    "category": "game",
@@ -7968,15 +7980,27 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
-   "code_total": 1588,
+   "code_matched": 644,
+   "code_total": 644,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 2,
-   "fuzzy": 0.0,
-   "name": "text_00147E90"
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00147E90"
+  },
+  {
+   "category": "game",
+   "code_matched": 944,
+   "code_total": 944,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00148120"
   },
   {
    "category": "game",
@@ -9048,15 +9072,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 436,
    "code_total": 436,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001531A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001531A0"
   },
   {
    "category": "game",
@@ -9108,15 +9132,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 988,
    "code_total": 988,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00153770"
+   "fuzzy": 100.0,
+   "name": "game/func_00153770"
   },
   {
    "category": "game",
@@ -9672,15 +9696,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 256,
    "code_total": 256,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00157FE0"
+   "fuzzy": 100.0,
+   "name": "game/func_00157FE0"
   },
   {
    "category": "game",
@@ -10248,15 +10272,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 264,
    "code_total": 264,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0015C8D0"
+   "fuzzy": 100.0,
+   "name": "game/func_0015C8D0"
   },
   {
    "category": "game",
@@ -10992,15 +11016,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1268,
    "code_total": 1268,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00164440"
+   "fuzzy": 100.0,
+   "name": "game/func_00164440"
   },
   {
    "category": "game",
@@ -11376,15 +11400,27 @@
   },
   {
    "category": "game",
+   "code_matched": 228,
+   "code_total": 228,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00165940"
+  },
+  {
+   "category": "game",
    "code_matched": 0,
-   "code_total": 1180,
+   "code_total": 952,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
-   "name": "text_00165940"
+   "name": "text_00165A30"
   },
   {
    "category": "game",
@@ -11725,14 +11761,38 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 4168,
+   "code_total": 676,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 3,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_001679E0"
+  },
+  {
+   "category": "game",
+   "code_matched": 2020,
+   "code_total": 2020,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00167C90"
+  },
+  {
+   "category": "game",
+   "code_matched": 0,
+   "code_total": 1472,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 0,
+   "functions_total": 1,
+   "fuzzy": 0.0,
+   "name": "text_00168480"
   },
   {
    "category": "game",
@@ -11905,14 +11965,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 3076,
+   "code_total": 2696,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_00169F40"
+  },
+  {
+   "category": "game",
+   "code_matched": 380,
+   "code_total": 380,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0016A9D0"
   },
   {
    "category": "game",
@@ -11940,15 +12012,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 268,
    "code_total": 268,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0016AE30"
+   "fuzzy": 100.0,
+   "name": "game/func_0016AE30"
   },
   {
    "category": "game",
@@ -12024,15 +12096,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 280,
    "code_total": 280,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0016B360"
+   "fuzzy": 100.0,
+   "name": "game/func_0016B360"
   },
   {
    "category": "game",
@@ -12109,14 +12181,38 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 8620,
+   "code_total": 6936,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 7,
+   "functions_total": 5,
    "fuzzy": 0.0,
    "name": "text_0016BD00"
+  },
+  {
+   "category": "game",
+   "code_matched": 1080,
+   "code_total": 1080,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0016D830"
+  },
+  {
+   "category": "game",
+   "code_matched": 0,
+   "code_total": 604,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 0,
+   "functions_total": 1,
+   "fuzzy": 0.0,
+   "name": "text_0016DC70"
   },
   {
    "category": "game",
@@ -12396,15 +12492,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 480,
    "code_total": 480,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001717A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001717A0"
   },
   {
    "category": "game",
@@ -13524,15 +13620,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 308,
    "code_total": 308,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0017BAC0"
+   "fuzzy": 100.0,
+   "name": "game/func_0017BAC0"
   },
   {
    "category": "game",
@@ -13704,15 +13800,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 216,
    "code_total": 216,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0017C930"
+   "fuzzy": 100.0,
+   "name": "game/func_0017C930"
   },
   {
    "category": "game",
@@ -15960,15 +16056,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1116,
    "code_total": 1116,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0018B860"
+   "fuzzy": 100.0,
+   "name": "game/func_0018B860"
   },
   {
    "category": "game",
@@ -18624,15 +18720,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 324,
    "code_total": 324,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001A4420"
+   "fuzzy": 100.0,
+   "name": "game/func_001A4420"
   },
   {
    "category": "game",
@@ -18888,15 +18984,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 2436,
    "code_total": 2436,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001A5DE0"
+   "fuzzy": 100.0,
+   "name": "game/func_001A5DE0"
   },
   {
    "category": "game",
@@ -20052,15 +20148,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 204,
    "code_total": 204,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001AD2C0"
+   "fuzzy": 100.0,
+   "name": "game/func_001AD2C0"
   },
   {
    "category": "game",
@@ -20581,14 +20677,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 824,
+   "code_total": 412,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_001B0EB0"
+  },
+  {
+   "category": "game",
+   "code_matched": 412,
+   "code_total": 412,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_001B1050"
   },
   {
    "category": "game",
@@ -20700,15 +20808,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 228,
    "code_total": 228,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001B1D00"
+   "fuzzy": 100.0,
+   "name": "game/func_001B1D00"
   },
   {
    "category": "game",
@@ -21589,26 +21697,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 1964,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001BAB70"
-  },
-  {
-   "category": "game",
-   "code_matched": 0,
    "code_total": 0,
    "complete": false,
    "data_matched": 0,
-   "data_total": 100,
+   "data_total": 68,
    "functions_matched": 0,
    "functions_total": 0,
    "fuzzy": 100.0,
    "name": "data/rodata_001FDA5C.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 1964,
+   "code_total": 1964,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 24,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_001BAB70"
   },
   {
    "category": "game",
@@ -21852,15 +21960,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1320,
    "code_total": 1320,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001C0020"
+   "fuzzy": 100.0,
+   "name": "game/func_001C0020"
   },
   {
    "category": "game",
@@ -22176,27 +22284,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1036,
    "code_total": 1036,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 36,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001C6590"
-  },
-  {
-   "category": "game",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 48,
-   "functions_matched": 0,
-   "functions_total": 0,
    "fuzzy": 100.0,
-   "name": "data/rodata_001FDBA0.rodata"
+   "name": "game/func_001C6590"
   },
   {
    "category": "game",
@@ -23496,15 +23592,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 464,
    "code_total": 464,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001CEBF0"
+   "fuzzy": 100.0,
+   "name": "game/func_001CEBF0"
   },
   {
    "category": "game",
@@ -23748,15 +23844,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 392,
    "code_total": 392,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001D2890"
+   "fuzzy": 100.0,
+   "name": "game/func_001D2890"
   },
   {
    "category": "game",
@@ -23796,15 +23892,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 248,
    "code_total": 248,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001D2A80"
+   "fuzzy": 100.0,
+   "name": "game/func_001D2A80"
   },
   {
    "category": "game",
@@ -25381,14 +25477,26 @@
   {
    "category": "game",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 56,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FE6B8.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 1008,
    "code_total": 1008,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 36,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001DB020"
+   "fuzzy": 100.0,
+   "name": "game/func_001DB020"
   },
   {
    "category": "game",
@@ -25669,14 +25777,26 @@
   {
    "category": "game",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 92,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FE714.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 1704,
    "code_total": 1704,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 32,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001DDA20"
+   "fuzzy": 100.0,
+   "name": "game/func_001DDA20"
   },
   {
    "category": "game",
@@ -25693,14 +25813,26 @@
   {
    "category": "game",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 32,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FE790.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 2088,
    "code_total": 2088,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 28,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001DE2D0"
+   "fuzzy": 100.0,
+   "name": "game/func_001DE2D0"
   },
   {
    "category": "game",
@@ -25720,11 +25852,11 @@
    "code_total": 0,
    "complete": false,
    "data_matched": 0,
-   "data_total": 328,
+   "data_total": 52,
    "functions_matched": 0,
    "functions_total": 0,
    "fuzzy": 100.0,
-   "name": "data/rodata_001FE6B8.rodata"
+   "name": "data/rodata_001FE7CC.rodata"
   },
   {
    "category": "game",
@@ -25981,14 +26113,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 656,
+   "code_total": 244,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_001E02C0"
+  },
+  {
+   "category": "game",
+   "code_matched": 412,
+   "code_total": 412,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_001E03C0"
   },
   {
    "category": "game",
@@ -26748,15 +26892,27 @@
   },
   {
    "category": "game",
+   "code_matched": 288,
+   "code_total": 288,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/ee/func_001E3058"
+  },
+  {
+   "category": "game",
    "code_matched": 0,
-   "code_total": 1580,
+   "code_total": 1292,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
-   "name": "text_001E3058"
+   "name": "text_001E3178"
   },
   {
    "category": "game",
@@ -27012,15 +27168,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 416,
    "code_total": 416,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001E4A18"
+   "fuzzy": 100.0,
+   "name": "game/ee/func_001E4A18"
   },
   {
    "category": "game",

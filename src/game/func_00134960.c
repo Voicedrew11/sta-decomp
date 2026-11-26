@@ -14,7 +14,7 @@ Vec *func_00140460(s8 *);
 s8 *func_0013DD10(s8 *);
 s8 *func_0013DCE0(s8 *);
 u8 func_001435D0(s8 *, s8 *, Vec *);
-u8 func_00143810(s8 *, u8);
+u8 func_00143810(s8 *, u8, u8);
 s32 func_00143290(s8 *, s8 *, Vec *, u8, u8);
 Vec *func_00143840(s8 *, u8);
 
@@ -75,7 +75,7 @@ u8 func_00134960(s8 *a) {
         k0 = func_001435D0(o, g, func_00140460(a));
         k1 = func_001435D0(o, g, &p);
         if (k0 != 0xFF && k1 != 0xFF && k0 != k1) {
-            k = func_00143810(o, k0);
+            k = func_00143810(o, k0, k1);
             if (!func_00143290(o, g, func_00140460(a), k0, k)) k = k0;
             if (k == k1) k = 0xFF;
             if (k != 0xFF) {
@@ -98,3 +98,4 @@ u8 func_00134960(s8 *a) {
     if (!(dist < 300.0f)) return 0;
     return 1;
 }
+

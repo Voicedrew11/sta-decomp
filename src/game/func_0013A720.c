@@ -19,12 +19,12 @@ typedef struct {
     Hit xD0;
 } P;
 s32 func_0013E8E0(Actor *);
-void func_00102A60(Vec *, Vec *);
-void func_00102A70(Mtx *, void *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0CopyMatrix(Mtx *, void *);
 void memset(void *, s32, s32);
 void func_0013D430(s32, Hit *, Seg *, s32, u8);
-void func_001029E8(Vec *, void *, void *);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0SubVector(Vec *, void *, void *);
+void sceVu0AddVector(Vec *, Vec *, void *);
 void func_0013E760(Actor *, s32);
 f32 func_0013E3C0(Actor *);
 s8 func_0013E290(Actor *);
@@ -55,15 +55,15 @@ void func_0013A720(Actor *a) {
     p = (P *)(a->unk518 + 0x180);
     if (!((Flags8 *)(a->unk4B0 + 0x2AC))->f.b4) return;
     if (!func_0013E8E0(a)) fl |= 2;
-    func_00102A60(&p->xB0.s, &p->x40);
+    sceVu0CopyVector(&p->xB0.s, &p->x40);
     p->xB0.s.w = 1.0f;
-    func_00102A60(&p->xB0.e, &p->x40);
+    sceVu0CopyVector(&p->xB0.e, &p->x40);
     p->xB0.e.w = 1.0f;
     p->xB0.s.y = p->x10[5];
     if (!(p->xB0.s.y <= p->xB0.e.y)) {
-        func_00102A60(&tmp, &p->xB0.s);
-        func_00102A60(&p->xB0.s, &p->xB0.e);
-        func_00102A60(&p->xB0.e, &tmp);
+        sceVu0CopyVector(&tmp, &p->xB0.s);
+        sceVu0CopyVector(&p->xB0.s, &p->xB0.e);
+        sceVu0CopyVector(&p->xB0.e, &tmp);
     }
     {
         Tb *tb = (Tb*)p->x2C; f32 d = tb->e[p->x18->xB5].f - tb->e[p->x18->xB4].f;
@@ -95,11 +95,11 @@ void func_0013A720(Actor *a) {
     }
     if (p->xD0.hit != 0) {
         if (p->xD0.p.y < p->xB0.e.y - 1000.0f) {
-            func_001029E8(&v, &p->xD0, &p->x40);
+            sceVu0SubVector(&v, &p->xD0, &p->x40);
             v.x = 0.0f;
             v.z = 0.0f;
             v.w = 0.0f;
-            func_001029D0(&p->x40, &p->x40, &v);
+            sceVu0AddVector(&p->x40, &p->x40, &v);
             func_0013E760(a, 1);
             if (!(func_0013E3C0(a) <= 100.0f)) {
                 r = func_0013E290(a);
@@ -108,8 +108,8 @@ void func_0013A720(Actor *a) {
                     if (h >= 0 && func_00169BB0(h)) {
                         h = func_00169B50(h, 0, 0, 0);
                         if (h != 0) {
-                            func_00102A70(&m, &D_001F2170);
-                            func_00102A60(&m.m[3], &p->x40);
+                            sceVu0CopyMatrix(&m, &D_001F2170);
+                            sceVu0CopyVector(&m.m[3], &p->x40);
                             func_001677C0(h, &m);
                             func_00167600(h, a);
                         }

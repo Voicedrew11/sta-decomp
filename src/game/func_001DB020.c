@@ -1,4 +1,4 @@
-/* round 3 near-miss: 5 words: register swap in case 0's D_004BAA28 update */
+/* MATCH: extern s32 D_004BAA28[] (read into u32 y) + `y <= x` compare: sltu $at, x in v0 */
 #include "common.h"
 typedef struct {
     u8 pad0[8];
@@ -20,7 +20,7 @@ extern s32 D_004BA2EC[];
 extern u32 D_004BA2F4[];
 extern u32 D_004BA2F8[];
 extern Ent D_004BA500[];
-extern u32 D_004BAA28[];
+extern s32 D_004BAA28[];
 typedef struct { s32 data; s32 addr; u32 size; s32 mode; } Dma;
 extern Dma D_004BAA60;
 
@@ -43,13 +43,8 @@ s32 func_001DB020(s32 arg0, s32 arg1, s32 arg2) {
         p->x10 += arg2;
         if (p->x8 == 0) p->x8 = D_004BAA28[0];
         x = p->x8;
-        y = D_004BAA28[0];
-        if (x >= y) {
-            D_004BAA28[0] = x;
-            D_004BAA28[0] = D_004BAA28[0] + arg2;
-        } else if (y < x + arg2) {
-            D_004BAA28[0] = x + arg2;
-        }
+        y = *D_004BAA28;
+        if ((u32)y <= x) { *D_004BAA28 = x; *D_004BAA28 += arg2; } else if (y < x + arg2) *D_004BAA28 = x + arg2;
         D_004BA2E8[0] = p->x8;
         if (0x1F8800 - p->x8 >= (u32)arg2) {
             D_004BAA60.data = arg1;

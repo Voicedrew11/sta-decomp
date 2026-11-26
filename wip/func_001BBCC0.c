@@ -1,3 +1,4 @@
+/* NEAR 8 of 263 words (unchanged). `fb = p->x20 * hh` mult1 dest v1 (retail a0 = hh reg), so x0 raw lands in a0 instead of v1. Declaration order (300 random perms) has no effect; tried inline mul helpers, s32 fa/fb, s16/u32 x0, volatile reads, b38, per-axis inlines. */
 #include "actor.h"
 typedef struct { s32 x0, x4, x8; f32 xC, x10, x14, x18; s32 x1C, x20, x24; u8 c[4]; } P;
 typedef struct { u64 tbp:14; u64 tbw:6; u64 psm:6; u64 tw:4; u64 th:4; u64 rest:30; } Tex;

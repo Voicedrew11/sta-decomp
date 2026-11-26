@@ -97,6 +97,15 @@ Near-miss round (CodeWarrior unless marked gcc):
 - gcc: a hand-unrolled first iteration of a binary search is gcc loop copying; write a plain `for (;;)`. Float temps from a returned struct follow the later store order, not load order.
 - Library functions must be called by their real name (`memset`, `fabsf`), not `func_<addr>`, or carve/splat hit a duplicate symbol.
 - Generate variants with python `str.replace`, not sed/bash substitution (`*(volatile` in BRE and `&` in `${s/pat/rep}` silently corrupt the C).
+- **A masked value in an odd arg reg (a2/a3) that nothing uses** is an extra argument of a later call; some callees are called with more args than their definition takes.
+- **Field shared (CSE'd) with another address**: pass it twice as separate args to an inline (`upd5(&b[k], t->x20, t->x20)`).
+- **Param spill into a 16-aligned temp slot**: an inline with a `**` out-param plus a fresh local copy of the pointer.
+- **Two pointers to the same address, temp in the wrong reg**: read the field through the other pointer.
+- **Unsigned compare that should be `sltu $at` + `bnez`**: `if (y <= x)`, not `x >= y`; a v0/v1 swap that won't move can be the signedness of the extern the value is loaded from.
+- **Counter cleared in a loop guard's `beqz` delay slot**: set the counter before `if (j < n)`, the other loop variable inside it, then `do {} while`.
+- Grep `asm/matchings/game` for the exact instruction pair you need, then read that function's C.
+- gcc: a struct built from a returned struct's fields with floats out of order: compound literal `r = (R){ t.x, t.y, t.w, t.h };`. A v0/v1 swap right after a call whose result is unused: declare the callee `void`.
+- Name every library function by its symbol_addrs.txt name, including the sceVu0* helpers (func_001029D0 = sceVu0AddVector, ...): an address name in a game unit makes carve.py write a duplicate name that breaks the next carve run (sce units go unplaced).
 
 ## Floats, sqrt, switches, inline asm
 

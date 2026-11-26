@@ -14,15 +14,15 @@ s8 func_0013E260(s8 *);
 s8 func_0013E270(s8 *);
 void func_00173FD0(Vec *, Vec *, Vec *, Vec *);
 Vec *func_00140460(s8 *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 Vec *func_00145730(void);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 void func_001C8F30(f32, f32, f32, f32);
 void func_0015FE20(f32, f32, f32, f32, f32);
 void func_0015FD90(f32, f32, f32, f32, f32);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 s8 *func_001D1F20(s32, s8 *, s32, f32, u8, E *, s32, s32);
 void func_00167600(s8 *, s8 *);
 
@@ -58,7 +58,7 @@ void func_001395A0(f32 f, s32 a0, s32 a1, u8 a2, E *e, s32 *tbl, s32 t1) {
         p.z = ((f32 *)base)[4];
         func_00173FD0((Vec *)m, &p, &r, &s);
         base = (s32 *)&v;
-        func_001029D0((Vec *)base, (Vec *)base, func_00140460(a));
+        sceVu0AddVector((Vec *)base, (Vec *)base, func_00140460(a));
         switch (t1) {
         case 1:
             func_001C8F30(10.0f, 30.0f, 0.9f, 10.0f);
@@ -81,8 +81,8 @@ void func_001395A0(f32 f, s32 a0, s32 a1, u8 a2, E *e, s32 *tbl, s32 t1) {
             func_0015FD90(1.0f, 50.0f, 0.0f, 1.0f, 16.0f);
             break;
         case 100:
-            func_001029E8(&w, func_00145730(), (Vec *)base);
-            d = sqrtf(func_00102848(&w, &w));
+            sceVu0SubVector(&w, func_00145730(), (Vec *)base);
+            d = sqrtf(sceVu0InnerProduct(&w, &w));
             if (d < 800.0f) {
                 func_001C8F30(10.0f, 30.0f, 1.0f, 10.0f);
                 func_0015FE20(1.0f, 10.0f, 0.0f, 1.0f, 16.0f);
@@ -127,8 +127,8 @@ void func_001395A0(f32 f, s32 a0, s32 a1, u8 a2, E *e, s32 *tbl, s32 t1) {
         if (k >= 0) {
             T30 g;
             E10 h;
-            func_00123A88(&g, &tbl[e->xE], 0x30);
-            func_00123A88(&h, e, 0x10);
+            memcpy(&g, &tbl[e->xE], 0x30);
+            memcpy(&h, e, 0x10);
             g.v[0] = k;
             h.xE = 0;
             obj = func_001D1F20(a0, a + 0x580, a1, f, a2, (E *)&h, (s32)g.v, t1);

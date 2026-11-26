@@ -1,4 +1,6 @@
-// NEAR: 1 of 162 words differ: final mul.s f12,f1,f0 vs retail f0,f1 (u2f(t+0xE) operand should come first). r as s8* fixed the lbu 0x13 order.
+/* NEAR 1 of 162 words (unchanged): final mul.s f12,f1,f0 vs retail f12,f0,f1 (u2f(t+0xE) first, evaluated after the select).
+   MWCC puts the plain variable b first whatever the source order; making u2f evaluate first hoists it above the select (50 diffs).
+   Tried: swapped order, mu/inline helpers, temps, volatile reads, ternary/fmax inline selects, -(-b), b in array, b38, s32 proto. */
 #include "m2c.h"
 typedef struct { u8 p:2; u8 v:1; } BF2;
 typedef struct { u8 p:3; u8 v:1; } BF3;

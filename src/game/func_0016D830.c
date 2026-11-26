@@ -64,11 +64,11 @@ void func_0016D830(O *o, P *p, s8 *a2, s32 idx, U u) {
         if ((u2.s.f | u2.s.g | u2.s.h) == 0 && o->f3C.f.b6) D_00202008 = D_00201F48;
     }
     if (!p->f24.f.b1) return;
-        j = m[idx].x130;
+    j = m[idx].x130;
     q = (s8 *)(x0 + tbl[j].x0);
     e = (Q *)q;
     r = x0 + tbl[j].x4;
-    w = *(u16 *)q;
+    w = *(u16 *)e;
     if (j == 0xFF) return;
     if (((Flags8 *)(a2 + idx * 0x140 + 0x1F8))->f.b3) return;
     if (((Flags8 *)(a2 + idx * 0x140 + 0x1F8))->f.b5) return;
@@ -100,3 +100,4 @@ void func_0016D830(O *o, P *p, s8 *a2, s32 idx, U u) {
         func_0016E760(e, q, r, w, (s8 *)&m[idx], k, size, base, o, p, fl);
     }
 }
+

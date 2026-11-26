@@ -1,4 +1,4 @@
-/* NEAR 2 of 104 words: loads/regs now match retail (x->f3, y->f0); only the swc1 order of o.x/o.y is swapped (stores y first). Stores x-first flip the regs back. */
+/* MATCH: compound literal r = (R){...} fixes the store/reg order. */
 #include "common.h"
 typedef struct { f32 x, y, w, h; } R4;
 typedef struct { f32 x, y, w, h; } __attribute__((aligned(8))) R;
@@ -6,8 +6,8 @@ typedef struct { f32 x, y, z, w; u8 pad[0xC]; } V;
 R4 func_001E4BB8(s32, s32);
 
 void func_001E4A18(s32 a, s32 b, V *v, u8 flags) {
-    R4 t; R r; R o; f32 x, y, w, h;
-    t = func_001E4BB8(a, b); x = t.x; y = t.y; w = t.w; h = t.h; o.y = y; o.x = x; o.w = w; o.h = h; r = o;
+    R4 t; R r;
+    t = func_001E4BB8(a, b); r = (R){ t.x, t.y, t.w, t.h };
     switch (flags & 0xF) {
     case 0: default: r.x -= r.w * 0.5f; break;
     case 1: break;

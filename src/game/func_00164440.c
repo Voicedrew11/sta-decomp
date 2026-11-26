@@ -6,12 +6,13 @@ extern Vec D_003139A0;
 void sceVu0CopyVector(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 
-void func_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c) {
+static inline void body(LP *P, u32 **po, Vec *L, Vec *dir, Vec *c) {
     Vec col;
     Vec tr[4];
     Vec nd[4];
     Vec n;
     Vec *tbl;
+    Vec *L2;
     u16 i;
     u8 k;
     f32 sum;
@@ -29,6 +30,7 @@ void func_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c) {
         nd[k].w = nd[k].z + (nd[k].x + nd[k].y);
         if (nd[k].w != 0.0f) nd[k].w = 1.0f;
     }
+    L2 = L;
     for (i = 0; i < 256; i++) {
         sceVu0CopyVector(&n, tbl++);
         sceVu0CopyVector(&col, &D_003139A0);
@@ -45,7 +47,7 @@ void func_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c) {
             }
             if (!(h <= 0.0f)) sum += 0.125f * (P->xC * h);
             if (!(sum <= 0.0f)) {
-                sum = sum * (1.0f + L[k].w);
+                sum = sum * (1.0f + L2[k].w);
                 col.x += sum * (c->x * nd[k].x);
                 col.y += sum * (c->y * nd[k].y);
                 col.z += sum * (c->z * nd[k].z);
@@ -57,6 +59,10 @@ void func_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c) {
         if (!(col.x <= 255.0f)) col.x = 255.0f;
         if (!(col.y <= 255.0f)) col.y = 255.0f;
         if (!(col.z <= 255.0f)) col.z = 255.0f;
-        *out++ = (u32)col.z << 16 | ((u32)col.x | (u32)col.y << 8) | 0x80000000;
+        *(*po)++ = (u32)col.z << 16 | ((u32)col.x | (u32)col.y << 8) | 0x80000000;
     }
+}
+
+void func_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c) {
+    body(P, &out, L, dir, c);
 }

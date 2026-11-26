@@ -1,3 +1,4 @@
+/* NEAR 16 of 384 words (unchanged). `out` home 0xC4 vs retail 0xC0 (retail leaves 0xC4 unused between b and out), and t/dd f22/f23 swapped. Tried all 120 float decl orders, extra unused params (int/float, every position), local copies of params (36 decl/assign orders), body/fin inlines, dummy locals, b38, dd/t reusing len. */
 #include "common.h"
 s32 func_0013FC00(s8 *);
 s32 func_0013FB90(s8 *, u8, Vec **, Vec **);

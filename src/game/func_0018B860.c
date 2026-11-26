@@ -96,7 +96,8 @@ void func_0018B860(Obj *o) {
         v++;
         p++;
     }
-    for (j = 0, off = 0; j < l->n; j++) {
+    j = 0;
+    if (j < l->n) { off = 0; do {
         it = *(Item *)((s8 *)l->items + off);
         func_0018C140(&x, &y, &c, D_0020211C + (f32)(s32)j);
         it.f2C = x;
@@ -106,8 +107,8 @@ void func_0018B860(Obj *o) {
         if (t != -1) {
             func_001829B0(&it, base + it.idx * 8, func_0018BCC0, t);
         }
-        off += 0x40;
-    }
+        off += 0x40; j++;
+    } while (j < l->n); }
     func_0017EDC0(o->x8 == 0xB, D_004A1010[0].f.b1, 1, 7, D_004A0FF0[0]);
     func_00181420();
     func_00182050(0x80);

@@ -1,3 +1,4 @@
+/* NEAR 13/132 (was 15). Body uses block-local tp=&t[j][k] and cp=&c[v].x2 pointers, which fixes cp->t3. Still differs: coloring of the compiler IVs in the 8x32 loop: retail j=t1, tp=t2, brow(&D+16j)=t4, trow(&D+32j)=t5; ours j=t5, tp=t4, brow=t1, trow=t2. Tried: decl perms (120), separate outer counter, explicit row/bp pointers (worse), nested ifs, b38 (same). */
 /* round 3 near-miss: 15 words: temp register numbers in the 8x32 loop */
 #include "common.h"
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; } B;
@@ -18,13 +19,16 @@ void func_001D9FC0(void) {
     cpy(D_004BA000, s, 0x20);
 for (j = 0; j < 8; j++) {
     for (k = 0; k < 32; k++) {
-        v = D_004BA500.t[j][k];
+        s8 *tp = &D_004BA500.t[j][k];
+        v = *tp;
         if (!(0 > v) && v < 0x40) {
-            if (D_004BA500.c[v].x2 == 1 && !((1 << k) & D_004BA000[D_004BA500.b[j].xC])) {
-                D_004BA500.c[v].x2 = -1;
-                D_004BA500.t[j][k] = -1;
+            s8 *cp = &D_004BA500.c[v].x2;
+            if (*cp == 1 && !((1 << k) & D_004BA000[D_004BA500.b[j].xC])) {
+                *cp = -1;
+                *tp = -1;
             }
         }
     }
 }
     for (j = 0; j < 0x40; j++) { c = &D_004BA500.c[j]; if (c->x2 == 1 && !((1 << c->x0) & D_004BA000[D_004BA500.b[c->x1].xC])) c->x2 = -1; } }
+

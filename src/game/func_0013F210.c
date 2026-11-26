@@ -1,4 +1,4 @@
-/* NEAR 5 of 228 (was 16): second clamp fixed by writing it out (v then hi). Left: in upd3 the target computes k*4 into v1 and loads x51C into v0 (e = a0 = v0+t1); we get k*4 in v0, x51C straight into a0. upd(&a->x51C[k], a->tbl[k]->x20) gives the right regs but CSEs tbl[k] with pp (s0). */
+/* func_0013F210: matched. upd3 passes the limit twice through a 3-param inline (upd5), which avoids CSE of tbl[k] with pp. */
 #include "common.h"
 typedef struct { u8 pad[0x20]; u16 x20; u8 pad22[8]; u8 x2A; u8 pad2B[2]; Flags8 x2D; } Part;
 typedef struct { u8 pad[0x15C]; u16 x15C; u8 pad15E[2]; Flags8 x160; u8 pad161[0xF]; } Ent;
@@ -39,7 +39,9 @@ static inline void upd(Ent *e, s32 lim) {
     e->x15C = clamp(e->x15C - lim, lim);
 }
 
-static inline void upd3(A *a, u8 k) { Ent *b = a->x51C; Ent *e = &b[k]; e->x15C = clamp(e->x15C - a->tbl[k]->x20, a->tbl[k]->x20); }
+static inline void upd4(Ent *e, A *a, u8 k) { e->x15C = clamp(e->x15C - a->tbl[k]->x20, a->tbl[k]->x20); }
+static inline void upd5(Ent *e, s32 l1, s32 l2) { e->x15C = clamp(e->x15C - l1, l2); }
+static inline void upd3(A *a, u8 k) { upd5(&a->x51C[k], a->tbl[k]->x20, a->tbl[k]->x20); }
 
 void func_0013F210(A *a, u8 idx, s32 flag) {
     u8 k;
