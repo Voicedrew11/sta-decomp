@@ -26,7 +26,8 @@ inline s32 sgn(f32 v) {
     return s;
 }
 
-void func_00167310(f32 *m, f32 mx, f32 my) {
+void func_00167310(void *m0, f32 mx, f32 my) {
+    f32 *m;
     f32 a;
     f32 b;
     f32 t[4][4] __attribute__((aligned(16)));
@@ -35,12 +36,13 @@ void func_00167310(f32 *m, f32 mx, f32 my) {
     f32 y;
     s32 s;
 
-    if (m != NULL) {
+    if (m0 != NULL) {
+        m = m0;
         func_00146310(m + 12, m + 8, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160, &a, &b);
         x = a;
-        x = fabsf(x) < mx ? x : mx * sgn(x);
+        x = fabsf(x) < mx ? x : mx * (f32)(x < 0.0f ? -1 : 1);
         y = b;
-        y = fabsf(y) < my ? y : my * sgn(y);
+        y = fabsf(y) < my ? y : my * (f32)(y < 0.0f ? -1 : 1);
         sceVu0RotMatrixX(r, D_001F2170, WRAP(y));
         sceVu0RotMatrixY(r, r, WRAP(x));
         sceVu0CopyMatrix(t, m);

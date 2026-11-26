@@ -1,3 +1,7 @@
+// NEAR: 173 of 676 positional (built 678, retail 676; prev 183). Everything up to case 2's second loop aligns except reg names
+// (e = &base[id] wants addu s4,s5(id*0x90),s0 order; f26/e s-regs swapped). Length +2 = two nops: retail fills the
+// 'if (ee->x0A == 1)' / '== 2' bne delay slots with 'addiu sN,ee,0x3C' (mx); here the block starts with lbu *mx which
+// clobbers the x0A reg, so no fill. Loop2 counter j wants an s-reg (s4), x0A a1, k v1. Changes: i <= 6 (slti at), pa ptr.
 #include "common.h"
 typedef struct {
     u8 pad[0xA];
@@ -72,18 +76,15 @@ s16 func_001CAEF0(s16 id) {
     s16 *sl;
     u8 *ty;
     s32 r;
-    E *e;
-    Flags8 *f26;
     P *pl;
     E *base;
+    Flags8 *f26;
+    E *e;
     E *ee;
     s32 i;
     s32 j;
     s32 k;
-    Inv *inv;
     Flags8 *f27;
-    u8 *mx;
-    s32 v;
     u8 *cnt;
 
     func_001C9B60();
@@ -149,7 +150,7 @@ s16 func_001CAEF0(s16 id) {
         func_00169B50(0x1ED, 0, 1, 0);
         return 1;
     case 2:
-        for (i = 0, sl = (s16 *)pl; i < 7; i++, sl++) {
+        for (i = 0, sl = (s16 *)pl; i <= 6; i++, sl++) {
             k = sl[0x40];
             if (k == -1) continue;
             if (i == 1 && two(&base[k])) continue;
@@ -170,21 +171,21 @@ s16 func_001CAEF0(s16 id) {
             if (j == 1 && two(&base[k])) continue;
             ee = &base[k];
             if (ee->x0A == 1) {
-                mx = &ee->x3C;
-                inv = &pl->inv[k];
-                v = *mx * 50;
-                inv->a0 += (u8)(v / 100);
-                if (v % 100) inv->a0++;
-                if (*mx < pl->inv[k].a0) pl->inv[k].a0 = *mx;
-                inv->a1 = 0;
+                u8 *mx = &ee->x3C;
+                s32 v = *mx * 50;
+                u8 *pa = &pl->inv[k].a0;
+                pl->inv[k].a0 += (u8)(v / 100);
+                if (v % 100) (*pa)++;
+                if (*mx < *pa) *pa = *mx;
+                pl->inv[k].a1 = 0;
             } else if (ee->x0A == 2) {
-                mx = &ee->x3C;
-                inv = &pl->inv[k];
-                v = *mx * 50;
-                inv->a0 += (u8)(v / 100);
-                if (v % 100) inv->a0++;
-                if (*mx < pl->inv[k].a0) pl->inv[k].a0 = *mx;
-                inv->a1 = 0;
+                u8 *mx = &ee->x3C;
+                s32 v = *mx * 50;
+                u8 *pa = &pl->inv[k].a0;
+                pl->inv[k].a0 += (u8)(v / 100);
+                if (v % 100) (*pa)++;
+                if (*mx < *pa) *pa = *mx;
+                pl->inv[k].a1 = 0;
             }
         }
         func_001CBED0(id, -1, 0);
@@ -196,3 +197,4 @@ s16 func_001CAEF0(s16 id) {
     func_0018B0E0(200);
     return r;
 }
+

@@ -51,6 +51,7 @@ void func_00185740(O *o, s32 a1, u32 mode, s16 *a3) {
     Col c9;
     f32 x;
     f32 y;
+    s32 v;
     if (mode < 200) {
         S buf __attribute__((aligned(16)));
         buf = D_001F26D0;
@@ -63,39 +64,37 @@ void func_00185740(O *o, s32 a1, u32 mode, s16 *a3) {
     case 200:
         *(u32 *)&c8 = 0x80808080;
         sprintf(D_0048CE40, D_001FCB08, a3[2], a3[0]);
-        *(f32 *)((u8 *)o + 0x38) += 4.0f;
-        x = o->x38;
-        y = o->x3C;
-        draw(D_0048CE40, x, y, &c8);
+        *(f32 *)((s32)o + 0x38) += 4.0f;
+        draw(D_0048CE40, o->x38, o->x3C, &c8);
         break;
     case 201:
         *(u32 *)&c9 = 0x80808080;
         sprintf(D_0048CE40, D_001FCB18, a3[3], a3[1]);
-        x = o->x38;
-        y = o->x3C;
-        draw(D_0048CE40, x, y, &c9);
+        draw(D_0048CE40, o->x38, o->x3C, &c9);
         break;
     case 202:
-        if (D_0020207C == 0) break;
-        if (D_0020207C < 0) {
+        v = D_0020207C;
+        if (v == 0) break;
+        if (v < 0) {
             *(u32 *)&ca = 0x80404080;
-            sprintf(D_0048CE40, D_001FCB28);
+            sprintf(D_0048CE40, D_001FCB28, v);
         } else {
             *(u32 *)&ca = 0x80804040;
-            sprintf(D_0048CE40, D_001FCB30);
+            sprintf(D_0048CE40, D_001FCB30, v);
         }
         x = o->x38 + 10.0f;
         y = o->x3C;
         draw(D_0048CE40, x, y, &ca);
         break;
     case 203:
-        if (D_00202080 == 0) break;
-        if (D_00202080 < 0) {
+        v = D_00202080;
+        if (v == 0) break;
+        if (v < 0) {
             *(u32 *)&cb = 0x80404080;
-            sprintf(D_0048CE40, D_001FCB28);
+            sprintf(D_0048CE40, D_001FCB28, v);
         } else {
             *(u32 *)&cb = 0x80804040;
-            sprintf(D_0048CE40, D_001FCB30);
+            sprintf(D_0048CE40, D_001FCB30, v);
         }
         x = o->x38 + 10.0f;
         y = o->x3C;

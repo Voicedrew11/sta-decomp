@@ -13,13 +13,13 @@ void func_0015E180(Mtx *out, Vec *q) {
     x = v.x; y = v.y; z = v.z; w = v.w;
     m.m[0].x = 1.0f - 2.0f * (y * y + z * z);
     m.m[0].y = 2.0f * (x * y + z * w);
+    m.m[0].z = 2.0f * (x * z - y * w);
     m.m[1].x = 2.0f * (x * y - z * w);
     m.m[1].y = 1.0f - 2.0f * (x * x + z * z);
-    m.m[2].z = 1.0f - 2.0f * (x * x + y * y);
-    m.m[0].z = 2.0f * (x * z - y * w);
-    m.m[2].x = 2.0f * (x * z + y * w);
     m.m[1].z = 2.0f * (y * z + x * w);
+    m.m[2].x = 2.0f * (x * z + y * w);
     m.m[2].y = 2.0f * (y * z - x * w);
+    m.m[2].z = 1.0f - 2.0f * (x * x + y * y);
     m.m[0].w = 0.0f;
     m.m[1].w = 0.0f;
     m.m[2].w = 0.0f;

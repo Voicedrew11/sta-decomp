@@ -23,6 +23,7 @@ typedef struct {
     Vec x120;
     Vec x130;
 } E;
+typedef struct { u8 b[0x140]; } N;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F;
 extern s32 D_00201F2C;
 extern Vec D_003139A0;
@@ -44,7 +45,8 @@ void func_001A8700(Act *a, u8 idx) {
     u8 *nb;
     E *e;
     u8 *na;
-    u8 *p;
+    s32 off;
+    u8 pk;
     s32 sz;
     u8 *src;
     s32 k;
@@ -53,7 +55,7 @@ void func_001A8700(Act *a, u8 idx) {
     Vec *m2;
     Hdr *h;
     F *f;
-    s32 off;
+    u8 *p;
     Mtx m;
     Vec c;
     Vec r;
@@ -61,8 +63,8 @@ void func_001A8700(Act *a, u8 idx) {
     Vec t2;
     Vec t3;
 
-    k = a->x4B4[idx]->x2A;
     e = (E *)(a->x51C + idx * 0x170);
+    k = a->x4B4[idx]->x2A;
     h = **(Hdr ***)(a->x518 + 0xB0);
     sz = h->h6 * 0x140 + 0x200;
     na = (u8 *)((s32)h + 0x40) + D_00201F2C * sz;
@@ -72,10 +74,11 @@ void func_001A8700(Act *a, u8 idx) {
     if (!f->b6) {
     a->x520[a->x80] = idx;
     a->x80++;
-    p = na + k * 0x140 + 0x331;
     b = nb + off;
-    src = nb + *p * 0x140 + 0xC0;
+    p = &((N *)(na + 0x331))[k].b[0];
+    pk = *p;
     f->b6 = 1;
+    src = nb + pk * 0x140 + 0xC0;
     ((F *)(b + 0x1F8))->b6 = 1;
     sceVu0CopyMatrix(&m, src);
     sceVu0CopyVector(&e->xA0, &m.m[3]);

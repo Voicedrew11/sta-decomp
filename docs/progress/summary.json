@@ -3,59 +3,59 @@
   {
    "id": "game",
    "measures": {
-    "fuzzy_match_percent": 84.9828,
-    "matched_code": 673216,
-    "matched_code_percent": 84.3519,
-    "matched_functions": 2057,
-    "matched_functions_percent": 92.491,
+    "fuzzy_match_percent": 87.4497,
+    "matched_code": 692904,
+    "matched_code_percent": 86.8188,
+    "matched_functions": 2083,
+    "matched_functions_percent": 93.6601,
     "total_code": 798104,
-    "total_data": 2896076,
+    "total_data": 2896072,
     "total_functions": 2224,
-    "total_units": 2205
+    "total_units": 2212
    },
    "name": "Game"
   },
   {
    "id": "sce",
    "measures": {
-    "complete_code": 5680,
-    "complete_code_percent": 3.4889,
+    "complete_code": 7028,
+    "complete_code_percent": 4.317,
     "complete_data": 896,
-    "complete_data_percent": 1.6763,
-    "complete_units": 10,
-    "fuzzy_match_percent": 50.5792,
-    "matched_code": 80412,
-    "matched_code_percent": 49.3931,
-    "matched_data": 20653,
-    "matched_data_percent": 38.6384,
-    "matched_functions": 605,
-    "matched_functions_percent": 69.7809,
+    "complete_data_percent": 1.6776,
+    "complete_units": 15,
+    "fuzzy_match_percent": 83.4102,
+    "matched_code": 135760,
+    "matched_code_percent": 83.3907,
+    "matched_data": 23673,
+    "matched_data_percent": 44.324,
+    "matched_functions": 810,
+    "matched_functions_percent": 93.4256,
     "total_code": 162800,
-    "total_data": 53452,
+    "total_data": 53409,
     "total_functions": 867,
-    "total_units": 147
+    "total_units": 181
    },
    "name": "SDK and runtime libraries"
   }
  ],
  "generated": "2026-11-26",
  "measures": {
-  "complete_code": 5680,
-  "complete_code_percent": 0.5911,
+  "complete_code": 7028,
+  "complete_code_percent": 0.7314,
   "complete_data": 896,
   "complete_data_percent": 0.0304,
-  "complete_units": 10,
-  "fuzzy_match_percent": 79.154,
-  "matched_code": 753628,
-  "matched_code_percent": 78.4291,
-  "matched_data": 20653,
-  "matched_data_percent": 0.7002,
-  "matched_functions": 2662,
-  "matched_functions_percent": 86.121,
+  "complete_units": 15,
+  "fuzzy_match_percent": 86.7653,
+  "matched_code": 828664,
+  "matched_code_percent": 86.238,
+  "matched_data": 23673,
+  "matched_data_percent": 0.8026,
+  "matched_functions": 2893,
+  "matched_functions_percent": 93.5943,
   "total_code": 960904,
-  "total_data": 2949528,
+  "total_data": 2949481,
   "total_functions": 3091,
-  "total_units": 2352
+  "total_units": 2393
  },
  "units": [
   {
@@ -276,14 +276,14 @@
   },
   {
    "category": "sce",
-   "code_matched": 1800,
+   "code_matched": 2084,
    "code_total": 2084,
    "complete": false,
    "data_matched": 188,
    "data_total": 188,
-   "functions_matched": 16,
+   "functions_matched": 19,
    "functions_total": 19,
-   "fuzzy": 86.37,
+   "fuzzy": 100.0,
    "name": "sce/libdma/libdma"
   },
   {
@@ -540,27 +540,51 @@
   },
   {
    "category": "sce",
-   "code_matched": 2812,
+   "code_matched": 3312,
    "code_total": 3312,
    "complete": false,
    "data_matched": 48,
    "data_total": 48,
-   "functions_matched": 39,
+   "functions_matched": 45,
    "functions_total": 45,
-   "fuzzy": 84.9,
+   "fuzzy": 100.0,
    "name": "sce/libvu0/libvu0"
   },
   {
    "category": "sce",
    "code_matched": 0,
-   "code_total": 21408,
+   "code_total": 0,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
+   "data_total": 36,
    "functions_matched": 0,
-   "functions_total": 71,
-   "fuzzy": 0.0,
-   "name": "text_00103500"
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/bss_002025DC.bss"
+  },
+  {
+   "category": "sce",
+   "code_matched": 19404,
+   "code_total": 19492,
+   "complete": false,
+   "data_matched": 512,
+   "data_total": 1389,
+   "functions_matched": 64,
+   "functions_total": 66,
+   "fuzzy": 99.71,
+   "name": "sce/libmpeg/mpc"
+  },
+  {
+   "category": "sce",
+   "code_matched": 1916,
+   "code_total": 1916,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 21,
+   "functions_matched": 5,
+   "functions_total": 5,
+   "fuzzy": 100.0,
+   "name": "sce/libmpeg/csc"
   },
   {
    "category": "sce",
@@ -576,15 +600,39 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 9184,
+   "code_matched": 3580,
+   "code_total": 3580,
+   "complete": false,
+   "data_matched": 160,
+   "data_total": 229,
+   "functions_matched": 8,
+   "functions_total": 8,
+   "fuzzy": 100.0,
+   "name": "sce/libmpeg/pack"
+  },
+  {
+   "category": "sce",
+   "code_matched": 2820,
+   "code_total": 2820,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 62,
-   "fuzzy": 0.0,
-   "name": "text_00108B50"
+   "data_total": 164,
+   "functions_matched": 35,
+   "functions_total": 35,
+   "fuzzy": 100.0,
+   "name": "sce/libmpeg/mpeg"
+  },
+  {
+   "category": "sce",
+   "code_matched": 2784,
+   "code_total": 2784,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 325,
+   "functions_matched": 19,
+   "functions_total": 19,
+   "fuzzy": 100.0,
+   "name": "sce/libmpeg/init"
   },
   {
    "category": "sce",
@@ -615,12 +663,12 @@
    "code_matched": 0,
    "code_total": 0,
    "complete": false,
-   "data_matched": 0,
-   "data_total": 464,
+   "data_matched": 128,
+   "data_total": 128,
    "functions_matched": 0,
    "functions_total": 0,
    "fuzzy": 100.0,
-   "name": "data/data_001EDF30.data"
+   "name": "sce/libmpeg/var"
   },
   {
    "category": "sce",
@@ -684,30 +732,6 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 1308,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/rodata_001F8C74.rodata"
-  },
-  {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 548,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/bss_002025DC.bss"
-  },
-  {
-   "category": "sce",
    "code_matched": 852,
    "code_total": 852,
    "complete": false,
@@ -768,14 +792,14 @@
   },
   {
    "category": "sce",
-   "code_matched": 1652,
+   "code_matched": 1828,
    "code_total": 1828,
    "complete": false,
    "data_matched": 644,
    "data_total": 644,
-   "functions_matched": 15,
+   "functions_matched": 17,
    "functions_total": 17,
-   "fuzzy": 99.56,
+   "fuzzy": 100.0,
    "name": "sce/libkernl/sifcmd"
   },
   {
@@ -804,12 +828,12 @@
   },
   {
    "category": "sce",
-   "code_matched": 12944,
+   "code_matched": 13904,
    "code_total": 13904,
    "complete": false,
    "data_matched": 0,
    "data_total": 5309,
-   "functions_matched": 39,
+   "functions_matched": 40,
    "functions_total": 40,
    "fuzzy": 100.0,
    "name": "sce/libkernl/filestub"
@@ -876,14 +900,14 @@
   },
   {
    "category": "sce",
-   "code_matched": 784,
+   "code_matched": 1284,
    "code_total": 1284,
    "complete": false,
    "data_matched": 0,
    "data_total": 1737,
-   "functions_matched": 18,
+   "functions_matched": 19,
    "functions_total": 19,
-   "fuzzy": 99.97,
+   "fuzzy": 100.0,
    "name": "sce/libkernl/tlbfunc"
   },
   {
@@ -976,7 +1000,7 @@
    "code_total": 4952,
    "complete": false,
    "data_matched": 772,
-   "data_total": 1109,
+   "data_total": 1113,
    "functions_matched": 30,
    "functions_total": 30,
    "fuzzy": 100.0,
@@ -984,60 +1008,24 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 820,
    "code_total": 820,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 605,
+   "functions_matched": 4,
    "functions_total": 4,
-   "fuzzy": 0.0,
-   "name": "text_00116220"
-  },
-  {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 124,
-   "functions_matched": 0,
-   "functions_total": 0,
    "fuzzy": 100.0,
-   "name": "data/data_001EF884.data"
+   "name": "sce/libsdr/sdr"
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 44,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/rodata_001F961C.rodata"
-  },
-  {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 448,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/bss_00207C80.bss"
-  },
-  {
-   "category": "sce",
-   "code_matched": 4792,
+   "code_matched": 4952,
    "code_total": 4952,
    "complete": false,
    "data_matched": 7428,
    "data_total": 7857,
-   "functions_matched": 21,
+   "functions_matched": 22,
    "functions_total": 22,
    "fuzzy": 100.0,
    "name": "sce/libcdvd/cdvd000"
@@ -1092,12 +1080,12 @@
   },
   {
    "category": "sce",
-   "code_matched": 6044,
+   "code_matched": 6188,
    "code_total": 6188,
    "complete": false,
    "data_matched": 5656,
    "data_total": 5791,
-   "functions_matched": 27,
+   "functions_matched": 28,
    "functions_total": 28,
    "fuzzy": 100.0,
    "name": "sce/libmc/libmc"
@@ -1105,14 +1093,170 @@
   {
    "category": "sce",
    "code_matched": 0,
-   "code_total": 14328,
+   "code_total": 4712,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 13,
+   "functions_total": 2,
    "fuzzy": 0.0,
    "name": "text_001199A0"
+  },
+  {
+   "category": "sce",
+   "code_matched": 1060,
+   "code_total": 1060,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_acos"
+  },
+  {
+   "category": "sce",
+   "code_matched": 928,
+   "code_total": 928,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_asin"
+  },
+  {
+   "category": "sce",
+   "code_matched": 480,
+   "code_total": 480,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_atan2"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 768,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/data_001F1390.data"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 472,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001F9A08.rodata"
+  },
+  {
+   "category": "sce",
+   "code_matched": 596,
+   "code_total": 596,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 64,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_exp"
+  },
+  {
+   "category": "sce",
+   "code_matched": 2016,
+   "code_total": 2016,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 136,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_pow"
+  },
+  {
+   "category": "sce",
+   "code_matched": 944,
+   "code_total": 944,
+   "complete": false,
+   "data_matched": 960,
+   "data_total": 960,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/ef_rem_pio2"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 204,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 0,
+   "functions_total": 1,
+   "fuzzy": 0.0,
+   "name": "text_0011C3A0"
+  },
+  {
+   "category": "sce",
+   "code_matched": 336,
+   "code_total": 336,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/kf_cos"
+  },
+  {
+   "category": "sce",
+   "code_matched": 2148,
+   "code_total": 2148,
+   "complete": false,
+   "data_matched": 76,
+   "data_total": 76,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/kf_rem_pio2"
+  },
+  {
+   "category": "sce",
+   "code_matched": 260,
+   "code_total": 260,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/kf_sin"
+  },
+  {
+   "category": "sce",
+   "code_matched": 644,
+   "code_total": 644,
+   "complete": false,
+   "data_matched": 68,
+   "data_total": 68,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/kf_tan"
   },
   {
    "category": "sce",
@@ -1165,14 +1309,38 @@
   {
    "category": "sce",
    "code_matched": 0,
-   "code_total": 1136,
+   "code_total": 484,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_0011D2C0"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 52,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FA0FC.rodata"
+  },
+  {
+   "category": "sce",
+   "code_matched": 652,
+   "code_total": 652,
+   "complete": false,
+   "data_matched": 84,
+   "data_total": 84,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/sf_atan"
   },
   {
    "category": "sce",
@@ -1188,15 +1356,15 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 212,
    "code_total": 212,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0011D778"
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/sf_cos"
   },
   {
    "category": "sce",
@@ -1212,15 +1380,123 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 888,
+   "code_matched": 216,
+   "code_total": 216,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 10,
-   "fuzzy": 0.0,
-   "name": "text_0011D878"
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/sf_floor"
+  },
+  {
+   "category": "sce",
+   "code_matched": 200,
+   "code_total": 200,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/common/sf_scalbn"
+  },
+  {
+   "category": "sce",
+   "code_matched": 232,
+   "code_total": 232,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/sf_sin"
+  },
+  {
+   "category": "sce",
+   "code_matched": 120,
+   "code_total": 120,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/sf_tan"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/w_pow"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/wf_acos"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/wf_asin"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/wf_atan2"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/wf_exp"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libm/math/wf_pow"
   },
   {
    "category": "sce",
@@ -1236,15 +1512,75 @@
   },
   {
    "category": "sce",
+   "code_matched": 1684,
+   "code_total": 1684,
+   "complete": false,
+   "data_matched": 256,
+   "data_total": 256,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libgcc/_divdi3"
+  },
+  {
+   "category": "sce",
+   "code_matched": 1680,
+   "code_total": 1680,
+   "complete": false,
+   "data_matched": 256,
+   "data_total": 256,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libgcc/_moddi3"
+  },
+  {
+   "category": "sce",
+   "code_matched": 1404,
+   "code_total": 1404,
+   "complete": false,
+   "data_matched": 256,
+   "data_total": 256,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libgcc/_udivdi3"
+  },
+  {
+   "category": "sce",
+   "code_matched": 1384,
+   "code_total": 1384,
+   "complete": false,
+   "data_matched": 256,
+   "data_total": 256,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libgcc/_umoddi3"
+  },
+  {
+   "category": "sce",
    "code_matched": 0,
-   "code_total": 10444,
+   "code_total": 4272,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 26,
+   "functions_total": 21,
    "fuzzy": 0.0,
-   "name": "text_0011DC80"
+   "name": "text_0011F490"
+  },
+  {
+   "category": "sce",
+   "code_matched": 20,
+   "code_total": 20,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/abs"
   },
   {
    "category": "sce",
@@ -1260,15 +1596,15 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 52,
    "code_total": 52,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001205B0"
+   "fuzzy": 100.0,
+   "name": "sce/libc/string/bzero"
   },
   {
    "category": "sce",
@@ -1332,15 +1668,39 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 1104,
+   "code_matched": 172,
+   "code_total": 172,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 8,
-   "fuzzy": 0.0,
-   "name": "text_00121C28"
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/exit"
+  },
+  {
+   "category": "sce",
+   "code_matched": 276,
+   "code_total": 276,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdio/fflush"
+  },
+  {
+   "category": "sce",
+   "code_matched": 656,
+   "code_total": 656,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 6,
+   "functions_total": 6,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdio/findfp"
   },
   {
    "category": "sce",
@@ -1405,14 +1765,50 @@
   {
    "category": "sce",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 24,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FA588.rodata"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 257,
+   "data_total": 257,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "sce/libc/ctype/ctype_"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 108,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FA6A4.rodata"
+  },
+  {
+   "category": "sce",
+   "code_matched": 216,
    "code_total": 216,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 72,
+   "functions_matched": 4,
    "functions_total": 4,
-   "fuzzy": 0.0,
-   "name": "text_001229E8"
+   "fuzzy": 100.0,
+   "name": "sce/libc/locale/locale"
   },
   {
    "category": "sce",
@@ -1440,27 +1836,39 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 712,
+   "code_matched": 100,
+   "code_total": 100,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 4,
-   "fuzzy": 0.0,
-   "name": "text_00122C88"
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/malign"
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
+   "code_matched": 456,
+   "code_total": 456,
    "complete": false,
    "data_matched": 0,
-   "data_total": 768,
-   "functions_matched": 0,
-   "functions_total": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
    "fuzzy": 100.0,
-   "name": "data/data_001F1390.data"
+   "name": "sce/libc/stdlib/malignr"
+  },
+  {
+   "category": "sce",
+   "code_matched": 156,
+   "code_total": 156,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 2,
+   "functions_total": 2,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/malloc"
   },
   {
    "category": "sce",
@@ -1512,63 +1920,39 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 628,
-   "complete": false,
+   "code_matched": 176,
+   "code_total": 176,
+   "complete": true,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
-   "functions_total": 3,
-   "fuzzy": 0.0,
-   "name": "text_00123A88"
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "sce/libc/machine/r5900/memcpy"
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
+   "code_matched": 260,
+   "code_total": 260,
+   "complete": true,
    "data_matched": 0,
-   "data_total": 8,
-   "functions_matched": 0,
-   "functions_total": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
    "fuzzy": 100.0,
-   "name": "data/data_001F1AE8.data"
+   "name": "sce/libc/machine/r5900/memmove"
   },
   {
    "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
+   "code_matched": 192,
+   "code_total": 192,
+   "complete": true,
    "data_matched": 0,
-   "data_total": 2968,
-   "functions_matched": 0,
-   "functions_total": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
    "fuzzy": 100.0,
-   "name": "data/rodata_001F9A08.rodata"
-  },
-  {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 257,
-   "data_total": 257,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "sce/libc/ctype/ctype_"
-  },
-  {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 180,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/rodata_001FA6A4.rodata"
+   "name": "sce/libc/machine/r5900/memset"
   },
   {
    "category": "sce",
@@ -1584,15 +1968,27 @@
   },
   {
    "category": "sce",
+   "code_matched": 200,
+   "code_total": 200,
+   "complete": false,
+   "data_matched": 8,
+   "data_total": 8,
+   "functions_matched": 2,
+   "functions_total": 2,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/mlock"
+  },
+  {
+   "category": "sce",
    "code_matched": 0,
-   "code_total": 4292,
+   "code_total": 4092,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 19,
+   "functions_total": 17,
    "fuzzy": 0.0,
-   "name": "text_00124368"
+   "name": "text_00124438"
   },
   {
    "category": "sce",
@@ -1608,15 +2004,15 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 124,
    "code_total": 124,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 2,
    "functions_total": 2,
-   "fuzzy": 0.0,
-   "name": "text_00125520"
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdlib/rand"
   },
   {
    "category": "sce",
@@ -1704,15 +2100,15 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 276,
    "code_total": 276,
-   "complete": false,
+   "complete": true,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00125CE8"
+   "fuzzy": 100.0,
+   "name": "sce/libc/machine/r5900/strcpy"
   },
   {
    "category": "sce",
@@ -1740,15 +2136,15 @@
   },
   {
    "category": "sce",
-   "code_matched": 0,
+   "code_matched": 444,
    "code_total": 444,
-   "complete": false,
+   "complete": true,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001260F0"
+   "fuzzy": 100.0,
+   "name": "sce/libc/machine/r5900/strncpy"
   },
   {
    "category": "sce",
@@ -1777,14 +2173,26 @@
   {
    "category": "sce",
    "code_matched": 0,
-   "code_total": 6988,
+   "code_total": 6780,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 8,
+   "functions_total": 6,
    "fuzzy": 0.0,
    "name": "text_00126538"
+  },
+  {
+   "category": "sce",
+   "code_matched": 208,
+   "code_total": 208,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 2,
+   "functions_total": 2,
+   "fuzzy": 100.0,
+   "name": "sce/libc/stdio/vsnprintf"
   },
   {
    "category": "sce",
@@ -1883,28 +2291,16 @@
    "name": "game/func_001288C0"
   },
   {
-   "category": "sce",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 816,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/rodata_001FA7B8.rodata"
-  },
-  {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 680,
    "code_total": 680,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text"
+   "fuzzy": 100.0,
+   "name": "game/func_00128A60"
   },
   {
    "category": "game",
@@ -2061,6 +2457,18 @@
    "functions_total": 1,
    "fuzzy": 100.0,
    "name": "game/func_0012AB40"
+  },
+  {
+   "category": "sce",
+   "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 816,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FA7B8.rodata"
   },
   {
    "category": "game",
@@ -2605,6 +3013,18 @@
   {
    "category": "game",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 64,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FAB40.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 0,
    "code_total": 640,
    "complete": false,
    "data_matched": 0,
@@ -2612,7 +3032,7 @@
    "functions_matched": 0,
    "functions_total": 1,
    "fuzzy": 0.0,
-   "name": "text_0012E3C0"
+   "name": "text"
   },
   {
    "category": "game",
@@ -2673,18 +3093,6 @@
    "functions_total": 1,
    "fuzzy": 100.0,
    "name": "game/func_0012E8F0"
-  },
-  {
-   "category": "game",
-   "code_matched": 0,
-   "code_total": 0,
-   "complete": false,
-   "data_matched": 0,
-   "data_total": 64,
-   "functions_matched": 0,
-   "functions_total": 0,
-   "fuzzy": 100.0,
-   "name": "data/rodata_001FAB40.rodata"
   },
   {
    "category": "game",
@@ -3253,14 +3661,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 440,
+   "code_total": 148,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_001329D0"
+  },
+  {
+   "category": "game",
+   "code_matched": 292,
+   "code_total": 292,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_00132A70"
   },
   {
    "category": "game",
@@ -3456,15 +3876,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 748,
    "code_total": 748,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00136DB0"
+   "fuzzy": 100.0,
+   "name": "game/func_00136DB0"
   },
   {
    "category": "game",
@@ -5616,15 +6036,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 232,
    "code_total": 232,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0013F0C0"
+   "fuzzy": 100.0,
+   "name": "game/func_0013F0C0"
   },
   {
    "category": "game",
@@ -8292,15 +8712,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 476,
    "code_total": 476,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0014BC90"
+   "fuzzy": 100.0,
+   "name": "game/func_0014BC90"
   },
   {
    "category": "game",
@@ -8388,15 +8808,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 556,
    "code_total": 556,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0014C890"
+   "fuzzy": 100.0,
+   "name": "game/func_0014C890"
   },
   {
    "category": "game",
@@ -8808,15 +9228,27 @@
   },
   {
    "category": "game",
+   "code_matched": 1096,
+   "code_total": 1096,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0014E230"
+  },
+  {
+   "category": "game",
    "code_matched": 0,
-   "code_total": 2492,
+   "code_total": 1396,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
-   "name": "text_0014E230"
+   "name": "text_0014E680"
   },
   {
    "category": "game",
@@ -10513,14 +10945,26 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 736,
+   "code_total": 468,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_0015DFA0"
+  },
+  {
+   "category": "game",
+   "code_matched": 268,
+   "code_total": 268,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0015E180"
   },
   {
    "category": "game",
@@ -11628,15 +12072,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 620,
    "code_total": 620,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00167310"
+   "fuzzy": 100.0,
+   "name": "game/func_00167310"
   },
   {
    "category": "game",
@@ -12181,14 +12625,38 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 6936,
+   "code_total": 4208,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 5,
+   "functions_total": 3,
    "fuzzy": 0.0,
    "name": "text_0016BD00"
+  },
+  {
+   "category": "game",
+   "code_matched": 1528,
+   "code_total": 1528,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0016CD80"
+  },
+  {
+   "category": "game",
+   "code_matched": 1200,
+   "code_total": 1200,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 0,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/func_0016D380"
   },
   {
    "category": "game",
@@ -12252,15 +12720,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 784,
    "code_total": 784,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0016EF70"
+   "fuzzy": 100.0,
+   "name": "game/func_0016EF70"
   },
   {
    "category": "game",
@@ -12996,15 +13464,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 976,
    "code_total": 976,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00177BB0"
+   "fuzzy": 100.0,
+   "name": "game/func_00177BB0"
   },
   {
    "category": "game",
@@ -14436,15 +14904,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 428,
    "code_total": 428,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0017E5B0"
+   "fuzzy": 100.0,
+   "name": "game/func_0017E5B0"
   },
   {
    "category": "game",
@@ -14472,15 +14940,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 480,
    "code_total": 480,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_0017EAF0"
+   "fuzzy": 100.0,
+   "name": "game/func_0017EAF0"
   },
   {
    "category": "game",
@@ -14832,15 +15300,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 596,
    "code_total": 596,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00181420"
+   "fuzzy": 100.0,
+   "name": "game/func_00181420"
   },
   {
    "category": "game",
@@ -15192,15 +15660,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1008,
    "code_total": 1008,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00185740"
+   "fuzzy": 100.0,
+   "name": "game/func_00185740"
   },
   {
    "category": "game",
@@ -15660,15 +16128,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 908,
    "code_total": 908,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_00189740"
+   "fuzzy": 100.0,
+   "name": "game/func_00189740"
   },
   {
    "category": "game",
@@ -19260,15 +19728,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1032,
    "code_total": 1032,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001A8700"
+   "fuzzy": 100.0,
+   "name": "game/func_001A8700"
   },
   {
    "category": "game",
@@ -20064,15 +20532,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 288,
    "code_total": 288,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001ACD90"
+   "fuzzy": 100.0,
+   "name": "game/func_001ACD90"
   },
   {
    "category": "game",
@@ -20364,15 +20832,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 668,
    "code_total": 668,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001AF4A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001AF4A0"
   },
   {
    "category": "game",
@@ -20748,15 +21216,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 232,
    "code_total": 232,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001B17E0"
+   "fuzzy": 100.0,
+   "name": "game/func_001B17E0"
   },
   {
    "category": "game",
@@ -21036,15 +21504,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 1872,
    "code_total": 1872,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001B43A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001B43A0"
   },
   {
    "category": "game",
@@ -22212,15 +22680,15 @@
   },
   {
    "category": "game",
-   "code_matched": 0,
+   "code_matched": 432,
    "code_total": 432,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
-   "functions_matched": 0,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001C55A0"
+   "fuzzy": 100.0,
+   "name": "game/func_001C55A0"
   },
   {
    "category": "game",
@@ -23965,14 +24433,26 @@
   {
    "category": "game",
    "code_matched": 0,
+   "code_total": 0,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 60,
+   "functions_matched": 0,
+   "functions_total": 0,
+   "fuzzy": 100.0,
+   "name": "data/rodata_001FDE04.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 236,
    "code_total": 236,
    "complete": false,
    "data_matched": 0,
-   "data_total": 0,
-   "functions_matched": 0,
+   "data_total": 24,
+   "functions_matched": 1,
    "functions_total": 1,
-   "fuzzy": 0.0,
-   "name": "text_001D3BF0"
+   "fuzzy": 100.0,
+   "name": "game/ee/func_001D3BF0"
   },
   {
    "category": "game",
@@ -24025,12 +24505,12 @@
   {
    "category": "game",
    "code_matched": 0,
-   "code_total": 4360,
+   "code_total": 2308,
    "complete": false,
    "data_matched": 0,
    "data_total": 0,
    "functions_matched": 0,
-   "functions_total": 2,
+   "functions_total": 1,
    "fuzzy": 0.0,
    "name": "text_001D4170"
   },
@@ -24040,11 +24520,23 @@
    "code_total": 0,
    "complete": false,
    "data_matched": 0,
-   "data_total": 924,
+   "data_total": 424,
    "functions_matched": 0,
    "functions_total": 0,
    "fuzzy": 100.0,
-   "name": "data/rodata_001FDE04.rodata"
+   "name": "data/rodata_001FDE58.rodata"
+  },
+  {
+   "category": "game",
+   "code_matched": 2052,
+   "code_total": 2052,
+   "complete": false,
+   "data_matched": 0,
+   "data_total": 412,
+   "functions_matched": 1,
+   "functions_total": 1,
+   "fuzzy": 100.0,
+   "name": "game/ee/func_001D4A78"
   },
   {
    "category": "game",

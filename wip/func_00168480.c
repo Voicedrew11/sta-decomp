@@ -1,3 +1,7 @@
+/* NEAR: 67 of 368 words differ (was 75). Change: a1 -= a0 moved into the then-block.
+   Remaining: (1) retail does sub.s f0,f20,f21 (fresh temp) in the bc1f delay slot of if (0.0f < f) and the else (g = 1.0f) gets its own lui + pad nop;
+   (2) if (fl) f = 200.0f: retail has no pad nop before the swc1 at the skip target, and the following tag constant setup is scheduled differently
+   (a ternary fixes the following schedule but adds b + extra mtc1, 370 words). */
 #include "actor.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q;
 typedef struct {
@@ -112,8 +116,8 @@ void func_00168480(E *e, Sub *sub, M *m, S *s) {
             }
             f = (func_00146940(ap, &t) - lo) / (hi - lo);
             if (1.0f < f) f = 1.0f;
-            a1 -= a0;
             if (0.0f < f) {
+                a1 -= a0;
                 g = 1.0f - (a0 + f * a1);
             } else {
                 g = 1.0f;
@@ -161,3 +165,5 @@ void func_00168480(E *e, Sub *sub, M *m, S *s) {
     }
     func_00145790();
 }
+
+

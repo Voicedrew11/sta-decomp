@@ -12,6 +12,7 @@ typedef struct {
     u8 x1D8;
 } Chr;
 typedef struct { s32 p0; s32 p4; s32 id; s32 pC; s32 key; s32 p14; f32 x18; } Arg;
+void func_00167290(s32, f32, Chr *, s32);
 extern s32 D_00201E80;
 static inline s32 ok(Chr **p) {
     s32 r;
@@ -46,21 +47,16 @@ static inline s32 lookup(Chr *c, s32 key) {
     return -1;
 }
 
-f32 *func_00165130(Arg *, s32);
-f32 func_00167260(s32);
-void func_0017EAF0(Arg *a) {
+void func_0017E5B0(Arg *a) {
+    f32 fl = a->x18;
     s32 id = a->id;
     s32 key = a->key;
-    f32 *out = func_00165130(a, 2);
     Chr *t = find(id);
-    Chr *c = find(id);
-    s32 idx = lookup(c, key);
+    s32 idx = lookup(find(id), key);
 
-    if (t == 0) {
-        *out = -1.0f;
-    } else if (idx == -1) {
-        *out = -1.0f;
-    } else {
-        *out = func_00167260(t->x190[idx * 2]);
+    if (t != 0 && idx != -1) {
+        func_00167290(t->x190[idx * 2], fl, t, key);
     }
 }
+
+

@@ -1,10 +1,11 @@
-#include "m2c.h"
+#include "common.h"
 typedef struct { s32 n; u8 *p; } Hdr;
 typedef struct { s32 n; u8 *p; } Ent;
 typedef struct { Hdr *x[16]; Ent e[64]; u8 **a; s32 pad; u32 n; } Tbl;
 extern s32 *D_002020DC;
 void func_00159DD0(s32, s32 *, u8 ***, s32 *);
 
+static inline u8 *hdr2(Tbl *t, u32 j, u8 *p) { u8 *q; t->x[j] = (Hdr *)p; q = p + 0x10; t->x[j]->p = q; return q + t->x[j]->n * 0x40; }
 void func_00189740(Tbl *t, u64 key) {
     s32 b;
     u8 **a;
@@ -25,7 +26,7 @@ void func_00189740(Tbl *t, u64 key) {
     m = *(u32 *)p;
     p += 0x10;
     for (j = 0; j < m; j++) {
-{ t->x[j] = (Hdr *)p; p += 0x10; t->x[j]->p = p; p += t->x[j]->n * 0x40; }
+p = hdr2(t, j, p);
     }
     t->n = m;
     t->a = a;

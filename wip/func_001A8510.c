@@ -1,3 +1,6 @@
+/* NEAR 23/88 (unchanged from prev). Only temp-register naming in the first ~25 insns differs: retail D_00201F2C->t1, off->t0, !D->a2, tbl elem->a2, h**->a3;
+ * ours swaps t0/t1 and a2/a3. Tried: all 720 decl orders of explicit locals (dd,nd,sz,off,h,d), statement order perms, b38, u32 D, D==0,
+ * typed x518 struct, inline buf()/ent() helpers, s32 param with masks, mult operand order. None moved it. */
 #include "m2c.h"
 typedef struct { u16 a, b, c, n; u8 pad[0x38]; s8 data[1]; } Hd;
 typedef struct { u8 a:6; u8 en:1; u8 b:1; } Fl;

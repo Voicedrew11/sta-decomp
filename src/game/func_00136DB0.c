@@ -14,6 +14,11 @@ void func_0015E730(Vec *, Vec *, Vec *, f32);
 float sqrtf(float);
 extern QV D_001F1C80;
 
+static inline void rot(Vec *o, Vec *a, Vec *v, f32 c, f32 s, f32 t) {
+    o->x = v->x * (c + t * (a->x * a->x)) + v->y * (t * (a->y * a->x) - a->z * s) + v->z * (t * (a->z * a->x) + a->y * s);
+    o->y = v->x * (t * (a->y * a->x) + a->z * s) + v->y * (c + t * (a->y * a->y)) + v->z * (t * (a->z * a->y) - a->x * s);
+    o->z = v->x * (t * (a->z * a->x) - a->y * s) + v->y * (t * (a->z * a->y) + a->x * s) + v->z * (c + t * (a->z * a->z));
+}
 void func_00136DB0(s8 *a0, Vec *mat) {
     Vec e;
     QV up;
@@ -21,8 +26,6 @@ void func_00136DB0(s8 *a0, Vec *mat) {
     Vec t80;
     Vec t70;
     f32 d;
-    f32 c, s, t;
-    f32 xx, yy, zz, xy, yz, zx, xs, ys, zs; f32 x, y, z;
     f32 r;
     up = D_001F1C80;
     sceVu0SubVector(&m[2], &mat[3], func_00145770());
@@ -38,10 +41,7 @@ void func_00136DB0(s8 *a0, Vec *mat) {
     if (d < 0.5f) {
         sceVu0OuterProduct(&t70, &e, &m[2]);
         sceVu0Normalize(&t70, &t70);
-        x = t70.x; y = t70.y; z = t70.z;
-        m[2].x = e.x * (0.5f + 0.5f * (x * x)) + e.y * (0.5f * (y * x) - z * 0.8660254f) + e.z * (y * 0.8660254f + 0.5f * (z * x));
-        m[2].y = e.x * (z * 0.8660254f + 0.5f * (y * x)) + e.y * (0.5f + 0.5f * (y * y)) + e.z * (0.5f * (z * y) - x * 0.8660254f);
-        m[2].z = e.x * (0.5f * (z * x) - y * 0.8660254f) + e.y * (x * 0.8660254f + 0.5f * (z * y)) + e.z * (0.5f + 0.5f * (z * z));
+        rot(&m[2], &t70, &e, 0.5f, 0.8660254f, 0.5f);
         sceVu0Normalize(&m[2], &m[2]);
     }
     sceVu0OuterProduct(&m[0], &up.v, &m[2]);

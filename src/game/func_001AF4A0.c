@@ -26,13 +26,11 @@ void func_00167030(s32);
 void func_001745D0(s32, s8 *);
 
 void func_001AF4A0(O *o) {
-    s32 i;
     s32 t;
     s32 k;
-    O * volatile *p;
-    volatile s16 *np;
 
-    if (o != 0 && o->m9C != -1) {
+    if (o == 0) return;
+    if (o->m9C == -1) return;
     if (o == D_00202288) {
         D_0020228C = 1;
     }
@@ -43,9 +41,9 @@ void func_001AF4A0(O *o) {
         if (o->mBC != 0) {
             func_00167030(o->mBC);
         }
-        for (i = 0; i < 4; i++) {
-            if (o->mC0[i / 2][i % 2] != 0) {
-                func_00167030(o->mC0[i / 2][i % 2]);
+        for (k = 0; k < 4; k++) {
+            if (o->mC0[k / 2][k % 2] != 0) {
+                func_00167030(o->mC0[k / 2][k % 2]);
             }
         }
         func_001745D0(D_002022A0, o->m84);
@@ -65,21 +63,17 @@ void func_001AF4A0(O *o) {
         o->m9E = 1;
         for (t = 0; t < 2; t++) {
             for (k = 0; k < D_004AC5A0.n[t]; k++) {
-                if (D_004AC5A0.list[t][k] == o) {
-                    break;
-                }
+                if (D_004AC5A0.list[t][k] == o) break;
             }
-            if (k < D_004AC5A0.n[t]) {
-                p = &D_004AC5A0.list[t][k];
-                np = &D_004AC5A0.n[t];
-                while (k < *np - 1) {
-                    p[0] = p[1];
-                    k++;
-                    p++;
-                }
-                D_004AC5A0.n[t]--;
-                break;
-            }
+            if (k >= D_004AC5A0.n[t]) continue;
+            goto cond;
+        body:
+            D_004AC5A0.list[t][k] = D_004AC5A0.list[t][k + 1];
+            k++;
+        cond:
+            if (k < D_004AC5A0.n[t] - 1) goto body;
+            D_004AC5A0.n[t]--;
+            break;
         }
         break;
     case 2:
@@ -91,5 +85,4 @@ void func_001AF4A0(O *o) {
     o->mB4 = 1.0f;
     o->mAE = -1;
     o->mA7 = -1;
-    }
 }

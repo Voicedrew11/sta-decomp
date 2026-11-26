@@ -1,4 +1,7 @@
-/* round 3 near-miss: ee-gcc memcard save machine, 2 words short; cases 1/2/5/19 differ */
+/* NEAR (ee-gcc): 519 of 577 positional, built 571 vs 577; difflib full-instruction mismatch 187 (prev 194, incl. reloc noise).
+   Changed: case 1 stores call results straight into t->x90 / t->err (no copy reg); case 2 without the e local.
+   Still differs: case 2 success path is cross-jumped (retail keeps retry=0;state++ inline and rebuilds &t for the x88 store),
+   cases 5 and 19 register/scheduling, retail movz vs our movn near the end. */
 #include "common.h"
 typedef struct {
     s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8];
@@ -56,22 +59,18 @@ s32 func_001D4170(void)
         D_004B6388[0] = 0;
         break;
     case 1:
-        e = func_001D3BF0(port, slot, &t->type[port * 4 + slot], &t->free[port * 4 + slot], &t->format[port * 4 + slot], t->x90);
-        t->x90 = e;
-        if (e > 0) break;
-        e = func_001D3CE0(e);
-        t->err = e;
-        if (e != 0) {
+        t->x90 = func_001D3BF0(port, slot, &t->type[port * 4 + slot], &t->free[port * 4 + slot], &t->format[port * 4 + slot], t->x90);
+        if (t->x90 > 0) break;
+        t->err = func_001D3CE0(t->x90);
+        if (t->err != 0) {
             t->x88 = 0;
             return -1;
         }
         t->state++;
         break;
     case 2:
-        e = 3;
         if (t->type[port * 4 + slot] != 2) {
-            e = 1;
-            t->err = e;
+            t->err = 1;
             t->x88 = 0;
             return -4;
         }

@@ -40,8 +40,7 @@ typedef struct {
     u8 pad15C[0x20];
     S *x17C;
 } O;
-extern s32 D_00201E80;
-#define GX ((O ***)&D_00201E80)
+extern O **D_00201E88[2];
 u32 func_001AA1E0(s32, s16);
 void func_001C9410(Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
@@ -62,10 +61,9 @@ static inline s32 inr(E *e, O *o, u16 *r) {
     Vec cam;
     volatile f32 h;
     f32 d;
+    s32 k;
     func_001C9410(&cam);
-    pos.x = e->x;
-    pos.y = e->y;
-    pos.z = e->z;
+    for (k = 0; k < 3; k++) (&pos.x)[k] = (&e->x)[k];
     pos.w = 1.0f;
     sceVu0AddVector(&pos, &pos, &o->x10);
     h = fabsf(pos.y - cam.y);
@@ -92,13 +90,12 @@ void func_001B43A0(O *o) {
     A *a;
     u32 m2;
     u32 j2;
-    s32 i2;
     S *s2;
     u32 *w2;
 
     idx = -1;
-    if (GX[2] && *GX[2] == o) idx = 0;
-    if (GX[3] && *GX[3] == o) idx = 1;
+    if (D_00201E88[0] && *D_00201E88[0] == o) idx = 0;
+    if (D_00201E88[1] && *D_00201E88[1] == o) idx = 1;
     for (i = 0; i < o->x70; i++) {
         e = &o->x13C[i];
         s = &o->x17C[i];
@@ -110,14 +107,14 @@ void func_001B43A0(O *o) {
             if (!(*w & mask) && inr(e, o, &e->x1E)) {
                 s->x4 = func_0015C9E0();
                 s->x0 = func_001A7D90(e->x18);
-                func_001A6FF0(*s->x0, (GX + 2)[idx], i);
+                func_001A6FF0(*s->x0, D_00201E88[idx], i);
                 *w |= mask;
             }
         }
     }
-    for (i2 = 0; i2 < o->x70; i2++) {
-        e2 = &o->x13C[i2];
-        s2 = &o->x17C[i2];
+    for (i = 0; i < o->x70; i++) {
+        e2 = &o->x13C[i];
+        s2 = &o->x17C[i];
         k = e2->x1A % 100;
         j2 = k >> 5;
         m2 = 1 << (k & 31);

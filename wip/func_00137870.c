@@ -1,3 +1,7 @@
+/* NEAR: still 380 vs 378 words (positional 284); difflib-aligned diff 58 (prev 63, float decl order f,r,rr,dd fixed most f-regs).
+ * Remaining: retail spills the OUTER counter i to 0xC0 (sb/lbu) and keeps inner k in s3; we spill k and keep i in fp.
+ * Retail also homes out (a2) at 0xD0 leaving 0xD4 empty (we use 0xD4) - something else owns a slot there. f/dd f22/f23 still swapped.
+ * u8 decl order (all 120) has no effect; volatile i, separate counter for the else loop, block-scoped k, u8/s32 steps don't help. */
 #include "common.h"
 u8 func_0013FC00(s8 *);
 s32 func_0013FB90(s8 *, u8, Vec **, Vec **);
@@ -32,9 +36,9 @@ s32 func_00137870(s8 *a, s8 *b, Vec *out) {
     u32 steps;
     f32 len;
     f32 t;
+    f32 f;
     f32 r;
     f32 rr;
-    f32 f;
     f32 dd;
 
     na = func_0013FC00(a);

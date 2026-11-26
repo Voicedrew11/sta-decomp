@@ -1,3 +1,5 @@
+/* NEAR: 3 of 372 words differ (was 176). Only case 0x12E: index temp n*9 built in $a0 instead of $a2
+   (sll a2,s3,3; addu a2,a2,s3; sll v1,a2,4). Tried e[n], e+=n, (s16)n, k, inline helpers, casts, proto types, b38. */
 #include "m2c.h"
 typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef union { u32 w; u8 b[4]; } Col;
@@ -19,16 +21,16 @@ void strcpy(s8 *, s8 *);
 void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 void func_00183650(H *);
 E *func_001AFC90(void);
-s32 func_001AFBD0(s16);
+s32 func_001AFBD0(s32);
 double fptodp(f32);
 
 static inline f32 u2f(u32 x) { return x; }
 
-void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
+void func_001973F0(s8 *o, s32 sel, u32 id, s32 n) {
+    s32 k = (s16)n;
     S t __attribute__((aligned(16))) = D_001F2F60[0];
     s8 buf[0x100] = {0};
     Col col;
-    s32 k = n;
     Q *q;
     E *e;
     E *r;
@@ -66,9 +68,9 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
         break;
     case 0x12D:
         q = &func_00189020(0)->x5C[sel + 15];
-        t.m[3] = 1.0f;
         col.w = 0x30808080;
         t.m[0] = 1.1f;
+        t.m[3] = 1.0f;
         t.x = *(f32 *)(o + 0x38) - 5.0f;
         t.y = *(f32 *)(o + 0x3C) - 4.0f;
         func_00181680(q->x4, q->x10, q->x20, &col, &t, id);
@@ -80,9 +82,9 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
         case 0x2711:
             D_004A13F0.x2C = *(f32 *)(o + 0x38);
             D_004A13F0.x30 = *(f32 *)(o + 0x3C);
-            D_004A13F0.x3C = 0x80FFFFFF;
             D_004A13F0.x14 = 1.25f;
             D_004A13F0.x18 = 1.25f;
+            D_004A13F0.x3C = 0x80FFFFFF;
             func_00183650(&D_004A13F0);
             break;
         }
@@ -92,13 +94,16 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
         case 0x12F:
             if (n > 0) {
                 e = func_001AFC90() + n;
-                if (func_001AFBD0(k) == 0) {
+                if (func_001AFBD0((s16)k) == 0) {
                     strcpy(buf, D_001FD370);
-                } else if (func_001AFBD0(k) == 1) {
-                    r = func_001AFC90() + k;
+                } else if (func_001AFBD0((s16)k) == 1) {
+                    r = func_001AFC90() + (s16)k;
                     sprintf(buf, D_001FD378, r->x3C);
-                    if (r->x20 == 6 || r->x20 == 5) {
+                    switch (r->x20) {
+                    case 5:
+                    case 6:
                         strcpy(buf, D_001FD370);
+                        break;
                     }
                 } else {
                     sprintf(buf, D_001FD378, e->x3C);
@@ -115,9 +120,9 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
         switch (id) {
         case 0x12E:
             if (n > 0) {
-                e = func_001AFC90();
+                e = func_001AFC90() + n;
                 col.w = 0x80808080;
-                sprintf(buf, D_001FD380, fptodp(u2f(e[n].x4) / 10.0f));
+                sprintf(buf, D_001FD380, fptodp(u2f(e->x4) / 10.0f));
                 func_001875C0(*(f32 *)(o + 0x38) - 20.0f, *(f32 *)(o + 0x3C) - 4.0f, 0.9f, buf, 2, col.w);
             } else {
                 col.w = 0x80808080;

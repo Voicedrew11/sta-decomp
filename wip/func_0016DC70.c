@@ -1,3 +1,5 @@
+/* NEAR: 27 of 151 words differ (was 36). Remaining diff is pure saved-reg allocation: target s4=p, s3=&q.w[1] (CSE temp), s2=idx then &q.w[3], s1=a0 then e, s0=b. Here o/bb/idx are void*-param copies; the CSE'd &q.w[1]/&q.w[3] temps still get lower s-regs than o/bb. Explicit u32 *w1/*w3 pointer locals add 3 instructions. */
+// ---
 #include "m2c.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
@@ -12,14 +14,15 @@ extern f32 D_001F2110[];
 Q *func_00154A80(s32);
 void func_00154A70(void);
 void sceVu0CopyVector(f32 *, f32 *);
-void func_0016DC70(Obj *a0, s32 a1, Base *b, s32 idx, C c0) {
+void func_0016DC70(void *a0, s32 a1, void *b, s32 idx0, C c0) {
+    s32 idx = idx0;
+    s8 *e;
+    Q *p;
     Obj *o = a0;
     Base *bb = b;
     C c;
     Q q;
     Q q2;
-    Q *p;
-    s8 *e;
     u8 n;
     u32 x;
     s32 m;

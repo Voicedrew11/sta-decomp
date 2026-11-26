@@ -8,7 +8,7 @@ typedef struct { u8 pad[8]; u16 mode; } Arg;
 typedef struct { f32 x, y, z; } Vec;
 extern Obj *D_002022E4;
 void func_001D1E80(s32, s32, Arg *, s32, s32);
-s32 func_001D1F20(s32, s8 *, s32, s32, Arg *, s32);
+s32 func_001D1F20(s32, s8 *, s32, s32, Arg *, s32, s32);
 void func_00167600(s32, Obj *);
 void func_0013B950(s32, s32, s32, Arg *, s32, s32);
 void sceVu0CopyVector(void *, void *);
@@ -20,23 +20,22 @@ static inline Sub *getsub(void) {
     return (Sub *)(o->x518 + 0x180);
 }
 void func_001C55A0(s32 a0, s32 a1, s32 a2, Arg *a3, s32 a4, s32 a5) {
-    s32 q = q;
     Sub *s = getsub();
     s32 v;
     Vec pos;
     if (s != NULL) {
         switch (a3->mode) {
         case 0:
-            if (q != 0) func_001D1E80(a0, a2, a3, a4, q);
+            if (a5 != 0) func_001D1E80(a0, a2, a3, a4, a5);
             break;
         case 1:
-            if (q != 0) {
-                v = func_001D1F20(a0, (s8 *)D_002022E4 + 0x580, a1, a2, a3, a4);
+            if (a5 != 0) {
+                v = func_001D1F20(a0, (s8 *)D_002022E4 + 0x580, a1, a2, a3, a4, a5);
                 if (v != 0) func_00167600(v, D_002022E4);
             }
             break;
         case 2:
-            func_0013B950(a0, a1, a2, a3, a4, q);
+            func_0013B950(a0, a1, a2, a3, a4, a5);
             if (s->x39C != 0) {
                 Sub *p = getsub();
                 if (p != NULL) sceVu0CopyVector(&pos, (s8 *)p + 0x40);
@@ -50,3 +49,4 @@ void func_001C55A0(s32 a0, s32 a1, s32 a2, Arg *a3, s32 a4, s32 a5) {
         }
     }
 }
+

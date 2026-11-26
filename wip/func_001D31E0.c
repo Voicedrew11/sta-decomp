@@ -1,3 +1,7 @@
+/* func_001D31E0 NEAR: 35 of 393 words differ (was 48). Fixed getB/getE addu order with (u32)((u8 *)(n4*20) + (s32)h)
+   and the run-loop add tree (bit*16 + n4*20 + n5*4 + n6*12 + h). Still differs: loop getH addu base/idx order (1 word),
+   and in both run() copies the constant 4 of (b1?4:0) is hoisted to the top in a3 (retail: li v0,4 after the getH load,
+   h lands in t0); pi/pb load order in the run copies. */
 #include "common.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
 typedef struct { u8 pad[4]; u8 n4; u8 n5; u8 n6; B8 f7; } H;
@@ -21,21 +25,24 @@ f32 sqrtf(f32);
 static inline H *getH(s8 **pb, u16 *pi) {
     return ((H **)(*pb + 0x210))[*pi];
 }
+static inline H *getHR(s8 **pb, u16 *pi) {
+    return *(H **)(*pi * 4 + *pb + 0x210);
+}
 static inline B *getB(H *h) {
-    return (B *)(h->n6 * 12 + (h->n5 * 4 + ((u32)h + h->n4 * 20)) + 0x108);
+    return (B *)(h->n6 * 12 + (h->n5 * 4 + (u32)((u8 *)(h->n4 * 20) + (s32)h)) + 0x108);
 }
 static inline E *getE(H *h) {
-    return (E *)((h->f7.b1 ? 4 : 0) * 16 + (h->n6 * 12 + (h->n5 * 4 + ((u32)h + h->n4 * 20))) + 0x108);
+    return (E *)((h->f7.b1 ? 4 : 0) * 16 + (h->n6 * 12 + (h->n5 * 4 + (u32)((u8 *)(h->n4 * 20) + (s32)h))) + 0x108);
 }
 
 static inline E *getE2(H *h) {
-    return (E *)((h->f7.b1 ? 4 : 0) * 16 + h->n5 * 4 + h->n4 * 20 + h->n6 * 12 + (u32)h + 0x108);
+    return (E *)((h->f7.b1 ? 4 : 0) * 16 + h->n4 * 20 + h->n5 * 4 + h->n6 * 12 + (u32)h + 0x108);
 }
 static inline void run(s8 *a0, A1 *a1, s8 **pb, u16 *pi, s32 id, s32 i) {
     s32 j;
     E *e;
     Mtx M;
-    e = getE2(getH(pb, pi));
+    e = getE2(getHR(pb, pi));
     for (j = 0; j < 4; j++, e++) {
         if (e->x2 == i) {
             func_00163C80(a0, &M);
@@ -119,3 +126,4 @@ s32 func_001D31E0(s8 *a0, A1 *a1) {
     }
     return r;
 }
+

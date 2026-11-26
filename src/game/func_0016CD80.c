@@ -60,6 +60,7 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
     s8 *hb;
     J *jt;
     s32 res;
+    s8 *q;
     u32 hdr;
     u8 on;
     s8 *ji;
@@ -67,7 +68,6 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
     u32 i;
     u8 k;
     s32 r;
-    s8 *q;
     Hd *h;
     s8 *p;
 
@@ -119,12 +119,12 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
                 if (i == 0 && on) continue;
                 r = res;
                 k = i;
-                ji = (s8 *)k2 + (k + 1) * 0x140;
-                q = base + ents[k].x4;
                 p = base + ents[k].x0;
+                q = base + ents[k].x4;
+                ji = (s8 *)k2 + (k + 1) * 0x140;
                 hdr = *(u16 *)p;
-                if (((J *)(ji + 0xC0))->f3) continue;
                 h = (Hd *)p;
+                if (((J *)(ji + 0xC0))->f3) continue;
                 if (((J *)(ji + 0xC0))->f5) continue;
                 p += 0x10;
                 if (h->xF & 1) {
@@ -158,3 +158,7 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
         }
     }
 }
+
+
+
+

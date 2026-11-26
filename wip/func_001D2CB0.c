@@ -1,3 +1,5 @@
+// NEAR: 18 of 330 words differ (was 45). Remaining: 2nd-loop rec index addu operand order (addu v0,a2,v0),
+// final rand-compare bc1t threads straight to loop exit (retail lands on a b), last-block q address computation scheduling (retail loads x7,x5,x4,x6).
 #include "common.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
 typedef struct { u8 pad0[4]; u8 x4; u8 x5; u8 x6; B8 x7; } Rec;
@@ -33,16 +35,16 @@ s32 func_001D2CB0(O *o, A1 *a, s32 a2, Vec *pos, s32 mode) {
     Rec *rec;
     s32 k;
     s32 j;
-    u8 m;
-    s32 mask;
     s32 i;
     s32 any;
+    u8 m;
+    s32 mask;
 
     res = 0;
     rec = ((Rec **)(*(s8 **)((s32)o + 0x90) + 0x210))[*(u16 *)((s32)o + 0x94)];
-    e = (Ent *)(rec->x6 * 12 + (rec->x5 * 4 + ((s32)rec + rec->x4 * 20)) + 0x108);
-    mask = 0;
+    e = (Ent *)(rec->x6 * 12 + (rec->x5 * 4 + ((s32)((u8 *)(rec->x4 * 20) + (s32)rec))) + 0x108);
     any = 0;
+    mask = 0;
     if (a->x0 == 0) {
         mask |= 1;
     } else {
@@ -77,7 +79,7 @@ s32 func_001D2CB0(O *o, A1 *a, s32 a2, Vec *pos, s32 mode) {
         for (j2 = 0; j2 < 4; j2++, p2++) {
             if (*p2) {
                 r2 = ((Rec **)(*(s8 **)((s32)o + 0x90) + 0x210))[*(u16 *)((s32)o + 0x94)];
-                q2 = (E2 *)((r2->x7.b1 ? 4 : 0) * 16 + (r2->x6 * 12 + (r2->x5 * 4 + ((s32)r2 + r2->x4 * 20))) + 0x108);
+                q2 = (E2 *)((r2->x7.b1 ? 4 : 0) * 16 + (r2->x6 * 12 + (r2->x5 * 4 + ((s32)((u8 *)(r2->x4 * 20) + (s32)r2)))) + 0x108);
                 func_00163C80(o, &M);
                 sceVu0CopyVector(&M.m[3], pos);
                 M.m[3].w = 1.0f;
@@ -100,7 +102,7 @@ s32 func_001D2CB0(O *o, A1 *a, s32 a2, Vec *pos, s32 mode) {
             }
         }
         rec = ((Rec **)(*(s8 **)((s32)o + 0x90) + 0x210))[*(u16 *)((s32)o + 0x94)];
-        q = (E2 *)((rec->x7.b1 ? 4 : 0) * 16 + (rec->x6 * 12 + (rec->x5 * 4 + ((s32)rec + rec->x4 * 20))) + 0x108);
+        q = (E2 *)((s32)rec + rec->x6 * 12 + rec->x4 * 20 + rec->x5 * 4 + (rec->x7.b1 ? 4 : 0) * 16 + 0x108);
         func_00163C80(o, &M2);
         sceVu0CopyVector(&M2.m[3], pos);
         M2.m[3].w = 1.0f;

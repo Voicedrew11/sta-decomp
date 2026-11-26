@@ -1,10 +1,11 @@
+// mwcc=mwcps2-3.0b38-030307
 #include "m2c.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q;
 extern s32 D_0020206C;
 extern s32 D_00201CD4;
 extern s32 D_00201F3C;
 extern Q D_0048C4B0[];
-void func_00176BC0(void);
+void func_00176BC0(s32);
 s32 func_00154A80(s32);
 void func_001549D0(void);
 void func_00181420(void) {
@@ -13,7 +14,7 @@ void func_00181420(void) {
     u32 i;
 
     if (D_0020206C > 0) {
-        if (D_00201CD4 != 0) func_00176BC0();
+        if (D_00201CD4 != 0) func_00176BC0(D_00201CD4);
         p = (Q *)func_00154A80(D_0020206C * 9 + 3);
         q.q = 0;
         q.w[0] = (D_0020206C * 9 + 2) | 0x10000000;
@@ -33,8 +34,7 @@ void func_00181420(void) {
             p += 2;
         }
         D_00201CD4 = -1;
-        for (i = 0; i < D_0020206C * 9; i++) p[i] = D_0048C4B0[i];
-        p += i;
+        for (i = 0; i < D_0020206C * 9; i++) *p++ = D_0048C4B0[i];
         q.q = 0;
         q.w[2] = D_00201F3C | 0x15000000;
         q.w[3] = 0x11000000;

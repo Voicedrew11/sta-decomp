@@ -11,17 +11,18 @@ extern T D_0042DDC0[];
 Q *func_00154A80(s32);
 void func_00154A70(void);
 
-void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, s32 cnt, s32 off, F f) {
-    Q q;
-    Q *p;
+void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, u32 cnt, s32 off, F f) {
     E16 *e;
     u32 i;
+    u8 *ad;
+    Q *p;
+    Q q;
     s32 idx = D_00222A18[0];
     if (idx == -1) {
         p = func_00154A80(cnt * 2 + 1);
         for (i = 0; i < cnt; i++) {
-            e = &a1[i];
-            if (a0->f.b1) e = (E16 *)&((E32 *)a1)[i];
+            if ((*(Obj *volatile *)&a0)->f.b1) e = (E16 *)&((E32 *)a1)[i]; else e = &a1[i];
+            ad = a2 + e->x4 * 16;
             q.q = 0;
             q.w[0] = 0x30000002;
             q.w[1] = (u32)&D_0042DDC0[e->x2 << 5 | f.b0 << 4 | f.b1 << 3 | f.b4 << 2 | f.b2 << 1 | f.b6];
@@ -32,7 +33,7 @@ void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, s32 cnt, s32 off, F f) {
             p[0].q = q.q;
             q.q = 0;
             q.w[0] = e->x8 | 0x30000000;
-            q.w[1] = (u32)(a2 + e->x4 * 16 + off);
+            q.w[1] = (u32)(ad + off);
             p[1].q = q.q;
             p += 2;
             if (i == cnt - 1) {
@@ -45,9 +46,10 @@ void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, s32 cnt, s32 off, F f) {
             }
         }
         func_00154A70();
-    } else if (idx < cnt) {
+    } else if (idx < (s32)cnt) {
         e = a0->f.b1 ? (E16 *)&((E32 *)a1)[idx] : &a1[idx];
         p = func_00154A80(3);
+        ad = a2 + e->x4 * 16;
         q.q = 0;
         q.w[0] = 0x30000002;
         q.w[1] = (u32)&D_0042DDC0[e->x2 << 5 | f.b0 << 4 | f.b1 << 3 | f.b4 << 2 | f.b2 << 1 | f.b6];
@@ -55,7 +57,7 @@ void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, s32 cnt, s32 off, F f) {
         p[0].q = q.q;
         q.q = 0;
         q.w[0] = e->x8 | 0x30000000;
-        q.w[1] = (u32)(a2 + e->x4 * 16 + off);
+        q.w[1] = (u32)(ad + off);
         p[1].q = q.q;
         q.q = 0;
         q.w[0] = 0x10000000;
@@ -65,3 +67,10 @@ void func_0016EF70(Obj *a0, E16 *a1, u8 *a2, s32 cnt, s32 off, F f) {
         func_00154A70();
     }
 }
+
+
+
+
+
+
+

@@ -37,15 +37,15 @@ void func_0016D380(Obj *o, Oth *b, s8 *c, s32 n, P p, s32 flag) {
     E16 *ep;
     s8 *tbl;
     s8 *cc;
+    s8 *fp;
     u32 d0;
-    s8 *ce;
     u8 idx;
     s32 len;
-    s8 *fp;
+    s8 *ce;
     s32 r;
     s8 *s0;
     Ent *h;
-    u16 k;
+    s32 k;
     L l;
     P sv;
     P q;
@@ -56,9 +56,9 @@ void func_0016D380(Obj *o, Oth *b, s8 *c, s32 n, P p, s32 flag) {
     ep = o->e;
     tbl = base + o->x24;
     len = o->x10[1] - (s32)base;
-    l.w = 0; l.f.b0 = 1; l.f.b1 = 0; l.f.b2 = 0; l.f.b3 = 0; l.f.b4 = 1; l.f.b5 = 0; l.f.b6 = D_00222A50[0].f.b4; idx = flag; l.f.b7 = idx;
     cc = c + 0xC0;
     r = 2;
+    l.w = 0; l.f.b0 = 1; l.f.b1 = 0; l.f.b2 = 0; l.f.b3 = 0; l.f.b4 = 1; l.f.b5 = 0; l.f.b6 = D_00222A50[0].f.b4; idx = flag; l.f.b7 = idx;
     if (b->x24.h.hi) return;
     q = p;
     D_00202008 = D_00201F4C;
@@ -91,7 +91,7 @@ void func_0016D380(Obj *o, Oth *b, s8 *c, s32 n, P p, s32 flag) {
             sceVu0CopyVector(&v, &h->x10);
             v.w = 1.0f;
             sceVu0ApplyMatrix(&v, ce + 0xC0, &v);
-            v.w = h->x10.w * *(f32 *)(idx * 0x140 + c + 0x334);
+            v.w = h->x10.w * *(f32 *)((u8 *)(idx * 0x140) + (s32)c + 0x334);
             r = func_00153FA0(&v);
         }
         if (r < 0) return;
@@ -100,7 +100,7 @@ void func_0016D380(Obj *o, Oth *b, s8 *c, s32 n, P p, s32 flag) {
     func_0016DED0(h, b, c, p);
     k = h->xA;
     if (k != 0xFFFF || !b->x24.f.f.b3) {
-        func_0016F440(o, b, tbl + k * 64, len, &l);
+        func_0016F440(o, b, tbl + (u16)k * 64, len, &l);
         l2 = l;
         if (r < 2 && !l2.f.b5) {
             func_0016EF70(h, s0, fp, d0, len, l2);
@@ -111,3 +111,4 @@ void func_0016D380(Obj *o, Oth *b, s8 *c, s32 n, P p, s32 flag) {
         func_0016E760(h, s0, fp, d0, cc + idx * 0x140 + 0x140, r, len, tbl, o, b, l);
     }
 }
+

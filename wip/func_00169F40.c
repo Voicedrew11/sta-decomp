@@ -1,3 +1,7 @@
+/* NEAR 47/674 (unchanged). Only diff: in tex() retail hoists lhu of h->x14,x16,x12 above the first uv store/conversion
+ * (loads x10, x14, x16, x12 up front into v0/a1/a0/a2); ours loads each right before its conversion. Tried u16/u32/s32 locals
+ * in a nested block (copy-propagated away), locals at tex top (register blowup, +10 words), f32 temps, uv pointer, const Hd*,
+ * inlining tex body into the caller. */
 #include "common.h"
 typedef struct {
     u8 type : 3;

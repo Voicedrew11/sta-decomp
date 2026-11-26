@@ -1,3 +1,7 @@
+/* func_0019FD00 NEAR: 44 of 432 words differ (was 65). Case 6 fixed: e3 = &func_001AFC90()[id = u] and calc() decls
+   s16 v; E *e; Q *q;. Still differs: case 1 only - retail sign-extends n = (s16)k into s0 right after the beqz (k in v1,
+   before the jal func_001AFC90); ours keeps k in s0 and does the sext just before the mult, shifting everything by one
+   instruction until the mult. Tried block-local k, cv() inline, (s16) casts, re-reading D_004A3312, inline with s16 param. */
 #include "m2c.h"
 typedef struct { u8 pad[6]; u8 x6; u8 x7; u8 pad8[2]; u16 xA; u8 padC[0x30]; u8 x3C; u8 x3D; u8 pad3E[0x52]; } E;
 typedef struct { u8 x0; u8 x1; u8 x2; u8 x3; u8 x4; u8 x5; } Q;
@@ -16,8 +20,8 @@ extern s32 D_004A3318[];
 
 static inline E *item(s32 id) { return &func_001AFC90()[id]; }
 static inline s16 calc(u32 id) {
-    E *e;
     s16 v;
+    E *e;
     Q *q;
 
     v = 0;
@@ -141,8 +145,7 @@ void func_0019FD00(void) {
 
         p = func_001CC3F0(*(s16 *)D_004A3310);
         u = D_004A3310[0];
-        id = u;
-        e3 = item(u);
+        e3 = &func_001AFC90()[id = u];
         func_001C9BA0()->h4 -= calc(id);
         if (e3->xA == 1) {
             p->x0 = e3->x3C;
@@ -155,3 +158,5 @@ void func_0019FD00(void) {
     }
     D_004A3318[0] = 0;
 }
+
+

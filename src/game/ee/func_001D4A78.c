@@ -1,4 +1,3 @@
-/* round 3 near-miss: ee-gcc, ~24 lines after alignment: case 1 fail path, case 14 scheduling */
 #include "common.h"
 
 typedef struct {
@@ -20,7 +19,7 @@ extern u8 D_004B6478[];
 s32 func_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 s32 func_001D3CE0(s32);
 void func_001D3DA8(s32);
-void memcpy(s32, u8 *, s32);
+void *memcpy(void *, void *, s32);
 void memset(void *, s32, s32);
 s32 sceMcOpen(s32, s32, s32, s32);
 s32 sceMcClose(s32);
@@ -60,7 +59,8 @@ s32 func_001D4A78(void)
             return -10;
         }
         if (t->type[port][slot] != 2) {
-            t->x98 = 1;
+            if (t->type[port][slot] == 3) t->x98 = 1;
+            else t->x98 = 1;
             t->x88 = 0;
             return -10;
         }
@@ -278,15 +278,15 @@ s32 func_001D4A78(void)
                             len = D_004B6390[0] - D_004B638C[0];
                         }
                         if (max < len) len = max;
-                        memcpy(t->xb4 + D_004B638C[0], D_004B6478, len);
+                        memcpy((void *)(t->xb4 + D_004B638C[0]), D_004B6478, len);
                         if (len < max) {
                             t->state++;
                             break;
                         }
                     } else {
-                        t->state = 100;
                         t->x90 = -399;
                         t->x98 = 0x47;
+                        t->state = 100;
                         break;
                     }
                 }

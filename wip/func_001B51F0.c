@@ -1,3 +1,7 @@
+/* NEAR: 33 of 274 words differ (was 57). Same length; remaining diff is only saved-register assignment:
+   target has cur in s2 and the &PP(n) temp in s0 (ours s0/s2), o in s5, loop1 element ptr in s3 / byte-offset IV in s1,
+   loop2 offset IV in s1 and &t2.w in s0. Declaration-order perms (1440), explicit offset IVs, pp local, i/o reuse, b38 did not move it.
+   Fixed: side=-1 before the early return (no pad nop), k->key == o->id order. */
 #include "common.h"
 typedef struct { Vec a; Vec b; Vec c; f32 x30; f32 x34; u8 x38; u8 pad[7]; } EA;
 typedef struct { Vec a; f32 x10; f32 x14; f32 x18; u8 b1C; u8 b1D; u8 b1E; u8 b1F; u16 h20; u8 b22; u8 used; u8 pad[0xC]; } EB;
@@ -41,18 +45,18 @@ void func_001B51F0(S *a0, K *k, s32 a2) {
     Vec t2;
     s16 side;
     S *o2;
-    s32 r;
-    s32 cur;
-    EB *e2;
-    f32 w;
     s32 j;
+    EB *e2;
+    S *o;
+    s32 cur;
     EA *e;
     s32 i;
-    S *o;
+    s32 r;
     s16 n;
+    Flags8 *f;
 
-    if (a0->id == k->key) return;
     side = -1;
+    if (a0->id == k->key) return;
     if (((S **)(&D_00201E80)[2]) && *((S **)(&D_00201E80)[2]) == a0) side = 0;
     if (((S **)(&D_00201E80)[3]) && *((S **)(&D_00201E80)[3]) == a0) side = 1;
     n = !side;
@@ -74,9 +78,10 @@ void func_001B51F0(S *a0, K *k, s32 a2) {
     v.w = 0.0f;
     if (PP(n)) {
         o = *PP(n);
-        if (o->id == k->key) return;
-        if (!o->x1D8.f.b3) {
-            o->x1D8.f.b3 = 1;
+        if (k->key == o->id) return;
+        f = &o->x1D8;
+        if (!f->f.b3) {
+            f->f.b3 = 1;
             return;
         }
         func_0015B890(cur);
@@ -123,3 +128,6 @@ void func_001B51F0(S *a0, K *k, s32 a2) {
         func_001B06E0(k->key, &v, 0);
     }
 }
+
+
+

@@ -5,16 +5,22 @@ u32 func_0015ED20(void);
 void func_00163C80(O *, M *);
 void sceVu0ApplyMatrix(f32 *, M *, f32 *);
 
+static inline f32 sc(f32 x) { return x ? 0.01745f * x : 0.0f; }
 void func_0014C890(O *o) {
     f32 v[4];
     M m;
     s32 i;
-    f32 a;
+
+    f32 *r;
+    f32 *q;
     f32 *p;
 
     p = v;
+    q = p;
+    r = (f32 *)o;
     for (i = 0; i < 3; i++) {
-        p[i] = o->range[i] * (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f);
+        *q++ = r[0x18] * (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f);
+        r++;
     }
     v[3] = 0.0f;
     func_00163C80(o, &m);
@@ -26,10 +32,6 @@ void func_0014C890(O *o) {
         for (i = 0; i < 3; i++) {
             o->rot[i] = 0.000015259022f * (f32)(func_0015ED20() & 0xFFFF);
         }
-        a = 0.0f;
-        if (o->ang != a) {
-            a = 0.01745f * o->ang;
-        }
-        o->rz += a * (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f);
+        o->rz += (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f) * sc(o->ang);
     }
 }

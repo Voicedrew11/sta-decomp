@@ -1,7 +1,14 @@
+/* NEAR (still structurally off): built 422 words vs retail 453; difflib opcode ratio 0.82 (prev attempt 0.75).
+   Changes vs old attempt: W struct (pos[2][8][11]) like matched func_00157D50; k/l loops as entry-test + do-while
+   (retail's entry test reads ii/jj = copy-propagated k/l init); per-iteration volatile reads of D_002F2070/D_002F1AEC;
+   fields read into s16 locals first.
+   Still differs: retail runs out of s-regs (fp = &q+8, s4-s7 used) so i/j (u8) and ii/jj (s32) live in 16-byte stack
+   slots (sb/lbu, sw/lw reloads); retail strength-reduces k*3584 / k*7168 into IVs (t9/t8 += 0xE00/0x1C00) and keeps two
+   separate IVs for the two l*10240/10 uses (no CSE); x and y chains are interleaved with all four lh loads before any store. */
 #include "common.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s16 x, y; } Pt;
-typedef struct { u8 pad[0x140]; Pt p[11]; } Row;
+typedef struct { u8 pad[0x140]; Pt pos[2][8][11]; } W;
 extern s32 D_00201F2C;
 extern f32 D_00201E90;
 extern f32 D_002F1AE0[];
@@ -9,7 +16,7 @@ extern f32 D_002F1AE4[];
 extern f32 D_002F1AE8[];
 extern f32 D_002F1AEC[];
 extern f32 D_002F2070[];
-extern Row D_002F19B0[];
+extern W D_002F19B0;
 extern void func_001545D0(void);
 extern void func_001543E0(s32, u64);
 extern void func_00154420(void);
@@ -26,6 +33,7 @@ void func_00157630(void) {
     s32 ii;
     s32 jj;
     s32 e;
+    s32 e2;
     u8 k;
     u8 l;
     f32 f;
@@ -104,13 +112,22 @@ void func_00157630(void) {
             q.w[3] = 0x80;
             p[2].q = q.q;
             p += 3;
-            for (k = i; k < e; k++) {
-                jj = j;
-                for (l = j; l < jj + 2; l++) {
-                    Pt *a = &D_002F19B0[k].p[l];
-                    Pt *b = &D_002F19B0[k + 8].p[l];
-                    q.w[0] = (s16)((s16)(s32)(D_002F1AEC[0] * (a->x + D_002F2070[0] * (b->x - a->x))) >> 2) + l * 10240 / 10;
-                    q.w[1] = (s16)((s16)(s32)(D_002F1AEC[0] * (a->y + D_002F2070[0] * (b->y - a->y))) >> 2) + k * 3584 / 7;
+            k = i;
+            jj = j;
+            e2 = jj + 2;
+            if (ii < e) do {
+                l = j;
+                if (jj < e2) do {
+                    Pt *a = &D_002F19B0.pos[0][k][l];
+                    Pt *b = &D_002F19B0.pos[1][k][l];
+                    s16 ay = a->y;
+                    s16 by = b->y;
+                    s16 ax = a->x;
+                    s16 bx = b->x;
+                    f32 t = *(volatile f32 *)D_002F2070;
+                    f32 sc = *(volatile f32 *)D_002F1AEC;
+                    q.w[0] = (s16)((s16)(s32)(sc * (ax + t * (bx - ax))) >> 2) + l * 10240 / 10;
+                    q.w[1] = (s16)((s16)(s32)(sc * (ay + t * (by - ay))) >> 2) + k * 3584 / 7;
                     q.d[1] = 0;
                     p[0].q = q.q;
                     q.w[0] = l * 10240 / 10 + 0x6C00;
@@ -119,11 +136,14 @@ void func_00157630(void) {
                     q.w[3] = 0;
                     p[1].q = q.q;
                     p += 2;
-                }
-            }
+                } while (++l < e2);
+            } while (++k < e);
             func_00154A70();
         }
     }
     func_00176AE0();
 }
+
+
+
 

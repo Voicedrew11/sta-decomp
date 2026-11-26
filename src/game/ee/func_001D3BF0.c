@@ -22,10 +22,11 @@ s32 func_001D3BF0(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4, u32 st) {
     case 1:
     case 3:
         if (sceMcSync(1, 0, &v) != 0) {
-            if (v != 0) {
+            if (v == 0) {
+                st += 1;
+            } else {
                 return v;
             }
-            st += 1;
         }
         break;
     case 5:

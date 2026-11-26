@@ -16,3 +16,4 @@ src/game/func_001CE7D0.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/func_001CE4B0.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/func_001D1D50.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/func_001DDA20.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/func_00181420.c -O4,p mwcc=mwcps2-3.0b38-030307

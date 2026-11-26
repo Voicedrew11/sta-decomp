@@ -1,3 +1,7 @@
+/* NEAR: 167 of 169 words (was 152, len-17). difflib: 5 opcodes unmatched, ~75 full-insn diffs (mostly regalloc).
+   Key fixes: swap split into nested inlines swp(u16,u16) -> fin(s32,s32) (re-masks a/b), c and n s32 locals.
+   Still missing: retail does 'andi s1,a0' (n = masked copy of the while-cond lhu) and masks n again at the
+   D_00201FC0[n] index; here n stays the raw lhu in s1. Tried n u16 / u16 casts / nx() inline / body inline: no. */
 #include "actor.h"
 typedef struct { u16 prev; u16 next; u16 x4; } Lnk;
 typedef struct { Vec v; u8 pad[0x110]; } Ent;
@@ -10,19 +14,22 @@ void sceVu0InversMatrix(Mtx *, Mtx *);
 void sceVu0MulMatrix(Mtx *, Mtx *, Mtx *);
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
-static inline void swp(u16 a, u16 b) {
-    if (D_00201FD4[a].prev != 0xFFFF) D_00201FD4[D_00201FD4[a].prev].next = b;
-    D_00201FD4[b].prev = D_00201FD4[a].prev;
-    if (D_00201FD4[b].next != 0xFFFF) D_00201FD4[D_00201FD4[b].next].prev = a;
+static inline void fin(s32 a, s32 b) {
     D_00201FD4[a].next = D_00201FD4[b].next;
     D_00201FD4[a].prev = b;
     D_00201FD4[b].next = a;
 }
+static inline void swp(u16 a, u16 b) {
+    if (D_00201FD4[a].prev != 0xFFFF) D_00201FD4[D_00201FD4[a].prev].next = b;
+    D_00201FD4[b].prev = D_00201FD4[a].prev;
+    if (D_00201FD4[b].next != 0xFFFF) D_00201FD4[D_00201FD4[b].next].prev = a;
+    fin(a, b);
+}
 void func_001679E0(u16 id) {
     u16 cur;
     s32 swapped;
-    u16 c;
-    u16 n;
+    s32 c;
+    s32 n;
     Mtx m;
     Mtx m2;
     Vec a;

@@ -1,5 +1,10 @@
-#include "m2c.h"
-typedef struct { f32 v[4]; } Vec;
+/* NEAR: 2 of 128 words differ (was 22). Only diff: the two hoisted mul.s come out as
+   mul.s f23,f23,f0 / mul.s f22,f22,f0, retail has mul.s f23,f0,f23 / mul.s f22,f0,f22.
+   Keys found: if/else for ok (else ok = 1), copy float params into locals (maxd/hw/hh) to
+   get the f21/f23/f22 colouring. In-place `hw = 0.5f * hw` flips the mul operands; a fresh
+   result var or `0.5f * w` inside the loop condition (LICM) gives the right order but
+   mis-colours (f24/f23 instead of f23/f22). */
+#include "common.h"
 u16 *func_001A5460(s32 *);
 void sceVu0Normalize(Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
@@ -11,7 +16,7 @@ f32 func_00146940(Vec *, Vec *);
 void func_00146310(Vec *, Vec *, Vec *, f32 *, f32 *);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, Vec *);
 
-u16 *func_00146EF0(Vec *pos, Vec *dir, s32 check, f32 maxd, f32 w, f32 h) {
+u16 *func_00146EF0(Vec *pos, Vec *dir, s32 check, f32 maxd_, f32 w, f32 h) {
     f32 cc;
     f32 c8;
     s32 it;
@@ -21,20 +26,24 @@ u16 *func_00146EF0(Vec *pos, Vec *dir, s32 check, f32 maxd, f32 w, f32 h) {
     Vec out;
     u16 *res;
     u16 *e;
-    f32 best;
-    f32 hh;
     f32 hw;
+    f32 hh;
+    f32 maxd;
+    f32 best;
     f32 d;
     s32 ok;
 
+    maxd = maxd_;
+    hw = w;
+    hh = h;
     res = NULL;
     best = 65535.0f;
     it = 0;
     e = func_001A5460(&it);
     sceVu0Normalize(&a0, dir);
     if (e != NULL) {
-        hw = 0.5f * w;
-        hh = 0.5f * h;
+        hw = 0.5f * hw;
+        hh = 0.5f * hh;
         do {
             if (*e != 0 && func_0013EE40(e) == 0) {
                 sceVu0CopyVector(&p, func_0013FFA0(e));
@@ -51,9 +60,10 @@ u16 *func_00146EF0(Vec *pos, Vec *dir, s32 check, f32 maxd, f32 w, f32 h) {
                             d = -d;
                         }
                         if (d < best) {
-                            ok = 1;
                             if (check != 0) {
                                 ok = !func_001470F0(pos, &p, 3, 0x26, 0, &out);
+                            } else {
+                                ok = 1;
                             }
                             if (ok != 0) {
                                 best = d;

@@ -1,4 +1,5 @@
-/* round 3 near-miss: ee-gcc, 22 words: saved-register choice for k/w/h/h2 */
+/* NEAR 18 of 396 (was 22): h2 local removed (h >> 1 written inline) fixes the sll/srl order. Left: gcc saved-reg priority: k gets s1, w s3, h2 s4 (retail w s1, h2 s3, k s4). Tried decl perms, statement perms, k types, k via inline, switch, fresh psm2. */
+/* round 3 near-miss: ee-gcc, 22 words: saved-register choice for k/w/h/(h >> 1) */
 #include "common.h"
 typedef struct {
     u64 TBP0:14, TBW:6, PSM:6, TW:4, TH:4, TCC:1, TFX:2, CBP:14, CPSM:4, CSM:1, CSA:5, CLD:3;
@@ -17,7 +18,6 @@ void func_001E54E8(Tim *t, u64 *tex0, u64 *tex1) {
     LI li;
     u16 h;
     u16 w;
-    s16 h2;
     s32 psm;
     s32 k;
     u64 v;
@@ -31,14 +31,13 @@ void func_001E54E8(Tim *t, u64 *tex0, u64 *tex1) {
     else if (psm == 0x2C) k = 1;
     else k = (psm == 0x24) ? 1 : 8;
     if (w * h * k > 0x7FFFF) {
-        h2 = h >> 1;
-        sceGsSetDefLoadImage(&li, t->tex0.TBP0, t->tex0.TBW, t->tex0.PSM, 0, 0, w, h2);
+        sceGsSetDefLoadImage(&li, t->tex0.TBP0, t->tex0.TBW, t->tex0.PSM, 0, 0, w, (h >> 1));
         FlushCache(0);
         sceGsExecLoadImage(&li, (u8 *)t + 0x20);
         do {
             while (*D2_CHCR & 0x100) ;
         } while (*GIF_STAT & 0xC00);
-        sceGsSetDefLoadImage(&li, t->tex0.TBP0, t->tex0.TBW, t->tex0.PSM, 0, h2, w, h2);
+        sceGsSetDefLoadImage(&li, t->tex0.TBP0, t->tex0.TBW, t->tex0.PSM, 0, (h >> 1), w, (h >> 1));
         FlushCache(0);
         sceGsExecLoadImage(&li, (u8 *)t + w * h * k / 4 + 0x20);
         do {
@@ -92,5 +91,7 @@ void func_001E54E8(Tim *t, u64 *tex0, u64 *tex1) {
     if (tex0) *tex0 = *(u64 *)&t->tex0;
     if (tex1) *tex1 = t->tex1;
 }
+
+
 
 

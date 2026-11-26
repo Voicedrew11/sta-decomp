@@ -28,7 +28,7 @@ typedef struct {
     E *x28;
 } S;
 
-void func_00128A60(S *a0, E *a1, E *a2, s32 a3) {
+void func_00128A60(S *a0, E *a1, E *a2, u32 a3) {
     s32 i;
     a0->x0 = a1;
     a0->x4 = a2;
@@ -44,7 +44,7 @@ void func_00128A60(S *a0, E *a1, E *a2, s32 a3) {
     a0->b3 = 0;
     a0->b4 = 0;
     a0->x28 = a1;
-    for (i = 0; i < a3; i++) {
+    for (i = 0; i < (s32)a3; i++) {
         a1->x0 = 0;
         a1->x4 = 0;
         a1->x8 = 0;
@@ -58,3 +58,4 @@ void func_00128A60(S *a0, E *a1, E *a2, s32 a3) {
     a1[-1].xC = 0;
     a0->x24 = a0->x28;
 }
+

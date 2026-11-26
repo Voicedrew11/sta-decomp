@@ -16,11 +16,10 @@ void func_00132A70(s8 *arg0) {
     u128 *p;
 
     if (*(u16 *)(*(s8 **)arg0 + 0x1E) != 0) {
-        b.q = 0;
-        b.w[0] = 0x10000000;
-        b.w[3] = 0x10000000;
-        b.w[2] = ((u32)D_33C0 >> 3) | 0x15000000;
-        while (*(s32 *)(e + 4) != 0) {
+        if (*(s32 *)(e + 4) != 0) goto setup;
+        return;
+loop:
+        do {
             off = *(s32 *)(arg0 + 0x28);
             p = func_00154A80(1);
             a.q = 0;
@@ -30,13 +29,22 @@ void func_00132A70(s8 *arg0) {
             func_00154A70();
             func_00176AE0();
             func_001323C0(e, D_00201F04, D_00201F08, arg0);
-            *func_00154A80(1) = b.q;
+            p = func_00154A80(1); *p = b.q;
             func_00154A70();
             func_00176AE0();
             if (*(s32 *)(e + 8) == 0) {
                 break;
             }
             e += *(s32 *)(e + 8);
-        }
+        } while (*(s32 *)(e + 4) != 0);
+        return;
+setup:
+        b.q = 0;
+        b.w[0] = 0x10000000;
+        b.w[3] = 0x10000000;
+        b.w[2] = ((u32)D_33C0 >> 3) | 0x15000000;
+        goto loop;
     }
+end:;
 }
+

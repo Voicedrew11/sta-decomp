@@ -20,7 +20,6 @@ void func_00163C80(Obj *, Mtx *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 float sqrtf(float);
 static inline f32 u2f(u32 x) { return x; }
-static inline f32 h(f32 dist, f32 r) { return (r - dist) / (2.0f * r); }
 
 void func_0014BC90(Obj *a) {
     s32 it;
@@ -54,9 +53,11 @@ void func_0014BC90(Obj *a) {
         }
         sceVu0SubVector(&d, &t, &s);
 
-        k = (r - sqrtf(d.x * d.x + d.z * d.z)) / (2.0f * r) * 0.001f;
+        k = (r - sqrtf(d.x * d.x + d.z * d.z)) / (2.0f * (f32)r);
+        k *= 0.001f;
     } else {
         k = 0.0f;
     }
     a->xBC = k;
 }
+

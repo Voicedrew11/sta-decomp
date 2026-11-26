@@ -1,3 +1,4 @@
+// NEAR: 10 of 378 words differ (was 79). Only the head scheduling differs: retail loads g->x14, computes g+0x40, loads D_00201F2C and h, h+0x40, then reloads g (spilled) for x16/x18/x10; ours loads x16/x18 right after x14. Fixes so far: Z -> M1.m[3] (stack overlap), (s32)g->data/(s32)h->data hoists, split hd into 2 statements (fixes final addu order), decl perm of e/n/v/it/t, statement perm of cnt/bx/q4/it/q8.
 
 #include "common.h"
 typedef struct { s32 off[4]; s32 x10[8]; s32 x30[8]; } Hdr;
@@ -36,16 +37,16 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
     Box *bx;
     u8 *e;
     s32 i;
-    Vec *v;
-    s32 c0;
+    s32 n;
     Item *it;
-    Box *q8;
+    s32 c0;
     Tri *t;
+    Box *q8;
+    Vec *v;
     Res res;
     Vec S0;
     Vec S1;
     Mtx M2;
-    Vec Z;
     Mtx M1;
     Vec tri[3];
     Vec N;
@@ -54,9 +55,10 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
     if (h == 0) return 0;
     if (h->g == 0) return 0;
     if ((g = *h->g) == 0) return 0;
-    hd = (Hdr *)(g->data + g->x14 * 16 + g->x16 * 8 + g->x18 * 4);
+    hd = (Hdr *)((s32)g->data + g->x14 * 16 + g->x16 * 8);
+    hd = (Hdr *)((s32)hd + g->x18 * 4);
     b160 = *g->x10;
-    base190 = h->data + D_00201F2C * (h->x6 * 320 + 0x200);
+    base190 = (u8 *)((s32)h->data + D_00201F2C * (h->x6 * 320 + 0x200));
     if (g->x1C == 0) return 0;
     sceVu0CopyVector(&S0, ray);
     S0.w = 1.0f;
@@ -75,7 +77,7 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
             if (c >= g->x1C) continue;
             sceVu0CopyMatrix(&M2, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
             sceVu0CopyMatrix(&M1, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
-            sceVu0CopyVector(&Z, &D_003139A0);
+            sceVu0CopyVector(&M1.m[3], &D_003139A0);
             hh = &hd[c];
             if (!hh->off[0]) continue;
             if (!hh->off[2]) continue;
@@ -83,12 +85,11 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
             if (!hh->x30[k]) continue;
             cnt = (u16 *)(b160 + hh->off[0]);
             bx = (Box *)(b160 + hh->x30[k]);
+            q4 = (u8 *)(b160 + hh->off[1]);
             it = (Item *)(b160 + hh->x10[k]);
             q8 = (Box *)(b160 + hh->off[2]);
-            q4 = (u8 *)(b160 + hh->off[1]);
             if (flag && !func_0014F8C0(&S0, &S1, (Box *)((u8 *)&q8[k] + 0x20), &M2)) continue;
             for (i = 0; i < cnt[k]; i++, it++, bx++) {
-                s32 n;
                 c0 = 0;
                 if (flag && !func_0014F8C0(&S0, &S1, bx, &M2)) continue;
                 if (D_00222A18[0] != -1 && i != D_00222A18[0]) continue;

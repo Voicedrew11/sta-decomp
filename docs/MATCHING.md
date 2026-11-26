@@ -106,6 +106,13 @@ Near-miss round (CodeWarrior unless marked gcc):
 - Grep `asm/matchings/game` for the exact instruction pair you need, then read that function's C.
 - gcc: a struct built from a returned struct's fields with floats out of order: compound literal `r = (R){ t.x, t.y, t.w, t.h };`. A v0/v1 swap right after a call whose result is unused: declare the callee `void`.
 - Name every library function by its symbol_addrs.txt name, including the sceVu0* helpers (func_001029D0 = sceVu0AddVector, ...): an address name in a game unit makes carve.py write a duplicate name that breaks the next carve run (sce units go unplaced).
+- **Length differs from retail**: score perm variants by difflib alignment on opcodes; chk's positional count stays flat.
+- **Loop guard jumping to a setup block placed after the loop**: write it with gotos (`if (c) goto setup; return; loop: do {...} while (...); return; setup: init; goto loop;`).
+- **const x const folded where retail multiplies at runtime**: a redundant `(f32)` cast stops the folding (`2.0f * (f32)r`).
+- **Index register set only after a call**: `e = &f()[id = u];`.
+- **16-aligned param home slots**: declare the param as `typedef f32 FV[4] __attribute__((aligned(16)))`.
+- **Twin functions**: grep for a matched function with the same shape that differs only in its callee and copy it.
+- b38 also fixes an 8x-unrolled `*p++` copy loop that b52 bumps every 2 copies.
 
 ## Floats, sqrt, switches, inline asm
 
@@ -233,7 +240,6 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **Two identical calls in if/else get merged**: make one argument opaque (`on - on`).
 - **Multi-table switch functions**: MWCC emits one .rodata per switch in code order; some originals have them reversed (wip/func_001A1C80.c, code bytes match).
 - **Static callee earlier in the same file** (temps kept live across the jal): see wip/func_001889E0.c (pair with func_00188910); batch.py can't check it yet.
-- **SDK-compiled function in game code**: func_001D3BF0 saves with `sd` and is gcc-scheduled; skip it.
 
 ### More tricks (round 2 of the merged repo: 0x100-0x200 functions, 76 of 83 matched)
 

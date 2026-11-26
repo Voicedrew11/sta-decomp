@@ -18,6 +18,7 @@ extern s8 D_001FB913[];
 extern s32 D_00201CB4;
 extern Node D_004800C0[];
 extern s16 D_004800DC[];
+extern s16 D_004800DE[];
 extern s16 D_004830C8[];
 extern s16 D_004830CA[];
 extern s16 D_004830CC[];
@@ -38,14 +39,44 @@ static inline s32 getsz(s32 *s) {
     return -1;
 }
 
+static inline void link(s16 idx) {
+    s16 h;
+    D_004830CE[0]++;
+    h = D_004830CC[0];
+    if (h == -1) {
+        D_004830CC[0] = idx;
+        D_004800DC[idx * 24] = idx;
+        D_004800DE[idx * 24] = idx;
+    } else {
+        D_004800DC[idx * 24] = h;
+        D_004800DE[idx * 24] = D_004800DE[h * 24];
+        D_004800DE[D_004800DC[idx * 24] * 24] = idx;
+        D_004800DC[D_004800DE[idx * 24] * 24] = idx;
+        D_004830CC[0] = idx;
+    }
+}
+static inline Node *unlink(s16 idx) {
+    s16 *pv;
+    Node *n;
+    n = &D_004800C0[idx];
+    D_004830CA[0]--;
+    pv = &D_004800DC[idx * 24];
+    if (idx == *pv) {
+        D_004830C8[0] = -1;
+    } else {
+        D_004800DE[*pv * 24] = D_004800DE[idx * 24];
+        D_004800DC[D_004800DE[idx * 24] * 24] = *pv;
+        if (*(volatile s16 *)D_004830C8 == idx) D_004830C8[0] = *pv;
+    }
+    return n;
+}
 Node *func_00177BB0(u64 key, s32 **r, s32 off) {
-    s32 idx;
     Ent *e;
     Tbl *t;
     u32 i;
     Node *nd;
-    s16 h;
-    s16 *pv;
+    s32 idx;
+    s32 n;
     union { u64 d; struct { s32 w; u8 c[4]; } s; } k;
 
     if (off == -1) off = getsz(*r);
@@ -57,7 +88,9 @@ Node *func_00177BB0(u64 key, s32 **r, s32 off) {
     }
     k.d = key;
     if (k.s.w == (D_001FB910[0] | (D_001FB911[0] << 8) | (D_001FB912[0] << 16) | (D_001FB913[0] << 24)) && k.s.c[0] == 'X') {
-        nd = func_00175850((k.s.c[3] - '0') + ((k.s.c[1] - '0') * 100 + (k.s.c[2] - '0') * 10));
+        n = (k.s.c[1] - '0') * 100 + (k.s.c[2] - '0') * 10;
+        n += k.s.c[3] - '0';
+        nd = func_00175850(n);
     } else {
     e = &e[i];
     if (i != t->n) {
@@ -66,29 +99,8 @@ Node *func_00177BB0(u64 key, s32 **r, s32 off) {
         nd = e->x38;
     } else {
     idx = D_004830C8[0];
-    D_004830CA[0]--;
-    pv = &D_004800DC[idx * 24];
-    nd = &D_004800C0[idx];
-    if (idx == *pv) {
-        D_004830C8[0] = -1;
-    } else {
-        D_004800C0[D_004800C0[idx].prev].next = D_004800C0[idx].next;
-        D_004800C0[D_004800C0[idx].next].prev = D_004800C0[idx].prev;
-        if (*(volatile s16 *)D_004830C8 == idx) D_004830C8[0] = *pv;
-    }
-    D_004830CE[0]++;
-    h = D_004830CC[0];
-    if (h == -1) {
-        D_004830CC[0] = idx;
-        *pv = idx;
-        D_004800C0[idx].next = idx;
-    } else {
-        D_004800C0[idx].prev = h;
-        D_004800C0[idx].next = D_004800C0[h].next;
-        D_004800C0[D_004800C0[idx].prev].next = idx;
-        D_004800C0[D_004800C0[idx].next].prev = idx;
-        D_004830CC[0] = idx;
-    }
+    nd = unlink(idx);
+    link(idx);
     nd->x10 = r;
     nd->x24 = off;
     nd->x20 = i;
@@ -100,3 +112,5 @@ Node *func_00177BB0(u64 key, s32 **r, s32 off) {
     }
     return nd;
 }
+
+
