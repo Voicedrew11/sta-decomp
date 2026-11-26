@@ -23,12 +23,12 @@ typedef struct {
 extern s32 D_00201E80;
 extern s32 D_002022BC;
 extern s32 D_002022D8;
-void func_00102A60(Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
-void func_001029E8(Vec *, Vec *, void *);
-void func_001029D0(Vec *, void *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void memset(void *, s32, s32);
+void sceVu0SubVector(Vec *, Vec *, void *);
+void sceVu0AddVector(Vec *, void *, Vec *);
 void func_00102870(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
 f32 func_0015DEE0(Vec *, void *);
 f32 func_0015DF50(Vec *, void *);
 s32 func_001B34B0(s8 *, Vec *, Vec *, s32, s32);
@@ -50,17 +50,17 @@ void func_001C5150(Actor *a) {
     p = (P *)(a->unk518 + 0x180);
     if (D_002022BC == (&D_00201E80)[2]) D_002022D8 = 0;
     if (D_002022BC == (&D_00201E80)[3]) D_002022D8 = 1;
-    func_00123C40(&p->m130, 0, 0x40);
+    memset(&p->m130, 0, 0x40);
     close = 0;
-    func_001029E8(&dir, &p->pos, p->o + 0x10);
+    sceVu0SubVector(&dir, &p->pos, p->o + 0x10);
     func_00102870(&dir, &dir);
     if (func_0015DEE0(&p->pos, p->o + 0x10) < 20.0f && !p->b0) close = 1;
     d = func_0015DF50(&p->pos, p->o + 0x10);
     if (close) t = d; else t = 20.0f;
     for (end = 20.0f + d; t < end; t += 20.0f) {
         if (!(t <= d)) t = d;
-        func_00102A18(&v, &dir, t);
-        func_001029D0(&p->v110, p->o + 0x10, &v);
+        sceVu0ScaleVector(&v, &dir, t);
+        sceVu0AddVector(&p->v110, p->o + 0x10, &v);
         p->v110.y = p->v110.y + 220.0f;
         p->v110.y = p->v110.y - 100.0f;
         p->v110.w = 100.0f;
@@ -78,25 +78,25 @@ void func_001C5150(Actor *a) {
         if (hit) break;
     }
     if (p->x154) {
-        func_00102A18(&p->vB0, &p->v140, 100.0f);
-        func_001029D0(&p->vB0, &p->vB0, &p->m130);
+        sceVu0ScaleVector(&p->vB0, &p->v140, 100.0f);
+        sceVu0AddVector(&p->vB0, &p->vB0, &p->m130);
         p->vB0.w = 1.0f;
-        func_00102A60(&p->vC0, &p->vB0);
+        sceVu0CopyVector(&p->vC0, &p->vB0);
         p->vB0.y = *(f32 *)(p->x10 + 0x14);
         p->vB0.y = p->vB0.y + 220.0f;
         p->vB0.y = p->vB0.y - 80.0f;
         p->vC0.y = p->vC0.y + 103.0f;
     } else {
-        func_00102A60(&p->vB0, &p->pos);
+        sceVu0CopyVector(&p->vB0, &p->pos);
         p->vB0.w = 1.0f;
-        func_00102A60(&p->vC0, &p->pos);
+        sceVu0CopyVector(&p->vC0, &p->pos);
         p->vC0.w = 1.0f;
         p->vB0.y = *(f32 *)(p->x10 + 0x14);
         p->vB0.y = p->vB0.y + 220.0f;
         p->vB0.y = p->vB0.y - 80.0f;
         p->vC0.y = p->vC0.y + 223.0f;
     }
-    func_00123C40(&p->mD0, 0, 0x40);
+    memset(&p->mD0, 0, 0x40);
     for (i3 = 0, q3 = (s8 ***)(&D_00201E80 + 2); i3 < 2; i3++, q3++) {
         if (*q3 != 0 && **q3 != 0) func_001B3240(**q3, (Vec *)&p->mD0, &p->vB0, 4, 0);
     }

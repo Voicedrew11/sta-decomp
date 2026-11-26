@@ -58,8 +58,8 @@ cannot produce the report.
 <!-- progress:start -->
 | | code | functions | units complete |
 | --- | ---: | ---: | ---: |
-| overall | 8.29% | 1028 / 3090 | 7 / 1316 |
-| game | 6.71% | 877 / 2223 | 0 / 1196 |
+| overall | 58.42% | 1803 / 3090 | 7 / 2086 |
+| game | 67.07% | 1652 / 2223 | 0 / 1966 |
 | sce | 16.03% | 151 / 867 | 7 / 120 |
 <!-- progress:end -->
 
@@ -104,11 +104,18 @@ config/    splat yaml, symbol_addrs.txt (+ .carve.txt, generated),
 include/   macro.inc (splat asm macros for the period assembler)
 src/       C sources as they are decompiled (src/sce/ for SDK libraries)
 tools/     setup, extraction, split, build generation and check scripts
+wip/       near-misses and inline-asm matches, kept out of the build
 docs/      roadmap and notes
 asm/  baserom/  build/  tools/cc/  .venv/    generated or local, gitignored
 ```
 
 ## Credits and licence
+
+About 780 of the game's matched functions, the shared game types in
+`include/` and `docs/MATCHING.md` come from KiskarFisk's
+[shadow-tower-abyss](https://github.com/KiskarFisk/shadow-tower-abyss)
+(made on the English-patched ELF, whose code is the same as retail), merged
+with its history.
 
 The binutils patches, the obstack shim (`tools/period_obstack.c`) and the
 toolchain recipe come from the ico decompilation (MIT, © the ico

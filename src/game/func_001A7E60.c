@@ -48,9 +48,9 @@ typedef struct {
 extern Mtx D_001F2170;
 extern Vec D_003139A0;
 s8 *func_001715B0(s32 *);
-void func_00102A60(Vec *, Vec *);
-void func_00102A70(Mtx *, Mtx *);
-void func_00102CC8(Mtx *, Mtx *, f32);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
 static inline f32 u2f(u32 x) { return x; }
 
 void func_001A7E60(A *a) {
@@ -78,21 +78,21 @@ void func_001A7E60(A *a) {
     *r = WRAPV(p->x10->rot.y, *r);
     r = &p->x10->rot.z;
     *r = WRAPV(p->x10->rot.z, *r);
-    func_00102A60(&p->x10->v10, &p->x10->v0);
-    func_00102A60(&p->x10->v30, &p->x10->rot);
-    func_00102A70(&p->x18->m, &D_001F2170);
+    sceVu0CopyVector(&p->x10->v10, &p->x10->v0);
+    sceVu0CopyVector(&p->x10->v30, &p->x10->rot);
+    sceVu0CopyMatrix(&p->x18->m, &D_001F2170);
     p->x0 = (f32)(u32)a->x4B0->x244 * p->x18->s50 / 4096.0f;
     p->x4 = (f32)(u32)a->x4B0->x246 * p->x18->s54 / 4096.0f;
     p->x8 = (f32)(u32)a->x4B0->x248 * p->x18->s58 / 4096.0f;
     p->x18->m.m[0].x = p->x0;
     p->x18->m.m[1].y = p->x4;
     p->x18->m.m[2].z = p->x8;
-    func_00102CC8(&p->m, &p->x18->m, WRAP(p->x18->rot.y));
-    func_00102A70(&p->x18->m, &p->m);
-    func_00102A60(&p->x18->m.m[3], &p->x18->v0);
+    sceVu0RotMatrixY(&p->m, &p->x18->m, WRAP(p->x18->rot.y));
+    sceVu0CopyMatrix(&p->x18->m, &p->m);
+    sceVu0CopyVector(&p->x18->m.m[3], &p->x18->v0);
     p->x18->m.m[3].w = 1.0f;
-    func_00102A60(&p->v40, &p->x10->v0);
-    func_00102A60(&p->v50, &p->x10->v40);
-    func_00102A60(&p->vA0, &D_003139A0);
+    sceVu0CopyVector(&p->v40, &p->x10->v0);
+    sceVu0CopyVector(&p->v50, &p->x10->v40);
+    sceVu0CopyVector(&p->vA0, &D_003139A0);
     p->xF4 = 0;
 }

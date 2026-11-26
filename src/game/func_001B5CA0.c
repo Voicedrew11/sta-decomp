@@ -17,8 +17,8 @@ typedef struct {
     u8 pad154[0x3C];
     P8 *x190;
 } S;
-void func_00102A60(f32 *, f32 *);
-void func_001029D0(f32 *, f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
+void sceVu0AddVector(f32 *, f32 *, f32 *);
 s32 func_00169BB0(s32);
 s8 *func_00169B50(s32, s32, s32, s32);
 s8 *func_00169BD0(s32, s32, void *, s32, s32, s32);
@@ -37,7 +37,7 @@ void func_001B5CA0(S *s) {
     E *e;
     P8 *p;
 
-    func_00102A60(v, s->x10);
+    sceVu0CopyVector(v, s->x10);
     for (i = 0; i < s->n78; i++) {
         e = &s->x150[i];
         p = &s->x190[i];
@@ -61,7 +61,7 @@ void func_001B5CA0(S *s) {
             rot[3] = 0.0f;
             scl[3] = 1.0f;
             func_00173FD0(mat, pos, rot, scl);
-            func_001029D0(mat[3], mat[3], v);
+            sceVu0AddVector(mat[3], mat[3], v);
             func_00167740(p->obj, mat);
         }
     }

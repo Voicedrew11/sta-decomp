@@ -14,7 +14,7 @@ typedef struct {
     Al x28; u8 x29; struct { u8 b0:1; } x2A;
 } M;
 typedef struct { f32 x0, x4; u8 pad8[8]; f32 x10, x14, x18, x1C; s32 x20; u8 pad24[4]; u16 x28; } P;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001545D0(void);
 void func_001543E0(s32, u64);
 void func_001544C0(void);
@@ -35,7 +35,7 @@ void func_00174980(T *t, s32 flag, M *m, P *p) {
     u64 fog;
 
     fog = m->x2A.b0;
-    func_00123C40(&b, 0, 0x50);
+    memset(&b, 0, 0x50);
     b.f4C.b0 = 1;
     b.f4C.b1 = 1;
     al = (u64)m->x28.A | ((u64)m->x28.B << 2) | ((u64)m->x28.C << 4) | ((u64)m->x28.D << 6) | ((u64)m->x29 << 32);

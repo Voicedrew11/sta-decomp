@@ -1,12 +1,12 @@
 #include "m2c.h"
 typedef struct { s32 x0; volatile s32 x4; s32 x8; s32 xC; u16 flags; s32 fd; s32 size; } F;
 s32 func_0010FAD0(s8 *, s32, s32);
-void func_0010FED8(s32, s32, s32);
+void sceLseek(s32, s32, s32);
 void func_00116EA0(s32 *, s8 *);
-void func_00123C40(void *, s32, s32);
-void func_001256E0(s8 *, s8 *, s8 *, s8 *, s8 *);
-void func_001258E0(s8 *, s8 *);
-void func_00125CE8(s8 *, s8 *);
+void memset(void *, s32, s32);
+void sprintf(s8 *, s8 *, s8 *, s8 *, s8 *);
+void strcat(s8 *, s8 *);
+void strcpy(s8 *, s8 *);
 void func_0015A470(F *, s8 *, s32, s32);
 void func_0015B040(s32, s32);
 extern s8 D_001FB740[];
@@ -46,7 +46,7 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
     func_0015B040(mode, 0);
     D_00201F80 = findFree();
     if (D_00201F88 != 0) {
-        func_00125CE8(name, arg0);
+        strcpy(name, arg0);
         c = name[0];
         p = name;
         if (c != 0) {
@@ -58,7 +58,7 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
                 c = *p;
             } while (c != 0);
         }
-        func_001256E0(path, D_001FB740, D_001FB748, D_001FB750, name + 1);
+        sprintf(path, D_001FB740, D_001FB748, D_001FB750, name + 1);
         D_00201F80->x0 = 0;
         D_00201F80->x4 = 0;
         D_00201F80->x8 = 0;
@@ -69,10 +69,10 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
             D_00201F80->size = 0x800;
         }
     } else {
-        func_00125CE8(path, D_001FB758);
-        func_001258E0(path, arg0);
-        func_001258E0(path, D_001FB760);
-        func_00123C40(st, 0, 0x24);
+        strcpy(path, D_001FB758);
+        strcat(path, arg0);
+        strcat(path, D_001FB760);
+        memset(st, 0, 0x24);
         func_00116EA0(st, path);
         D_00201F80->x0 = st[0] << 11;
         D_00201F80->x4 = D_00201F80->x0;
@@ -96,11 +96,11 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
             break;
         case 0:
             f->x4 = f->x0;
-            func_0010FED8(D_00201F80->fd, f->x4, 0);
+            sceLseek(D_00201F80->fd, f->x4, 0);
             break;
         case 1:
             f->x4 = 0;
-            func_0010FED8(f->fd, f->x4, 0);
+            sceLseek(f->fd, f->x4, 0);
             break;
         }
         arg2 = D_002F20C8[0];

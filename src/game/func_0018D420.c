@@ -9,9 +9,9 @@ extern S D_001F2A50[] __attribute__((aligned(16)));
 extern s8 D_001FCDC8[];
 void func_00181680(s32, s8 *, s8 *, void *, S *, s32);
 f32 func_0011DA18(f32);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 G *func_00189020(s32);
-void func_001256E0(s8 *, s8 *, ...);
+void sprintf(s8 *, s8 *, ...);
 void func_001875C0(s8 *, s32, u32, f32, f32, f32);
 
 void func_0018D420(s8 *o, s32 sel, u32 id) {
@@ -29,9 +29,9 @@ void func_0018D420(s8 *o, s32 sel, u32 id) {
     switch (id) {
     case 500:
         if (sel == D_004A1050.sel) {
-            o[0x2C] = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1050.x10)));
-            o[0x2D] = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1050.x10)));
-            o[0x2E] = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1050.x10)));
+            o[0x2C] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
+            o[0x2D] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
+            o[0x2E] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
         } else {
             o[0x2C] = 0x40;
             o[0x2D] = 0x40;
@@ -61,7 +61,7 @@ void func_0018D420(s8 *o, s32 sel, u32 id) {
         } else if (D_004A1050.xC <= 128.0f) {
             col.b[3] = col.b[3] * (s32)D_004A1050.xC / 128.0f;
         }
-        func_001256E0(buf, D_001FCDC8, sel + 1);
+        sprintf(buf, D_001FCDC8, sel + 1);
         func_001875C0(buf, 0, col.w, 8.0f + t.x, 4.0f + t.y, 1.0f);
         }
         break;

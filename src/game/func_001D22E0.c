@@ -11,7 +11,7 @@ typedef struct { u8 pad[0xA]; u16 xA; u16 xC; u16 xE; } AI;
 typedef struct { u8 pad[0x4B0]; AI *x4B0; } A;
 typedef struct { Vec v; u8 pad10[0x80]; T *x90; u16 x94; u8 pad96[0x6A]; Vec x100; u8 pad110[4]; Flags8 x114; } O;
 void func_00163C80(O *, Mtx *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_001502A0(Ray *, Vec *, Vec *, f32);
 C *func_001D2C60(O *);
 u8 func_001D2B80(C *);
@@ -78,9 +78,9 @@ s32 func_001D22E0(O *o) {
     ret = 0;
     if (o->x114.f.b5) {
         func_00163C80(o, &m);
-        func_00102A60(&pos, &m.m[3]);
+        sceVu0CopyVector(&pos, &m.m[3]);
     } else {
-        func_00102A60(&pos, &o->v);
+        sceVu0CopyVector(&pos, &o->v);
     }
     e = ent(pt, pi);
     func_001502A0(&ray, &o->x100, &pos, (e->t[e->a] + e->b)[e->c * 3]);
@@ -117,10 +117,10 @@ s32 func_001D22E0(O *o) {
         if (!func_0013BA90(o->x90, a)) continue;
         if (func_0013EE40(a)) continue;
         func_00140470(a, &v160);
-        func_00102A60(&seg.p, &v160);
+        sceVu0CopyVector(&seg.p, &v160);
         seg.p.y -= u2f(a->x4B0->xE);
         seg.p.w = u2f(a->x4B0->xA);
-        func_00102A60(&seg.d, &D_001F2140);
+        sceVu0CopyVector(&seg.d, &D_001F2140);
         seg.d.w = u2f(a->x4B0->xE);
         func_00151B20(&res, &ray, &seg);
         if (res.s.hit) {

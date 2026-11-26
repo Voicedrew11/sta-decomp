@@ -20,7 +20,7 @@ extern G D_004830C0;
 extern Blk D_0047F0C0[];
 extern E30 D_004800C0[];
 extern u8 D_0047F080[];
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_00176FB0(s16);
 
 void func_001781A0(s32 a0, s32 a1) {
@@ -28,15 +28,15 @@ void func_001781A0(s32 a0, s32 a1) {
     s16 j;
     s16 k;
 
-    func_00123C40(&D_004830C0, 0, 0x38);
+    memset(&D_004830C0, 0, 0x38);
     D_004830C0.x0 = (a0 + 0x1F) & ~0x1F;
     D_004830C0.x4 = (a1 + 0x1F) & ~0x1F;
-    func_00123C40(D_0047F080, 0, 0x40);
-    func_00123C40(D_004800C0, 0, 0x3000);
+    memset(D_0047F080, 0, 0x40);
+    memset(D_004800C0, 0, 0x3000);
     for (i = 0xFF; i >= 0; i--) {
         D_004800C0[i].x22 = -1;
     }
-    func_00123C40(D_0047F0C0, 0, 0x1000);
+    memset(D_0047F0C0, 0, 0x1000);
     D_004830C0.xE = 0;
     D_004830C0.xC = -1;
     D_004830C0.xA = 0x100;

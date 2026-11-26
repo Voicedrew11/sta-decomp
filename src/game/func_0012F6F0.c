@@ -1,6 +1,6 @@
 #include "m2c.h"
 typedef struct { u8 pad[0x1D]; s8 b1D; s16 h1E; u8 pad2[0x30]; } S;
-void func_001028F8(void *, void *);
+void sceVu0InversMatrix(void *, void *);
 void func_0012FC20(S *);
 void func_00130090(S *);
 void func_001302A0(S *);
@@ -19,7 +19,7 @@ void func_0012F6F0(void) {
         return;
     }
     if (D_00201C38 != 0) {
-        func_001028F8(D_0026F090, D_002F16C0);
+        sceVu0InversMatrix(D_0026F090, D_002F16C0);
         n = 0x40;
         p = D_0026F0D0;
         while (n--) {

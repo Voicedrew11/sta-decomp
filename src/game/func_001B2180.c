@@ -20,7 +20,7 @@ typedef struct {
 } O;
 extern Flags8 D_00222A52[];
 s32 func_0014FA30(H *, s32 *, Q2 *, void *, O *, s32);
-void func_00102A60(Vec *, H *);
+void sceVu0CopyVector(Vec *, H *);
 
 s32 func_001B2180(O *o, H *h, Q2 *src, void *a3, s32 flags) {
     Q2 buf;
@@ -40,7 +40,7 @@ s32 func_001B2180(O *o, H *h, Q2 *src, void *a3, s32 flags) {
     f = flags;
     if (f & 1) {
         if (func_0014FA30(h, **o->x178, &buf, a3, o, 0)) {
-            func_00102A60(&buf.v[1], h);
+            sceVu0CopyVector(&buf.v[1], h);
             h->x30 = o;
             if (f & 4) return 1;
         }
@@ -55,7 +55,7 @@ s32 func_001B2180(O *o, H *h, Q2 *src, void *a3, s32 flags) {
         if (e->x52.f.b4) continue;
         if (!e->x52.f.b3) continue;
         if (func_0014FA30(h, *e->x40, &buf, a3, 0, t->x1E.f.b3)) {
-            func_00102A60(&buf.v[1], h);
+            sceVu0CopyVector(&buf.v[1], h);
             h->x30 = o;
             h->x38 = e;
             h->x34 = s;

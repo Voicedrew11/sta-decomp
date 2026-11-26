@@ -7,10 +7,10 @@ typedef struct {
     s8 pad[0x18]; P18 *p18; s8 pad1[0x50 - 0x1C]; Vec v50;
     s8 pad2[0x390 - 0x60]; P390 *p390; s8 pad3[0x39D - 0x394]; B39D b39D; s8 pad4[2]; B3A0 h3A0; s8 pad5[2]; f32 f3A4;
 } SS;
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-f32 func_0011D850(f32);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+f32 fabsf(f32);
 void func_001CA2C0(void);
 f32 sqrtf(f32);
 static inline f32 mu(f32 a, f32 b) { return a * b; }
@@ -36,22 +36,22 @@ void func_001C34F0(s8 *arg0, f32 *a) {
     }
     if (s->h3A0.cnt < 4) {
         if (a[2] > 0.0f) {
-            func_00102A18(&t0, &s->p18->v80, 0.2f * (250.0f * -a[2]));
-            func_001029D0(&s->v50, &t0, &s->v50);
+            sceVu0ScaleVector(&t0, &s->p18->v80, 0.2f * (250.0f * -a[2]));
+            sceVu0AddVector(&s->v50, &t0, &s->v50);
         }
         if (a[3] > 0.0f) {
-            func_00102A18(&t1, &s->p18->v80, 0.2f * (100.0f * a[3]));
-            func_001029D0(&s->v50, &t1, &s->v50);
+            sceVu0ScaleVector(&t1, &s->p18->v80, 0.2f * (100.0f * a[3]));
+            sceVu0AddVector(&s->v50, &t1, &s->v50);
         }
         if (a[5] > 0.0f) {
             k = s->p390->x48 ? 0.5f : 1.0f;
-            func_00102A18(&t2, &s->p18->v60, 0.2f * (-a[5] * (100.0f * k)));
-            func_001029D0(&s->v50, &t2, &s->v50);
+            sceVu0ScaleVector(&t2, &s->p18->v60, 0.2f * (-a[5] * (100.0f * k)));
+            sceVu0AddVector(&s->v50, &t2, &s->v50);
         }
         if (a[4] > 0.0f) {
             k = s->p390->x48 ? 0.5f : 1.0f;
-            func_00102A18(&t3, &s->p18->v60, 0.2f * (a[4] * (100.0f * k)));
-            func_001029D0(&s->v50, &t3, &s->v50);
+            sceVu0ScaleVector(&t3, &s->p18->v60, 0.2f * (a[4] * (100.0f * k)));
+            sceVu0AddVector(&s->v50, &t3, &s->v50);
         }
     }
     if (a[0] > 0.0f) {
@@ -64,11 +64,11 @@ void func_001C34F0(s8 *arg0, f32 *a) {
     }
     sv = s->v50.y;
     s->v50.y = 0.0f;
-    func_00102A18(&s->v50, &s->v50, 0.640000045f);
-    len = func_00102848(&s->v50, &s->v50);
+    sceVu0ScaleVector(&s->v50, &s->v50, 0.640000045f);
+    len = sceVu0InnerProduct(&s->v50, &s->v50);
     s->v50.y = sv;
     len = sqrtf(len);
-    if (func_0011D850(s->p18->f20) < 0.0872664675f) {
+    if (fabsf(s->p18->f20) < 0.0872664675f) {
         if (s->b39D.n > 3) {
             f = len / 1000.0f;
             f = f > 1.0f ? 1.0f : f;

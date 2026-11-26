@@ -2,14 +2,14 @@
 typedef struct { u8 pad[0x2C]; u16 a[8]; u8 pad2[0x4A-0x3C]; u16 b[6]; } E;
 extern u8 *func_001AFC90(void);
 extern s32 func_001AFBD0(s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_0019A370(u16 *a0, u16 *a1, void *a2, void *a3, s32 t0) {
     u8 *e = func_001AFC90() + t0 * 0x90;
-    func_00123C40(a1, 0, 0x10);
-    func_00123C40(a0, 0, 0x10);
-    func_00123C40(a3, 0, 0x10);
-    func_00123C40(a2, 0, 0x10);
+    memset(a1, 0, 0x10);
+    memset(a0, 0, 0x10);
+    memset(a3, 0, 0x10);
+    memset(a2, 0, 0x10);
     if (t0 >= 0) {
         switch (func_001AFBD0(t0)) {
         case 1:

@@ -40,7 +40,7 @@ typedef struct {
 } Pool;
 Obj **func_001288C0(s32, s32);
 void func_001535B0(void *, Obj **);
-void func_00123C40(Obj *, s32, s32);
+void memset(Obj *, s32, s32);
 void func_00170380(Res *, Obj *);
 
 Obj **func_0016F950(Pool *p, Res **r) {
@@ -56,7 +56,7 @@ Obj **func_0016F950(Pool *p, Res **r) {
         return 0;
     }
     func_001535B0(p->f4, h);
-    func_00123C40(*h, 0, size);
+    memset(*h, 0, size);
     (*h)->f10 = r;
     (*h)->f14 = hdr->f0;
     (*h)->f16 = hdr->f2;

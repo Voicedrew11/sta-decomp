@@ -31,7 +31,7 @@ void func_0012A520(f32);
 void func_001C9830(void);
 void func_001B4100(Inner *);
 void func_0012A070(void);
-s32 func_001170C8(s32);
+s32 sceCdSync(s32);
 void func_001DF9A0(void);
 void func_0012AA30(void);
 
@@ -64,7 +64,7 @@ s32 func_0012B350(void) {
         func_00128460(D_00222B20, -1);
         func_00169790();
         func_0012A070();
-        if (D_00201E94 % 15 == 0 && func_001170C8(1) == 0) {
+        if (D_00201E94 % 15 == 0 && sceCdSync(1) == 0) {
             func_001DF9A0();
         }
         D_00201E94++;

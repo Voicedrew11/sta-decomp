@@ -12,14 +12,14 @@ typedef struct { u8 p0[0xC]; f32 r; u8 p10[0xC]; f32 w; } Ray;
 extern s32 D_00201F2C;
 extern s16 D_00222A18[];
 extern s16 D_00222A16[];
-void func_00123C40(void *, s32, s32);
-void func_00102A70(Mtx *, void *);
-void func_00102A60(Vec *, void *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-void func_001029E8(Vec *, Ray *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void memset(void *, s32, s32);
+void sceVu0CopyMatrix(Mtx *, void *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+void sceVu0SubVector(Vec *, Ray *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 s32 func_00152700(Vec *, A0 *, Ray *, s32, s32 *, s32, s32 *, Vec *, Vec *, Vec *, Q *, Item *, u8 *, Mtx *, f32 *, s32, s32, s32);
-static inline s32 inr(Vec *c, f32 r) { r *= r; return func_00102848(c, c) <= r; }
+static inline s32 inr(Vec *c, f32 r) { r *= r; return sceVu0InnerProduct(c, c) <= r; }
 
 void func_001520E0(Vec *o, A0 *a, Ray *ray, u8 mask, s32 mode, s32 *pcnt, s32 x6, s32 x7, Ctx *ctx, s32 skip) {
     Vec X;
@@ -54,7 +54,7 @@ void func_001520E0(Vec *o, A0 *a, Ray *ray, u8 mask, s32 mode, s32 *pcnt, s32 x6
     h = a->o->m;
     if (pcnt) *pcnt = 0;
     best = r = 1.0f + ray->r / ray->w;
-    func_00123C40(o, 0, 0x40);
+    memset(o, 0, 0x40);
     base = *h->x10;
     tbl = (u8 *)((s32)h + 0x40) + h->x14 * 16 + h->x16 * 8 + h->x18 * 4;
     for (k = 0; k < 8; k++) {
@@ -69,40 +69,40 @@ void func_001520E0(Vec *o, A0 *a, Ray *ray, u8 mask, s32 mode, s32 *pcnt, s32 x6
             idx = s[j * 0x140 + 0x332];
             if (idx == 0xFF) continue;
             if (idx >= h->x1C) continue;
-            func_00102A70(&M, s + (j + 1) * 0x140 + 0xC0);
+            sceVu0CopyMatrix(&M, s + (j + 1) * 0x140 + 0xC0);
             g = (G *)(tbl + idx * 0x50);
             if (!g->x0) continue;
             if (!g->x10[k]) continue;
             q = (Q *)(base + g->x0);
             it = (Item *)(base + g->x10[k]);
             base2 = (u8 *)(base + g->x4);
-            func_00102A60(&C, (u8 *)q + k * 16 + 0x20);
+            sceVu0CopyVector(&C, (u8 *)q + k * 16 + 0x20);
             C.w = 1.0f;
-            func_001027B0(&C, &M, &C);
-            func_001029E8(&C, ray, &C);
+            sceVu0ApplyMatrix(&C, &M, &C);
+            sceVu0SubVector(&C, ray, &C);
             if ((ok = inr(&C, q->sph[k].w + (ray->w + ray->r))) == 0) continue;
             for (i = 0; i < q->n[k]; i++, it++) {
                 c0 = 0;
-                func_00102A60(&B, &it->sph);
+                sceVu0CopyVector(&B, &it->sph);
                 B.w = 1.0f;
-                func_001027B0(&B, &M, &B);
-                func_001029E8(&B, ray, &B);
+                sceVu0ApplyMatrix(&B, &M, &B);
+                sceVu0SubVector(&B, ray, &B);
                 if ((ok = inr(&B, it->sph.w + (ray->w + ray->r))) == 0) continue;
                 if (D_00222A18[0] != -1 && i != D_00222A18[0]) continue;
                 e = base2 + it->off;
                 if (e[0xC] & 1) c0 = 1;
                 tp = e + 0x20;
-                func_00102A60(&T[0], e);
+                sceVu0CopyVector(&T[0], e);
                 T[0].w = 1.0f;
-                func_00102A60(&T[1], e + 0x10);
+                sceVu0CopyVector(&T[1], e + 0x10);
                 T[1].w = 1.0f;
-                func_001027B0(&T[0], &M, &T[0]);
-                func_001027B0(&T[1], &M, &T[1]);
+                sceVu0ApplyMatrix(&T[0], &M, &T[0]);
+                sceVu0ApplyMatrix(&T[1], &M, &T[1]);
                 for (t = 0; t < it->n - 2; t++, tp += 0x30) {
                     v = &T[(t + 2) % 3];
-                    func_00102A60(v, tp);
+                    sceVu0CopyVector(v, tp);
                     v->w = 1.0f;
-                    func_001027B0(v, &M, v);
+                    sceVu0ApplyMatrix(v, &M, v);
                     if (D_00222A16[0] != -1 && t != D_00222A16[0]) continue;
                     if (func_00152700(o, a, ray, mode, pcnt, x6, &x7, &X, &Y, T, q, it, tp, &M, &best, t, c0, j) == 1) goto out;
                 }
@@ -112,7 +112,7 @@ void func_001520E0(Vec *o, A0 *a, Ray *ray, u8 mask, s32 mode, s32 *pcnt, s32 x6
     }
 out:
     if (best < r) {
-        func_00102A60(o, &X);
-        func_00102A60(o + 1, &Y);
+        sceVu0CopyVector(o, &X);
+        sceVu0CopyVector(o + 1, &Y);
     }
 }

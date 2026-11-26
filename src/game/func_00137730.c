@@ -3,7 +3,7 @@ typedef struct { u8 pad[6]; u16 n; } H;
 extern s32 D_00201F2C;
 u8 func_0013FC00(Actor *);
 s32 func_0013FB90(Actor *, u8, Vec **, Vec **);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 
 void func_00137730(Actor *a, Vec *m) {
     Vec *p[4];
@@ -19,18 +19,18 @@ void func_00137730(Actor *a, Vec *m) {
         p[0] = 0;
         q[0] = 0;
         if ((u8)func_0013FB90(a, i, p, q)) {
-            func_001029D0(p[0], p[0], m);
+            sceVu0AddVector(p[0], p[0], m);
         }
     }
     h = *(H **)(a->unk518 + 0x1A8);
     e = (s8 *)((s32)h + 0x40) + D_00201F2C * (h->n * 0x140 + 0x200) + 0xC0;
-    func_001029D0((Vec *)(e + 0x1F0), (Vec *)(e + 0x1F0), m);
+    sceVu0AddVector((Vec *)(e + 0x1F0), (Vec *)(e + 0x1F0), m);
     i = 1;
     if (i < h->n + 1) {
         e += 0x140;
         do {
         if (!((Flags8 *)(e + 0x138))->f.b6) {
-            func_001029D0((Vec *)(e + 0x30), (Vec *)(e + 0x30), m);
+            sceVu0AddVector((Vec *)(e + 0x30), (Vec *)(e + 0x30), m);
         }
             e += 0x140;
             i++;

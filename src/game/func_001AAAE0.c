@@ -23,7 +23,7 @@ extern s8 D_001FD9B0[];
 extern s8 D_001FD9B8[];
 extern s8 D_001FD9C0[];
 extern s8 D_001FD988[];
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001A95A0(s16, u8);
 #define FCC(s) ((s)[0] | ((s)[1] << 8) | ((s)[2] << 16) | ((s)[3] << 24))
 static inline void init(Rec *p, s8 *s, u32 x4, u32 x10, u32 x14) {
@@ -43,7 +43,7 @@ void func_001AAAE0(Big *b) {
     s32 i;
     s32 j;
 
-    func_00123C40(b, 0, 0x7C20);
+    memset(b, 0, 0x7C20);
     for (i = 0; i < 0x2A; i++) {
         for (j = 0; j < 16; j++) {
             b->g[i].x60[j] = -1;

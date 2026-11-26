@@ -1,6 +1,6 @@
 #include "m2c.h"
 typedef struct { s32 x0; s32 x4; u8 x8; u8 x9; u8 xA; u8 xB; u8 xC; u8 xD; u8 xE; } Obj;
-void func_00123C40(s32, s32, s32);
+void memset(s32, s32, s32);
 s32 func_00188FF0(s32);
 void func_00189ED0(s32);
 void func_0018B150(f32, s32 *, s32, s32, void (*)(), s32);
@@ -43,7 +43,7 @@ void func_00194150(Obj *o) {
     }
     if (r == 0 && (o->x4 & 0x2000)) {
         func_001AB0A0(D_004A0900 + idx * 0xF0);
-        func_00123C40(func_00188FF0(0), 0, 8);
+        memset(func_00188FF0(0), 0, 8);
         D_004A1184[0] = 0;
         D_004A118C[0] = 128.0f;
         D_004A1188[0] = 0;

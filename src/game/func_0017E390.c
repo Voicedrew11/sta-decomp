@@ -15,20 +15,20 @@ typedef struct {
     f32 x40;
 } O;
 extern Mtx D_001F2170;
-void func_00102A70(Mtx *, Mtx *);
-void func_00102B78(f32, Mtx *, Mtx *);
-void func_00102C20(f32, Mtx *, Mtx *);
-void func_00102CC8(f32, Mtx *, Mtx *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0RotMatrixZ(f32, Mtx *, Mtx *);
+void sceVu0RotMatrixX(f32, Mtx *, Mtx *);
+void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
 void func_001B0EB0(u8, u16, Mtx *);
 void func_001B11F0(u8, u16, s32);
 
 void func_0017E390(O *o) {
     Mtx m;
 
-    func_00102A70(&m, &D_001F2170);
-    func_00102B78(WRAP(DEG(o->x30)), &m, &m);
-    func_00102C20(WRAP(DEG(o->x38)), &m, &m);
-    func_00102CC8(WRAP(DEG(o->x40)), &m, &m);
+    sceVu0CopyMatrix(&m, &D_001F2170);
+    sceVu0RotMatrixZ(WRAP(DEG(o->x30)), &m, &m);
+    sceVu0RotMatrixX(WRAP(DEG(o->x38)), &m, &m);
+    sceVu0RotMatrixY(WRAP(DEG(o->x40)), &m, &m);
     m.m[3].x = o->x18;
     m.m[3].y = o->x20;
     m.m[3].z = o->x28;

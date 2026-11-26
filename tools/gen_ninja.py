@@ -276,7 +276,7 @@ def main() -> None:
         # compile_c.sh); asm/ is splat's output
         rule = "cc" if s.startswith("src/") else "as"
         # a change to how units are compiled rebuilds them
-        dep = " | include/macro.inc" if rule == "as" else " | tools/compile_c.sh tools/mwfix.py"
+        dep = " | include/macro.inc" if rule == "as" else " | tools/compile_c.sh tools/mwfix.py config/game_cflags.txt"
         n.append(f"build {o}: {rule} {s}" + dep)
     for s in c_units:
         # the .s is rewritten only when its content changes (restat), so the

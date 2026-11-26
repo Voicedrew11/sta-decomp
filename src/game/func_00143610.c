@@ -1,6 +1,6 @@
 #include "common.h"
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 float sqrtf(float);
 typedef struct { u8 pad[0x10010]; Vec tbl[1]; } Obj;
 static inline Vec *get(Obj *o, u8 i)
@@ -36,8 +36,8 @@ u8 func_00143610(Obj *o, Vec *pos) {
     while (i != 0xFF) {
         p = get(o, i);
         w = p->w;
-        func_001029E8(&d, p, pos);
-        dist = sqrtf(func_00102848(&d, &d)) - w;
+        sceVu0SubVector(&d, p, pos);
+        dist = sqrtf(sceVu0InnerProduct(&d, &d)) - w;
         if (best == 0xFF || dist < bd) {
             best = i;
             bd = dist;

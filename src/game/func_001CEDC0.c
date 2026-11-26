@@ -32,7 +32,7 @@ typedef struct { u8 pad[4]; u16 x4; u8 pad6[0x1A]; u16 x20; u8 pad22[0x6E]; } E;
 S *func_001C9BA0(void);
 Q *func_001C9B60(void);
 E *func_001AFC90(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001D08E0(u16 *, u8 *, s16 *, C4 *);
 void func_001D0000(u16 *, u8 *, u16 *, s16 *, C4 *, s32);
 s32 func_001CD450(s32, u8 *, s32, s32);
@@ -67,7 +67,7 @@ void func_001CEDC0(s32 arg) {
     s = func_001C9BA0();
     q = func_001C9B60();
     if (q == NULL) return;
-    func_00123C40(buf, 0, 0x28);
+    memset(buf, 0, 0x28);
     for (i = 0; i < 10; i++) {
         k = s->x80[i];
         if (k != -1) {

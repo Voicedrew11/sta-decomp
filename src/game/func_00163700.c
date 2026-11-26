@@ -16,7 +16,7 @@ typedef struct { f32 x0; u16 x4; u8 x6; u8 x7; } Hdr;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
 typedef struct { u8 x0; B8 f; u8 pad[2]; f32 x4; f32 x8; f32 xC; f32 x10; } Mod;
 void func_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 extern u32 D_00201E94;
 static inline f32 u2f(u32 x) { return x; }
 static inline void interp(f32 *out, Hdr *h, s32 *keys, f32 *pt, s32 loop, f32 len) {
@@ -99,7 +99,7 @@ void func_00163700(f32 *out, Hdr *h, Mod *mods, s32 *keys, s32 loop, f32 t, f32 
             func_0015ED80(&p, 1, &res, t, 0.0f, 1000000.0f);
         }
         if (m->f.b4) {
-            res = func_0011D850(res);
+            res = fabsf(res);
         }
         if (m->f.b5) {
             *out *= res;

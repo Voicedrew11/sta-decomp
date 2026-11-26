@@ -9,8 +9,8 @@ extern F7 D_00222A51[];
 extern f32 D_001F2170[];
 Actor *func_001A5430(void);
 Ent *func_0013DC70(Actor *, u8);
-void func_00102A60(Vec *, Vec *);
-void func_00102A70(f32 *, f32 *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0CopyMatrix(f32 *, f32 *);
 s32 func_0013EE30(Actor *);
 s32 func_001C7A70(Vec *);
 void func_001A58A0(f32, f32 *, f32 *, Vec *, Vec *);
@@ -38,8 +38,8 @@ void func_00139330(Arg0 *arg0, s32 arg1, u8 arg2, Key *arg3, f32 *arg4, s32 arg5
     base = (s8 *)((s32)arg0 + 0x40) + D_00201F2C * (arg0->h6 * 0x140 + 0x200);
     v = &e->a;
     p = arg4 + arg3->hE + arg3->bC;
-    func_00102A60(&e->c, v);
-    func_00102A60(&e->d, &e->b);
+    sceVu0CopyVector(&e->c, v);
+    sceVu0CopyVector(&e->d, &e->b);
     if (func_0013EE30(a) != 0) {
         if (func_001C7A70(v) == 0) {
             func_001A58A0(p[0], p + 1, p + 4, v, v + 1);
@@ -61,9 +61,9 @@ void func_00139330(Arg0 *arg0, s32 arg1, u8 arg2, Key *arg3, f32 *arg4, s32 arg5
         }
     }
     if (D_00222A51[0].b7) {
-        func_00102A60(&buf.a, v);
-        func_00102A60(&buf.b, v + 1);
-        func_00102A70(&buf.m[0][0], D_001F2170);
+        sceVu0CopyVector(&buf.a, v);
+        sceVu0CopyVector(&buf.b, v + 1);
+        sceVu0CopyMatrix(&buf.m[0][0], D_001F2170);
         func_00156920(&buf);
     }
 }

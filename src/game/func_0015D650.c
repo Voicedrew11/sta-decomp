@@ -1,5 +1,5 @@
 #include "m2c.h"
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 typedef struct { u16 n; u16 idx[64]; } G;
 extern s32 D_00201F2C;
 extern s8 D_0030D180[];
@@ -26,7 +26,7 @@ void func_0015D650(void) {
     for (i = 0; i < 0x100; i++) {
         e = D_0030D9A0 + i * 0x60;
         if (M2C_FIELD(e, u8 *, 0x50) & 1) {
-            func_00102A60(e + (D_00201F2C << 5), e + 0x40);
+            sceVu0CopyVector(e + (D_00201F2C << 5), e + 0x40);
         }
     }
 }

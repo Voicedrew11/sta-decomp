@@ -40,7 +40,7 @@ extern s32 * volatile D_0042D8AC[];
 extern E8 * volatile D_0042D8B0[];
 extern volatile s32 D_0042D8B4[];
 extern volatile s32 D_0042D8B8[];
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 
 s32 func_00170380(Ch *c, Obj *o) {
     u16 *q;
@@ -58,7 +58,7 @@ s32 func_00170380(Ch *c, Obj *o) {
     case 0x4D415453:
         h = &c->h;
         sub = (Ch *)((u8 *)c + c->off);
-        func_00102A60(&o->v, (Vec *)(DATA(h) + 0x10));
+        sceVu0CopyVector(&o->v, (Vec *)(DATA(h) + 0x10));
         D_0042D8B4[0] = *o->x10;
         D_0042D89C[0] = (E16 *)((s32)o + 0x40);
         D_0042D880[0] = 0;

@@ -20,8 +20,8 @@ typedef struct { u8 pad[0x54]; u8 *x54; } P;
 typedef struct { u8 pad[0xE]; u8 xE; } G;
 void func_00181680(s32, Vec *, Vec *, Col *, S *, u32);
 void func_001875C0(f32, s8 *, f32, f32, s32, u32);
-void func_001256E0(s8 *, s8 *, ...);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, ...);
+void strcpy(s8 *, s8 *);
 G *func_001C9BA0(void);
 P *func_00189020(s32);
 s32 func_001AA440(s32);
@@ -92,32 +92,32 @@ void func_00198570(A *o, s32 mode, u32 kind) {
         }
         if (kind == 501) {
             col.w = 0x80808080;
-            func_001256E0(buf, D_001FD398, D_002021A4);
+            sprintf(buf, D_001FD398, D_002021A4);
             func_001875C0(o->x38, buf, o->x3C, 0.9f, 2, col.w);
         }
         if (mode == 100) {
             if (kind == 400) {
                 col.w = 0x80808080;
-                func_00125CE8(buf, D_001FD3A0);
+                strcpy(buf, D_001FD3A0);
                 func_001875C0(o->x38, buf, o->x3C, 0.9f, 0, col.w);
             }
             if (kind == 401) {
                 col.w = 0x80808080;
                 if (n < 0) {
-                    func_00125CE8(D_004A1770, D_001FD3B0);
-                    func_00125CE8(buf, D_001FD3B0);
+                    strcpy(D_004A1770, D_001FD3B0);
+                    strcpy(buf, D_001FD3B0);
                 } else {
                     k = n / 10;
                     if (any(n / 10)) {
                         c = func_001AA090(k * 10);
                         f = 100.0f * (u2f(c) / (f32)func_001959E0(k));
                         if (func_001959E0(k) == 0) {
-                            func_001256E0(buf, D_001FD3C0, (s32)f);
+                            sprintf(buf, D_001FD3C0, (s32)f);
                         } else {
-                            func_001256E0(buf, D_001FD3C8, (s32)f);
+                            sprintf(buf, D_001FD3C8, (s32)f);
                         }
                     } else {
-                        func_00125CE8(buf, D_001FD3B0);
+                        strcpy(buf, D_001FD3B0);
                     }
                 }
                 func_001875C0(o->x38, buf, o->x3C, 0.9f, 0, col.w);
@@ -126,26 +126,26 @@ void func_00198570(A *o, s32 mode, u32 kind) {
         if (func_001C9BA0()->xE != 0 && mode == 200) {
             if (kind == 400) {
                 col.w = 0x80808080;
-                func_00125CE8(buf, D_001FD3D0);
+                strcpy(buf, D_001FD3D0);
                 func_001875C0(o->x38, buf, o->x3C, 0.9f, 0, col.w);
             }
             if (kind == 401) {
                 col.w = 0x80808080;
                 if (n < 0) {
-                    func_00125CE8(D_004A1770, D_001FD3B0);
-                    func_00125CE8(buf, D_001FD3B0);
+                    strcpy(D_004A1770, D_001FD3B0);
+                    strcpy(buf, D_001FD3B0);
                 } else {
                     k = n / 10;
                     if (any(n / 10)) {
                         c = func_001A9FF0(k * 10);
                         f = 100.0f * (u2f(c) / (f32)func_001959E0(k));
                         if (func_001959E0(k) == 0) {
-                            func_001256E0(buf, D_001FD3E0, (s32)f);
+                            sprintf(buf, D_001FD3E0, (s32)f);
                         } else {
-                            func_001256E0(buf, D_001FD3E8, (s32)f);
+                            sprintf(buf, D_001FD3E8, (s32)f);
                         }
                     } else {
-                        func_00125CE8(buf, D_001FD3B0);
+                        strcpy(buf, D_001FD3B0);
                     }
                 }
                 func_001875C0(o->x38, buf, o->x3C, 0.9f, 0, col.w);

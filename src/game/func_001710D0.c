@@ -19,7 +19,7 @@ typedef struct {
     u8 pad[0x1A];
     s8 data[1];
 } Obj;
-void func_00102A70(s8 *, s8 *);
+void sceVu0CopyMatrix(s8 *, s8 *);
 void func_00171BB0(s8 *, Obj *, u8, u8, u16, f32);
 extern s32 D_00201F2C;
 
@@ -39,8 +39,8 @@ void func_001710D0(Obj *obj, s16 a1, f32 a, f32 b, f32 c) {
         q = p + stride;
         r = p + D_00201F2C * stride;
         for (i = 0; i < obj->n + 1; i++) {
-            func_00102A70(p + 0x180, r + 0x140);
-            func_00102A70(q + 0x180, r + 0x140);
+            sceVu0CopyMatrix(p + 0x180, r + 0x140);
+            sceVu0CopyMatrix(q + 0x180, r + 0x140);
             r += 0x140;
             p += 0x140;
             q += 0x140;

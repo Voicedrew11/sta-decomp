@@ -7,7 +7,7 @@ extern u8 D_001FC9C0[];
 extern u8 D_001FC9D8[];
 extern O *D_0048D110[];
 extern Ent D_0048D170[];
-void func_001256E0(void *, void *, s32);
+void sprintf(void *, void *, s32);
 O *func_001E1570(void *, s32);
 void func_00177570(s8 *);
 s8 *func_00177AF0(s32, s32);
@@ -43,7 +43,7 @@ void func_001833E0(s32 arg0, s32 arg1) {
         }
         {
             Buf s = {0};
-            func_001256E0(&s, D_001FC9C0, *cur);
+            sprintf(&s, D_001FC9C0, *cur);
             *pp = func_001E1570(&s, arg1);
         }
         e->f[0] = 4.0f;
@@ -59,7 +59,7 @@ void func_001833E0(s32 arg0, s32 arg1) {
     o = *pp;
     if (o != NULL && !o->b1 && !o->b2 && o->b0) {
         u8 buf2[16];
-        func_001256E0(buf2, D_001FC9D8, *cur);
+        sprintf(buf2, D_001FC9D8, *cur);
         if ((x = (*pp)->first) != 0) {
             e->p = func_00177AF0(func_00177F80(buf2), x);
             (*(O **)((s8 *)D_0048D110 + arg1 * 4))->b2 = 1;

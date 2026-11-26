@@ -6,7 +6,7 @@ s32 func_0013EE30(s8 *);
 s32 func_00137870(s8 *, s8 *, f32 *);
 s32 func_00138460(s8 *, s8 *, f32 *);
 void func_0013E6A0(s8 *, s32);
-void func_001029D0(s8 *, s8 *, f32 *);
+void sceVu0AddVector(s8 *, s8 *, f32 *);
 void func_00137730(s8 *, f32 *);
 
 void func_0013A2C0(s8 *arg0) {
@@ -28,14 +28,14 @@ void func_0013A2C0(s8 *arg0) {
                             if (vec[1] > 0.0f) {
                                 vec[1] = 0.0f;
                             }
-                            func_001029D0(o + 0x40, o + 0x40, vec);
+                            sceVu0AddVector(o + 0x40, o + 0x40, vec);
                             func_00137730(arg0, vec);
                         }
                     } else if (func_00138460(arg0, other, vec)) {
                         if (vec[1] > 0.0f) {
                             vec[1] = 0.0f;
                         }
-                        func_001029D0(o + 0x40, o + 0x40, vec);
+                        sceVu0AddVector(o + 0x40, o + 0x40, vec);
                         func_00137730(arg0, vec);
                     }
                 }

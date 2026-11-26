@@ -14,7 +14,7 @@ typedef struct {
     f32 x24;
     s8 *x28;
 } T;
-u32 func_00125E00(void *);
+u32 strlen(void *);
 void func_00187A90(void *, void *, u64);
 s32 func_00188010(void *, C);
 
@@ -23,7 +23,7 @@ void func_00187680(s8 *str, u32 a, s16 h, C col, f32 x, f32 y, f32 sc) {
     if (str == 0) {
         return;
     }
-    func_00187A90(&t, str, func_00125E00(str));
+    func_00187A90(&t, str, strlen(str));
     t.x0 = x;
     t.x4 = y;
     t.x8.a = a;

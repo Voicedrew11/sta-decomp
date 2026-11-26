@@ -1,9 +1,9 @@
 #include "common.h"
 f32 func_0011D778(f32);
 f32 func_0011DA18(f32);
-f32 func_00102848(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
-void func_00102A70(f32 *, f32 *);
+void sceVu0CopyMatrix(f32 *, f32 *);
 float sqrtf(float);
 extern f32 D_001F2170[];
 
@@ -14,8 +14,8 @@ void func_0015EBB0(f32 *m, Vec *axis, f32 ang) {
     c = func_0011D778(ang);
     s = func_0011DA18(ang);
     t = 1.0f - c;
-    if (sqrtf(func_00102848(axis, axis)) < 1e-5f) {
-        func_00102A70(m, D_001F2170);
+    if (sqrtf(sceVu0InnerProduct(axis, axis)) < 1e-5f) {
+        sceVu0CopyMatrix(m, D_001F2170);
         return;
     }
     func_00102870(&v, axis);

@@ -3,8 +3,8 @@ f32 sqrtf(f32);
 void func_0013DD50(char *, f32 *, f32 *);
 void func_00145780(Vec *);
 void func_00140470(char *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011D778(f32);
 void func_001456B0(Vec *);
 void func_001403D0(char *, Vec *);
@@ -27,8 +27,8 @@ s32 func_0017A480(char *a0, f32 *a1, f32 *a2) {
     func_00140470(a0, &v90);
     va0.y = 0.0f;
     v90.y = 0.0f;
-    func_001029E8(&v80, &v90, &va0);
-    len = sqrtf(func_00102848(&v80, &v80));
+    sceVu0SubVector(&v80, &v90, &va0);
+    len = sqrtf(sceVu0InnerProduct(&v80, &v80));
     if (a1) *a1 = len;
     if (len < bc) {
         c = func_0011D778(1.0471976f);
@@ -38,7 +38,7 @@ s32 func_0017A480(char *a0, f32 *a1, f32 *a2) {
             v80.y /= len;
             v80.z /= len;
         }
-        d = func_00102848(&v80, &v70);
+        d = sceVu0InnerProduct(&v80, &v70);
         if (a2) *a2 = d;
         if (!(d <= c)) {
             c = func_0011D778(1.0471976f);
@@ -46,7 +46,7 @@ s32 func_0017A480(char *a0, f32 *a1, f32 *a2) {
             v80.y = -v80.y;
             v80.z = -v80.z;
             func_001403D0(a0, &v60);
-            if (!(func_00102848(&v80, &v60) <= c)) r = 1;
+            if (!(sceVu0InnerProduct(&v80, &v60) <= c)) r = 1;
         }
     }
     return r;

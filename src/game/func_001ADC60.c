@@ -11,8 +11,8 @@ typedef struct {
     u8 fA9;
     u8 padAA[0x26];
 } Node;
-void func_001027E0(void *, void *, void *);
-void func_001029D0(void *, void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
+void sceVu0AddVector(void *, void *, void *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
 extern Ent *D_002022B0;
 
@@ -26,8 +26,8 @@ void func_001ADC60(Node *n, Mtx *out) {
             Ent *e = &tbl[n->idx];
             func_00173FD0(&tmp, &e->a, &e->b, &e->c);
             func_00173FD0(out, &n->v40, &n->v50, &n->v60);
-            func_001027E0(out, out, &tmp);
+            sceVu0MulMatrix(out, out, &tmp);
         }
-        func_001029D0(&out->m[3], &out->m[3], &n->v70);
+        sceVu0AddVector(&out->m[3], &out->m[3], &n->v70);
     }
 }

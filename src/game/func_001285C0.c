@@ -21,7 +21,7 @@ typedef struct Heap {
     struct Heap *parent;
 } Heap;
 Blk *func_001288C0(Heap *, u32);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(s32, s32, s32);
 void func_00123A88(s32, s32, s32);
 static inline s32 avail(Heap *h) {
@@ -50,7 +50,7 @@ s32 func_001285C0(Heap *h, Blk *b, u32 n) {
     sz = b->size;
     if (c->size < sz) sz = c->size;
     if ((s32)sz >= 0x1400) {
-        func_0010BCA0(0);
+        FlushCache(0);
         func_001789E0(c->a, b->a, (s32)sz / 16);
     } else {
         func_00123A88(c->a, b->a, sz);

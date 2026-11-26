@@ -4,12 +4,12 @@ typedef struct { f32 m[4][4]; } MtxF;
 typedef struct { u8 pad[0x18]; s8 *o; u8 pad1C[0x40 - 0x1C]; Vec pos; u8 p50[0x3A0 - 0x50];
     union { struct { u16 a:7; u16 lvl:6; u16 r:3; } h; struct { u8 a; u8 r:7; u8 b7:1; } c; } f3A0; } P;
 extern s32 D_00201E80;
-void func_00102A60(Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void memset(void *, s32, s32);
 s32 func_001B3240(s8 *, MtxF *, Vec *, s32, s32);
 s32 func_001B2800(s8 *, MtxF *, Vec *, u16, s32, s32);
 s8 *func_00169B50(s32, s32, s32, s32);
-void func_00102CC8(MtxF *, MtxF *, f32);
+void sceVu0RotMatrixY(MtxF *, MtxF *, f32);
 void func_001677C0(s8 *, MtxF *);
 void func_001CA2D0(s32);
 extern MtxF D_001F2170;
@@ -18,8 +18,8 @@ static inline void hit(P *p, MtxF *r, MtxF *mp) {
     if (!p->f3A0.c.b7 && p->f3A0.h.lvl > 10) {
         o = func_00169B50(0x1DD, 0, 0, 0);
         if (o != 0) {
-            func_00102CC8(mp, &D_001F2170, WRAP(*(f32 *)(p->o + 0x24)));
-            func_00102A60((Vec *)mp->m[3], (Vec *)r);
+            sceVu0RotMatrixY(mp, &D_001F2170, WRAP(*(f32 *)(p->o + 0x24)));
+            sceVu0CopyVector((Vec *)mp->m[3], (Vec *)r);
             func_001677C0(o, mp);
             func_001CA2D0(0x10);
         }
@@ -39,12 +39,12 @@ s32 func_001BE050(Actor *a) {
     MtxF m;
     MtxF t;
     p = (P *)(a->unk518 + 0x180);
-    func_00102A60(&e, &p->pos);
+    sceVu0CopyVector(&e, &p->pos);
     e.w = 1.0f;
-    func_00102A60(&f, &p->pos);
+    sceVu0CopyVector(&f, &p->pos);
     f.w = 1.0f;
     e.y = -29000.0f;
-    func_00123C40(&m, 0, 0x40);
+    memset(&m, 0, 0x40);
     for (i = 0, q = (s8 ***)(&D_00201E80 + 2); i < 2; i++, q++) {
         if (*q != 0 && **q != 0 && func_001B3240(**q, &m, &e, 0x80, 1)) {
             hit(p, &m, &t);

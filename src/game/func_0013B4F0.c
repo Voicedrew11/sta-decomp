@@ -17,11 +17,11 @@ u8 func_0013FC00(Actor *);
 s32 func_0013FB90(Actor *, u8, Vec **, Vec **);
 Pt *func_0013DCA0(Actor *, u8);
 Ent *func_0013DC70(Actor *, u8);
-void func_00102A70(Mtx *, void *);
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyMatrix(Mtx *, void *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
 void func_00156920(Buf *);
 f32 sqrtf(f32);
@@ -53,19 +53,19 @@ void func_0013B4F0(Actor *a, s32 flag, f32 f) {
         Q.p = 0;
         if ((u8)func_0013FB90(a, i, &P.p, &Q.p)) {
             e = func_0013DCA0(a, a->unk82[i]);
-            func_00102A70(&M, s->p2C + (e->x2A + 1) * 0x140 + 0xC0);
-            func_00102A60(Q.p, P.p);
-            func_00102A60(&V, &e->vA0);
+            sceVu0CopyMatrix(&M, s->p2C + (e->x2A + 1) * 0x140 + 0xC0);
+            sceVu0CopyVector(Q.p, P.p);
+            sceVu0CopyVector(&V, &e->vA0);
             V.w = 1.0f;
-            func_001027B0(P.p, &M, &V);
+            sceVu0ApplyMatrix(P.p, &M, &V);
             P.p->w = e->vA0.w * s->f4;
-            Q.p->w < 0.0f ? func_00102A60(Q.p, P.p) : (void)0;
+            Q.p->w < 0.0f ? sceVu0CopyVector(Q.p, P.p) : (void)0;
             if (D_00222A51[0].b7 && !func_0013EE30(a)) {
-                func_00102A70(&L1.m, &D_001F2170);
+                sceVu0CopyMatrix(&L1.m, &D_001F2170);
                 L1.col = 0x4000FF00;
-                func_00102A60(&L1.a, Q.p);
-                func_001029E8(&L1.b, P.p, Q.p);
-                L1.b.w = sqrtf(func_00102848(&L1.b, &L1.b));
+                sceVu0CopyVector(&L1.a, Q.p);
+                sceVu0SubVector(&L1.b, P.p, Q.p);
+                L1.b.w = sqrtf(sceVu0InnerProduct(&L1.b, &L1.b));
                 func_00102870(&L1.b, &L1.b);
                 func_00156920(&L1);
             }
@@ -77,29 +77,29 @@ void func_0013B4F0(Actor *a, s32 flag, f32 f) {
         for (j = 0; j < *(u32 *)(a->pad000 + 0x7C); j++) {
             e = func_0013DCA0(a, j);
             if (e->f2D.f.b5) {
-                func_00102A60(&s->p14[j].c, &s->p14[j].a);
-                func_00102A60(&s->p14[j].d, &s->p14[j].b);
+                sceVu0CopyVector(&s->p14[j].c, &s->p14[j].a);
+                sceVu0CopyVector(&s->p14[j].d, &s->p14[j].b);
                 g = &s->p14[j];
                 b = &g->b;
-                func_00102A70(&M3, s->p2C + (e->x2A + 1) * 0x140 + 0xC0);
-                func_00102A60(&g->a, &e->v0);
+                sceVu0CopyMatrix(&M3, s->p2C + (e->x2A + 1) * 0x140 + 0xC0);
+                sceVu0CopyVector(&g->a, &e->v0);
                 g->a.w = 1.0f;
-                func_00102A60(b, &e->v10);
+                sceVu0CopyVector(b, &e->v10);
                 b->w = 1.0f;
-                func_001027B0(&g->a, &M3, &g->a);
-                func_001027B0(b, &M3, b);
-                func_001029E8(b, b, &g->a);
+                sceVu0ApplyMatrix(&g->a, &M3, &g->a);
+                sceVu0ApplyMatrix(b, &M3, b);
+                sceVu0SubVector(b, b, &g->a);
                 b->w = 0.0f;
-                f = sqrtf(func_00102848(b, b));
+                f = sqrtf(sceVu0InnerProduct(b, b));
                 func_00102870(b, b);
                 g->a.w = e->v0.w * s->f4;
                 b->w = f;
                 if (D_00222A51[0].b7 && !func_0013EE30(a) && !(func_0013DC70(a, j)->x160 & 1) &&
                     j != s->p18->xB7 && j != s->p18->xB6) {
-                    func_00102A70(&L2.m, &D_001F2170);
+                    sceVu0CopyMatrix(&L2.m, &D_001F2170);
                     L2.col = 0x40FFFFFF;
-                    func_00102A60(&L2.a, &g->a);
-                    func_00102A60(&L2.b, b);
+                    sceVu0CopyVector(&L2.a, &g->a);
+                    sceVu0CopyVector(&L2.b, b);
                     func_00156920(&L2);
                 }
             }

@@ -34,7 +34,7 @@ typedef struct {
     Vec x130[3];
 } S;
 typedef struct { u8 pad[0x1C]; u8 x1C:2; } R;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001A7E60(Actor *);
 R *func_0013DE50(Actor *);
 f32 *func_00140460(Actor *);
@@ -60,7 +60,7 @@ void func_00136700(Actor *a0) {
     u32 k;
 
     p = (S *)&a0->flags5B0;
-    func_00123C40(p, 0, 0x160);
+    memset(p, 0, 0x160);
     func_001A7E60(a0);
     p->u.w.w0 = 0;
     p->u.w.w4 = 0;

@@ -40,13 +40,13 @@ void func_00167640(void *, s32);
 s8 *func_001715B0(s32 **);
 void func_001B5B30(Mtx *, A *);
 void func_001C9490(Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_00102A70(B *, Mtx *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0CopyMatrix(B *, Mtx *);
 s8 *func_001B7300(O *, s32);
 void func_0015B6B0(Vec *, s8 *);
 void func_0015B1C0(Vec *, s8 *);
 void func_0015B270(void);
-void func_00102A60(Vec *, s32 *);
+void sceVu0CopyVector(Vec *, s32 *);
 void func_0015CC40(void *, f32);
 void func_00123A88(void *, void *, s32);
 void func_0016B960(s8 *, Big *, Vec *, s8 *, s32, s32);
@@ -104,9 +104,9 @@ void func_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel) {
         if (a->f24.f.b1) {
             func_001B5B30(&m, a);
             func_001C9490(&v);
-            func_001029D0(&m.m[3], &m.m[3], &v);
+            sceVu0AddVector(&m.m[3], &m.m[3], &v);
             m.m[3].w = 1.0f;
-            func_00102A70(b, &m);
+            sceVu0CopyMatrix(b, &m);
         }
         s2 = NULL;
         if (a->f24.f.b5) s2 = func_001B7300(o, a->x22);
@@ -116,7 +116,7 @@ void func_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel) {
         } else {
             func_0015B270();
         }
-        func_00102A60(&v2, s7);
+        sceVu0CopyVector(&v2, s7);
         v2.w *= b->x60;
         k = a->x21;
         if (b->idx != 0xFF) k = (s8)b->idx;

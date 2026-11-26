@@ -3,12 +3,12 @@ typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; 
 typedef struct { u16 x0; u16 x2; u16 x4; u16 x6; s32 x8; s32 xC; s32 x10; s32 x14; u16 x18; u16 x1A; } E;
 extern s8 D_001FDE10[];
 void func_00163C80(s8 *, Vec *);
-void func_00102A60(Vec *, void *);
+void sceVu0CopyVector(Vec *, void *);
 s32 func_00131560(s32, s32, s8 *);
 s8 *func_00169B50(s32, s32, s32, s32);
 void func_00167740(s8 *, void *);
 void func_00146140(Vec *, f32, f32);
-void func_001256E0(s8 *, s8 *, s32);
+void sprintf(s8 *, s8 *, s32);
 s32 func_001672A0(s8 *);
 void func_001672B0(s8 *, s32);
 s32 func_001675D0(s8 *);
@@ -30,9 +30,9 @@ void func_001D3810(s8 *a0, s32 id, E *e, s8 *a3, s32 t0, s32 t1, s32 t2) {
             if (p->x18 != 0) {
                 if (((B8 *)(a0 + 0x114))->b5) {
                     func_00163C80(a0, M1);
-                    func_00102A60(&V, &M1[3]);
+                    sceVu0CopyVector(&V, &M1[3]);
                 } else {
-                    func_00102A60(&V, a0);
+                    sceVu0CopyVector(&V, a0);
                 }
                 *(s32 *)(a0 + 0x110) = func_00131560(p->x18, p->x1A, a0 + 0x100);
             }
@@ -52,11 +52,11 @@ void func_001D3810(s8 *a0, s32 id, E *e, s8 *a3, s32 t0, s32 t1, s32 t2) {
                         break;
                     case 1:
                         func_00146140(M2, *(f32 *)(a3 + 0x20), *(f32 *)(a3 + 0x28));
-                        func_00102A60(&M2[3], a3 + 0x30);
+                        sceVu0CopyVector(&M2[3], a3 + 0x30);
                         func_00167740(h, M2);
                         break;
                     default:
-                        func_001256E0(str, D_001FDE10, name);
+                        sprintf(str, D_001FDE10, name);
                         break;
                     }
                     if (((B8 *)(*(s8 **)(a0 + 0x90) + 0x18A))->b1) {

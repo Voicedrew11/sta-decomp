@@ -7,10 +7,10 @@ extern W D_0030A2D0;
 extern Vec D_0030A290, D_0030A320, D_0030A330, D_0030A350, D_0030A360, D_0030A370, D_0030A390;
 extern s8 D_003139A0[];
 extern s32 D_00201F2C;
-void func_00102A60(Vec *, void *);
-void func_00102A70(Vec *, void *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0CopyMatrix(Vec *, void *);
 f32 func_0015B720(void *, void *);
-void func_001029A8(f32, Vec *, Vec *, Vec *);
+void sceVu0InterVector(f32, Vec *, Vec *, Vec *);
 
 void func_0015B360(void *a0, s32 mask) {
     Vec *h;
@@ -24,9 +24,9 @@ void func_0015B360(void *a0, s32 mask) {
 
     h = (Vec *)((u8 *)&D_0030A2D0 + D_00201F2C * 32);
     h2 = h + 1;
-    func_00102A60(&D_0030A360, D_003139A0);
-    func_00102A60(&D_0030A370, D_003139A0);
-    func_00102A70(&D_0030A290, a0);
+    sceVu0CopyVector(&D_0030A360, D_003139A0);
+    sceVu0CopyVector(&D_0030A370, D_003139A0);
+    sceVu0CopyMatrix(&D_0030A290, a0);
     sum = func_0015B720(&D_0030A350, &D_0030A390);
     for (i = 0; i < 2; i++) {
         if ((mask & (1 << i)) && D_0030A2D0.cnt[i]) {
@@ -46,15 +46,15 @@ void func_0015B360(void *a0, s32 mask) {
     c.y = D_0030A370.y * inv;
     c.z = D_0030A370.z * inv;
     c.w = D_0030A370.w * inv;
-    func_001029A8(0.85f, &D_0030A320, &D_0030A320, &d);
-    func_001029A8(0.85f, &D_0030A330, &D_0030A330, &c);
+    sceVu0InterVector(0.85f, &D_0030A320, &D_0030A320, &d);
+    sceVu0InterVector(0.85f, &D_0030A330, &D_0030A330, &c);
     if (h && &D_0030A330) {
         h->x = D_0030A330.x;
         h->y = D_0030A330.y;
         h->z = 0.5f * (0.999999f - D_0030A330.z);
         h->w = 0.5f * (1.0f - D_0030A330.w);
     }
-    func_00102A60(h2, &D_0030A320);
+    sceVu0CopyVector(h2, &D_0030A320);
     if (!(h2->x <= 1.0f)) h2->x = 1.0f;
     if (h2->x < 0.0f) h2->x = 0.0f;
     if (!(h2->y <= 1.0f)) h2->y = 1.0f;

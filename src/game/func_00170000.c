@@ -16,7 +16,7 @@ typedef struct { u8 pad[0xC]; s32 size; } Sub;
 typedef struct { s32 magic; u8 pad4[0xC]; Sub sub; } Hdr;
 Blk *func_001288C0(s32, s32);
 void func_001535B0(s32 *, Blk *);
-void func_00123C40(Obj *, s32, s32);
+void memset(Obj *, s32, s32);
 void func_00170380(Hdr *, Obj *);
 
 Blk *func_00170000(s32 *a0, s32 a1, Hdr *hdr) {
@@ -33,7 +33,7 @@ Blk *func_00170000(s32 *a0, s32 a1, Hdr *hdr) {
     size = info->x0 * 16 + 0x40 + info->x2 * 8 + info->x6 * 4 + info->xA * 0x50 + info->xE * 4;
     b = func_001288C0(*a0, size);
     func_001535B0(a0 + 1, b);
-    func_00123C40(b->obj, 0, size);
+    memset(b->obj, 0, size);
     b->obj->x10 = a1;
     b->obj->x14 = info->x0;
     b->obj->x16 = info->x2;

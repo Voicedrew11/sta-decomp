@@ -19,12 +19,12 @@ typedef struct {
     Bits f114;
 } Obj;
 Actor *func_001472A0(Obj *, f32, f32, s8 *, f32, s32);
-void func_00102A60(void *, void *);
-void func_00102A70(void *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 void func_00145F40(Actor *, f32 *, s32);
-void func_00102CC8(f32, Mtx *, void *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0RotMatrixY(f32, Mtx *, void *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, void *);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, Vec *);
 void func_00146600(Actor *, Info *);
 void func_00146140(Mtx *, f32, f32);
@@ -58,33 +58,33 @@ void func_0014D020(Obj *a) {
     base = D_002022E4 ? D_002022E4->unk518 + 0x20 : D_001F2150;
     r = func_001472A0(a, x, deg, base, 0.0f, 0);
     if (r) {
-        func_00102A60(&p, r ? r->unk518 + 0x90 : D_001F2160);
+        sceVu0CopyVector(&p, r ? r->unk518 + 0x90 : D_001F2160);
     } else {
-        func_00102A60(&e, &a->v50);
+        sceVu0CopyVector(&e, &a->v50);
         e.w = 1.0f;
         func_00145F40(D_002022E4, &ang, 0);
-        func_00102CC8((3.1415927f + ang) - (f32)(s32)((3.1415927f + ang) * 0.15915494f) * 6.2831855f + ((3.1415927f + ang) < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f, &m, D_001F2170);
-        func_001027B0(&e, &m, &e);
+        sceVu0RotMatrixY((3.1415927f + ang) - (f32)(s32)((3.1415927f + ang) * 0.15915494f) * 6.2831855f + ((3.1415927f + ang) < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f, &m, D_001F2170);
+        sceVu0ApplyMatrix(&e, &m, &e);
         ok = 0;
         if (D_002022E4 && D_002022E4->unk518) {
             ok = 1;
         }
-        func_001029D0(&e, &e, ok ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
-        func_00102A60(&p, &e);
+        sceVu0AddVector(&e, &e, ok ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
+        sceVu0CopyVector(&p, &e);
     }
     ok2 = 0;
     if (D_002022E4 && D_002022E4->unk518) {
         ok2 = 1;
     }
-    func_00102A70(&lo, ok2 ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
-    func_00102A60(&hi, &p);
+    sceVu0CopyMatrix(&lo, ok2 ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
+    sceVu0CopyVector(&hi, &p);
     hi.y += dy;
     if (func_001470F0(&lo, &hi, 1, 0x22, 0, &hit)) {
         a->x88 = u2f(a->f114.b1 = 0);
         a->p90->f188.b2 = 0;
     }
-    func_00102A60(a, &hi);
+    sceVu0CopyVector(a, &hi);
     func_00146600(D_002022E4, &s);
     func_00146140(&q, s.x20, s.x28);
-    func_00102A70(&a->xC0, &q);
+    sceVu0CopyMatrix(&a->xC0, &q);
 }

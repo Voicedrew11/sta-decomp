@@ -13,8 +13,8 @@ extern s32 D_00201F50;
 extern s32 D_00202008;
 extern T D_0042D8C0[][2];
 extern T D_0042DDC0[][2];
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, M *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, M *, Vec *);
 s32 func_00153FA0(Vec *);
 Q *func_00154A80(s32);
 void func_00154A70(void);
@@ -38,9 +38,9 @@ void func_0016EB70(P *pp, s8 *a1, Vec *fp, u32 n, M *mt, s32 mode, s32 off, F4 f
                 if (D_00222A50[0].f.b3) {
                     cur = 2;
                 } else {
-                    func_00102A60(&v, &((E32 *)a1)[k].x10);
+                    sceVu0CopyVector(&v, &((E32 *)a1)[k].x10);
                     v.w = 1.0f;
-                    func_001027B0(&v, mt, &v);
+                    sceVu0ApplyMatrix(&v, mt, &v);
                     t = ((E32 *)a1)[k].x10.w;
                     v.w = t * mt->x134;
                     cur = func_00153FA0(&v);

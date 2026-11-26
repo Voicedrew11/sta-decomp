@@ -5,10 +5,10 @@ f32 *func_00165130(Arg *, s32);
 s32 func_001B7840(s32, s32);
 s8 *func_001B19A0(s32);
 s8 *func_001715B0(s32);
-void func_00102A60(Vec *, void *);
-void func_00102A70(Mtx *, void *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0CopyMatrix(Mtx *, void *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 
 void func_0017D000(Arg *a0) {
@@ -33,10 +33,10 @@ void func_0017D000(Arg *a0) {
                 if (mm != NULL) {
                     p = D_002022E4->unk518 + 0x180;
                     if (p != NULL) {
-                        func_00102A60(&b, p + 0x40);
-                        func_00102A70(&m, mm + 0x200);
-                        func_001029E8(&a, &m.m[3], &b);
-                        *out = sqrtf(func_00102848(&a, &a));
+                        sceVu0CopyVector(&b, p + 0x40);
+                        sceVu0CopyMatrix(&m, mm + 0x200);
+                        sceVu0SubVector(&a, &m.m[3], &b);
+                        *out = sqrtf(sceVu0InnerProduct(&a, &a));
                     }
                 }
             }

@@ -17,7 +17,7 @@ typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; 
 typedef struct { u8 x0; B8 f; u8 pad[2]; f32 x4; f32 x8; f32 xC; f32 x10; } Mod;
 typedef struct { f32 x, y, z; s32 w; } Out;
 void func_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 u16 func_0015ED20(void);
 extern u32 D_00201E94;
 static inline f32 u2f(u32 x) { return x; }
@@ -97,7 +97,7 @@ void func_001631E0(Out *out, Hdr *h, Mod *mods, s32 *keys, s32 loop, f32 t, f32 
                 func_0015ED80(&p, 3, res, t, 0.0f, 1000000.0f);
             }
             if (m->f.b4) {
-                res[0] = func_0011D850(res[0]);
+                res[0] = fabsf(res[0]);
             }
             if (m->f.b5) {
                 out->x *= res[0];
@@ -117,9 +117,9 @@ void func_001631E0(Out *out, Hdr *h, Mod *mods, s32 *keys, s32 loop, f32 t, f32 
                 func_0015ED80(&p, 1, res, t, 0.0f, 1000000.0f);
             }
             if (m->f.b4) {
-                res[0] = func_0011D850(res[0]);
-                res[1] = func_0011D850(res[0]);
-                res[2] = func_0011D850(res[0]);
+                res[0] = fabsf(res[0]);
+                res[1] = fabsf(res[0]);
+                res[2] = fabsf(res[0]);
             }
             if (m->f.b5) {
                 out->x *= res[0];

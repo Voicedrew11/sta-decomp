@@ -15,7 +15,7 @@ typedef struct {
     u8 x1A, x1B;
     s8 x1C, x1D, x1E, x1F;
 } P;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001545D0(void);
 void func_001543E0(s32, s64);
 void func_001544C0(void);
@@ -39,7 +39,7 @@ void func_001580E0(P *p) {
     s16 c, s;
     f32 f;
     if (p->x1A) {
-        func_00123C40(&b, 0, 0x50);
+        memset(&b, 0, 0x50);
         b.f4C.b0 = 1;
         b.f4C.b1 = 1;
         b.f4C.b2 = 1;

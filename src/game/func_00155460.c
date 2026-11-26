@@ -14,9 +14,9 @@ extern u32 D_002F19AC[];
 extern u32 D_00201F54, D_00201F50, D_00201F4C, D_00201F48, D_00201F44, D_00201F40, D_00201F3C, D_00201F38;
 extern s8 D_4A0[], D_4B0[], D_1B90[], D_2710[], D_2770[], D_3C30[], D_3C70[];
 extern s8 D_001F4B80[];
-B *func_00101980(s32);
+B *sceDmaGetChan(s32);
 void func_00101CB0(B *, s8 *);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(u32, u32, s32);
 static inline void chain(u32 *p) {
     s32 i;
@@ -47,7 +47,7 @@ void func_00155460(u32 buf, u32 size) {
     D_002F19A0[0] = (buf + 0x33040 + D_002F19A4[0] * 32) | 0x20000000;
     D_002F1948[0] = -1;
     D_002F19A8[0] = D_002F19A0[0];
-    b = func_00101980(1);
+    b = sceDmaGetChan(1);
     b->b6 = 1;
     func_00101CB0(b, D_001F4B80);
     while (*(volatile u32 *)0x10009000 & 0x100) {
@@ -62,7 +62,7 @@ void func_00155460(u32 buf, u32 size) {
     D_00201F38 = (u32)D_3C70 >> 3;
     chain((u32 *)D_002F199C[0]);
     chain((u32 *)D_002F19A0[0]);
-    func_0010BCA0(0);
+    FlushCache(0);
     func_001789E0((D_002F199C[0] - 0x19820) & 0x0FFFFFFF, D_002F199C[0] & 0x0FFFFFFF, 0x1982);
     func_001789E0((D_002F19A0[0] - 0x19820) & 0x0FFFFFFF, D_002F19A0[0] & 0x0FFFFFFF, 0x1982);
 }

@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { f32 v[4]; } H;
 typedef struct { u8 pad[4]; u16 x4; } R;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00185390(f32, s32, s32, s32);
 void func_00186440(f32, H *, H *, H *, H *);
 R *func_00195770(s32);
@@ -26,8 +26,8 @@ void func_00195F70(f32 f) {
         func_00186440(f, &a, &b, &c, &d);
         D_00202188 = r->x4;
     } else {
-        func_00123C40(&a, -1, 0x10);
-        func_00123C40(&b, -1, 0x10);
+        memset(&a, -1, 0x10);
+        memset(&b, -1, 0x10);
         func_00186440(f, &a, &b, 0, 0);
         D_00202188 = 0;
     }

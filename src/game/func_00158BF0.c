@@ -10,7 +10,7 @@ extern s32 D_00201F2C;
 void func_001545D0(void);
 void func_001543E0(s32, u64);
 void func_001544C0(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00155BD0(void *);
 void func_00176AE0(void);
 
@@ -28,7 +28,7 @@ void func_00158BF0(s32 dx, s32 dy) {
     func_001543E0(0x47, 0x31001);
     func_001543E0(0x22, 3);
     func_001544C0();
-    func_00123C40(&b, 0, 0x50);
+    memset(&b, 0, 0x50);
     b.col = 0xFF808080;
     if (dx <= 0) {
         b.x0 = 0x6C00;

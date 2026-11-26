@@ -1,8 +1,8 @@
 #include "common.h"
 typedef struct { u8 b0:1; } B;
 typedef struct { u128 q[4]; } M;
-void func_00102A60(Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void memset(void *, s32, s32);
 extern s8 D_0030A2D0[];
 extern M D_0030A310;
 extern M D_0030A350;
@@ -20,10 +20,10 @@ extern B D_0030A3C8[];
 extern Vec D_003139A0[];
 
 void func_0015BCA0(void) {
-    func_00123C40(D_0030A2D0, 0, 0x2110);
-    func_00102A60(D_0030A390, D_003139A0);
+    memset(D_0030A2D0, 0, 0x2110);
+    sceVu0CopyVector(D_0030A390, D_003139A0);
     D_0030A39C[0] = 30000.0f;
-    func_00102A60(D_0030A3A0, D_003139A0);
+    sceVu0CopyVector(D_0030A3A0, D_003139A0);
     D_0030A3A0[0].x = 0.0f;
     D_0030A3AC[0] = 100.0f;
     D_0030A3B0[0].x = 1000.0f;

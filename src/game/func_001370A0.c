@@ -8,10 +8,10 @@ typedef struct { u8 pad[0x9A]; u8 x9A[0x47E]; Sub *x518; } A;
 typedef struct { u8 pad[0x2AD]; u8 lo:3; u8 b3:1; } Q;
 extern s32 D_00201F2C;
 extern Mtx D_001F2170;
-void func_00102A70(Bone *, Mtx *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
-void func_001027E0(Bone *, void *, Mtx *);
+void sceVu0CopyMatrix(Bone *, Mtx *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0MulMatrix(Bone *, void *, Mtx *);
 Vec *func_0013FFB0(A *);
 Vec *func_0013FFA0(A *);
 Res *func_0013DCA0(A *, u8);
@@ -35,10 +35,10 @@ void func_001370A0(A *a) {
     bones = (Bone *)((u8 *)((s32)h + 0x40) + D_00201F2C * (h->h6 * 0x140 + 0x200) + 0xC0);
     c = h->c;
     if (c) h->c--;
-    func_00102A70(bones, &D_001F2170);
-    func_001029D0(&bones->m.m[3], &bones->m.m[3], &h->x30);
-    func_00102A60(func_0013FFB0(a), &bones->m.m[3]);
-    func_00102A60(func_0013FFA0(a), &bones->m.m[3]);
+    sceVu0CopyMatrix(bones, &D_001F2170);
+    sceVu0AddVector(&bones->m.m[3], &bones->m.m[3], &h->x30);
+    sceVu0CopyVector(func_0013FFB0(a), &bones->m.m[3]);
+    sceVu0CopyVector(func_0013FFA0(a), &bones->m.m[3]);
     f0.d = bones->f.d;
     f0.b.b5 = 0;
     f0.b.b2 = 0;
@@ -56,7 +56,7 @@ void func_001370A0(A *a) {
         if (!f.b.b6) {
             u8 k;
             Res *r;
-            func_001027E0(b, &bones[b->x131], &b->x80);
+            sceVu0MulMatrix(b, &bones[b->x131], &b->x80);
             if (pf.b.b5) f.b.b5 = 1;
             if (pf.b.b2) f.b.b2 = 1;
             b->f.d = f.d;
@@ -64,24 +64,24 @@ void func_001370A0(A *a) {
             r = func_0013DCA0(a, a->x9A[k]);
             if (r->x2A == k) {
                 if (r->t == 2) {
-                    if (done == 0) func_00102A60(func_0013FFB0(a), &b->m.m[3]);
-                    func_00102A60(func_0013FFA0(a), &b->m.m[3]);
+                    if (done == 0) sceVu0CopyVector(func_0013FFB0(a), &b->m.m[3]);
+                    sceVu0CopyVector(func_0013FFA0(a), &b->m.m[3]);
                 }
                 if (r->t == 5) {
                     if (((Q *)*(s8 **)(s7 + 0x1C))->b3) func_00136DB0(a, b);
-                    func_00102A60(func_0013FFB0(a), &b->m.m[3]);
+                    sceVu0CopyVector(func_0013FFB0(a), &b->m.m[3]);
                     done = 1;
                 }
             }
         } else {
             u8 k;
             Res *r;
-            func_001027E0(b, &b->x40, &b->x80);
+            sceVu0MulMatrix(b, &b->x40, &b->x80);
             b->f.d = f.d;
             k = b->x130;
             r = func_0013DCA0(a, a->x9A[k]);
             if (r->x2A == k && r->t == 5) {
-                func_00102A60(func_0013FFB0(a), &bones[b->x131].m.m[3]);
+                sceVu0CopyVector(func_0013FFB0(a), &bones[b->x131].m.m[3]);
                 done = 1;
             }
         }

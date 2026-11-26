@@ -20,13 +20,13 @@ extern f32 D_001F2160[];
 extern s32 **D_002022BC;
 s8 *func_001A5460(s32 *);
 u32 func_0013E110(s8 *);
-void func_001029D0(f32 *, f32 *, f32 *);
-void func_001029E8(f32 *, f32 *, f32 *);
+void sceVu0AddVector(f32 *, f32 *, f32 *);
+void sceVu0SubVector(f32 *, f32 *, f32 *);
 f32 func_00146940(Obj *, f32 *);
 void func_00141510(s8 *, u8, s32, s32);
-f32 func_00102848(f32 *, f32 *);
+f32 sceVu0InnerProduct(f32 *, f32 *);
 void func_00102870(f32 *, f32 *);
-void func_00102A18(f32 *, f32 *, f32);
+void sceVu0ScaleVector(f32 *, f32 *, f32);
 f32 sqrtf(f32);
 #define POS(p) ((p) ? (f32 *)(*(s32 *)((p) + 0x518) + 0x90) : D_001F2160)
 static inline s8 *find(u16 id) {
@@ -60,20 +60,20 @@ void func_0014BA10(Obj *a0) {
         p = NULL;
     }
     if (p != NULL) {
-        func_001029D0(c, POS(p), a0->v50);
+        sceVu0AddVector(c, POS(p), a0->v50);
         c[3] = 1.0f;
         if (func_00146940(a0, c) < x68) {
             func_00141510(p, ok() ? **D_002022BC : 0, 3, 0);
             a0->x88 = (f32)(u32)(a0->x114.b1 = 0);
         }
         bc = a0->xBC;
-        func_001029E8(b, c, (f32 *)a0);
-        len = sqrtf(func_00102848(a0->v10, a0->v10));
+        sceVu0SubVector(b, c, (f32 *)a0);
+        len = sqrtf(sceVu0InnerProduct(a0->v10, a0->v10));
         func_00102870(a, b);
-        func_00102A18(a, a, -1.0f * bc);
-        func_001029D0(a0->v10, a0->v10, a);
+        sceVu0ScaleVector(a, a, -1.0f * bc);
+        sceVu0AddVector(a0->v10, a0->v10, a);
         func_00102870(a0->v10, a0->v10);
-        func_00102A18(a0->v10, a0->v10, len);
+        sceVu0ScaleVector(a0->v10, a0->v10, len);
         a0->xBC -= x60;
     }
 }

@@ -1,6 +1,6 @@
 #include "m2c.h"
-void func_00125CE8(void *, s32);
-u32 func_00125E00(void *);
+void strcpy(void *, s32);
+u32 strlen(void *);
 void func_00187A90(void *, void *, u64);
 extern u16 D_00317238[];
 extern u8 D_004A0B50[];
@@ -18,8 +18,8 @@ extern s32 D_004A0F84[];
 s32 func_0018AEB0(s32 arg0, s32 arg1) {
     switch (D_004A0F54[0]) {
     case 0:
-        func_00125CE8(D_004A0B50, arg0);
-        func_00187A90(D_004A0F60, D_004A0B50, func_00125E00(D_004A0B50));
+        strcpy(D_004A0B50, arg0);
+        func_00187A90(D_004A0F60, D_004A0B50, strlen(D_004A0B50));
         D_004A0F84[0] = 0x3F800000;
         D_004A0F60[0] = 0x43A00000;
         D_004A0F64[0] = 0x43A00000;

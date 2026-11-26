@@ -2,8 +2,8 @@
 #include "actor.h"
 typedef struct { u16 a : 7; u16 v : 6; } BF;
 s32 func_00169B50(s32, s32, s32, s32);
-void func_00102CC8(f32 *, void *, f32);
-void func_00102A60(f32 *, s8 *);
+void sceVu0RotMatrixY(f32 *, void *, f32);
+void sceVu0CopyVector(f32 *, s8 *);
 void func_001677C0(s32, f32 *);
 void func_001CA2D0(u8);
 s32 func_001C8320(s32, s32, s32, s32);
@@ -34,10 +34,10 @@ void func_001BE510(Actor *a0) {
         case 14: s0 = func_00169B50(0x1DD, 0, 0, 0); break;
         }
         if (s0 != 0) {
-            func_00102CC8(m, D_001F2170, WRAP(*(f32 *)(*(s8 **)(s1 + 0x18) + 0x24)));
+            sceVu0RotMatrixY(m, D_001F2170, WRAP(*(f32 *)(*(s8 **)(s1 + 0x18) + 0x24)));
             c = cur();
             if (c != 0) {
-                func_00102A60(m + 12, c + 0x40);
+                sceVu0CopyVector(m + 12, c + 0x40);
             }
             m[13] += 220.0f;
             func_001677C0(s0, m);

@@ -29,8 +29,8 @@ struct Obj {
     Cb f544;
     void *f548;
 };
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_00102A60(void *, void *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(void *, void *);
 s32 func_0013EE30(Obj *);
 void func_0013EAE0(Obj *, s32);
 void func_0013EAB0(Obj *, s32);
@@ -83,10 +83,10 @@ void func_0013B220(Obj *a, s32 skip, f32 dt) {
         }
     }
     if (func_0013EE30(a)) {
-        func_001029E8(&v, &b->v40, &b->p10->v);
+        sceVu0SubVector(&v, &b->v40, &b->p10->v);
         func_00137730(a, &v);
         func_0013A190(a, dt);
-        func_00102A60(&v, &b->v40);
+        sceVu0CopyVector(&v, &b->v40);
         if (a->f53C) {
             a->f53C(a, dt);
         }
@@ -97,7 +97,7 @@ void func_0013B220(Obj *a, s32 skip, f32 dt) {
         if (a->f544) {
             a->f544(a, dt);
         }
-        func_001029E8(&v, &b->v40, &v);
+        sceVu0SubVector(&v, &b->v40, &v);
         func_00137730(a, &v);
     } else {
         b->p10->xC0 = 0;
@@ -115,6 +115,6 @@ void func_0013B220(Obj *a, s32 skip, f32 dt) {
     } else {
         func_001A83E0(a);
     }
-    func_00102A60(b->p18, &b->v40);
-    func_00102A60(&b->p18->v, &b->v50);
+    sceVu0CopyVector(b->p18, &b->v40);
+    sceVu0CopyVector(&b->p18->v, &b->v50);
 }

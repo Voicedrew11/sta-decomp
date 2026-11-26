@@ -11,8 +11,8 @@ typedef struct {
     f32 pos[4]; /* 0x20 */
     f32 v[4];   /* 0x30 */
 } S;
-void func_001027B0(f32 *, f32 *, f32 *);
-f32 func_00102848(f32 *, f32 *);
+void sceVu0ApplyMatrix(f32 *, f32 *, f32 *);
+f32 sceVu0InnerProduct(f32 *, f32 *);
 f32 func_0011D778(f32);
 f32 func_0011DA18(f32);
 s32 func_00131060(s32);
@@ -26,8 +26,8 @@ void func_00130090(S *o) {
     f32 a;
 
     if (o->h == -1) {
-        func_001027B0(d, D_002F16C0, o->pos);
-        a = func_00102848(d, d);
+        sceVu0ApplyMatrix(d, D_002F16C0, o->pos);
+        a = sceVu0InnerProduct(d, d);
         if (a < o->r * o->r) {
             if (!(o->f10 <= 0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) + o->f14 * (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f))) {
                 a = 6.283184f * (0.000015259022f * (f32)(func_0015ED20() & 0xFFFF) - 0.5f);
@@ -35,7 +35,7 @@ void func_00130090(S *o) {
                 o->v[1] = o->pos[1];
                 o->v[2] = o->f18 * func_0011DA18(a);
                 o->v[3] = 1.0f;
-                func_001027B0(o->v, D_0026F090, o->v);
+                sceVu0ApplyMatrix(o->v, D_0026F090, o->v);
                 o->h = func_00131560(o->id, o->s1C, o->v);
             }
         }

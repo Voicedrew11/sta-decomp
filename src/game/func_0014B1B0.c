@@ -33,14 +33,14 @@ void func_001465C0(Actor *, Vec *);
 Actor *func_00146EF0(f32, s8 *, f32, Vec *, f32, s32);
 void func_00146310(s8 *, Vec *, s8 *, f32 *, f32 *);
 void func_00145F40(Actor *, f32 *, s32);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 f32 func_0011DBC0(f32, f32);
-void func_00102A60(void *, void *);
-void func_00102C20(Mtx *, Mtx *, f32);
-void func_00102CC8(f32, Mtx *, Mtx *);
-void func_00102A70(void *, Mtx *);
-void func_00102A18(Vec *, void *, f32);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
+void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
+void sceVu0CopyMatrix(void *, Mtx *);
+void sceVu0ScaleVector(Vec *, void *, f32);
+void sceVu0AddVector(Vec *, Vec *, void *);
 s32 func_00145D10(O *, Vec *, s32, s32, Res *);
 s32 func_00145A80(O *, Vec *, s32, s32, Res *);
 Actor *func_001A5710(void);
@@ -108,7 +108,7 @@ void func_0014B1B0(O *o, f32 kk) {
     func_00145F40(D_002022E4, &a18C, 0);
     ang = ang190 + a18C;
     ang190 = ang;
-    if (3.1415927f < func_0011D850(ang - o->xB4)) {
+    if (3.1415927f < fabsf(ang - o->xB4)) {
         if (ang < o->xB4) {
             w = 6.2831855f;
         } else {
@@ -121,30 +121,30 @@ void func_0014B1B0(O *o, f32 kk) {
 
 
     lim = k * u;
-    if (lim < func_0011D850(ang)) {
+    if (lim < fabsf(ang)) {
         ang = lim * (f32)(ang < 0.0f ? -1 : 1);
     }
     ang += o->xB4;
     o->xB4 = ang;
     t = o->x60;
-    func_00102A60(o, base());
+    sceVu0CopyVector(o, base());
     o->pos.w = 1.0f;
     o->pos.y += o->v50.y;
     o->xB0 += t * k;
     t = func_0011DBC0(o->xB0, 190.0f);
-    func_00102C20(&m, &D_001F2170, WRAP(t));
-    func_00102CC8(WRAP(ang), &m, &m);
-    func_00102A70(o->xC0, &m);
-    func_00102A18(&vB0, o->xD0, 10000.0f);
-    func_001029D0(&vB0, &vB0, o);
+    sceVu0RotMatrixX(&m, &D_001F2170, WRAP(t));
+    sceVu0RotMatrixY(WRAP(ang), &m, &m);
+    sceVu0CopyMatrix(o->xC0, &m);
+    sceVu0ScaleVector(&vB0, o->xD0, 10000.0f);
+    sceVu0AddVector(&vB0, &vB0, o);
     s3 = func_00145D10(o, &vB0, 6, 0, &rC0);
     if (s3) {
-        func_00102A60(&vB0, &rC0);
+        sceVu0CopyVector(&vB0, &rC0);
         vB0.w = 1.0f;
     }
     s2 = func_00145A80(o, &vB0, 0xFF, 0, &r100);
     if (s2) {
-        func_00102A60(&vB0, &r100);
+        sceVu0CopyVector(&vB0, &r100);
         vB0.w = 1.0f;
     }
     d = o->v50.z;
@@ -159,7 +159,7 @@ void func_0014B1B0(O *o, f32 kk) {
     ok = 0;
 found:
     if (ok) {
-        func_00102A60(&vB0, &vA0);
+        sceVu0CopyVector(&vB0, &vA0);
     }
     if (!s2 && !ok && !s3) {
         o->x88 = u2f(o->f114.b1 = 0);
@@ -188,12 +188,12 @@ found:
     if (s2 || s3) {
         if (s2) {
             func_00146980(o->x90, &r100, 0x2B);
-            func_00102A60(&v90, &r100);
+            sceVu0CopyVector(&v90, &r100);
             v90.w = 1.0f;
             spawn(0x2D, &v90);
             o->x88 = u2f(o->f114.b1 = 0);
         } else {
-            func_00102A60(&v90, &rC0);
+            sceVu0CopyVector(&v90, &rC0);
             v90.w = 1.0f;
         }
         if (o->xA8) {

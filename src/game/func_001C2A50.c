@@ -3,9 +3,9 @@
 typedef struct { u8 pad[0x50]; Vec v50; u8 p60[0x380 - 0x60]; f32 f380; f32 f384; f32 f388; u32 u38C; u8 p390[0x3A1 - 0x390];
     Flags8 f3A1; Flags8 f3A2; u8 p3A3[0x3BF - 0x3A3]; u8 u3BF; u8 p3C0[0x454 - 0x3C0]; f32 f454; } P;
 f32 sqrtf(f32);
-void func_00102A60(Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-f32 func_0011D850(f32);
+void sceVu0CopyVector(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+f32 fabsf(f32);
 f32 func_0011DA18(f32);
 s32 func_001A9440(void);
 void func_001CA4A0(u8, u8);
@@ -15,11 +15,11 @@ void func_001C2A50(Actor *a) {
     Vec v;
     f32 x;
     p = (P *)(a->unk518 + 0x180);
-    func_00102A60(&v, &p->v50);
+    sceVu0CopyVector(&v, &p->v50);
     v.y = 0.0f;
-    x = sqrtf(func_00102848(&v, &v));
+    x = sqrtf(sceVu0InnerProduct(&v, &v));
     p->f454 = p->f380;
-    if (x <= 100.0f && func_0011D850(p->f380) < 0.2f) {
+    if (x <= 100.0f && fabsf(p->f380) < 0.2f) {
         p->f384 = 0.0f;
         p->f388 = 0.0f;
         p->f380 = 0.0f;

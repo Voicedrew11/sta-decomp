@@ -36,16 +36,16 @@ extern Vec D_001F2160;
 extern MtxF D_001F2170;
 R *func_001468F0(s32, u32);
 void func_00145FB0(Vec *, R *);
-void func_00102A60(void *, void *);
-void func_001027B0(Vec *, void *, void *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0ApplyMatrix(Vec *, void *, void *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 void func_00146310(O *, Vec *, void *, f32 *, f32 *);
 f32 func_0011DBC0(f32, f32);
-f32 func_0011D850(f32);
-void func_00102C20(MtxF *, MtxF *, f32);
-void func_00102CC8(MtxF *, MtxF *, f32);
-void func_00102A70(void *, void *);
-void func_00102A18(Vec *, void *, f32);
+f32 fabsf(f32);
+void sceVu0RotMatrixX(MtxF *, MtxF *, f32);
+void sceVu0RotMatrixY(MtxF *, MtxF *, f32);
+void sceVu0CopyMatrix(void *, void *);
+void sceVu0ScaleVector(Vec *, void *, f32);
 s32 func_001470F0(O *, Vec *, s32, s32, s32, Vec *);
 f32 func_00146940(void *, void *);
 s32 func_00146C70(O *, Vec *, Actor *, s32 *, Vec *, f32);
@@ -102,38 +102,38 @@ void func_00147710(O *o, f32 dt) {
         return;
     }
     func_00145FB0((Vec *)&o->xC0, func_001468F0(cur(o), (u32)o->x54));
-    func_00102A60(o, &o->xC0.m[3]);
-    func_00102A60(&o->xC0.m[3], &D_001F2160);
-    func_001027B0(&v110, &o->xC0, (u8 *)o->x90 + o->x94 * 128 + 0x2C0);
-    func_001029D0(&o->p, &o->p, &v110);
+    sceVu0CopyVector(o, &o->xC0.m[3]);
+    sceVu0CopyVector(&o->xC0.m[3], &D_001F2160);
+    sceVu0ApplyMatrix(&v110, &o->xC0, (u8 *)o->x90 + o->x94 * 128 + 0x2C0);
+    sceVu0AddVector(&o->p, &o->p, &v110);
     o->p.w = 1.0f;
     c = 0;
     if (D_002022E4 != 0 && D_002022E4->unk518 != 0) c = 1;
     func_00146310(o, (Vec *)&o->xC0.m[2], c ? (void *)(D_002022E4->unk518 + 0x1C0) : (void *)&D_001F2160, &ang, 0);
     at = func_0011DBC0(o->xC0.m[2][0], o->xC0.m[2][2]);
     ang += at;
-    if (3.1415927f < func_0011D850(ang - o->xB4)) {
+    if (3.1415927f < fabsf(ang - o->xB4)) {
         if (ang < o->xB4) k = 6.2831855f;
         else k = -6.2831855f;
         ang += k;
     }
     ang -= o->xB4;
     lim = dt * (o->x50 ? 0.0174499992f * o->x50 : 0.0f);
-    if (lim < func_0011D850(ang)) {
+    if (lim < fabsf(ang)) {
         ang = lim * (f32)(ang < 0.0f ? -1 : 1);
     }
     o->xB4 = ang = ang + o->xB4;
     o->xB0 += o->x60 * dt;
     f = func_0011DBC0(o->xB0, 190.0f);
-    func_00102C20(&m, &D_001F2170, WRAP(f));
-    func_00102CC8(&m, &m, WRAP(ang));
-    func_00102A70(&o->xC0, &m);
-    func_00102A18(&vB0, &o->xC0.m[1], 10000.0f);
-    func_001029D0(&vB0, &vB0, &o->p);
+    sceVu0RotMatrixX(&m, &D_001F2170, WRAP(f));
+    sceVu0RotMatrixY(&m, &m, WRAP(ang));
+    sceVu0CopyMatrix(&o->xC0, &m);
+    sceVu0ScaleVector(&vB0, &o->xC0.m[1], 10000.0f);
+    sceVu0AddVector(&vB0, &vB0, &o->p);
     if (func_001470F0(o, &vB0, 3, 6, 0, &vC0)) f = func_00146940(o, &vC0);
     else f = -1.0f;
-    func_00102A18(&vA0, &o->xC0.m[1], f);
-    func_001029D0(&vA0, &vA0, &o->p);
+    sceVu0ScaleVector(&vA0, &o->xC0.m[1], f);
+    sceVu0AddVector(&vA0, &vA0, &o->p);
     s0 = D_002022E4;
     if (func_00146C70(o, &vA0, s0, &idx, 0, o->x58)) {
         func_00146A70(o->x90, s0, idx, 0x2B);
@@ -143,8 +143,8 @@ void func_00147710(O *o, f32 dt) {
             e = func_00169B50(id, 0, 1, 0);
             if (e != 0) {
             s3 = (s8 *)s0->unk51C + idx * 0x170;
-            func_00102A70(&m60, &D_001F2170);
-            func_00102A60(m60.m[3], s3 + 0xA0);
+            sceVu0CopyMatrix(&m60, &D_001F2170);
+            sceVu0CopyVector(m60.m[3], s3 + 0xA0);
             func_001677C0(e, s0 ? (void *)(s0->unk518 + 0x60) : (void *)&D_001F2170);
             }
         }

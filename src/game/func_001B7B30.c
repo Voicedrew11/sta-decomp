@@ -9,7 +9,7 @@ typedef struct {
     s8 *x180;
 } Chr;
 Chr *func_001B19A0(s32);
-void func_00102A70(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 static inline s32 lookup(Chr *c, s32 key) {
     s32 i;
     if (c == 0) {
@@ -27,6 +27,6 @@ void func_001B7B30(s32 id, s32 key, void *out) {
     Chr *t = func_001B19A0(id);
     u32 idx = lookup(func_001B19A0(id), key);
     if (t != 0 && idx < t->n) {
-        func_00102A70(out, t->x180 + idx * 0x80);
+        sceVu0CopyMatrix(out, t->x180 + idx * 0x80);
     }
 }

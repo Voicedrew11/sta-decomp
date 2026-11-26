@@ -17,7 +17,7 @@ typedef struct { u8 pad0[4]; s32 x4; u8 pad8[8]; u8 x10[0x10]; u8 x20[0x10]; } R
 typedef struct { u8 pad0[0x7C]; R *x7C; } G;
 void func_00181680(s32, void *, void *, void *, S *, u32);
 G *func_00189020(s32);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 f32 func_0011DA18(f32);
 extern S D_001F2700 __attribute__((aligned(16)));
 extern f32 D_00202084;
@@ -32,7 +32,7 @@ static inline void glow(O *o, R *r, S *buf, u32 mode) {
     buf->y = o->x3C;
     buf->m[3] = 1.0f;
     buf->m[0] = 1.0f;
-    k = 96.0f + func_0011D850(128.0f * func_0011DA18(0.05f * D_002020D4));
+    k = 96.0f + fabsf(128.0f * func_0011DA18(0.05f * D_002020D4));
     o->x2C = o->x2C * k / 128;
     o->x2D = o->x2D * k / 128;
     o->x2E = o->x2E * k / 128;

@@ -4,7 +4,7 @@ typedef struct { u8 pad[0x18]; u16 x18; u16 v; u8 pad1C[8]; u8 p24:6; u8 k24:2; 
 typedef struct { u8 pad[0x52]; u8 a0:5; u8 b5:1; u8 b6:1; u8 b7:1; u8 c0:1; u8 c1:1; u8 c2:6; u8 pad2[0x2C]; } E80;
 typedef struct { u8 pad[4]; u16 x4; u8 pad6[0x3A]; } E40;
 typedef struct { s32 id; u8 pad[0x6A]; u16 n; u8 pad2[0xC8]; E30 *e30; u8 pad3[0x34]; E40 *e40; u8 pad4[0xC]; E80 *e80; } Obj;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_00179F80(Msg *);
 s32 func_001B9610(Obj *, s32);
 void func_001B87C0(Obj *, u32, s32, s32, f32, f32);
@@ -48,7 +48,7 @@ s32 func_001B90F0(void) {
                         m = e->v % 100;
                         id = o->id;
                         if (m != 0) {
-                            func_00123C40(&msg, 0, 0x30);
+                            memset(&msg, 0, 0x30);
                             msg.type = 7;
                             msg.a = m;
                             msg.b = id;

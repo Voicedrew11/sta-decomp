@@ -18,11 +18,11 @@ typedef struct {
 } E;
 typedef struct { u8 pad[0xBA]; u16 xBA; } T;
 typedef struct { u8 pad[0x158]; T *p158; } S;
-void func_00102A60(void *, void *);
-void func_00102A70(Mtx *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0CopyMatrix(Mtx *, void *);
 void func_001C8F90(Mtx *);
-void func_001028F8(Mtx *, Mtx *);
-void func_001027E0(void *, Mtx *, Mtx *);
+void sceVu0InversMatrix(Mtx *, Mtx *);
+void sceVu0MulMatrix(void *, Mtx *, Mtx *);
 void func_001670E0(E *);
 s32 func_001697A0(E *, f32);
 f32 func_00146940(Vec *, s8 *);
@@ -78,15 +78,15 @@ s32 func_00169030(f32 f) {
             e->g0 = v;
         }
         if (e->b5) {
-            func_00102A70(&m1, D_001F2170);
+            sceVu0CopyMatrix(&m1, D_001F2170);
             m1.m[3].x = e->m[0]->x;
             m1.m[3].y = e->m[0]->y;
             m1.m[3].z = e->m[0]->z;
             *(s32 *)&m1.m[3].w = 0;
             m1.m[3].w = 1.0f;
             func_001C8F90(&m2);
-            func_001028F8(&m2, &m2);
-            func_001027E0(e, &m2, &m1);
+            sceVu0InversMatrix(&m2, &m2);
+            sceVu0MulMatrix(e, &m2, &m1);
         }
         if (e->b3) {
             if (!busy(e)) {
@@ -97,7 +97,7 @@ s32 func_00169030(f32 f) {
             if (func_001697A0(e, f)) {
                 e->b3 = 1;
             }
-            func_00102A60(&e->xEC0, &e->pos);
+            sceVu0CopyVector(&e->xEC0, &e->pos);
         }
     }
     return n;

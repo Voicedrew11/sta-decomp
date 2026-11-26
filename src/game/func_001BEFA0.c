@@ -58,9 +58,9 @@ extern s8 D_00222A11[];
 extern Vec D_003139A0;
 typedef struct { u8 pad[0x78]; s32 x78; u8 p7c[0x518-0x7C]; s8 *unk518; } AH;
 #define Actor AH
-void func_00102A60(Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void memset(void *, s32, s32);
 void func_001C7020(u16, f32, s32, f32, f32);
 f32 func_0015DF90(f32, f32, f32);
 void func_0012C110(s32);
@@ -150,7 +150,7 @@ void func_001BEFA0(AH *a0, f32 dt) {
     s->x3AE = 0;
     if (D_00222A53[0].f.b4 && s->f3A2.f.b4) {
         q = (S *)(a0->unk518 + 0x180);
-        func_00102A60(&q->x50, &D_003139A0);
+        sceVu0CopyVector(&q->x50, &D_003139A0);
         q->x50.y -= 3920.0f * dt;
         reset();
         q->x18->x20 = func_0015DF90(q->x18->x20, 1.5707964f, (u2f(q->x41E) / 90.0f) * (u2f(q->x41E) / 90.0f));
@@ -190,14 +190,14 @@ void func_001BEFA0(AH *a0, f32 dt) {
     func_001C9FF0();
     func_001CEDC0(3);
     func_001CEA50(0);
-    func_00123C40(buf, 0, 0x38);
+    memset(buf, 0, 0x38);
     if (!func_0012C020()) {
         if (!D_00222A52[0].f.b2 || D_00222A11[0] != 0) {
             func_001C4760(a0, buf);
         }
     }
     if (s->x3AF < 0x2D) {
-        func_00123C40(buf, 0, 0x38);
+        memset(buf, 0, 0x38);
         s->x3AF++;
     }
     if (s->f3A2.f.b1) {
@@ -216,7 +216,7 @@ void func_001BEFA0(AH *a0, f32 dt) {
         func_001C27C0(a0, buf);
         func_001C1900(a0, buf);
     } else {
-        func_00102A60(&s->x50, &D_003139A0);
+        sceVu0CopyVector(&s->x50, &D_003139A0);
         s->x50.y -= 3920.0f * dt;
     }
     if (s->x18->x20 < -1.0471976f) {
@@ -252,9 +252,9 @@ void func_001BEFA0(AH *a0, f32 dt) {
         s->f3D0 = s->f3D0 + 0.1f * -s->f3D0;
     }
     if (!func_0012C020() && !mode()) {
-        func_001029D0(&s->x50, &s->x50, &s->x3F0);
+        sceVu0AddVector(&s->x50, &s->x50, &s->x3F0);
     }
-    func_00102A60(&s->x3F0, &D_003139A0);
+    sceVu0CopyVector(&s->x3F0, &D_003139A0);
     if (s->x3BE) {
         s->x3BE--;
     }

@@ -3,9 +3,9 @@ f32 func_0013FCB0(s8 *);
 void func_0013FEB0(s8 *, f32 *, f32 *);
 Vec *func_00140340(s8 *);
 Vec *func_00140460(s8 *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 float sqrtf(float);
 static inline f32 u2f(u32 x) { return x; }
 
@@ -28,18 +28,18 @@ f32 func_00133D00(s8 *a, f32 *o1, f32 *o2, f32 *o3) {
     sx = 0.0f;
     sy = 0.0f;
     func_0013FEB0(a, &sx, &sy);
-    func_001029E8(&d1, (Vec *)(a + 0x680), func_00140340(a));
+    sceVu0SubVector(&d1, (Vec *)(a + 0x680), func_00140340(a));
     p = func_00140460(a);
-    func_001029E8(&d2, p, func_00140340(a));
-    func_001029E8(&d3, (Vec *)(a + 0x680), func_00140460(a));
-    l1 = sqrtf(func_00102848(&d1, &d1));
-    l2 = sqrtf(func_00102848(&d2, &d2));
-    len = sqrtf(func_00102848(&d3, &d3));
-    func_00102A60(&h, &d1);
+    sceVu0SubVector(&d2, p, func_00140340(a));
+    sceVu0SubVector(&d3, (Vec *)(a + 0x680), func_00140460(a));
+    l1 = sqrtf(sceVu0InnerProduct(&d1, &d1));
+    l2 = sqrtf(sceVu0InnerProduct(&d2, &d2));
+    len = sqrtf(sceVu0InnerProduct(&d3, &d3));
+    sceVu0CopyVector(&h, &d1);
     y = h.y;
     y = (y < 0.0f) ? -y : y;
     h.y = 0.0f;
-    hl = sqrtf(func_00102848(&h, &h)) / sx;
+    hl = sqrtf(sceVu0InnerProduct(&h, &h)) / sx;
     m0 = y / sy;
     if (hl < m0) {
         hl = m0;

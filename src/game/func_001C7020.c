@@ -21,7 +21,7 @@ typedef union {
     struct { u8 b0:1; u8 b1:2; u8 b3:5; } f;
 } F3;
 void func_001710D0(R *, s16, f32, f32, f32);
-void func_00102A60(s8 *, void *);
+void sceVu0CopyVector(s8 *, void *);
 f32 func_00173F70(H *, u16);
 extern u8 D_003139A0[];
 static inline f32 u2f(u32 x) { return x; }
@@ -58,7 +58,7 @@ void func_001C7020(u16 idx, f32 t, s32 flags, f32 b, f32 c) {
     }
     q = &e->q;
     func_001710D0(s->r, a, c * (0.0078125f * u2f(e->b)), 0.033333335f * (b + u2f(q->lo)), 0.033333335f * u2f(q->mid));
-    func_00102A60(s->x18 + 0xA0, D_003139A0);
+    sceVu0CopyVector(s->x18 + 0xA0, D_003139A0);
     if (flags & 2) {
         s->f3D6.f.b7 = 1;
     } else {

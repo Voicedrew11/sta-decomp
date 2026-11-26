@@ -15,7 +15,7 @@ s32 func_001E6170(s32, void *, s32);
 s8 *func_00188FF0(s32);
 void func_00189ED0(s32);
 void func_001AB0A0(Ent *);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00194D20(s8 *);
 void func_00194C20(s8 *);
 extern s32 D_004A1150[];
@@ -54,7 +54,7 @@ void func_001945B0(s8 *arg0) {
     case 0:
         if (func_001E5F30(0, 0) == 0) {
             func_001AB0A0(&D_004A0900[idx]);
-            func_00123C40(func_00188FF0(0), 0, 8);
+            memset(func_00188FF0(0), 0, 8);
             D_004A1188[0]++;
         }
         break;

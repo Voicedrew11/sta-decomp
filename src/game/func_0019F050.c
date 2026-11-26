@@ -5,8 +5,8 @@ void func_001875C0(s8 *, s32, u32, f32, f32, f32);
 f32 func_0018B110(void);
 s8 *func_00195B10(s32);
 s8 *func_0019D510(u16);
-void func_001256E0(s8 *, s8 *, ...);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, ...);
+void strcpy(s8 *, s8 *);
 E *func_001AFC90(void);
 u8 *func_001CC3F0(s16);
 extern u16 D_004A3310[];
@@ -25,7 +25,7 @@ void func_0019F050(void) {
     c.b[3] = (s32)func_0018B110();
     func_001875C0(func_00195B10(0x92), 1, *(u32 *)&c, 320.0f, 150.0f, 1.1f);
     func_001875C0(func_0019D510(D_004A3310[0]), 1, *(u32 *)&c, 320.0f, 180.0f, 1.1f);
-    func_001256E0(buf, func_00195B10(0x9E));
+    sprintf(buf, func_00195B10(0x9E));
     func_001875C0(buf, 0, *(u32 *)&c, 250.0f, 210.0f, 1.0f);
     id = D_004A3310[0];
     v = 0;
@@ -48,8 +48,8 @@ void func_0019F050(void) {
             r = (100 - q[0]) * (v / 5);
         }
     }
-    func_001256E0(buf, D_001FD698, r);
+    sprintf(buf, D_001FD698, r);
     func_001875C0(buf, 0, *(u32 *)&c, 340.0f, 210.0f, 1.0f);
-    func_00125CE8(buf, func_00195B10(0x9D));
+    strcpy(buf, func_00195B10(0x9D));
     func_001875C0(buf, 1, *(u32 *)&c, 320.0f, 240.0f, 1.0f);
 }

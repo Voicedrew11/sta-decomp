@@ -2,7 +2,7 @@
 void func_001AF4A0(s8 *);
 s8 *func_001AE620(s32, s32, s32);
 void func_001C0660(void *, s8 *, s32, s32);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_001ADC60(s8 *, s8 *);
 void func_001CBED0(s32, s32, s32, s32);
 extern s32 D_00201E94;
@@ -23,10 +23,10 @@ s32 func_001CAB20(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_002022F0 = func_001AE620(arg0, arg2, arg3);
     if (D_002022F0 != NULL) {
         func_001C0660(sp50, D_002022F0, 1, D_00201E94);
-        func_00102A60(D_002022F0 + 0x40, sp80);
+        sceVu0CopyVector(D_002022F0 + 0x40, sp80);
         func_001ADC60(D_002022F0, D_002022F0);
-        func_00102A60(D_004B5DB0, (void *) arg2);
-        func_00102A60(D_004B5DC0, (void *) arg3);
+        sceVu0CopyVector(D_004B5DB0, (void *) arg2);
+        sceVu0CopyVector(D_004B5DC0, (void *) arg3);
         { s32 t = D_002022BC; M2C_FIELD(D_002022F0, s32 *, 0x8C) = t;
         D_002022F4 = 1;
         D_002022F8 = 0;

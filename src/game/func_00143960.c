@@ -5,8 +5,8 @@ Vec *func_0013FF90(s8 *);
 Vec *func_0013FFB0(s8 *);
 Vec *func_00140340(s8 *);
 Vec *func_00140460(s8 *);
-void func_00102A60(Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, void *);
 void func_001403D0(s8 *, Vec *, s8 *);
 void func_00140360(s8 *, Vec *);
 extern s8 *D_00201FA8;
@@ -27,10 +27,10 @@ void func_00143960(Arg *arg0) {
     d.w = 0;
     switch (type) {
     case 0:
-        func_00102A60(func_0013FF90(o), func_0013FFB0(o));
+        sceVu0CopyVector(func_0013FF90(o), func_0013FFB0(o));
         break;
     case 1:
-        func_001029D0(func_0013FF90(o), func_00140340(o), &d);
+        sceVu0AddVector(func_0013FF90(o), func_00140340(o), &d);
         break;
     case 2: {
         Vec v = {0};
@@ -41,7 +41,7 @@ void func_00143960(Arg *arg0) {
         func_00140360(o, &t);
         v.x += t.x * d.z;
         v.z += t.z * d.z;
-        func_001029D0(func_0013FF90(o), func_00140460(o), &v);
+        sceVu0AddVector(func_0013FF90(o), func_00140460(o), &v);
         break;
     }
     }

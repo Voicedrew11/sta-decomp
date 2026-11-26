@@ -3,7 +3,7 @@ typedef struct { u8 pad[0x60]; s16 x60[16]; Vec x80[16]; u8 pad2[0x40]; } G;
 extern G *D_00201DC4;
 extern s16 D_001F37B0[];
 extern Vec D_003139A0;
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 static inline s32 find(s32 k) {
     u32 i;
     for (i = 0; i < 0x2A; i++) {
@@ -19,7 +19,7 @@ void func_001A9810(s32 k) {
     if (i != -1) {
         for (j = 0; j < 16; j++) {
             D_00201DC4[i].x60[j] = -1;
-            func_00102A60(&D_00201DC4[i].x80[j], &D_003139A0);
+            sceVu0CopyVector(&D_00201DC4[i].x80[j], &D_003139A0);
         }
     }
 }

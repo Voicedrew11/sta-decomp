@@ -47,7 +47,7 @@ typedef struct {
 void func_0016AF40(u16, u16, u32);
 void func_0014D8E0(u16, Obj *);
 void func_00163C80(Obj *, f32 *);
-void func_00102A60(f32 *, void *);
+void sceVu0CopyVector(f32 *, void *);
 void func_00131330(s32, f32 *);
 void func_00131440(s32);
 void func_001D21E0(Obj *, s32);
@@ -86,9 +86,9 @@ s32 func_00168D70(u16 id, Obj *o, X *x) {
     if (o->f110 != -1) {
         if (o->f114.f.b5) {
             func_00163C80(o, m);
-            func_00102A60(v, &m[12]);
+            sceVu0CopyVector(v, &m[12]);
         } else {
-            func_00102A60(v, o);
+            sceVu0CopyVector(v, o);
         }
         func_00131330(o->f110, v);
         func_00131440(o->f110);

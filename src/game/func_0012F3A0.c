@@ -1,6 +1,6 @@
 #include "m2c.h"
 typedef struct { s32 a; u32 size; s32 b; s32 c; s8 data[1]; } H;
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_00123A88(void *, s8 *, u32);
 s32 func_001DB510(s8, void *, u32);
 s8 func_001DB6B0(void);
@@ -28,7 +28,7 @@ s32 func_0012F3A0(H *arg0, u32 arg1) {
         D_0022F088[0] = 0;
     case 1:
         { s8 *p = (s8 *)((s32)arg0->data + ((arg0->c + 0xF) & ~0xF)); D_0022F088[0] = D_0022F08C[0]; func_00123A88(D_0022F090, p, D_0022F088[0]); }
-        func_0010BCA0(0);
+        FlushCache(0);
         D_0022F084[0] = 2;
     case 2:
         ret = func_001DB510(D_0022EBC0[arg1], D_0022F090, D_0022F088[0]);
@@ -51,6 +51,6 @@ s32 func_0012F3A0(H *arg0, u32 arg1) {
         D_0022F084[0] = 0;
         break;
     }
-    func_0010BCA0(0);
+    FlushCache(0);
     return r;
 }

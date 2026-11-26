@@ -9,7 +9,7 @@ typedef struct {
     u8 pad8C[0x88];
     Bits f114;
 } O;
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, Vec *);
 
 void func_0014CDC0(O *o) {
@@ -27,7 +27,7 @@ void func_0014CDC0(O *o) {
     b.w = 1.0f;
     a.w = 1.0f;
     if (func_001470F0(&a, &b, 3, 4, 1, &out)) {
-        func_00102A60(o, &out);
+        sceVu0CopyVector(o, &out);
         return;
     }
     o->x88 = (f32)(u32)(o->f114.b1 = 0);

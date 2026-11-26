@@ -13,11 +13,11 @@ typedef struct {
     u64 x30;
     u8 pad[8];
 } S;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_00129EE0(S *p) {
     s32 z;
-    func_00123C40(p, 0, 0x40);
+    memset(p, 0, 0x40);
     p->m[0] = 0x1000; p->m[1] = 0x1000; p->m[2] = 0x1000; p->m[3] = 0x1000;
     p->m[4] = 0x1000; p->m[5] = 0x1000; p->m[6] = 0x1000; p->m[7] = 0x1000;
     p->m[8] = 0x1000; p->m[9] = 0x1000; p->m[10] = 0x1000; p->m[11] = 0x1000;

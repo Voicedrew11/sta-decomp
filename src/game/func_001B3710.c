@@ -5,8 +5,8 @@ typedef struct { s32 off; s32 pad[3]; } Ent;
 typedef struct { u8 pad[0x10]; u8 **p; u8 pad14[0x2C]; Ent t[1]; } H;
 extern Vec D_003139A0;
 extern Mtx D_001F2170;
-void func_00102A60(void *, void *);
-void func_00102A70(void *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 
 void func_001B3710(H *h, B *base, s32 i, Vec *v, Mtx *m) {
     Ent *t;
@@ -19,16 +19,16 @@ void func_001B3710(H *h, B *base, s32 i, Vec *v, Mtx *m) {
     p = *h->p;
     b = el->b;
     if (b == 0xFF) {
-        func_00102A60(v, &D_003139A0);
-        func_00102A70(m, &D_001F2170);
+        sceVu0CopyVector(v, &D_003139A0);
+        sceVu0CopyMatrix(m, &D_001F2170);
     } else {
         e = (s32)p + t[b].off;
         if (*(u8 *)(e + 0xF) & 1) {
-            func_00102A60(v, (void *)(e + 0x10));
-            func_00102A70(m, el);
+            sceVu0CopyVector(v, (void *)(e + 0x10));
+            sceVu0CopyMatrix(m, el);
         } else {
-            func_00102A60(v, &D_003139A0);
-            func_00102A70(m, &D_001F2170);
+            sceVu0CopyVector(v, &D_003139A0);
+            sceVu0CopyMatrix(m, &D_001F2170);
         }
     }
 }

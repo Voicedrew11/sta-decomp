@@ -1,9 +1,9 @@
 /* Types and macros used by code started from m2c (--valid-syntax) output.
- * The base types, NULL, M2C_FIELD and M2C_BITWISE come from common.h. */
+ * The base types, NULL, M2C_FIELD and M2C_BITWISE come from types.h. */
 #ifndef M2C_H
 #define M2C_H
 
-#include "common.h"
+#include "types.h"
 
 typedef s32 M2C_UNK;
 typedef s8 M2C_UNK8;

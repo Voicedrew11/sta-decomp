@@ -3,7 +3,7 @@ typedef struct { u8 pad[0x14]; u16 cnt; } P;
 typedef struct { P **pp; u16 pad4; u16 n; s8 pad8[0x38]; s8 data[1]; } O;
 typedef struct { O *o; s32 base; } H;
 extern s32 D_00201F2C;
-void func_00102A70(s8 *, s8 *);
+void sceVu0CopyMatrix(s8 *, s8 *);
 inline s8 *get(H *h, s32 sel) {
     O *o;
     s8 *p;
@@ -34,8 +34,8 @@ void func_00171610(H *h) {
         return;
     }
     for (i = 0; i < (*pp)->cnt + 1; i++) {
-        func_00102A70(a + 0x140, b + 0x140);
-        func_00102A70(a + 0xC0, b + 0xC0);
+        sceVu0CopyMatrix(a + 0x140, b + 0x140);
+        sceVu0CopyMatrix(a + 0xC0, b + 0xC0);
         b += 0x140;
         a += 0x140;
     }

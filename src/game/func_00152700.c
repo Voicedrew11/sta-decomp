@@ -4,11 +4,11 @@ typedef struct { Vec v0; Vec v10; s32 x20; s32 x24; s32 x28; S1 *x2C; u8 pad30[0
 extern s32 D_00201E94;
 typedef struct { f32 v[3]; } F3 __attribute__((aligned(8)));
 extern F3 D_001F2030;
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029E8(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
 s32 func_00150C00(Vec *, Vec *, Vec *, Vec *, f32 *, f32 *);
 void func_001511C0(Vec *, Vec *, Vec *, Vec *, Vec *, f32 *);
@@ -37,38 +37,38 @@ s32 func_00152700(H *h, s32 **pp, Vec *s3, s32 a3, s32 *cnt, s32 max, H **cur, V
     tA = 0.0f;
     a = &tri[idx % 3];
     b = &tri[(idx + 1) % 3];
-    func_001029E8(&E[0], b, a);
+    sceVu0SubVector(&E[0], b, a);
     c = &tri[(idx + 2) % 3];
-    func_001029E8(&E[1], c, b);
-    func_001029E8(&E[2], a, c);
-    func_00102A60(&P, &s1->v20);
+    sceVu0SubVector(&E[1], c, b);
+    sceVu0SubVector(&E[2], a, c);
+    sceVu0CopyVector(&P, &s1->v20);
     P.w = 1.0f;
-    func_001027B0(&P, m, &P);
+    sceVu0ApplyMatrix(&P, m, &P);
     P.w = s1->v20.w;
-    func_00102A60(&D, &s1->v10);
+    sceVu0CopyVector(&D, &s1->v10);
     D.w = 0.0f;
-    func_001027B0(&D, m, &D);
-    if (flag && !(func_00102848(&D, &s3[1]) <= sum)) {
-        func_00102A18(&D, &D, -1.0f);
+    sceVu0ApplyMatrix(&D, m, &D);
+    if (flag && !(sceVu0InnerProduct(&D, &s3[1]) <= sum)) {
+        sceVu0ScaleVector(&D, &D, -1.0f);
     }
     D.w = s1->v10.w;
     if (!func_00150C00(s3, &P, &D, &Q, &tA, &tB)) return 0;
-    func_001029E8(&G[0], &tri[0], &Q);
-    func_001029E8(&G[2], &tri[1], &Q);
-    func_001029E8(&G[1], &tri[2], &Q);
+    sceVu0SubVector(&G[0], &tri[0], &Q);
+    sceVu0SubVector(&G[2], &tri[1], &Q);
+    sceVu0SubVector(&G[1], &tri[2], &Q);
     G[0].w = 0.0f;
     G[1].w = 0.0f;
     G[2].w = 0.0f;
     func_00102870(&G[0], &G[0]);
     func_00102870(&G[1], &G[1]);
     func_00102870(&G[2], &G[2]);
-    sum += func_00102848(&G[0], &G[1]);
-    sum += func_00102848(&G[1], &G[2]);
-    sum += func_00102848(&G[2], &G[0]);
+    sum += sceVu0InnerProduct(&G[0], &G[1]);
+    sum += sceVu0InnerProduct(&G[1], &G[2]);
+    sum += sceVu0InnerProduct(&G[2], &G[0]);
     if (sum < -1.0f) {
         if (tA < *best) *best = tA;
-        func_00102A60(out, &Q);
-        func_00102A60(out1, &D);
+        sceVu0CopyVector(out, &Q);
+        sceVu0CopyVector(out1, &D);
         out->w = tA;
         out1->w = tB;
         h->x20 = **pp;
@@ -80,8 +80,8 @@ s32 func_00152700(H *h, s32 **pp, Vec *s3, s32 a3, s32 *cnt, s32 max, H **cur, V
         if (a3 < -1 && *cur && *cnt < max) {
             (*cnt)++;
             (*cur)->x20 = **pp;
-            func_00102A60(&(*cur)->v0, out);
-            func_00102A60(&(*cur)->v10, out1);
+            sceVu0CopyVector(&(*cur)->v0, out);
+            sceVu0CopyVector(&(*cur)->v10, out1);
             (*cur)->x24 = x24;
             (*cur)->x28 = x28;
             (*cur)->x2C = s1;
@@ -102,9 +102,9 @@ s32 func_00152700(H *h, s32 **pp, Vec *s3, s32 a3, s32 *cnt, s32 max, H **cur, V
     if (k != -1) {
     if (!(a3 < -1) && !(sum <= *best)) return 0;
     *best = sum;
-    func_00102A60(out, &R[k]);
-    func_00102A60(out1, &S[k]);
-    r = s3->w - sqrtf(func_00102848(out1, out1));
+    sceVu0CopyVector(out, &R[k]);
+    sceVu0CopyVector(out1, &S[k]);
+    r = s3->w - sqrtf(sceVu0InnerProduct(out1, out1));
     if (r < 0.0f) r = 0.0f;
     func_00102870(out1, out1);
     out->w = sum;
@@ -117,8 +117,8 @@ s32 func_00152700(H *h, s32 **pp, Vec *s3, s32 a3, s32 *cnt, s32 max, H **cur, V
     s1->hE = D_00201E94 - 1;
     if (a3 < -1 && *cur && *cnt < max) {
         (*cnt)++;
-        func_00102A60(&(*cur)->v0, out);
-        func_00102A60(&(*cur)->v10, out1);
+        sceVu0CopyVector(&(*cur)->v0, out);
+        sceVu0CopyVector(&(*cur)->v10, out1);
         (*cur)->x20 = **pp;
         (*cur)->x24 = x24;
         (*cur)->x28 = x28;

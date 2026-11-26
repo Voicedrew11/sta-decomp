@@ -23,10 +23,10 @@ typedef struct {
     Vec x30;
     u8 x40[1];
 } H;
-void func_00102A70(E *, Mtx *);
-void func_001029D0(void *, void *, void *);
+void sceVu0CopyMatrix(E *, Mtx *);
+void sceVu0AddVector(void *, void *, void *);
 f32 func_00171550(E *);
-void func_001027E0(E *, void *, void *);
+void sceVu0MulMatrix(E *, void *, void *);
 
 void func_00171270(H *h, Mtx *a1, s32 a2) {
     E *b;
@@ -40,8 +40,8 @@ void func_00171270(H *h, Mtx *a1, s32 a2) {
     b = (E *)((s32)((s32)h + 0x40 + a2 * (h->x6 * 0x140 + 0x200)) + 0xC0);
     k = (u8)h->x24b;
     if (k) h->x24b = k + 0xFF;
-    func_00102A70(b, a1);
-    func_001029D0(&b->m.m[3], &b->m.m[3], &h->x30);
+    sceVu0CopyMatrix(b, a1);
+    sceVu0AddVector(&b->m.m[3], &b->m.m[3], &h->x30);
     b->x134 = func_00171550(b);
     f.w = b->x138.w;
     f.f.b5 = 0;
@@ -58,12 +58,12 @@ void func_00171270(H *h, Mtx *a1, s32 a2) {
         if (f.f.b4) f.f.b5 = 1;
         if (f.f.b1) f.f.b2 = 1;
         if (!f.f.b6) {
-            func_001027E0(e, &b[e->x131], &e->x80);
+            sceVu0MulMatrix(e, &b[e->x131], &e->x80);
             if (par.f.b5) f.f.b5 = 1;
             if (par.f.b2) f.f.b2 = 1;
             e->x138.w = f.w;
         } else {
-            func_001027E0(e, &e->x40, &e->x80);
+            sceVu0MulMatrix(e, &e->x40, &e->x80);
             e->x138.w = f.w;
         }
         e->x134 = func_00171550(e);

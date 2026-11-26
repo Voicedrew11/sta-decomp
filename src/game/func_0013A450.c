@@ -1,10 +1,10 @@
 #include "actor.h"
 typedef struct { Vec a; Vec b; u8 pad20[4]; s32 x24; u8 pad28[0x18]; } Big;
-void func_00102A60(void *, void *);
-void func_001029D0(Vec *, Vec *, void *);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(void *, void *);
+void sceVu0AddVector(Vec *, Vec *, void *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void memset(void *, s32, s32);
 void func_00137730(Actor *, Vec *);
 s32 func_00138920(Actor *, u8, s32, s32, Vec *, s32);
 void func_0013D250(s32, Big *, Vec *, u8, u8);
@@ -27,7 +27,7 @@ void func_0013A450(Actor *a) {
     s32 ok;
     Vec A = {0};
 
-    func_00102A60(&a->pad60C[0x94], &A);
+    sceVu0CopyVector(&a->pad60C[0x94], &A);
     if (((Sub4B0 *)a->unk4B0)->b5 && !func_0013E880(a)) {
         if (!func_0013E8E0(a)) {
             m1 |= 2;
@@ -48,18 +48,18 @@ void func_0013A450(Actor *a) {
                 *w = 0.0f;
                 if (ok) {
                     *w = 0.0f;
-                    func_001029D0((Vec *)(base + 0x40), (Vec *)(base + 0x40), &A);
+                    sceVu0AddVector((Vec *)(base + 0x40), (Vec *)(base + 0x40), &A);
                     func_00137730(a, &A);
                     func_0013E670(a, 1);
-                    func_00102A60(&a->pad60C[0x94], &A);
+                    sceVu0CopyVector(&a->pad60C[0x94], &A);
                 }
             }
         } else {
-            func_00102A60(C, base + 0x40);
+            sceVu0CopyVector(C, base + 0x40);
             C[0].y -= 100.0f;
             w = &C[0].w;
             *w = 100.0f;
-            func_00123C40(&B, 0, 0x40);
+            memset(&B, 0, 0x40);
             if ((&D_00201E80)[2]) {
                 func_0013D250(*(s32 *)(&D_00201E80)[2], &B, C, m2, m1);
             }
@@ -67,16 +67,16 @@ void func_0013A450(Actor *a) {
                 func_0013D250(*(s32 *)(&D_00201E80)[3], &B, C, m2, m1);
             }
             if (B.x24) {
-                func_00102A18(&E, &B.b, *w);
-                func_001029D0(&E, &E, &B);
-                func_001029E8(&E, &E, C);
+                sceVu0ScaleVector(&E, &B.b, *w);
+                sceVu0AddVector(&E, &E, &B);
+                sceVu0SubVector(&E, &E, C);
                 found = 1;
             }
         }
         if (found) {
             E.y = 0.0f;
             E.w = 0.0f;
-            func_001029D0((Vec *)(base + 0x40), (Vec *)(base + 0x40), &E);
+            sceVu0AddVector((Vec *)(base + 0x40), (Vec *)(base + 0x40), &E);
             func_00137730(a, &E);
             func_0013E670(a, 1);
         }

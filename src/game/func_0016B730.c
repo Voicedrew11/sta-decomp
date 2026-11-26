@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { s16 x, y, z; } SV;
 extern s32 D_00201FF4;
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 
 void func_0016B730(Vec *out, s32 mode, u16 *hdr, u16 *idx, void *data, f32 scale) {
     u32 i;
@@ -27,7 +27,7 @@ void func_0016B730(Vec *out, s32 mode, u16 *hdr, u16 *idx, void *data, f32 scale
             o->w = 1.0f;
             break;
         case 2:
-            func_00102A60(o, &out[i - 1]);
+            sceVu0CopyVector(o, &out[i - 1]);
             break;
         case 3: {
             s32 k = *idx++;

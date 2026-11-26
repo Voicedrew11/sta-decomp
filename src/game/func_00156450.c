@@ -3,7 +3,7 @@ typedef struct { Vec a; Vec b; s32 mode; u32 c0; u32 c1; s32 pad; } V;
 void func_00123A88(void *, void *, s32);
 void func_001DC348(void *);
 void func_001DC398(void *, Vec *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 f32 func_0011D778(f32);
 f32 func_0011DA18(f32);
 
@@ -76,11 +76,11 @@ void func_00156450(void *p, u32 col, f32 h) {
             if (i != 0) {
                 func_00123A88(&v120, &v120.b, 0x10);
             } else {
-                func_00102A60(&c0, &f0);
+                sceVu0CopyVector(&c0, &f0);
                 c0.z = h;
                 func_001DC398(&v120, &c0);
             }
-            func_00102A60(&b0, &e0);
+            sceVu0CopyVector(&b0, &e0);
             b0.z = h;
             func_001DC398(&v120.b, &b0);
             func_00123A88(&v150, &v180, 0x10);

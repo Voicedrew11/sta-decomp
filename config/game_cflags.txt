@@ -1,0 +1,7 @@
+# CodeWarrior flags for game units that the retail build did not compile with
+# the default -O4,p. One unit per line: <source path> <flags>.
+# Without ",p" (optimize for speed) branch targets are not padded to 8 bytes.
+src/game/func_0013ECA0.c -O4
+src/game/func_0017ECD0.c -O4
+src/game/func_001B19A0.c -O4
+src/game/func_001C9FB0.c -O4

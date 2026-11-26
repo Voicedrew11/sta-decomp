@@ -41,13 +41,13 @@ void func_001CA6F0(void);
 s32 func_001D1E00(u8);
 s32 func_001D1DD0(u8);
 s8 *func_00169B50(s16, s32, s32, s32);
-void func_00102A70(Mtx *, Mtx *);
-void func_00102C20(Mtx *, Mtx *, f32);
-void func_00102CC8(Mtx *, Mtx *, f32);
-void func_00102A60(Vec *, void *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
+void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
+void sceVu0CopyVector(Vec *, void *);
 void func_001677C0(s8 *, Mtx *);
 void func_00167600(s8 *, Actor *);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001CEBF0(X *, u8 *, s8);
 s32 func_001CC250(s32);
 void func_001672B0(s8 *, X *);
@@ -111,16 +111,16 @@ void func_001C1A00(Actor *a0, K *a1) {
         if (k != 0) {
         o = func_00169B50(k, 0, 1, 0);
         if (o != 0) {
-            func_00102A70(&m, &D_001F2170);
-            func_00102C20(&m, &m, WRAP(-WRAP(s3->x18->x20)));
-            func_00102CC8(&m, &m, WRAP(WRAP(s3->x18->x24)));
-            func_00102A60(&m.m[3], s3->x18);
+            sceVu0CopyMatrix(&m, &D_001F2170);
+            sceVu0RotMatrixX(&m, &m, WRAP(-WRAP(s3->x18->x20)));
+            sceVu0RotMatrixY(&m, &m, WRAP(WRAP(s3->x18->x24)));
+            sceVu0CopyVector(&m.m[3], s3->x18);
             m.m[3].w = 1.0f;
             func_001677C0(o, &m);
             func_00167600(o, a0);
             c = cur();
             if (c != 0) {
-                func_00123C40(&x, 0, 0x40);
+                memset(&x, 0, 0x40);
                 func_001CEBF0(&x, x.y, c->x3CD);
                 x.f30.f = func_001CC250(func_001CCD90(c->x390->x94 & 1));
             }

@@ -1,7 +1,7 @@
 #include "m2c.h"
 f32 sqrtf(f32);
 void func_00102870(f32 *, f32 *);
-void func_00102A60(f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
 extern f32 D_003139A0[4];
 static inline f32 hs(f32 *d, f32 x) {
     *d = sqrtf(x) / 2.0f;
@@ -21,7 +21,7 @@ void func_0015E290(f32 *out, f32 (*a)[4]) {
     func_00102870(m[0], a[0]);
     func_00102870(m[1], a[1]);
     func_00102870(m[2], a[2]);
-    func_00102A60(m[3], D_003139A0);
+    sceVu0CopyVector(m[3], D_003139A0);
     m[3][3] = 1.0f;
     t = m[0][0] + m[1][1] + m[2][2] + 1.0f;
     if (!(t < 1.0f)) {
@@ -50,5 +50,5 @@ void func_0015E290(f32 *out, f32 (*a)[4]) {
         q[k] = f * (m[i][k] + m[k][i]);
         q[3] = f * (m[j][k] - m[k][j]);
     }
-    func_00102A60(out, q);
+    sceVu0CopyVector(out, q);
 }

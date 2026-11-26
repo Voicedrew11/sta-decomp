@@ -61,9 +61,12 @@ case "${SRC}" in
         # mwccps2 writes the object itself; it reads its system include path
         # from MWCIncludes and warns when that is unset.
         INCS="${INCS} -I${ROOT}/src/game"
+        # config/game_cflags.txt lists the units built with other flags
+        UNIT_CFLAGS="$(awk -v s="${SRC#"${ROOT}"/}" '$1 == s { $1 = ""; print substr($0, 2) }' \
+            "${ROOT}/config/game_cflags.txt")"
         # tools/mwfix.py retypes the .mwcats section, which ld 2.10 cannot read
         MWCIncludes="${ROOT}/include" "${WIBO}" "${MWCC_DIR}/mwccps2.exe" -c -nostdinc \
-            ${GAME_CFLAGS:--O4,p} ${INCS} -o "${OUT}" "${SRC}"
+            ${GAME_CFLAGS:-${UNIT_CFLAGS:--O4,p}} ${INCS} -o "${OUT}" "${SRC}"
         exec python3 "${ROOT}/tools/mwfix.py" "${OUT}" ;;
 esac
 

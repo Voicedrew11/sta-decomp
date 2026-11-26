@@ -4,7 +4,7 @@ typedef struct { Rec r0; u8 x20[0x10]; Rec r1; u8 pad[0x80]; Rec r2; } Big;
 extern s8 D_001FD990[];
 extern s8 D_001FD998[];
 extern s8 D_001FD988[];
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 #define FCC(s) ((s)[0] | ((s)[1] << 8) | ((s)[2] << 16) | ((s)[3] << 24))
 static inline void init(Rec *p, s8 *s, u32 x4, u32 x10, u32 x14) {
     p->tag = FCC(s);
@@ -20,7 +20,7 @@ static inline void init(Rec *p, s8 *s, u32 x4, u32 x10, u32 x14) {
 }
 
 void func_001AB0A0(Big *b) {
-    func_00123C40(b, 0, 0xF0);
+    memset(b, 0, 0xF0);
     b->x20[0] = 0x20;
     b->x20[1] = 1;
     b->x20[2] = 0;

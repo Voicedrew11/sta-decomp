@@ -10,11 +10,11 @@ s8 *func_0013DCE0(s8 *);
 s8 *func_00140460(s8 *);
 u8 func_00143150(s8 *, s8 *, s8 *);
 s8 *func_00143840(s8 *, u8);
-void func_001029D0(s8 *, s8 *, s8 *);
+void sceVu0AddVector(s8 *, s8 *, s8 *);
 void func_00145720(s8 *);
 void func_00140440(s8 *, s8 *);
 s8 *func_00145730(void);
-void func_001029E8(V *, s8 *, s8 *);
+void sceVu0SubVector(V *, s8 *, s8 *);
 f32 func_0013FC10(V *);
 void func_00140330(s8 *, s8 *);
 void func_00140300(s8 *, s8 *);
@@ -48,7 +48,7 @@ void func_00135240(s8 *a0, s32 a1) {
         if (s3) {
             u8 k = func_00143150(s3, s2, func_00140460(a0));
             if (k != 0xFF) {
-                func_001029D0(a0 + 0x620, func_00143840(s3, k), s2);
+                sceVu0AddVector(a0 + 0x620, func_00143840(s3, k), s2);
             }
         }
         break;
@@ -66,14 +66,14 @@ void func_00135240(s8 *a0, s32 a1) {
     case 3: {
         V v;
         s8 *p = func_00145730();
-        func_001029E8(&v, p, func_00140460(a0));
+        sceVu0SubVector(&v, p, func_00140460(a0));
         *(s32 *)&v.y = 0;
         *(f32 *)(a0 + 0x634) = func_0013FC10(&v);
         break;
     }
     case 4: {
         V v;
-        func_001029E8(&v, func_00140460(a0), func_00145730());
+        sceVu0SubVector(&v, func_00140460(a0), func_00145730());
         *(s32 *)&v.y = 0;
         *(f32 *)(a0 + 0x634) = func_0013FC10(&v);
         break;

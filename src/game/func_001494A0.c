@@ -21,7 +21,7 @@ typedef struct {
 } O;
 void func_001631E0(Vec *, f32, u8 *, void *, u8 *, f32, s32);
 void func_00163C80(O *, Mtx *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 u16 *func_001A5710(void);
 u16 *func_001A5660(void);
 s32 func_00146C70(Vec *, Vec *, u16 *, s32 *, Vec *, f32);
@@ -59,8 +59,8 @@ void func_001494A0(O *o) {
     a.x = 0.0f;
     a.z = 0.0f;
     func_00163C80(o, &mtx);
-    func_001027B0(&b, &mtx, &b);
-    func_001027B0(&a, &mtx, &a);
+    sceVu0ApplyMatrix(&b, &mtx, &b);
+    sceVu0ApplyMatrix(&a, &mtx, &a);
     r = o->x60;
     for (n = func_001A5710(); n != NULL; n = func_001A5660()) {
         if (*n && func_00146C70(&b, &a, n, &cc, &out, r)) {

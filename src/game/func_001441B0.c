@@ -1,5 +1,5 @@
 #include "m2c.h"
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 void func_00143E20(s8 *, s32, s32, s32, s32, s32, f32);
 s8 *func_00140460(s8 *);
 s8 *func_00140340(s8 *);
@@ -27,7 +27,7 @@ void func_001441B0(s8 *arg0) {
         M2C_FIELD(p, f32 *, 0) += x;
         M2C_FIELD(p, f32 *, 4) += y;
         M2C_FIELD(p, f32 *, 8) += z;
-        func_00102A60(M2C_FIELD(obj, s8 **, 0x518) + 0x1C0, p);
+        sceVu0CopyVector(M2C_FIELD(obj, s8 **, 0x518) + 0x1C0, p);
     } else if (type == 2) {
         p = func_00140340(obj);
         M2C_FIELD(p, f32 *, 0) += x;

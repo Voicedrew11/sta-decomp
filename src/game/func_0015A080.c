@@ -2,7 +2,7 @@
 typedef struct { s32 x0; u32 x4; u32 x8; u32 xC; } Inf;
 typedef struct { s32 x0; s32 x4; s32 x8; Inf *pC; volatile u16 flags; u16 mode; s32 fd; u32 size; } F;
 F *func_0015ABD0(s32);
-void func_0010FD58(s32);
+void sceClose(s32);
 void func_0015A470(F *, u8 *, u32, s32);
 void func_001787A0(void);
 void func_00179040(u8 *, u8 *, u32, u32);
@@ -69,7 +69,7 @@ void func_0015A080(s32 arg0, u8 *arg1) {
         arg1 += n;
     }
     if (f->fd >= 0) {
-        func_0010FD58(f->fd);
+        sceClose(f->fd);
         f->fd = -1;
     }
     f->size = 0;

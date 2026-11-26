@@ -22,11 +22,11 @@ extern Mtx D_001F2170;
 u16 func_0015ED20(void);
 f32 func_0011D778(f32);
 f32 func_0011DA18(f32);
-void func_001029D0(void *, void *, Vec *);
-void func_001029E8(Vec *, s8 *, s8 *);
+void sceVu0AddVector(void *, void *, Vec *);
+void sceVu0SubVector(Vec *, s8 *, s8 *);
 void func_00146570(Actor *, Vec *);
 void func_00145F40(Actor *, f32 *, f32 *);
-void func_00102CC8(Mtx *, Mtx *, f32);
+void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
 inline s32 has(void) {
     return D_002022E4 != NULL && D_002022E4->unk518 != NULL;
 }
@@ -52,10 +52,10 @@ void func_0014A210(O *o) {
     d.z = r * func_0011DA18(a);
     d.y = yr * (1.0f - 2.0f * (1.5259022e-05f * (f32)(u32)func_0015ED20()));
     d.w = 0.0f;
-    func_001029D0(o, o, &d);
+    sceVu0AddVector(o, o, &d);
     b = o->x90;
-    func_001029E8(&t, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160, b + 0x30);
-    func_001029D0(o, o, &t);
+    sceVu0SubVector(&t, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160, b + 0x30);
+    sceVu0AddVector(o, o, &t);
     o->p.w = 1.0f;
     o->p.y += h;
     func_00146570(D_002022E4, &w);
@@ -63,8 +63,8 @@ void func_0014A210(O *o) {
     o->p.z += w.z * o->x68;
     if (ang < 0.0f) {
         func_00145F40(D_002022E4, &ang, NULL);
-        func_00102CC8(&o->xC0, &D_001F2170, WRAP(ang));
+        sceVu0RotMatrixY(&o->xC0, &D_001F2170, WRAP(ang));
     } else {
-        func_00102CC8(&o->xC0, &D_001F2170, WRAP(DEG(ang)));
+        sceVu0RotMatrixY(&o->xC0, &D_001F2170, WRAP(DEG(ang)));
     }
 }

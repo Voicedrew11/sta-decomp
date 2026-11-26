@@ -15,7 +15,7 @@ extern s32 D_00201F2C;
 extern void func_001545D0(void);
 extern void func_001543E0(s32, u64);
 extern void func_001544C0(void);
-extern void func_00123C40(void *, s32, s32);
+extern void memset(void *, s32, s32);
 extern void func_00155BD0(void *);
 extern void func_00176AE0(void);
 
@@ -35,7 +35,7 @@ void func_00158900(Arg *a0) {
     func_001543E0(6, (u64)(fbp >> 8) | 0x68028000 | ((u64)2 << 32));
     func_001543E0(0x14, 0);
     func_001544C0();
-    func_00123C40(&b, 0, 0x50);
+    memset(&b, 0, 0x50);
     b.f4C.b0 = 1;
     b.f4C.b1 = 1;
     b.f4C.b2 = 1;

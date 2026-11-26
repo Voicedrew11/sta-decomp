@@ -5,8 +5,8 @@ typedef struct { Ent sp[4]; Ent ents[2][64]; } W;
 extern W D_0030A2D0;
 extern u16 D_0030C3D0[];
 extern u16 D_0030C3D4[];
-void func_00102A60(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
 static inline Ent *getEnt(s32 id) {
     if (id < 0) {
         if (id == -1) {
@@ -36,11 +36,11 @@ s32 func_0015B980(s32 idx, Vec *a, Vec *b, Vec *c, f32 f0, f32 f1, f32 f2, f32 f
         }
     }
     e = getEnt(id);
-    func_00102A60(&e->a, a);
-    func_00102A18(&e->b, b, 1.0f / 255.0f);
+    sceVu0CopyVector(&e->a, a);
+    sceVu0ScaleVector(&e->b, b, 1.0f / 255.0f);
     e->a.w = f0;
     e->b.w = f1;
-    func_00102A60(&e->c, c);
+    sceVu0CopyVector(&e->c, c);
     e->x30 = f2;
     e->x34 = f3;
     e->fl.b0 = 1;

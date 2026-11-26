@@ -25,7 +25,7 @@ typedef struct {
     s8 padB8[0x18];
 } Obj;
 typedef struct { s8 pad[0x10]; s32 x10; s8 pad14[0x6C]; s8 x80[0x10]; } Ent;
-void func_00102A70(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 extern f32 D_001F2170[];
 extern Obj *D_00202288;
 extern Ent *D_002022B0;
@@ -54,7 +54,7 @@ Obj *func_001AE7C0(s16 id) {
     s->b2 = 1;
     s->x80 = t[id].x10;
     s->xB4 = 1.0f;
-    func_00102A70(s, D_001F2170);
+    sceVu0CopyMatrix(s, D_001F2170);
     if (D_00202288 == 0) {
         D_00202288 = s;
     }

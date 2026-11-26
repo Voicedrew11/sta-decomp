@@ -4,7 +4,7 @@ typedef struct { u8 b0:1; } BF;
 void func_00131600(s32, u8);
 void func_001C9BA0(void);
 void func_001CB980(void *);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001CEDC0(s32);
 void func_001CEA50(s32);
 void func_001CBED0(s16, s32, s32);
@@ -73,7 +73,7 @@ void func_0019D580(Menu *m) {
     } else if (m->buttons & 0x2000) {
         if (D_002021EC == 0) {
             func_001CB980(D_004A32A0);
-            func_00123C40(D_004A32A0, 0, 0x10);
+            memset(D_004A32A0, 0, 0x10);
             func_001CEDC0(3);
             func_001CEA50(1);
             D_004A3298[0] = 15.0f;

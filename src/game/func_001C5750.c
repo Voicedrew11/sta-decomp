@@ -38,10 +38,10 @@ f32 func_00173F70(s32, u16);
 s32 func_001D1DD0(u8);
 s32 func_00125538(void);
 void func_00171B70(Mdl *, u16, f32);
-void func_00102C20(Mtx *, Mtx *, f32);
-void func_00102A70(void *, void *);
+void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
+void sceVu0CopyMatrix(void *, void *);
 s32 func_001A9440(void);
-void func_001027E0(Vec *, Mtx *, Vec *);
+void sceVu0MulMatrix(Vec *, Mtx *, Vec *);
 void func_00171540(Mdl *, Mtx *);
 s32 func_001D1D50(u8);
 s32 func_001D1DA0(u8);
@@ -106,9 +106,9 @@ void func_001C5750(Actor *a, f32 dt) {
     p->x2C->x3F8 += -5.0f;
     p->x2C->x3F0 += p->x3AD;
     p->x2C->x3F4 += p->x3AE;
-    func_00102C20(&m1, &D_001F2170, WRAP(WRAP(-1.0f * p->x18->x30)));
+    sceVu0RotMatrixX(&m1, &D_001F2170, WRAP(WRAP(-1.0f * p->x18->x30)));
     m1.m[3].w = 1.0f;
-    func_00102A70(&m2, &D_001F2170);
+    sceVu0CopyMatrix(&m2, &D_001F2170);
     if (func_001A9440()) {
         if (p->a5) {
             m2.m[3].y += 2.0f * p->x380;
@@ -119,9 +119,9 @@ void func_001C5750(Actor *a, f32 dt) {
     if (p->x390->b0) {
         p->x2C->v3C0.x *= -1.0f;
     }
-    func_001027E0(&p->x2C->v3C0, &m1, &p->x2C->v3C0);
-    func_001027E0(&p->x2C->v3C0, &m2, &p->x2C->v3C0);
-    func_00102A70(&p->x2C->v280, &p->x18->v60);
+    sceVu0MulMatrix(&p->x2C->v3C0, &m1, &p->x2C->v3C0);
+    sceVu0MulMatrix(&p->x2C->v3C0, &m2, &p->x2C->v3C0);
+    sceVu0CopyMatrix(&p->x2C->v280, &p->x18->v60);
     func_00171540(p->x28, &D_001F2170);
     if (func_001D1D50(p->x39C)) {
         if (func_001D1DA0(p->x39C)) {

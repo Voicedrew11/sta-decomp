@@ -19,9 +19,9 @@ typedef struct {
 } O;
 u16 func_0015ED20(void);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, O *);
-void func_00102B78(Mtx *, Mtx *, f32);
-void func_00102CC8(Mtx *, Mtx *, f32);
-void func_00102A70(void *, Mtx *);
+void sceVu0RotMatrixZ(Mtx *, Mtx *, f32);
+void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
+void sceVu0CopyMatrix(void *, Mtx *);
 extern Mtx D_001F2170;
 static inline f32 u2f(u32 x) { return x; }
 
@@ -61,7 +61,7 @@ void func_0014C160(O *o) {
     if (rx == o->x60) return;
     rx = (o->x60 != rx) ? 0.01745f * o->x60 : rx;
     a = 0.5f * rx;
-    func_00102B78(&m, &D_001F2170, WRAP(a * (0.000015259022f * (f32)(u32)func_0015ED20())));
-    func_00102CC8(&m, &m, WRAP(6.2831855f * (0.000015259022f * (f32)(u32)func_0015ED20())));
-    func_00102A70(o->xC0, &m);
+    sceVu0RotMatrixZ(&m, &D_001F2170, WRAP(a * (0.000015259022f * (f32)(u32)func_0015ED20())));
+    sceVu0RotMatrixY(&m, &m, WRAP(6.2831855f * (0.000015259022f * (f32)(u32)func_0015ED20())));
+    sceVu0CopyMatrix(o->xC0, &m);
 }

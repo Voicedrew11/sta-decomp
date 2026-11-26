@@ -33,16 +33,16 @@ typedef struct {
     u8 x3AC;
 } P;
 extern Vec D_004B4CF0;
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 void func_00102870(Vec *, Vec *);
 s32 func_001A5AA0(Actor *, P *, Mtx *);
 void func_001456B0(Vec *);
 f32 func_0013FC10(Vec *);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 f32 func_0015DF90(f32, f32, f32);
 void func_001BD4E0(Actor *);
 void func_001BE510(Actor *);
@@ -58,19 +58,19 @@ static inline void tail(Actor *a0, P *s1, Vec *v) {
     Vec r;
     if (s1->x10->xC8 != 0) {
         func_001A5AA0(a0, s1, &m);
-        func_001029E8(&d, v, &s1->x10->x100);
+        sceVu0SubVector(&d, v, &s1->x10->x100);
         d.w = 1.0f;
-        func_001027B0(&r, &m, &d);
-        func_001029D0(v, &s1->x10->x100, &r);
+        sceVu0ApplyMatrix(&r, &m, &d);
+        sceVu0AddVector(v, &s1->x10->x100, &r);
         func_001456B0(&d);
         d.w = 0.0f;
-        func_001027B0(&r, &m, &d);
+        sceVu0ApplyMatrix(&r, &m, &d);
         *(f32 *)(a0->unk518 + 0x24) = func_0013FC10(&r);
     }
     v->y -= 220.0f;
     s1->x40.x = v->x;
     s1->x40.z = v->z;
-    if (!(func_0011D850(s1->x40.y - v->y) <= 100.0f)) {
+    if (!(fabsf(s1->x40.y - v->y) <= 100.0f)) {
         s1->x40.y = v->y;
     } else {
         s1->x40.y = func_0015DF90(s1->x40.y, v->y, 0.5f);
@@ -86,11 +86,11 @@ static inline void tail(Actor *a0, P *s1, Vec *v) {
 static inline void push(P *s1) {
     Vec w;
     if (!s1->f39E.b) {
-        func_001029E8(&w, &D_004B4CF0, s1->x18);
+        sceVu0SubVector(&w, &D_004B4CF0, s1->x18);
         w.w = 0.0f;
         func_00102870(&w, &w);
-        func_00102A18(&w, &w, 200.0f);
-        func_001029D0(&s1->x50, &s1->x50, &w);
+        sceVu0ScaleVector(&w, &w, 200.0f);
+        sceVu0AddVector(&s1->x50, &s1->x50, &w);
         s1->x50.y -= 196.0f;
         if (s1->x154 != 0 && (s1->x15C->xD & 7) == 1 && ((s1->x15C->xC & 0xF) == 12 || (s1->x15C->xC & 0xF) == 13)) {
             s1->f39E.v += 3;
@@ -108,16 +108,16 @@ void func_001BE7B0(Actor *a0) {
     ((Flags8 *)(t + 0x522))->f.b0 = 0;
     s1 = (P *)(t + 0x180);
     if (s1->x154 != 0 && s1->xF4 != 0) {
-        func_00102A18(&v, &s1->x140, 100.0f);
-        func_001029D0(&v, &v, &s1->x130);
+        sceVu0ScaleVector(&v, &s1->x140, 100.0f);
+        sceVu0AddVector(&v, &v, &s1->x130);
         v.y = s1->xD0.y;
         tail(a0, s1, &v);
     } else if (s1->xF4 != 0) {
-        func_00102A60(&v, &s1->xD0);
+        sceVu0CopyVector(&v, &s1->xD0);
         tail(a0, s1, &v);
     } else if (s1->x154 != 0) {
-        func_00102A18(&s1->x40, &s1->x140, 100.0f);
-        func_001029D0(&s1->x40, &s1->x40, &s1->x130);
+        sceVu0ScaleVector(&s1->x40, &s1->x140, 100.0f);
+        sceVu0AddVector(&s1->x40, &s1->x40, &s1->x130);
         s1->x40.y -= 120.0f;
     }
     if ((n = s1->f39E.v) != 0) {

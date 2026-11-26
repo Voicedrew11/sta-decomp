@@ -35,8 +35,8 @@ typedef struct {
 void func_00181680(s32, f32 *, f32 *, Col *, S *, u32);
 P *func_00189020(s32);
 f32 func_0011DA18(f32);
-f32 func_0011D850(f32);
-void func_001256E0(s8 *, s8 *, s32);
+f32 fabsf(f32);
+void sprintf(s8 *, s8 *, s32);
 void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 extern S D_001F2DE0 __attribute__((aligned(16)));
 extern s8 D_001FD208[];
@@ -62,9 +62,9 @@ void func_00193AF0(A *o, s32 idx, u32 kind) {
     switch (kind) {
     case 500:
         if (idx == D_004A1180[0].idx) {
-            o->x2C.c.r = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1190[0])));
-            o->x2C.c.g = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1190[0])));
-            o->x2C.c.b = (s32)(64.0f + func_0011D850(64.0f * func_0011DA18(D_004A1190[0])));
+            o->x2C.c.r = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1190[0])));
+            o->x2C.c.g = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1190[0])));
+            o->x2C.c.b = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1190[0])));
         } else {
             o->x2C.c.r = 0x40;
             o->x2C.c.g = 0x40;
@@ -97,7 +97,7 @@ void func_00193AF0(A *o, s32 idx, u32 kind) {
         } else if (f < 128.0f) {
             col.c.a = col.c.a * (s32)f / 128.0f;
         }
-        func_001256E0(buf, D_001FD208, idx + 1);
+        sprintf(buf, D_001FD208, idx + 1);
         func_001875C0(8.0f + *px, 4.0f + *py, 1.0f, buf, 0, col.w);
         }
         break;

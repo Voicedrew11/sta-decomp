@@ -8,7 +8,7 @@ s32 func_001A9D50(s32, u16);
 void func_001A9E10(s32, u16, u8);
 void func_001B87C0(s8 *, u32, s32, s32, f32, f32);
 void func_00171B70(s8 *, u16, f32);
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 void func_00171540(s8 *, s8 *);
 s8 *func_001715B0(s8 **);
 void func_001677C0(s8 *, s8 *);
@@ -52,7 +52,7 @@ void func_001B80B0(s32 a0, u32 a1) {
         }
         func_00171B70(*m, *(u16 *)(*m + 8), *(f32 *)(*m + 0xC));
     }
-    func_00102A60(*m + 0x30, p + 0x10);
+    sceVu0CopyVector(*m + 0x30, p + 0x10);
     func_00171540(*m, e);
     ((BF51 *)(e + 0x51))->v = 2;
     if (*(s8 **)(e + 0x54) != NULL) {

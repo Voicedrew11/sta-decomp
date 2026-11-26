@@ -16,7 +16,7 @@ void func_00165940(void *, Slot *, s32, Val *);
 void func_00165DF0(Mgr *, Slot *);
 void func_00165A30(Mgr *, Slot *);
 s32 func_00166970(Mgr *, u32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 static inline s8 pop(Mgr *o, Slot *s) {
     if (s->f14 == 0) return -1;
     s->f14--;
@@ -48,7 +48,7 @@ static inline void getArgs(Mgr *o, Slot *s, Cmd *c, u16 op, u16 n) {
         func_00165940(o, s, s->f8, &c->args[i]);
         s->f8 += 8;
     }
-    func_00123C40(c->m, 0, 0x10);
+    memset(c->m, 0, 0x10);
 }
 
 s8 func_00166170(Mgr *o, Slot *s) {

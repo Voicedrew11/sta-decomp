@@ -4,7 +4,7 @@ typedef struct {
     union { struct { f32 x40, x44, x48, x4C; } f; u16 h[0x28]; } u;
 } __attribute__((aligned(16))) E;
 E *func_001AFC90(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 static inline u16 sc(u16 v, u8 k, u8 n) {
     s32 b;
     if (n == 0) return 0;
@@ -16,7 +16,7 @@ void func_001D1240(E *d, s16 idx, u8 k) {
     E *src;
 
     src = func_001AFC90();
-    func_00123C40(d, 0, 0x90);
+    memset(d, 0, 0x90);
     if (idx <= 0 || idx >= 800) {
         d->u.f.x40 = d->u.f.x44 = d->u.f.x48 = d->u.f.x4C = 1.0f;
     }

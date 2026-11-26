@@ -136,13 +136,13 @@ extern s32 D_00201F2C;
 extern G D_0042D7E0;
 extern Vec D_001F2160;
 extern Mtx D_001F2170;
-void func_00102A60(void *, void *);
-void func_001029D0(void *, void *, void *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_00102A70(void *, void *);
-void func_001027B0(void *, void *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0AddVector(void *, void *, void *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0CopyMatrix(void *, void *);
+void sceVu0ApplyMatrix(void *, void *, void *);
 void func_00102870(Vec *, Vec *);
-void func_00102828(Vec *, Vec *, Vec *);
+void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 void func_00162490(P80 *, F *, f32);
 u16 func_0015ED20(void);
 void func_00163A10(Vec *, f32, f32);
@@ -181,10 +181,10 @@ static inline f32 radB(f32 x) { f32 r = 0.0f; if (x == r) { } else { r = 0.01745
     if (m->x189.f.b7) { \
         p = (P80 *)m->x150; \
         t = 1.5259022e-05f * (f32)(u32)func_0015ED20(); \
-        func_00102A18(&v260, &p->r[1], p->r[1].w * t); \
-        func_001029D0(&v260, &v260, p); \
+        sceVu0ScaleVector(&v260, &p->r[1], p->r[1].w * t); \
+        sceVu0AddVector(&v260, &v260, p); \
         func_00163A10(RR, p->r[0].w, 1.0f); \
-        func_001029D0(RR, RR, &v260); \
+        sceVu0AddVector(RR, RR, &v260); \
         RR->w = 1.0f; \
     } else { \
         switch (fp->x4) { \
@@ -200,30 +200,30 @@ static inline f32 radB(f32 x) { f32 r = 0.0f; if (x == r) { } else { r = 0.01745
             v250.y = p->x40.y + TV * (p->x50.y - p->x40.y); \
             v250.z = p->x40.z + TV * (p->x50.z - p->x40.z); \
             func_00163A10(RR, p->x60 + TV * (p->x64 - p->x60), p->x68 + TV * (p->x6C - p->x68)); \
-            func_001029D0(RR, RR, &v250); \
+            sceVu0AddVector(RR, RR, &v250); \
             break; \
         case 2: \
             ra = -1.0f + 2.0f * (1.5259022e-05f * (f32)(u32)func_0015ED20()); \
             rb = -1.0f + 2.0f * (1.5259022e-05f * (f32)(u32)func_0015ED20()); \
             rc = -1.0f + 2.0f * (1.5259022e-05f * (f32)(u32)func_0015ED20()); \
-            func_00102A60(&v230, &p->r[0]); \
-            func_00102A60(&v220, &p->r[1]); \
-            func_00102A60(&v210, &p->r[2]); \
-            func_00102A60(&v200, &p->r[3]); \
-            func_00102A60(&v240, &v200); \
-            func_00102A18(&v1F0, &v230, ra); \
-            func_001029D0(&v240, &v1F0, &v240); \
-            func_00102A18(&v1E0, &v220, rb); \
-            func_001029D0(&v240, &v1E0, &v240); \
-            func_00102A18(&v1D0, &v210, rc); \
-            func_001029D0(&v240, &v1D0, &v240); \
+            sceVu0CopyVector(&v230, &p->r[0]); \
+            sceVu0CopyVector(&v220, &p->r[1]); \
+            sceVu0CopyVector(&v210, &p->r[2]); \
+            sceVu0CopyVector(&v200, &p->r[3]); \
+            sceVu0CopyVector(&v240, &v200); \
+            sceVu0ScaleVector(&v1F0, &v230, ra); \
+            sceVu0AddVector(&v240, &v1F0, &v240); \
+            sceVu0ScaleVector(&v1E0, &v220, rb); \
+            sceVu0AddVector(&v240, &v1E0, &v240); \
+            sceVu0ScaleVector(&v1D0, &v210, rc); \
+            sceVu0AddVector(&v240, &v1D0, &v240); \
             func_00163A10(RR, p->x60, p->x68); \
-            func_001029D0(RR, RR, &v240); \
+            sceVu0AddVector(RR, RR, &v240); \
             break; \
         } \
         RR->w = 1.0f; \
     } \
-    func_001029D0(o, o, RR); \
+    sceVu0AddVector(o, o, RR); \
 }
 
 s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
@@ -307,32 +307,32 @@ s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
     o->xA0 = par ? par->x9E : 0xFFFF;
     o->x110 = -1;
     if (o->b5) {
-        func_00102A60(o, v);
+        sceVu0CopyVector(o, v);
         if (par == 0) {
             if (o->b7) {
-                func_001029D0(o, o, &D_001F2160);
+                sceVu0AddVector(o, o, &D_001F2160);
             } else {
                 BLK((&r1), ra)
             }
         }
         o->x0.w = 1.0f;
-        func_00102A70(&o->xC0, &D_001F2170);
+        sceVu0CopyMatrix(&o->xC0, &D_001F2170);
     } else {
         if (par) {
             func_00163C80(par, &m3B0);
             v->x0.w = 1.0f;
-            func_001027B0(o, &m3B0, v);
+            sceVu0ApplyMatrix(o, &m3B0, v);
             func_00163C80(par, &o->xC0);
         } else {
-            func_00102A60(o, v);
+            sceVu0CopyVector(o, v);
             if (!o->b7) {
                 BLK((&r2), x)
             }
             o->x0.w = 1.0f;
-            func_001027B0(o, m, o);
-            func_00102A70(&o->xC0, m);
+            sceVu0ApplyMatrix(o, m, o);
+            sceVu0CopyMatrix(&o->xC0, m);
         }
-        func_00102A60(&o->xC0.m[3], &D_001F2160);
+        sceVu0CopyVector(&o->xC0.m[3], &D_001F2160);
     }
     o->x88 = v->x24;
     w = v->x28;
@@ -342,20 +342,20 @@ s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
     v330.z = 1.5259022e-05f * (f32)(u32)func_0015ED20() - 0.5f;
     v330.w = 0.0f;
     func_00102870(&v330, &v330);
-    func_00102828(&v330, &v330, &v->x10);
+    sceVu0OuterProduct(&v330, &v330, &v->x10);
     s = 1.5259022e-05f * (f32)(u32)func_0015ED20();
     if (1.0f != w && !(s <= 0.01f)) {
         s = func_0011DBF0(s, w);
     }
     s *= radB(k);
     func_0015EBB0(&m340, &v330, s);
-    func_001027B0(&o->x10, &m340, &v->x10);
+    sceVu0ApplyMatrix(&o->x10, &m340, &v->x10);
     o->x10.w = 0.0f;
-    func_001027B0(&o->x10, &o->xC0, &o->x10);
+    sceVu0ApplyMatrix(&o->x10, &o->xC0, &o->x10);
     if (par && !o->b5) {
         func_00163D90(par, &v390);
-        func_00102A18(&v380, &v390, 0.01f * v->x2C);
-        func_001029D0(&o->x10, &v380, &o->x10);
+        sceVu0ScaleVector(&v380, &v390, 0.01f * v->x2C);
+        sceVu0AddVector(&o->x10, &v380, &o->x10);
     }
     if (a->type == 1) {
         o->xA4 = radA(o->x38);
@@ -372,9 +372,9 @@ s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
     }
     if (o->b5) {
         func_00163C80(o, &m2F0);
-        func_00102A60(&o->x100, &m2F0.m[3]);
+        sceVu0CopyVector(&o->x100, &m2F0.m[3]);
     } else {
-        func_00102A60(&o->x100, o);
+        sceVu0CopyVector(&o->x100, o);
     }
     if (a->type == 2) {
         ret = func_00174230(&D_0042D7E0, h->x10, -1, -1);

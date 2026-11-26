@@ -18,12 +18,12 @@ typedef struct {
 } Obj;
 void func_00146570(Actor *, Vec *);
 Actor *func_00146EF0(f32, s8 *, f32, Vec *, f32, s32);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_00145F40(Actor *, f32 *, s32);
 void func_001C9410(Vec *);
-void func_00102CC8(f32, Mtx *, void *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0RotMatrixY(f32, Mtx *, void *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, Vec *);
 void func_00146600(Actor *, Info *);
 void func_00146140(void *, f32, f32);
@@ -61,16 +61,16 @@ void func_0014CAC0(Obj *a) {
     base = ok ? D_002022E4->unk518 + 0x1C0 : D_001F2160;
     r = func_00146EF0(x, base, 3.1415927f, &f, deg, 0);
     if (r) {
-        func_00102A60(&p, r ? r->unk518 + 0x90 : D_001F2160);
+        sceVu0CopyVector(&p, r ? r->unk518 + 0x90 : D_001F2160);
     } else {
-        func_00102A60(&e, &a->v50);
+        sceVu0CopyVector(&e, &a->v50);
         e.w = 1.0f;
         func_00145F40(D_002022E4, &ang, 0);
         func_001C9410(&d);
-        func_00102CC8((3.1415927f + ang) - 6.2831855f * (f32)(s32)((3.1415927f + ang) * 0.15915494f) + ((3.1415927f + ang) < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f, &m, D_001F2170);
-        func_001027B0(&e, &m, &e);
-        func_001029D0(&e, &e, &d);
-        func_00102A60(&p, &e);
+        sceVu0RotMatrixY((3.1415927f + ang) - 6.2831855f * (f32)(s32)((3.1415927f + ang) * 0.15915494f) + ((3.1415927f + ang) < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f, &m, D_001F2170);
+        sceVu0ApplyMatrix(&e, &m, &e);
+        sceVu0AddVector(&e, &e, &d);
+        sceVu0CopyVector(&p, &e);
     }
     hi.x = lo.x = p.x;
     u = 200.0f;
@@ -80,7 +80,7 @@ void func_0014CAC0(Obj *a) {
     hi.y = p.y + u;
     hi.z = p.z;
     if (func_001470F0(&lo, &hi, 1, 4, 1, &p)) {
-        func_00102A60(a, &p);
+        sceVu0CopyVector(a, &p);
         a->pos.y -= 5.0f;
         func_00146600(D_002022E4, &s);
         func_00146140(a->xC0, s.x20, s.x28);

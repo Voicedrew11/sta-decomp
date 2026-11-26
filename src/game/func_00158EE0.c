@@ -12,7 +12,7 @@ typedef struct {
 void func_001545D0(void);
 void func_001543E0(s32, u64);
 void func_001544C0(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00155BD0(S *);
 
 void func_00158EE0(f32 *c) {
@@ -23,7 +23,7 @@ void func_00158EE0(f32 *c) {
     func_001543E0(0x42, 0x44);
     func_001543E0(0x40, 0x2800000 | ((u64)0x1C00000 << 32));
     func_001544C0();
-    func_00123C40(&s, 0, 0x50);
+    memset(&s, 0, 0x50);
     s.f.b0 = 1;
     s.f.b1 = 0;
     s.f.b2 = 1;

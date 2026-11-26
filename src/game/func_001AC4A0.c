@@ -11,15 +11,15 @@ typedef struct {
     u8 fA9;
     u8 padAA[0x26];
 } Node;
-void func_001027E0(void *, void *, void *);
-void func_001029D0(void *, void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
+void sceVu0AddVector(void *, void *, void *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
 extern Ent *D_002022B0;
 extern Node D_004AC970[];
 extern Node D_004AE370[];
 static inline void upd(Node *n, void *m) {
     if (n->idx != -1) {
-        func_001029D0(&n->v70, &n->v70, m);
+        sceVu0AddVector(&n->v70, &n->v70, m);
         {
         Ent *tbl = D_002022B0;
         if (n != NULL && n->idx != -1) {
@@ -30,9 +30,9 @@ static inline void upd(Node *n, void *m) {
                 Ent *e = &tbl[n->idx];
                 func_00173FD0(&tmp, &e->a, &e->b, &e->c);
                 func_00173FD0(n, &n->v40, &n->v50, &n->v60);
-                func_001027E0(n, n, &tmp);
+                sceVu0MulMatrix(n, n, &tmp);
             }
-            func_001029D0(&n->m.m[3], &n->m.m[3], &n->v70);
+            sceVu0AddVector(&n->m.m[3], &n->m.m[3], &n->v70);
         }
         }
     }

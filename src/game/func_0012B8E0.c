@@ -24,10 +24,10 @@ void func_001296C0(void);
 void func_001552A0(void);
 s32 func_001C9BF0(void);
 void func_001C8F90(void *);
-void func_00102C20(Mtx *, Mtx *, f32);
-void func_00102CC8(Mtx *, Mtx *, f32);
-void func_00102DE8(Mtx *, void *, Vec *, Vec *);
-void func_001027E0(void *, void *, Mtx *);
+void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
+void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
+void sceVu0CameraMatrix(Mtx *, void *, Vec *, Vec *);
+void sceVu0MulMatrix(void *, void *, Mtx *);
 void func_00188F80(void);
 void func_0012B600(void);
 void func_0012B550(void);
@@ -88,10 +88,10 @@ s32 func_0012B8E0(s32 arg0) {
         case 0:
             a = D_001F1BF0;
             b = D_001F1C00;
-            func_00102C20(&m, &D_001F2170, WRAP(D_00201C2C));
-            func_00102CC8(&m, &m, WRAP(D_00201EB4));
-            func_00102DE8(&v, D_001F1BB0, &a.v, &b.v);
-            func_001027E0(&v, &v, &m);
+            sceVu0RotMatrixX(&m, &D_001F2170, WRAP(D_00201C2C));
+            sceVu0RotMatrixY(&m, &m, WRAP(D_00201EB4));
+            sceVu0CameraMatrix(&v, D_001F1BB0, &a.v, &b.v);
+            sceVu0MulMatrix(&v, &v, &m);
             break;
         case 1:
             if (func_001C9BF0()) {
@@ -99,8 +99,8 @@ s32 func_0012B8E0(s32 arg0) {
             }
             break;
         }
-        func_001027E0(D_00222810, D_002F1900, &v);
-        func_001027E0(D_002227D0, D_002F1700, &v);
+        sceVu0MulMatrix(D_00222810, D_002F1900, &v);
+        sceVu0MulMatrix(D_002227D0, D_002F1700, &v);
         func_00188F80();
         func_00128460(D_00222AF0, -1);
         func_00128460(D_00222B20, -1);

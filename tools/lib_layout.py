@@ -88,12 +88,21 @@ class Obj:
         self.unit = unit
         with open(path, "rb") as f:
             e = ELFFile(f)
-            self.secs = {}      # name -> (index, size, align, bytes)
+            # name -> (index of the first part, size, align, bytes). CodeWarrior can
+            # write several sections of one name (one .text per function); ld joins
+            # them in file order, each at its own alignment, and so does this.
+            self.secs = {}
+            self.part = {}      # section index -> (name, offset of that part in the joined section)
             idx = {}
             for i, s in enumerate(e.iter_sections()):
                 if s.name in SECS and s["sh_size"]:
                     data = s.data() if s["sh_type"] != "SHT_NOBITS" else b"\0" * s["sh_size"]
-                    self.secs[s.name] = (i, s["sh_size"], s["sh_addralign"], data)
+                    align = max(s["sh_addralign"], 1)
+                    first, size, salign, joined = self.secs.get(s.name, (i, 0, 1, b""))
+                    off = -(-size // align) * align
+                    joined = joined + b"\0" * (off - size) + data
+                    self.secs[s.name] = (first, off + len(data), max(salign, align), joined)
+                    self.part[i] = (s.name, off)
                     idx[i] = s.name
             symtab = e.get_section_by_name(".symtab")
             syms = list(symtab.iter_symbols())
@@ -103,22 +112,28 @@ class Obj:
             for s in e.iter_sections():
                 if not isinstance(s, RelocationSection):
                     continue
-                tgt = e.get_section(s["sh_info"]).name
-                if tgt not in self.secs:
+                if s["sh_info"] not in self.part:
                     continue
+                tgt, base = self.part[s["sh_info"]]
                 for r in s.iter_relocations():
                     sym = syms[r["r_info_sym"]]
                     shndx = sym["st_shndx"]
                     tsec = idx.get(shndx) if isinstance(shndx, int) else None
-                    self.relocs[tgt].append((r["r_offset"], r["r_info_type"], tsec,
-                                             sym["st_value"], sym.name))
+                    self.relocs[tgt].append((base + r["r_offset"], r["r_info_type"], tsec,
+                                             self.offset_of(sym), sym.name))
             # globals in the data sections: (section, offset, name)
-            self.datasyms = [(idx[s["st_shndx"]], s["st_value"], s.name) for s in syms
+            self.datasyms = [(idx[s["st_shndx"]], self.offset_of(s), s.name) for s in syms
                              if s["st_info"]["bind"] == "STB_GLOBAL" and isinstance(s["st_shndx"], int)
                              and idx.get(s["st_shndx"]) in (".data", ".rodata", ".sdata")]
-            self.funcs = sorted((sym["st_value"], sym.name) for sym in syms
+            self.funcs = sorted((self.offset_of(sym), sym.name) for sym in syms
                                 if sym["st_info"]["type"] == "STT_FUNC" and
                                 idx.get(sym["st_shndx"] if isinstance(sym["st_shndx"], int) else -1) == ".text")
+
+    def offset_of(self, sym):
+        """A symbol's value as an offset in its joined section."""
+        shndx = sym["st_shndx"]
+        part = self.part.get(shndx) if isinstance(shndx, int) else None
+        return sym["st_value"] + (part[1] if part else 0)
 
     def mask(self, sec):
         """Per-word masks for `sec`: bits that the linker leaves alone."""

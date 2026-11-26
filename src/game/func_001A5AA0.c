@@ -15,8 +15,8 @@ typedef struct {
 } Obj;
 typedef struct { u8 pad[0x10]; Obj *obj; } Arg;
 extern Mtx D_001F2170;
-void func_00102A70(Mtx, Mtx);
-void func_001027E0(Mtx, Mtx, Mtx);
+void sceVu0CopyMatrix(Mtx, Mtx);
+void sceVu0MulMatrix(Mtx, Mtx, Mtx);
 s8 *func_001715B0(s32);
 void func_001B1A20(Tbl *, s32, s32);
 
@@ -29,12 +29,12 @@ u8 func_001A5AA0(u16 *flag, Arg *a, Mtx out) {
     u8 j;
     u8 changed = 0;
 
-    func_00102A70(out, D_001F2170);
+    sceVu0CopyMatrix(out, D_001F2170);
     if (a->obj->cur != NULL) {
         p = func_001715B0(a->obj->inf->id);
-        func_00102A70(m1, a->obj->m);
-        func_00102A70(m2, (f32 (*)[4])(p + 0x200));
-        func_00102A70(a->obj->m, m2);
+        sceVu0CopyMatrix(m1, a->obj->m);
+        sceVu0CopyMatrix(m2, (f32 (*)[4])(p + 0x200));
+        sceVu0CopyMatrix(a->obj->m, m2);
         if (a->obj->x114 == a->obj->x110) {
             for (i = 0; i < 4; i++) {
                 for (j = 0; j < 4; j++) {
@@ -44,7 +44,7 @@ u8 func_001A5AA0(u16 *flag, Arg *a, Mtx out) {
                 }
             }
             if (changed) {
-                func_00102A70(m3, D_001F2170);
+                sceVu0CopyMatrix(m3, D_001F2170);
                 m3[0][0] = m1[0][0];
                 m3[0][1] = m1[1][0];
                 m3[0][2] = m1[2][0];
@@ -58,7 +58,7 @@ u8 func_001A5AA0(u16 *flag, Arg *a, Mtx out) {
                 m3[2][2] = m1[2][2];
                 m3[2][3] = 0.0f;
                 m3[3][3] = 0.0f;
-                func_001027E0(out, m2, m3);
+                sceVu0MulMatrix(out, m2, m3);
                 out[3][0] = m2[3][0] - m1[3][0];
                 out[3][1] = m2[3][1] - m1[3][1];
                 out[3][2] = m2[3][2] - m1[3][2];

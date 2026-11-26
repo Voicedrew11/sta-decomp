@@ -4,11 +4,11 @@ extern St D_00201EE0;
 extern u8 D_0022EBD9[];
 extern u8 D_001FABB8[];
 extern u8 D_001FABC0[];
-void func_0010BCA0(s32);
+void FlushCache(s32);
 s32 func_00116EA0(void *, void *);
-s32 func_00117AC8(void);
-void func_00123C40(void *, s32, s32);
-void func_001256E0(void *, void *, s32);
+s32 sceCdGetError(void);
+void memset(void *, s32, s32);
+void sprintf(void *, void *, s32);
 void func_001D7FD0(void);
 s32 func_001D8C50(void);
 void func_001D8CA0(s32, u16, u16);
@@ -29,24 +29,24 @@ s32 func_00130590(s32 arg0, s32 arg1, s32 arg2) {
     func_001D8CA0(1, D_00201EE0.vol, D_00201EE0.vol);
     if (arg2) D_00201EE0.b2 = 1; else D_00201EE0.b2 = 0;
     if (arg1 == 0) {
-        func_001256E0(name, D_001FABB8, arg0);
+        sprintf(name, D_001FABB8, arg0);
         while (func_00116EA0(info, name) == 0) {
-            s32 r = func_00117AC8();
+            s32 r = sceCdGetError();
             i++;
             if (r == 0) {
                 if (i > 10) {
                     func_001D8DF0();
                     return -1;
                 }
-                func_00123C40(info, 0, 0x24);
+                memset(info, 0, 0x24);
                 break;
             }
         }
-        func_0010BCA0(0);
+        FlushCache(0);
         func_001D8CE0(1, info[0], 0x10000);
         D_00201EE0.b0 = 1;
     } else {
-        func_001256E0(name, D_001FABC0, arg0);
+        sprintf(name, D_001FABC0, arg0);
         func_001D8D20(1, name, 0x10000);
         while (func_001D8C50() == 0) {}
         if (func_001D8CC0(1, D_00201EE0.b2 != 0) == 0) {

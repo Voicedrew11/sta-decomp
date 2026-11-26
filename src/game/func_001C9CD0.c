@@ -13,7 +13,7 @@ void func_001C55A0(void);
 void func_00159DD0(s32, s32, void *, s32 *);
 s32 func_00177F80(void *);
 s32 func_00177AF0(s32, s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_001C9CD0(s8 *a) {
     s8 *o;
@@ -38,5 +38,5 @@ void func_001C9CD0(s8 *a) {
     *(s32 *)(o + 0x448) = func_00177AF0(func_00177F80(D_001FDC18), *(s32 *)(o + 0x3A8));
     *(s32 *)(o + 0x44C) = func_00177AF0(func_00177F80(D_001FDC20), *(s32 *)(o + 0x3A8));
     *(s32 *)(o + 0x450) = func_00177AF0(func_00177F80(D_001FDC28), *(s32 *)(o + 0x3A8));
-    func_00123C40(D_004B4BE0, 0, 0x58);
+    memset(D_004B4BE0, 0, 0x58);
 }

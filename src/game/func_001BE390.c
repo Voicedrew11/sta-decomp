@@ -1,8 +1,8 @@
 #include "m2c.h"
 typedef struct { f32 a[4]; f32 b[4]; } Ray;
 typedef struct { s32 w[16]; } Res;
-void func_00102A60(f32 *, s8 *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(f32 *, s8 *);
+void memset(void *, s32, s32);
 s32 func_001B2800(s8 *, Res *, Ray *, u16, s32, s32);
 s32 func_001B3240(s32, Res *, Ray *, s32, s32);
 extern s32 D_00201E80;
@@ -18,13 +18,13 @@ s32 func_001BE390(s8 *a0) {
     s8 *p;
 
     p = *(s8 **)(a0 + 0x518) + 0x180;
-    func_00102A60(ray.a, p + 0x40);
+    sceVu0CopyVector(ray.a, p + 0x40);
     ray.a[3] = 1.0f;
-    func_00102A60(ray.b, p + 0x40);
+    sceVu0CopyVector(ray.b, p + 0x40);
     ray.b[3] = 1.0f;
     ray.a[1] = *(f32 *)(*(s8 **)(p + 0x10) + 0x14);
     ray.b[1] += 220.0f;
-    func_00123C40(&res, 0, 0x40);
+    memset(&res, 0, 0x40);
     for (i = 0, q = (s32 **)(&D_00201E80 + 2); i < 2; i++, q++) {
         if (*q != 0 && **q != 0 && func_001B3240(**q, &res, &ray, 8, 1) != 0) {
             return 1;

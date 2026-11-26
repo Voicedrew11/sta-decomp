@@ -84,6 +84,16 @@ def cmd_asm(addr: int) -> None:
         print(f"    /* {k:08X} {w:08X} */  {dis(w, k)}")
 
 
+def unit_cflags(src: Path) -> str:
+    """CodeWarrior flags for a game unit: config/game_cflags.txt, else -O4,p."""
+    rel = str(src.resolve().relative_to(ROOT)) if src.resolve().is_relative_to(ROOT) else str(src)
+    for line in (ROOT / "config/game_cflags.txt").read_text().splitlines():
+        path, _, flags = line.partition(" ")
+        if path == rel and not path.startswith("#"):
+            return flags.strip()
+    return "-O4,p"
+
+
 def compile_c(src: Path, ee: bool, out: Path) -> None:
     cc = ROOT / "tools/cc"
     incs = [f"-I{ROOT / 'include'}", f"-I{ROOT / 'src/game'}"]
@@ -97,7 +107,7 @@ def compile_c(src: Path, ee: bool, out: Path) -> None:
              "-G", "8", "-o", str(out), str(s)])
     else:
         mw = cc / os.environ.get("MWCC", "mwcps2-3.0b52-030722") / "mwccps2.exe"
-        flags = os.environ.get("GAME_CFLAGS", "-O4,p").split()
+        flags = os.environ.get("GAME_CFLAGS", unit_cflags(src)).split()
         run([str(cc / "wibo"), str(mw), "-c", "-nostdinc", *flags, *incs, "-o", str(out), str(src)],
             env={**os.environ, "MWCIncludes": str(ROOT / "include")})
 

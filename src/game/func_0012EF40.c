@@ -1,5 +1,5 @@
 #include "m2c.h"
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_00123A88(u8 *, s8 *, u32);
 s32 func_001DAA90(s8, u8 *, u32);
 s8 func_001DAC30(void);
@@ -33,7 +33,7 @@ s32 func_0012EF40(H *arg0, u32 arg1) {
         q = (s8 *)((s32)arg0->data + ((arg0->c + 0xF) & ~0xF));
         D_0022F088[0] = D_0022F08C[0];
         func_00123A88(D_0022F090, q, D_0022F088[0]);
-        func_0010BCA0(0);
+        FlushCache(0);
         D_0022F084[0] = 2;
     case 2:
         r = func_001DAA90(D_0022EBC8[arg1], D_0022F090, D_0022F088[0]);
@@ -54,6 +54,6 @@ s32 func_0012EF40(H *arg0, u32 arg1) {
         D_0022F084[0] = 0;
         break;
     }
-    func_0010BCA0(0);
+    FlushCache(0);
     return ret;
 }

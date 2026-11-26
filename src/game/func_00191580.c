@@ -21,7 +21,7 @@ void func_00181420(void);
 void func_001545D0(void);
 void func_001543E0(s32, s64);
 void func_001544C0(void);
-void func_001256E0(s8 *, s8 *, ...);
+void sprintf(s8 *, s8 *, ...);
 void func_001874F0(f32, f32, f32, s32, s8 *, s32, u32);
 extern S191110 D_001F2C10 __attribute__((aligned(16)));
 extern s8 D_001FD118[];
@@ -74,9 +74,9 @@ void func_00191580(A191110 *o, u32 kind, s32 alpha) {
         col.c.b = alpha + 0x80;
         col.c.a = o->x2C.c.a * 2;
         if (alpha < 0x40) {
-            func_001256E0(buf, D_001FD118);
+            sprintf(buf, D_001FD118);
         } else {
-            func_001256E0(buf, D_001FD120);
+            sprintf(buf, D_001FD120);
         }
         func_001874F0(o->x38, o->x3C, 0.83333331f, -1, buf, 0, col.w);
         func_00187B20(0);

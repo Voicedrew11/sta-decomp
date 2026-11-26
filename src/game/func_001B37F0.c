@@ -31,14 +31,14 @@ extern Vec D_003139A0;
 s8 *func_001715B0(s32 **);
 void func_00173FD0(Mtx *, f32 *, f32 *, f32 *);
 void func_001C93A0(Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 s8 *func_001B7300(O *, s32);
 void func_0015B6B0(Vec *, s8 *);
 void func_0015B1C0(Vec *, s8 *);
 void func_0015B270(void);
 void func_001B3710(s32, s8 *, s32, Vec *, f32 *);
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, f32 *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, f32 *, Vec *);
 void func_0016B960(s8 *, Big *, Vec *, f32 *, s32, s32);
 void func_0016D830(s32, s32 *, s8 *, s32, Key);
 void func_001549D0(void);
@@ -146,8 +146,8 @@ void func_001B37F0(O *o, s32 (*cb)(s32 **, Key)) {
             mk2(e, s1, i, 3);
             b = &((El *)s1)[i + 1];
             func_001C93A0(&V);
-            func_001029D0(&(&b[1].m[0])->m[3], &(&b[1].m[0])->m[3], &V);
-            func_001029D0(&(&b->m[3])->m[3], &(&b->m[3])->m[3], &V);
+            sceVu0AddVector(&(&b[1].m[0])->m[3], &(&b[1].m[0])->m[3], &V);
+            sceVu0AddVector(&(&b->m[3])->m[3], &(&b->m[3])->m[3], &V);
             ((El *)s1)[i + 2].m[0].m[3].w = 1.0f;
             ((El *)s1)[i + 1].m[3].m[3].w = 1.0f;
         }
@@ -160,17 +160,17 @@ void func_001B37F0(O *o, s32 (*cb)(s32 **, Key)) {
         }
         s4 = e->x21;
         func_001B3710(c0, (s8 *)s1, i + 1, &A, B);
-        func_00102A60(&C, &D);
-        func_00102A60(&D, &D_003139A0);
+        sceVu0CopyVector(&C, &D);
+        sceVu0CopyVector(&D, &D_003139A0);
         {
             f32 w;
             D.w = 1.0f;
             w = A.w;
             A.w = 1.0f;
-            func_001027B0(&A, B, &A);
+            sceVu0ApplyMatrix(&A, B, &A);
             A.w = w;
         }
-        func_00102A60(&D, &C);
+        sceVu0CopyVector(&D, &C);
         if ((s8)s4 == -1) {
             func_0016B960((s8 *)s1, &D_0030D0E0, &A, B, 0xC, 0);
         } else {

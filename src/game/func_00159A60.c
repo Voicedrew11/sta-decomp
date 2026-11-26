@@ -33,14 +33,14 @@ typedef struct {
 extern G D_002F19B0;
 extern Vec D_003139A0;
 extern B8 D_00201F78[8];
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00159480(void *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_00157FE0(s32);
 
 void func_00159A60(void) {
     Vec v;
-    func_00123C40(&D_002F19B0, 0, 0x710);
+    memset(&D_002F19B0, 0, 0x710);
     D_002F19B0.x18 = 0;
     D_002F19B0.x0 = 5;
     D_002F19B0.x6C8.f.b3 = 1;
@@ -53,11 +53,11 @@ void func_00159A60(void) {
     func_00159480(D_002F19B0.xB0);
     func_00159480(D_002F19B0.xD0);
     D_002F19B0.xEC = 1;
-    func_00102A60(&v, &D_003139A0);
+    sceVu0CopyVector(&v, &D_003139A0);
     v.w = 128.0f;
-    func_00102A60(&D_002F19B0.xF0, &v);
-    func_00102A60(&D_002F19B0.x100, &v);
-    func_00102A60(&D_002F19B0.x110, &v);
+    sceVu0CopyVector(&D_002F19B0.xF0, &v);
+    sceVu0CopyVector(&D_002F19B0.x100, &v);
+    sceVu0CopyVector(&D_002F19B0.x110, &v);
     D_002F19B0.x120 = 0;
     D_002F19B0.x124 = 0;
     D_00201F78[0].lo = 4;

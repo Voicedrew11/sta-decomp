@@ -8,11 +8,11 @@ typedef struct { f32 m[4][4]; } M;
 extern s8 D_001F2160[];
 extern M D_001F2170;
 void func_00145F40(s32, f32 *, f32 *);
-void func_00102CC8(f32, M *, M *);
-void func_001027B0(f32 *, M *, f32 *);
-void func_001029D0(f32 *, f32 *, s8 *);
-void func_00102A70(f32 *, s8 *);
-void func_00102A60(void *, f32 *);
+void sceVu0RotMatrixY(f32, M *, M *);
+void sceVu0ApplyMatrix(f32 *, M *, f32 *);
+void sceVu0AddVector(f32 *, f32 *, s8 *);
+void sceVu0CopyMatrix(f32 *, s8 *);
+void sceVu0CopyVector(void *, f32 *);
 s32 func_001470F0(f32 *, f32 *, s32, s32, s32, s32 *);
 void func_00146570(Actor *, f32 *);
 void func_00146140(s32, f32, f32);
@@ -34,18 +34,18 @@ void func_0014AF10(O *o) {
     v[2] = o->z;
     v[3] = 1.0f;
     func_00145F40((s32)D_002022E4, &ang, NULL);
-    func_00102CC8(WRAP(ang), &m, &D_001F2170);
-    func_001027B0(v, &m, v);
-    func_001029D0(v, v, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
+    sceVu0RotMatrixY(WRAP(ang), &m, &D_001F2170);
+    sceVu0ApplyMatrix(v, &m, v);
+    sceVu0AddVector(v, v, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
     v[3] = 1.0f;
-    func_00102A70(a, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
-    func_00102A60(b, v);
+    sceVu0CopyMatrix(a, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
+    sceVu0CopyVector(b, v);
     a[1] = a[1];
     if (func_001470F0(a, b, 1, 0x22, 1, res) != 0) {
         o->f88 = o->b1 = 0;
         o->t->b2 = 0;
     }
-    func_00102A60(o, v);
+    sceVu0CopyVector(o, v);
     func_00146570(D_002022E4, w);
     func_00146140((s32)o + 0xC0, w[0], w[2]);
 }

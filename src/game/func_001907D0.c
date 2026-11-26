@@ -5,7 +5,7 @@ extern S D_001F2CB0[] __attribute__((aligned(16)));
 extern s32 D_001F2BB0[];
 extern s8 D_001FCFE8[][13];
 extern u8 D_004A1077[];
-u32 func_00125E00(s32);
+u32 strlen(s32);
 void func_00181680(s32, s8 *, s8 *, void *, S *, s32);
 void func_001874F0(f32, f32, f32, s32, s32, s32, u32);
 void func_001875C0(f32, f32, f32, s32, s32, u32);
@@ -50,7 +50,7 @@ void func_001907D0(s8 *o, s32 unused, u32 id, s8 *p) {
             col.b[3] = *(u8 *)(o + 0x2F) * 2;
             *(f32 *)(o + 0x3C) += 1.0f;
             str = &D_001F2BB0[k];
-            if (func_00125E00(*str) > 8) {
+            if (strlen(*str) > 8) {
                 if (k == 1) {
                     dx = -3;
                 }

@@ -1,6 +1,6 @@
 #include "actor.h"
-void func_00102A70(void *, void *);
-void func_001027E0(void *, void *, void *);
+void sceVu0CopyMatrix(void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
 s8 *func_001715B0(s8 **);
 s32 func_001CCDE0(s32);
 extern f32 D_001F2170[];
@@ -21,19 +21,19 @@ void func_001C5DE0(Actor *a0) {
     o = *(s8 **)(a0->unk518 + 0x540);
     if (o != NULL) {
         if (func_001CCDE0(*(s16 *)(o + 0x9C)) == 9 || func_001CCDE0(*(s16 *)(o + 0x9C)) == 0xC) {
-            func_00102A70(o, *(s8 **)(p + 0x2C) + 0x14C0);
+            sceVu0CopyMatrix(o, *(s8 **)(p + 0x2C) + 0x14C0);
         } else {
-            func_00102A70(o, *(s8 **)(p + 0x2C) + 0x2640);
+            sceVu0CopyMatrix(o, *(s8 **)(p + 0x2C) + 0x2640);
         }
     }
     o = *(s8 **)(p + 0x3C4);
     if (o != NULL) {
         if (*(u8 *)(p + 0x39C) == 0xA || *(u8 *)(p + 0x39C) == 0xE) {
-            func_00102A70(v, D_001F2170);
+            sceVu0CopyMatrix(v, D_001F2170);
             v[0] = -1.0f;
-            func_001027E0(o, *(s8 **)(p + 0x2C) + 0x2640, v);
+            sceVu0MulMatrix(o, *(s8 **)(p + 0x2C) + 0x2640, v);
         } else {
-            func_00102A70(o, *(s8 **)(p + 0x2C) + 0x2640);
+            sceVu0CopyMatrix(o, *(s8 **)(p + 0x2C) + 0x2640);
         }
     }
     o = *(s8 **)(p + 0x3C8);
@@ -47,7 +47,7 @@ void func_001C5DE0(Actor *a0) {
             if (i < *(u16 *)(*(s8 **)*h + 0x14)) {
                 off = 0;
                 do {
-                    func_00102A70(e + 0xC0, *(s8 **)(p + 0x2C) + off + 0xC0);
+                    sceVu0CopyMatrix(e + 0xC0, *(s8 **)(p + 0x2C) + off + 0xC0);
                     ((BF *)(e + 0x1F8))->b5 = c;
                     ((BF *)(e + 0x1F8))->b2 = c;
                     i++;

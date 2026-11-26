@@ -22,7 +22,7 @@ extern s32 D_00201CE8;
 extern s8 D_001FCA30[];
 extern s8 D_001FCA48[];
 void func_00177570(s32);
-void func_001256E0(void *, void *, s32);
+void sprintf(void *, void *, s32);
 Res *func_001E1570(void *, s32);
 s32 func_00177F80(void *);
 s32 func_00177AF0(s32, s32);
@@ -51,7 +51,7 @@ void func_00183B90(s32 id) {
         D_00201CE8 = -1;
         {
         s8 buf[0x100] = {0};
-        func_001256E0(buf, D_001FCA30, D_00201CE0);
+        sprintf(buf, D_001FCA30, D_00201CE0);
         D_002020AC = func_001E1570(buf, 10);
         D_0048D0F0[0] = 0.0f;
         D_0048D0F4[0] = 0.0f;
@@ -66,7 +66,7 @@ void func_00183B90(s32 id) {
     }
     if (D_002020AC && !D_002020AC->f8.f.b1 && !D_002020AC->f8.f.b2 && D_002020AC->f8.f.b0) {
         s8 name[16];
-        func_001256E0(name, D_001FCA48, D_00201CE0);
+        sprintf(name, D_001FCA48, D_00201CE0);
         r = D_002020AC->x0;
         if (r) {
             D_0048D0E4[0] = func_00177AF0(func_00177F80(name), r);

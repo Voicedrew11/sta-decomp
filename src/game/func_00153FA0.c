@@ -4,8 +4,8 @@ extern f32 D_00201C60;
 extern f32 D_00201F58, D_00201F5C, D_00201F60, D_00201F64, D_00201F68, D_00201F6C, D_00201F70, D_00201F74;
 extern f32 D_002F1600[4][4];
 extern f32 D_002F1640[4][4];
-void func_00102A60(f32 *, f32 *);
-void func_001027B0(f32 *, f32 (*)[4], f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
+void sceVu0ApplyMatrix(f32 *, f32 (*)[4], f32 *);
 
 s32 func_00153FA0(f32 *s) {
     f32 v[4] __attribute__((aligned(16)));
@@ -14,13 +14,13 @@ s32 func_00153FA0(f32 *s) {
     f32 p0, p1, p2, p3, p4, p5, p6, p7;
 
     r = s[3];
-    func_00102A60(v, s);
+    sceVu0CopyVector(v, s);
     w = &v[3];
     *w = 1.0f;
     if (D_00201F28 != 0) {
-        func_001027B0(v, D_002F1600, v);
+        sceVu0ApplyMatrix(v, D_002F1600, v);
     } else {
-        func_001027B0(v, D_002F1640, v);
+        sceVu0ApplyMatrix(v, D_002F1640, v);
     }
     p0 = v[0] * D_00201F70 + *w * D_00201F74;
     p1 = v[0] * -D_00201F70 + *w * D_00201F74;

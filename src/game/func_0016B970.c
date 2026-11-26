@@ -9,12 +9,12 @@ typedef struct {
 } O;
 extern s32 D_00201F2C;
 extern s32 D_00201FF0;
-void func_00102A60(Vec *, void *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_001029E8(Vec *, void *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, void *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
-void func_00102A18(Vec *, void *, f32);
+void sceVu0ScaleVector(Vec *, void *, f32);
 s32 func_0015DA00(s64, u8, s32 *, Vec *, s32);
 void func_0015D900(s32, s32 *);
 s8 *func_0015D580(s32);
@@ -41,9 +41,9 @@ void func_0016B970(O *o, L *m, Vec *v, s8 *a3, s32 t0, s32 t1, s32 t2) {
     Q *q;
 
     if (t0 != 0 || t1 != 0) {
-        func_00102A60(&p, a3 + 0x30);
+        sceVu0CopyVector(&p, a3 + 0x30);
         p.w = 0.0f;
-        func_001029D0(&p, &p, v);
+        sceVu0AddVector(&p, &p, v);
         if (t0) {
             cnt = o->x4 = func_0015DA00(0xFFFF, t0, buf, &p, 0);
         } else {
@@ -60,17 +60,17 @@ void func_0016B970(O *o, L *m, Vec *v, s8 *a3, s32 t0, s32 t1, s32 t2) {
                     e = func_0015D580(buf[k]);
                     r = *(f32 *)(e + 0x54);
                     w = -((Vec *)(e + (D_00201F2C << 5)))->w;
-                    func_001029E8(&d, e + (D_00201F2C << 5), &p);
+                    sceVu0SubVector(&d, e + (D_00201F2C << 5), &p);
                     d.w = 0.0f;
-                    dot = func_00102848(&d, &d);
+                    dot = sceVu0InnerProduct(&d, &d);
                     func_00102870(&d, &d);
                     idx = 4 - (u8)t1 + k;
-                    func_00102A60(&dst->dir[idx], &d);
+                    sceVu0CopyVector(&dst->dir[idx], &d);
                     f = w * (r * r - dot);
                     if (f < 0.0f) f = 0.0f;
                     f = f * f;
                     f = f * f;
-                    func_00102A18(&dst->col[idx], e + (D_00201F2C << 5) + 0x10, f);
+                    sceVu0ScaleVector(&dst->col[idx], e + (D_00201F2C << 5) + 0x10, f);
                     dst->dir[idx].w = *(f32 *)(e + 0x58);
                 }
             }

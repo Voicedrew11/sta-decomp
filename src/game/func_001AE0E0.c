@@ -14,8 +14,8 @@ typedef struct {
     u8 padA9[7];
     f32 xB0;
 } Obj;
-void func_00102A60(f32 *, f32 *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(f32 *, f32 *);
+void memset(void *, s32, s32);
 void func_001B2180(s32, Res *, Ray *, s32, s32);
 extern s32 D_00201E80;
 
@@ -32,12 +32,12 @@ void func_001AE0E0(s32 arg0, Obj *obj) {
     if (obj->x9C == -1) {
         return;
     }
-    func_00102A60(ray.p0, obj->pos);
+    sceVu0CopyVector(ray.p0, obj->pos);
     ray.p0[3] = 1.0f;
-    func_00102A60(ray.p1, obj->pos);
+    sceVu0CopyVector(ray.p1, obj->pos);
     ray.p1[3] = 1.0f;
     ray.p1[1] += 60000.0f;
-    func_00123C40(&res, 0, 0x40);
+    memset(&res, 0, 0x40);
     if (arg0 == (&D_00201E80)[2]) {
         side = 0;
     }

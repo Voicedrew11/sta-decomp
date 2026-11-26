@@ -6,8 +6,8 @@ void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 s32 func_001AFC90(void);
 u8 *func_001A97D0(s16);
 u8 *func_001CC3F0(s16);
-void func_001256E0(s8 *, s8 *, s32);
-void func_00125CE8(s8 *, s32);
+void sprintf(s8 *, s8 *, s32);
+void strcpy(s8 *, s32);
 s32 func_00195B10(s32);
 extern s8 D_001FD6A8[];
 extern u16 D_004A3310[];
@@ -31,8 +31,8 @@ void func_0019F890(void) {
     } else {
         v = (base + id * 0x90)[7];
     }
-    func_001256E0(buf, D_001FD6A8, v);
+    sprintf(buf, D_001FD6A8, v);
     func_001875C0(320.0f, 190.0f, 1.0f, buf, 1, col.w);
-    func_00125CE8(buf, func_00195B10(0x9C));
+    strcpy(buf, func_00195B10(0x9C));
     func_001875C0(320.0f, 220.0f, 1.0f, buf, 1, col.w);
 }

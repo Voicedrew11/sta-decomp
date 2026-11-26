@@ -10,7 +10,7 @@ typedef struct {
     u8 pad17C[0x5C];
     u8 b0:1;
 } O;
-void func_00102A60(f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
 static inline f32 diff(f32 *a, f32 *b) {
     f32 d;
     if ((d = a[0] - b[0]) != 0.0f) return d;
@@ -21,11 +21,11 @@ static inline f32 diff(f32 *a, f32 *b) {
 
 void func_001B4BD0(O *o, f32 *v) {
     if (diff(o->v, v) != 0.0f) {
-        func_00102A60(o->v, v);
+        sceVu0CopyVector(o->v, v);
         o->x1C = 0;
         o->x20 = 2;
         if (o->b0) {
-            func_00102A60((**o->x178)->v, o->v);
+            sceVu0CopyVector((**o->x178)->v, o->v);
         }
     }
 }

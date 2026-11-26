@@ -1,5 +1,9 @@
 # Matching notes
 
+From KiskarFisk's [shadow-tower-abyss](https://github.com/KiskarFisk/shadow-tower-abyss), merged
+with its history. The `tools/` named here are in that repository, not this one.
+
+
 Code-shape tricks that made MWCC 3.0b52 (`-O4,p`) reproduce the original, collected while matching.
 Function names point at examples in `src/`.
 

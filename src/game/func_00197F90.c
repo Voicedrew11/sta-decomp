@@ -1,6 +1,6 @@
 #include "m2c.h"
 u8 *func_001AFC90(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_00195BE0(s32);
 void func_001CC3F0(s16);
 s32 func_001A9B40(s16);
@@ -16,7 +16,7 @@ void func_00197F90(s32 a0) {
 
     base = func_001AFC90();
     D_00202198 = 0;
-    func_00123C40(D_00201D3C, -1, 4);
+    memset(D_00201D3C, -1, 4);
     for (i = 100; i < 0x400; i++) {
         func_001CC3F0(func_00195BE0(i));
         e = base + func_00195BE0(i) * 0x90;

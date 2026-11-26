@@ -1,9 +1,9 @@
 #include "actor.h"
 typedef union { u128 q[2]; f32 f[8]; } M;
 s32 func_001CCD90(s32);
-void func_00102A60(f32 *, s8 *);
+void sceVu0CopyVector(f32 *, s8 *);
 void func_001502A0(f32, M *, f32 *, f32 *);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 inline s8 *get(void) {
     if (D_002022E4 == NULL) {
@@ -42,15 +42,15 @@ s32 func_001C7A70(M *out) {
     if (q != NULL && *(s32 *)(q + 0x84) != 0) {
         r = *(s8 **)(q + 0x88);
         if (r != NULL) {
-            func_00102A60(a, r);
-            func_00102A60(b, r + 0x10);
+            sceVu0CopyVector(a, r);
+            sceVu0CopyVector(b, r + 0x10);
             func_001502A0(a[3], &m, b, a);
             pf = &m.f[7];
             x = *pf;
             p = get();
             if (p != NULL) {
-                c = func_0011D850(-1.0471976f);
-                d = func_0011D850(WRAP(*(f32 *)(*(s8 **)(p + 0x18) + 0x30)));
+                c = fabsf(-1.0471976f);
+                d = fabsf(WRAP(*(f32 *)(*(s8 **)(p + 0x18) + 0x30)));
                 if (!(d <= c)) {
                     d = c;
                 }

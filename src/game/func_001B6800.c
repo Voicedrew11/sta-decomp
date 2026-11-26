@@ -47,13 +47,13 @@ extern Vec D_003139A0;
 s32 func_001B6190(S *, s32, s32);
 void func_00169D70(s32 *, void *, s32);
 s32 *func_001288C0(s32, s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001B4F20(S *);
 M24 **func_00174230(s32, M **, s32, s32);
-void func_00102A60(void *, void *);
-void func_001029D0(void *, void *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0AddVector(void *, void *, void *);
 u8 *func_001715B0(M24 **);
-void func_00102A70(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 void func_00173FD0(void *, f32 *, f32 *, f32 *);
 void func_00171540(M24 *, Mtx *);
 void func_001B6130(S *);
@@ -93,18 +93,18 @@ void func_001B6800(S *a, s32 a1) {
     sz += a->n74 * 0xA0;
     sz += a->n80 * 0x10 + (a->n76 * 4 + a->n78 * 8);
     a->x8 = func_001288C0(D_002022C4, sz);
-    func_00123C40((void *)*a->x8, 0, sz);
+    memset((void *)*a->x8, 0, sz);
     func_001B4F20(a);
     saved = D_00201F2C;
     a->x178[0].obj = func_00174230(D_002022D0, a->p4, -1, a->n6C);
-    func_00102A60((u8 *)*a->x178[0].obj + 0x30, &a->x10);
+    sceVu0CopyVector((u8 *)*a->x178[0].obj + 0x30, &a->x10);
     (*a->x178[0].obj)->f24.f.b2 = 0;
     j = 0;
     do {
         D_00201F2C = j;
         m = func_001715B0(a->x178[0].obj);
-        func_00102A70(m + 0x140, &D_001F2170);
-        func_00102A70(m + 0xC0, &D_001F2170);
+        sceVu0CopyMatrix(m + 0x140, &D_001F2170);
+        sceVu0CopyMatrix(m + 0xC0, &D_001F2170);
         m[0x1F0] = 0xFF;
         *(s32 *)m = ((O4 *)*a->p4)->x3C & 7;
         *(s32 *)(m + 4) = 0;
@@ -146,12 +146,12 @@ void func_001B6800(S *a, s32 a1) {
     func_001BB8A0(D_002022D0, a, r);
     func_001B5FB0(a, a1);
     func_001B5CA0(a);
-    func_00102A60(v, &a->x10);
+    sceVu0CopyVector(v, &a->x10);
     for (i = 0; i < a->n76; i++) {
         f = &a->x148[i];
         o = &a->x18C[i];
-        func_00102A60(w, f);
-        func_001029D0(w, w, v);
+        sceVu0CopyVector(w, f);
+        sceVu0AddVector(w, w, v);
         w[3] = f->w;
         *o = func_0015DBF0(f->x22, w, f->x10, w[3], f->x1C);
     }

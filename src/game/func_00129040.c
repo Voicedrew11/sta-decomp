@@ -35,14 +35,14 @@ extern u64 D_00222A68[];
 extern u64 D_00222A70[];
 extern u64 D_00222A78[];
 void func_00100200(s32, s32, s32, s32);
-void func_00100D90(DBuff *, s32, s32, s32, s32, s32, s32);
-void func_00102A70(f32 *, f32 *);
+void sceGsSetDefDBuff(DBuff *, s32, s32, s32, s32, s32, s32);
+void sceVu0CopyMatrix(f32 *, f32 *);
 int func_00178870(char *a0, float f0, float f1, float f2);
 void func_00178910(s32, s32);
 
 void func_00129040(void) {
     func_00100200(0, 1, 2, 0);
-    func_00100D90(&D_002F1390, 0, 640, 448, 3, 0x3A, 1);
+    sceGsSetDefDBuff(&D_002F1390, 0, 640, 448, 3, 0x3A, 1);
     D_002F1390.disp[0].dispfb.FBP = 0;
     D_002F1390.disp[1].dispfb.FBP = 0x8C;
     D_002F1390.draw0.frame1.FBP = 0x8C;
@@ -51,11 +51,11 @@ void func_00129040(void) {
     D_002F1390.draw1.frame1.FBW = 10;
     D_002F1390.draw0.zbuf1.ZBP = 0x118;
     D_002F1390.draw1.zbuf1.ZBP = 0x118;
-    func_00102A70(D_00222850, D_001F2170);
+    sceVu0CopyMatrix(D_00222850, D_001F2170);
     func_00178870(D_00222750, 640.0f, 1.0f, 65536.0f);
     D_002F1390.clear1.rgbaq = D_002F1390.clear0.rgbaq = (u64)1 | ((u64)0xFF << 8) | ((u64)0xFF << 16) | ((u64)0 << 24) | ((u64)1 << 32);
     D_00201F2C = 0;
-    func_00100D90(&D_002F1160, 0, 640, 448, 3, 0x3A, 1);
+    sceGsSetDefDBuff(&D_002F1160, 0, 640, 448, 3, 0x3A, 1);
     D_002F1160.disp[0].dispfb.FBP = 0;
     D_002F1160.disp[1].dispfb.FBP = 0x8C;
     D_002F1160.draw0.frame1.FBP = 0x8C;

@@ -3,7 +3,7 @@ typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s32 x0; s32 x4; } A0;
 typedef struct { f32 x[4]; f32 f10; f32 f14; f32 f18; f32 f1C; } A3;
 s32 func_00154A80(s32);
-void func_00123C40(s32, s32, s32);
+void memset(s32, s32, s32);
 void func_00154A70(void);
 void func_00176AE0(void);
 
@@ -13,7 +13,7 @@ void func_001323C0(A0 *a0, u32 a1, u32 a2, A3 *a3) {
     f32 f;
 
     p = (Q *)func_00154A80(0x23);
-    func_00123C40((s32)p, 0, 0x230);
+    memset((s32)p, 0, 0x230);
     q.q = 0;
     q.w[0] = 0x10000022;
     q.w[3] = 0x6C228121;

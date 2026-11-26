@@ -22,7 +22,7 @@ typedef struct {
     s32 x8;
 } B;
 void func_00181680(s32, f32 *, f32 *, Col *, S *, u32);
-u32 func_00125E00(s32);
+u32 strlen(s32);
 void func_001875C0(f32, s32, f32, f32, u32, u32);
 extern S D_001F2C30 __attribute__((aligned(16)));
 extern s32 D_004A10D4[];
@@ -50,7 +50,7 @@ void func_00191420(A *o, s32 unused, u32 kind, B *b) {
         col.w = 0x80808080;
         col.c.a = o->x2C.c.a * 2;
         o->x3C += 4.0f;
-        if (func_00125E00(h) < 16) {
+        if (strlen(h) < 16) {
             o->x3C += 9.0f;
         }
         func_001875C0(o->x38, h, o->x3C, 0.83333331f, 0, col.w);

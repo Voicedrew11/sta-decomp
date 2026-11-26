@@ -3,7 +3,7 @@ typedef struct { s32 p0; u32 count; u32 skip; u32 total; } Sub;
 typedef struct { s32 f0; s32 p4; s32 p8; Sub *sub; volatile u16 flags; u16 mode; s32 f14; u32 f18; } H;
 H *func_0015ABD0(s32);
 s8 **func_001288C0(s8 *, u32);
-void func_0010FD58(s32);
+void sceClose(s32);
 struct H_; void func_0015A470(void *, s8 *, u32, s32);
 void func_001787A0(void);
 void func_00179040(s8 *, s8 *, u32, u32);
@@ -74,7 +74,7 @@ void func_00159DD0(s32 arg0, s8 *arg1, s8 ***arg2, u32 *arg3) {
         dst += n;
     }
     if (h->f14 >= 0) {
-        func_0010FD58(h->f14);
+        sceClose(h->f14);
         h->f14 = -1;
     }
     h->f18 = 0;

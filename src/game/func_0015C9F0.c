@@ -6,9 +6,9 @@ s32 func_0015A300(s8 *);
 s32 *func_00122C88(s32, s32);
 void func_0015AB80(s8 *);
 void func_0015A080(s32, s32 *, s32);
-s8 *func_001128F8(s32);
-void func_0010BDE0(Req *, s32);
-void func_00113558(s8 *, s32, s32);
+s8 *sceSifAllocIopHeap(s32);
+void sceSifSetDma(Req *, s32);
+void sceSifLoadModuleBuffer(s8 *, s32, s32);
 void func_00112A60(s8 *);
 void func_00122F10(s32 *);
 
@@ -36,13 +36,13 @@ void func_0015C9F0(s32 a0) {
         for (i = 0; i < n; i++) {
             src = (s8 *)((s32)(e + 1) + ((e->dsz + 15) & ~15));
             len = e->len;
-            mem = func_001128F8((len + 63) & ~63);
+            mem = sceSifAllocIopHeap((len + 63) & ~63);
             r.src = src;
             r.dst = mem;
             r.len = len;
             r.z = 0;
-            func_0010BDE0(&r, 1);
-            func_00113558(mem, 0, 0);
+            sceSifSetDma(&r, 1);
+            sceSifLoadModuleBuffer(mem, 0, 0);
             func_00112A60(mem);
             e = (Ent *)((s8 *)e + e->next);
         }

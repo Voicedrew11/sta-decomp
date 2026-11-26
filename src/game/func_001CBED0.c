@@ -7,7 +7,7 @@ B *func_001C9BA0(void);
 void func_001CCE30(void);
 void func_001CEDC0(s32);
 void func_001A9B90(s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_001CBED0(s32 idx, s32 n, s32 v) {
     B *b; A *a; s16 i;
@@ -19,7 +19,7 @@ void func_001CBED0(s32 idx, s32 n, s32 v) {
     if (b->e[i].hi <= 0) b->e[i].hi = 0;
     if (b->e[i].hi > 99) b->e[i].hi = 99;
     if (b->e[i].hi == 0) {
-        func_00123C40(&b->e[i], 0, 4);
+        memset(&b->e[i], 0, 4);
         b->e[i].x0 = 0;
         b->e[i].x1 = 0;
         if (a[i].xA != 0) b->e[i].lo = 0;

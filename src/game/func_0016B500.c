@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { u8 lo:2; u8 r:6; u8 pad[3]; } P;
-void func_00102A60(Vec *, void *);
-void func_001027B0(Vec *, void *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0ApplyMatrix(Vec *, void *, Vec *);
 void func_001549D0(void);
 void func_00155900(void);
 void func_00154610(s32, s32);
@@ -16,10 +16,10 @@ s32 func_0016B500(void *a0, P a1, s32 a2) {
     s32 k;
     Vec v;
     n = a1.lo + a2;
-    func_00102A60(&v, a0);
+    sceVu0CopyVector(&v, a0);
     w = &v.w;
     *w = 1.0f;
-    func_001027B0(&v, D_002F1840, &v);
+    sceVu0ApplyMatrix(&v, D_002F1840, &v);
     if (*w < 0.0f) *w = 0.0f;
     if (!(*w <= 32000.0f)) *w = 32000.0f;
     k = 511.0f - 512.0f * *w / 32000.0f;

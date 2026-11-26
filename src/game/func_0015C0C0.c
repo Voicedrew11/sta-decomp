@@ -11,7 +11,7 @@ extern S D_0030C420[];
 extern Vec D_0030C3E0[];
 typedef struct { u8 b[4]; u16 h; u8 c; } C;
 extern C D_0030C48C[];
-void func_00102A70(Vec *, void *);
+void sceVu0CopyMatrix(Vec *, void *);
 f32 func_0015BDE0(E *);
 void func_00159340(u8, u8, u8, u8, u16, u8);
 
@@ -30,7 +30,7 @@ void func_0015C0C0(void *arg0) {
     D_0030C420[0].f[3] = 0.0f;
     D_0030C420[0].f[4] = 0.0f;
     D_0030C420[0].f[5] = 0.0f;
-    func_00102A70(D_0030C3E0, arg0);
+    sceVu0CopyMatrix(D_0030C3E0, arg0);
     for (i = 0; i < 2; i++) {
         if (D_0030C420[0].n[i]) {
             for (j = 0; j < 32; j++) {

@@ -28,8 +28,8 @@ typedef struct { u8 pad0[0x54]; R *x54; u8 pad58[4]; R *x5C; } G;
 typedef struct { s16 lo; s16 hi; } P;
 void func_00181680(s32, void *, void *, void *, S *, u32);
 G *func_00189020(s32);
-void func_001256E0(void *, void *, s32);
-u32 func_00125E00(void *);
+void sprintf(void *, void *, s32);
+u32 strlen(void *);
 void func_00187A90(void *, void *, u64);
 s32 func_00188010(void *, C);
 extern S D_001F2630 __attribute__((aligned(16)));
@@ -50,7 +50,7 @@ static inline void draw(f32 x, f32 y, s8 *str, C col, f32 sc) {
     if (str == 0) {
         return;
     }
-    func_00187A90(&t, str, func_00125E00(str));
+    func_00187A90(&t, str, strlen(str));
     t.x8.a = 0;
     t.x24 = 1.0f;
     t.x20 = sc;
@@ -115,9 +115,9 @@ void func_00186990(O *o, s32 id, u32 mode, u32 p) {
         col.w = 0x80808080;
         col.c.a = D_0048CFC0[idx];
         if (v >= 0) {
-            func_001256E0(D_0048CE40, D_001FCA80, v);
+            sprintf(D_0048CE40, D_001FCA80, v);
         } else {
-            func_001256E0(D_0048CE40, D_001FCA88, v);
+            sprintf(D_0048CE40, D_001FCA88, v);
         }
         draw(o->x38, o->x3C, D_0048CE40, col, 0.9f);
         break;
@@ -134,13 +134,13 @@ void func_00186990(O *o, s32 id, u32 mode, u32 p) {
         }
         if (v < 0) {
             col.w = 0x80404080;
-            func_001256E0(D_0048CE40, D_001FCB80, v);
+            sprintf(D_0048CE40, D_001FCB80, v);
         } else if (v > 0) {
             col.w = 0x80804040;
-            func_001256E0(D_0048CE40, D_001FCB88, v);
+            sprintf(D_0048CE40, D_001FCB88, v);
         } else {
             col.w = 0x80808080;
-            func_001256E0(D_0048CE40, D_001FCB90, v);
+            sprintf(D_0048CE40, D_001FCB90, v);
         }
         col.c.a = *cnt;
         draw(o->x38, o->x3C, D_0048CE40, col, 0.8f);

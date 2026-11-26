@@ -1,7 +1,7 @@
 #include "common.h"
 s32 func_001CC0C0(s32, s32);
 u32 func_0015ED20(void);
-void func_00102A60(Vec *, void *);
+void sceVu0CopyVector(Vec *, void *);
 void *func_001AE900(s32, s16, Vec *, Vec *, s32, s32);
 
 void func_001A5990(s8 *a0) {
@@ -16,8 +16,8 @@ void func_001A5990(s8 *a0) {
         id = p[8];
         v = p[0xC];
         if (id < 0x400 && v != 0 && func_001CC0C0(id, 1) && func_0015ED20() % 100 < v) {
-            func_00102A60(&a, *(void **)(a0 + 0x518));
-            func_00102A60(&b, *(s8 **)(a0 + 0x518) + 0x20);
+            sceVu0CopyVector(&a, *(void **)(a0 + 0x518));
+            sceVu0CopyVector(&b, *(s8 **)(a0 + 0x518) + 0x20);
             a.y -= 100.0f;
             func_001AE900(*(s32 *)(a0 + 0x4A8), id, &a, &b, 1, 1);
             return;

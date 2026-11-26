@@ -1,5 +1,5 @@
 #include "m2c.h"
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00185390(f32, s32, s32, s32);
 void func_00186440(f32, f32 *, f32 *, f32 *, f32 *);
 f32 func_00187770(f32, f32, f32);
@@ -34,8 +34,8 @@ void func_00196F90(f32 arg0) {
     if (ok != 0) {
         func_00186440(arg0, a, b, c, d);
     } else {
-        func_00123C40(a, -1, 0x10);
-        func_00123C40(b, -1, 0x10);
+        memset(a, -1, 0x10);
+        memset(b, -1, 0x10);
         func_00186440(arg0, a, b, NULL, NULL);
     }
     if (D_004A1434[0] == 1) {

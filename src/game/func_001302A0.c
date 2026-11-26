@@ -11,8 +11,8 @@ typedef struct {
     f32 pos[4]; /* 0x20 */
     f32 v[4];   /* 0x30 */
 } S;
-void func_001027B0(f32 *, f32 *, f32 *);
-f32 func_00102848(f32 *, f32 *);
+void sceVu0ApplyMatrix(f32 *, f32 *, f32 *);
+f32 sceVu0InnerProduct(f32 *, f32 *);
 s32 func_00131560(s32, s8, f32 *);
 void func_001314A0(s32);
 void func_001312C0(s32, f32);
@@ -27,15 +27,15 @@ void func_001302A0(S *o) {
     f32 a;
 
     if (o->h != -1) {
-        func_001027B0(d, D_002F16C0, o->pos);
-        a = func_00102848(d, d);
+        sceVu0ApplyMatrix(d, D_002F16C0, o->pos);
+        a = sceVu0InnerProduct(d, d);
         if (!(a <= (o->r + o->f10) * (o->r + o->f10))) {
             func_001314A0(o->h);
             o->h = -1;
         }
     } else {
-        func_001027B0(d, D_002F16C0, o->pos);
-        a = func_00102848(d, d);
+        sceVu0ApplyMatrix(d, D_002F16C0, o->pos);
+        a = sceVu0InnerProduct(d, d);
         if (a < (o->r + o->f10) * (o->r + o->f10)) {
             o->h = func_00131560(o->id, o->s1C, o->pos);
             if (o->h != -1) {

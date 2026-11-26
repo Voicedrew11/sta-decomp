@@ -26,7 +26,7 @@ void func_0019BBE0(E *, T *, s32);
 void func_001875C0(f32, s8 *, f32, f32, s32, u32);
 void func_00187680(f32, s8 *, f32, f32, s32, s32, u32);
 f32 func_00187770(f32, f32, f32);
-void func_001256E0(s8 *, s8 *, ...);
+void sprintf(s8 *, s8 *, ...);
 #define O o
 
 void func_0019A920(L *l, T *t) {
@@ -122,11 +122,11 @@ void func_0019A920(L *l, T *t) {
             func_001875C0(O + l->e[i].x2C, D_001FD408, O + l->e[i].x30, 1.0f, 0, col.w);
         }
         if (id == 3010) {
-            func_001256E0(buf1, D_001FD410, D_002021D8);
+            sprintf(buf1, D_001FD410, D_002021D8);
             col = l->e[i].x3C;
             col.c.a = (s32)D_001F3060[0];
             func_00187680(O + (l->e[i].x2C - 120.0f), buf1, O + l->e[i].x30, 1.0f, 0, 16, col.w);
-            func_001256E0(buf1, D_001FD418, fp[0]);
+            sprintf(buf1, D_001FD418, fp[0]);
             func_00187680(O + (l->e[i].x2C - 36.0f), buf1, O + l->e[i].x30, 1.0f, 0, 16, col.w);
         }
         if (id == 4000) {
@@ -136,11 +136,11 @@ void func_0019A920(L *l, T *t) {
             func_001875C0(l->e[i].x2C, D_001FD420, l->e[i].x30, 1.0f, 0, col.w);
         }
         if (id == 4010) {
-            func_001256E0(buf2, D_001FD410, D_002021DC);
+            sprintf(buf2, D_001FD410, D_002021DC);
             col = l->e[i].x3C;
             col.c.a = (s32)D_001F3070[0];
             func_00187680(l->e[i].x2C - 120.0f, buf2, l->e[i].x30, 1.0f, 0, 16, col.w);
-            func_001256E0(buf2, D_001FD418, fp[1]);
+            sprintf(buf2, D_001FD418, fp[1]);
             func_00187680(l->e[i].x2C - 36.0f, buf2, l->e[i].x30, 1.0f, 0, 16, col.w);
         }
         if (id == 1010) {

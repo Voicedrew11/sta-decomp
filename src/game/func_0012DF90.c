@@ -62,7 +62,7 @@ void func_001D8F30(void);
 s32 func_001D80E0(s32);
 void func_001D8EC0(s32, s32, s32);
 void func_001D8F10(s32, s32, s32);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_001205B0(void *, s32);
 void func_0012FB80(void);
 void func_001D7FD0(void);
@@ -122,7 +122,7 @@ s32 func_0012DF90(void) {
     D_0022EBE0[1] = 0x12C010;
     D_0022EBE0[2] = 0x5010;
     D_0022EBE0[3] = 0x102010;
-    func_00102A60(D_0022EC00, &D_003139A0);
+    sceVu0CopyVector(D_0022EC00, &D_003139A0);
     D_0022EC10[0] = 0;
     D_0022EC18[0] = -1;
     D_0022EC21[0] = 0;

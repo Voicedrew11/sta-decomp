@@ -17,10 +17,10 @@ typedef struct {
 s32 func_00140E50(Obj *);
 void func_001C9410(Vec *);
 void func_001456B0(Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 static inline f32 u2f(u32 x) { return x; }
 
 s32 func_0013F8E0(Obj *a) {
@@ -70,10 +70,10 @@ s32 func_0013F8E0(Obj *a) {
             r = 100.0f * u2f((*a->p4A8)->st->xBD);
         }
         func_001456B0(&d);
-        func_00102A18(&d, &d, 0.5f * r);
-        func_001029D0(&d, &d, &p);
-        func_001029E8(&e, a->p518->p198, &d);
-        if (!(func_00102848(&e, &e) <= r * r)) {
+        sceVu0ScaleVector(&d, &d, 0.5f * r);
+        sceVu0AddVector(&d, &d, &p);
+        sceVu0SubVector(&e, a->p518->p198, &d);
+        if (!(sceVu0InnerProduct(&e, &e) <= r * r)) {
             return 1;
         }
     }

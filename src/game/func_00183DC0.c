@@ -1,7 +1,7 @@
 #include "m2c.h"
 typedef struct { u8 b[256]; } Buf;
 typedef struct { u8 a:1; u8 b:1; u8 c:1; } BF;
-void func_001256E0(u8 *, M2C_UNK *, s32);        /* extern */
+void sprintf(u8 *, M2C_UNK *, s32);        /* extern */
 s8 *func_001E1570(u8 *, M2C_UNK);                 /* extern */
 extern M2C_UNK D_001FCA60[];
 extern M2C_UNK D_001FCA78[];
@@ -50,7 +50,7 @@ void func_00183DC0(s32 arg0) {
         D_00201CE8 = -1;
         {
             Buf s = {0};
-        func_001256E0(s.b, D_001FCA60, D_00201CDC);
+        sprintf(s.b, D_001FCA60, D_00201CDC);
             D_002020AC = func_001E1570(s.b, 0xA);
             D_0048D0F0[0] = 0;
             D_0048D0F4[0] = 0;
@@ -68,7 +68,7 @@ void func_00183DC0(s32 arg0) {
     if (D_002020AC != NULL) {
             temp_a0 = M2C_FIELD(D_002020AC, u8 *, 8);
             if ((((u64) ((s64) temp_a0 << 0x3E) >> 0x3F) == 0) && (((u64) ((s64) temp_a0 << 0x3D) >> 0x3F) == 0) && (temp_a0 & 1)) {
-                func_001256E0(name, D_001FCA78, D_00201CDC);
+                sprintf(name, D_001FCA78, D_00201CDC);
                 temp_s0 = M2C_FIELD(D_002020AC, s32 *, 0);
                 if (temp_s0 != 0) {
                     D_0048D0E4[0] = (s8 *)func_00177AF0(func_00177F80(name), temp_s0);

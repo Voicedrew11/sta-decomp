@@ -52,10 +52,10 @@ extern s16 D_004AC5A0[];
 extern Obj D_004AE370[][64];
 void func_001AF4A0(Obj *);
 void func_001B59E0(Src *, Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
-void func_001027E0(void *, void *, MtxA *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0MulMatrix(void *, void *, MtxA *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 static inline void update(Obj *o) {
     MtxA m;
     Ent *e;
@@ -68,9 +68,9 @@ static inline void update(Obj *o) {
         e = &ents[o->f9C];
         func_00173FD0(&m, &e->a, &e->b, &e->c);
         func_00173FD0(o, &o->a, &o->b, &o->c);
-        func_001027E0(o, o, &m);
+        sceVu0MulMatrix(o, o, &m);
     }
-    func_001029D0(&o->pos, &o->pos, &o->d);
+    sceVu0AddVector(&o->pos, &o->pos, &o->d);
 }
 
 Obj *func_001AF150(s32 arg0, Src *arg1, u16 arg2, Vec *arg3) {
@@ -100,7 +100,7 @@ Obj *func_001AF150(s32 arg0, Src *arg1, u16 arg2, Vec *arg3) {
     o->f8C = arg0;
     o->fB4 = 1.0f;
     func_001B59E0(arg1, &o->a, &o->b, &o->c);
-    func_00102A60(&o->d, arg3);
+    sceVu0CopyVector(&o->d, arg3);
     update(o);
     if (D_00202288 == NULL) D_00202288 = o;
     return o;

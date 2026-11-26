@@ -5,8 +5,8 @@ typedef struct { u8 pad[0x2C]; s8 *x2C; u8 pad30[0x10]; Vec x40; Vec x50; } Sub;
 typedef struct { u8 pad[0xA0]; Vec xA0; u8 padB0[0x10]; Vec xC0; Vec xD0; Mtx xE0; Vec x120; Vec x130; } E;
 extern Mtx D_001F2170;
 u32 func_0013E750(Actor *);
-void func_00102A18(Vec *, void *, f32);
-void func_001029D0(void *, void *, void *);
+void sceVu0ScaleVector(Vec *, void *, f32);
+void sceVu0AddVector(void *, void *, void *);
 void func_00140CB0(Actor *, u8 *, f32 *, f32 *);
 s8 *func_0013DE50(Actor *);
 f32 *func_0013DCE0(Actor *);
@@ -23,10 +23,10 @@ void func_0013E820(Actor *);
 void func_0013E7E0(Actor *, u8);
 Pt *func_0013DCA0(Actor *, u8);
 E *func_0013DC70(Actor *, u8);
-void func_00102A70(void *, void *);
+void sceVu0CopyMatrix(void *, void *);
 void func_0015E580(Mtx *, void *);
-void func_001027E0(void *, void *, void *);
-void func_001027B0(Vec *, void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
+void sceVu0ApplyMatrix(Vec *, void *, void *);
 f32 *func_00140460(Actor *);
 void func_001A8B10(Actor *, u8);
 
@@ -41,17 +41,17 @@ void func_0013ACE0(Actor *a, f32 g) {
     S->x50.y += k;
     if (r == 0) {
         Vec v;
-        func_00102A18(&v, &S->x50, g);
-        func_001029D0(&S->x40, &v, &S->x40);
+        sceVu0ScaleVector(&v, &S->x50, g);
+        sceVu0AddVector(&S->x40, &v, &S->x40);
     } else if (r == 1) {
         Vec v;
-        func_00102A18(&v, &S->x50, g);
-        func_001029D0(&S->x40, &v, &S->x40);
+        sceVu0ScaleVector(&v, &S->x50, g);
+        sceVu0AddVector(&S->x40, &v, &S->x40);
     } else if (r == 2) {
         Vec v;
         S->x50.y = 0.0f;
-        func_00102A18(&v, &S->x50, g);
-        func_001029D0(&S->x40, &v, &S->x40);
+        sceVu0ScaleVector(&v, &S->x50, g);
+        sceVu0AddVector(&S->x40, &v, &S->x40);
     } else {
         u8 t = 0;
         f32 m = 2.0f;
@@ -116,18 +116,18 @@ void func_0013ACE0(Actor *a, f32 g) {
         e = func_0013DC70(a, id);
         n = p->x2A;
         e->xD0.y += k * 0.25f;
-        func_00102A18(&v, &e->xD0, g);
-        func_001029D0(&e->xA0, &v, &e->xA0);
-        func_00102A70(&M, &D_001F2170);
+        sceVu0ScaleVector(&v, &e->xD0, g);
+        sceVu0AddVector(&e->xA0, &v, &e->xA0);
+        sceVu0CopyMatrix(&M, &D_001F2170);
         M.m[0].x = e->xC0.x;
         M.m[1].y = e->xC0.y;
         M.m[2].z = e->xC0.z;
         func_0015E580(&M2, &e->x130);
-        func_001027E0(&e->xE0, &e->xE0, &M2);
-        func_001027B0(&V, &e->xE0, &e->x120);
-        func_001027E0(&M, &M, &e->xE0);
-        func_001029D0(&M.m[3], &e->xA0, &V);
-        func_00102A70(S->x2C + (n + 1) * 0x140 + 0x100, &M);
+        sceVu0MulMatrix(&e->xE0, &e->xE0, &M2);
+        sceVu0ApplyMatrix(&V, &e->xE0, &e->x120);
+        sceVu0MulMatrix(&M, &M, &e->xE0);
+        sceVu0AddVector(&M.m[3], &e->xA0, &V);
+        sceVu0CopyMatrix(S->x2C + (n + 1) * 0x140 + 0x100, &M);
         if (!(e->xA0.y - func_00140460(a)[1] <= 5000.0f)) {
             func_001A8B10(a, id);
             e->xA0.y = 5000.0f + func_00140460(a)[1];

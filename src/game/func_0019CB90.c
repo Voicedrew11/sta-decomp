@@ -10,7 +10,7 @@ extern s32 D_002021EC;
 void func_001875C0(f32, f32, f32, s32, s32, Col);
 void func_00181680(s32, s8 *, s8 *, void *, S *, s32);
 void func_00182EF0(s32, s32, s32, s32, f32, f32, f32);
-void func_001256E0(s8 *, s8 *, s32);
+void sprintf(s8 *, s8 *, s32);
 
 void func_0019CB90(s8 *a0, s32 a1, u32 a2) {
     S t __attribute__((aligned(16)));
@@ -27,7 +27,7 @@ void func_0019CB90(s8 *a0, s32 a1, u32 a2) {
         func_00182EF0(*(f32 *)(a0 + 0x38) - 6.0f, *(f32 *)(a0 + 0x3C), 171.0f + *(f32 *)(a0 + 0x38), *(f32 *)(a0 + 0x3C), 0.0f, 0.0f, 128.0f);
     }
     if (a2 == 500) {
-        func_001256E0(D_004A3150, D_001FD5B0, D_002021EC);
+        sprintf(D_004A3150, D_001FD5B0, D_002021EC);
         *(u32 *)&col = 0x80808080;
         func_001875C0(*(f32 *)(a0 + 0x38), *(f32 *)(a0 + 0x3C), 1.1f, (s32)D_004A3150, 2, col);
     }

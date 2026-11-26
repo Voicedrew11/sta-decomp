@@ -6,7 +6,7 @@ extern E D_004A43B8[];
 void func_0014DAB0(s32);
 void func_0014DB10(void (*)());
 void func_001A4990();
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_001A5340(void) {
     s32 i;
@@ -17,7 +17,7 @@ void func_001A5340(void) {
     }
     D_00201DA8 = -1;
     func_0014DB10(func_001A4990);
-    func_00123C40(D_004A43B0, 0, 0x1B8);
+    memset(D_004A43B0, 0, 0x1B8);
     for (i = 10; i >= 0; i--) {
         D_004A43B0[i].v = -1;
     }

@@ -1,10 +1,10 @@
 #include "m2c.h"
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 #define W(o) (*(u32 *)((u8 *)p + (o)))
 #define D(o) (*(u64 *)((u8 *)p + (o)))
 
 void func_00164BB0(s8 *p) {
-    func_00123C40(p, 0, 0x4E0);
+    memset(p, 0, 0x4E0);
     W(0x0) = 0;
     W(0x4) = 0;
     W(0x20) = 0x6000004B;
@@ -26,7 +26,7 @@ void func_00164BB0(s8 *p) {
     W(0x4B8) = 0x3F;
     W(0x4C8) = 7;
     W(0x4D8) = 0x15;
-    func_00123C40(p + 0xA0, 0xFF, 0x400);
+    memset(p + 0xA0, 0xFF, 0x400);
     D(0x40) = -1;
     D(0x50) = 0;
     D(0x60) = 0;

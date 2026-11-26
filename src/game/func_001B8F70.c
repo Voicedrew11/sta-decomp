@@ -3,7 +3,7 @@ typedef struct { s32 type; s32 a; s32 b; s32 c; u8 pad[0x20]; } Msg;
 typedef struct { u8 pad[0x1A]; u16 v; u8 pad2[0x14]; } E30;
 typedef struct { u8 pad[0x53]; u8 f; u8 pad2[0x2C]; } E80;
 typedef struct { s32 id; u8 pad[0x6A]; u16 n; u8 pad2[0xC8]; E30 *e30; u8 pad3[0x44]; E80 *e80; } Obj;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_00179F80(Msg *);
 s32 func_001B9610(Obj *, s32);
 extern s32 D_00201E80;
@@ -37,7 +37,7 @@ s32 func_001B8F70(s16 arg0) {
                             r = 0;
                         } else {
                             D_00202030 = arg0;
-                            func_00123C40(&msg, 0, 0x30);
+                            memset(&msg, 0, 0x30);
                             msg.type = 3;
                             msg.a = m;
                             msg.b = id;

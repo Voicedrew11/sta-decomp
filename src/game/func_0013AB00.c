@@ -23,12 +23,12 @@ Pt *func_0013DCA0(Actor *, u8);
 Ent *func_0013DC70(Actor *, u8);
 void func_00171AF0(Mdl *, u16, u8, u8, f32);
 void func_00171980(Mdl *, u16, u8, u8, f32, f32);
-void func_001029E8(Vec *, s8 *, s8 *);
-void func_00102A60(s8 *, s8 *);
-void func_00102A70(s8 *, s8 *);
+void sceVu0SubVector(Vec *, s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
+void sceVu0CopyMatrix(s8 *, s8 *);
 void func_001370A0(Actor *);
-void func_001027B0(Vec *, Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 
 void func_0013AB00(Actor *a0, f32 f) {
     Sub *s;
@@ -66,10 +66,10 @@ void func_0013AB00(Actor *a0, f32 f) {
             }
         } }
     }
-    func_001029E8(&v, s->p2C + 0x2B0, s->p18 + 0xA0);
-    func_00102A60(s->p18 + 0xA0, s->p2C + 0x2B0);
-    func_00102A70(s->p2C + 0x280, s->p18 + 0x60);
+    sceVu0SubVector(&v, s->p2C + 0x2B0, s->p18 + 0xA0);
+    sceVu0CopyVector(s->p18 + 0xA0, s->p2C + 0x2B0);
+    sceVu0CopyMatrix(s->p2C + 0x280, s->p18 + 0x60);
     func_001370A0(a0);
-    func_001027B0(&s->mA0, &s->m60, &v);
-    func_001029D0(&s->m40, &s->m40, &s->mA0);
+    sceVu0ApplyMatrix(&s->mA0, &s->m60, &v);
+    sceVu0AddVector(&s->m40, &s->m40, &s->mA0);
 }

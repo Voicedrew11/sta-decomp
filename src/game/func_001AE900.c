@@ -28,10 +28,10 @@ typedef struct {
     f32 xB0;
     f32 xB4;
 } Node;
-void func_001027E0(void *, void *, void *);
-void func_001029D0(void *, void *, void *);
-void func_001029E8(void *, void *, void *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0MulMatrix(void *, void *, void *);
+void sceVu0AddVector(void *, void *, void *);
+void sceVu0SubVector(void *, void *, void *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
 void func_001B51E0(s32, Vec *);
 Node *func_001AE360(s16, u8);
@@ -53,9 +53,9 @@ static inline void upd(Node *n) {
             Ent *e = &tbl[n->idx];
             func_00173FD0(&tmp, &e->a, &e->b, &e->c);
             func_00173FD0(n, &n->v40, &n->v50, &n->v60);
-            func_001027E0(n, n, &tmp);
+            sceVu0MulMatrix(n, n, &tmp);
         }
-        func_001029D0(&n->m.m[3], &n->m.m[3], &n->v70);
+        sceVu0AddVector(&n->m.m[3], &n->m.m[3], &n->v70);
     }
 }
 
@@ -90,15 +90,15 @@ Node *func_001AE900(s32 *owner, s16 id, Vec *a, Vec *b, s32 ground, s32 rel) {
     s->x80 = t[id].x10;
     s->x8C = owner;
     s->xB4 = 1.0f;
-    func_00102A60(&s->v40, a);
-    func_00102A60(&s->v50, b);
+    sceVu0CopyVector(&s->v40, a);
+    sceVu0CopyVector(&s->v50, b);
     s->v50.v[2] = 0.0f;
     s->v50.v[0] = 0.0f;
-    func_00102A60(&s->v60, &c);
+    sceVu0CopyVector(&s->v60, &c);
     if (owner != 0) {
         func_001B51E0(*owner, &s->v70);
         if (rel != 0) {
-            func_001029E8(&s->v40, &s->v40, &s->v70);
+            sceVu0SubVector(&s->v40, &s->v40, &s->v70);
         }
     }
     upd(s);

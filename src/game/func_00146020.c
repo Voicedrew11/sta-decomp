@@ -1,9 +1,9 @@
 #include "common.h"
-void func_00102A70(Mtx *, void *);
+void sceVu0CopyMatrix(Mtx *, void *);
 void func_00102870(Vec *, Vec *);
-f32 func_0011D850(f32);
-void func_00102A60(void *, void *);
-void func_00102828(Vec *, void *, Vec *);
+f32 fabsf(f32);
+void sceVu0CopyVector(void *, void *);
+void sceVu0OuterProduct(Vec *, void *, Vec *);
 extern s8 D_001F2130[];
 extern s8 D_001F2140[];
 extern s8 D_001F2160[];
@@ -15,7 +15,7 @@ void func_00146020(Mtx *m, f32 x, f32 y, f32 z) {
     Vec d;
 
     if (x == 0.0f && y == 0.0f && z == 0.0f) {
-        func_00102A70(m, D_001F2170);
+        sceVu0CopyMatrix(m, D_001F2170);
         return;
     }
     d.x = x;
@@ -23,15 +23,15 @@ void func_00146020(Mtx *m, f32 x, f32 y, f32 z) {
     d.z = z;
     *(s32 *)&d.w = 0;
     func_00102870(&d, &d);
-    if (0.9999f < func_0011D850(d.y)) {
-        func_00102A60(&u, D_001F2130);
+    if (0.9999f < fabsf(d.y)) {
+        sceVu0CopyVector(&u, D_001F2130);
     } else {
-        func_00102828(&u, D_001F2140, &d);
+        sceVu0OuterProduct(&u, D_001F2140, &d);
     }
     func_00102870(&u, &u);
-    func_00102828(&s, &d, &u);
-    func_00102A60(&m->m[0], &u);
-    func_00102A60(&m->m[1], &s);
-    func_00102A60(&m->m[2], &d);
-    func_00102A60(&m->m[3], D_001F2160);
+    sceVu0OuterProduct(&s, &d, &u);
+    sceVu0CopyVector(&m->m[0], &u);
+    sceVu0CopyVector(&m->m[1], &s);
+    sceVu0CopyVector(&m->m[2], &d);
+    sceVu0CopyVector(&m->m[3], D_001F2160);
 }

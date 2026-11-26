@@ -16,10 +16,10 @@ s32 func_00169BB0(s32);
 s8 *func_00169B50(s32, s32, s32, s32);
 s8 *func_00169BD0(s32, s32, void *, s32, s32, s32);
 void func_00173FD0(void *, f32 *, f32 *, f32 *);
-void func_001027E0(void *, void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
 void func_001677C0(s8 *, void *);
 Src *func_001A8360(u16);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001672B0(s8 *, Dst *);
 void func_00167310(s8 *, f32, f32);
 
@@ -62,12 +62,12 @@ s8 *func_001D1F20(A0 *a0, void *a1, s32 a2, u8 a3, E *e, s32 *tbl) {
         scl[1] = s5[7];
         scl[2] = s5[8];
         func_00173FD0(mat, pos, rot, scl);
-        func_001027E0(mat, s4 + (a3 + 1) * 0x140 + 0xC0, mat);
+        sceVu0MulMatrix(mat, s4 + (a3 + 1) * 0x140 + 0xC0, mat);
         func_001677C0(obj, mat);
         if ((k = e->xA) != 0) {
             src = func_001A8360(k);
             if (src != 0) {
-                func_00123C40(&d, 0, 0x40);
+                memset(&d, 0, 0x40);
                 d.v = src->v;
                 d.m = src->m;
                 d.w.w = src->x4;

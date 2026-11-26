@@ -151,10 +151,11 @@ def unit_symbols(placed):
             starts = {}   # section -> sorted symbol offsets, to size unsized asm labels
             for s in symlist:
                 if isinstance(s["st_shndx"], int) and s["st_info"]["type"] != "STT_SECTION":
-                    starts.setdefault(names.get(s["st_shndx"]), set()).add(s["st_value"])
+                    starts.setdefault(names.get(s["st_shndx"]), set()).add(o.offset_of(s))
             for s in symlist:
                 shndx = s["st_shndx"]
                 sec = names.get(shndx) if isinstance(shndx, int) else None
+                value = o.offset_of(s)
                 bind, typ = s["st_info"]["bind"], s["st_info"]["type"]
                 if sec not in secs or typ == "STT_SECTION" or not s.name:
                     continue
@@ -165,13 +166,13 @@ def unit_symbols(placed):
                     (typ == "STT_NOTYPE" and sec != ".text"))
                 if bind == "STB_GLOBAL" or static:
                     # an unsized symbol runs to the next one in its section
-                    size = s["st_size"] or min([v for v in starts[sec] if v > s["st_value"]]
-                                               + [secs[sec][1]]) - s["st_value"]
+                    size = s["st_size"] or min([v for v in starts[sec] if v > value]
+                                               + [secs[sec][1]]) - value
                     func = typ == "STT_FUNC"
                     if bind == "STB_GLOBAL":
-                        add(s.name, secs[sec][0] + s["st_value"], func, f"defined by {unit}", size)
+                        add(s.name, secs[sec][0] + value, func, f"defined by {unit}", size)
                     else:
-                        statics.append((s.name, secs[sec][0] + s["st_value"], func, size, unit))
+                        statics.append((s.name, secs[sec][0] + value, func, size, unit))
         for sec in (".data", ".rodata"):
             if sec not in secs:
                 continue

@@ -25,7 +25,7 @@ typedef struct {
     s8 padB8[0x18];
 } Obj;
 typedef struct { s8 pad[0x10]; s32 x10; s8 pad14[0x6C]; s8 x80[0x10]; } Ent;
-void func_00102A60(f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
 void func_00173FD0(Obj *, f32 *, f32 *, s8 *);
 extern Obj *D_00202288;
 extern Ent *D_002022B0;
@@ -54,8 +54,8 @@ Obj *func_001AE620(s16 id, f32 *a, f32 *b) {
     s->b2 = 1;
     s->x80 = t[id].x10;
     s->xB4 = 1.0f;
-    func_00102A60(s->v40, a);
-    func_00102A60(s->v50, b);
+    sceVu0CopyVector(s->v40, a);
+    sceVu0CopyVector(s->v50, b);
     s->x68 = 1.0f;
     s->x64 = 1.0f;
     s->x60 = 1.0f;

@@ -19,7 +19,7 @@ s32 func_001A9D50(s32, u16);
 void func_001A9E10(s32, u16, u8);
 void func_001AF4A0(Obj3D *);
 void func_001AF3F0(Obj3D *);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_00179F80(Msg *);
 void func_001CBCD0(s32);
 
@@ -57,7 +57,7 @@ go:
             func_001AF4A0(o);
         } else if (!s->b13) {
             if (o->x9E == 0 && (k = o->xAA) != 0 && D_002022BC != NULL && *D_002022BC != NULL) {
-                func_00123C40(&msg, 0, 0x30);
+                memset(&msg, 0, 0x30);
                                 msg.type = 5;
 msg.a = k;
                 msg.b = **D_002022BC;

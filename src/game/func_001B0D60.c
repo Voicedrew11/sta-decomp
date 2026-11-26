@@ -1,7 +1,7 @@
 #include "m2c.h"
 extern M2C_UNK D_00201E80;
 s32 func_00169B50(s32, s32, s32, s32);
-void func_001029D0(s32, s32, s8 *);
+void sceVu0AddVector(s32, s32, s8 *);
 void func_00173FD0(f32 *, s32, s32, f32 *);
 void func_001677C0(s32, f32 *);
 
@@ -44,7 +44,7 @@ void func_001B0D60(s16 arg0, s16 arg1, s32 arg2, s32 arg3) {
     h = func_00169B50(arg1, 0, 0, 0);
     if (h != 0) {
         if (o != NULL) {
-            func_001029D0(arg2, arg2, o + 0x10);
+            sceVu0AddVector(arg2, arg2, o + 0x10);
         }
         scale[2] = 1.0f;
         scale[1] = 1.0f;

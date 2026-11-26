@@ -17,10 +17,10 @@ extern Snd D_0022CBC0[];
 extern s8 D_0022EBC8[];
 extern Vec D_002F16C0;
 s32 func_0012C400(s8);
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-void func_0010BCA0(s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void FlushCache(s32);
 s32 func_001DA620(s32, s8, u8, u8, u8);
 f32 sqrtf(f32);
 
@@ -58,7 +58,7 @@ s32 func_00131640(void) {
     if (i == 0x3F) return -1;
     s->idx = i;
     s->x30 = D_00201ED0->x30;
-    func_00102A60(&s->v, &D_00201ED0->v);
+    sceVu0CopyVector(&s->v, &D_00201ED0->v);
     s->x20 = D_00201ED0->x20;
     s->x34 = D_00201ED0->x34;
     s->x38 = D_00201ED0->x38;
@@ -84,15 +84,15 @@ s32 func_00131640(void) {
     s->x3E += e->hi;
     s->x3C = s->x3E;
     if (s->x34 == 0 && s->x20 == 0) {
-        func_00102A60(&a, &s->v);
+        sceVu0CopyVector(&a, &s->v);
     } else if (s->x34 != 0) {
-        func_00102A60(&a, (Vec *)(*s->x34 + s->x38));
+        sceVu0CopyVector(&a, (Vec *)(*s->x34 + s->x38));
     } else if (s->x20 != 0) {
-        func_00102A60(&a, (Vec *)s->x20);
+        sceVu0CopyVector(&a, (Vec *)s->x20);
     }
-    func_001027B0(&b, &D_002F16C0, &a);
-    s->x2C = sqrtf(func_00102848(&b, &b));
-    func_0010BCA0(0);
+    sceVu0ApplyMatrix(&b, &D_002F16C0, &a);
+    s->x2C = sqrtf(sceVu0InnerProduct(&b, &b));
+    FlushCache(0);
     if (func_001DA620(i, D_0022EBC8[s->x2], s->x4, s->x6, s->xF) < 0) return -1;
     s->on = 1;
     return i;

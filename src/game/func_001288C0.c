@@ -1,10 +1,10 @@
 #include "m2c.h"
 typedef struct Blk { s32 addr; s32 cur; u32 size; struct Blk *next; s32 pad; u8 bf:2; } Blk;
 typedef struct { s32 p0; s32 p4; s32 free; s32 pC; s32 count; s32 p14; u8 flags; Blk *head; Blk *tail; s32 p24; Blk *fb; } Pool;
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_00178D20(void);
 void func_00178C00(s32, u32);
-void func_00123C40(s32, s32, s32);
+void memset(s32, s32, s32);
 void func_00128460(Pool *, s32);
 void func_00128210(Pool *);
 
@@ -37,11 +37,11 @@ Blk *func_001288C0(Pool *p, s32 sz) {
     }
     p->tail = b;
     if ((u32)sz >= 0x1400) {
-        func_0010BCA0(0);
+        FlushCache(0);
         func_00178D20();
         func_00178C00(b->addr, sz);
     } else {
-        func_00123C40(b->addr, 0, sz);
+        memset(b->addr, 0, sz);
     }
     b->cur = b->addr;
     b->size = sz;

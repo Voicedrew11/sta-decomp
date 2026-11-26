@@ -29,8 +29,8 @@ typedef struct {
     s32 pad4c;
 } Obj;
 extern Obj D_0026F0D0[];
-void func_00102A60(Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 
 void func_0012F9D0(s8 *arg0) {
     Src *s;
@@ -57,9 +57,9 @@ void func_0012F9D0(s8 *arg0) {
         }
         o->f10 = s->f24;
         o->f1c = s->f30;
-        func_00102A60(&o->v20, &s->a);
-        func_001029D0(&o->v20, &o->v20, (Vec *)(arg0 + 0x10));
-        func_00102A60(&o->v30, &s->b);
+        sceVu0CopyVector(&o->v20, &s->a);
+        sceVu0AddVector(&o->v20, &o->v20, (Vec *)(arg0 + 0x10));
+        sceVu0CopyVector(&o->v30, &s->b);
         o->v20.w = 1.0f;
         o->v30.w = 1.0f;
         o->type = s->type;

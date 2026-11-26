@@ -32,7 +32,7 @@ void func_001787F0(void);
 void func_00178DB0(void);
 void func_00128F10(void);
 void func_00128D10(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00155460(s32, s32);
 void func_0014DB60(void);
 void func_001B07B0(void);
@@ -53,7 +53,7 @@ void func_0012BC80(void) {
     func_00178DB0();
     func_00128F10();
     func_00128D10();
-    func_00123C40(&D_00222A10, 0, 0x48);
+    memset(&D_00222A10, 0, 0x48);
     D_00222A10.x0 = 0;
     D_00222A10.x30 = 75.0f;
     D_00222A10.x1 = 1;

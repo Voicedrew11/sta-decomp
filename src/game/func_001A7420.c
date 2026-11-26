@@ -66,9 +66,9 @@ extern s32 D_00202278;
 extern s32 D_00202280;
 Mdl **func_00174230(s32, s32 ***, s32, s32);
 void func_00171540(Mdl *, s8 *);
-void func_00102A60(Vec *, void *);
+void sceVu0CopyVector(Vec *, void *);
 void func_001B59E0(s8 *, Vec *, Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0AddVector(Vec *, Vec *, void *);
 void func_00142930(u8, u8 *);
 s32 func_001288C0(s32, s32);
 void func_00166F90(s32, s32, s32, s32);
@@ -133,18 +133,18 @@ void func_001A7420(A **pp) {
     m = b->pB0[0];
     base = (s8 *)(D_00201F2C * (m->m6 * 0x140 + 0x200) + (s32)m->m40);
     func_00171540(m, D_001F2170);
-    func_00102A60(&v0, base + (b->mB5 + 1) * 0x140 + 0xF0);
-    func_00102A60(&v1, base + (b->mB4 + 1) * 0x140 + 0xF0);
+    sceVu0CopyVector(&v0, base + (b->mB5 + 1) * 0x140 + 0xF0);
+    sceVu0CopyVector(&v1, base + (b->mB4 + 1) * 0x140 + 0xF0);
     b->m170 = v0.y - v1.y;
     if (D_001F33A0[a->m0] != 0) D_001F33A0[a->m0](a, 0.0f);
-    if (a->m518->m50.x == 0.0f) func_00102A60(&a->m518->m50, &D_001F2120);
+    if (a->m518->m50.x == 0.0f) sceVu0CopyVector(&a->m518->m50, &D_001F2120);
     if (a->m4A8 != 0) {
         s8 *s = (s8 *)*a->m4A8;
         Sub *t = a->m518;
         func_001B59E0(*(s8 **)(s + 0x13C) + a->m4AC * 0x54, &t->m0, &t->m20, &t->m50);
-        func_001029D0(&t->m0, &t->m0, s + 0x10);
-        func_00102A60(&t->m10, &t->m0);
-        func_00102A60(&t->m30, &t->m20);
+        sceVu0AddVector(&t->m0, &t->m0, s + 0x10);
+        sceVu0CopyVector(&t->m10, &t->m0);
+        sceVu0CopyVector(&t->m30, &t->m20);
     }
     a->m49C = 0;
     a->m4A4 = 0;

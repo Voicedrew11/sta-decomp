@@ -1,15 +1,15 @@
 #include "m2c.h"
-void func_001028F8(f32 (*)[4], s32);
-void func_001027B0(f32 *, f32 (*)[4], s32);
+void sceVu0InversMatrix(f32 (*)[4], s32);
+void sceVu0ApplyMatrix(f32 *, f32 (*)[4], s32);
 
 s32 func_0014F8C0(s32 arg0, s32 arg1, f32 *box, s32 arg3) {
     f32 m[4][4];
     f32 a[4];
     f32 b[4];
 
-    func_001028F8(m, arg3);
-    func_001027B0(a, m, arg0);
-    func_001027B0(b, m, arg1);
+    sceVu0InversMatrix(m, arg3);
+    sceVu0ApplyMatrix(a, m, arg0);
+    sceVu0ApplyMatrix(b, m, arg1);
     if (a[0] < box[0] && b[0] < box[0]) {
         return 0;
     }

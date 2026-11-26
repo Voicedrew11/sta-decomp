@@ -9,7 +9,7 @@ extern s32 D_002F1120[], D_002F1124[], D_002F1128[], D_002F112C[];
 extern s32 D_002F1130[], D_002F1134[], D_002F1138[], D_002F113C[];
 extern u64 D_002F1140[], D_002F1148[], D_002F1150[], D_002F1158[];
 extern u8 D_002F1840[], D_002F16C0[];
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(u32, u32, s32);
 void func_001549D0(void);
 s32 func_0012C0E0(void);
@@ -41,7 +41,7 @@ void func_00154B70(void) {
     Q t;
     D_002F1940.x6C = (s32)((u128 *)D_002F1940.x68 + 0x1982);
 
-    func_0010BCA0(0);
+    FlushCache(0);
     func_001789E0(D_002F1940.x68 & 0x0FFFFFFF, (D_002F1940.x68 - 0x19820) & 0x0FFFFFFF, 0x1982);
     D_002F1940.x54 = 0;
     D_002F1940.x58 = 0;

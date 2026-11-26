@@ -3,11 +3,11 @@ typedef struct { u8 pad0[0x5B5]; Flags8 x5B5; u8 pad5B6[0x5C]; u8 x612; u8 pad61
 f32 func_0013DE20(O *);
 s32 func_00140EF0(O *);
 Vec *func_00140460(O *);
-void func_001029E8(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
 s32 func_0013E690(O *);
-f32 func_00102848(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
-void func_001029A8(f32, Vec *, Vec *, Vec *);
+void sceVu0InterVector(f32, Vec *, Vec *, Vec *);
 f32 func_0013FC10(Vec *);
 Vec *func_00140430(O *);
 s32 func_0013DD10(O *);
@@ -51,15 +51,15 @@ s32 func_00134180(O *o, f32 rate) {
         break;
     }
     if (o->x5B5.f.b6 && func_00140EF0(o)) {
-        func_001029E8(&d, &o->x680, func_00140460(o));
+        sceVu0SubVector(&d, &o->x680, func_00140460(o));
     } else {
-        func_001029E8(&d, &o->x640, func_00140460(o));
+        sceVu0SubVector(&d, &o->x640, func_00140460(o));
     }
     if (func_0013E690(o)) {
-        if (!(func_00102848(&o->x6A0, &o->x6A0) <= 0.1f)) {
+        if (!(sceVu0InnerProduct(&o->x6A0, &o->x6A0) <= 0.1f)) {
             func_00102870(&a, &d);
             func_00102870(&b, &o->x6A0);
-            func_001029A8(0.7f, &a, &a, &b);
+            sceVu0InterVector(0.7f, &a, &a, &b);
             ang = func_0013FC10(&a);
         } else {
             ang = func_0013FC10(&d);
@@ -80,7 +80,7 @@ s32 func_00134180(O *o, f32 rate) {
     func_00140430(o)->y += diff;
     if (o->x6C0 == 0xFF) {
         d.y = 0.0f;
-        dist = sqrtf(func_00102848(&d, &d));
+        dist = sqrtf(sceVu0InnerProduct(&d, &d));
         if (dist < 100.0f) return 2;
         if (dist < 300.0f) return 1;
     } else {

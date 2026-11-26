@@ -9,7 +9,7 @@ void func_0012C260(void);
 void func_001C9BA0(void);
 void func_001CAEF0(s16);
 void func_0019DCF0(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 extern s32 *D_00201D68;
 extern s32 D_002021E0;
 extern s32 D_002021E8;
@@ -44,7 +44,7 @@ void func_0019DA70(Menu *m) {
                 D_004A329C[0].b0 = 0;
                 D_004A3294[0] = 2;
                 D_002021E8 = 1;
-                func_00123C40(D_004A32A0, 0, 0x10);
+                memset(D_004A32A0, 0, 0x10);
                 if (D_00201D68[D_004A3290[0]] == 0x50) {
                     D_002021EC = 0x14;
                     D_002021F0 = 0x14;

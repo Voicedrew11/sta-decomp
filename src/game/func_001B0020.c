@@ -22,7 +22,7 @@ s32 func_0014DB00(u8 *, s32, u8 *);
 s32 func_0014DA70(s32);
 void func_0014DAC0(s32, s32);
 void func_0014DAE0(s32);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(u8 *, u8 *, s32);
 void func_00123A88(u8 *, u8 *, s32);
 s32 func_0014DA90(s32, s32, s32, s32);
@@ -74,7 +74,7 @@ void func_001B0020(void) {
             q = n >> 4;
             off = q << 4;
             r = n - off;
-            func_0010BCA0(0);
+            FlushCache(0);
             func_001789E0((u8 *)(**(s32 **)(*(s32 *)D_004B4BC4[0] + 0x24) + D_004B4BCC[0]), D_00270F40, q);
             if (r > 0) {
                 func_00123A88((u8 *)(**(s32 **)(*(s32 *)D_004B4BC4[0] + 0x24) + D_004B4BCC[0]) + off, D_00270F40 + off, r);

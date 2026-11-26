@@ -3,8 +3,8 @@ typedef struct { f32 x, y, z, w; } Vec;
 Vec *func_00140460(s8 *);
 Vec *func_00140430(s8 *);
 void func_001403D0(s8 *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DA18(f32);
 f32 func_0011D778(f32);
 float sqrtf(float);
@@ -18,9 +18,9 @@ void func_00134620(s8 *a, Vec *pos, Vec *tgt) {
     f32 dy;
     f32 dot;
 
-    func_001029E8(&d, pos, func_00140460(a));
+    sceVu0SubVector(&d, pos, func_00140460(a));
     d.y = 0.0f;
-    len = sqrtf(func_00102848(&d, &d));
+    len = sqrtf(sceVu0InnerProduct(&d, &d));
     dy = tgt->y - func_00140430(a)->y;
     if (len == 0.0f) {
         if (dy == 0.0f) return;
@@ -50,13 +50,13 @@ void func_00134620(s8 *a, Vec *pos, Vec *tgt) {
         r.y = 0.0f;
         r.z = func_0011DA18(tgt->y);
     }
-    dot = func_00102848(&r, &d);
+    dot = sceVu0InnerProduct(&r, &d);
     if (dot < -0.70710677f) {
         r.y = r.x;
         r.x = -r.z;
         r.z = r.y;
         r.y = 0.0f;
-        dot = func_00102848(&r, &d);
+        dot = sceVu0InnerProduct(&r, &d);
         if (len < 300.0f) len = 500.0f;
         if (!(len <= 600.0f)) len = 400.0f;
         if (dot < 0.0f) {

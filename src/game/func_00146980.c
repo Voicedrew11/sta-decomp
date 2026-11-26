@@ -9,7 +9,7 @@ typedef struct {
     u8 pad[0xC];
 } Buf;
 typedef struct { u8 pad[4]; u32 w; u8 pad2[8]; V4 a; V8 b; } Src;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 Src *func_001A8360(u16);
 void func_001B85B0(void *, s32);
 
@@ -21,7 +21,7 @@ void func_00146980(s8 *o, s32 a1, u32 id) {
         p = o + 0xE80;
     } else {
         s = func_001A8360(id);
-        func_00123C40(&buf, 0, 0x40);
+        memset(&buf, 0, 0x40);
         if (s) {
             buf.a = s->a;
             buf.b = s->b;

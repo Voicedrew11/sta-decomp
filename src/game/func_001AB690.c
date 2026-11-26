@@ -20,8 +20,8 @@ extern s8 D_00270F40[];
 void func_00128580(A *, s32 *);
 void func_0014DAB0(s32);
 B *func_001ABB20(void);
-void func_001256E0(s8 *, s8 *, s32);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, s32);
+void strcpy(s8 *, s8 *);
 s32 func_00159D10(s8 *);
 s32 func_0015ABD0(s32);
 s32 func_0015A300(s32);
@@ -31,7 +31,7 @@ s32 func_0014DB00(s8 *, s32, s8 *);
 s32 func_0014DA70(s32);
 void func_0014DAC0(s32, s32);
 u8 func_0014DAF0(s32);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(s32, s8 *, s32);
 void func_00123A88(s32, s8 *, s32);
 void func_0014DAE0(s32);
@@ -77,9 +77,9 @@ void func_001AB690(void) {
     if (!D_00202288->fA8.f.b1) {
         c = D_00202288->h9E == 2 && D_00202288->h9C >= 800;
         k = D_00202288->h9C;
-        if (c) func_001256E0(buf1, D_001FD9D0, k);
-        else func_001256E0(buf1, D_001FD9F0, k);
-        func_00125CE8(buf2, buf1);
+        if (c) sprintf(buf1, D_001FD9D0, k);
+        else sprintf(buf1, D_001FD9F0, k);
+        strcpy(buf2, buf1);
         if (D_004B4B78) {
             s = func_0015ABD0(func_00159D10(buf1));
             D_004B4B78[0] = func_0015A300(s);
@@ -101,7 +101,7 @@ void func_001AB690(void) {
         n = (n > 0x80000) ? 0x80000 : n;
         q = (s32)n >> 4;
         r = n - q * 16;
-        func_0010BCA0(0);
+        FlushCache(0);
         func_001789E0(*D_004B4B80[0] + D_004B4B7C[0], D_00270F40, q);
         if (r > 0) func_00123A88(*D_004B4B80[0] + D_004B4B7C[0] + q * 16, D_00270F40 + q * 16, r);
         D_004B4B7C[0] += n;

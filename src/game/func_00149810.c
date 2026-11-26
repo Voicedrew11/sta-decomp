@@ -40,14 +40,14 @@ extern s32 D_00201E80;
 extern f32 D_001F2160[];
 s8 *func_001A5460(s32 *);
 void func_00163C80(O *, Mtx *);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_00123A88(void *, void *, s32);
 f32 func_00146940(void *, Vec *);
 void func_001B7CC0(s32, s32);
 s32 func_0013EE40(s8 *);
 u16 func_0013E110(s8 *);
 Src *func_001A8360(s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_001675D0(N *);
 void func_0013BA60(s32, void *, s8 *, s32);
 
@@ -72,9 +72,9 @@ void func_00149810(O *o, f32 dt) {
     a = func_001A5460(&it);
     if (o->b5) {
         func_00163C80(o, &m);
-        func_00102A60(&pos, &m.m[3]);
+        sceVu0CopyVector(&pos, &m.m[3]);
     } else {
-        func_00102A60(&pos, o);
+        sceVu0CopyVector(&pos, o);
     }
     func_00123A88(&t, &o->xA8, 4);
     first = (t == 0.0f);
@@ -107,7 +107,7 @@ void func_00149810(O *o, f32 dt) {
                 if (func_0013EE40(a)) goto next;
                 if (o->x6C == 0.0f) {
                     id = func_0013E110(a);
-                    func_00102A60(ta, o->xB0);
+                    sceVu0CopyVector(ta, o->xB0);
                     for (j = 0; j < 8; j++) {
                         if (id == ta[j]) {
                             id = 0xFFFF;
@@ -121,7 +121,7 @@ void func_00149810(O *o, f32 dt) {
                         e = (Ent *)((s8 *)o->x90 + 0xE80);
                     } else {
                         e = (Ent *)func_001A8360((s32)o->x68);
-                        func_00123C40(&d, 0, 0x40);
+                        memset(&d, 0, 0x40);
                         if (e) {
                             d.v = ((Src *)e)->v;
                             d.m = ((Src *)e)->m;
@@ -132,14 +132,14 @@ void func_00149810(O *o, f32 dt) {
                     }
                     func_0013BA60(func_001675D0(o->x90), e, a, 0);
                     id = func_0013E110(a);
-                    func_00102A60(tb, o->xB0);
+                    sceVu0CopyVector(tb, o->xB0);
                     for (j = 0; j < 8; j++) {
                         if (tb[j] == 0xFFFF || id == tb[j]) {
                             tb[j] = id;
                             break;
                         }
                     }
-                    func_00102A60(o->xB0, tb);
+                    sceVu0CopyVector(o->xB0, tb);
                 }
             next:
                 a = func_001A5460(&it);

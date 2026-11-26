@@ -2,7 +2,7 @@
 typedef struct { u8 pad[0x20]; u16 type; u8 pad22[8]; u8 b[6]; u16 v[6]; f32 f[0x15]; } E;
 typedef struct { u8 pad[0x4A]; u16 v[6]; } E2;
 typedef struct { u16 v[6]; f32 f; } R;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001D1240(void *, s16, u8);
 void func_001D0610(R *, s32);
 extern E D_004B5DD0[2];
@@ -27,8 +27,8 @@ static inline void addv(R *a0, E *e, f32 k) {
 void func_001CF510(R *a0, s32 *a1, s32 a2, s16 *a3, u8 *t0, s32 sel, s32 k) {
     E *e;
     s32 t;
-    func_00123C40(a0, 0, 0x10);
-    func_00123C40(a1, 0, 0x20);
+    memset(a0, 0, 0x10);
+    memset(a1, 0, 0x20);
     func_001D1240(&D_004B5DD0[0], a3[0], t0[0]);
     func_001D1240(&D_004B5DD0[1], a3[1], t0[4]);
     func_001D1240(&D_004B6130, a3[6], t0[0x18]);

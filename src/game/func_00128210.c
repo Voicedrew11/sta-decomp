@@ -23,7 +23,7 @@ typedef struct {
     Node *dead;     /* 0x24 */
     Node *sent;     /* 0x28 */
 } Pool;
-void func_0010BCA0(s32, s32, u32);
+void FlushCache(s32, s32, u32);
 void func_001789E0(s32, s32, u32);
 void func_00123A88(s32, s32, u32);
 
@@ -55,7 +55,7 @@ s32 func_00128210(Pool *p) {
             if (src != dst) {
                 size = n->size;
                 if (size >= 0x1400 && dst - src > 0) {
-                    func_0010BCA0(0, dst, size);
+                    FlushCache(0, dst, size);
                     func_001789E0(n->src, n->dst, n->size >> 4);
                 } else {
                     func_00123A88(src, dst, size);

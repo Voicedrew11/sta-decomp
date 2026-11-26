@@ -9,12 +9,12 @@ typedef struct {
 extern u8 D_0022EC14[];
 extern Mtx D_002F16C0;
 extern Vec D_001F2150;
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 f32 func_0011DBC0(f32, f32);
-f32 func_00102848(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DBD8(f32);
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 void func_00102870(Vec *, Vec *);
 f32 func_0011DBF0(f32, f32);
 f32 sqrtf(f32);
@@ -35,13 +35,13 @@ void func_00130810(Snd *s) {
     s32 n;
 
     if (s->x34 == 0 && s->x20 == 0) {
-        func_00102A60(&pos, &s->v);
+        sceVu0CopyVector(&pos, &s->v);
     } else if (s->x34 != 0) {
-        func_00102A60(&pos, (Vec *)(*s->x34 + s->x38));
+        sceVu0CopyVector(&pos, (Vec *)(*s->x34 + s->x38));
     } else if (s->x20 != 0) {
-        func_00102A60(&pos, (Vec *)s->x20);
+        sceVu0CopyVector(&pos, (Vec *)s->x20);
     }
-    func_001027B0(&v, &D_002F16C0, &pos);
+    sceVu0ApplyMatrix(&v, &D_002F16C0, &pos);
     ang = func_0011DBC0(v.z, v.x);
     switch (D_0022EC14[0]) {
     case 0:
@@ -103,7 +103,7 @@ void func_00130810(Snd *s) {
         }
     }
     if (s->x6C == 0) {
-        dist = sqrtf(func_00102848(&v, &v));
+        dist = sqrtf(sceVu0InnerProduct(&v, &v));
         if (dist > s->x24) {
             r = dist - s->x24;
             f = (s->x28 > 0.0f) ? func_0011DBD8(-4.8441868f / s->x28 * r) : 0.0f;
@@ -112,15 +112,15 @@ void func_00130810(Snd *s) {
             s->x8 = s->xA;
         }
     } else {
-        a.x = func_0011D850(v.x);
-        a.y = func_0011D850(v.y);
-        a.z = func_0011D850(v.z);
+        a.x = fabsf(v.x);
+        a.y = fabsf(v.y);
+        a.z = fabsf(v.z);
         if (a.x > s->x60 || a.y > s->x64 || a.z > s->x68) {
             d.x = (a.x > s->x60) ? a.x - s->x60 : 0.0f;
             d.y = (a.y > s->x64) ? a.y - s->x64 : 0.0f;
             d.z = (a.z > s->x68) ? a.z - s->x68 : 0.0f;
             d.w = 1.0f;
-            f = func_00102848(&d, &d);
+            f = sceVu0InnerProduct(&d, &d);
             r = s->x28 * s->x28;
             if (r > f) {
                 f = (r - f) / r;
@@ -134,7 +134,7 @@ void func_00130810(Snd *s) {
         }
     }
     vol = 24.0f * (s->x2C - dist) / (34000.0f - 30.0f * (s->x2C - dist));
-    if (func_0011D850(vol) < 0.00390625f) vol = 0.0f;
+    if (fabsf(vol) < 0.00390625f) vol = 0.0f;
     vol += 1.0f;
     if (vol < 0.0f) vol = 0.0625f;
     if (!(vol <= 1.125f)) vol = 1.125f;
@@ -144,8 +144,8 @@ void func_00130810(Snd *s) {
     s->x2C = dist;
     if (!(s->x44 <= 0.0f)) {
         func_00102870(&a, &s->x50);
-        func_001027B0(&a, &D_002F16C0, &a);
-        f = func_00102848(&a, &D_001F2150);
+        sceVu0ApplyMatrix(&a, &D_002F16C0, &a);
+        f = sceVu0InnerProduct(&a, &D_001F2150);
         f = 1.0f - f;
         s->x8 = s->x8 * func_0011DBF0(0.5f * f, s->x44);
     }

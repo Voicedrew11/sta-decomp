@@ -2,7 +2,7 @@
 typedef struct { s16 v[10]; } Ids;
 typedef struct { u8 b[4]; } Col;
 s8 *func_001C9BA0(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001CCF50(Ids *, s32, s16);
 u8 *func_001A97D0(s16);
 void func_001CF480(s32, s32, s32, s32, Ids *, Col *, s32);
@@ -18,7 +18,7 @@ void func_0019A500(s32 a0, s32 a1, u32 *a2, u32 *a3, u32 *t0, s32 t1, s32 t2, s3
 
     base = func_001C9BA0();
     ids = *(Ids *)(base + 0x80);
-    func_00123C40(col, 0, 0x28);
+    memset(col, 0, 0x28);
     if (t1 >= 0) {
         func_001CCF50(&ids, t1, t2);
     }

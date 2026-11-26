@@ -5,8 +5,8 @@ typedef struct {
     u8 rest[0xED0 - 0x189];
 } E;
 typedef struct { u16 prev; u16 next; u16 x4; } L;
-void func_00102A60(void *, void *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(void *, void *);
+void memset(void *, s32, s32);
 void func_001670E0(E *);
 void func_00169400(f32);
 void func_001E0E80(void);
@@ -35,8 +35,8 @@ void func_0016AB50(void) {
     func_00169400(1.0f);
     func_00169400(1.0f);
     func_001E0E80();
-    func_00102A60(D_003406D0, D_003139A0);
-    func_00123C40(D_00201FC0, 0, D_00201FAC * 0x120);
+    sceVu0CopyVector(D_003406D0, D_003139A0);
+    memset(D_00201FC0, 0, D_00201FAC * 0x120);
     D_00201FD8 = D_00201FAC;
     for (j = 0; j < D_00201FAC; j++) {
         D_00201FD4[j].prev = j - 1;
@@ -46,5 +46,5 @@ void func_0016AB50(void) {
     D_00201FD4[0].prev = 0xFFFF;
     D_00201FD4[D_00201FAC - 1].next = 0xFFFF;
     D_00201CA0 = 0;
-    func_00123C40(D_003407E0, 0, sizeof(E) * 0x100);
+    memset(D_003407E0, 0, sizeof(E) * 0x100);
 }

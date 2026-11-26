@@ -12,12 +12,12 @@ void func_00140470(s8 *, Vec *);
 void func_001403D0(s8 *, Vec *);
 Vec *func_00140460(s8 *);
 Vec *func_00140430(s8 *);
-void func_00102A60(Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void memset(void *, s32, s32);
 void func_0013D430(s32, Hit *, Seg *, s32, s32);
-void func_001029E8(Vec *, void *, void *);
-void func_00102A18(f32, Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, void *);
+void sceVu0SubVector(Vec *, void *, void *);
+void sceVu0ScaleVector(f32, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, void *);
 s32 func_0013FC00(s8 *);
 void func_0013FB90(s8 *, u8, QP *, QP *);
 extern s32 D_00201E80;
@@ -52,12 +52,12 @@ void func_00143E20(s8 *a0, s32 a1, u8 a2, s32 a3, s32 t0, s32 t1, f32 ang) {
                 p.x -= m.z * a3;
                 p.z += m.x * a3;
                 p.y -= t0;
-                func_00102A60(&b.s, func_00140460(a0));
+                sceVu0CopyVector(&b.s, func_00140460(a0));
                 b.s.y -= 100.0f;
                 b.s.w = 1.0f;
-                func_00102A60(&b.e, &p);
+                sceVu0CopyVector(&b.e, &p);
                 b.e.w = 1.0f;
-                func_00123C40(&r, 0, 0x40);
+                memset(&r, 0, 0x40);
                 if (((s32 **)&D_00201E80)[2] != NULL) {
                     func_0013D430(*((s32 **)&D_00201E80)[2], &r, &b, 6, 3);
                 }
@@ -65,9 +65,9 @@ void func_00143E20(s8 *a0, s32 a1, u8 a2, s32 a3, s32 t0, s32 t1, f32 ang) {
                     func_0013D430(*((s32 **)&D_00201E80)[3], &r, &b, 6, 3);
                 }
                 if (r.hit != 0) {
-                    func_001029E8(&p, &r, &b);
-                    func_00102A18(0.9f, &p, &p);
-                    func_001029D0(&p, &p, &b);
+                    sceVu0SubVector(&p, &r, &b);
+                    sceVu0ScaleVector(0.9f, &p, &p);
+                    sceVu0AddVector(&p, &p, &b);
                 }
                 n = func_0013FC00(cur);
                 for (i = 0; i < n; i++) {
@@ -77,8 +77,8 @@ void func_00143E20(s8 *a0, s32 a1, u8 a2, s32 a3, s32 t0, s32 t1, f32 ang) {
                     if (q1.p != NULL) q1.p->xC = -100.0f;
                     if (q2.p != NULL) q2.p->xC = -100.0f;
                 }
-                func_00102A60(func_00140460(cur), &p);
-                func_00102A60((Vec *)(*(s8 **)(cur + 0x518) + 0x1C0), &p);
+                sceVu0CopyVector(func_00140460(cur), &p);
+                sceVu0CopyVector((Vec *)(*(s8 **)(cur + 0x518) + 0x1C0), &p);
                 t = ang + func_00140430(a0)->y;
                 func_00140430(cur)->y = WRAP(t);
                 return;

@@ -14,7 +14,7 @@ typedef struct C {
 } C;
 s32 func_00128830(s8 *);
 void func_001285C0(s8 *, C *, s32);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(s8 *, s8 *, s32);
 void func_00123A88(s8 *, s8 *, s32);
 
@@ -53,7 +53,7 @@ skip:
             if (!(((s32)b | esz) & 0xF)) {
                 sz = esz * k;
                 if (sz > 0x1400) {
-                    func_0010BCA0(0);
+                    FlushCache(0);
                     func_001789E0(c->base + off + esz, c->base + off, sz / 16);
                 } else {
                     func_00123A88(b + off + esz, b + off, sz);

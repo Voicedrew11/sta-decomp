@@ -11,9 +11,9 @@ typedef struct B {
 extern B *D_00201FC0;
 B *func_00163C40(B *);
 void func_00163C80(B *, Mtx *);
-void func_001027B0(Vec *, Mtx *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_00163D90(B *o, Vec *out);
 static inline B *parent(B *o) {
     u16 i = o->xA0;
@@ -28,10 +28,10 @@ static inline void G(B *o, Vec *out) {
     if (o->f114.f.b5 && p) {
         func_00163C80(p, &m4);
         func_00163D90(p, &v);
-        func_001027B0(out, &m4, &o->x10);
-        func_001029D0(out, out, &v);
+        sceVu0ApplyMatrix(out, &m4, &o->x10);
+        sceVu0AddVector(out, out, &v);
     } else {
-        func_00102A60(out, &o->x10);
+        sceVu0CopyVector(out, &o->x10);
     }
 }
 
@@ -56,19 +56,19 @@ void func_00163D90(B *o, Vec *out) {
             if (p2->f114.f.b5 && p3) {
                 func_00163C80(p3, &m3);
                 G(p3, &t);
-                func_001027B0(&u, &m3, &p2->x10);
-                func_001029D0(&u, &u, &t);
+                sceVu0ApplyMatrix(&u, &m3, &p2->x10);
+                sceVu0AddVector(&u, &u, &t);
             } else {
-                func_00102A60(&u, &p2->x10);
+                sceVu0CopyVector(&u, &p2->x10);
             }
-            func_001027B0(&w, &m2, &p1->x10);
-            func_001029D0(&w, &w, &u);
+            sceVu0ApplyMatrix(&w, &m2, &p1->x10);
+            sceVu0AddVector(&w, &w, &u);
         } else {
-            func_00102A60(&w, &p1->x10);
+            sceVu0CopyVector(&w, &p1->x10);
         }
-        func_001027B0(out, &m1, &o->x10);
-        func_001029D0(out, out, &w);
+        sceVu0ApplyMatrix(out, &m1, &o->x10);
+        sceVu0AddVector(out, out, &w);
     } else {
-        func_00102A60(out, &o->x10);
+        sceVu0CopyVector(out, &o->x10);
     }
 }

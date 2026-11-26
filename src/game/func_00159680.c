@@ -1,6 +1,6 @@
 #include "m2c.h"
-M2C_UNK func_001029A8(f32, s8 *, M2C_UNK *, M2C_UNK *); /* extern */
-M2C_UNK func_00102A60(s8 *, M2C_UNK *);             /* extern */
+M2C_UNK sceVu0InterVector(f32, s8 *, M2C_UNK *, M2C_UNK *); /* extern */
+M2C_UNK sceVu0CopyVector(s8 *, M2C_UNK *);             /* extern */
 M2C_UNK func_00157630();                            /* extern */
 M2C_UNK func_001580E0(M2C_UNK *);                   /* extern */
 extern s32 D_002F19B0[];
@@ -35,9 +35,9 @@ void func_00159680(void) {
             D_002F1AD4[0] = 0.0f;
         }
         if (D_002F1AD4[0] == 0.0f) {
-            func_00102A60(D_002F1AA0, D_002F1AB0);
+            sceVu0CopyVector(D_002F1AA0, D_002F1AB0);
         } else {
-            func_001029A8(1.0f - (D_002F1AD0[0] / D_002F1AD4[0]), D_002F1AA0, D_002F1AC0, D_002F1AB0);
+            sceVu0InterVector(1.0f - (D_002F1AD0[0] / D_002F1AD4[0]), D_002F1AA0, D_002F1AC0, D_002F1AB0);
         }
         func_00154700(D_002F19B0[0], 0);
         D_002F19DC[0] = 0;

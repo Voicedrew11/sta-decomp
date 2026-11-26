@@ -24,7 +24,7 @@ s32 func_001E8290(void);
 void func_001E8500(void);
 void func_0018E120(s32, void *);
 void func_001AB0A0(void *);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00189ED0(s32);
 void func_0018E0B0();
 void func_0018DFB0();
@@ -63,7 +63,7 @@ void func_0018DA20(Obj *o) {
     case 0:
         if (func_001E5F30(0, 0) == 0) {
             func_001AB0A0(D_004A0900[n]);
-            func_00123C40(func_00188FF0(0), 0, 8);
+            memset(func_00188FF0(0), 0, 8);
             D_004A1058[0]++;
         }
         break;

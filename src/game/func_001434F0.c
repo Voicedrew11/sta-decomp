@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { u8 pad[0x10010]; Vec s[1]; } Big;
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 
 u8 func_001434F0(Big *b, Vec *p1, Vec *p2, u8 idx) {
@@ -11,7 +11,7 @@ u8 func_001434F0(Big *b, Vec *p1, Vec *p2, u8 idx) {
     f32 r;
     u8 hit;
 
-    func_001029E8(&a, p2, p1);
+    sceVu0SubVector(&a, p2, p1);
     hit = 0;
     if (idx != 0xFF) {
         s = &b->s[idx];
@@ -19,8 +19,8 @@ u8 func_001434F0(Big *b, Vec *p1, Vec *p2, u8 idx) {
             s = NULL;
         }
         r = s->w;
-        func_001029E8(&d, s, &a);
-        if (sqrtf(func_00102848(&d, &d)) - r < 0.0f) {
+        sceVu0SubVector(&d, s, &a);
+        if (sqrtf(sceVu0InnerProduct(&d, &d)) - r < 0.0f) {
             hit = 1;
         }
     }

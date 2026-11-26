@@ -1,9 +1,9 @@
 #include "common.h"
-void func_001029E8(Vec *, Vec *, void *);
+void sceVu0SubVector(Vec *, Vec *, void *);
 void func_00102870(Vec *, Vec *);
 f32 func_0011DBC0(f32, f32);
 f32 func_0011DBA8(f32);
-void func_00102CC8(s32, void *, f32);
+void sceVu0RotMatrixY(s32, void *, f32);
 extern f32 D_001F2150[];
 extern f32 D_001F2154[];
 extern f32 D_001F2158[];
@@ -23,7 +23,7 @@ void func_00146140(s32 arg0, f32 x, f32 z) {
     v.w = 1.0f;
     v.z = z;
     v.y = 0.0f;
-    func_001029E8(&r, &v, D_001F2160);
+    sceVu0SubVector(&r, &v, D_001F2160);
     func_00102870(&r, &r);
     a = func_0011DBC0(D_001F2150[0], D_001F2158[0]);
     func_0011DBA8(D_001F2154[0]);
@@ -38,5 +38,5 @@ void func_00146140(s32 arg0, f32 x, f32 z) {
     }
     d2 = d;
     e = 3.1415927f + d;
-    func_00102CC8(arg0, D_001F2170, (e - 6.2831855f * (s32)(0.15915494f * e)) + (e < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f);
+    sceVu0RotMatrixY(arg0, D_001F2170, (e - 6.2831855f * (s32)(0.15915494f * e)) + (e < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f);
 }

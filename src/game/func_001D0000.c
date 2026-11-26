@@ -1,7 +1,7 @@
 #include "m2c.h"
 typedef struct { u8 pad[0x20]; u16 type; u8 pad22[8]; u8 b[6]; u16 v[6]; } E;
 typedef struct { u8 pad[0x4A]; u16 v[6]; } E2;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001D1240(void *, s16, u8);
 void func_001D0610(u16 *, s32);
 extern E D_004B5DD0;
@@ -20,7 +20,7 @@ void func_001D0000(u16 *a0, s32 *a1, s32 a2, s16 *a3, u8 *t0, u32 f) {
     s32 f2;
     s32 t;
 
-    func_00123C40(a0, 0, 0x10);
+    memset(a0, 0, 0x10);
     func_001D1240(&D_004B5DD0, a3[0], t0[0]);
     func_001D1240(&D_004B5E60, a3[1], t0[4]);
     func_001D1240(&D_004B6130, a3[6], t0[0x18]);
@@ -60,7 +60,7 @@ void func_001D0000(u16 *a0, s32 *a1, s32 a2, s16 *a3, u8 *t0, u32 f) {
     }
     func_001D0610(a0, a2);
     if (a1 != NULL) {
-        func_00123C40(a1, 0, 0x20);
+        memset(a1, 0, 0x20);
         if (f1) {
             a1[0] += D_004B5DD0.b[0];
             a1[1] += D_004B5DD0.b[1];

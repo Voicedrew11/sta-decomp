@@ -2,7 +2,7 @@
 void func_001B7B30(s32, s32, f32 (*)[4]);
 void func_0015EBB0(f32 (*)[4], f32 *, f32);
 void func_001B7A30(s32, s32, f32 (*)[4]);
-void func_001027E0(void *, void *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
 
 void func_0017D6E0(s8 *arg0) {
     f32 f[4][4];
@@ -45,7 +45,7 @@ void func_0017D6E0(s8 *arg0) {
         q += 4;
     } while (i < 4);
     func_0015EBB0(d, c, ang);
-    func_001027E0(f, f, d);
+    sceVu0MulMatrix(f, f, d);
     j = 0;
     q = b[0];
     do {

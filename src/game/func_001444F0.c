@@ -15,8 +15,8 @@ Vec *func_00140460(O *);
 Vec *func_00145770(void);
 s32 func_0013D500(s32);
 f32 func_0011D778(f32);
-void func_00102A60(Vec *, Vec *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(Vec *, Vec *);
+void memset(void *, s32, s32);
 void func_0013D320(s32, Buf *, Vec *, s32, s32);
 
 void func_001444F0(Msg *m) {
@@ -110,12 +110,12 @@ void func_001444F0(Msg *m) {
     if ((u8)func_0013E220(o) == 0x69) flag = 0;
     if (!flag) return;
     if (!func_0013EAA0(o)) return;
-    func_00102A60(&A, func_00140460(o));
+    sceVu0CopyVector(&A, func_00140460(o));
     A.y -= 100.0f;
     A.w = 1.0f;
-    func_00102A60(&B, func_00145770());
+    sceVu0CopyVector(&B, func_00145770());
     B.w = 1.0f;
-    func_00123C40(&buf, 0, 0x40);
+    memset(&buf, 0, 0x40);
     if ((&D_00201E80)[2]) func_0013D320(*(s32 *)(&D_00201E80)[2], &buf, &A, 6, 7);
     if (buf.x24 == 0 && (&D_00201E80)[3]) func_0013D320(*(s32 *)(&D_00201E80)[3], &buf, &A, 6, 7);
     if (buf.x24) *res = 0xFF;

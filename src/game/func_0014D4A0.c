@@ -18,12 +18,12 @@ s32 func_0013EE40(s8 *);
 void func_00163C80(O *, M *);
 s8 *func_00146EF0(f32, Vec *, f32, Vec *, f32, s32);
 Vec *func_0013FFA0(s8 *);
-void func_00102A60(Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, void *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, void *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_00102870(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 float sqrtf(float);
 static inline s8 *find(s32 *it, K *k) {
     s8 *p;
@@ -76,21 +76,21 @@ void func_0014D4A0(O *o) {
         }
     }
     if (p != NULL) {
-        func_00102A60(&b0, func_0013FFA0(p));
+        sceVu0CopyVector(&b0, func_0013FFA0(p));
     } else if (k.s.f2) {
-        func_00102A60(&b0, &o->xB0);
+        sceVu0CopyVector(&b0, &o->xB0);
         b0.w = 1.0f;
     }
     if (p != NULL || k.s.f2) {
         h = o->x60;
         t = o->xB0.w;
-        func_001029E8(&v60, &b0, o);
-        s = sqrtf(func_00102848(&o->v, &o->v));
+        sceVu0SubVector(&v60, &b0, o);
+        s = sqrtf(sceVu0InnerProduct(&o->v, &o->v));
         func_00102870(&v50, &v60);
-        func_00102A18(&v50, &v50, -1.0f * t);
-        func_001029D0(&o->v, &o->v, &v50);
+        sceVu0ScaleVector(&v50, &v50, -1.0f * t);
+        sceVu0AddVector(&o->v, &o->v, &v50);
         func_00102870(&o->v, &o->v);
-        func_00102A18(&o->v, &o->v, s);
+        sceVu0ScaleVector(&o->v, &o->v, s);
         o->xB0.w = o->xB0.w - h;
     }
 }

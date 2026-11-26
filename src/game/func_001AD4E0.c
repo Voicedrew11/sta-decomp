@@ -25,9 +25,9 @@ typedef struct {
     s32 xBC;
     s32 xC0[2][2];
 } Node;
-void func_001027E0(void *, void *, void *);
-void func_001029D0(void *, void *, void *);
-void func_00102A60(Vec *, void *);
+void sceVu0MulMatrix(void *, void *, void *);
+void sceVu0AddVector(void *, void *, void *);
+void sceVu0CopyVector(Vec *, void *);
 void func_00173FD0(void *, Vec *, Vec *, Vec *);
 f32 func_00173F70(Q *, u16);
 void func_00171B70(Anim *, u16, f32);
@@ -50,9 +50,9 @@ static inline void upd(Node *n) {
             Ent *e = &tbl[n->idx];
             func_00173FD0(&tmp, (Vec *)((s8 *)e + 0x60), (Vec *)((s8 *)e + 0x70), (Vec *)((s8 *)e + 0x80));
             func_00173FD0(n, &n->v40, &n->v50, &n->v60);
-            func_001027E0(n, n, &tmp);
+            sceVu0MulMatrix(n, n, &tmp);
         }
-        func_001029D0(&n->m.m[3], &n->m.m[3], &n->v70);
+        sceVu0AddVector(&n->m.m[3], &n->m.m[3], &n->v70);
     }
 }
 static inline Ent *ent(s16 i) {
@@ -118,8 +118,8 @@ void func_001AD4E0(Node *o0, f32 dt) {
     }
     if (o->xB8) {
         if (o->x88) {
-            func_00102A60(&d, o->x88 + 0x60);
-            func_00102A60(&c, o->x88 + 0x70);
+            sceVu0CopyVector(&d, o->x88 + 0x60);
+            sceVu0CopyVector(&c, o->x88 + 0x70);
             func_001502A0(e, &d, &c, d.w);
             func_00167670(o->xB8, e);
         }

@@ -12,8 +12,8 @@ typedef struct {
     MtxF xC0;
 } O;
 extern Vec D_001F2160;
-void func_00102A60(void *, void *);
-void func_001027B0(void *, void *, void *);
+void sceVu0CopyVector(void *, void *);
+void sceVu0ApplyMatrix(void *, void *, void *);
 s32 func_001464A0(s32, u8, MtxF *);
 static inline s32 cur(O *o) { s32 *p = o->x90->x170; return p ? *p : 0; }
 
@@ -23,9 +23,9 @@ void func_00147510(O *o) {
     u8 f = o->x60;
     c = cur(o);
     if (c && func_001464A0(c, f, &o->xC0)) {
-        func_00102A60(&v, (u8 *)o->x90 + o->x94 * 128 + 0x2C0);
+        sceVu0CopyVector(&v, (u8 *)o->x90 + o->x94 * 128 + 0x2C0);
         v.w = 1.0f;
-        func_001027B0(o, &o->xC0, &v);
-        func_00102A60(o->xC0.m[3], &D_001F2160);
+        sceVu0ApplyMatrix(o, &o->xC0, &v);
+        sceVu0CopyVector(o->xC0.m[3], &D_001F2160);
     }
 }

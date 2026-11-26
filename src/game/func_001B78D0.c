@@ -5,7 +5,7 @@ typedef struct { u8 pad[0x40]; void ***m; u8 pad2[0x3C]; } E80;
 typedef struct { u8 pad[0x6E]; u16 count; u8 pad2[0x138-0x70]; E30 *arr; u8 pad3[0x180-0x13C]; E80 *ent; } Obj;
 Obj *func_001B19A0(s32);
 s8 *func_001715B0(void ***);
-void func_00102A70(s32, s8 *);
+void sceVu0CopyMatrix(s32, s8 *);
 static inline s32 find(s32 a0, s32 a1) {
     Obj *p = func_001B19A0(a0);
     s32 i;
@@ -28,7 +28,7 @@ void func_001B78D0(s32 arg0, s32 arg1, u32 arg2, s32 arg3) {
         if (**m == NULL || (c = **(C ***)*m) == NULL) return;
         v = func_001715B0(m);
         if (arg2 < c->n) {
-            func_00102A70(arg3, v + (arg2 + 1) * 0x140 + 0xC0);
+            sceVu0CopyMatrix(arg3, v + (arg2 + 1) * 0x140 + 0xC0);
         }
     }
 }

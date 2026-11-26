@@ -5,7 +5,7 @@ extern s32 D_00201CAC;
 extern s8 D_001FB8D0[];
 extern Node *func_0014DCD0(Node *, s32);
 s32 func_00169F40(s32 *, s32, s32, s32, s32, s32, u16);
-void func_001256E0(s8 *, s8 *, s32);
+void sprintf(s8 *, s8 *, s32);
 
 s32 func_00169BD0(s32 id, s32 *a1, s32 a2, s32 a3, s32 a4, s32 a5) {
     Node *h;
@@ -22,6 +22,6 @@ s32 func_00169BD0(s32 id, s32 *a1, s32 a2, s32 a3, s32 a4, s32 a5) {
         }
         p = (Node *)((s8 *)p + p->size);
     }
-    func_001256E0(buf, D_001FB8D0, id);
+    sprintf(buf, D_001FB8D0, id);
     return 0;
 }

@@ -3,7 +3,7 @@ typedef struct { f32 x, y, z, w; } V;
 typedef union { u128 q[4]; f32 f[16]; } M;
 typedef struct { u8 pad[0x1D8]; u8 f; } O;
 extern s32 D_00201E80;
-void func_00102A60(V *, V *);
+void sceVu0CopyVector(V *, V *);
 s32 func_001B3240(O *, M *, V *, s32, u8);
 
 s32 func_00145D10(V *a0, V *a1, s32 a2, s32 a3, M *out) {
@@ -13,8 +13,8 @@ s32 func_00145D10(V *a0, V *a1, s32 a2, s32 a3, M *out) {
     s32 i;
     M *p;
     if ((u8)a2 == 0) return 0;
-    func_00102A60(&seg[0], a0);
-    func_00102A60(&seg[1], a1);
+    sceVu0CopyVector(&seg[0], a0);
+    sceVu0CopyVector(&seg[1], a1);
     for (i = 0; i < 2; i++) {
         O **q = ((O ***)((s8 *)&D_00201E80 + 8))[i];
         if (q == 0 || !((*q)->f & 1)) res[i] = 0;

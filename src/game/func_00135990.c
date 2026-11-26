@@ -10,9 +10,9 @@ void func_0013EA80(s8 *, s32);
 void func_00141A50(s8 *, f32 *, f32 *, f32 *, f32 *, f32 *);
 Vec *func_00145730(void);
 Vec *func_00140460(s8 *);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_001403D0(s8 *, Vec *);
 s32 func_001C9A20(void);
 s32 func_001C9A80(void);
@@ -20,7 +20,7 @@ s32 func_00145620(void);
 s32 func_0013E660(s8 *);
 s32 func_0013E610(s8 *);
 f32 func_0011D778(f32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_0013D320(s32, Hit *, Vec *, s32, s32);
 void func_00145760(s8 *);
 void func_00145720(s8 *);
@@ -48,19 +48,19 @@ u8 func_00135990(s8 *a, f32 *pl, f32 *pc, f32 *py) {
     p = func_0013DE60(a);
     func_0013EA80(a, 1);
     func_00141A50(a, &v12C, &v128, &v124, &v120, &v11C);
-    func_001029E8(&d, func_00145730(), func_00140460(a));
-    full = sqrtf(func_00102848(&d, &d));
+    sceVu0SubVector(&d, func_00145730(), func_00140460(a));
+    full = sqrtf(sceVu0InnerProduct(&d, &d));
     dy = d.y;
     dy = dy < 0.0f ? -dy : dy;
     *(s32 *)&d.y = 0;
-    len = sqrtf(func_00102848(&d, &d));
+    len = sqrtf(sceVu0InnerProduct(&d, &d));
     if (len > 0.0f) {
         d.x /= len;
         d.y /= len;
         d.z /= len;
     }
     func_001403D0(a, &m);
-    cs = func_00102848(&d, &m);
+    cs = sceVu0InnerProduct(&d, &m);
     if (full < mu(p->x14, v11C)) r = 1;
     if (r == 0) {
         if (func_001C9A20() || func_001C9A80() || func_00145620()) {
@@ -69,13 +69,13 @@ u8 func_00135990(s8 *a, f32 *pl, f32 *pc, f32 *py) {
     }
     if (r == 0 && func_0013E660(a)) {
         if (len < mu(p->x0, v12C) && dy < u2f(p->x4) && !(cs <= func_0011D778(3.1415927f * u2f(p->x2) / 180.0f))) {
-            func_00102A60(&seg[0], func_00140460(a));
+            sceVu0CopyVector(&seg[0], func_00140460(a));
             seg[0].y -= 100.0f;
             seg[0].w = 1.0f;
-            func_00102A60(&seg[1], func_00145730());
+            sceVu0CopyVector(&seg[1], func_00145730());
             seg[1].y -= 100.0f;
             seg[1].w = 1.0f;
-            func_00123C40(&h, 0, 0x40);
+            memset(&h, 0, 0x40);
             if (C) func_0013D320(*C, &h, seg, 6, 7);
             if (h.x24 == 0 && D) func_0013D320(*D, &h, seg, 6, 7);
             if (h.x24 == 0) r = 1;

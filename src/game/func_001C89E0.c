@@ -2,10 +2,10 @@
 #define WRAPV(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + *(volatile f32 *)&(x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
-void func_00102A60(Vec *, s8 *);
-void func_001029E8(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, s8 *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 func_0013FC10(Vec *);
-f32 func_00102848(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DBC0(f32, f32);
 f32 sqrtf(f32);
 inline s8 *get(void) {
@@ -33,9 +33,9 @@ void func_001C89E0(Vec *dir, f32 t) {
     if (p == NULL) return;
     q = get();
     if (q != NULL) {
-        func_00102A60(&v, q + 0x40);
+        sceVu0CopyVector(&v, q + 0x40);
     }
-    func_001029E8(&v, dir, &v);
+    sceVu0SubVector(&v, dir, &v);
     w = func_0013FC10(&v);
     w = WRAP(w);
     RR->x24 = WRAP(RR->x24);
@@ -46,7 +46,7 @@ void func_001C89E0(Vec *dir, f32 t) {
     RR->x24 = WRAP(RR->x24);
     y = v.y;
     v.y = 0.0f;
-    w = -func_0011DBC0(y, sqrtf(func_00102848(&v, &v)));
+    w = -func_0011DBC0(y, sqrtf(sceVu0InnerProduct(&v, &v)));
     w = WRAP(w);
     RR->x20 = WRAP(RR->x20);
     d = RR->x20 - w;

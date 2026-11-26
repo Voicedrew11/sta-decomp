@@ -17,7 +17,7 @@ u32 func_0013E5E0(Actor *);
 Ent *func_0013DC70(Actor *, u8);
 f32 func_00173F70(s32, u8);
 void func_001710D0(Mdl *, s16, f32, f32, f32);
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 extern s8 D_003139A0[];
 
 void func_0013C0D0(Actor *a, u8 slot, s16 id, s8 dx, s8 dy, u8 flags) {
@@ -61,5 +61,5 @@ void func_0013C0D0(Actor *a, u8 slot, s16 id, s8 dx, s8 dy, u8 flags) {
         }
     }
     func_001710D0(s->p28, s->p20[i].id, scale * (u2f(s->p20[i].spd) * 0.0078125f), x, y);
-    func_00102A60(s->p18 + 0xA0, D_003139A0);
+    sceVu0CopyVector(s->p18 + 0xA0, D_003139A0);
 }

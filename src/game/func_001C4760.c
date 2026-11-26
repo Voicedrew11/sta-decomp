@@ -17,7 +17,7 @@ extern f32 D_00317274[];
 extern f32 D_00317278[];
 u8 func_001A9450(void);
 s32 func_001CE200(s32);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 
 void func_001C4760(Actor *a, Out *o) {
     S *s;
@@ -116,7 +116,7 @@ void func_001C4760(Actor *a, Out *o) {
     o->x30 = D_00317238[0];
     o->x34 = D_00317230[0];
     if (func_001CE200(1)) {
-        func_00123C40(o, 0, 0x30);
+        memset(o, 0, 0x30);
         m = 0x9000;
         if (s->m == 0) m |= 0x2000;
         o->x30 &= ~m;

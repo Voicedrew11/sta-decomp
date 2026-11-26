@@ -16,10 +16,10 @@ typedef struct {
 } O;
 extern Mtx D_001F2170;
 u16 func_0015ED20(void);
-void func_00102CC8(f32, Mtx *, Mtx *);
-void func_00102C20(f32, Mtx *, Mtx *);
-f32 func_00102848(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
+void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
+void sceVu0RotMatrixX(f32, Mtx *, Mtx *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
 f32 sqrtf(f32);
 #define RND() (0.000015259022f * (f32)(u32)(func_0015ED20)())
 
@@ -37,8 +37,8 @@ void func_001484D0(O *o) {
     b = o->x60[2];
     o->xB0[2] = b + b * (-a + (a + a) * RND());
     if (o->x6C == 1.0f) {
-        func_00102C20(WRAP(6.2831855f * RND()), (Mtx *)o->xC0, &D_001F2170);
-        func_00102CC8(WRAP(6.2831855f * RND()), (Mtx *)o->xC0, (Mtx *)o->xC0);
-        func_00102A18(&o->v, &o->xE0, sqrtf(func_00102848(&o->v, &o->v)));
+        sceVu0RotMatrixX(WRAP(6.2831855f * RND()), (Mtx *)o->xC0, &D_001F2170);
+        sceVu0RotMatrixY(WRAP(6.2831855f * RND()), (Mtx *)o->xC0, (Mtx *)o->xC0);
+        sceVu0ScaleVector(&o->v, &o->xE0, sqrtf(sceVu0InnerProduct(&o->v, &o->v)));
     }
 }

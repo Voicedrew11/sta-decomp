@@ -24,7 +24,7 @@ typedef struct {
     u8 b5:1;
 } O;
 typedef struct { u8 pad[0x30]; f32 v[4]; } M;
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 Actor *func_00147450(f32, void *);
 void func_00163C80(O *, M *);
 s8 *func_00145730(void);
@@ -44,9 +44,9 @@ void func_0014AB80(O *o) {
     if ((s32)o->x64 == 0) {
         if (o->b5) {
             func_00163C80(o, &m);
-            func_00102A60(pos, m.v);
+            sceVu0CopyVector(pos, m.v);
         } else {
-            func_00102A60(pos, o);
+            sceVu0CopyVector(pos, o);
         }
         a = func_00147450(1000.0f, pos);
     } else {
@@ -58,9 +58,9 @@ void func_0014AB80(O *o) {
         return;
     }
     if (*(u16 *)a != 0) {
-        func_00102A60(o, a != NULL ? a->unk518 + 0x90 : D_001F2160);
+        sceVu0CopyVector(o, a != NULL ? a->unk518 + 0x90 : D_001F2160);
     } else {
-        func_00102A60(o, D_002022E4 != NULL ? func_00145730() : D_001F2160);
+        sceVu0CopyVector(o, D_002022E4 != NULL ? func_00145730() : D_001F2160);
     }
     if (f != 0) {
         t = (f32)(u32)*(u16 *)(a->unk4B0 + 4) * o->x60;

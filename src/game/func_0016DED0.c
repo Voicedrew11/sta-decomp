@@ -12,7 +12,7 @@ extern u32 D_00201F54;
 extern u8 D_001F2110[];
 Q *func_00154A80(s32);
 void func_00154A70(void);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 
 void func_0016DED0(A0 *a0, A1 *a1, A2 *a2, P4 a3) {
     Q q;
@@ -72,7 +72,7 @@ void func_0016DED0(A0 *a0, A1 *a1, A2 *a2, P4 a3) {
     r.w[3] = n | (D_00222A51[0].f.b3 ? 0 : 4) | (D_00222A50[0].f.b1 ? 8 : 0);
     ((u128 *)p)[0] = q.q;
     ((u128 *)p)[1] = r.q;
-    func_00102A60(a2->e[a0->idx].m, D_001F2110);
+    sceVu0CopyVector(a2->e[a0->idx].m, D_001F2110);
     q.q = 0;
     q.w[0] = 0x30000001;
     q.w[1] = (u32)a2->e[a0->idx].m + a2->base;

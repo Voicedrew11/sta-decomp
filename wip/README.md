@@ -1,7 +1,8 @@
 # Near-misses
 
 Best attempts at functions that don't match yet. Each compiles; what still differs is noted below.
-Check one with `tools/diff_func.sh wip/func_X.c START END`. `tools/order_search.py` can help with
+Check one with `tools/match.py diff wip/func_X.c`. (These notes come from KiskarFisk's
+shadow-tower-abyss; `tools/order_search.py` there can help with
 register and scheduling differences.
 
 | Function | What still differs |

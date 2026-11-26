@@ -9,7 +9,7 @@ extern s32 D_004869B4[];
 extern f32 D_004869B8[];
 extern f32 D_004869D0[];
 extern f32 D_004869D4[];
-f32 func_0011D850(f32);
+f32 fabsf(f32);
 
 void func_00180810(s32 i) {
     f32 *cur;
@@ -21,7 +21,7 @@ void func_00180810(s32 i) {
 
     cur = &D_004869B8[k];
     dst = &D_004869D0[k];
-    d = func_0011D850(*dst - *cur);
+    d = fabsf(*dst - *cur);
     D_004869D4[k] = 0.25f * (*dst - *cur);
     fl = (BF *)((u8 *)&D_00486990[k] + 0x48);
     switch (fl->st) {

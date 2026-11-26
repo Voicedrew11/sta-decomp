@@ -21,7 +21,7 @@ s32 func_001E1050(void);
 void func_001E0D30(f32, s32);
 void func_001E0F30(f32, f32, s32, Vec *, Vec *);
 void func_00163C80(O *, Mtx *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 
 void func_0014A9C0(O *o) {
     Vec v;
@@ -42,9 +42,9 @@ void func_0014A9C0(O *o) {
     if ((s32)o->xB0 != -1) {
         if (o->x114.b5) {
             func_00163C80(o, &m);
-            func_00102A60(&v, &m.m[3]);
+            sceVu0CopyVector(&v, &m.m[3]);
         } else {
-            func_00102A60(&v, &o->v0);
+            sceVu0CopyVector(&v, &o->v0);
         }
         func_001E0F30(o->x60, o->x64, o->xB0, &v, &o->v50);
     }

@@ -33,10 +33,10 @@ void func_001B0A80(M *, s32);
 void func_001AA4C0(s32);
 f32 func_0015DF90(f32, f32, f32);
 f32 *func_001B40F0(M *, s32);
-void func_001029A8(Vec *, void *, Vec *, f32);
-void func_00102C20(MtxF *, MtxF *, f32);
-void func_00102CC8(MtxF *, MtxF *, f32);
-void func_001027B0(Vec *, MtxF *, Vec *);
+void sceVu0InterVector(Vec *, void *, Vec *, f32);
+void sceVu0RotMatrixX(MtxF *, MtxF *, f32);
+void sceVu0RotMatrixY(MtxF *, MtxF *, f32);
+void sceVu0ApplyMatrix(Vec *, MtxF *, Vec *);
 static inline f32 wrap(f32 x) { f32 t = 3.1415927f + x; return ((t - 6.2831855f * (s32)(0.15915494f * t)) + (t < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f; }
 static inline f32 u2f(u32 x) { return x; }
 static inline f32 rad(u32 d) { f32 f = d; return 3.1415927f * f / 180.0f; }
@@ -109,17 +109,17 @@ void func_001BD4E0(Actor *a) {
         D_001F20D0[0] = func_0015DF90(D_001F20D0[0], k[4], f);
         D_001F20D4[0] = func_0015DF90(D_001F20D4[0], k[5], f);
         D_001F20D8[0] = func_0015DF90(D_001F20D8[0], k[6], f);
-        func_001029A8(D_001F2070, k + 0x14, D_001F2070, f);
-        func_001029A8(D_001F2100, k + 0x10, D_001F2100, f);
+        sceVu0InterVector(D_001F2070, k + 0x14, D_001F2070, f);
+        sceVu0InterVector(D_001F2100, k + 0x10, D_001F2100, f);
         D_001F210C[0] = 127.9f;
         v.x = 0.0f;
         v.y = 0.0f;
         v.z = 1.0f;
         v.w = 1.0f;
-        func_00102C20(&mt, &D_001F2170, WRAP(-(3.1415927f * (f32)(u32)m->x158->xBE / 180.0f)));
-        func_00102CC8(&mt, &mt, WRAP(3.1415927f * (f32)(u32)m->x158->xC0 / 180.0f));
-        func_001027B0(&v, &mt, &v);
-        func_001029A8(D_004B4CE0, &v, D_004B4CE0, f);
+        sceVu0RotMatrixX(&mt, &D_001F2170, WRAP(-(3.1415927f * (f32)(u32)m->x158->xBE / 180.0f)));
+        sceVu0RotMatrixY(&mt, &mt, WRAP(3.1415927f * (f32)(u32)m->x158->xC0 / 180.0f));
+        sceVu0ApplyMatrix(&v, &mt, &v);
+        sceVu0InterVector(D_004B4CE0, &v, D_004B4CE0, f);
         D_004B4CEC[0] = 1.0f;
         D_00201E24 = func_0015DF90(u2f(D_00201E24), u2f(m->x158->xC2), f);
         D_002022DC += 1.0f;
@@ -127,16 +127,16 @@ void func_001BD4E0(Actor *a) {
             if (n->x22 != -1) e = m->x188 + n->x22 * 0xA0;
             else if (n->x21 != -1) e = m->x188 + n->x21 * 0xA0;
             else e = D_0030D0E0;
-            func_001029A8(D_004B4C40, e, D_004B4C40, 0.2f);
-            func_001029A8(D_004B4C50, e + 0x10, D_004B4C50, 0.2f);
-            func_001029A8(D_004B4C60, e + 0x20, D_004B4C60, 0.2f);
-            func_001029A8(D_004B4C70, e + 0x30, D_004B4C70, 0.2f);
-            func_001029A8(D_004B4C80, e + 0x40, D_004B4C80, 0.2f);
-            func_001029A8(D_004B4C90, e + 0x50, D_004B4C90, 0.2f);
-            func_001029A8(D_004B4CA0, e + 0x60, D_004B4CA0, 0.2f);
-            func_001029A8(D_004B4CB0, e + 0x70, D_004B4CB0, 0.2f);
-            func_001029A8(D_004B4CC0, e + 0x80, D_004B4CC0, 0.2f);
-            func_001029A8(D_004B4CD0, e + 0x90, D_004B4CD0, 0.2f);
+            sceVu0InterVector(D_004B4C40, e, D_004B4C40, 0.2f);
+            sceVu0InterVector(D_004B4C50, e + 0x10, D_004B4C50, 0.2f);
+            sceVu0InterVector(D_004B4C60, e + 0x20, D_004B4C60, 0.2f);
+            sceVu0InterVector(D_004B4C70, e + 0x30, D_004B4C70, 0.2f);
+            sceVu0InterVector(D_004B4C80, e + 0x40, D_004B4C80, 0.2f);
+            sceVu0InterVector(D_004B4C90, e + 0x50, D_004B4C90, 0.2f);
+            sceVu0InterVector(D_004B4CA0, e + 0x60, D_004B4CA0, 0.2f);
+            sceVu0InterVector(D_004B4CB0, e + 0x70, D_004B4CB0, 0.2f);
+            sceVu0InterVector(D_004B4CC0, e + 0x80, D_004B4CC0, 0.2f);
+            sceVu0InterVector(D_004B4CD0, e + 0x90, D_004B4CD0, 0.2f);
             D_004B4CDC[0] = 127.9f;
         }
     }

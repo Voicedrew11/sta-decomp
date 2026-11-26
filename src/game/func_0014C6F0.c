@@ -21,7 +21,7 @@ typedef struct {
     u8 b5:1;
 } O;
 typedef struct { u8 pad[0x30]; f32 v[4]; } M;
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_00163C80(O *, M *);
 f32 func_00146940(f32 *, s8 *);
 extern s8 D_001F2160[];
@@ -42,9 +42,9 @@ void func_0014C6F0(O *o) {
     d = o->x6C;
     if (o->b5) {
         func_00163C80(o, &m);
-        func_00102A60(pos, m.v);
+        sceVu0CopyVector(pos, m.v);
     } else {
-        func_00102A60(pos, o);
+        sceVu0CopyVector(pos, o);
     }
     t = func_00146940(pos, has() ? D_002022E4->unk518 + 0x1C0 : D_001F2160);
     if (c < t) {

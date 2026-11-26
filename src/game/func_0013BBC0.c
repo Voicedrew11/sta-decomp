@@ -28,7 +28,7 @@ u8 func_0013F8B0(Actor *);
 void func_0013B4F0(Actor *, f32, s32);
 void func_0013B220(Actor *, f32, s32);
 void func_00171610(s32);
-void func_00102A60(s32, s8 *);
+void sceVu0CopyVector(s32, s8 *);
 extern u8 D_00201F14;
 
 void func_0013BBC0(f32 dt) {
@@ -152,8 +152,8 @@ void func_0013BBC0(f32 dt) {
                 } else {
                     s8 *s = o->unk518 + 0x180;
                     if (!func_0013EE30(o)) {
-                        func_00102A60(*(s32 *)(s + 0x18), s + 0x40);
-                        func_00102A60(*(s32 *)(s + 0x18) + 0x40, s + 0x50);
+                        sceVu0CopyVector(*(s32 *)(s + 0x18), s + 0x40);
+                        sceVu0CopyVector(*(s32 *)(s + 0x18) + 0x40, s + 0x50);
                     }
                 }
                 o = func_001A5460(&it6);

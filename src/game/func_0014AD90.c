@@ -2,7 +2,7 @@
 extern s32 func_0015ED20(void);
 extern f32 func_0011D778(f32);
 extern f32 func_0011DA18(f32);
-extern void func_001029D0(f32 *, f32 *, f32 *);
+extern void sceVu0AddVector(f32 *, f32 *, f32 *);
 
 void func_0014AD90(f32 *a0) {
     f32 v[4];
@@ -14,5 +14,5 @@ void func_0014AD90(f32 *a0) {
     v[2] = r * func_0011DA18(ang);
     v[1] = h * (1.0f - 2.0f * (0.000015259022f * (f32)(u32)(func_0015ED20() & 0xFFFF)));
     v[3] = 0.0f;
-    func_001029D0(a0, a0, v);
+    sceVu0AddVector(a0, a0, v);
 }

@@ -1,8 +1,8 @@
 #include "m2c.h"
 typedef struct { f32 p0[4]; f32 p1[4]; } Ray;
 typedef struct { f32 x0; f32 x4; s32 pad8[7]; s32 hit; s32 pad28[6]; } Res;
-void func_00102A60(f32 *, f32 *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(f32 *, f32 *);
+void memset(void *, s32, s32);
 void func_001B2180(s32, Res *, Ray *, s32, s32);
 extern s32 D_00201E80;
 
@@ -13,11 +13,11 @@ s32 func_001AE250(s32 arg0, f32 *pos, f32 *out) {
     s32 side;
 
     side = 0;
-    func_00102A60(ray.p0, pos);
+    sceVu0CopyVector(ray.p0, pos);
     ray.p0[3] = 1.0f;
-    func_00102A60(ray.p1, ray.p0);
+    sceVu0CopyVector(ray.p1, ray.p0);
     ray.p1[1] += 60000.0f;
-    func_00123C40(&res, 0, 0x40);
+    memset(&res, 0, 0x40);
     if (arg0 == (&D_00201E80)[2]) {
         side = 0;
     }

@@ -6,7 +6,7 @@ typedef struct { u8 pad0[0xE]; u8 xE; u8 xF; u8 pad10[0xA0 - 0x10]; u32 xA0[0x40
 extern W *D_00201DC0;
 extern Rec *D_00201DC4;
 Sv *func_001C9BA0(void);
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001A95A0(s16, u8);
 static inline Slot *slot(s16 id) {
     Slot *s;
@@ -23,18 +23,18 @@ void func_001AA760(void) {
     s32 i;
     sv = func_001C9BA0();
     for (i = 0; i < 0x2A; i++) {
-        func_00123C40(D_00201DC4[i].x0, 0, 0x20);
-        func_00123C40(D_00201DC4[i].x20, 0, 0x20);
-        func_00123C40(D_00201DC4[i].x40, 0, 8);
-        func_00123C40(D_00201DC4[i].x60, 0, 0x120);
-        func_00123C40(D_00201DC4[i].x180, 0, 0x40);
+        memset(D_00201DC4[i].x0, 0, 0x20);
+        memset(D_00201DC4[i].x20, 0, 0x20);
+        memset(D_00201DC4[i].x40, 0, 8);
+        memset(D_00201DC4[i].x60, 0, 0x120);
+        memset(D_00201DC4[i].x180, 0, 0x40);
     }
-    func_00123C40(&D_00201DC4[0x2A], 0, 0x20);
+    memset(&D_00201DC4[0x2A], 0, 0x20);
     D_00201DC0->x2E = 1;
     D_00201DC0->x2F = 10;
     for (i = 0x1F; i <= 0x31; i++) {
-        func_00123C40(&sv->xA0[i], 0, 4);
-        func_00123C40(slot(i), 0, 8);
+        memset(&sv->xA0[i], 0, 4);
+        memset(slot(i), 0, 8);
     }
     for (i = 3; i <= 0xB; i++) {
         if ((u32)(i - 4) > 1) {

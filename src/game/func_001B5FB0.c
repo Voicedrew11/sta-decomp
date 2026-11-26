@@ -1,7 +1,7 @@
 #include "m2c.h"
 typedef struct { u8 pad[0x18]; s16 x18; u8 pad1A[6]; u8 x20; u8 pad21[7]; } E28;
 typedef struct { s32 a; s32 b; } E8;
-void func_00102A60(f32 *, s8 *);
+void sceVu0CopyVector(f32 *, s8 *);
 s16 func_001A9900(s32, u32, f32 *, f32 *);
 s32 func_001A9BE0(s32, s16);
 void func_001AEC00(s32, s16, f32 *, f32 *, f32 *);
@@ -22,7 +22,7 @@ void func_001B5FB0(s8 *arg0, s32 arg1) {
     s32 id;
     s16 r;
 
-    func_00102A60(b0, arg0 + 0x10);
+    sceVu0CopyVector(b0, arg0 + 0x10);
     i = 0;
     if (i < *(u16 *)(arg0 + 0x72)) {
         off1 = 0;

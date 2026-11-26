@@ -1,7 +1,7 @@
 #include "m2c.h"
 typedef struct O { s8 pad0[0x10]; f32 pos[3]; s32 x1C; s32 x20; s8 pad24[0x154]; struct O ***x178; s8 pad17C[0x5C]; u8 x1D8; } O;
-void func_00102A60(f32 *, f32 *);
-void func_00102A18(f32, f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
+void sceVu0ScaleVector(f32, f32 *, f32 *);
 void func_001A5CD0(f32 *);
 void func_001AC4A0(f32 *);
 void func_00167850(f32 *);
@@ -30,26 +30,26 @@ void func_001B4CB0(void) {
 
     side = !(&D_00201E80)[1];
     if (D_002022C0 != 0) {
-        func_00102A60(v, D_004B4BD0);
+        sceVu0CopyVector(v, D_004B4BD0);
         o = *((O ***)(&D_00201E80 + 2))[side];
         if (diff(o->pos, D_003139A0) != 0.0f) {
-            func_00102A60(o->pos, D_003139A0);
+            sceVu0CopyVector(o->pos, D_003139A0);
             o->x1C = 0;
             o->x20 = 2;
             if (o->x1D8 & 1) {
-                func_00102A60((f32 *)((s8 *)**o->x178 + 0x30), o->pos);
+                sceVu0CopyVector((f32 *)((s8 *)**o->x178 + 0x30), o->pos);
             }
         }
-        func_00102A18(-1.0f, v, v);
+        sceVu0ScaleVector(-1.0f, v, v);
         pp = ((O ***)(&D_00201E80 + 2))[!side];
         if (pp != 0) {
             o = *pp;
             if (diff(o->pos, v) != 0.0f) {
-                func_00102A60(o->pos, v);
+                sceVu0CopyVector(o->pos, v);
                 o->x1C = 0;
                 o->x20 = 2;
                 if (o->x1D8 & 1) {
-                    func_00102A60((f32 *)((s8 *)**o->x178 + 0x30), o->pos);
+                    sceVu0CopyVector((f32 *)((s8 *)**o->x178 + 0x30), o->pos);
                 }
             }
         }

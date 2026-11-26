@@ -15,8 +15,8 @@ void func_00140470(s8 *, s8 *);
 void func_00140440(s8 *, s8 *);
 Vec *func_00140460(s8 *);
 Vec *func_00145730(void);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_001403D0(s8 *, Vec *);
 
 u8 func_00135490(s8 *a, f32 *pl, f32 *pc, f32 *py) {
@@ -99,8 +99,8 @@ u8 func_00135490(s8 *a, f32 *pl, f32 *pc, f32 *py) {
             if (!func_0013EE30(e2) && !func_0013EEE0(e2)) {
                 k = func_0013E220(e2);
                 if (k >= 0x33 && k < 0x36 && func_0013E290(e2) == 0xF) {
-                    func_001029E8(&d, func_00140460(e2), func_00140460(a));
-                    dist = func_00102848(&d, &d);
+                    sceVu0SubVector(&d, func_00140460(e2), func_00140460(a));
+                    dist = sceVu0InnerProduct(&d, &d);
                     if (dist < min) {
                         min = dist;
                         best = e2;
@@ -112,19 +112,19 @@ u8 func_00135490(s8 *a, f32 *pl, f32 *pc, f32 *py) {
         }
     }
     if (best != NULL) {
-    func_001029E8(&d2, func_00140460(best), func_00140460(a));
-    sqrtf(func_00102848(&d2, &d2));
+    sceVu0SubVector(&d2, func_00140460(best), func_00140460(a));
+    sqrtf(sceVu0InnerProduct(&d2, &d2));
     dy = d2.y;
     dy = dy < 0.0f ? -dy : dy;
     *(s32 *)&d2.y = 0;
-    len = sqrtf(func_00102848(&d2, &d2));
+    len = sqrtf(sceVu0InnerProduct(&d2, &d2));
     if (len > 0.0f) {
         d2.x /= len;
         d2.y /= len;
         d2.z /= len;
     }
     func_001403D0(a, &m);
-    cs = func_00102848(&d2, &m);
+    cs = sceVu0InnerProduct(&d2, &m);
     if (pl) *pl = len;
     if (pc) *pc = cs;
     if (py) *py = dy;
