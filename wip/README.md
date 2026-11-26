@@ -38,7 +38,6 @@ register and scheduling differences.
 | func_00181420 | orig uses the loop induction pointer as the final `sq` dest; ours copies it (`move t2,v0`) |
 | func_0013FCC0 | `f32 sz[2]` kept in memory needs `&sz`, which hoists the address into s0; orig uses sp offsets |
 | func_001B3240 | saved-reg allocation (orig spills d/cb/b0/off at 0xD0..0xA0) and 0xEE/0xEF home-slot swap of the u8 args |
-| func_001CE4B0 | 1 word: default 3 set with `daddiu t0,zero,3` (orig) vs `li`; `u16 h` gives daddiu but breaks the mask/float conversion |
 | func_00151E50 | 1 word: late clear loop count `li v0,16` vs orig 8; the C slot only lands at 0x40 with a 16-byte struct |
 | func_0015DFA0 | quaternion slerp; saved regs only: orig `out` in s6, ours s0 (permuter candidate) |
 | func_0016DC70 | GIF packet; saved regs rotated (orig gives p and &q.w[1]/[3] the high s-regs) (permuter candidate) |
@@ -135,7 +134,6 @@ register and scheduling differences.
 | func_001D2890 | round Y/Z near-miss (agent's best attempt; see comments in file) |
 | func_001D2A80 | round Y/Z near-miss (agent's best attempt; see comments in file) |
 | func_001D3BF0 | round Y/Z near-miss (agent's best attempt; see comments in file) |
-| func_001CBCD0 | round 2 near-miss: 1 word: retail has a hand-written addi $3,$3,-7 at the switch range check (ASM-ONLY) |
 | func_001E3B48 | round 2 near-miss: ee-gcc, s1/s2 swap, switch store merging, &g->data in own register |
 | func_001E03C0 | round 2 near-miss: 8 words: li constants scheduled between the two lw of the loop-2 preheader |
 | func_001E3058 | round 2 near-miss: ee-gcc, 5 words: lo+hi in a2 instead of v0, one slt in v1 |

@@ -189,8 +189,9 @@ Game functions are matched smallest first.
   retail tests 2, 1, 0 in that order, CodeWarrior's switch and if chains
   tried test in another order.
 - func_00143840: returns &o->e[i] unless its float <= 0; retail recomputes
-  the field address with a second `lui $at`, forms tried fold it.- func_001D1D50: a switch (7..19) whose range check is `addi` (trapping)
-  in retail; CodeWarrior emits `addiu` for every parameter type tried.
+  the field address with a second `lui $at`, forms tried fold it.
+- func_001D1D50: SOLVED, the `addi` range check comes from mwccps2 3.0b38
+  (b50/b52 emit `addiu`); now built with it via config/game_cflags.txt.
 - func_001E1EE0 (ee-gcc): compares a u8 with -6 and -1, which gcc 2.96
   folds away for every declaration tried.- func_00167580: `if (D[i].v == v) D[i].v = 0` over 256 records; `bne`
   operand order stays reversed with both operand orders.

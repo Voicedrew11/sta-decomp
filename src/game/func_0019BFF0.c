@@ -1,3 +1,4 @@
+/* MATCH only with MWCC=mwcps2-3.0b38-030307 (b52 emits addiu at the switch range check) */
 #include "m2c.h"
 typedef struct { u8 pad[0x20]; u16 x20; u8 pad22[0x6E]; } E;
 typedef struct { s32 k0; s32 k4; u8 t8; u8 pad[7]; } K;
@@ -7,21 +8,19 @@ E *func_001AFC90(void);
 extern s16 D_001FD3F8[];
 extern K D_004A30E0[];
 static inline void sub5(E *e1) {
-    s32 t;
-    asm("addi %0, %1, -5" : "=r"(t) : "r"(e1->x20));
-    switch ((u32)t) {
-    case 0:
+    switch (e1->x20) {
+    case 5:
         D_004A30E0[4].k4 = 0x2717;
         break;
-    case 1:
+    case 6:
         D_004A30E0[4].k4 = 0x2727;
         break;
-    case 2: case 3: case 5: case 9:
+    case 7: case 8: case 10: case 14:
         break;
-    case 4:
+    case 9:
         D_004A30E0[4].k4 = 0x2713;
         break;
-    case 6: case 7: case 8: case 10: case 11: case 12: case 13: case 14:
+    case 11: case 12: case 13: case 15: case 16: case 17: case 18: case 19:
         D_004A30E0[4].k4 = -1;
         break;
     }
@@ -188,3 +187,4 @@ void func_0019BFF0(void) {
         }
     }
 }
+

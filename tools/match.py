@@ -107,8 +107,11 @@ def compile_c(src: Path, ee: bool, out: Path) -> None:
         run([str(ROOT / "tools/period_env.sh"), str(d / "bin/as"), "-EL", "-mcpu=5900", "-mabi=eabi",
              "-G", "8", "-o", str(out), str(s)])
     else:
-        mw = cc / os.environ.get("MWCC", "mwcps2-3.0b52-030722") / "mwccps2.exe"
-        flags = os.environ.get("GAME_CFLAGS", unit_cflags(src)).split()
+        unit = unit_cflags(src).split()
+        build = next((f[5:] for f in unit if f.startswith("mwcc=")), "mwcps2-3.0b52-030722")
+        mw = cc / os.environ.get("MWCC", build) / "mwccps2.exe"
+        flags = [f for f in unit if not f.startswith("mwcc=")]
+        flags = os.environ["GAME_CFLAGS"].split() if "GAME_CFLAGS" in os.environ else flags
         run([str(cc / "wibo"), str(mw), "-c", "-nostdinc", *flags, *incs, "-o", str(out), str(src)],
             env={**os.environ, "MWCIncludes": str(ROOT / "include")})
 

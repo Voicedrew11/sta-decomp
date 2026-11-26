@@ -19,10 +19,13 @@
 #
 # tools/probe_compiler.py settles the game's compilers: its probes match
 # under mwccps2 3.0b38, 3.0b50 and 3.0b52 at -O4,p only (b50 and b52 emit
-# identical code on everything tried; b38 differs from them only on runs of
-# *p++ stores, which the game does not show), and the gcc modules under
-# ee-gcc 2.96 with -fno-strict-aliasing only. MWCC overrides the CodeWarrior
-# build (a directory name under tools/cc/), GAME_CFLAGS its flags.
+# identical code on everything tried), and the gcc modules under ee-gcc 2.96
+# with -fno-strict-aliasing only. b52 is the default. b38 emits a trapping
+# addi for a switch range check with a nonzero lowest case (b50/b52: addiu)
+# and reverses some 4-float struct copies; the units showing that addi are
+# marked "mwcc=mwcps2-3.0b38-030307" in config/game_cflags.txt. MWCC
+# overrides the CodeWarrior build (a directory under tools/cc/) for every
+# unit, GAME_CFLAGS the flags.
 set -eu
 [ $# -eq 2 ] || { echo "usage: $0 <src.c|src.s> <out.o>" >&2; exit 2; }
 SRC="$1"; OUT="$2"
@@ -64,6 +67,12 @@ case "${SRC}" in
         # config/game_cflags.txt lists the units built with other flags
         UNIT_CFLAGS="$(awk -v s="${SRC#"${ROOT}"/}" '$1 == s { $1 = ""; print substr($0, 2) }' \
             "${ROOT}/config/game_cflags.txt")"
+        # a "mwcc=<tools/cc dir>" token picks another CodeWarrior build for the unit
+        case " ${UNIT_CFLAGS} " in *" mwcc="*)
+            B="${UNIT_CFLAGS##*mwcc=}"; B="${B%% *}"
+            [ -n "${MWCC:-}" ] || MWCC_DIR="${ROOT}/tools/cc/${B}"
+            UNIT_CFLAGS="$(echo "${UNIT_CFLAGS}" | sed 's/ *mwcc=[^ ]*//')" ;;
+        esac
         # tools/mwfix.py retypes the .mwcats section, which ld 2.10 cannot read
         MWCIncludes="${ROOT}/include" "${WIBO}" "${MWCC_DIR}/mwccps2.exe" -c -nostdinc \
             ${GAME_CFLAGS:-${UNIT_CFLAGS:--O4,p}} ${INCS} -o "${OUT}" "${SRC}"

@@ -1,3 +1,4 @@
+/* MATCH only with MWCC=mwcps2-3.0b38-030307 (b52 emits addiu at the switch range check) */
 #include "m2c.h"
 typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
@@ -24,15 +25,10 @@ s32 func_001E8290(void);
 s8 *func_00188FF0(s32);
 void func_001E5E80(Buf *);
 void func_00181680(s32, void *, void *, void *, S *, u32);
-void func_001256E0(char *, char *, ...);
+void sprintf(char *, char *, ...);
 void func_001875C0(f32, f32, f32, char *, s32, u32);
 char *func_00195AA0(s32);
 char *func_00195B10(s32);
-static inline u32 sub(u32 x) {
-    u32 t;
-    asm("addi %0, %1, -0x7D1" : "=r"(t) : "r"(x));
-    return t;
-}
 
 void func_0018BCC0(O *o, s32 unused, u32 id, s32 n) {
     S t __attribute__((aligned(16))) = D_001F2A10[0];
@@ -52,41 +48,41 @@ void func_0018BCC0(O *o, s32 unused, u32 id, s32 n) {
         return;
     }
     if ((f = e->xF) != 0 && s0 == 0) {
-        switch (sub(id)) {
-        case 0:
+        switch (id) {
+        case 2001:
             break;
-        case 1:
+        case 2002:
             if (e->xE) {
                 col.c.r = 0x20;
                 col.c.g = 0x20;
             }
-            func_001256E0(buf, D_001FCD00, n + 1);
+            sprintf(buf, D_001FCD00, n + 1);
             func_001875C0(o->x38, o->x3C, 1.0f, buf, 0, col.w);
             break;
-        case 2:
-            func_001256E0(buf, D_001FCD10, e->x4, e->x0);
+        case 2003:
+            sprintf(buf, D_001FCD10, e->x4, e->x0);
             func_001875C0(o->x38, o->x3C, 0.9f, buf, 0, col.w);
             break;
-        case 3:
-            func_001256E0(buf, D_001FCD20, e->x6, e->x2);
+        case 2004:
+            sprintf(buf, D_001FCD20, e->x6, e->x2);
             func_001875C0(o->x38, o->x3C, 0.9f, buf, 0, col.w);
             break;
-        case 4:
+        case 2005:
             func_001875C0(o->x38, o->x3C, 0.9f, D_001FCD30, 0, col.w);
             break;
-        case 5:
-            func_001256E0(buf, D_001FCD40, e->x8, e->xA, e->xB);
+        case 2006:
+            sprintf(buf, D_001FCD40, e->x8, e->xA, e->xB);
             func_001875C0(o->x38, o->x3C, 0.9f, buf, 0, col.w);
             break;
-        case 6:
+        case 2007:
             func_001875C0(o->x38, o->x3C, 0.9f, func_00195AA0(f / 10), 0, col.w);
             break;
         }
     } else {
-        switch (sub(id)) {
-        case 0:
+        switch (id) {
+        case 2001:
             break;
-        case 1:
+        case 2002:
             if (b.arr[n] == 2 || b.a[3] == 2 || s0 != 0) {
                 col.w = 0x80404080;
                 col.c.a = o->x2F * 2;
@@ -95,15 +91,16 @@ void func_0018BCC0(O *o, s32 unused, u32 id, s32 n) {
                 func_001875C0(o->x38, o->x3C, 1.0f, D_001FCD58, 0, col.w);
             }
             break;
-        case 4:
+        case 2005:
             func_001875C0(o->x38, o->x3C, 0.9f, D_001FCD30, 0, col.w);
             break;
-        case 2:
-        case 3:
-        case 5:
-        case 6:
+        case 2003:
+        case 2004:
+        case 2006:
+        case 2007:
             func_001875C0(o->x38, o->x3C, 0.9f, D_001FCD60, 0, col.w);
             break;
         }
     }
 }
+

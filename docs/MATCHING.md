@@ -267,7 +267,8 @@ MWCC:
 - **Commutative `mul.s` order for u32->float * float**: inline `mu(u32 x, f32 k) { f32 t = x; return t * k; }`.
 - **`%` operands loaded first but stored last**: write the modulo statement first. `D.a = D.a + D.b` loads in source order; `+=` loads the right-hand side first.
 - **Frame layout**: spilled named locals get 4-byte slots in a 16-byte area at the top of the frame with the param homes; copy-propagated and loop-invariant temps get 16-aligned slots below. An unexplained 16-byte slot means the original variable was a temp; making it an inline parameter makes it one.
-- **Hand-written `addi` at a switch range check, `sync; ei`, inlined VU0 `lqc2/vmula*/sqc2`**: asm-only, skip (func_001CBCD0, func_001DDA20, func_001E8CB0, func_00171BB0).
+- **A switch range check using `addi` (not `addiu`)**: the unit was built with mwccps2 3.0b38. Write a plain `switch (x)` with the real case values and add `src/game/func_X.c -O4,p mwcc=mwcps2-3.0b38-030307` to config/game_cflags.txt (try it with `MWCC=mwcps2-3.0b38-030307 tools/match.py diff ...`). b38 is not the default because it reverses some 4-float struct copies (func_00132DB0, func_0017D810, func_0017D960).
+- **`sync; ei` and inlined VU0 `lqc2/vmula*/sqc2`**: asm-only, skip (func_001E8CB0, func_00171BB0; see issue #2).
 
 ee-gcc 2.96:
 - **Struct address rebuilt in every case** (`%hi` kept in an s-reg, `addiu rX,sHI,%lo` per use): use `D_X.field` or `#define t (&D_X)`; a `T *t = &D_X` local pins the full address.
