@@ -1,7 +1,7 @@
 #include "common.h"
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 float sqrtf(float);
 typedef struct { u8 pad[0x10010]; Vec tbl[1]; } Obj;
 static inline Vec *get(Obj *o, u8 i)
@@ -19,7 +19,7 @@ static inline u8 inner(Obj *o, Vec *pos, u8 a, u8 b) {
     sceVu0SubVector(&d, get(o, b), get(o, a));
     sceVu0SubVector(&e, pos, get(o, a));
     len = sqrtf(sceVu0InnerProduct(&d, &d));
-    func_00102870(&d, &d);
+    sceVu0Normalize(&d, &d);
     {
         f32 t = sceVu0InnerProduct(&d, &e);
         if (!(t < 0.0f) && t <= len) return 1;

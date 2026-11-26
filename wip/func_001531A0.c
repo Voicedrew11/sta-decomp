@@ -15,8 +15,8 @@ typedef struct {
     s32 pad28;
     s32 size;
 } Pool;
-void func_00123A88(void *, void *, s32);
-void func_0010BCA0(s32);
+void memcpy(void *, void *, s32);
+void FlushCache(s32);
 void func_001789E0(void *, void *, s32);
 void func_00128580(s32, Node *);
 static inline void rm1(s32 qq, u8 *a1) {
@@ -35,13 +35,13 @@ static inline void rm1(s32 qq, u8 *a1) {
         if ((((s32)base | sz) & 0xF) == 0) {
             total = sz * n;
             if (total > 0x1400) {
-                func_0010BCA0(0);
+                FlushCache(0);
                 func_001789E0(q->base + off, q->base + off + sz, total / 16);
             } else {
-                func_00123A88(base + off, base + off + sz, total);
+                memcpy(base + off, base + off + sz, total);
             }
         } else {
-            func_00123A88(base + off, base + off + sz, n * sz);
+            memcpy(base + off, base + off + sz, n * sz);
         }
     }
     q->count--;

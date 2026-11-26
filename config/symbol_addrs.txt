@@ -155,10 +155,10 @@ RFU000_FullReset = 0x0010B600; // type:func
 ResetEE = 0x0010B610; // type:func
 SetGsCrt = 0x0010B620; // type:func
 RFU003 = 0x0010B630; // type:func
-Exit = 0x0010B640; // type:func
+_Exit = 0x0010B640; // type:func
 RFU005 = 0x0010B650; // type:func
-LoadExecPS2 = 0x0010B660; // type:func
-ExecPS2 = 0x0010B670; // type:func
+_LoadExecPS2 = 0x0010B660; // type:func
+_ExecPS2 = 0x0010B670; // type:func
 RFU008 = 0x0010B680; // type:func
 RFU009 = 0x0010B690; // type:func
 AddSbusIntcHandler = 0x0010B6A0; // type:func
@@ -277,11 +277,19 @@ sceSifSetDChain = 0x0010BE00; // type:func
 isceSifSetDChain = 0x0010BE10; // type:func
 sceSifSetReg = 0x0010BE20; // type:func
 sceSifGetReg = 0x0010BE30; // type:func
-ExecOSD = 0x0010BE40; // type:func
+_ExecOSD = 0x0010BE40; // type:func
+
 Deci2Call = 0x0010BE50; // type:func
 PSMode = 0x0010BE60; // type:func
 MachineType = 0x0010BE70; // type:func
 GetMemorySize = 0x0010BE80; // type:func
+
+// SDK 2.5 libkernl wrappers of the exec/exit syscalls
+ExecPS2 = 0x00114C18; // type:func
+LoadExecPS2 = 0x00114C88; // type:func
+Exit = 0x00114CD0; // type:func
+ExecOSD = 0x00114CF8; // type:func
+
 write = 0x0010BFE8; // type:func
 read = 0x0010C068; // type:func
 sbrk = 0x0010C120; // type:func
@@ -438,7 +446,7 @@ scePadGetModVersion = 0x00116150; // type:func
 scePadSetWarningLevel = 0x001161B8; // type:func
 
 // libdma
-sceDmaDebug = 0x00116350; // type:func
+sceSdRemoteSetEndFunc = 0x00116350; // type:func
 
 // libcdvd
 sceCdDelayThread = 0x00116588; // type:func
@@ -517,7 +525,8 @@ __make_fp = 0x0011F890; // type:func
 fptodp = 0x0011F8C0; // type:func
 dpadd = 0x0011FCF8; // type:func
 dpsub = 0x0011FD50; // type:func
-dpmul = 0x00120040; // type:func
+dpmul = 0x0011FDB8; // type:func
+dpdiv = 0x00120040; // type:func
 dpcmp = 0x001202A0; // type:func
 litodp = 0x001202F0; // type:func
 dptoli = 0x001203A8; // type:func
@@ -548,6 +557,7 @@ _malloc_r = 0x001231B0; // type:func
 _mbtowc_r = 0x001238D8; // type:func
 memchr = 0x00123910; // type:func
 memcmp = 0x001239F0; // type:func
+memcpy = 0x00123A88; // type:func
 validate_structure = 0x00123D00; // type:func
 mktime = 0x001240D0; // type:func
 _Balloc = 0x00124438; // type:func
@@ -576,6 +586,7 @@ strchr = 0x00125A10; // type:func
 strcmp = 0x00125BA0; // type:func
 strlen = 0x00125E00; // type:func
 strncmp = 0x00125F38; // type:func
+strncpy = 0x001260F0; // type:func
 _strtol_r = 0x001262B0; // type:func
 strtol = 0x001264E8; // type:func
 toupper = 0x00126518; // type:func

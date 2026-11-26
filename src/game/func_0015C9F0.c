@@ -9,7 +9,7 @@ void func_0015A080(s32, s32 *, s32);
 s8 *sceSifAllocIopHeap(s32);
 void sceSifSetDma(Req *, s32);
 void sceSifLoadModuleBuffer(s8 *, s32, s32);
-void func_00112A60(s8 *);
+void sceSifFreeSysMemory(s8 *);
 void func_00122F10(s32 *);
 
 void func_0015C9F0(s32 a0) {
@@ -43,7 +43,7 @@ void func_0015C9F0(s32 a0) {
             r.z = 0;
             sceSifSetDma(&r, 1);
             sceSifLoadModuleBuffer(mem, 0, 0);
-            func_00112A60(mem);
+            sceSifFreeSysMemory(mem);
             e = (Ent *)((s8 *)e + e->next);
         }
         break;

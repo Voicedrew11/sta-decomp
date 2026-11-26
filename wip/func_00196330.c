@@ -22,12 +22,12 @@ typedef struct { u8 pad0[0x14]; f32 x14; f32 x18; u8 pad1C[0x10]; f32 x2C; f32 x
 void func_00181680(s32, void *, void *, void *, S *, u32);
 void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 G *func_00189020(s32);
-void func_001256E0(s8 *, s8 *, ...);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, ...);
+void strcpy(s8 *, s8 *);
 C *func_001CC3F0(s16);
 s32 func_001AFBD0(s32);
 E *func_001AFC90(void);
-double func_0011F8C0(f32);
+double fptodp(f32);
 void func_00183650(T *);
 extern S D_001F2EE0 __attribute__((aligned(16)));
 extern T D_004A13A0;
@@ -66,15 +66,15 @@ void func_00196330(O *o, s32 a1, u32 mode, s32 a3) {
     }
     if (mode == 501) {
         col.w = 0x80808080;
-        func_001256E0(buf, D_001FD328, D_00202184);
+        sprintf(buf, D_001FD328, D_00202184);
         func_001875C0(o->x38, o->x3C, 0.9f, buf, 2, col.w);
     }
     if (mode == 1000) {
         col.w = 0x80808080;
         if (D_00202188 != 0) {
-            func_001256E0(buf, D_001FD330, D_00202188);
+            sprintf(buf, D_001FD330, D_00202188);
         } else {
-            func_001256E0(buf, D_001FD338, D_00202188);
+            sprintf(buf, D_001FD338, D_00202188);
         }
         func_001875C0(o->x38, o->x3C, 0.9f, buf, 0, col.w);
     }
@@ -114,20 +114,20 @@ void func_00196330(O *o, s32 a1, u32 mode, s32 a3) {
         case 303:
             col.w = 0x80808080;
             if (a3 > 0) {
-                func_001256E0(buf, D_001FD340, func_001CC3F0(a3)->x0);
+                sprintf(buf, D_001FD340, func_001CC3F0(a3)->x0);
                 if (func_001AFBD0(a3) == 0) {
-                    func_00125CE8(buf, D_001FD348);
+                    strcpy(buf, D_001FD348);
                 } else if (func_001AFBD0(a3) == 1) {
                     u16 k = func_001AFC90()[a3].x20;
                     switch (k) {
                     case 5:
                     case 6:
-                        func_00125CE8(buf, D_001FD348);
+                        strcpy(buf, D_001FD348);
                         break;
                     }
                 }
             } else {
-                func_00125CE8(buf, D_001FD348);
+                strcpy(buf, D_001FD348);
             }
             func_001875C0(o->x38, o->x3C, 0.9f, buf, 2, col.w);
             break;
@@ -139,11 +139,11 @@ void func_00196330(O *o, s32 a1, u32 mode, s32 a3) {
             if (a3 > 0) {
                 e = func_001AFC90() + a3;
                 col.w = 0x80808080;
-                func_001256E0(buf, D_001FD350, func_0011F8C0(u2f(e->x4) / 10.0f));
+                sprintf(buf, D_001FD350, fptodp(u2f(e->x4) / 10.0f));
                 func_001875C0(o->x38 - 20.0f, o->x3C - 4.0f, 0.9f, buf, 2, col.w);
             } else {
                 col.w = 0x80808080;
-                func_00125CE8(buf, D_001FD348);
+                strcpy(buf, D_001FD348);
                 func_001875C0(o->x38 - 20.0f, o->x3C - 4.0f, 0.9f, buf, 2, col.w);
             }
             break;

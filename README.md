@@ -58,9 +58,9 @@ cannot produce the report.
 <!-- progress:start -->
 | | code | functions | units complete |
 | --- | ---: | ---: | ---: |
-| overall | 69.46% | 2168 / 3091 | 7 / 2312 |
+| overall | 75.12% | 2622 / 3091 | 10 / 2339 |
 | game | 80.36% | 2017 / 2224 | 0 / 2192 |
-| sce | 16.03% | 151 / 867 | 7 / 120 |
+| sce | 49.39% | 605 / 867 | 10 / 147 |
 <!-- progress:end -->
 
 ## Adding library units

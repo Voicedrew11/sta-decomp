@@ -1,6 +1,6 @@
 #include "common.h"
 typedef struct { Vec a; Vec b; s32 mode; u32 c0; u32 c1; s32 pad; } V;
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 void func_001DC348(void *);
 void func_001DC398(void *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
@@ -32,8 +32,8 @@ void func_00156450(void *p, u32 col, f32 h) {
     v180.c0 = col;
     v180.c1 = col;
     v180.mode = ((u64)x << 6) | 2;
-    func_00123A88(&v120, &v180, 0x30);
-    func_00123A88(&v150, &v180, 0x30);
+    memcpy(&v120, &v180, 0x30);
+    memcpy(&v150, &v180, 0x30);
     func_001DC348(p);
     for (i = 0, a = 0.39269908f; i < 4; i++, a += 0.39269908f) {
         sn[i] = func_0011DA18(a);
@@ -41,7 +41,7 @@ void func_00156450(void *p, u32 col, f32 h) {
     }
     for (i = 0, a = 0.0f; i < 7; i++, a += 0.8975979f) {
         if (i != 0) {
-            func_00123A88(&v180, &v180.b, 0x10);
+            memcpy(&v180, &v180.b, 0x10);
         } else {
             tx = func_0011D778(a);
             ty = func_0011DA18(a);
@@ -61,9 +61,9 @@ void func_00156450(void *p, u32 col, f32 h) {
         func_001DC398(&v180.b, &e0);
         for (j = 0; j < 4; j++) {
             if (j == 0) {
-                func_00123A88(&v150, &v180.b, 0x10);
+                memcpy(&v150, &v180.b, 0x10);
             } else {
-                func_00123A88(&v150, &v150.b, 0x10);
+                memcpy(&v150, &v150.b, 0x10);
             }
             d0.x = e0.x * cs[j];
             d0.y = e0.y * cs[j];
@@ -74,7 +74,7 @@ void func_00156450(void *p, u32 col, f32 h) {
         }
         if (h != 0.0f) {
             if (i != 0) {
-                func_00123A88(&v120, &v120.b, 0x10);
+                memcpy(&v120, &v120.b, 0x10);
             } else {
                 sceVu0CopyVector(&c0, &f0);
                 c0.z = h;
@@ -83,13 +83,13 @@ void func_00156450(void *p, u32 col, f32 h) {
             sceVu0CopyVector(&b0, &e0);
             b0.z = h;
             func_001DC398(&v120.b, &b0);
-            func_00123A88(&v150, &v180, 0x10);
-            func_00123A88(&v150.b, &v120, 0x10);
+            memcpy(&v150, &v180, 0x10);
+            memcpy(&v150.b, &v120, 0x10);
             for (j = 0; j < 4; j++) {
                 if (j == 0) {
-                    func_00123A88(&v150, &v120.b, 0x10);
+                    memcpy(&v150, &v120.b, 0x10);
                 } else {
-                    func_00123A88(&v150, &v150.b, 0x10);
+                    memcpy(&v150, &v150.b, 0x10);
                 }
                 d0.x = b0.x * cs[j];
                 d0.y = b0.y * cs[j];
@@ -101,9 +101,9 @@ void func_00156450(void *p, u32 col, f32 h) {
         } else {
             for (j = 0; j < 4; j++) {
                 if (j == 0) {
-                    func_00123A88(&v150, &v180.b, 0x10);
+                    memcpy(&v150, &v180.b, 0x10);
                 } else {
-                    func_00123A88(&v150, &v150.b, 0x10);
+                    memcpy(&v150, &v150.b, 0x10);
                 }
                 d0.x = e0.x * cs[j];
                 d0.y = e0.y * cs[j];

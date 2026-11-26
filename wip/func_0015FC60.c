@@ -8,7 +8,7 @@ typedef struct {
     u8 x54;
     u8 pad55[3];
 } S;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_001D7290(s32);
 void func_001D7350(void);
 void func_001D72F8(u32, s32, s32);
@@ -18,7 +18,7 @@ extern S D_00317230[];
 
 void func_0015FC60(void) {
     u32 i;
-    func_00123C40(D_00317230, 0, 0xB0);
+    memset(D_00317230, 0, 0xB0);
     func_001D7290(0);
     func_001D7350();
     for (i = 0; i < 2; i++) {

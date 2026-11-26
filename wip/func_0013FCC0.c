@@ -5,9 +5,9 @@ typedef struct { u8 pad[0x22]; u16 w22; u16 w24; } Ent;
 typedef struct { u8 pad[0x13C]; u8 *tbl; } Tb;
 typedef struct { Tb *t; } Hd;
 typedef struct { u8 pad[0x198]; Vec *p198; } S518;
-void func_00102A60(Vec *, void *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 static inline f32 u2f(u32 x) { return x; }
 s32 func_0013FCC0(Actor *o, f32 *out) {
@@ -28,12 +28,12 @@ s32 func_0013FCC0(Actor *o, f32 *out) {
         }
     }
     sz[1] = a; sz[0] = b;
-    func_00102A60(&v, &o->pad60C[0x54]);
-    func_001029E8(&v, ((S518 *)o->unk518)->p198, &v);
+    sceVu0CopyVector(&v, &o->pad60C[0x54]);
+    sceVu0SubVector(&v, ((S518 *)o->unk518)->p198, &v);
     ay = v.y;
     if (ay < 0.0f) ay = -ay;
     v.y = 0;
-    len = sqrtf(func_00102848(&v, &v));
+    len = sqrtf(sceVu0InnerProduct(&v, &v));
     if (out) {
         out[0] = len;
         out[1] = ay;

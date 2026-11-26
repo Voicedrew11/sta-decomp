@@ -1,6 +1,6 @@
 #include "common.h"
 void sceVu0SubVector(Vec *, Vec *, void *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 func_0011DBC0(f32, f32);
 f32 func_0011DBA8(f32);
 void sceVu0RotMatrixY(s32, void *, f32);
@@ -24,7 +24,7 @@ void func_00146140(s32 arg0, f32 x, f32 z) {
     v.z = z;
     v.y = 0.0f;
     sceVu0SubVector(&r, &v, D_001F2160);
-    func_00102870(&r, &r);
+    sceVu0Normalize(&r, &r);
     a = func_0011DBC0(D_001F2150[0], D_001F2158[0]);
     func_0011DBA8(D_001F2154[0]);
     b = func_0011DBC0(r.x, r.z);

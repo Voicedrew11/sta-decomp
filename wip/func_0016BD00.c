@@ -2,8 +2,8 @@
 typedef struct { f32 t0; f32 t1; f32 n; f32 f; } Fr;
 extern Flags8 D_00222A50[];
 extern Mtx D_002F15C0;
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, void *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, void *, Vec *);
 
 s8 func_0016BD00(u8 *m, Vec *o, Vec *u, f32 *pl, Fr *fr) {
     Vec p;
@@ -29,10 +29,10 @@ s8 func_0016BD00(u8 *m, Vec *o, Vec *u, f32 *pl, Fr *fr) {
     t0 = 0.0f;
     c = 0;
     if (D_00222A50[0].f.b3) return 2;
-    func_00102A60(&p, o);
+    sceVu0CopyVector(&p, o);
     p.w = 1.0f;
-    func_001027B0(&p, m, &p);
-    func_001027B0(&p, &D_002F15C0, &p);
+    sceVu0ApplyMatrix(&p, m, &p);
+    sceVu0ApplyMatrix(&p, &D_002F15C0, &p);
     qy = p.y + -u->y * len;
     qz = p.z + -u->z * len;
     qx = p.x + -u->x * len;

@@ -3,7 +3,7 @@ typedef struct { u8 pad[0x10]; f32 pos[3]; u8 pad1C[0x14]; f32 rot[3]; f32 rz; u
 typedef struct { f32 m[4][4]; } M;
 u32 func_0015ED20(void);
 void func_00163C80(O *, M *);
-void func_001027B0(f32 *, M *, f32 *);
+void sceVu0ApplyMatrix(f32 *, M *, f32 *);
 
 void func_0014C890(O *o) {
     f32 v[4];
@@ -18,7 +18,7 @@ void func_0014C890(O *o) {
     }
     v[3] = 0.0f;
     func_00163C80(o, &m);
-    func_001027B0(v, &m, v);
+    sceVu0ApplyMatrix(v, &m, v);
     o->pos[0] += p[0];
     o->pos[1] += v[1];
     o->pos[2] += v[2];

@@ -13,7 +13,7 @@ extern s32 D_004B68D0[];
 s32 func_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 s32 func_001D3CE0(s32 n);
 void func_001D3DA8(s32);
-s32 func_0010FAD0(s8 *, s32);
+s32 sceOpen(s8 *, s32);
 void strcpy(s8 *, s32);
 s32 sceLseek(s32, s32, s32);
 s32 sceRead(s32, void *, s32);
@@ -104,7 +104,7 @@ s32 func_001D58C0(void) {
             return -6;
         }
         strcpy(buf, D_004B63B8.xa4);
-        fd = func_0010FAD0(buf, 1);
+        fd = sceOpen(buf, 1);
         D_004B63A4[0] = fd;
         if (fd < 0) {
             D_004B63B8.x88 = 0;

@@ -1,5 +1,5 @@
 #include "common.h"
-void func_00102480();                            /* extern */
+void sceDevVif0Reset();                            /* extern */
 void func_00116220();                            /* extern */
 void sceDevVu0Pause();                           /* extern */
 void sceDmaReset(s32);                       /* extern */
@@ -9,7 +9,7 @@ void sceMcInit();                                /* extern */
 void func_00129400(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_2;
 
-    func_00102480();
+    sceDevVif0Reset();
     sceDevVu0Pause();
     sceGsResetPath();
     sceDmaReset(1);

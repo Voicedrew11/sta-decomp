@@ -2,7 +2,7 @@
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 sqrtf(f32);
 
 void func_001A5790(Vec *o1, Vec *o2, Mtx *m, Vec *p, Vec *d) {
@@ -21,7 +21,7 @@ void func_001A5790(Vec *o1, Vec *o2, Mtx *m, Vec *p, Vec *d) {
     sceVu0ApplyMatrix(&a, m, &a);
     sceVu0ApplyMatrix(&b, m, &b);
     len = sqrtf(sceVu0InnerProduct(&b, &b));
-    func_00102870(&b, &b);
+    sceVu0Normalize(&b, &b);
     *wa = p->w * len;
     *wb = d->w * len;
     sceVu0CopyVector(o1, &a);

@@ -7,7 +7,7 @@ typedef struct { s8 a, b, c, d; } G;
 extern G D_004BA780[];
 extern u32 D_004BAA28[];
 void FlushCache(s32);
-s32 func_00112A60(s32);
+s32 sceSifFreeSysMemory(s32);
 void func_001D84F0(s32, s32, s32, s32);
 s32 func_001D8680(s32 a, s32 b, s32 c, ...);
 
@@ -45,11 +45,11 @@ s32 func_001DACB0(s32 arg0) {
     e->x8 = 0;
     e->x10 = 0;
     if (e->x4 != 0) {
-        if (func_00112A60(e->x4) != 0) return -1;
+        if (sceSifFreeSysMemory(e->x4) != 0) return -1;
         e->x4 = 0;
     }
     if (e->x0 != 0) {
-        if (func_00112A60(e->x0) != 0) return -1;
+        if (sceSifFreeSysMemory(e->x0) != 0) return -1;
         e->x0 = 0;
     }
     *D_004BAA28 = 0x5010;

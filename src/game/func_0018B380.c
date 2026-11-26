@@ -10,8 +10,8 @@ void func_001875C0(f32, f32, f32, s8 *, s32, Col);
 void sprintf(s8 *, s8 *, ...);
 s8 *func_00195B10(s32);
 s32 strlen(s8 *);
-void func_00123A88(s8 *, s8 *, s32);
-static inline void cat(s8 *d, s8 *s) { s32 n = strlen(s); func_00123A88(d + strlen(d), s, n + 1); }
+void memcpy(s8 *, s8 *, s32);
+static inline void cat(s8 *d, s8 *s) { s32 n = strlen(s); memcpy(d + strlen(d), s, n + 1); }
 
 void func_0018B380(s8 *a0, s32 a1, u32 a2, P *a3) {
     s8 buf[0x400];

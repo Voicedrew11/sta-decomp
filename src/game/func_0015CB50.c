@@ -2,7 +2,7 @@
 void sceSifInitRpc(s32);
 void func_0015B040(s32, s32);
 s32 sceSifRebootIop(void *);
-s32 func_00113C88(void);
+s32 sceSifSyncIop(void);
 void sceSifInitIopHeap(void);
 void sceSifLoadFileReset(void);
 void sceFsReset(void);
@@ -22,7 +22,7 @@ void func_0015CB50(void) {
     sceSifInitRpc(0);
     func_0015B040(0x200, 1);
     while (!(sceSifRebootIop(D_001FB770) != 0) != 0) {}
-    while (!(func_00113C88() != 0) != 0) {}
+    while (!(sceSifSyncIop() != 0) != 0) {}
     sceSifInitRpc(0);
     sceSifInitIopHeap();
     sceSifLoadFileReset();

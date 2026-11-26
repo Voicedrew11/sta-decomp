@@ -10,7 +10,7 @@ typedef struct {
 } Big;
 extern s8 D_001FD988[];
 extern Big *D_00201DC0;
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 #define FCC(s) ((s)[0] | ((s)[1] << 8) | ((s)[2] << 16) | ((s)[3] << 24))
 
 void func_001A8F00(Rec *p) {
@@ -26,19 +26,19 @@ void func_001A8F00(Rec *p) {
         if (p->tag == (D_001FD988[0] | (*c1 << 8) | (*c2 << 16) | (*c3 << 24))) return;
         switch (p->tag) {
         case 0x61534350:
-            func_00123A88(D_00201DC0->x20, s, *d);
+            memcpy(D_00201DC0->x20, s, *d);
             break;
         case 0x6150414D:
-            func_00123A88(D_00201DC0->x10E0, s, *d);
+            memcpy(D_00201DC0->x10E0, s, *d);
             break;
         case 0x61454E45:
-            func_00123A88(D_00201DC0->x5AC0, s, *d);
+            memcpy(D_00201DC0->x5AC0, s, *d);
             break;
         case 0x614D5449:
-            func_00123A88(D_00201DC0->x5B60, s, *d);
+            memcpy(D_00201DC0->x5B60, s, *d);
             break;
         case 0x61484353:
-            func_00123A88(D_00201DC0->x5C00, s, *d);
+            memcpy(D_00201DC0->x5C00, s, *d);
             break;
         }
         p = (Rec *)((u8 *)p + p->x4);

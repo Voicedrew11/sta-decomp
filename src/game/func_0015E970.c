@@ -1,6 +1,6 @@
 #include "common.h"
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0InterVector(Vec *, Vec *, Vec *, f32);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 float sqrtf(float);
@@ -19,9 +19,9 @@ void func_0015E970(Vec *out, Vec *a, Vec *b, f32 t) {
     sceVu0InterVector(&out[2], &a[2], &b[2], t);
     sceVu0InterVector(&out[3], &a[3], &b[3], t);
     out[3].w = 1.0f;
-    func_00102870(&out[0], &out[0]);
-    func_00102870(&out[1], &out[1]);
-    func_00102870(&out[2], &out[2]);
+    sceVu0Normalize(&out[0], &out[0]);
+    sceVu0Normalize(&out[1], &out[1]);
+    sceVu0Normalize(&out[2], &out[2]);
     sceVu0ScaleVector(&out[0], &out[0], ls.x);
     sceVu0ScaleVector(&out[1], &out[1], ls.y);
     sceVu0ScaleVector(&out[2], &out[2], ls.z);

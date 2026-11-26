@@ -12,7 +12,7 @@ void func_0015D5A0(f32 *d)
         if (e->on) {
             f32 s = e->f54;
             sceVu0AddVector(e->v, e->v, d);
-            e->f4c = -1.0 * (s * s);
+            e->f4c = -1.0 / (s * s); /* a division: retail calls dpdiv */
         }
     }
 }

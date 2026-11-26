@@ -6,7 +6,7 @@ extern u8 D_001FB980[];
 void sceGsSetDefLoadImage(Buf *, s32, s32, s32, s32, s32, s32, s32);
 void FlushCache(s32);
 void sceGsExecLoadImage(Buf *, void *);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 
 void func_00181240(void) {
     Buf a;
@@ -15,10 +15,10 @@ void func_00181240(void) {
     sceGsSetDefLoadImage(&a, 0x3020, 1, 0x14, 0, 0, 0x80, 0x40);
     FlushCache(0);
     sceGsExecLoadImage(&a, D_001FB980);
-    func_00101120(0, 0);
+    sceGsSyncPath(0, 0);
     d = D_001F25F0;
     sceGsSetDefLoadImage(&b, 0x3032, 1, 0, 0, 0, 8, 2);
     FlushCache(0);
     sceGsExecLoadImage(&b, &d);
-    func_00101120(0, 0);
+    sceGsSyncPath(0, 0);
 }

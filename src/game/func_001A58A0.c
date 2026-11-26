@@ -1,5 +1,5 @@
 #include "common.h"
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
@@ -14,7 +14,7 @@ void func_001A58A0(Vec *a, Vec *b, Vec *o1, Vec *o2, f32 f) {
     sceVu0SubVector(&d, &q, &p);
     l = sqrtf(sceVu0InnerProduct(&d, &d));
     sceVu0CopyVector(o1, &p);
-    func_00102870(o2, &d);
+    sceVu0Normalize(o2, &d);
     o2->w = l;
     o1->w = f;
 }

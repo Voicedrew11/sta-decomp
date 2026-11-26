@@ -17,7 +17,7 @@ extern s32 D_004B68D0[];
 s32 func_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 s32 func_001D3CE0(s32);
 void func_001D3DA8(s32);
-void func_00123A88(void *, s32, s32);
+void memcpy(void *, s32, s32);
 void *memset(void *, s32, u32);
 s32 sceMcGetDir(s32, s32, s32, u32, s32, s32 *);
 s32 sceMcOpen(s32, s32, s32, s32);
@@ -262,7 +262,7 @@ s32 func_001D4170(void)
             sum = 0;
             if (n != 0) {
                 p = &D_004B6478[off];
-                func_00123A88(p, D_004B63B8.data + D_004B6384[0], n);
+                memcpy(p, D_004B63B8.data + D_004B6384[0], n);
                 if (n > 0) { q = p; i = n; do { sum += ~*q; q++; i--; } while (i != 0); }
                 D_004B6478[pos++] = sum;
             }

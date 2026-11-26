@@ -27,7 +27,7 @@ void sceVu0CopyVector(Vec *, Vec *);
 void memset(void *, s32, s32);
 void sceVu0SubVector(Vec *, Vec *, void *);
 void sceVu0AddVector(Vec *, void *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 f32 func_0015DEE0(Vec *, void *);
 f32 func_0015DF50(Vec *, void *);
@@ -53,7 +53,7 @@ void func_001C5150(Actor *a) {
     memset(&p->m130, 0, 0x40);
     close = 0;
     sceVu0SubVector(&dir, &p->pos, p->o + 0x10);
-    func_00102870(&dir, &dir);
+    sceVu0Normalize(&dir, &dir);
     if (func_0015DEE0(&p->pos, p->o + 0x10) < 20.0f && !p->b0) close = 1;
     d = func_0015DF50(&p->pos, p->o + 0x10);
     if (close) t = d; else t = 20.0f;

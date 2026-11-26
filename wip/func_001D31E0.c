@@ -7,14 +7,14 @@ typedef struct { u16 x0; u16 x2; u8 pad[0x24]; } E;
 typedef struct { u8 pad[0xD]; u8 xD; u8 padE[2]; f32 x10; f32 x14; f32 x18; } T;
 typedef struct { u8 pad[0x10]; Vec x10; u8 pad20[0xC]; T *x2C; } A1;
 void func_00163C80(s8 *, Mtx *);
-void func_00102A60(Vec *, void *);
+void sceVu0CopyVector(Vec *, void *);
 void func_001D3810(s8 *, s32, E *, Mtx *, s32, A1 *, s32);
 s32 func_0015ED20(void);
 static inline f32 u2f(u32 x) { return x; }
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(void *, Vec *, void *);
-f32 func_00102848(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(void *, Vec *, void *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void func_00145ED0(Vec *, Vec *, Vec *);
 f32 sqrtf(f32);
 
@@ -39,7 +39,7 @@ static inline void run(s8 *a0, A1 *a1, s8 **pb, u16 *pi, s32 id, s32 i) {
     for (j = 0; j < 4; j++, e++) {
         if (e->x2 == i) {
             func_00163C80(a0, &M);
-            func_00102A60(&M.m[3], a1);
+            sceVu0CopyVector(&M.m[3], a1);
             M.m[3].w = 1.0f;
             func_001D3810(a0, id, e, &M, 0, a1, 0);
         }
@@ -82,7 +82,7 @@ s32 func_001D31E0(s8 *a0, A1 *a1) {
         for (j = 0; j < 4; j++, e++) {
             if (e->x2 == i) {
                 func_00163C80(a0, &M1);
-                func_00102A60(&M1.m[3], a1);
+                sceVu0CopyVector(&M1.m[3], a1);
                 M1.m[3].w = 1.0f;
                 func_001D3810(a0, 4, e, &M1, 0, a1, 0);
             }
@@ -97,19 +97,19 @@ s32 func_001D31E0(s8 *a0, A1 *a1) {
         }
         if (0.0f < b->x4) {
             k = 0.01f * b->x4;
-            func_00102A18(&U, &a1->x10, a1->x10.w * (1.0f + k));
+            sceVu0ScaleVector(&U, &a1->x10, a1->x10.w * (1.0f + k));
             U.w = 0.0f;
-            func_001029D0(a0, &U, a0);
+            sceVu0AddVector(a0, &U, a0);
             *(f32 *)(a0 + 0xC) = 1.0f;
-            d = sqrtf(func_00102848((Vec *)(a0 + 0x10), (Vec *)(a0 + 0x10)));
-            func_00102A18(&W, (Vec *)(a0 + 0x10), -1.0f);
-            func_00102870(&W, &W);
+            d = sqrtf(sceVu0InnerProduct((Vec *)(a0 + 0x10), (Vec *)(a0 + 0x10)));
+            sceVu0ScaleVector(&W, (Vec *)(a0 + 0x10), -1.0f);
+            sceVu0Normalize(&W, &W);
             X.x = a1->x2C->x10;
             X.y = a1->x2C->x14;
             X.z = a1->x2C->x18;
             X.w = 0.0f;
             func_00145ED0(&X, &W, &Y);
-            func_00102A18((Vec *)(a0 + 0x10), &Y, d * k);
+            sceVu0ScaleVector((Vec *)(a0 + 0x10), &Y, d * k);
         }
     }
     if (r) {

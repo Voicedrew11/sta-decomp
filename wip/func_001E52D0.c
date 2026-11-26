@@ -1,7 +1,7 @@
 /* round 3 near-miss: ee-gcc, 6 words: D2_QWC/D2_MADR constants in v0/v1 swapped */
 #include "common.h"
 void FlushCache(s32);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 u32 *func_001E51A8(void *, u16, s32);
 u32 *func_001E51D0(void *, s32, s32, s32, s32, s32, u64);
 u32 *func_001E52A8(void *, s64, s64);
@@ -28,13 +28,13 @@ void func_001E52D0(Rect *r, u32 *uv, u8 *c) {
         p = func_001E52B8(p, (r->x0 + 0x6C0) << 4, (r->y0 / 2 + 0x790) << 4, 0x1000000, 0);
         p = func_001E52B8(p, uv[2], uv[3], 0x3F800000, 0);
         p = func_001E52B8(p, (r->x1 + 0x6C0) << 4, (r->y1 / 2 + 0x790) << 4, 0x1000000, 0);
-        func_00101120(0, 0);
+        sceGsSyncPath(0, 0);
         *(volatile s32 *)0x1000A020 = 0;
         *(volatile s32 *)0x1000A010 = 0;
         *(volatile s32 *)0x1000A030 = 0xF0000000;
         FlushCache(0);
         *(volatile s32 *)0x1000A000 = 0x145;
-        func_00101120(0, 0);
+        sceGsSyncPath(0, 0);
     }
 }
 

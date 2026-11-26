@@ -25,7 +25,7 @@ void sceVu0SubVector(f32 *, f32 *, f32 *);
 f32 func_00146940(Obj *, f32 *);
 void func_00141510(s8 *, u8, s32, s32);
 f32 sceVu0InnerProduct(f32 *, f32 *);
-void func_00102870(f32 *, f32 *);
+void sceVu0Normalize(f32 *, f32 *);
 void sceVu0ScaleVector(f32 *, f32 *, f32);
 f32 sqrtf(f32);
 #define POS(p) ((p) ? (f32 *)(*(s32 *)((p) + 0x518) + 0x90) : D_001F2160)
@@ -69,10 +69,10 @@ void func_0014BA10(Obj *a0) {
         bc = a0->xBC;
         sceVu0SubVector(b, c, (f32 *)a0);
         len = sqrtf(sceVu0InnerProduct(a0->v10, a0->v10));
-        func_00102870(a, b);
+        sceVu0Normalize(a, b);
         sceVu0ScaleVector(a, a, -1.0f * bc);
         sceVu0AddVector(a0->v10, a0->v10, a);
-        func_00102870(a0->v10, a0->v10);
+        sceVu0Normalize(a0->v10, a0->v10);
         sceVu0ScaleVector(a0->v10, a0->v10, len);
         a0->xBC -= x60;
     }

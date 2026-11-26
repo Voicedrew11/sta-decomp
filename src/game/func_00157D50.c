@@ -3,7 +3,7 @@ typedef struct { s16 x, y; } V;
 typedef struct { u8 pad[0x140]; V pos[2][8][11]; V vel[2][8][11]; } W;
 extern W D_002F19B0;
 extern f32 D_002F2070[];
-void func_00123A88(V (*)[11], V (*)[11], s32);
+void memcpy(V (*)[11], V (*)[11], s32);
 void func_00157FE0(s32);
 
 void func_00157D50(f32 dt) {
@@ -42,8 +42,8 @@ void func_00157D50(f32 dt) {
     D_002F2070[0] += dt / 100.0f;
     if (D_002F2070[0] > 1.0f) {
         D_002F2070[0] -= 1.0f;
-        func_00123A88(D_002F19B0.pos[0], D_002F19B0.pos[1], 0x160);
-        func_00123A88(D_002F19B0.vel[0], D_002F19B0.vel[1], 0x160);
+        memcpy(D_002F19B0.pos[0], D_002F19B0.pos[1], 0x160);
+        memcpy(D_002F19B0.vel[0], D_002F19B0.vel[1], 0x160);
         func_00157FE0(1);
     }
 }

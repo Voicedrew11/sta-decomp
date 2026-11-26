@@ -10,7 +10,7 @@ extern s32 D_00201E54;
 extern G D_00222A54[];
 extern s32 D_00270F40[];
 void *memset(void *p, s32 c, u32 n);
-void func_00123A88(s32, s32 *, u32);
+void memcpy(s32, s32 *, u32);
 s32 *func_001288C0(P *, s32);
 void func_0014DAB0(s32);
 void func_0014DAC0(s32, s32);
@@ -60,7 +60,7 @@ void func_001E1250(void) {
         case 5:
             n = e->x8 - e->xC;
             n = (n > 0x80000) ? 0x80000 : n;
-            func_00123A88(*e->x10 + e->xC, D_00270F40, n);
+            memcpy(*e->x10 + e->xC, D_00270F40, n);
             e->xC += n;
             func_0014DAE0(e->h);
             break;

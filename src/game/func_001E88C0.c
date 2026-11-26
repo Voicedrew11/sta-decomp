@@ -7,10 +7,10 @@ s32 strcmp(const char *, const char *);
 s32 strlen(const char *);
 char *strcpy(char *, const char *);
 s32 toupper(s32);
-void func_001260F0(char *, const char *, s32);
-s32 func_0010FAD0(char *, s32);
-s32 func_00112A60(s32);
-s32 func_00116EA0(void *, char *);
+void strncpy(char *, const char *, s32);
+s32 sceOpen(char *, s32);
+s32 sceSifFreeSysMemory(s32);
+s32 sceCdSearchFile(void *, char *);
 s32 sceCdDiskReady(s32);
 s32 sceCdStInit(u32, u32, u32);
 s32 sceCdStStart(u32, RMode *);
@@ -45,7 +45,7 @@ s32 func_001E88C0(s32 *a0, char *name) {
     colon = index(name, ':');
     len = colon - name;
     if (colon != NULL) {
-        func_001260F0(dev, name, len);
+        strncpy(dev, name, len);
         dev[len] = 0;
         if (strcmp(dev, D_00201950) == 0) {
             n = strlen(colon + 1);
@@ -74,16 +74,16 @@ s32 func_001E88C0(s32 *a0, char *name) {
         }
         if (sceCdStInit(0x50, 5, (a0[11] + 0xF) & ~0xF) != 1) {
             printf(D_002019A0);
-            if (func_00112A60(a0[11]) < 0) {
+            if (sceSifFreeSysMemory(a0[11]) < 0) {
                 printf(D_00201920, D_00201940, 0xF1A);
             }
             return 0;
         }
-        if (func_00116EA0(&a0[2], path) == 0) {
+        if (sceCdSearchFile(&a0[2], path) == 0) {
             printf(D_002019C0, path);
             while (!sceCdStStop() != 0) {
             }
-            if (func_00112A60(a0[11]) < 0) {
+            if (sceSifFreeSysMemory(a0[11]) < 0) {
                 printf(D_00201920, D_00201940, 0xF22);
             }
             return 0;
@@ -95,7 +95,7 @@ s32 func_001E88C0(s32 *a0, char *name) {
         while (!sceCdStStart(a0[2], &mode) != 0) {
         }
     } else {
-        a0[12] = func_0010FAD0(path, 1);
+        a0[12] = sceOpen(path, 1);
         if (a0[12] < 0) {
             printf(D_002019F0, path);
             return 0;

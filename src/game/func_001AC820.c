@@ -38,7 +38,7 @@ void func_0015B1C0(Vec *, s8 *);
 void func_0015B270(void);
 s8 *func_001715B0(s8 **);
 s8 *func_001C9B40(void);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 void func_0015CC40(void *, f32);
 void func_0016B970(s8 *, void *, s32, s8 *, s32, s32, s32);
 void func_0016B960(s8 *, void *, s32, s8 *, s32, s32);
@@ -122,7 +122,7 @@ void func_001AC820(O *o, s32 (*cb)(s8 **, P), s32 chk) {
         v = *(s8 **)(*o->x8C + 0x188) + o->xA6 * 0xA0;
     }
     if (o->xB4 < 1.0f) {
-        func_00123A88(buf2, v, 0xA0);
+        memcpy(buf2, v, 0xA0);
         func_0015CC40(buf2, o->xB4);
         func_0016B970(r, buf2, id, r + 0x200, 0, 2, 1);
     } else {

@@ -9,7 +9,7 @@ extern f32 D_004B4D04[];
 extern f32 D_004B4D08[];
 extern f32 D_004B4D0C[];
 void sceVu0CopyVector(f32 *, s8 *);
-void func_00102870(f32 *, f32 *);
+void sceVu0Normalize(f32 *, f32 *);
 void sceVu0ScaleVector(f32 *, f32 *, f32);
 void sceVu0AddVector(f32 *, f32 *, s8 *);
 void func_001502A0(Ray *, f32 *, f32 *, f32);
@@ -41,7 +41,7 @@ s32 func_001C1140(void) {
     }
     sceVu0CopyVector(a, p->m18 + 0x80);
     a[1] = 0.0f;
-    func_00102870(a, a);
+    sceVu0Normalize(a, a);
     sceVu0ScaleVector(a, a, -125.0f);
     sceVu0CopyVector(b, (s8 *)a);
     a[1] -= 10.0f;

@@ -22,8 +22,8 @@ typedef struct {
 typedef struct { u8 pad0[0x140]; u16 x140; u8 pad142[2]; f32 x144; f32 x148; u8 pad14C[4]; f32 x150; } Ent;
 typedef struct { u8 pad0[0xC]; f32 xC; f32 x10; f32 x14; } Q;
 typedef struct { u8 pad0[0x40]; Vec v40; Vec v50; } P;
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 u32 func_0013E750(Actor *);
 s32 func_0013E780(Actor *);
 void func_0013E730(Actor *, s32);
@@ -63,8 +63,8 @@ static inline void jump(Actor *a, f32 dt) {
     Vec t;
     P *p = (P *)(a->unk518 + 0x180);
     p->v50.y = 333.2f * (u2f(*(u16 *)(a->unk4B0 + 0x246)) / 4096.0f);
-    func_00102A18(&t, &p->v50, dt);
-    func_001029D0(&p->v40, &t, &p->v40);
+    sceVu0ScaleVector(&t, &p->v50, dt);
+    sceVu0AddVector(&p->v40, &t, &p->v40);
     func_0013E730(a, 1);
 }
 

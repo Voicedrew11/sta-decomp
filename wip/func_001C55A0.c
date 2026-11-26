@@ -11,7 +11,7 @@ void func_001D1E80(s32, s32, Arg *, s32, s32);
 s32 func_001D1F20(s32, s8 *, s32, s32, Arg *, s32);
 void func_00167600(s32, Obj *);
 void func_0013B950(s32, s32, s32, Arg *, s32, s32);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_001B9F10(void *, s8 *, f32, f32);
 static inline Sub *getsub(void) {
     Obj *o = D_002022E4;
@@ -39,7 +39,7 @@ void func_001C55A0(s32 a0, s32 a1, s32 a2, Arg *a3, s32 a4, s32 a5) {
             func_0013B950(a0, a1, a2, a3, a4, q);
             if (s->x39C != 0) {
                 Sub *p = getsub();
-                if (p != NULL) func_00102A60(&pos, (s8 *)p + 0x40);
+                if (p != NULL) sceVu0CopyVector(&pos, (s8 *)p + 0x40);
                 pos.y += 220.0f;
                 func_001B9F10(&pos, s->x18 + 0x20, 300.0f, 500.0f);
             }

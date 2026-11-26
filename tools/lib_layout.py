@@ -248,17 +248,25 @@ def bases_from(obj, sec, sec_addr, retail):
         elif typ == R_HI16:
             pending_hi.append((off, tsec, sval))
         elif typ == R_LO16:
-            # pair with every pending HI16 of the same target (gcc may emit several)
-            for hoff, htsec, hval in pending_hi:
-                if htsec != tsec or hval != sval:
-                    continue
+            # pair with the pending HI16 of the same target whose lui wrote the
+            # register this lo16 instruction reads: gcc hoists several luis
+            # of section-relative symbols (all with value 0) into saved
+            # registers, and pairing across them gives false bases. Failing
+            # that, with every pending HI16 of the same target (gcc may emit
+            # several).
+            same = [h for h in pending_hi if h[1] == tsec and h[2] == sval]
+            byreg = [h for h in same
+                     if (struct.unpack_from("<I", data, h[0])[0] >> 16) & 31 == (ow >> 21) & 31]
+            for hoff, htsec, hval in (byreg[-1:] or same):
                 how = struct.unpack_from("<I", data, hoff)[0]
                 hrw = struct.unpack_from("<I", rdata, sec_addr - rbase + hoff)[0]
                 addend = ((how & 0xFFFF) << 16) + sext16(ow)
                 absolute = ((hrw & 0xFFFF) << 16) + sext16(rw)
                 if tsec:
                     out[tsec].add(absolute - (addend + sval))
-            pending_hi = [h for h in pending_hi if not (h[1] == tsec and h[2] == sval)]
+            # a register-paired lui may serve later lo16s too; keep it
+            if not byreg:
+                pending_hi = [h for h in pending_hi if not (h[1] == tsec and h[2] == sval)]
     return out
 
 

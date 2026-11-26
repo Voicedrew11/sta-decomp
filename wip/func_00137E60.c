@@ -1,12 +1,12 @@
 #include "common.h"
 s32 func_0013FC00(s8 *);
 s32 func_0013FB90(s8 *, u8, Vec **, Vec **);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_00102A60(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 void func_001C93A0(Vec *);
 void func_001C9320(Vec *);
 void func_001C9490(Vec *);
@@ -46,8 +46,8 @@ s32 func_00137E60(s8 *a, s8 *b, Vec *out) {
     nb = func_0013FC00(b);
     for (i = 0; i < na; i++) {
         func_0013FB90(a, i, pa, qa);
-        func_001029E8(&d, pa[0], qa[0]);
-        len = sqrtf(func_00102848(&d, &d));
+        sceVu0SubVector(&d, pa[0], qa[0]);
+        len = sqrtf(sceVu0InnerProduct(&d, &d));
         if (!(len <= 0.9f * pa[0]->w)) {
             steps = (u32)(len / (0.9f * pa[0]->w)) + 1;
             if (steps > 6) steps = 6;
@@ -59,31 +59,31 @@ s32 func_00137E60(s8 *a, s8 *b, Vec *out) {
                     func_001C93A0(&c1);
                     func_001C9320(&c2);
                     t = u2f(k) / u2f(steps);
-                    func_00102A18(&f, &d, t);
-                    func_001029D0(&c1, &f, &c1);
-                    func_001029D0(&c2, &f, &c2);
-                    func_001029D0(&f, &f, qa[0]);
-                    func_001029E8(&e, pb[0], &f);
+                    sceVu0ScaleVector(&f, &d, t);
+                    sceVu0AddVector(&c1, &f, &c1);
+                    sceVu0AddVector(&c2, &f, &c2);
+                    sceVu0AddVector(&f, &f, qa[0]);
+                    sceVu0SubVector(&e, pb[0], &f);
                     e.y = 0.0f;
-                    if (func_00102848(&e, &e) - rr <= 0.0f) {
+                    if (sceVu0InnerProduct(&e, &e) - rr <= 0.0f) {
                         if (pb[0]->y < c1.y) {
                             if (pb[0]->y < c1.y - r) continue;
-                            func_00102A60(&g, &c1);
+                            sceVu0CopyVector(&g, &c1);
                         } else if (!(pb[0]->y <= c2.y)) {
                             if (!(pb[0]->y <= c2.y + r)) continue;
-                            func_00102A60(&g, &c2);
+                            sceVu0CopyVector(&g, &c2);
                         } else {
-                            func_00102A60(&g, &c1);
+                            sceVu0CopyVector(&g, &c1);
                             g.y = pb[0]->y;
                         }
-                        func_001029E8(&e, pb[0], &g);
-                        dd = r - sqrtf(func_00102848(&e, &e));
+                        sceVu0SubVector(&e, pb[0], &g);
+                        dd = r - sqrtf(sceVu0InnerProduct(&e, &e));
                         if (!(dd <= 0.0f)) {
-                            func_00102A18(&h, &d, t);
-                            func_001029E8(out, &g, pb[0]);
-                            func_00102870(out, out);
-                            func_00102A18(out, out, 1.0f + dd);
-                            func_001029D0(out, out, &h);
+                            sceVu0ScaleVector(&h, &d, t);
+                            sceVu0SubVector(out, &g, pb[0]);
+                            sceVu0Normalize(out, out);
+                            sceVu0ScaleVector(out, out, 1.0f + dd);
+                            sceVu0AddVector(out, out, &h);
                             out->w = 0.0f;
                             return 1;
                         }
@@ -96,25 +96,25 @@ s32 func_00137E60(s8 *a, s8 *b, Vec *out) {
                 r = pa[0]->w + pb[0]->w;
                 func_001C9490(&c3);
                 func_001C9410(&c4);
-                func_001029E8(&e2, pb[0], pa[0]);
+                sceVu0SubVector(&e2, pb[0], pa[0]);
                 e2.y = 0.0f;
-                if (func_00102848(&e2, &e2) - r * r <= 0.0f) {
+                if (sceVu0InnerProduct(&e2, &e2) - r * r <= 0.0f) {
                     if (pb[0]->y < c3.y) {
                         if (pb[0]->y < c3.y - r) continue;
-                        func_00102A60(&g2, &c3);
+                        sceVu0CopyVector(&g2, &c3);
                     } else if (!(pb[0]->y <= c4.y)) {
                         if (!(pb[0]->y <= c4.y + r)) continue;
-                        func_00102A60(&g2, &c4);
+                        sceVu0CopyVector(&g2, &c4);
                     } else {
-                        func_00102A60(&g2, &c3);
+                        sceVu0CopyVector(&g2, &c3);
                         g2.y = pb[0]->y;
                     }
-                    func_001029E8(&e2, pb[0], &g2);
-                    r = r - sqrtf(func_00102848(&e2, &e2));
+                    sceVu0SubVector(&e2, pb[0], &g2);
+                    r = r - sqrtf(sceVu0InnerProduct(&e2, &e2));
                     if (!(r <= 0.0f)) {
-                        func_001029E8(out, &g2, pb[0]);
-                        func_00102870(out, out);
-                        func_00102A18(out, out, 1.0f + r);
+                        sceVu0SubVector(out, &g2, pb[0]);
+                        sceVu0Normalize(out, out);
+                        sceVu0ScaleVector(out, out, 1.0f + r);
                         out->w = 0.0f;
                         return 1;
                     }

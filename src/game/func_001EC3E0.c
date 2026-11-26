@@ -8,8 +8,8 @@ void RemoveDmacHandler(s32, s32);            /* extern */
 void RemoveIntcHandler(s32, s32);            /* extern */
 void TerminateThread(s32);                       /* extern */
 void func_00109C08(s32 *);                   /* extern */
-void func_0010C500(s32);                     /* extern */
-s32 func_00112A60(s32);                             /* extern */
+void DisableIntc(s32);                     /* extern */
+s32 sceSifFreeSysMemory(s32);                             /* extern */
 void func_00116360(s32, s32, s32, s32); /* extern */
 void printf(s32 *, s32 *, s32);      /* extern */
 s32 sceCdStStop();                                  /* extern */
@@ -39,7 +39,7 @@ void func_001EC3E0(void) {
     DeleteThread((*D_004BE044));
     DisableDmac(2);
     RemoveDmacHandler(2, (*D_004BDFF0));
-    func_0010C500(2);
+    DisableIntc(2);
     RemoveIntcHandler(2, (*D_004BDFF4));
     DIntr();
     temp_5 = *(s32 *)0x1000F520;
@@ -53,10 +53,10 @@ void func_001EC3E0(void) {
     *(s32 *)0x1000B430 = 0;
     DeleteSema((*D_004BDFC8));
     func_00109C08(D_004BDF40);
-    if (func_00112A60((*D_004BDF24)) < 0) {
+    if (sceSifFreeSysMemory((*D_004BDF24)) < 0) {
         printf(D_00201920, D_00201940, 0x407);
     }
-    if (func_00112A60((*D_004BDF38)) < 0) {
+    if (sceSifFreeSysMemory((*D_004BDF38)) < 0) {
         printf(D_00201920, D_00201940, 0x409);
     }
     var_16 = 0;
@@ -69,7 +69,7 @@ void func_001EC3E0(void) {
         do {
 
         } while (!sceCdStStop() != 0);
-        if (func_00112A60((*D_004BE078)) < 0) {
+        if (sceSifFreeSysMemory((*D_004BE078)) < 0) {
             printf(D_00201920, D_00201940, 0xF6F);
         }
     } else {

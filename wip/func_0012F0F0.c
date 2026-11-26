@@ -1,7 +1,7 @@
 /* near-miss 12/170: case-1 call args: orig loads ch (lb a0) first and off before addr[arg1], addu a1,addr,off */
 #include "m2c.h"
-void func_0010BCA0(s32);
-void func_00123A88(s32 *, s8 *, u32);
+void FlushCache(s32);
+void memcpy(s32 *, s8 *, u32);
 void func_001789E0(s32 *, s8 *, u32);
 s32 func_001DAC70();
 s32 func_001DB020(s8, s32 *, u32);
@@ -35,12 +35,12 @@ s32 func_0012F0F0(s8 *arg0, u32 arg1) {
         D_0022F080.n = n;
         func_001DAC70(D_0022EBC0.ch[arg1], D_0022EBC0.addr[arg1] + D_0022F080.off, n);
         if (D_0022F080.n > 0x1000) {
-            func_0010BCA0(0);
+            FlushCache(0);
             func_001789E0(D_0022F080.buf, p, ((D_0022F080.n + 0xF) & ~0xF) >> 4);
         } else {
-            func_00123A88(D_0022F080.buf, p, D_0022F080.n);
+            memcpy(D_0022F080.buf, p, D_0022F080.n);
         }
-        func_0010BCA0(0);
+        FlushCache(0);
         ret = 0;
         D_0022F080.state = 2;
         break;
@@ -73,6 +73,6 @@ s32 func_0012F0F0(s8 *arg0, u32 arg1) {
         D_0022F080.state = 0;
         break;
     }
-    func_0010BCA0(0);
+    FlushCache(0);
     return ret;
 }

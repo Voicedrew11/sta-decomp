@@ -110,6 +110,34 @@ were left out of `src/sce/` and are still asm (kfiv-decomp has the sources):
   has one copy of the HalfOffset code, and `memclr`'s bytes appear at two
   addresses, neither in libkernl.
 
+Done since (2026-11-26): klib.s, libvu0, libmc, eeloadfile, iopheap and
+ipuinit. What SDK 2.5 changed in them: every `PsIIlib*` stamp reads `2500`;
+libvu0's `sceVu0Normalize` has two `vnop`s before the `vdiv`; libmc calls
+`scePrintf` (not `printf`) and adds `sceMcEnd` and `sceMcUdCheckNewCard`;
+eeloadfile adds `sceSifStopModule`, `sceSifUnloadModule` and
+`sceSifSearchModuleBy{Name,Address}` (RPC 7 to 10); iopheap shares one
+argument block and adds `sceSifAllocSysMemory`, `sceSifFreeSysMemory` and the
+five `sceSifQuery*` calls. A unit whose functions all match but whose `.text`
+does not place usually calls a libc function that symbol_addrs.txt has not
+named yet (`memcpy`, `strncpy` were `func_` names); game code calling such a
+function by its `func_` name has to be renamed with it.
+
+Also done (2026-11-26, second pass): crt0, glue, kprintf, filestub,
+iopreset, intr (split: SDK 2.5 moves Copy/kCopy/GetEntryAddress to
+tlbfunc.o and keeps kfiv's InitAlarm in its own member), the new SDK 2.5
+libkernl members initsys, osd, exec, alarm, tlbfunc and tlbtrap.s, libdma
+(rewritten around static wait helpers), libpad, cdvd000, sceCdReadClock,
+graph001/008/012/015/017, nine new libdev VIF0/VU0 members, libmpeg bit.c
+and libipu (which owns setD3_CHCR/setD4_CHCR). Recurring SDK 2.5 changes:
+`intr = DIntr(); ... if (intr) EIntr();`, `scePrintf` for `printf`, `2500`
+stamps. Not linked in this game: graph016/018/023/024/025, sceCdSeek,
+sceCdBreak, most of kfiv's libdev. Still open: graph003 (register
+allocation in sceGsSetDefDispEnv), libsdr (sceSdRemote's shared call),
+libmpeg (SDK 2.5 passes a decoder context to every internal function),
+and libc/libm/libgcc, whose soft-double code (no delay-slot fill on dp*
+libcalls or a double return move) looks like another ee-gcc 2.96 build.
+tools/lib_layout.py now pairs %lo with the %hi whose register it reads.
+
 For each: start from kfiv-decomp's source, update it to the SDK 2.5 / 2.96
 behaviour and run `tools/carve.py --check`. Data the tool cannot place
 (sections nothing references, or ambiguous byte matches) is listed by

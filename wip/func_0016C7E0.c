@@ -21,8 +21,8 @@ extern Flags8 D_00222A50[];
 extern s32 D_00201F48;
 extern s32 D_00201F4C;
 extern s32 D_00202008;
-void func_00102A60(Vec *, void *);
-void func_001027B0(Vec *, M *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0ApplyMatrix(Vec *, M *, Vec *);
 s32 func_00153FA0(Vec *);
 void func_0016F280(F);
 void func_0016DED0(Ent *, Oth *, u8 *, F);
@@ -85,9 +85,9 @@ void func_0016C7E0(Obj *o, Oth *oth, u8 *ctx, F f) {
         if (D_00222A50[0].f.b3) {
             m = 2;
         } else {
-            func_00102A60(&V, o);
+            sceVu0CopyVector(&V, o);
             V.w = 1.0f;
-            func_001027B0(&V, mt, &V);
+            sceVu0ApplyMatrix(&V, mt, &V);
             V.w = o->xC * (mt)->x134;
             m = func_00153FA0(&V);
         }
@@ -117,9 +117,9 @@ void func_0016C7E0(Obj *o, Oth *oth, u8 *ctx, F f) {
                     r = 2;
                 } else {
                     Vec V2;
-                    func_00102A60(&V2, arr);
+                    sceVu0CopyVector(&V2, arr);
                     V2.w = 1.0f;
-                    func_001027B0(&V2, (M *)(e + 0xC0), &V2);
+                    sceVu0ApplyMatrix(&V2, (M *)(e + 0xC0), &V2);
                     V2.w = ent->x1C * ((M *)(e + 0xC0))->x134;
                     r = func_00153FA0(&V2);
                 }

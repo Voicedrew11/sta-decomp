@@ -4,7 +4,7 @@ f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 f32 sqrtf(f32);
@@ -45,7 +45,7 @@ s32 func_001511C0(Cap *c, Vec *p, Vec *d, Vec *r1, Vec *r2, f32 *out) {
 
     sceVu0ScaleVector(&n, d, sceVu0InnerProduct(d, &c->d));
     sceVu0SubVector(&n, d, &n);
-    func_00102870(&n, &n);
+    sceVu0Normalize(&n, &n);
     sceVu0OuterProduct(&cr, &n, &c->d);
     sceVu0SubVector(&dp, p, &c->p);
     x = sceVu0InnerProduct(&cr, &dp);

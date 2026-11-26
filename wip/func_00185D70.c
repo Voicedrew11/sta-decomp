@@ -23,12 +23,12 @@ typedef struct { f32 x; f32 y; BF f; u8 pad9[0xB]; f32 x14; u8 pad18[8]; f32 x20
 void func_00181680(s32, void *, void *, void *, S *, u32);
 G *func_00189020(s32);
 s32 func_001CE200(s32);
-void func_00125CE8(s8 *, s8 *);
-u32 func_00125E00(s8 *);
+void strcpy(s8 *, s8 *);
+u32 strlen(s8 *);
 void func_00187A90(T *, s8 *, u64);
 s32 func_00188010(T *, Col);
-u64 func_0011F8C0(f32);
-void func_001256E0(s8 *, s8 *, u64);
+u64 fptodp(f32);
+void sprintf(s8 *, s8 *, u64);
 extern S D_001F26B0 __attribute__((aligned(16)));
 extern s8 D_0048CE40[];
 extern f32 D_0048D040[];
@@ -45,7 +45,7 @@ static inline void txt(s8 *s, Col c, O *o, s32 k, f32 sc) {
     y = o->x3C;
     x = o->x38;
     if (s) {
-        func_00187A90(&t, s, func_00125E00(s));
+        func_00187A90(&t, s, strlen(s));
         t.x = x;
         t.y = y;
         t.f.a = k;
@@ -82,7 +82,7 @@ void func_00185D70(O *o, s32 a1, u32 mode, C *a3) {
                     D_00202078 = (D_00202078 + 1) % 6;
                 }
             } else if (D_00202078 == i) {
-                func_00125CE8(D_0048CE40, D_001F2690[i]);
+                strcpy(D_0048CE40, D_001F2690[i]);
                 if (r == 1) {
                     col.w = 0x80808080;
                 } else if (r == 2) {
@@ -123,7 +123,7 @@ void func_00185D70(O *o, s32 a1, u32 mode, C *a3) {
         } else {
             col.w = 0x80808080;
         }
-        func_001256E0(D_0048CE40, D_001FCAA0, func_0011F8C0(u2f((u16)a3->max) / 10.0f));
+        sprintf(D_0048CE40, D_001FCAA0, fptodp(u2f((u16)a3->max) / 10.0f));
         txt(D_0048CE40, col, o, 2, 0.8f);
         break;
     case 303:
@@ -132,7 +132,7 @@ void func_00185D70(O *o, s32 a1, u32 mode, C *a3) {
         if (a3->hp < 0) a3->hp = 0;
         if (a3->hp > 999) a3->hp = 999;
         col.w = 0x80808080;
-        func_001256E0(D_0048CE40, D_001FCB38, func_0011F8C0(u2f((u16)a3->hp) / 10.0f));
+        sprintf(D_0048CE40, D_001FCB38, fptodp(u2f((u16)a3->hp) / 10.0f));
         txt(D_0048CE40, col, o, 0, 0.8f);
         break;
     case 304:

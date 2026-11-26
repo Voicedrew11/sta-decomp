@@ -12,7 +12,7 @@ typedef struct {
     struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:5; } xA8;
 } Obj;
 extern f32 D_00222850[];
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 void sceVu0InterVector(f32, f32 *, f32 *, f32 *);
 void sceVu0ApplyMatrix(f32 *, void *, f32 *);
 void sceVu0CopyVector(f32 *, f32 *);
@@ -25,8 +25,8 @@ void func_001AC200(Obj *o, Obj **best, f32 *dist) {
     f32 x, y, z, d;
     if (o->x9C != -1 && o->xA8.b0 && !o->xA8.b2 && o->xA4 == 0) {
         if (o->x88 != 0) {
-            func_00123A88(a, o->x88, 0x10);
-            func_00123A88(b, o->x88 + 0x40, 0x10);
+            memcpy(a, o->x88, 0x10);
+            memcpy(b, o->x88 + 0x40, 0x10);
             sceVu0InterVector(0.5f, v, a, b);
             v[3] = 1.0f;
             sceVu0ApplyMatrix(v, o, v);

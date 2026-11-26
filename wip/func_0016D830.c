@@ -12,8 +12,8 @@ extern s32 D_00202008;
 extern s32 D_00201F4C;
 extern s32 D_00201F48;
 void func_0016F280(U);
-void func_00102A60(Vec *, Vec *);
-void func_001027B0(Vec *, s8 *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, s8 *, Vec *);
 s32 func_00153FA0(Vec *);
 void func_0016DC70(Q *, P *, s8 *, s32, U);
 void func_0016F440(O *, P *, s32, s32, FL *);
@@ -78,9 +78,9 @@ void func_0016D830(O *o, P *p, s8 *a2, s32 idx, U u) {
         if (D_00222A50[0].f.b3) {
             k = 2;
         } else {
-            func_00102A60(&v, &e->v10);
+            sceVu0CopyVector(&v, &e->v10);
             v.w = 1.0f;
-            func_001027B0(&v, (s8 *)&m[idx], &v);
+            sceVu0ApplyMatrix(&v, (s8 *)&m[idx], &v);
             v.w = e->v10.w * m[idx].f134;
             k = func_00153FA0(&v);
         }

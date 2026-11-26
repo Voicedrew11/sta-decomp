@@ -25,7 +25,7 @@ typedef struct {
 } Pool;
 void FlushCache(s32, s32, u32);
 void func_001789E0(s32, s32, u32);
-void func_00123A88(s32, s32, u32);
+void memcpy(s32, s32, u32);
 
 s32 func_00128210(Pool *p) {
     u32 flag;
@@ -58,7 +58,7 @@ s32 func_00128210(Pool *p) {
                     FlushCache(0, dst, size);
                     func_001789E0(n->src, n->dst, n->size >> 4);
                 } else {
-                    func_00123A88(src, dst, size);
+                    memcpy(src, dst, size);
                 }
                 n->dst = n->src;
             }

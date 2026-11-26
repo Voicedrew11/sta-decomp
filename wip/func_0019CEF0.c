@@ -11,12 +11,12 @@ extern s8 D_004A3150[];
 extern G D_004A3250;
 void func_001875C0(f32, f32, f32, s8 *, s32, Col);
 void func_00181680(s32, s8 *, s8 *, void *, S *, s32);
-void func_001256E0(s8 *, s8 *, ...);
+void sprintf(s8 *, s8 *, ...);
 E *func_001AFC90(void);
 u8 *func_001CC3F0(s16);
 s8 *func_00189020(s32);
 void func_00183650(G *);
-double func_0011F8C0(f32);
+double fptodp(f32);
 static inline f32 u2f(u32 x) { return x; }
 static inline s32 chk(E *e) { if (e->xA == 0 && e->x29 == 5) return 1; return 0; }
 
@@ -44,12 +44,12 @@ void func_0019CEF0(s8 *a0, s32 a1, u32 a2, s32 a3) {
         if (a3 > 0) {
             *(u32 *)&col = 0x80808080;
             if (chk(&func_001AFC90()[a3])) {
-                func_001256E0(D_004A3150, D_001FD5B8, func_001CC3F0(a3)[2]);
+                sprintf(D_004A3150, D_001FD5B8, func_001CC3F0(a3)[2]);
                 func_001875C0(*(f32 *)(a0 + 0x38), *(f32 *)(a0 + 0x3C), 0.9f, D_004A3150, 2, col);
-                func_001256E0(D_004A3150, D_001FD5C0, func_001CC3F0(a3)[3]);
+                sprintf(D_004A3150, D_001FD5C0, func_001CC3F0(a3)[3]);
                 func_001875C0(8.0f + *(f32 *)(a0 + 0x38), 3.0f + *(f32 *)(a0 + 0x3C), 0.7f, D_004A3150, 0, col);
             } else {
-                func_001256E0(D_004A3150, D_001FD5B8, func_001CC3F0(a3)[2]);
+                sprintf(D_004A3150, D_001FD5B8, func_001CC3F0(a3)[2]);
                 func_001875C0(*(f32 *)(a0 + 0x38), *(f32 *)(a0 + 0x3C), 0.9f, D_004A3150, 2, col);
             }
         }
@@ -66,7 +66,7 @@ void func_0019CEF0(s8 *a0, s32 a1, u32 a2, s32 a3) {
         if (a3 > 0) {
             e = func_001AFC90() + a3;
             *(u32 *)&col2 = 0x80808080;
-            func_001256E0(D_004A3150, D_001FD5C8, func_0011F8C0(u2f(e->x4) / 10.0f));
+            sprintf(D_004A3150, D_001FD5C8, fptodp(u2f(e->x4) / 10.0f));
             func_001875C0(*(f32 *)(a0 + 0x38), *(f32 *)(a0 + 0x3C), 0.9f, D_004A3150, 0, col2);
         }
         break;

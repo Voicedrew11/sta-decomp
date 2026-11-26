@@ -3,7 +3,7 @@ typedef struct { s32 x0; u8 pad[0x28]; s32 x2C; s32 x30; s32 x34; s32 x38; s32 x
 extern volatile S D_004BDEE0;
 extern volatile s32 D_004BDF0C[]; extern s32 D_004BDF14[], D_004BDF18[], D_004BDF1C[], D_004BDF20[];
 typedef struct { s32 x0; s32 x4; u8 *x8; s32 xC; } H;
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 void func_001EBAB0(volatile S *s, u8 **a1, s32 *a2, u8 **a3, s32 *a4);
 s32 func_001EBE10(s32 a0, H *h, u8 *buf0) {
     u8 *D2;
@@ -41,18 +41,18 @@ s32 func_001EBE10(s32 a0, H *h, u8 *buf0) {
     if (N1 + n2 < total) {
         total = 0;
     } else if (n >= N1) {
-        func_00123A88(D1, src, N1);
-        func_00123A88(D2, src + N1, n - N1);
-        func_00123A88(D2 + n - N1, buf, rest);
+        memcpy(D1, src, N1);
+        memcpy(D2, src + N1, n - N1);
+        memcpy(D2 + n - N1, buf, rest);
     } else {
         t = N1 - n;
         if (rest >= t) {
-            func_00123A88(D1, src, n);
-            func_00123A88(D1 + n, buf, t);
-            func_00123A88(D2, buf + N1 - n, rest - t);
+            memcpy(D1, src, n);
+            memcpy(D1 + n, buf, t);
+            memcpy(D2, buf + N1 - n, rest - t);
         } else {
-            func_00123A88(D1, src, n);
-            func_00123A88(D1 + n, buf, rest);
+            memcpy(D1, src, n);
+            memcpy(D1 + n, buf, rest);
         }
     }
     left = total;

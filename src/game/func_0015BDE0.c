@@ -10,7 +10,7 @@ extern Vec D_0030C3E0;
 extern Vec D_001F2150;
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DBF0(f32, f32);
 f32 sqrtf(f32);
@@ -26,7 +26,7 @@ f32 func_0015BDE0(Ent *e) {
     sceVu0CopyVector(&v, &e->a);
     v.w = 1.0f;
     sceVu0ApplyMatrix(&v, &D_0030C3E0, &v);
-    func_00102870(&n, &v);
+    sceVu0Normalize(&n, &v);
     d = sceVu0InnerProduct(&n, &D_001F2150);
     d += s;
     if (d < 0.0f) return 0.0f;

@@ -38,7 +38,7 @@ void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 s32 func_001A5AA0(Actor *, P *, Mtx *);
 void func_001456B0(Vec *);
 f32 func_0013FC10(Vec *);
@@ -88,7 +88,7 @@ static inline void push(P *s1) {
     if (!s1->f39E.b) {
         sceVu0SubVector(&w, &D_004B4CF0, s1->x18);
         w.w = 0.0f;
-        func_00102870(&w, &w);
+        sceVu0Normalize(&w, &w);
         sceVu0ScaleVector(&w, &w, 200.0f);
         sceVu0AddVector(&s1->x50, &s1->x50, &w);
         s1->x50.y -= 196.0f;

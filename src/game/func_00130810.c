@@ -15,7 +15,7 @@ f32 func_0011DBC0(f32, f32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DBD8(f32);
 f32 fabsf(f32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 func_0011DBF0(f32, f32);
 f32 sqrtf(f32);
 
@@ -143,7 +143,7 @@ void func_00130810(Snd *s) {
     s->x3C = f;
     s->x2C = dist;
     if (!(s->x44 <= 0.0f)) {
-        func_00102870(&a, &s->x50);
+        sceVu0Normalize(&a, &s->x50);
         sceVu0ApplyMatrix(&a, &D_002F16C0, &a);
         f = sceVu0InnerProduct(&a, &D_001F2150);
         f = 1.0f - f;

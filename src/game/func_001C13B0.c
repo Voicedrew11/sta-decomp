@@ -16,7 +16,7 @@ void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void memset(void *, s32, s32);
 s32 func_001B3240(s8 *, Hit *, Vec *, s32, s32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 static inline P *cur(void) {
@@ -56,7 +56,7 @@ s32 func_001C13B0(void) {
         V[1].w = 1.0f;
         sceVu0CopyVector(&V[0], &p->o[8]);
         V[0].y = 0.0f;
-        func_00102870(&V[0], &V[0]);
+        sceVu0Normalize(&V[0], &V[0]);
         if (sceVu0InnerProduct(&V[1], &V[0]) > 0.8f) {
             if (hit.p.y < p->o->y + 234.99998f) {
                 sceVu0SubVector(&d, &hit.p, p->o);

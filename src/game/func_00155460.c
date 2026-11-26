@@ -15,7 +15,7 @@ extern u32 D_00201F54, D_00201F50, D_00201F4C, D_00201F48, D_00201F44, D_00201F4
 extern s8 D_4A0[], D_4B0[], D_1B90[], D_2710[], D_2770[], D_3C30[], D_3C70[];
 extern s8 D_001F4B80[];
 B *sceDmaGetChan(s32);
-void func_00101CB0(B *, s8 *);
+void sceDmaSend(B *, s8 *);
 void FlushCache(s32);
 void func_001789E0(u32, u32, s32);
 static inline void chain(u32 *p) {
@@ -49,7 +49,7 @@ void func_00155460(u32 buf, u32 size) {
     D_002F19A8[0] = D_002F19A0[0];
     b = sceDmaGetChan(1);
     b->b6 = 1;
-    func_00101CB0(b, D_001F4B80);
+    sceDmaSend(b, D_001F4B80);
     while (*(volatile u32 *)0x10009000 & 0x100) {
     }
     D_00201F54 = (u32)(D_4A0 - 0x4A0) >> 3; /* original: a symbol at address 0 (D_0); not in the ELF symbol list, same bytes */

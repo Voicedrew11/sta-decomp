@@ -6,7 +6,7 @@ Vec *func_00140460(O *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 s32 func_0013E690(O *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0InterVector(f32, Vec *, Vec *, Vec *);
 f32 func_0013FC10(Vec *);
 Vec *func_00140430(O *);
@@ -57,8 +57,8 @@ s32 func_00134180(O *o, f32 rate) {
     }
     if (func_0013E690(o)) {
         if (!(sceVu0InnerProduct(&o->x6A0, &o->x6A0) <= 0.1f)) {
-            func_00102870(&a, &d);
-            func_00102870(&b, &o->x6A0);
+            sceVu0Normalize(&a, &d);
+            sceVu0Normalize(&b, &o->x6A0);
             sceVu0InterVector(0.7f, &a, &a, &b);
             ang = func_0013FC10(&a);
         } else {

@@ -5,11 +5,11 @@ extern P **D_004A4570[];
 extern s16 D_004A4774[];
 extern u16 D_004A4776[];
 P **func_001288C0(s32, s32);
-void func_00123C40(P *, s32, s32);
+void memset(P *, s32, s32);
 void func_001A51E0(P **, s32);
 static inline s32 reg(P **h) {
     P *p = *h;
-    func_00123C40(p, 0, 0x750);
+    memset(p, 0, 0x750);
     D_004A4570[p->x2 = D_004A4776[--D_004A4774[0]]] = h;
     return 1;
 }

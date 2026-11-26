@@ -9,7 +9,7 @@ void func_001E2018(s32, s32, s32);
 void func_001E1EA8(s32);
 void func_001E1F28(s32, s32);
 void func_001E1E70(s32);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 void func_001E54E8(void *, P8 *, P8 *);
 void func_001E3DD8(void) {
     s32 i;
@@ -21,7 +21,7 @@ void func_001E3DD8(void) {
     func_001E1EA8(1);
     func_001E1F28(func_001E4030(b, 1), b);
     func_001E1E70(D_004BC2F0.x1C);
-    func_00101120(0, 0);
+    sceGsSyncPath(0, 0);
     for (i = 0; i < 3; i++) {
         if (D_004BC2F0.x28[i]) {
             func_001E54E8(D_004BC2F0.x28[i], &D_004BC2F0.x38[i], &D_004BC2F0.x50[i]);

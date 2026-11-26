@@ -2,7 +2,7 @@
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 func_0015DF50(Vec *, Vec *);
 
 void func_00150020(Vec *o, Vec *p, Vec *q) {
@@ -22,7 +22,7 @@ void func_00150020(Vec *o, Vec *p, Vec *q) {
     sceVu0AddVector(&o[1], &a, &m);
     f = func_0015DF50(&o[1], o);
     sceVu0SubVector(&o[1], &o[1], o);
-    func_00102870(&o[1], &o[1]);
+    sceVu0Normalize(&o[1], &o[1]);
     o[1].w = f;
     o[0].w = 1.2f * q[0].w;
 }

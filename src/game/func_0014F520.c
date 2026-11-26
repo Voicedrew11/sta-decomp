@@ -5,7 +5,7 @@ void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 float sqrtf(float);
 
 s32 func_0014F520(Vec *out, Vec *p, Vec *q, Vec *v, Vec *n, s32 i, s32 two, f32 *dist) {
@@ -37,7 +37,7 @@ s32 func_0014F520(Vec *out, Vec *p, Vec *q, Vec *v, Vec *n, s32 i, s32 two, f32 
     sceVu0SubVector(&d, q, p);
     d.w = 0.0f;
     if (two == 0) {
-        func_00102870(&h, &d);
+        sceVu0Normalize(&h, &d);
         if (!(sceVu0InnerProduct(&h, n) < 0.0f)) {
             return 0;
         }

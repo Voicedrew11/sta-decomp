@@ -2,6 +2,27 @@
 #include <eeregs.h>
 #include <libipu.h>
 #include <libipu_internal.h>
+#include <eekernel.h>
+
+/* SAB: the two DMA channel control helpers open libipu.o (kfiv-decomp had
+   them at the end of libmpeg's bit.c) */
+void setD3_CHCR(int chcr)
+{
+    DIntr();
+    *D_ENABLEW = *D_ENABLER | 0x10000;
+    *D3_CHCR = chcr;
+    *D_ENABLEW = *D_ENABLER & 0xFFFEFFFF;
+    EIntr();
+}
+
+void setD4_CHCR(int chcr)
+{
+    DIntr();
+    *D_ENABLEW = *D_ENABLER | 0x10000;
+    *D4_CHCR = chcr;
+    *D_ENABLEW = *D_ENABLER & 0xFFFEFFFF;
+    EIntr();
+}
 
 void sceIpuStopDMA(sceIpuDmaEnv *env)
 {

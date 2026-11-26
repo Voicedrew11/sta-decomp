@@ -33,7 +33,7 @@ s32 scePadSetActAlign(s32, s32, u8 *);
 s32 scePadSetMainMode(s32, s32, s32, s32);
 s32 func_001D7110(E *, s32, s32);
 void func_001D71E0(E *);
-void func_00115BA0(s32, s32, u8 *);
+void scePadSetActDirect(s32, s32, u8 *);
 
 void func_001D7350(void) {
     u8 act[6];
@@ -196,7 +196,7 @@ void func_001D7350(void) {
                     if (r == -1) e->phase = 0;
                     e->x120 = e->btn & ~old;
                     func_001D71E0(e);
-                    if ((e->flags & 2) && e->state == 6) func_00115BA0(port, slot, e->act);
+                    if ((e->flags & 2) && e->state == 6) scePadSetActDirect(port, slot, e->act);
                 }
                 break;
             }
