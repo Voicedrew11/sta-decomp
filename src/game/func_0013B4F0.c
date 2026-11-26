@@ -22,7 +22,7 @@ void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void func_00156920(Buf *);
 f32 sqrtf(f32);
 
@@ -66,7 +66,7 @@ void func_0013B4F0(Actor *a, s32 flag, f32 f) {
                 sceVu0CopyVector(&L1.a, Q.p);
                 sceVu0SubVector(&L1.b, P.p, Q.p);
                 L1.b.w = sqrtf(sceVu0InnerProduct(&L1.b, &L1.b));
-                func_00102870(&L1.b, &L1.b);
+                sceVu0Normalize(&L1.b, &L1.b);
                 func_00156920(&L1);
             }
         } else {
@@ -91,7 +91,7 @@ void func_0013B4F0(Actor *a, s32 flag, f32 f) {
                 sceVu0SubVector(b, b, &g->a);
                 b->w = 0.0f;
                 f = sqrtf(sceVu0InnerProduct(b, b));
-                func_00102870(b, b);
+                sceVu0Normalize(b, b);
                 g->a.w = e->v0.w * s->f4;
                 b->w = f;
                 if (D_00222A51[0].b7 && !func_0013EE30(a) && !(func_0013DC70(a, j)->x160 & 1) &&

@@ -23,7 +23,7 @@ void func_001552A0(void);
 void func_00154B70(void);
 void func_00153D80(void);
 s32 sceGsSyncV(s32);
-void func_00100200(s32, s32, s32, s32);
+void sceGsResetGraph(s32, s32, s32, s32);
 void func_00159DD0(s32, s8 *, void *, s32 *);
 s32 func_001E3AF8(s32);
 s32 *func_001288C0(s8 *, s32);
@@ -33,7 +33,7 @@ void sceGsSetDefDBuff(DBuff *, s32, s32, s32, s32, s32, s32);
 void FlushCache(s32);
 s32 func_00130590(s8 *, s32, s32);
 void sceGsSwapDBuff(DBuff *, s32);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 s32 func_001E3CA0(void);
 void func_001304B0(s32);
 void sceGsSetHalfOffset(DrawEnv1 *, s32, s32, s16);
@@ -62,7 +62,7 @@ void func_00194FC0(void) {
     func_00155370();
     func_001552A0();
     sceGsSyncV(0);
-    func_00100200(0, 1, 2, 1);
+    sceGsResetGraph(0, 1, 2, 1);
     x = 0;
     func_00159DD0(0xC6EE908E, D_00222AF0, &D_00202150, &x);
     D_00202148 = *D_00202150;
@@ -78,7 +78,7 @@ void func_00194FC0(void) {
 loop:
         FlushCache(0);
         sceGsSwapDBuff(&db, fr);
-        func_00101120(0, 0);
+        sceGsSyncPath(0, 0);
     if (func_001E3CA0() == 0) goto flip;
             i = 0;
             func_001304B0(-0x100);
@@ -89,7 +89,7 @@ loop:
                 sceGsSyncV(0);
                 FlushCache(0);
                 sceGsSwapDBuff(&db, fr);
-                func_00101120(0, 0);
+                sceGsSyncPath(0, 0);
             }
     goto done;
 flip:

@@ -3,7 +3,7 @@ typedef struct { s64 a; s64 b; s32 pos; s32 len; } E;
 typedef struct { u8 p0[8]; u8 *src; u32 len; s64 a; s64 b; } P;
 void SignalSema(s32);
 void WaitSema(s32);
-void func_00123A88(s32, s32, s32);
+void memcpy(s32, s32, s32);
 void func_001EA4D0(s32 *, E *);
 void func_001EAF60(s32 *, s32 *, s32 *, s32 *, s32 *);
 typedef struct { s32 x0; u8 p4[0x10]; s32 x14; u8 p18[0x28]; s32 sema; u8 p44[4]; s64 tot; E *ents; s32 n; s32 cnt; s32 head; } O;
@@ -40,18 +40,18 @@ s32 func_001EC070(s32 a0, P *p, u8 *buf) {
     if (n + bn < total) {
         total = 0;
     } else if ((s32)n1 >= n) {
-        func_00123A88(pa, (s32)src, n);
-        func_00123A88(pb, (s32)src + n, n1 - n);
-        func_00123A88(pb + n1 - n, (s32)bb, n2);
+        memcpy(pa, (s32)src, n);
+        memcpy(pb, (s32)src + n, n1 - n);
+        memcpy(pb + n1 - n, (s32)bb, n2);
     } else {
         r = n - n1;
         if (n2 >= r) {
-            func_00123A88(pa, (s32)src, n1);
-            func_00123A88(pa + n1, (s32)bb, r);
-            func_00123A88(pb, (s32)bb + n - n1, n2 - r);
+            memcpy(pa, (s32)src, n1);
+            memcpy(pa + n1, (s32)bb, r);
+            memcpy(pb, (s32)bb + n - n1, n2 - r);
         } else {
-            func_00123A88(pa, (s32)src, n1);
-            func_00123A88(pa + n1, (s32)bb, n2);
+            memcpy(pa, (s32)src, n1);
+            memcpy(pa + n1, (s32)bb, n2);
         }
     }
     if (total > 0) {

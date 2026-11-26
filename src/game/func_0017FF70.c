@@ -8,12 +8,12 @@ void func_00154B70(void);
 void func_00153D80(void);
 s32 func_001A9480(void);
 void func_001D7FD0(void);
-void func_0010C500(s32);
+void DisableIntc(s32);
 s32 *func_001288C0(s8 *, u32);
 void func_001ED5D0(s32, s32, s32, s32);
 void func_001ED0C0(s32, s32, s32, void (*)(void), s32, s32, s32, s32);
 void func_00180F10(void);
-void func_0010C568(s32);
+void EnableIntc(s32);
 void func_00128580(s8 *, s32 *);
 void func_001D7EC0(void);
 void func_001558F0(void);
@@ -43,11 +43,11 @@ void func_0017FF70(s32 arg0) {
         vol = 0x7F;
     }
     func_001D7FD0();
-    func_0010C500(9);
+    DisableIntc(9);
     blk = func_001288C0(D_00222AF0, 0xA00000);
     func_001ED5D0(0, 0, 0, 0x1E);
     func_001ED0C0(arg0, *blk, 0xA00000, func_00180F10, vol * 129, 2, 0, 0);
-    func_0010C568(9);
+    EnableIntc(9);
     func_00128580(D_00222AF0, blk);
     func_001D7EC0();
     func_001558F0();

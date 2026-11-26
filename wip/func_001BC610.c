@@ -10,12 +10,12 @@ typedef struct {
 } Src;
 typedef struct { u8 p[3]; u8 : 2; u8 w : 4; } TA;
 typedef struct { u64 : 30; u64 w : 4; } TB;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00155BD0(Src *);
 void func_00176B10(void *);
 void func_001BC610(s16 a, s16 b, s16 c, s16 d, s32 col, s32 f, void *t) {
     Src s;
-    func_00123C40(&s, 0, 0x50);
+    memset(&s, 0, 0x50);
     s.col = col;
     s.b0 = 1;
     s.b1 = 0;

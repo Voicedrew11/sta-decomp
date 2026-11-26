@@ -21,7 +21,7 @@ Vec *func_0013FFA0(s8 *);
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, void *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 float sqrtf(float);
@@ -86,10 +86,10 @@ void func_0014D4A0(O *o) {
         t = o->xB0.w;
         sceVu0SubVector(&v60, &b0, o);
         s = sqrtf(sceVu0InnerProduct(&o->v, &o->v));
-        func_00102870(&v50, &v60);
+        sceVu0Normalize(&v50, &v60);
         sceVu0ScaleVector(&v50, &v50, -1.0f * t);
         sceVu0AddVector(&o->v, &o->v, &v50);
-        func_00102870(&o->v, &o->v);
+        sceVu0Normalize(&o->v, &o->v);
         sceVu0ScaleVector(&o->v, &o->v, s);
         o->xB0.w = o->xB0.w - h;
     }

@@ -1,6 +1,6 @@
 #include "m2c.h"
 void FlushCache(s32);
-void func_00123A88(u8 *, s8 *, u32);
+void memcpy(u8 *, s8 *, u32);
 s32 func_001DAA90(s8, u8 *, u32);
 s8 func_001DAC30(void);
 typedef struct { s32 a; u32 size; s32 b; s32 c; s8 data[]; } H;
@@ -32,7 +32,7 @@ s32 func_0012EF40(H *arg0, u32 arg1) {
     case 1:
         q = (s8 *)((s32)arg0->data + ((arg0->c + 0xF) & ~0xF));
         D_0022F088[0] = D_0022F08C[0];
-        func_00123A88(D_0022F090, q, D_0022F088[0]);
+        memcpy(D_0022F090, q, D_0022F088[0]);
         FlushCache(0);
         D_0022F084[0] = 2;
     case 2:

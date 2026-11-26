@@ -15,9 +15,9 @@ typedef struct {
 u16 *func_001A5460(s32 *);
 u32 func_0013E110(u16 *);
 Vec *func_0013FFA0(u16 *);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 void func_00163C80(Obj *, Mtx *);
-void func_001029E8(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
 float sqrtf(float);
 static inline f32 u2f(u32 x) { return x; }
 static inline f32 h(f32 dist, f32 r) { return (r - dist) / (2.0f * r); }
@@ -45,14 +45,14 @@ void func_0014BC90(Obj *a) {
         a->xB8 = 0.0f;
     }
     if (p) {
-        func_00102A60(&t, func_0013FFA0(p));
+        sceVu0CopyVector(&t, func_0013FFA0(p));
         if (a->f114.b5) {
             func_00163C80(a, &m);
-            func_00102A60(&s, &m.m[3]);
+            sceVu0CopyVector(&s, &m.m[3]);
         } else {
-            func_00102A60(&s, a);
+            sceVu0CopyVector(&s, a);
         }
-        func_001029E8(&d, &t, &s);
+        sceVu0SubVector(&d, &t, &s);
 
         k = (r - sqrtf(d.x * d.x + d.z * d.z)) / (2.0f * r) * 0.001f;
     } else {

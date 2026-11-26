@@ -41,7 +41,7 @@ extern f32 D_001F2160[];
 s8 *func_001A5460(s32 *);
 void func_00163C80(O *, Mtx *);
 void sceVu0CopyVector(void *, void *);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 f32 func_00146940(void *, Vec *);
 void func_001B7CC0(s32, s32);
 s32 func_0013EE40(s8 *);
@@ -76,13 +76,13 @@ void func_00149810(O *o, f32 dt) {
     } else {
         sceVu0CopyVector(&pos, o);
     }
-    func_00123A88(&t, &o->xA8, 4);
+    memcpy(&t, &o->xA8, 4);
     first = (t == 0.0f);
     t += dt;
     if (o->x50 <= t) {
         t = 0.0f;
     }
-    func_00123A88(&o->xA8, &t, 4);
+    memcpy(&o->xA8, &t, 4);
     if (!first) return;
     {
         if (o->x64 == 2.0f) {

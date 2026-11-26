@@ -34,14 +34,14 @@ extern u64 D_00222A60[];
 extern u64 D_00222A68[];
 extern u64 D_00222A70[];
 extern u64 D_00222A78[];
-void func_00100200(s32, s32, s32, s32);
+void sceGsResetGraph(s32, s32, s32, s32);
 void sceGsSetDefDBuff(DBuff *, s32, s32, s32, s32, s32, s32);
 void sceVu0CopyMatrix(f32 *, f32 *);
 int func_00178870(char *a0, float f0, float f1, float f2);
 void func_00178910(s32, s32);
 
 void func_00129040(void) {
-    func_00100200(0, 1, 2, 0);
+    sceGsResetGraph(0, 1, 2, 0);
     sceGsSetDefDBuff(&D_002F1390, 0, 640, 448, 3, 0x3A, 1);
     D_002F1390.disp[0].dispfb.FBP = 0;
     D_002F1390.disp[1].dispfb.FBP = 0x8C;

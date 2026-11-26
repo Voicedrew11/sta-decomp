@@ -1,10 +1,10 @@
 #include "common.h"
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 f32 sqrtf(f32);
-void func_00102A60(Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, s8 *);
-f32 func_00102848(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, s8 *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 func_0011DA18(f32);
 f32 func_0011D778(f32);
 void func_00140440(s8 *, Vec *);
@@ -29,8 +29,8 @@ u8 func_00134960(s8 *a) {
     u8 k;
     f32 dist;
 
-    func_00102A60(&p, (Vec *)(a + 0x620));
-    func_00102A60(&r, (Vec *)(a + 0x630));
+    sceVu0CopyVector(&p, (Vec *)(a + 0x620));
+    sceVu0CopyVector(&r, (Vec *)(a + 0x630));
     switch (*(u8 *)(a + 0x610)) {
     case 0:
         func_00140440(a, &r);
@@ -56,16 +56,16 @@ u8 func_00134960(s8 *a) {
     case 3: {
         Vec e;
         f32 len;
-        func_001029E8(&e, &p, func_00140460(a));
+        sceVu0SubVector(&e, &p, func_00140460(a));
         *(s32 *)&e.y = 0;
-        len = sqrtf(func_00102848(&e, &e));
+        len = sqrtf(sceVu0InnerProduct(&e, &e));
         e.x /= len;
         e.y /= len;
         e.z /= len;
         e.x *= 8.0f;
         e.y *= 8.0f;
         e.z *= 8.0f;
-        func_001029E8(&p, func_00140460(a), &e);
+        sceVu0SubVector(&p, func_00140460(a), &e);
         break;
     }
     }
@@ -80,7 +80,7 @@ u8 func_00134960(s8 *a) {
             if (k == k1) k = 0xFF;
             if (k != 0xFF) {
                 Vec *q = func_00143840(o, k);
-                if (q) func_001029D0(&p, q, g);
+                if (q) sceVu0AddVector(&p, q, g);
             }
             *(u8 *)(a + 0x6C0) = k;
         } else {
@@ -89,11 +89,11 @@ u8 func_00134960(s8 *a) {
     } else {
         *(u8 *)(a + 0x6C0) = 0xFF;
     }
-    func_00102A60((Vec *)(a + 0x640), &p);
-    func_00102A60((Vec *)(a + 0x650), &r);
-    func_001029E8(&d, (Vec *)(a + 0x620), func_00140460(a));
+    sceVu0CopyVector((Vec *)(a + 0x640), &p);
+    sceVu0CopyVector((Vec *)(a + 0x650), &r);
+    sceVu0SubVector(&d, (Vec *)(a + 0x620), func_00140460(a));
     *(s32 *)&d.y = 0;
-    dist = sqrtf(func_00102848(&d, &d));
+    dist = sqrtf(sceVu0InnerProduct(&d, &d));
     if (dist < 100.0f) return 2;
     if (!(dist < 300.0f)) return 0;
     return 1;

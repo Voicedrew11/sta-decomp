@@ -65,7 +65,7 @@ void func_0016B480(Col, u8);
 void func_0016B960(s8 *, s32, u16 *, s8 *, s32, s32);
 void func_0015B6B0(Vec *, Vec *);
 void func_0015B1C0(Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_0016D380(u16 *, H2 *, s8 *, s32, Col, u8);
 void func_001502A0(M *, P *, Vec *, f32);
 void func_00167670(s32, M *);
@@ -206,7 +206,7 @@ void func_001A5DE0(O *o) {
         func_0015B1C0(&pv, &q);
     } else {
         func_0015B6B0(&pv, &o->x560);
-        func_00102A60(&q, &o->x550);
+        sceVu0CopyVector(&q, &o->x550);
         func_0015B1C0(&pv, &q);
     }
     if (func_0013D1E0(o)) {

@@ -16,7 +16,7 @@ s32 func_00128830(s8 *);
 void func_001285C0(s8 *, C *, s32);
 void FlushCache(s32);
 void func_001789E0(s8 *, s8 *, s32);
-void func_00123A88(s8 *, s8 *, s32);
+void memcpy(s8 *, s8 *, s32);
 
 void func_00153360(C *c, C *a1, C *a2) {
     u32 esz;
@@ -56,13 +56,13 @@ skip:
                     FlushCache(0);
                     func_001789E0(c->base + off + esz, c->base + off, sz / 16);
                 } else {
-                    func_00123A88(b + off + esz, b + off, sz);
+                    memcpy(b + off + esz, b + off, sz);
                 }
             } else {
-                func_00123A88(b + off + esz, b + off, k * esz);
+                memcpy(b + off + esz, b + off, k * esz);
             }
         }
-        func_00123A88(c->base + off, (s8 *)a2, esz);
+        memcpy(c->base + off, (s8 *)a2, esz);
         c->cnt++;
         break;
     case 2:

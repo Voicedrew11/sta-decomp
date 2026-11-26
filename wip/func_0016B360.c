@@ -9,7 +9,7 @@ extern s32 D_00201FF8;
 extern s32 D_00201FFC;
 extern s32 D_00202000;
 extern s32 D_00202004;
-void func_001029D0(Vec *, M *, s8 *);
+void sceVu0AddVector(Vec *, M *, s8 *);
 void func_001549D0(void);
 void func_00155900(void);
 void func_001548F0(s32);
@@ -33,7 +33,7 @@ s32 func_0016B360(H *h, F f, s32 a2) {
             r = (R *)((s8 *)r + d * (m->n * 0x140 + 0x200));
             r->xB0 = h->x4 - (s32)m;
         }
-        func_001029D0(&v, h->m->x0->x0, (s8 *)&r->xF0);
+        sceVu0AddVector(&v, h->m->x0->x0, (s8 *)&r->xF0);
         return func_0016B500(&v, f, a2);
     }
     g = f;

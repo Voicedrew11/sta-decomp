@@ -1,10 +1,10 @@
 #include "m2c.h"
 typedef struct { f32 v[4]; } Vec;
 u16 *func_001A5460(s32 *);
-void func_00102870(Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-void func_00102A60(Vec *, Vec *);
-f32 func_0011D850(f32);
+void sceVu0Normalize(Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+f32 fabsf(f32);
 s32 func_0013EE40(u16 *);
 Vec *func_0013FFA0(u16 *);
 f32 func_00146940(Vec *, Vec *);
@@ -31,20 +31,20 @@ u16 *func_00146EF0(Vec *pos, Vec *dir, s32 check, f32 maxd, f32 w, f32 h) {
     best = 65535.0f;
     it = 0;
     e = func_001A5460(&it);
-    func_00102870(&a0, dir);
+    sceVu0Normalize(&a0, dir);
     if (e != NULL) {
         hw = 0.5f * w;
         hh = 0.5f * h;
         do {
             if (*e != 0 && func_0013EE40(e) == 0) {
-                func_00102A60(&p, func_0013FFA0(e));
+                sceVu0CopyVector(&p, func_0013FFA0(e));
                 d = func_00146940(&p, pos);
                 if (!(maxd < d)) {
-                    func_001029E8(&b0, &p, pos);
-                    func_00102870(&b0, &b0);
+                    sceVu0SubVector(&b0, &p, pos);
+                    sceVu0Normalize(&b0, &b0);
                     func_00146310(pos, dir, &p, &cc, &c8);
-                    cc = func_0011D850(cc);
-                    c8 = func_0011D850(c8);
+                    cc = fabsf(cc);
+                    c8 = fabsf(c8);
                     if (!(hw < c8) && !(hh < cc)) {
                         d = (1.0f + c8) * (d * (1.0f + cc));
                         if (d < 0.0f) {

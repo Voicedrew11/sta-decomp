@@ -44,8 +44,8 @@ extern s32 D_00201E80;
 #define GX ((O ***)&D_00201E80)
 u32 func_001AA1E0(s32, s16);
 void func_001C9410(Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
-f32 func_0011D850(f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+f32 fabsf(f32);
 f32 func_0015DEE0(Vec *, Vec *);
 s32 func_0015C9E0(void);
 A **func_001A7D90(u16);
@@ -67,8 +67,8 @@ static inline s32 inr(E *e, O *o, u16 *r) {
     pos.y = e->y;
     pos.z = e->z;
     pos.w = 1.0f;
-    func_001029D0(&pos, &pos, &o->x10);
-    h = func_0011D850(pos.y - cam.y);
+    sceVu0AddVector(&pos, &pos, &o->x10);
+    h = fabsf(pos.y - cam.y);
     d = func_0015DEE0(&pos, &cam);
     if (u2f(r[0]) < d) goto no;
     if (r[1] == 0) goto yes;

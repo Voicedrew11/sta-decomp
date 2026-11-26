@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { u8 pad[0x14]; s32 x14; u64 b0:1; u64 b1:1; u64 rest:62; } S22C4;
 void FlushCache(s32);
-void func_00123A88(s32, s32 *, s32);
+void memcpy(s32, s32 *, s32);
 void func_0012C790(s32);
 void func_0012DD10(s32);
 void func_0014DAB0(s32);
@@ -88,7 +88,7 @@ void func_001E19A0(void) {
             FlushCache(0);
             func_001789E0(*D_00222B54 + *D_004BC2E8, D_00270F40, q);
             if (rem > 0) {
-                func_00123A88(*D_00222B54 + off, (s32 *)((u8 *)D_00270F40 + off), rem);
+                memcpy(*D_00222B54 + off, (s32 *)((u8 *)D_00270F40 + off), rem);
             }
             *D_004BC2E8 += n;
             func_0014DAE0(*D_004BC2E0);

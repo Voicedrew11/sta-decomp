@@ -8,7 +8,7 @@ extern s32 D_00201F24;
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void sceVu0InterVector(Vec *, Vec *, Vec *, f32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void func_00151B20(Res *, Seg *, Seg *);
 
 s32 func_00150730(Out *o, Pair *p1, Pair *p2, f32 t0, f32 dt, RPair *p3, s32 *state, f32 *best, f32 eps) {
@@ -29,8 +29,8 @@ s32 func_00150730(Out *o, Pair *p1, Pair *p2, f32 t0, f32 dt, RPair *p3, s32 *st
     sceVu0InterVector(&m2.p, &p2->a->p, &p2->b->p, 0.5f);
     sceVu0InterVector(&m1.d, &p1->a->d, &p1->b->d, 0.5f);
     sceVu0InterVector(&m2.d, &p2->a->d, &p2->b->d, 0.5f);
-    func_00102870(&m1.d, &m1.d);
-    func_00102870(&m2.d, &m2.d);
+    sceVu0Normalize(&m1.d, &m1.d);
+    sceVu0Normalize(&m2.d, &m2.d);
     m1.d.w = p1->a->d.w;
     m2.d.w = p2->a->d.w;
     D_00201F24++;

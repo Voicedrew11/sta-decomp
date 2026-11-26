@@ -5,7 +5,7 @@ typedef struct { u8 pad[0xC]; f32 xC; u8 pad2[0x18]; s32 x28; } Tgt;
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 void func_00151E50(Tgt *, Obj *, Obj *, Obj *, Obj *);
 
@@ -46,14 +46,14 @@ s32 func_00150350(Tgt *t, Pair *a, Pair *b, f32 s, f32 len, f32 f) {
                     sceVu0AddVector(&m[0].q, &a->a->q, &a->b->q);
                     m[0].q.w = 0.0f;
                     sceVu0ScaleVector(&m[0].p, &m[0].p, 0.5f);
-                    func_00102870(&m[0].q, &m[0].q);
+                    sceVu0Normalize(&m[0].q, &m[0].q);
                     m[0].p.w = a->a->p.w;
                     m[0].q.w = 0.5f * (a->a->q.w + a->b->q.w);
                     sceVu0AddVector(&m[1].p, &b->a->p, &b->b->p);
                     sceVu0AddVector(&m[1].q, &b->a->q, &b->b->q);
                     m[1].q.w = 0.0f;
                     sceVu0ScaleVector(&m[1].p, &m[1].p, 0.5f);
-                    func_00102870(&m[1].q, &m[1].q);
+                    sceVu0Normalize(&m[1].q, &m[1].q);
                     m[1].p.w = b->a->p.w;
                     m[1].q.w = 0.5f * (b->a->q.w + b->b->q.w);
                     h = 0.5f * len;

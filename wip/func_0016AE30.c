@@ -9,7 +9,7 @@ typedef struct {
     u8 pad10[8];
     s32 x18;
 } Chk;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00169D70(Chk **, void *, s32);
 void func_00178080(Chk **);
 extern Chk **D_00201FE8;
@@ -23,7 +23,7 @@ void func_0016AE30(void) {
     Chk *p;
     Chk *q;
     u32 i;
-    func_00123C40(D_0033F6D0, 0, 0x1000);
+    memset(D_0033F6D0, 0, 0x1000);
     p = (Chk *)((u8 *)b + b->off);
     for (i = 0; i < b->xE; i++) {
         if (p->x0 == D_00201CA8) break;

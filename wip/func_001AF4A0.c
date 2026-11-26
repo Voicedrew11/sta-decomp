@@ -21,7 +21,7 @@ extern O *D_00202288;
 extern s32 D_0020228C;
 extern s32 D_002022A0;
 extern volatile G D_004AC5A0;
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 void func_00167030(s32);
 void func_001745D0(s32, s8 *);
 
@@ -55,12 +55,12 @@ void func_001AF4A0(O *o) {
     o->mA8.h = 0;
     switch (o->m9E) {
     case 0:
-        func_00123C40(o, 0, 0xD0);
+        memset(o, 0, 0xD0);
         o->m9C = -1;
         o->m9E = 0;
         break;
     case 1:
-        func_00123C40(o, 0, 0xD0);
+        memset(o, 0, 0xD0);
         o->m9C = -1;
         o->m9E = 1;
         for (t = 0; t < 2; t++) {
@@ -83,7 +83,7 @@ void func_001AF4A0(O *o) {
         }
         break;
     case 2:
-        func_00123C40(o, 0, 0xD0);
+        memset(o, 0, 0xD0);
         o->m9C = -1;
         o->m9E = 2;
         break;

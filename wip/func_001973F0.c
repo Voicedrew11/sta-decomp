@@ -14,13 +14,13 @@ extern s32 D_00202190;
 extern H D_004A13F0;
 void func_00181680(s32, void *, void *, void *, S *, s32);
 G *func_00189020(s32);
-void func_001256E0(s8 *, s8 *, ...);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, ...);
+void strcpy(s8 *, s8 *);
 void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 void func_00183650(H *);
 E *func_001AFC90(void);
 s32 func_001AFBD0(s16);
-double func_0011F8C0(f32);
+double fptodp(f32);
 
 static inline f32 u2f(u32 x) { return x; }
 
@@ -53,7 +53,7 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
     }
     if (id == 0x1F5) {
         col.w = 0x80808080;
-        func_001256E0(buf, D_001FD368, D_00202190);
+        sprintf(buf, D_001FD368, D_00202190);
         func_001875C0(*(f32 *)(o + 0x38), *(f32 *)(o + 0x3C), 0.9f, buf, 2, col.w);
     }
     switch (id) {
@@ -93,15 +93,15 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
             if (n > 0) {
                 e = func_001AFC90() + n;
                 if (func_001AFBD0(k) == 0) {
-                    func_00125CE8(buf, D_001FD370);
+                    strcpy(buf, D_001FD370);
                 } else if (func_001AFBD0(k) == 1) {
                     r = func_001AFC90() + k;
-                    func_001256E0(buf, D_001FD378, r->x3C);
+                    sprintf(buf, D_001FD378, r->x3C);
                     if (r->x20 == 6 || r->x20 == 5) {
-                        func_00125CE8(buf, D_001FD370);
+                        strcpy(buf, D_001FD370);
                     }
                 } else {
-                    func_001256E0(buf, D_001FD378, e->x3C);
+                    sprintf(buf, D_001FD378, e->x3C);
                 }
                 col.w = 0x80808080;
                 func_001875C0(*(f32 *)(o + 0x38) - 20.0f, *(f32 *)(o + 0x3C) - 4.0f, 0.9f, buf, 0, col.w);
@@ -117,11 +117,11 @@ void func_001973F0(s8 *o, s32 sel, u32 id, s16 n) {
             if (n > 0) {
                 e = func_001AFC90();
                 col.w = 0x80808080;
-                func_001256E0(buf, D_001FD380, func_0011F8C0(u2f(e[n].x4) / 10.0f));
+                sprintf(buf, D_001FD380, fptodp(u2f(e[n].x4) / 10.0f));
                 func_001875C0(*(f32 *)(o + 0x38) - 20.0f, *(f32 *)(o + 0x3C) - 4.0f, 0.9f, buf, 2, col.w);
             } else {
                 col.w = 0x80808080;
-                func_00125CE8(buf, D_001FD370);
+                strcpy(buf, D_001FD370);
                 func_001875C0(*(f32 *)(o + 0x38) - 20.0f, *(f32 *)(o + 0x3C) - 4.0f, 0.9f, buf, 2, col.w);
             }
             break;

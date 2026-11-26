@@ -15,10 +15,10 @@ extern s16 D_00222A18[];
 extern s16 D_00222A16[];
 extern s32 D_00201F2C;
 extern Vec D_003139A0;
-void func_00102A60(Vec *, void *);
-void func_00102A70(Mtx *, void *);
-void func_001027B0(Vec *, Mtx *, void *);
-void func_00102870(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0CopyMatrix(Mtx *, void *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, void *);
+void sceVu0Normalize(Vec *, Vec *);
 s32 func_0014F8C0(Vec *, Vec *, Box *, Mtx *);
 s32 func_0014F520(Res *, Vec *, Vec *, Vec *, Vec *, s32, s32, f32 *);
 
@@ -58,9 +58,9 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
     b160 = *g->x10;
     base190 = h->data + D_00201F2C * (h->x6 * 320 + 0x200);
     if (g->x1C == 0) return 0;
-    func_00102A60(&S0, ray);
+    sceVu0CopyVector(&S0, ray);
     S0.w = 1.0f;
-    func_00102A60(&S1, &ray[1]);
+    sceVu0CopyVector(&S1, &ray[1]);
     S1.w = 1.0f;
     for (k = 0; k < 8; k++) {
         if (!((1 << k) & mask)) continue;
@@ -73,9 +73,9 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
             c = ((u8 *)&((Ent *)base190)[j])[0x332];
             if (c == 0xFF) continue;
             if (c >= g->x1C) continue;
-            func_00102A70(&M2, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
-            func_00102A70(&M1, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
-            func_00102A60(&Z, &D_003139A0);
+            sceVu0CopyMatrix(&M2, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
+            sceVu0CopyMatrix(&M1, (u8 *)&((Ent *)base190)[j + 1] + 0xC0);
+            sceVu0CopyVector(&Z, &D_003139A0);
             hh = &hd[c];
             if (!hh->off[0]) continue;
             if (!hh->off[2]) continue;
@@ -95,26 +95,26 @@ s32 func_0014FA30(Out *out, H *h, Vec *ray, u8 mask, F *flag, s32 first) {
                 e = q4 + it->off;
                 t = (Tri *)(e + 0x20);
                 if (e[0xC] & 1) c0 = 1;
-                func_00102A60(&tri[0], e);
+                sceVu0CopyVector(&tri[0], e);
                 tri[0].w = 1.0f;
-                func_00102A60(&tri[1], e + 0x10);
+                sceVu0CopyVector(&tri[1], e + 0x10);
                 tri[1].w = 1.0f;
-                func_001027B0(&tri[0], &M2, &tri[0]);
-                func_001027B0(&tri[1], &M2, &tri[1]);
+                sceVu0ApplyMatrix(&tri[0], &M2, &tri[0]);
+                sceVu0ApplyMatrix(&tri[1], &M2, &tri[1]);
                 for (n = 0; n < it->n - 2; n++, t++) {
                     v = &tri[(n + 2) % 3];
-                    func_00102A60(v, t);
+                    sceVu0CopyVector(v, t);
                     v->w = 1.0f;
-                    func_001027B0(v, &M2, v);
-                    func_001027B0(&N, &M1, &t->n);
-                    func_00102870(&N, &N);
+                    sceVu0ApplyMatrix(v, &M2, v);
+                    sceVu0ApplyMatrix(&N, &M1, &t->n);
+                    sceVu0Normalize(&N, &N);
                     N.w = 0.0f;
                     if (D_00222A16[0] != -1 && n != D_00222A16[0]) continue;
                     if (func_0014F520(&res, &S0, &S1, tri, &N, n, c0, &res.d)) {
-                        func_00102A60(&S1, &res.a);
+                        sceVu0CopyVector(&S1, &res.a);
                         S1.w = 1.0f;
-                        func_00102A60(&out->a, &res.a);
-                        func_00102A60(&out->b, &res.b);
+                        sceVu0CopyVector(&out->a, &res.a);
+                        sceVu0CopyVector(&out->b, &res.b);
                         out->x20 = g;
                         ret = 1;
                         out->x24 = cnt;

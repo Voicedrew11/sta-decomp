@@ -1,6 +1,6 @@
 #include "common.h"
 void sceVu0CopyMatrix(Mtx *, void *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 fabsf(f32);
 void sceVu0CopyVector(void *, void *);
 void sceVu0OuterProduct(Vec *, void *, Vec *);
@@ -22,13 +22,13 @@ void func_00146020(Mtx *m, f32 x, f32 y, f32 z) {
     d.y = y;
     d.z = z;
     *(s32 *)&d.w = 0;
-    func_00102870(&d, &d);
+    sceVu0Normalize(&d, &d);
     if (0.9999f < fabsf(d.y)) {
         sceVu0CopyVector(&u, D_001F2130);
     } else {
         sceVu0OuterProduct(&u, D_001F2140, &d);
     }
-    func_00102870(&u, &u);
+    sceVu0Normalize(&u, &u);
     sceVu0OuterProduct(&s, &d, &u);
     sceVu0CopyVector(&m->m[0], &u);
     sceVu0CopyVector(&m->m[1], &s);

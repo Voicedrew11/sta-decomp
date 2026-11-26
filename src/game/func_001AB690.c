@@ -33,7 +33,7 @@ void func_0014DAC0(s32, s32);
 u8 func_0014DAF0(s32);
 void FlushCache(s32);
 void func_001789E0(s32, s8 *, s32);
-void func_00123A88(s32, s8 *, s32);
+void memcpy(s32, s8 *, s32);
 void func_0014DAE0(s32);
 s32 func_0014DA90(s32, s32, s32, s32);
 s32 func_0014DA80(s32, s32);
@@ -103,7 +103,7 @@ void func_001AB690(void) {
         r = n - q * 16;
         FlushCache(0);
         func_001789E0(*D_004B4B80[0] + D_004B4B7C[0], D_00270F40, q);
-        if (r > 0) func_00123A88(*D_004B4B80[0] + D_004B4B7C[0] + q * 16, D_00270F40 + q * 16, r);
+        if (r > 0) memcpy(*D_004B4B80[0] + D_004B4B7C[0] + q * 16, D_00270F40 + q * 16, r);
         D_004B4B7C[0] += n;
         func_0014DAE0(D_004B4B74[0]);
         break;

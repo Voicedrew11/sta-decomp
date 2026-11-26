@@ -1,8 +1,8 @@
 #include "m2c.h"
 typedef struct { s32 x0; volatile s32 x4; s32 x8; s32 xC; u16 flags; s32 fd; s32 size; } F;
-s32 func_0010FAD0(s8 *, s32, s32);
+s32 sceOpen(s8 *, s32, s32);
 void sceLseek(s32, s32, s32);
-void func_00116EA0(s32 *, s8 *);
+void sceCdSearchFile(s32 *, s8 *);
 void memset(void *, s32, s32);
 void sprintf(s8 *, s8 *, s8 *, s8 *, s8 *);
 void strcat(s8 *, s8 *);
@@ -64,7 +64,7 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
         D_00201F80->x8 = 0;
         D_00201F80->xC = 0;
         D_00201F80->flags = 1;
-        D_00201F80->fd = func_0010FAD0(path, 0x8001, 0x124);
+        D_00201F80->fd = sceOpen(path, 0x8001, 0x124);
         if (D_00201C7C != 0) {
             D_00201F80->size = 0x800;
         }
@@ -73,7 +73,7 @@ void func_0015AD00(s8 *arg0, s32 arg1, s32 arg2) {
         strcat(path, arg0);
         strcat(path, D_001FB760);
         memset(st, 0, 0x24);
-        func_00116EA0(st, path);
+        sceCdSearchFile(st, path);
         D_00201F80->x0 = st[0] << 11;
         D_00201F80->x4 = D_00201F80->x0;
         D_00201F80->x8 = 0;

@@ -20,8 +20,8 @@ extern s32 D_00201E80;
 #define PP(i) (((S ***)(&D_00201E80 + 2))[i])
 extern s32 D_002022C0;
 extern Vec D_004B4BD0;
-void func_00102A60(Vec *, Vec *);
-void func_001029D0(Vec *, Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
 s32 func_001B0660(Info *);
 void func_001B06E0(u16, Vec *, s32);
 void func_001B0450(void);
@@ -57,15 +57,15 @@ void func_001B51F0(S *a0, K *k, s32 a2) {
     if (((S **)(&D_00201E80)[3]) && *((S **)(&D_00201E80)[3]) == a0) side = 1;
     n = !side;
     if ((&D_00201E80)[1] != n && PP(side)) {
-        func_00102A60(&v, &(*PP(side))->pos);
+        sceVu0CopyVector(&v, &(*PP(side))->pos);
         if (v.x != 0.0f || v.y != 0.0f || v.z != 0.0f) {
             D_002022C0 = 1;
             v.w = 0.0f;
-            func_00102A60(&D_004B4BD0, &v);
+            sceVu0CopyVector(&D_004B4BD0, &v);
         }
     }
-    if (((S **)(&D_00201E80)[2])) func_00102A60(&v, &(*((S **)(&D_00201E80)[2]))->pos);
-    if (((S **)(&D_00201E80)[3])) func_00102A60(&v, &(*((S **)(&D_00201E80)[3]))->pos);
+    if (((S **)(&D_00201E80)[2])) sceVu0CopyVector(&v, &(*((S **)(&D_00201E80)[2]))->pos);
+    if (((S **)(&D_00201E80)[3])) sceVu0CopyVector(&v, &(*((S **)(&D_00201E80)[3]))->pos);
     cur = n;
     (&D_00201E80)[1] = cur;
     v.x = -1.0f * k->x;
@@ -92,24 +92,24 @@ void func_001B51F0(S *a0, K *k, s32 a2) {
                 func_001B0450();
                     PP(n) = info.x18;
                     o = *PP(n);
-                    func_00102A60(&b0, &o->pos);
+                    sceVu0CopyVector(&b0, &o->pos);
                     func_0015B890(cur);
                     for (i = 0; i < o->x7C; i++) {
                         e = &o->x168[i];
                         if (e->x38 == 0) {
-                            func_00102A60(&t, &e->a);
-                            func_001029D0(&t, &t, &b0);
+                            sceVu0CopyVector(&t, &e->a);
+                            sceVu0AddVector(&t, &t, &b0);
                             t.w = e->a.w;
                             func_0015B980(cur, &t, &e->b, &e->c, t.w, e->b.w, e->x30, e->x34);
                         }
                     }
                     o2 = *PP(n);
-                    func_00102A60(&b1, &o2->pos);
+                    sceVu0CopyVector(&b1, &o2->pos);
                     func_0015C6D0(cur);
                     for (j = 0; j < o2->x7E; j++) {
                         e2 = &o2->x16C[j];
-                        func_00102A60(&t2, &e2->a);
-                        func_001029D0(&t2, &t2, &b1);
+                        sceVu0CopyVector(&t2, &e2->a);
+                        sceVu0AddVector(&t2, &t2, &b1);
                         t2.w = e2->a.w;
                         func_0015C730(cur, &t2, t2.w, e2->x18, e2->x10, e2->x14, e2->b1C, e2->b1D, e2->b1E, e2->b1F, e2->h20, e2->b22);
                     }

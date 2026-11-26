@@ -28,15 +28,15 @@ f32 sqrtf(f32);
 s8 *func_001A5460(s32 *);
 u32 func_0013E110(s8 *);
 f32 func_00146B90(f32);
-void func_00102CC8(f32, Mtx *, Mtx *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 Vec *func_0013FFA0(s8 *);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_00102848(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_00102A60(Vec *, Vec *);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0CopyVector(Vec *, Vec *);
 f32 func_00146940(Vec *, O *);
 void func_00141510(s8 *, u8, s32, s32);
 extern Vec D_003139A0;
@@ -58,9 +58,9 @@ static inline void orbit(Vec *v, f32 t, s8 *p, O *o) {
     v->y = 100.0f * func_00146B90(a);
     v->z = 0.0f;
     v->w = 1.0f;
-    func_00102CC8(WRAP3(a), &m, &D_001F2170);
-    func_001027B0(v, &m, v);
-    func_001029D0(v, func_0013FFA0(p), v);
+    sceVu0RotMatrixY(WRAP3(a), &m, &D_001F2170);
+    sceVu0ApplyMatrix(v, &m, v);
+    sceVu0AddVector(v, func_0013FFA0(p), v);
     v->y += o->x54;
     v->w = 1.0f;
 }
@@ -95,7 +95,7 @@ void func_00148D00(O *o, f32 dt) {
         o->x10.z = 0.0f;
         o->x10.w = 0.0f;
         done = 2.0f < o->xB4;
-        if (done) func_00102A60(&o->x10, &D_003139A0);
+        if (done) sceVu0CopyVector(&o->x10, &D_003139A0);
         break;
     case 1:
     case 2:
@@ -117,17 +117,17 @@ void func_00148D00(O *o, f32 dt) {
             orbit(&v, t, p, o);
             break;
         case 4:
-            func_00102A60(&v, func_0013FFA0(p));
+            sceVu0CopyVector(&v, func_0013FFA0(p));
             break;
         }
         sp *= dt;
-        func_001029E8(&d, &v, &o->p);
-        if (sp < sqrtf(func_00102848(&d, &d))) {
-            func_00102870(&d, &d);
-            func_00102A18(&d, &d, sp);
+        sceVu0SubVector(&d, &v, &o->p);
+        if (sp < sqrtf(sceVu0InnerProduct(&d, &d))) {
+            sceVu0Normalize(&d, &d);
+            sceVu0ScaleVector(&d, &d, sp);
         }
-        func_001029D0(&o->p, &o->p, &d);
-        func_00102A60(&o->x10, &D_003139A0);
+        sceVu0AddVector(&o->p, &o->p, &d);
+        sceVu0CopyVector(&o->x10, &D_003139A0);
         if (s == 1) done = func_00146940(&v, o) < 300.0f;
         if (s == 2) done = h < o->xB4;
         if (s == 3) done = 1.8f * r < func_00146940(func_0013FFA0(p), o);

@@ -60,8 +60,8 @@ s32 func_0014DCD0(s8 *, s32);
 s8 func_0016A9D0(s8 *, s32, s32, Sub *);
 s32 func_00177AF0(u64, s8 **);
 s32 func_00177B20(u64);
-void func_00102A70(void *, void *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyMatrix(void *, void *);
+void memset(void *, s32, s32);
 extern s8 D_001F2170[];
 extern s32 D_00201CAC, D_00201CB8, D_00201CB4;
 extern E D_003407E0[];
@@ -126,7 +126,7 @@ E *func_00169F40(s8 **a0, s32 a1, s32 *tbl, s32 a3, s32 f5, s32 f6, u16 f7) {
     c = func_0014DCD0(*a0, D_00201CB4);
     if (a == 0) return NULL;
     if (e == NULL) return NULL;
-    func_00123C40(e, 0, 0xED0);
+    memset(e, 0, 0xED0);
     e->x174 = 0;
     e->x178 = 1.0f;
     e->xE70 = a0;
@@ -143,8 +143,8 @@ E *func_00169F40(s8 **a0, s32 a1, s32 *tbl, s32 a3, s32 f5, s32 f6, u16 f7) {
     }
     if (c != 0) e->xE74 = a0;
     if (b != 0) e->xE78 = b - (s32)e->xE70;
-    func_00102A70(e, D_001F2170);
-    func_00123C40(e->xE80, 0, 0x40);
+    sceVu0CopyMatrix(e, D_001F2170);
+    memset(e->xE80, 0, 0x40);
     e->x17C = 1.0f;
     e->x180 = 1.0f;
     e->x184 = 1.0f;

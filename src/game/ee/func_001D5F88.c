@@ -7,7 +7,7 @@ extern u8 D_004B6478[];
 s32 func_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 s32 func_001D3CE0(s32 n);
 void func_001D3DA8(s32);
-void *func_00123A88(void *, void *, s32);
+void *memcpy(void *, void *, s32);
 void memset(void *, s32, s32);
 s32 sceMcOpen(s32, s32, s32, s32);
 s32 sceMcRead(s32, void *, s32);
@@ -101,11 +101,11 @@ s32 func_001D5F88(void) {
         D_004B63B8.retry = 0;
         if (D_004B63B8.size < D_004B63B4[0] + r) {
             r = D_004B63B8.size - D_004B63B4[0];
-            func_00123A88(D_004B63B8.buf + D_004B63B4[0], D_004B6478, r);
+            memcpy(D_004B63B8.buf + D_004B63B4[0], D_004B6478, r);
             D_004B63B8.step--;
             break;
         }
-        func_00123A88(D_004B63B8.buf + D_004B63B4[0], D_004B6478, r);
+        memcpy(D_004B63B8.buf + D_004B63B4[0], D_004B6478, r);
         D_004B63B4[0] += r;
         D_004B63B8.step++;
         break;

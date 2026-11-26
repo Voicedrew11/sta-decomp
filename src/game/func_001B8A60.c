@@ -48,7 +48,7 @@ void func_0015B1C0(Vec *, s8 *);
 void func_0015B270(void);
 void sceVu0CopyVector(Vec *, s32 *);
 void func_0015CC40(void *, f32);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 void func_0016B960(s8 *, Big *, Vec *, s8 *, s32, s32);
 void func_0016C7E0(s32 *, s32 *, s8 *, Key);
 void func_0016CD80(s32 *, s32 *, s8 *, Key);
@@ -131,7 +131,7 @@ void func_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel) {
             func_0016B960(s3, NULL, &v2, s3 + 0x200, 0, 2);
         } else {
             if (b->x58 < 1.0f) {
-                func_00123A88(&buf, src, 0xA0);
+                memcpy(&buf, src, 0xA0);
                 func_0015CC40(&buf, b->x58);
                 src = &buf;
             }

@@ -7,7 +7,7 @@ void sceLseek(s32, s32, s32);
 void sceRead(s32, u8 *, s32);
 s32 func_0015A3A0(F *, s32);
 void memset(void *, s32, s32);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 s32 sceCdRead(u32, s32, void *, u8 *);
 s32 sceCdGetError(void);
 static inline void seek(F *f) {
@@ -119,7 +119,7 @@ s32 func_0015A470(F *f, u8 *buf, s32 n, s32 mode) {
                     res = sceCdGetError();
                 }
             } while (res != 0 && res != 1);
-            func_00123A88(buf, sec + (f->x4 & 0x7FF), cnt);
+            memcpy(buf, sec + (f->x4 & 0x7FF), cnt);
             f->x4 += cnt;
             rem -= cnt;
             buf += cnt;
@@ -171,7 +171,7 @@ s32 func_0015A470(F *f, u8 *buf, s32 n, s32 mode) {
                     res = sceCdGetError();
                 }
             } while (res != 0 && res != 1);
-            func_00123A88(buf, sec2, n);
+            memcpy(buf, sec2, n);
             f->x4 += n;
             rem -= n;
             if (rem == 0) {

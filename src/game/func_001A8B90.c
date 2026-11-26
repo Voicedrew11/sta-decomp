@@ -3,7 +3,7 @@ typedef struct { u32 tag; u32 x4; u32 x8; u32 xC; u32 x10; u32 x14; u32 x18; u32
 typedef struct { u8 x0[0x20]; u8 x20[0x30]; u8 x50[0x10]; } Big;
 extern s8 D_001FD988[];
 extern Big *D_00201E00;
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 
 void func_001A8B90(Rec *p) {
     s32 *d;
@@ -18,10 +18,10 @@ void func_001A8B90(Rec *p) {
         if (p->tag == (D_001FD988[0] | (*c1 << 8) | (*c2 << 16) | (*c3 << 24))) return;
         switch (p->tag) {
         case 0x6154504F:
-            func_00123A88(D_00201E00->x20, s, *d);
+            memcpy(D_00201E00->x20, s, *d);
             break;
         case 0x61535953:
-            func_00123A88(D_00201E00->x50, s, *d);
+            memcpy(D_00201E00->x50, s, *d);
             break;
         }
         p = (Rec *)((u8 *)p + p->x4);

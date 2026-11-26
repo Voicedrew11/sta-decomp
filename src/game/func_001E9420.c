@@ -3,7 +3,7 @@ typedef struct { char pad[0x38]; u32 w; s32 h; } O;
 typedef struct { s32 a, b, c, d; } P;
 extern u32 D_004BD380[];
 u32 *func_001E9190(u32 *p, P *s, s32 n);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 
 static inline u32 *setreg(u32 *p, u64 v, s32 reg) {
     p[0] = v & 0xFFFFFFFF;
@@ -38,5 +38,5 @@ void func_001E9420(O *o, s32 n) {
     *(volatile u32 *)0x1000A010 = a;
     *(volatile u32 *)0x1000A020 = 7;
     *(volatile u32 *)0x1000A000 = 0x101;
-    func_00101120(0, 0);
+    sceGsSyncPath(0, 0);
 }

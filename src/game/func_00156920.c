@@ -6,7 +6,7 @@ void sceVu0MulMatrix(Mtx, Mtx, Mtx);
 void sceVu0CopyVector(f32 *, f32 *);
 void sceVu0OuterProduct(f32 *, f32 *, f32 *);
 f32 sceVu0InnerProduct(f32 *, f32 *);
-void func_00102870(f32 *, f32 *);
+void sceVu0Normalize(f32 *, f32 *);
 void func_00156450(Mtx, f32, s32);
 float sqrtf(float);
 extern f32 D_001F2140[];
@@ -33,13 +33,13 @@ void func_00156920(S *s) {
     if (sqrtf(sceVu0InnerProduct(b[0], b[0])) < 1e-5f) {
         sceVu0CopyVector(b[0], D_001F2130);
     } else {
-        func_00102870(b[0], b[0]);
+        sceVu0Normalize(b[0], b[0]);
     }
     sceVu0OuterProduct(b[1], b[2], b[0]);
     if (sqrtf(sceVu0InnerProduct(b[1], b[1])) < 1e-5f) {
         sceVu0CopyVector(b[0], D_001F2140);
     } else {
-        func_00102870(b[1], b[1]);
+        sceVu0Normalize(b[1], b[1]);
     }
     sceVu0MulMatrix(a, a, b);
     sceVu0CopyVector(a[3], s->x0);

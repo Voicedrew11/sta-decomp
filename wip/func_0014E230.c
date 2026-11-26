@@ -3,11 +3,11 @@ typedef struct { Vec v0; Vec v10; u8 pad20[4]; s32 x24; s8 *x28; s8 *x2C; u8 pad
 extern Vec D_003139A0;
 extern s16 D_00222A18[];
 extern s16 D_00222A16[];
-void func_00102A60(Vec *, void *);
-void func_001028F8(Mtx *, Mtx *);
-void func_001027B0(Vec *, Mtx *, void *);
-void func_00102A70(Mtx *, Mtx *);
-void func_00102870(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0InversMatrix(Mtx *, Mtx *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, void *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0Normalize(Vec *, Vec *);
 s32 func_0014F0C0(f32, Vec *, Vec *, s8 *);
 s32 func_0014F520(Vec *, Vec *, Vec *, Vec *, Vec *, s32, s32, s32 *);
 
@@ -43,15 +43,15 @@ s32 func_0014E230(Out *out, s32 *lst, s32 base, Vec *o1 __attribute__((aligned(1
     h = base + lst[0];
     q = (s8 *)(base + lst[2]);
     r = base + lst[1];
-    func_00102A60(&v1D0, o1);
+    sceVu0CopyVector(&v1D0, o1);
     v1D0.w = 1.0f;
-    func_00102A60(&v1E0, o2);
+    sceVu0CopyVector(&v1E0, o2);
     (&v1E0)->w = 1.0f;
-    func_001028F8(&m250, m);
-    func_001027B0(&v1F0, &m250, &v1D0);
-    func_001027B0(&v200, &m250, &v1E0);
-    func_00102A70(&m210, m);
-    func_00102A60(&m210.m[3], &D_003139A0);
+    sceVu0InversMatrix(&m250, m);
+    sceVu0ApplyMatrix(&v1F0, &m250, &v1D0);
+    sceVu0ApplyMatrix(&v200, &m250, &v1E0);
+    sceVu0CopyMatrix(&m210, m);
+    sceVu0CopyVector(&m210.m[3], &D_003139A0);
     cnt = (u16 *)h;
     msk = mask;
     for (i = 0; i < 8; i++) {
@@ -66,26 +66,26 @@ s32 func_0014E230(Out *out, s32 *lst, s32 base, Vec *o1 __attribute__((aligned(1
                             s0 = (Vec *)(r + *(s32 *)(s4 + 4));
                             s2 = (s8 *)s0 + 0x20;
                             if (*((u8 *)s0 + 0xC) & 1) f2 = 1;
-                            func_00102A60(&t[0], s0);
+                            sceVu0CopyVector(&t[0], s0);
                             t[0].w = 1.0f;
-                            func_00102A60(&t[1], (s8 *)s0 + 0x10);
+                            sceVu0CopyVector(&t[1], (s8 *)s0 + 0x10);
                             t[1].w = 1.0f;
-                            func_001027B0(&t[0], m, &t[0]);
-                            func_001027B0(&t[1], m, &t[1]);
+                            sceVu0ApplyMatrix(&t[0], m, &t[0]);
+                            sceVu0ApplyMatrix(&t[1], m, &t[1]);
                             for (k = 0; k < *(u16 *)s4 - 2; k++) {
                                 s0 = &t[(k + 2) % 3];
-                                func_00102A60(s0, s2);
+                                sceVu0CopyVector(s0, s2);
                                 s0->w = 1.0f;
-                                func_001027B0(s0, m, s0);
+                                sceVu0ApplyMatrix(s0, m, s0);
                                 if (D_00222A16[0] == -1 || k == D_00222A16[0]) {
-                                    func_001027B0(&v150, &m210, s2 + 0x10);
-                                    func_00102870(&v150, &v150);
+                                    sceVu0ApplyMatrix(&v150, &m210, s2 + 0x10);
+                                    sceVu0Normalize(&v150, &v150);
                                     v150.w = 0.0f;
                                     if (func_0014F520(&hit[0], &v1D0, &v1E0, t, &v150, k, f2, &x29C)) {
-                                        func_00102A60(&v1E0, &hit[0]);
+                                        sceVu0CopyVector(&v1E0, &hit[0]);
                                         v1E0.w = 1.0f;
-                                        func_00102A60(&out->v0, &hit[0]);
-                                        func_00102A60(&out->v10, &hit[1]);
+                                        sceVu0CopyVector(&out->v0, &hit[0]);
+                                        sceVu0CopyVector(&out->v10, &hit[1]);
                                         out->x24 = h;
                                         ret = 1;
                                         out->x28 = s4;
@@ -107,7 +107,7 @@ s32 func_0014E230(Out *out, s32 *lst, s32 base, Vec *o1 __attribute__((aligned(1
         q += 0x20;
         cnt++;
     }
-    func_00102A60(o1, &v1D0);
-    func_00102A60(o2, &v1E0);
+    sceVu0CopyVector(o1, &v1D0);
+    sceVu0CopyVector(o2, &v1E0);
     return ret;
 }

@@ -1,7 +1,7 @@
 #include "common.h"
 s32 WaitSema(s32);
 s32 SignalSema(s32);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 typedef struct { u8 pad[0x48]; u8 x48[0x14]; s32 x5C; u8 p60[0x28]; s32 x88; u8 p8C[0x1C]; s32 xA8; } P;
 void func_001EAF60(void *, s32 *, s32 *, s32 *, s32 *);
 typedef union { u32 w; f32 f; } T;
@@ -13,16 +13,16 @@ extern s64 D_004BDFD0[];
 static inline s32 put(u8 *p1, s32 n1, u8 *p2, s32 n2, u8 *s1, s32 l1, u8 *s2, s32 l2) {
     if (n1 + n2 < l1 + l2) return 0;
     if (n1 <= l1) {
-        func_00123A88(p1, s1, n1);
-        func_00123A88(p2, s1 + n1, l1 - n1);
-        func_00123A88(p2 + l1 - n1, s2, l2);
+        memcpy(p1, s1, n1);
+        memcpy(p2, s1 + n1, l1 - n1);
+        memcpy(p2 + l1 - n1, s2, l2);
     } else if (!(l2 < n1 - l1)) {
-        func_00123A88(p1, s1, l1);
-        func_00123A88(p1 + l1, s2, n1 - l1);
-        func_00123A88(p2, s2 + n1 - l1, l2 - (n1 - l1));
+        memcpy(p1, s1, l1);
+        memcpy(p1 + l1, s2, n1 - l1);
+        memcpy(p2, s2 + n1 - l1, l2 - (n1 - l1));
     } else {
-        func_00123A88(p1, s1, l1);
-        func_00123A88(p1 + l1, s2, l2);
+        memcpy(p1, s1, l1);
+        memcpy(p1 + l1, s2, l2);
     }
     return l1 + l2;
 }

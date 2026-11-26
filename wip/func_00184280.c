@@ -25,14 +25,14 @@ G *func_00189020(s32);
 s32 func_001848A0(s32);
 u8 *func_001CC3F0(s16);
 s32 func_00187130(s32, s32);
-void func_001256E0(s8 *, s8 *, ...);
-void func_00125CE8(s8 *, s8 *);
+void sprintf(s8 *, s8 *, ...);
+void strcpy(s8 *, s8 *);
 s32 func_001AFBD0(s32);
 E *func_001AFC90(void);
-u32 func_00125E00(s8 *);
+u32 strlen(s8 *);
 void func_00187A90(T *, s8 *, u64);
 s32 func_00188010(T *, Col);
-s64 func_0011F8C0(f32);
+s64 fptodp(f32);
 void func_00183650(s8 *);
 extern S D_001F2720 __attribute__((aligned(16)));
 extern s8 D_0048CE40[];
@@ -50,7 +50,7 @@ extern f32 D_0048D0B8[];
 static inline f32 u2f(u32 x) { return x; }
 static inline void txt(s8 *s, f32 x, f32 y, Col *c, T *t) {
     if (s == 0) return;
-    func_00187A90(t, s, func_00125E00(s));
+    func_00187A90(t, s, strlen(s));
     t->x24 = 1.0f;
     t->bf.a = 0;
     t->x20 = 0.9f;
@@ -110,16 +110,16 @@ void func_00184280(O *o, s32 a1, u32 mode, s32 id) {
             } else {
                 *(u32 *)&c1 = 0x80808080;
             }
-            func_001256E0(D_0048CE40, D_001FCA80, *func_001CC3F0(id));
+            sprintf(D_0048CE40, D_001FCA80, *func_001CC3F0(id));
             k = (s16)id;
             if (func_001AFBD0(k) == 0) {
-                func_00125CE8(D_0048CE40, D_001FCA88);
+                strcpy(D_0048CE40, D_001FCA88);
             } else if (func_001AFBD0(k) == 1) {
                 e = func_001AFC90();
                 switch (((E *)((s32)e + id * 0x90))->x20) {
                 case 5:
                 case 6:
-                    func_00125CE8(D_0048CE40, D_001FCA88);
+                    strcpy(D_0048CE40, D_001FCA88);
                 }
             }
             txt(D_0048CE40, o->x38, o->x3C, &c1, &t1);
@@ -130,9 +130,9 @@ void func_00184280(O *o, s32 a1, u32 mode, s32 id) {
             k = func_001848A0(id);
             *(u32 *)&c2 = 0x80808080;
             if (k == 0) {
-                func_00125CE8(D_0048CE40, D_001FCA90);
+                strcpy(D_0048CE40, D_001FCA90);
             } else {
-                func_001256E0(D_0048CE40, D_001FCA98, k);
+                sprintf(D_0048CE40, D_001FCA98, k);
             }
             txt(D_0048CE40, o->x38, o->x3C, &c2, &t2);
         }
@@ -153,7 +153,7 @@ void func_00184280(O *o, s32 a1, u32 mode, s32 id) {
         if (id > 0) {
             e = &func_001AFC90()[id];
             *(u32 *)&c3 = 0x80808080;
-            func_001256E0(D_0048CE40, D_001FCAA0, func_0011F8C0(u2f(e->x4) / 10.0f));
+            sprintf(D_0048CE40, D_001FCAA0, fptodp(u2f(e->x4) / 10.0f));
             txt(D_0048CE40, o->x38, o->x3C, &c3, &t3);
         }
         break;

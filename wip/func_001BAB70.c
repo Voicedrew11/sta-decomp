@@ -42,7 +42,7 @@ typedef struct {
 } O;
 extern O *D_002022D4;
 void func_001BB320(O *, s32);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_001B7F90(A *, B *, s32, s32);
 void func_001BA850(O *, s32, f32, f32);
 void func_001BA680(O *, s32, f32, f32);
@@ -57,7 +57,7 @@ void func_00171B70(H *, u16, f32);
 void func_00171540(H *, B *);
 void func_001717A0(H *, u16, f32, f32, void (*)(void));
 void func_001BAA10(void);
-void func_001027B0(Vec *, s8 *, Vec *);
+void sceVu0ApplyMatrix(Vec *, s8 *, Vec *);
 s32 func_00169BB0(s32);
 void *func_00169B50(u16, s32, s32, s32);
 void *func_00169BD0(u16, s32, u8 *, s32, s32, s32);
@@ -113,7 +113,7 @@ void func_001BAB70(O *o, f32 dt) {
         }
         hh = (H *)*h;
         x = *(K ***)hh;
-        func_00102A60(&hh->x30, &o->x10);
+        sceVu0CopyVector(&hh->x30, &o->x10);
         if (o->x20 != 0) b->f51.c = 2;
         func_001B7F90(a, b, o->x0, i);
         switch (c->x4) {
@@ -192,9 +192,9 @@ void func_001BAB70(O *o, f32 dt) {
         }
         sk = func_001715B0(h);
         if (!b->f52.f.b4 && b->f52.f.b3 && !b->f50.st && c->f12.f.b6) {
-            func_00102A60(&b->x70, &c->x20);
+            sceVu0CopyVector(&b->x70, &c->x20);
             b->x70.w = 1.0f;
-            func_001027B0(&b->x70, sk + 0x200, &b->x70);
+            sceVu0ApplyMatrix(&b->x70, sk + 0x200, &b->x70);
             b->x70.w = c->x20.w * b->x60;
         }
         if (!o->f1D8.f.b4 && a->f24.f.b4 && (id = c->x8) != 0) {

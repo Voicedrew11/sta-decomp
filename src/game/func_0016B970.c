@@ -13,7 +13,7 @@ void sceVu0CopyVector(Vec *, void *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0SubVector(Vec *, void *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, void *, f32);
 s32 func_0015DA00(s64, u8, s32 *, Vec *, s32);
 void func_0015D900(s32, s32 *);
@@ -63,7 +63,7 @@ void func_0016B970(O *o, L *m, Vec *v, s8 *a3, s32 t0, s32 t1, s32 t2) {
                     sceVu0SubVector(&d, e + (D_00201F2C << 5), &p);
                     d.w = 0.0f;
                     dot = sceVu0InnerProduct(&d, &d);
-                    func_00102870(&d, &d);
+                    sceVu0Normalize(&d, &d);
                     idx = 4 - (u8)t1 + k;
                     sceVu0CopyVector(&dst->dir[idx], &d);
                     f = w * (r * r - dot);

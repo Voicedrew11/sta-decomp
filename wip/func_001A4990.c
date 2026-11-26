@@ -20,9 +20,9 @@ s32 func_0014DB00(u8 *, s32, u8 *);
 s32 func_0014DA70(s32);
 void func_0014DAC0(s32, s32);
 u8 func_0014DAF0(s32);
-void func_0010BCA0(s32);
+void FlushCache(s32);
 void func_001789E0(s32, u8 *, s32);
-void func_00123A88(s32, u8 *, s32);
+void memcpy(s32, u8 *, s32);
 void func_0014DAE0(s32);
 s32 func_0014DA90(s32, s32, s32, s32);
 s32 func_0014DA80(s32, s32);
@@ -117,10 +117,10 @@ void func_001A4990(void) {
         q = sz >> 4;
         o = q << 4;
         r = sz - o;
-        func_0010BCA0(0);
+        FlushCache(0);
         func_001789E0(*D_004A43B0[D_00201DA8].x18 + D_004A43B0[D_00201DA8].x14, D_00270F40, q);
         if (r > 0) {
-            func_00123A88(*D_004A43B0[D_00201DA8].x18 + D_004A43B0[D_00201DA8].x14 + o, D_00270F40 + o, r);
+            memcpy(*D_004A43B0[D_00201DA8].x18 + D_004A43B0[D_00201DA8].x14 + o, D_00270F40 + o, r);
         }
         D_004A43B0[D_00201DA8].x14 += sz;
         func_0014DAE0(D_004A43B0[D_00201DA8].h8);

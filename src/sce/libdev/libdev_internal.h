@@ -143,10 +143,10 @@ void sceDevVu0PutMBit(int on);
 int sceDevVu0GetEBit(void);
 int sceDevVu0GetMBit(void);
 
-int sceDevVif0Reset(void);
+void sceDevVif0Reset(void); /* SAB: returns nothing */
 int sceDevVif0Pause(int mode);
 int sceDevVif0Continue(void);
-void sceDevVif0PutErr(unsigned int me0, unsigned int me1, unsigned int mii);
+unsigned int sceDevVif0PutErr(unsigned int me0, unsigned int me1, unsigned int mii); /* SAB: returns the value written */
 unsigned int sceDevVif0GetErr(void);
 int sceDevVif0GetStat(void);
 int sceDevVif0GetRegs(void *ctx);

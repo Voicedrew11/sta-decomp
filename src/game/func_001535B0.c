@@ -14,7 +14,7 @@ typedef struct C {
 } C;
 s32 func_00128830(s8 *);
 void func_001285C0(s8 *, C *, s32);
-void func_00123A88(s8 *, s8 *, s32);
+void memcpy(s8 *, s8 *, s32);
 void func_00153360(C *, C *, s8 *);
 
 void func_001535B0(C *c, s8 *a1) {
@@ -42,7 +42,7 @@ void func_001535B0(C *c, s8 *a1) {
             func_001285C0(h, c, sz);
         }
 skip:
-        func_00123A88(c->base + c->cnt * c->esz, a1, c->esz);
+        memcpy(c->base + c->cnt * c->esz, a1, c->esz);
         c->cnt++;
         break;
     case 2:

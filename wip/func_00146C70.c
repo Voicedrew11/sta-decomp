@@ -18,7 +18,7 @@ void func_00140470(void *, void *);
 s32 func_0014EC00(void *, void *, f32, f32);
 s32 func_0013BA70(s32, void *, u8 *);
 void func_00151B20(void *, void *, u8 *);
-void func_00102A60(void *, void *);
+void sceVu0CopyVector(void *, void *);
 static inline f32 u2f(u32 x) { return x; }
 s32 func_00146C70(s32 a0, s32 a1, Obj *a2, s32 *a3, f32 *t0) {
     s32 bi, i;
@@ -57,7 +57,7 @@ s32 func_00146C70(s32 a0, s32 a1, Obj *a2, s32 *a3, f32 *t0) {
     if (bi != -1) {
         *a3 = bi;
         if (t0 != 0) {
-            func_00102A60(t0, &best);
+            sceVu0CopyVector(t0, &best);
             t0[3] = 1.0f;
         }
         return 1;

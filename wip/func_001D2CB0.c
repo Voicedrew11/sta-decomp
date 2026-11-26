@@ -7,7 +7,7 @@ typedef struct { u16 x0; u16 x2; u8 pad4[0x24]; } E2;
 typedef struct { u8 pad0[0x2AD]; B8 x2AD; } P4B0;
 typedef struct { u16 x0; u8 pad2[0x4AE]; P4B0 *x4B0; } A1;
 void func_00163C80(O *, Mtx *);
-void func_00102A60(Vec *, Vec *);
+void sceVu0CopyVector(Vec *, Vec *);
 void func_001D3810(O *, u8, E2 *, Mtx *, A1 *, s32, s32);
 u32 func_0015ED20(void);
 static inline f32 u2f(u32 x) { return x; }
@@ -79,7 +79,7 @@ s32 func_001D2CB0(O *o, A1 *a, s32 a2, Vec *pos, s32 mode) {
                 r2 = ((Rec **)(*(s8 **)((s32)o + 0x90) + 0x210))[*(u16 *)((s32)o + 0x94)];
                 q2 = (E2 *)((r2->x7.b1 ? 4 : 0) * 16 + (r2->x6 * 12 + (r2->x5 * 4 + ((s32)r2 + r2->x4 * 20))) + 0x108);
                 func_00163C80(o, &M);
-                func_00102A60(&M.m[3], pos);
+                sceVu0CopyVector(&M.m[3], pos);
                 M.m[3].w = 1.0f;
                 for (k2 = 0; k2 < 4; k2++, q2++) {
                     if (q2->x2 == j2) func_001D3810(o, 4, q2, &M, a, 0, a2);
@@ -102,7 +102,7 @@ s32 func_001D2CB0(O *o, A1 *a, s32 a2, Vec *pos, s32 mode) {
         rec = ((Rec **)(*(s8 **)((s32)o + 0x90) + 0x210))[*(u16 *)((s32)o + 0x94)];
         q = (E2 *)((rec->x7.b1 ? 4 : 0) * 16 + (rec->x6 * 12 + (rec->x5 * 4 + ((s32)rec + rec->x4 * 20))) + 0x108);
         func_00163C80(o, &M2);
-        func_00102A60(&M2.m[3], pos);
+        sceVu0CopyVector(&M2.m[3], pos);
         M2.m[3].w = 1.0f;
         for (k = 0; k < 4; k++, q++) {
             if (q->x2 == j) func_001D3810(o, res ? 5 : 6, q, &M2, a, 0, a2);

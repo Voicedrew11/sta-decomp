@@ -23,7 +23,7 @@ extern s8 D_001FD988[];
 extern Big *D_00201DC0;
 Src *func_001C9BA0(void);
 void func_001DF930(u8 *);
-void func_00123A88(void *, void *, s32);
+void memcpy(void *, void *, s32);
 #define FCC(s) ((s)[0] | ((s)[1] << 8) | ((s)[2] << 16) | ((s)[3] << 24))
 static inline void init(Rec *p, s8 *s, u32 x4, u32 x10, u32 x14) {
     p->tag = FCC(s);
@@ -46,7 +46,7 @@ void func_001A9080(void) {
     s->x8 = s->x9B;
     s->xA = s->x9A;
     s->xB = s->x99;
-    func_00123A88(D_00201DC0->x20, s, 0x10A0);
+    memcpy(D_00201DC0->x20, s, 0x10A0);
     b = D_00201DC0; init(&b->r0, D_001FD9A0, 0x10C0, 0x10B0, 0x10A0);
     b = D_00201DC0; init(&b->r1, D_001FD9A8, 0x49E0, 0x49D0, 0x49C0);
     b = D_00201DC0; init(&b->r2, D_001FD9B0, 0xA0, 0x90, 0x80);

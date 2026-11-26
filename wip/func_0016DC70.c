@@ -11,7 +11,7 @@ extern u32 D_00201F54;
 extern f32 D_001F2110[];
 Q *func_00154A80(s32);
 void func_00154A70(void);
-void func_00102A60(f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
 void func_0016DC70(Obj *a0, s32 a1, Base *b, s32 idx, C c0) {
     Obj *o = a0;
     Base *bb = b;
@@ -55,7 +55,7 @@ void func_0016DC70(Obj *a0, s32 a1, Base *b, s32 idx, C c0) {
     p[0].q = q.q;
     p[1].q = q2.q;
     e = (s8 *)bb->arr[idx].v;
-    func_00102A60((f32 *)e, D_001F2110);
+    sceVu0CopyVector((f32 *)e, D_001F2110);
     q.q = 0;
     q.w[0] = 0x30000001;
     q.w[1] = (s32)e + bb->off;

@@ -1,6 +1,6 @@
 #include "common.h"
-void func_00102A60(Vec *, Vec *);
-void func_00102A70(Mtx *, Mtx *);
+void sceVu0CopyVector(Vec *, Vec *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
 
 void func_0015E180(Mtx *out, Vec *q) {
     Mtx m;
@@ -9,7 +9,7 @@ void func_0015E180(Mtx *out, Vec *q) {
     Vec v;
     f32 y;
     f32 z;
-    func_00102A60(&v, q);
+    sceVu0CopyVector(&v, q);
     x = v.x; y = v.y; z = v.z; w = v.w;
     m.m[0].x = 1.0f - 2.0f * (y * y + z * z);
     m.m[0].y = 2.0f * (x * y + z * w);
@@ -27,5 +27,5 @@ void func_0015E180(Mtx *out, Vec *q) {
     m.m[3].x = 0.0f;
     m.m[3].y = 0.0f;
     m.m[3].z = 0.0f;
-    func_00102A70(out, &m);
+    sceVu0CopyMatrix(out, &m);
 }

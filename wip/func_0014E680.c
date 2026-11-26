@@ -8,13 +8,13 @@ typedef struct { Vec mn; Vec mx; } Box;
 extern s16 D_00222A18[];
 extern s16 D_00222A16[];
 extern Vec D_003139A0;
-void func_00102A60(Vec *, void *);
-void func_00102A18(Vec *, Vec *, f32);
-void func_001029D0(Vec *, Vec *, Vec *);
-void func_001028F8(Mtx *, Mtx *);
-void func_00102A70(Mtx *, Mtx *);
-void func_00102870(Vec *, Vec *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
+void sceVu0AddVector(Vec *, Vec *, Vec *);
+void sceVu0InversMatrix(Mtx *, Mtx *);
+void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0Normalize(Vec *, Vec *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 s32 func_0014F210(Res *, Vec *, Vec *, Vec *, s32, s32, f32 *);
 
 static inline s32 ov(Vec *p, Box *b, f32 r) {
@@ -57,13 +57,13 @@ s32 func_0014E680(Out *out, Hdr *h, s32 base, Vec *sph, Mtx *m, u8 mask, u8 flag
     q8 = (Box *)(base + h->off[2]);
     q4 = (u8 *)(base + h->off[1]);
     r = sph->w;
-    func_00102A60(&P, sph);
-    func_00102A60(&C, sph);
+    sceVu0CopyVector(&P, sph);
+    sceVu0CopyVector(&C, sph);
     C.w = 1.0f;
-    func_001028F8(&M, m);
-    func_001027B0(&C, &M, &C);
-    func_00102A70(&R, m);
-    func_00102A60((Vec *)&R.m[3], &D_003139A0);
+    sceVu0InversMatrix(&M, m);
+    sceVu0ApplyMatrix(&C, &M, &C);
+    sceVu0CopyMatrix(&R, m);
+    sceVu0CopyVector((Vec *)&R.m[3], &D_003139A0);
     cnt = q0;
     for (k = 0; k < 8; h = (Hdr *)&h->off[1], q8++, k++, cnt++) {
         if (!((1 << k) & mask)) continue;
@@ -79,27 +79,27 @@ s32 func_0014E680(Out *out, Hdr *h, s32 base, Vec *sph, Mtx *m, u8 mask, u8 flag
             e = q4 + it->off;
             t = (Tri *)(e + 0x20);
             if (e[0xC] & 1) c0 = 1;
-            func_00102A60(&tri[0], e);
+            sceVu0CopyVector(&tri[0], e);
             tri[0].w = 1.0f;
-            func_00102A60(&tri[1], e + 0x10);
+            sceVu0CopyVector(&tri[1], e + 0x10);
             tri[1].w = 1.0f;
-            func_001027B0(&tri[0], m, &tri[0]);
-            func_001027B0(&tri[1], m, &tri[1]);
+            sceVu0ApplyMatrix(&tri[0], m, &tri[0]);
+            sceVu0ApplyMatrix(&tri[1], m, &tri[1]);
             for (i = 0; i < it->n - 2; i++, t++) {
                 v = &tri[(i + 2) % 3];
-                func_00102A60(v, t);
+                sceVu0CopyVector(v, t);
                 v->w = 1.0f;
-                func_001027B0(v, m, v);
+                sceVu0ApplyMatrix(v, m, v);
                 if (D_00222A16[0] != -1 && i != D_00222A16[0]) continue;
-                func_001027B0(&N, &R, &t->v + 1);
-                func_00102870(&N, &N);
+                sceVu0ApplyMatrix(&N, &R, &t->v + 1);
+                sceVu0Normalize(&N, &N);
                 N.w = 0.0f;
                 if (func_0014F210(&res, &P, tri, &N, i, c0, &dist)) {
-                    func_00102A18(&S, &res.b, r);
-                    func_001029D0(&P, &S, &res.a);
+                    sceVu0ScaleVector(&S, &res.b, r);
+                    sceVu0AddVector(&P, &S, &res.a);
                     P.w = r;
-                    func_00102A60(&out->a, &res.a);
-                    func_00102A60(&out->b, &res.b);
+                    sceVu0CopyVector(&out->a, &res.a);
+                    sceVu0CopyVector(&out->b, &res.b);
                     out->x24 = q0;
                     ret = 1;
                     out->x28 = it;
@@ -110,7 +110,7 @@ s32 func_0014E680(Out *out, Hdr *h, s32 base, Vec *sph, Mtx *m, u8 mask, u8 flag
             }
         }
     }
-    func_00102A60(sph, &P);
+    sceVu0CopyVector(sph, &P);
     sph->w = r;
     return ret;
 }

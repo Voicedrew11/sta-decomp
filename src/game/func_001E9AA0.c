@@ -33,11 +33,11 @@ extern s16 D_004BE0D4[];
 extern s16 D_004BE0D6[];
 extern s16 D_004BE0D8[];
 void sceGsSyncV(s32);
-void func_00100200(s16, s16, s16, s16);
+void sceGsResetGraph(s16, s16, s16, s16);
 void sceGsSetDefDispEnv(Env *, s16, s16, s16, s16, s16);
 void FlushCache(s32);
 void sceGsPutDispEnv(Env *);
-void func_00101120(s32, s32);
+void sceGsSyncPath(s32, s32);
 
 static inline u32 *setreg(u32 *p, u64 v, s32 reg) {
     p[0] = v & 0xFFFFFFFF;
@@ -77,7 +77,7 @@ void func_001E9AA0(Env *o, s32 a1, s32 a2, s32 w, s32 h, s32 a5, s32 a6) {
     o->f40 = a5;
     o->f44 = a6;
     sceGsSyncV(0);
-    func_00100200(0, 1, D_004BE0D4[0], 1);
+    sceGsResetGraph(0, 1, D_004BE0D4[0], 1);
     sceGsSetDefDispEnv(o, 0, w, h2, D_004BE0D6[0], D_004BE0D8[0]);
     o->dispfb.FBW = w64 / 64;
     FlushCache(0);
@@ -96,5 +96,5 @@ void func_001E9AA0(Env *o, s32 a1, s32 a2, s32 w, s32 h, s32 a5, s32 a6) {
     *(volatile u32 *)0x1000A010 = a;
     *(volatile u32 *)0x1000A020 = 8;
     *(volatile u32 *)0x1000A000 = 0x101;
-    func_00101120(0, 0);
+    sceGsSyncPath(0, 0);
 }

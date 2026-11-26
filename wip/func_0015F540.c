@@ -10,7 +10,7 @@ typedef struct {
 } P;
 typedef struct { u8 pad0[2]; u16 x2; u8 x4; u8 x5; u8 x6; u8 x7; u8 x8[12]; u8 pad14[0xC]; u16 x20; u16 x22; } Q;
 extern P D_00317230[];
-void func_00123C40(void *, s32, s32);
+void memset(void *, s32, s32);
 s32 func_001D7AF0(u32, s32);
 s32 func_001D7E90(u32, s32);
 void func_001D7DE8(u32, s32, s32);
@@ -30,7 +30,7 @@ static inline void clr(P *p) {
         p->x10 = 0.0f;
         p->x14 = 0.0f;
         p->x18 = 0.0f;
-        func_00123C40(p->x1C, 0, 0x30);
+        memset(p->x1C, 0, 0x30);
     }
 }
 

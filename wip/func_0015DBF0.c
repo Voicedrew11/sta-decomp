@@ -7,8 +7,8 @@ typedef struct {
     f32 x58;
     s32 x5C;
 } Obj;
-void func_00102A60(f32 *, f32 *);
-void func_00123C40(void *, s32, s32);
+void sceVu0CopyVector(f32 *, f32 *);
+void memset(void *, s32, s32);
 extern s32 D_0030D184[];
 extern s32 D_0030D188[];
 extern u16 D_0030D588[];
@@ -25,9 +25,9 @@ s32 func_0015DBF0(s32 kind, f32 *a, f32 *b, f32 r, f32 h) {
 
     idx = D_0030D188[--D_0030D184[0]];
     o = &D_0030D9A0[idx];
-    func_00123C40(o, 0, 0x60);
-    func_00102A60(v80, a);
-    func_00102A60(v70, b);
+    memset(o, 0, 0x60);
+    sceVu0CopyVector(v80, a);
+    sceVu0CopyVector(v70, b);
     v70[3] = h;
     v80[3] = -1.0f / (r * r);
     o->x54 = r;
@@ -38,9 +38,9 @@ s32 func_0015DBF0(s32 kind, f32 *a, f32 *b, f32 r, f32 h) {
     cnt = &D_0030D588[kind * 0x41];
     D_0030D58A[kind * 0x41 + (*cnt)++] = idx;
     for (i = 0; i < 2; i++) {
-        func_00102A60(o->p[i][0], v80);
-        func_00102A60(o->p[i][1], v70);
+        sceVu0CopyVector(o->p[i][0], v80);
+        sceVu0CopyVector(o->p[i][1], v70);
     }
-    func_00102A60(o->c, v80);
+    sceVu0CopyVector(o->c, v80);
     return idx;
 }

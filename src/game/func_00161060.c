@@ -141,7 +141,7 @@ void sceVu0AddVector(void *, void *, void *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0CopyMatrix(void *, void *);
 void sceVu0ApplyMatrix(void *, void *, void *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 void func_00162490(P80 *, F *, f32);
 u16 func_0015ED20(void);
@@ -341,7 +341,7 @@ s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
     v330.y = 1.5259022e-05f * (f32)(u32)func_0015ED20() - 0.5f;
     v330.z = 1.5259022e-05f * (f32)(u32)func_0015ED20() - 0.5f;
     v330.w = 0.0f;
-    func_00102870(&v330, &v330);
+    sceVu0Normalize(&v330, &v330);
     sceVu0OuterProduct(&v330, &v330, &v->x10);
     s = 1.5259022e-05f * (f32)(u32)func_0015ED20();
     if (1.0f != w && !(s <= 0.01f)) {

@@ -7,7 +7,7 @@ s32 func_001A9D50(s32, u16);
 void func_001A9E10(s32, u16, u8);
 void func_001B87C0(s8 *, u32, s32, u8, f32, f32);
 void func_00171B70(s8 *, u16, f32);
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 void func_00171540(s8 *, s8 *);
 void func_001BB760(s8 *, u32, s32, s8 *, s32);
 
@@ -47,7 +47,7 @@ void func_001B8350(s32 a0, u32 a1, s32 a2) {
             ((BF50 *)(e + 0x50))->b0 = 3;
             ((BF8 *)(e + 0x52))->b4 = 1;
         }
-        func_00102A60(obj + 0x30, p + 0x10);
+        sceVu0CopyVector(obj + 0x30, p + 0x10);
         func_00171540(obj, e);
         ((BF51 *)(e + 0x51))->v = 2;
         if (func_001A9D50(a0, a1) == 0) {

@@ -3,14 +3,14 @@ typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 
 typedef struct { u8 v : 2; } BF50;
 extern s32 D_00201E80;
 s8 *func_001715B0(s8 **);
-void func_001029E8(Vec *, Vec *, Vec *);
-f32 func_0011D850(f32);
-f32 func_00102848(Vec *, Vec *);
-void func_00102A18(Vec *, Vec *, f32);
+void sceVu0SubVector(Vec *, Vec *, Vec *);
+f32 fabsf(f32);
+f32 sceVu0InnerProduct(Vec *, Vec *);
+void sceVu0ScaleVector(Vec *, Vec *, f32);
 f32 func_0011DBC0(f32, f32);
 void func_001B87C0(s8 *, u32, s32, s32, f32, f32);
 void func_00171B70(s8 *, u16, f32);
-void func_00102A60(s8 *, s8 *);
+void sceVu0CopyVector(s8 *, s8 *);
 void func_00171540(s8 *, s8 *);
 #define PI 3.1415927f
 #define TWOPI 6.2831855f
@@ -63,16 +63,16 @@ void func_001B9F10(Vec *pos, Vec *rot, f32 scale, f32 maxh) {
                 b = a;
             }
             range = scale * b;
-            func_001029E8(&d, pos, (Vec *)(r + 0x230));
-            if (!(func_0011D850(d.y) <= maxh)) continue;
+            sceVu0SubVector(&d, pos, (Vec *)(r + 0x230));
+            if (!(fabsf(d.y) <= maxh)) continue;
             d.y = 0.0f;
-            if (!(func_00102848(&d, &d) <= range * range)) continue;
-            func_00102A18(&d, &d, -1.0f);
+            if (!(sceVu0InnerProduct(&d, &d) <= range * range)) continue;
+            sceVu0ScaleVector(&d, &d, -1.0f);
             range = PI + rot->y;
             w = range < 0.0f ? TWOPI : 0.0f;
             tt = range - TWOPI * (s32)(INV * range);
             diff = func_0011DBC0(-d.x, -d.z) - (tt + w - PI);
-            if (!(func_0011D850(WRAP(diff)) <= 1.39626348f)) continue;
+            if (!(fabsf(WRAP(diff)) <= 1.39626348f)) continue;
             ((BF50 *)(e + 0x50))->v = 1;
             e2 = *(s8 **)(p + 0x180) + (i << 7);
             t2 = *(s8 **)(p + 0x170) + (*(u16 *)(*(s8 **)(p + 0x138) + i * 0x30 + 0x18) << 6);
@@ -93,7 +93,7 @@ void func_001B9F10(Vec *pos, Vec *rot, f32 scale, f32 maxh) {
                 ((BF50 *)(e + 0x50))->v = 3;
                 ((BF8 *)(e + 0x52))->b4 = 1;
             }
-            func_00102A60(s + 0x30, p + 0x10);
+            sceVu0CopyVector(s + 0x30, p + 0x10);
             func_00171540(s, e);
             ((BF8 *)(e + 0x53))->b2 = 1;
         }

@@ -5,7 +5,7 @@ extern u8 D_0022EBD9[];
 extern u8 D_001FABB8[];
 extern u8 D_001FABC0[];
 void FlushCache(s32);
-s32 func_00116EA0(void *, void *);
+s32 sceCdSearchFile(void *, void *);
 s32 sceCdGetError(void);
 void memset(void *, s32, s32);
 void sprintf(void *, void *, s32);
@@ -30,7 +30,7 @@ s32 func_00130590(s32 arg0, s32 arg1, s32 arg2) {
     if (arg2) D_00201EE0.b2 = 1; else D_00201EE0.b2 = 0;
     if (arg1 == 0) {
         sprintf(name, D_001FABB8, arg0);
-        while (func_00116EA0(info, name) == 0) {
+        while (sceCdSearchFile(info, name) == 0) {
             s32 r = sceCdGetError();
             i++;
             if (r == 0) {

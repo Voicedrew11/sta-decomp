@@ -28,7 +28,7 @@ f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 f32 fabsf(f32);
 s32 func_001CA4A0(u32, s32);
@@ -83,7 +83,7 @@ void func_001C3EF0(Actor *a, In *in, f32 dt) {
         }
         sceVu0CopyVector(&n, &p->x18->v80);
         *(s32 *)&n.y = 0;
-        func_00102870(&n, &n);
+        sceVu0Normalize(&n, &n);
         sceVu0OuterProduct(&c, &D_004B4D00, &n);
         if (sceVu0InnerProduct(&D_004B4D00, &n) < -0.9f) {
             p->x18->x24 += 2.0f * (0.048869219f * (p->x390->x48 ? 0.5f : 1.0f));

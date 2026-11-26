@@ -39,8 +39,8 @@ extern BF D_00222A50[];
 extern s32 D_00202008;
 extern s32 D_00201F4C;
 extern s32 D_00201F48;
-void func_00102A60(Vec *, void *);
-void func_001027B0(Vec *, Mtx *, Vec *);
+void sceVu0CopyVector(Vec *, void *);
+void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
 s32 func_00153FA0(Vec *);
 void func_0016F280(Arg);
 void func_0016DED0(Hd *, S1 *, K *, Arg);
@@ -98,9 +98,9 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
             if (D_00222A50[0].b3) {
                 res = 2;
             } else {
-                func_00102A60(&V, o);
+                sceVu0CopyVector(&V, o);
                 V.w = 1.0f;
-                func_001027B0(&V, &jt->m, &V);
+                sceVu0ApplyMatrix(&V, &jt->m, &V);
                 V.w = o->v0.w * jt->s;
                 res = func_00153FA0(&V);
             }
@@ -132,9 +132,9 @@ void func_0016CD80(O *o, S1 *s1, K *k2, Arg a) {
                         if (D_00222A50[0].b3) {
                             r = 2;
                         } else {
-                            func_00102A60(&W, &h->v10);
+                            sceVu0CopyVector(&W, &h->v10);
                             W.w = 1.0f;
-                            func_001027B0(&W, &((J *)(ji + 0xC0))->m, &W);
+                            sceVu0ApplyMatrix(&W, &((J *)(ji + 0xC0))->m, &W);
                             W.w = h->v10.w * (&k2->j[k] + 1)->s;
                             r = func_00153FA0(&W);
                         }

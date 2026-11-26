@@ -16,12 +16,12 @@ typedef struct {
 } Big;
 extern Big D_0030C420;
 extern Vec D_003139A0;
-void func_00123C40(void *, s32, s32);
-void func_00102A60(void *, void *);
+void memset(void *, s32, s32);
+void sceVu0CopyVector(void *, void *);
 
 void func_0015C8D0(void) {
-    func_00123C40(&D_0030C420, 0, 0xCC0);
-    func_00102A60(&D_0030C420.c.v, &D_003139A0);
+    memset(&D_0030C420, 0, 0xCC0);
+    sceVu0CopyVector(&D_0030C420.c.v, &D_003139A0);
     D_0030C420.c.x18 = 100.0f;
     D_0030C420.c.v.w = 40000.0f;
     D_0030C420.c.x10 = 1.0f;

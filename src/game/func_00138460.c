@@ -6,7 +6,7 @@ Vec *func_00140460(Actor *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 static inline s32 hit(f32 g) { return g <= 0.0f; }
@@ -64,7 +64,7 @@ s32 func_00138460(Actor *a, Actor *b, Vec *out) {
                         sceVu0ScaleVector(&m, &d, f - 1.0f);
                         sceVu0AddVector(out, pa, &m);
                         sceVu0SubVector(out, pb, out);
-                        func_00102870(out, out);
+                        sceVu0Normalize(out, out);
                         sceVu0ScaleVector(out, out, g * p[0]->w / r);
                         sceVu0AddVector(out, out, &m);
                         *(s32 *)&out->w = 0;
@@ -82,7 +82,7 @@ s32 func_00138460(Actor *a, Actor *b, Vec *out) {
                     pa = func_00140460(a);
                     pb = func_00140460(b);
                     sceVu0SubVector(out, pb, pa);
-                    func_00102870(out, out);
+                    sceVu0Normalize(out, out);
                     out->x *= t * p[0]->w / r;
                     out->y *= t * p[0]->w / r;
                     out->z *= t * p[0]->w / r;

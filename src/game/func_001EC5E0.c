@@ -17,8 +17,8 @@ void func_001EC3C0();
 s32 AddDmacHandler(s32, s32 (*)(), s32);
 void EnableDmac(s32);
 void func_00109A00(void *, s32, s32);
-s32 func_0010B700(s32, s32 (*)(), s32);
-void func_0010C568(s32);
+s32 AddIntcHandler(s32, s32 (*)(), s32);
+void EnableIntc(s32);
 void func_001EBCC0(void *, s32, s32, s32);
 void func_001EB1A0(void *, s32, s32, s32, s32, s32);
 void func_001E95B0(void *, u8 *, s32, s32, s32);
@@ -116,8 +116,8 @@ void func_001EC5E0(s32 arg0) {
     while (!func_001E88C0(D_004BE04C, arg0) != 0) {
         printf(D_00201A50, arg0);
     }
-    D_004BDFF4[0] = func_0010B700(2, func_001E8CB0, 0);
-    func_0010C568(2);
+    D_004BDFF4[0] = AddIntcHandler(2, func_001E8CB0, 0);
+    EnableIntc(2);
     D_004BDFF0[0] = AddDmacHandler(2, func_001E8C50, 0);
     EnableDmac(2);
 }

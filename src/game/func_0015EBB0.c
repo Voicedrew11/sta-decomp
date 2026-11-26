@@ -2,7 +2,7 @@
 f32 func_0011D778(f32);
 f32 func_0011DA18(f32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-void func_00102870(Vec *, Vec *);
+void sceVu0Normalize(Vec *, Vec *);
 void sceVu0CopyMatrix(f32 *, f32 *);
 float sqrtf(float);
 extern f32 D_001F2170[];
@@ -18,7 +18,7 @@ void func_0015EBB0(f32 *m, Vec *axis, f32 ang) {
         sceVu0CopyMatrix(m, D_001F2170);
         return;
     }
-    func_00102870(&v, axis);
+    sceVu0Normalize(&v, axis);
     x = v.x; y = v.y; z = v.z;
     xx = x * x; yy = y * y; zz = z * z; xy = x * y; yz = y * z; zx = z * x; xs = x * s; ys = y * s; zs = z * s;
     m[0] = c + t * xx;

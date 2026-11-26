@@ -20,7 +20,7 @@ extern u8 D_004B6478[];
 s32 func_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 s32 func_001D3CE0(s32);
 void func_001D3DA8(s32);
-void func_00123A88(s32, u8 *, s32);
+void memcpy(s32, u8 *, s32);
 void memset(void *, s32, s32);
 s32 sceMcOpen(s32, s32, s32, s32);
 s32 sceMcClose(s32);
@@ -278,7 +278,7 @@ s32 func_001D4A78(void)
                             len = D_004B6390[0] - D_004B638C[0];
                         }
                         if (max < len) len = max;
-                        func_00123A88(t->xb4 + D_004B638C[0], D_004B6478, len);
+                        memcpy(t->xb4 + D_004B638C[0], D_004B6478, len);
                         if (len < max) {
                             t->state++;
                             break;
