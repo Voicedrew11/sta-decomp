@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 BASE = 0x00100000
 GAME, TEXT_END = 0x00128210, 0x001EDE80
-EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E19A0, 0x001E5E80)]
+EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]
 
 
 def starts():

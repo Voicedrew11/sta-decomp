@@ -12,7 +12,7 @@
 #                              -O2 -G 0, SCE ee-as 2.10 (286 of 301 libkernl
 #                              functions match under 2.9, 168 under 2.96)
 #   src/game/ee/*              the game's three ee-gcc modules (0x1D3A90-0x1D7EC0,
-#                              0x1DC328-0x1DC900, 0x1E19A0-0x1E5E80): ee-gcc 2.96 -O2 -G 8
+#                              0x1DC328-0x1DC900, 0x1E1E08-0x1E5E80): ee-gcc 2.96 -O2 -G 8
 #                              -fno-strict-aliasing, SCE ee-as 2.10
 #   everything else (the game) Metrowerks CodeWarrior mwccps2 3.0 beta -O4,p,
 #                              run under wibo

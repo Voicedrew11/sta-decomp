@@ -78,7 +78,7 @@ library unit and the game start is a library (`sce`) asm unit.
 Inside the game, three runs of code are ee-gcc output, not CodeWarrior:
 0x1D3A90–0x1D7EC0 (memory card, pad and file wrappers over sceMc*, scePad*
 and sceRead/sceLseek, and tables of 0x1C0-byte records), 0x1DC328–0x1DC900
-(VU0 macro helpers) and 0x1E19A0–0x1E5E80 (GS packet and image upload
+(VU0 macro helpers) and 0x1E1E08–0x1E5E80 (GS packet and image upload
 helpers, `se/m%3.03ds.mse`). ee-gcc aligns functions to 8 and CodeWarrior to
 16, which is how the third was found and the second's end fixed: 0x1E6040,
 0x1E6060 and 0x1E6080 match under CodeWarrior, not ee-gcc.

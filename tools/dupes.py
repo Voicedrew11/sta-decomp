@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 GAME = 0x00128210
-EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E19A0, 0x001E5E80)]
+EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]
 INSN = re.compile(r"^\s*/\* [0-9A-F]+ ([0-9A-F]{8}) [0-9A-F]{8} \*/\s+(\S+)\s*(.*)$")
 SYM = re.compile(r"^-?[A-Za-z_][\w.]*$|^%\w+\((\w+)\)")
 

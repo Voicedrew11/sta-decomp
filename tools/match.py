@@ -9,7 +9,7 @@
 
 The compiler follows the address, as tools/compile_c.sh does by path: a function
 inside one of the three ee-gcc modules (0x1D3A90-0x1D7EC0, 0x1DC328-0x1DC900,
-0x1E19A0-0x1E5E80) is
+0x1E1E08-0x1E5E80) is
 compiled with ee-gcc 2.96 -O2 -G 8 -fno-strict-aliasing, anything else with
 mwccps2 3.0b52 -O4,p. MWCC and GAME_CFLAGS override CodeWarrior as for
 compile_c.sh. Words that carry a relocation are compared on their opcode bits
@@ -30,7 +30,7 @@ from elftools.elf.relocation import RelocationSection
 ROOT = Path(__file__).resolve().parent.parent
 ROM = ROOT / "baserom/jp/sta.rom"
 BASE = 0x00100000
-EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E19A0, 0x001E5E80)]
+EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]
 MASK = {4: 0xFC000000, 5: 0xFFFF0000, 6: 0xFFFF0000, 7: 0xFFFF0000}
 GP = 0x00209B70
 

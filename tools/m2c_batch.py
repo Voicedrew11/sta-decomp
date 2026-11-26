@@ -32,7 +32,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "build/m2c"
 GAME = 0x00128210
-EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E19A0, 0x001E5E80)]
+EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]
 
 HEADER = '#include "common.h"\n'
 
@@ -189,8 +189,9 @@ def signatures(outputs):
 
 def write_context(outs):
     ctx = OUT / "context.h"
-    types = "".join(l + "\n" for l in (ROOT / "include/common.h").read_text().splitlines()
-                    if l.startswith("typedef") and "__int128" not in l)
+    types = "".join(l + "\n" for h in ("types.h", "common.h")
+                    for l in (ROOT / "include" / h).read_text().splitlines()
+                    if l.startswith("typedef") and l.endswith(";") and "__int128" not in l and "mode(TI)" not in l)
     types += "typedef long long s128;\ntypedef unsigned long long u128;\n"
     ctx.write_text(types + "\n".join(signatures(outs)) + "\n")
     return ctx

@@ -50,7 +50,7 @@ STA_ROM = ROOT / "baserom/jp/sta.rom"
 OUT = ROOT / "build/engine_match.tsv"
 
 STA_GAME = (0x00128210, 0x001EDE80)
-STA_EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E19A0, 0x001E5E80)]   # ee-gcc modules
+STA_EE = [(0x001D3A90, 0x001D7EC0), (0x001DC328, 0x001DC900), (0x001E1E08, 0x001E5E80)]   # ee-gcc modules
 KFIV_GAME = (0x001000C8, 0x00216778)   # after crt0, before libvu0 (most of the game)
 
 SAVED = {16, 17, 18, 19, 20, 21, 22, 23, 30, 31}
