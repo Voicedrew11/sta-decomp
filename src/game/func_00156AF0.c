@@ -8,7 +8,7 @@ extern void func_00154420(void);
 extern Q *func_00154A80(s32);
 extern void func_00154A70(void);
 extern void func_00176AE0(void);
-extern u64 func_0011F650(f32);
+extern u64 __fixunssfdi(f32);
 static inline s32 wd(void) { return D_00201F2C ? 0 : 0x1180; }
 
 void func_00156AF0(void) {
@@ -19,7 +19,7 @@ void func_00156AF0(void) {
     func_001543E0(0x4C, (s64)(wd() / 32) | 0xA0000);
     func_001543E0(0x4E, 0x3A000118);
     f = D_00201E90;
-    func_001543E0(0x40, 0x27F0000 | ((u64)func_0011F650(f) << 32) | ((u64)func_0011F650(448.0f - f - 1.0f) << 48));
+    func_001543E0(0x40, 0x27F0000 | ((u64)__fixunssfdi(f) << 32) | ((u64)__fixunssfdi(448.0f - f - 1.0f) << 48));
     func_001543E0(0x47, 0x31001);
     func_001543E0(6, 0xA8016BC0 | ((u64)0xA << 32));
     func_001543E0(0x14, 0x60);

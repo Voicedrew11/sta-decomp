@@ -5,7 +5,7 @@ extern void func_00154A70(void);
 extern void func_001545D0(void);
 extern void func_00154420(void);
 extern void func_001543E0(s32, u64);
-extern u64 func_0011F650(f32);
+extern u64 __fixunssfdi(f32);
 void func_0015B1C0(Q *src, f32 *c) {
     Q q;
     Q *p;
@@ -17,7 +17,7 @@ void func_0015B1C0(Q *src, f32 *c) {
     p[1].q = src->q;
     func_00154A70();
     func_001545D0();
-    func_001543E0(0x3D, func_0011F650(c[0]) | func_0011F650(c[1]) << 8 | func_0011F650(c[2]) << 16);
+    func_001543E0(0x3D, __fixunssfdi(c[0]) | __fixunssfdi(c[1]) << 8 | __fixunssfdi(c[2]) << 16);
     func_00154420();
 }
 

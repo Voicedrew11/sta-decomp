@@ -90,4 +90,10 @@ S="${OUT%.o}.s"
 SRC_DIR="$(cd "$(dirname "${SRC}")" && pwd)"
 ( cd "${SRC_DIR}" && "${ROOT}/tools/period_env.sh" ${GCC} \
     -S -O2 -mips3 -EL -nostdinc ${FLAGS} ${INCS} -o "${ROOT}/${S}" "$(basename "${SRC}")" )
+# The newlib libraries were assembled by an older gas, which never put a
+# macro (`move`, `ld`, `sd`, ...) in a delay slot; tools/oldmove.py stops ours
+# from doing so.
+case "${SRC}" in
+    src/sce/libc/*|src/sce/libm/*|src/sce/libgcc/*) python3 "${ROOT}/tools/oldmove.py" "${S}" "${S}" ;;
+esac
 "${ROOT}/tools/period_env.sh" "${AS_SDK}" -EL -mcpu=5900 -mabi=eabi -G "${GNUM}" -o "${OUT}" "${S}"

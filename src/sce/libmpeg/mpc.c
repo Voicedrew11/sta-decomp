@@ -1387,35 +1387,45 @@ void _copyAddRefImage(void *dst, void *ref, void *diff)
  * clamp mask its sibling reads as _maxval lives in this function's own
  * text, aligned to a quadword, with the two pad instructions the alignment
  * leaves behind. */
-void _copyRefImage(void *dst, void *src)
-{
-    __asm__ __volatile__(".set noreorder\n"
-                         "addiu $12, $0, 0x18\n"
-                         "lui $10, %%hi(_maxval)\n"
-                         "addiu $10, $10, %%lo(_maxval)\n"
-                         "lq $11, 0x0($10)\n"
-                         "1:\n"
-                         "lq $8, 0x0($5)\n"
-                         "addi $12, $12, -0x1\n"
-                         "pminh $8, $8, $11\n"
-                         "lq $9, 0x10($5)\n"
-                         "pmaxh $8, $8, $0\n"
-                         "pminh $9, $9, $11\n"
-                         "addiu $5, $5, 0x20\n"
-                         "pmaxh $9, $9, $0\n"
-                         "addiu $4, $4, 0x10\n"
-                         "ppacb $10, $9, $8\n"
-                         "bnez $12, 1b\n"
-                         "sq $10, -0x10($4)\n"
-                         ".align 4\n"
-                         "_maxval:\n"
-                         ".word 0x00FF00FF\n"
-                         ".word 0x00FF00FF\n"
-                         ".word 0x00FF00FF\n"
-                         ".word 0x00FF00FF\n"
-                         ".set reorder\n" ::
-                             : "$8", "$9", "$10", "$11", "$12", "memory");
-}
+/* STA: top-level asm, so _copyRefImage and the _maxval words each carry the
+   symbol sizes the ROM's split gives them */
+__asm__(".section .text\n"
+        "    .set noat\n"
+        "    .set noreorder\n"
+        "    .align 3\n"
+        "    .globl _copyRefImage\n"
+        "    .type _copyRefImage, @function\n"
+        "_copyRefImage:\n"
+        "addiu $12, $0, 0x18\n"
+        "lui $10, %hi(_maxval)\n"
+        "addiu $10, $10, %lo(_maxval)\n"
+        "lq $11, 0x0($10)\n"
+        "1:\n"
+        "lq $8, 0x0($5)\n"
+        "addi $12, $12, -0x1\n"
+        "pminh $8, $8, $11\n"
+        "lq $9, 0x10($5)\n"
+        "pmaxh $8, $8, $0\n"
+        "pminh $9, $9, $11\n"
+        "addiu $5, $5, 0x20\n"
+        "pmaxh $9, $9, $0\n"
+        "addiu $4, $4, 0x10\n"
+        "ppacb $10, $9, $8\n"
+        "bnez $12, 1b\n"
+        "sq $10, -0x10($4)\n"
+                         "    .size _copyRefImage, 0x40\n"
+        "    .align 4\n"
+        "    .type _maxval, @function\n"
+        "_maxval:\n"
+        "    .word 0x00FF00FF\n"
+        "    .word 0x00FF00FF\n"
+        "    .word 0x00FF00FF\n"
+        "    .word 0x00FF00FF\n"
+        "    jr $31\n"
+        "    nop\n"
+        "    .size _maxval, . - _maxval\n"
+        "    .set reorder\n"
+        "    .set at\n");
 
 void _ipuSetMPEG1(int on)
 {
@@ -2656,7 +2666,8 @@ void _dispRefImageField(MpegSys *p, int *top, int *bot, int frame)
    with interrupts off */
 static long long sprTagBuf[64]; /* derived name */
 
-/* STA: TEMPORARY inline asm: retail's instructions for _sendRefTags, which the
+/* TODO(STA): TEMPORARY inline asm, to be removed: retail's instructions for
+   _sendRefTags, which the
    C below reproduces but for its i/tag register choice.  The C, kept for
    the next attempt:
 

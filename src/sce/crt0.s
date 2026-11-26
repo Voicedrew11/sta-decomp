@@ -167,5 +167,8 @@ _root:
     addiu $3, $0, 0x23
     syscall 0
     .size _root, . - _root
+    # STA: the module's text ends on a quadword boundary: eight zero bytes
+    # before the next object (libgcc's __gtdf2)
+    .align 4
     .set reorder
     .set at
