@@ -6,9 +6,9 @@ typedef struct { f32 x, z; } V2;
 R *func_00189050(s32);
 u8 *func_00189020(s32);
 void func_00187B20(s32);
-f32 func_0011D4A8(f32);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 atanf(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 void func_001829B0(Obj *, u8 *, void *, s32);
 void func_00184280(void);
 extern f32 sqrtf(f32);
@@ -38,14 +38,14 @@ void func_00184040(s32 a0, f32 ang) {
         if (dx == 0.0f) {
             a = 0.0f;
         } else {
-            a = func_0011D4A8(dx / dz);
+            a = atanf(dx / dz);
         }
         if (dz < 0.0f) {
             a += 3.141592f;
         }
         r = a + ang;
-        o.x = 735.0f + d * func_0011DA18(r);
-        o.z = 129.0f + d * func_0011D778(r);
+        o.x = 735.0f + d * sinf(r);
+        o.z = 129.0f + d * cosf(r);
         }
         func_001829B0(&o, t + (l->e[i].idx << 3), func_00184280, a0);
     }

@@ -5,8 +5,8 @@ typedef struct { s32 x0; s32 x4; s32 x8; } Q;
 void RotateThreadReadyQueue(s32);
 s32 SignalSema(s32);
 s32 WaitSema(s32);
-s32 func_00108DD8(P *, u8 *, s32, B *, s32);
-s32 func_00116360(s32, s32, s32, ...);
+s32 sceMpegDemuxPssRing(P *, u8 *, s32, B *, s32);
+s32 sceSdRemote(s32, s32, s32, ...);
 void func_001D87F0(s32, u16, u16);
 s32 func_001E8710(Q *, u8 *, s32, s32);
 s32 func_001EA0D0(P *);
@@ -86,7 +86,7 @@ s32 func_001ECAB0(P *p, B *buf, Q *q, s32 (*cb)(void)) {
         c = buf->cnt;
         if (c != 0) dst = buf->data + (buf->size + (buf->rd - c)) % buf->size;
         if (c > 0) {
-            n = func_00108DD8(p, dst, c, buf, buf->size);
+            n = sceMpegDemuxPssRing(p, dst, c, buf, buf->size);
             m = imin(n, buf->cnt);
             rem2 -= n;
             buf->cnt -= m;
@@ -99,19 +99,19 @@ s32 func_001ECAB0(P *p, B *buf, Q *q, s32 (*cb)(void)) {
                 D_00202400 = 0;
                 D_002023F0 = 0;
                 if (D_00201E70 != 0) {
-                    func_00116360(1, 0x8010, 0x800, 0xC0);
-                    func_00116360(1, 0x8010, 0x801, 0xC);
-                    func_00116360(1, 0x80E0, 0, 0x10, *D_004BDF24, *D_004BDF28 / 1024 * 1024);
-                    func_00116360(1, 0x8010, 0xF80, 0x7FFF);
-                    func_00116360(1, 0x8010, 0x1080, 0x7FFF);
-                    func_00116360(1, 0x8010, 0xF81, 0x7FFF);
-                    func_00116360(1, 0x8010, 0x1081, 0x7FFF);
-                    func_00116360(1, 0x8010, 0xD81, 0x7FFF);
-                    func_00116360(1, 0x8010, 0xE81, 0x7FFF);
-                    func_00116360(1, 0x8010, 0x980, *D_004BE0D0);
-                    func_00116360(1, 0x8010, 0xA80, *D_004BE0D0);
-                    func_00116360(1, 0x8010, 0x981, *D_004BE0D0);
-                    func_00116360(1, 0x8010, 0xA81, *D_004BE0D0);
+                    sceSdRemote(1, 0x8010, 0x800, 0xC0);
+                    sceSdRemote(1, 0x8010, 0x801, 0xC);
+                    sceSdRemote(1, 0x80E0, 0, 0x10, *D_004BDF24, *D_004BDF28 / 1024 * 1024);
+                    sceSdRemote(1, 0x8010, 0xF80, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0x1080, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0xF81, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0x1081, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0xD81, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0xE81, 0x7FFF);
+                    sceSdRemote(1, 0x8010, 0x980, *D_004BE0D0);
+                    sceSdRemote(1, 0x8010, 0xA80, *D_004BE0D0);
+                    sceSdRemote(1, 0x8010, 0x981, *D_004BE0D0);
+                    sceSdRemote(1, 0x8010, 0xA81, *D_004BE0D0);
                     *D_004BDEE0 = 2;
                 }
                 started = 1;

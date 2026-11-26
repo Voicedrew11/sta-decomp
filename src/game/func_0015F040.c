@@ -5,7 +5,7 @@ extern f32 D_003139B0[];
 extern s32 D_00201C94;
 extern f32 D_00201C8C;
 extern f32 D_00201C90;
-extern f32 func_0011DBF0(f32, f32);
+extern f32 powf(f32, f32);
 
 f32 func_0015F040(f32 x, f32 p, f32 lac, f32 oct) {
     f32 freq;
@@ -20,12 +20,12 @@ f32 func_0015F040(f32 x, f32 p, f32 lac, f32 oct) {
         freq = 1.0f;
         D_00201C8C = p;
         for (i = 0; i <= oct; i++) {
-            D_003139B0[i] = func_0011DBF0(freq, -p);
+            D_003139B0[i] = powf(freq, -p);
             D_00201C90 += D_003139B0[i];
             freq *= lac;
         }
         D_00201C94 = 0;
-        D_00201C90 = 1.0f / func_0011DBF0(D_00201C90, 0.83f);
+        D_00201C90 = 1.0f / powf(D_00201C90, 0.83f);
     }
     sum = 0.0f;
     for (i = 0; i < oct; i++) {

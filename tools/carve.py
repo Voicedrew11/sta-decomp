@@ -37,6 +37,7 @@ after the last placed unit is still asm.
 """
 import bisect
 import os
+import re
 import struct
 import subprocess
 import sys
@@ -80,6 +81,10 @@ FIXED_UNITS = ["asm/data/sdata.sdata.s", "asm/data/sbss.sbss.s"]
 # defined by config/sta.jp.ld.in, not by any unit (_gp is named for splat: the
 # units reference it through %hi/%lo)
 LINKER_SYMS = {"_fbss", "_end", "_stack", "_stack_size", "_heap_size"}
+# and every symbol config/linker_syms.txt gives ld: the link defines them, so
+# splat must not be handed them (a game alias at a library function's address
+# would clash with the function's name)
+LINKER_SYMS |= set(re.findall(r"^(\w+)\s*=", (ROOT / "config/linker_syms.txt").read_text(), re.M))
 BEGIN = "      # --- tools/carve.py: generated from here ---"
 END = "      # --- tools/carve.py: generated up to here ---"
 
@@ -313,8 +318,12 @@ def game_pointers(placed, statics):
             lui[rt] = (k, (x & 0xFFFF) << 16)
         elif op in LO_OPS and rs in lui and k - lui[rs][0] < 32:
             note((lui[rs][1] + sext16(x & 0xFFFF)) & 0xFFFFFFFF)
+    # Words in the data sections. Not .text: its words are instructions, and
+    # one that happens to equal an address inside a static (0x00101880, an
+    # sll, lands in libdma's _sceDmaWait) is no pointer; the loop above reads
+    # the code's real references.
     for sec, (vbase, data) in RETAIL.items():
-        if sec == ".bss":
+        if sec in (".bss", ".text"):
             continue
         for off in range(0, len(data) - 3, 4):
             v = struct.unpack_from("<I", data, off)[0]

@@ -66,6 +66,13 @@ struct _Bigint {
 /* The reentrancy record, newlib's struct _reent: impure.c's _REENT_INIT sets
  * the three standard stream pointers, the locale name and the rand seed; the
  * members read the errno, the init flag, the cleanup hook and the glue. */
+/* newlib's struct _atexit: a block of up to 32 handlers, the lists chained */
+struct _atexit {
+    struct _atexit *next; /* 0x00 */
+    int ind;              /* 0x04, handlers in use */
+    void (*fns[32])(void); /* 0x08 */
+};
+
 typedef struct Reent {
     int err;                    /* 0x000, the errno this reentrancy record carries */
     Fil *in, *out, *errs;       /* 0x004, the standard streams, &sf[0..2] */
@@ -83,7 +90,9 @@ typedef struct Reent {
     char *cvtbuf;               /* 0x054 */
     unsigned int rand_next;     /* 0x058 */
     char *strtok_last;          /* 0x05C */
-    char pad060[0x178];         /* 0x060 */
+    char pad060[0xE8];          /* 0x060 */
+    struct _atexit *atexit;     /* 0x148, exit's handler lists */
+    char pad14C[0x8C];          /* 0x14C */
     Glue glue;                  /* 0x1D8 */
     Fil sf[3];                  /* 0x1E4 */
 } Reent;

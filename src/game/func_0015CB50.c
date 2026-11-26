@@ -6,8 +6,8 @@ s32 sceSifSyncIop(void);
 void sceSifInitIopHeap(void);
 void sceSifLoadFileReset(void);
 void sceFsReset(void);
-s32 *func_00122EB8(s32);
-void func_00122F10(s32 *);
+s32 *malloc(s32);
+void free(s32 *);
 extern u8 D_001FB770[];
 extern u8 D_4BE180[];
 void func_00100000(void);
@@ -29,9 +29,9 @@ void func_0015CB50(void) {
     sceFsReset();
     func_0015B040(0x200, 1);
     n = sub(0x2000000, (s32)D_4BE180 + top() + 0x1000) - 0x10;
-    p = func_00122EB8(n);
+    p = malloc(n);
     if (p != 0) {
-        func_00122F10(p);
+        free(p);
     }
     D_00201F90 = n;
 }

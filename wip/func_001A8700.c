@@ -37,7 +37,7 @@ void sceVu0Normalize(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void func_0015E500(Vec *, Vec *, f32);
-s32 func_00125538(void);
+s32 rand(void);
 f32 sqrtf(f32);
 
 void func_001A8700(Act *a, u8 idx) {
@@ -99,10 +99,10 @@ void func_001A8700(Act *a, u8 idx) {
     sceVu0ScaleVector(&c, &c, 250.0f);
     c.y += -350.0f;
     sceVu0CopyVector(&e->xD0, &c);
-    sceVu0ScaleVector(&r, &D_001F2130, 0.0625f * (f32)(func_00125538() % 256 - 128));
-    sceVu0ScaleVector(&t1, &D_001F2140, 0.0078125f * (f32)(func_00125538() % 256 - 128));
+    sceVu0ScaleVector(&r, &D_001F2130, 0.0625f * (f32)(rand() % 256 - 128));
+    sceVu0ScaleVector(&t1, &D_001F2140, 0.0078125f * (f32)(rand() % 256 - 128));
     sceVu0AddVector(&r, &t1, &r);
-    sceVu0ScaleVector(&t2, &D_001F2150, 0.0078125f * (f32)(func_00125538() % 256 - 128));
+    sceVu0ScaleVector(&t2, &D_001F2150, 0.0078125f * (f32)(rand() % 256 - 128));
     sceVu0AddVector(&r, &t2, &r);
     sceVu0Normalize(&r, &r);
     func_0015E500(&e->x130, &r, 0.09424778f);

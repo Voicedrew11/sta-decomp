@@ -6,7 +6,7 @@ f32 sqrtf(f32);
 void sceVu0CopyVector(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 fabsf(f32);
-f32 func_0011DA18(f32);
+f32 sinf(f32);
 s32 func_001A9440(void);
 void func_001CA4A0(u8, u8);
 
@@ -34,7 +34,7 @@ void func_001C2A50(Actor *a) {
     } else {
         x = WRAP(0.2f * p->u38C);
     }
-    p->f388 += 0.5f * func_0011DA18(x);
+    p->f388 += 0.5f * sinf(x);
     p->f384 += p->f388;
     p->u38C++;
     p->f380 = func_001A9440() ? p->f384 : 0.0f;

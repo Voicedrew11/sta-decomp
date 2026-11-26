@@ -22,7 +22,7 @@ typedef struct {
 } O;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; } F;
 typedef union { u128 q[4]; f32 f[16]; } T;
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 void func_00145FB0(T *, u8 *);
 u8 *func_001468F0(u8 *, u32);
 void func_00147710(f32, O *);
@@ -93,7 +93,7 @@ void func_00147E90(O *o) {
     o->xB0 = o->x64;
     o->xA8 = 0;
     func_00145FB0(&t, e);
-    o->xB4 = ang = func_0011DBC0(t.f[8], t.f[10]);
+    o->xB4 = ang = atan2f(t.f[8], t.f[10]);
     func_00147710(0.0f, o);
 }
 

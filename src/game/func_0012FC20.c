@@ -18,7 +18,7 @@ f32 sqrtf(f32);
 void sceVu0ApplyMatrix(f32 *, f32 *, f32 *);
 f32 sceVu0InnerProduct(f32 *, f32 *);
 f32 fabsf(f32);
-f32 func_0011DBD8(f32);
+f32 expf(f32);
 s32 func_00131600(s32, s8);
 void func_00131130(s32, s32);
 void func_001310B0(s32, s16);
@@ -64,7 +64,7 @@ void func_0012FC20(S *o) {
                 if (!(dist <= ex)) {
                     ex = dist - ex;
                     g = 0.0f;
-                    if (!(o->f10 <= g)) g = func_0011DBD8(-4.84418678f / o->f10 * ex);
+                    if (!(o->f10 <= g)) g = expf(-4.84418678f / o->f10 * ex);
                     vol = (s32)(o->s1C * g);
                 } else {
                     vol = o->s1C;
@@ -78,7 +78,7 @@ void func_0012FC20(S *o) {
                 w[3] = 1.0f;
                 dd = sqrtf(sceVu0InnerProduct(w, w));
                 if (!(o->f10 <= dd)) {
-                    if (!(o->f10 <= 0.0f)) func_0011DBD8(-4.84418678f / o->f10 * dd);
+                    if (!(o->f10 <= 0.0f)) expf(-4.84418678f / o->f10 * dd);
                 } else {
                     vol = o->s1C;
                 }

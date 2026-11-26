@@ -2,7 +2,7 @@
 extern f32 D_001F2160[];
 s8 *func_001A5460(s32 *);
 s32 func_0013EE40(s8 *);
-double func_0011DB78(double, double);
+double pow(double, double);
 double fptodp(f32);
 double dpadd(double, double);
 f32 dptofp(double);
@@ -31,8 +31,8 @@ void func_0014A5F0(s8 *a0) {
             if (*(u16 *)p != 0 && !func_0013EE40(p)) {
                 pos = POS(p);
                 q = POS(p);
-                dz = func_0011DB78(fptodp(pos[2] - *(f32 *)(a0 + 8)), 2.0);
-                n += sqrtf(dptofp(dpadd(func_0011DB78(fptodp(q[0] - *(f32 *)(a0 + 0)), 2.0), dz))) < *(f32 *)(a0 + 0x50);
+                dz = pow(fptodp(pos[2] - *(f32 *)(a0 + 8)), 2.0);
+                n += sqrtf(dptofp(dpadd(pow(fptodp(q[0] - *(f32 *)(a0 + 0)), 2.0), dz))) < *(f32 *)(a0 + 0x50);
                 ok = 0;
                 if (*(f32 *)(a0 + 4) + *(f32 *)(a0 + 0x54) <= POS(p)[1] && POS(p)[1] <= *(f32 *)(a0 + 4) + *(f32 *)(a0 + 0x58)) {
                     ok = 1;

@@ -6,7 +6,7 @@ void sceVu0Normalize(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, void *, f32);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
-f32 func_0011DBF0(f32, f32);
+f32 powf(f32, f32);
 float sqrtf(float);
 
 f32 func_0015B720(void *a0, u8 *a1) {
@@ -32,7 +32,7 @@ f32 func_0015B720(void *a0, u8 *a1) {
     if (*(f32 *)(a1 + 0xC) < s) {
         return 0.0f;
     }
-    r *= func_0011DBF0(1.0f - s / *(f32 *)(a1 + 0xC), *(f32 *)(a1 + 0x34));
+    r *= powf(1.0f - s / *(f32 *)(a1 + 0xC), *(f32 *)(a1 + 0x34));
     sceVu0ScaleVector(&v40, a1 + 0x10, r);
     sceVu0AddVector(&D_0030A360, &v40, &D_0030A360);
     sceVu0ScaleVector(&v30, a1 + 0x20, r);

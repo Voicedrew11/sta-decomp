@@ -5,8 +5,8 @@ Vec *func_00140430(s8 *);
 void func_001403D0(s8 *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 float sqrtf(float);
 extern u8 D_00201C48;
 
@@ -31,24 +31,24 @@ void func_00134620(s8 *a, Vec *pos, Vec *tgt) {
     }
     func_001403D0(a, &m);
     if (D_00201C48 == 0) {
-        r.x = func_0011DA18(tgt->y);
+        r.x = sinf(tgt->y);
         r.y = 0.0f;
-        r.z = func_0011D778(tgt->y);
+        r.z = cosf(tgt->y);
     }
     if (D_00201C48 == 1) {
-        r.x = -func_0011DA18(tgt->y);
+        r.x = -sinf(tgt->y);
         r.y = 0.0f;
-        r.z = -func_0011D778(tgt->y);
+        r.z = -cosf(tgt->y);
     }
     if (D_00201C48 == 2) {
-        r.x = func_0011D778(tgt->y);
+        r.x = cosf(tgt->y);
         r.y = 0.0f;
-        r.z = -func_0011DA18(tgt->y);
+        r.z = -sinf(tgt->y);
     }
     if (D_00201C48 == 3) {
-        r.x = -func_0011D778(tgt->y);
+        r.x = -cosf(tgt->y);
         r.y = 0.0f;
-        r.z = func_0011DA18(tgt->y);
+        r.z = sinf(tgt->y);
     }
     dot = sceVu0InnerProduct(&r, &d);
     if (dot < -0.70710677f) {

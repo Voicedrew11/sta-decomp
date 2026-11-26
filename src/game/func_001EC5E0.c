@@ -16,7 +16,7 @@ s32 func_001EC070();
 void func_001EC3C0();
 s32 AddDmacHandler(s32, s32 (*)(), s32);
 void EnableDmac(s32);
-void func_00109A00(void *, s32, s32);
+void sceMpegCreate(void *, s32, s32);
 s32 AddIntcHandler(s32, s32 (*)(), s32);
 void EnableIntc(s32);
 void func_001EBCC0(void *, s32, s32, s32);
@@ -69,7 +69,7 @@ void func_001EC5E0(s32 arg0) {
     a = D_004BE030[0];
     b = D_004BE024[0];
     c = D_004BE020[0];
-    func_00109A00(D_004BDF40, D_004BE018[0], 0x13C768);
+    sceMpegCreate(D_004BDF40, D_004BE018[0], 0x13C768);
     sceMpegAddCallback(D_004BDF40, 0, func_001E9EE0, 0);
     sceMpegAddCallback(D_004BDF40, 1, func_001E9EA0, 0);
     sceMpegAddCallback(D_004BDF40, 2, func_001E9E70, 0);

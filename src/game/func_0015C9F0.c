@@ -3,14 +3,14 @@ typedef struct { s32 next; s32 len; s32 f8; s32 dsz; } Ent;
 typedef struct { s8 *src; s8 *dst; s32 len; s32 z; } Req;
 s8 *func_0015ABD0(s32);
 s32 func_0015A300(s8 *);
-s32 *func_00122C88(s32, s32);
+s32 *memalign(s32, s32);
 void func_0015AB80(s8 *);
 void func_0015A080(s32, s32 *, s32);
 s8 *sceSifAllocIopHeap(s32);
 void sceSifSetDma(Req *, s32);
 void sceSifLoadModuleBuffer(s8 *, s32, s32);
 void sceSifFreeSysMemory(s8 *);
-void func_00122F10(s32 *);
+void free(s32 *);
 
 void func_0015C9F0(s32 a0) {
     s32 *buf;
@@ -26,7 +26,7 @@ void func_0015C9F0(s32 a0) {
 
     h = func_0015ABD0(a0);
     sz = func_0015A300(h);
-    buf = func_00122C88(0x40, sz);
+    buf = memalign(0x40, sz);
     func_0015AB80(h);
     func_0015A080(a0, buf, sz);
     switch (buf[0]) {
@@ -48,5 +48,5 @@ void func_0015C9F0(s32 a0) {
         }
         break;
     }
-    func_00122F10(buf);
+    free(buf);
 }

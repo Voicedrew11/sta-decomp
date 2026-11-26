@@ -1,7 +1,7 @@
 #include "m2c.h"
 typedef struct { u16 v[6]; f32 xC; } P;
 s32 func_001CD450(s32, u8 *, s32, s32);
-s32 func_00125538(void);
+s32 rand(void);
 static inline f32 u2f(u32 x) { return x; }
 
 s32 func_001AB2C0(P *a0, u16 *a1, s32 a2) {
@@ -26,7 +26,7 @@ s32 func_001AB2C0(P *a0, u16 *a1, s32 a2) {
     r = s1 + s2;
     if (!a2) r *= a0->xC;
     if (func_001CD450(0xE, &b, 1, 1)) {
-        if (func_00125538() % 100 < b) r *= 1.5f;
+        if (rand() % 100 < b) r *= 1.5f;
     }
     return r;
 }

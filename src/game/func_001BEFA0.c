@@ -65,7 +65,7 @@ void func_001C7020(u16, f32, s32, f32, f32);
 f32 func_0015DF90(f32, f32, f32);
 void func_0012C110(s32);
 s32 func_001BFB70(Actor *);
-f32 func_0011DA18(f32);
+f32 sinf(f32);
 s32 func_0012C020(void);
 void func_001CE2D0(void);
 void func_001CDF80(void);
@@ -167,8 +167,8 @@ void func_001BEFA0(AH *a0, f32 dt) {
         if (q->f444 <= 0.0f) {
             q->f430 = q->f434 = 0.0f;
         } else {
-            q->f430 = q->f438 * func_0011DA18(q->f444);
-            q->f434 = q->f43C * func_0011DA18(q->f444);
+            q->f430 = q->f438 * sinf(q->f444);
+            q->f434 = q->f43C * sinf(q->f444);
             q->f438 = q->f438 * q->f440;
             q->f43C = q->f43C * q->f440;
             q->f444 -= 1.0f;

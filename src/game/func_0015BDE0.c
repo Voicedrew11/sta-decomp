@@ -12,7 +12,7 @@ void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Vec *, Vec *);
 void sceVu0Normalize(Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011DBF0(f32, f32);
+f32 powf(f32, f32);
 f32 sqrtf(f32);
 
 f32 func_0015BDE0(Ent *e) {
@@ -33,7 +33,7 @@ f32 func_0015BDE0(Ent *e) {
     k *= d / (1.0f + s);
     r = sqrtf(sceVu0InnerProduct(&v, &v));
     if (e->a.w < r) return 0.0f;
-    k *= func_0011DBF0(1.0f - r / e->a.w, e->x14);
+    k *= powf(1.0f - r / e->a.w, e->x14);
     D_0030C420[0] += e->b1C * k;
     D_0030C424[0] += e->b1D * k;
     D_0030C428[0] += e->b1E * k;

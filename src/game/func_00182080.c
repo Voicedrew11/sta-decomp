@@ -6,8 +6,8 @@ extern s32 D_0020206C;
 extern s32 D_00201CD8;
 extern E D_0048C4B0[];
 void func_00181420(void);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 
 void func_00182080(s32 a0, f32 *r, f32 *uv, u8 *col, f32 ang) {
     f32 cx, cy, hw, hh, s, c;
@@ -23,8 +23,8 @@ void func_00182080(s32 a0, f32 *r, f32 *uv, u8 *col, f32 ang) {
     hh = 0.5f * (r[3] - r[1]);
     cx = r[0] + hw;
     cy = r[1] + hh;
-    s = func_0011DA18(ang);
-    c = func_0011D778(ang);
+    s = sinf(ang);
+    c = cosf(ang);
     q.w[0] = col[0] | ((col[1] << 8) | ((col[2] << 16) | ((col[3] * D_00201CD8 / 128) << 24)));
     q.w[1] = 0;
     q.w[2] = 1;

@@ -1,6 +1,6 @@
 #include "common.h"
-f32 func_0011D778(f32);
-f32 func_0011DA18(f32);
+f32 cosf(f32);
+f32 sinf(f32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0Normalize(Vec *, Vec *);
 void sceVu0CopyMatrix(f32 *, f32 *);
@@ -11,8 +11,8 @@ void func_0015EBB0(f32 *m, Vec *axis, f32 ang) {
     Vec v;
     f32 c, s, t;
     f32 xx, yy, zz, xy, yz, zx, xs, ys, zs; f32 x, y, z;
-    c = func_0011D778(ang);
-    s = func_0011DA18(ang);
+    c = cosf(ang);
+    s = sinf(ang);
     t = 1.0f - c;
     if (sqrtf(sceVu0InnerProduct(axis, axis)) < 1e-5f) {
         sceVu0CopyMatrix(m, D_001F2170);

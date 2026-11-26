@@ -14,7 +14,7 @@ u32 func_0013EAA0(O *);
 Vec *func_00140460(O *);
 Vec *func_00145770(void);
 s32 func_0013D500(s32);
-f32 func_0011D778(f32);
+f32 cosf(f32);
 void sceVu0CopyVector(Vec *, Vec *);
 void memset(void *, s32, s32);
 void func_0013D320(s32, Buf *, Vec *, s32, s32);
@@ -76,7 +76,7 @@ void func_001444F0(Msg *m) {
             p = &o->x5FC[i];
             *p |= 1;
             if (id < e->x36 && !(id < e->x34)) {
-                if (!(f20 <= func_0011D778(3.1415927f * (e->x38 / 180.0f)))) {
+                if (!(f20 <= cosf(3.1415927f * (e->x38 / 180.0f)))) {
                     *p |= 2;
                     if (o->x5E0[i] == 0.0f) {
                         o->x5E0[i] = e->x3B / 10.0f;

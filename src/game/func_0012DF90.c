@@ -47,8 +47,8 @@ s32 func_001D8810(void);
 void func_001D8820(void);
 s32 func_001D8890(void);
 void func_001DBAC0(void);
-void func_00116220(void);
-s32 func_00116360(s32, s32, s32, ...);
+void sceSdRemoteInit(void);
+s32 sceSdRemote(s32, s32, s32, ...);
 void func_001DB410(void);
 void func_001DB7F0(void);
 void func_001D80C0(s32, s32);
@@ -63,7 +63,7 @@ s32 func_001D80E0(s32);
 void func_001D8EC0(s32, s32, s32);
 void func_001D8F10(s32, s32, s32);
 void sceVu0CopyVector(Vec *, Vec *);
-void func_001205B0(void *, s32);
+void bzero(void *, s32);
 void func_0012FB80(void);
 void func_001D7FD0(void);
 
@@ -80,12 +80,12 @@ s32 func_0012DF90(void) {
         return 0;
     }
     func_001DBAC0();
-    func_00116220();
-    func_00116360(1, 0x8010, 0x801, 0xFCF);
-    s1 = func_00116360(1, 0x8040, 0x1B01);
-    s0 = func_00116360(1, 0x8040, 0x1901);
-    func_00116360(1, 0x8030, 0x1B01, s1 & ~3);
-    func_00116360(1, 0x8030, 0x1901, s0 & ~3);
+    sceSdRemoteInit();
+    sceSdRemote(1, 0x8010, 0x801, 0xFCF);
+    s1 = sceSdRemote(1, 0x8040, 0x1B01);
+    s0 = sceSdRemote(1, 0x8040, 0x1901);
+    sceSdRemote(1, 0x8030, 0x1B01, s1 & ~3);
+    sceSdRemote(1, 0x8030, 0x1901, s0 & ~3);
     func_001DB410();
     func_001DB7F0();
     func_001D80C0(10, 0x800);
@@ -133,7 +133,7 @@ s32 func_0012DF90(void) {
     D_0022EC3C[0] = 0;
     D_0022EC15[0] = 0;
     D_0022EC16[0] = 0;
-    func_001205B0(D_0022CBC0, 0x2000);
+    bzero(D_0022CBC0, 0x2000);
     p = D_0022CBC0;
     for (i = 0; i < 64; i++) {
         p->x30 = -1;
@@ -158,14 +158,14 @@ s32 func_0012DF90(void) {
     D_0022F08C[0] = 0;
     D_0022F088[0] = 0;
     D_0022F080[0] = 0;
-    func_001205B0(D_0022F090, 0x40000);
+    bzero(D_0022F090, 0x40000);
     D_0022F040[0] = 0;
     D_0022F044[0] = 0;
     D_0022F048[0] = 0;
     D_0022F04C[0].f.b0 = 0;
     D_00201EC0 = 5000.0f;
     D_00201EC4 = 800.0f;
-    func_001205B0(D_0022EC40, 0xC);
+    bzero(D_0022EC40, 0xC);
     func_0012FB80();
     func_001D7FD0();
     return 0;

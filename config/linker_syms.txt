@@ -27,3 +27,7 @@ func_00100000 = 0x00100000;
 /* The start of .text, crt0's unnamed pre-entry pad: game code and a game
  * .rodata word use the address (splat's func_00100000). */
 func_00100000 = 0x00100000;
+
+/* libc's abs: CodeWarrior inlines calls spelled abs, so the game code that
+ * calls the function keeps its address name. */
+func_00120570 = 0x00120570;
