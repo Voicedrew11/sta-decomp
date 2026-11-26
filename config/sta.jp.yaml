@@ -682,7 +682,7 @@ segments:
       - [0x049CB0, c, game/func_00149CB0]
       - [0x049CC0, c, game/func_00149CC0]
       - [0x049D20, c, game/func_00149D20]
-      - [0x049EB0, asm, text_00149EB0]
+      - [0x049EB0, c, game/func_00149EB0]
       - [0x04A210, c, game/func_0014A210]
       - [0x04A5F0, c, game/func_0014A5F0]
       - [0x04A860, c, game/func_0014A860]

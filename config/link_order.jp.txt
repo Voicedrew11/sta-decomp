@@ -647,7 +647,7 @@ src/game/func_00149810.c
 src/game/func_00149CB0.c
 src/game/func_00149CC0.c
 src/game/func_00149D20.c
-asm/text_00149EB0.s
+src/game/func_00149EB0.c
 src/game/func_0014A210.c
 src/game/func_0014A5F0.c
 src/game/func_0014A860.c

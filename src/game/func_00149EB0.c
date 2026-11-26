@@ -29,7 +29,6 @@ void func_00102A18(Vec *, void *, f32);
 f32 sqrtf(f32);
 s32 func_001470F0(Vec *, Vec *, s32, s32, s32, Vec *);
 void func_00102A60(void *, void *);
-static inline f32 sq(f32 v) { f32 r; asm("sqrt.s %0, %1" : "=f"(r) : "f"(v)); return r; }
 static inline f32 jit(f32 a) { f32 t = 0.5f - 0.000015259022f * (f32)(u32)func_0015ED20(); return t * a; }
 
 void func_00149EB0(O *o) {
