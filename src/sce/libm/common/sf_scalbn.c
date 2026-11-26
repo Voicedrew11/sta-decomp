@@ -18,7 +18,7 @@
         (d) = sf_u.value;                                                                          \
     } while (0)
 
-/* SAB: this game's newlib scalbnf, built for the R5900 FPU (no denormals:
+/* STA: this game's newlib scalbnf, built for the R5900 FPU (no denormals:
    a word below 0x00800000 is a zero; no infinities: every exponent is
    finite).  The constants are immediates, not a table. */
 #define huge ((float)1.0e+30)

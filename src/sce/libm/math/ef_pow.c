@@ -1,4 +1,4 @@
-/* libm.a member ef_pow.o (SAB: not in kfiv-decomp; newlib's ef_pow.c, built
+/* libm.a member ef_pow.o (STA: not in kfiv-decomp; newlib's ef_pow.c, built
    for the R5900 FPU like the rest of this libm) */
 #include <math.h>
 #include <math_private.h>
@@ -6,7 +6,7 @@
 /* Float<->word access, the public-domain fdlibm idiom (netlib's fdlibm,
    math_private.h), defined in this member. */
 
-/* SAB: macros: this game's libm emits no .rodata for these constants (the
+/* STA: macros: this game's libm emits no .rodata for these constants (the
    code loads them as immediates) */
 #define GET_FLOAT_WORD(i, d)                                                                       \
     do {                                                                                           \
@@ -128,7 +128,7 @@ float __ieee754_powf(float x, float y)
             return (hy > 0) ? huge * huge : tiny * tiny;
         /* now |1-x| is tiny <= 2**-20, suffice to compute
            log(x) by x-x^2/2+x^3/3-x^4/4 */
-        t = x - one; /* t has 20 trailing zeros (SAB: x, not ax, in this newlib) */
+        t = x - one; /* t has 20 trailing zeros (STA: x, not ax, in this newlib) */
         w = (t * t) * ((float)0.5 - t * ((float)0.333333333333 - t * (float)0.25));
         u = ivln2_h * t; /* ivln2_h has 16 sig. bits */
         v = t * ivln2_l - w * ivln2;
@@ -204,7 +204,7 @@ float __ieee754_powf(float x, float y)
     z = p_l + p_h;
     GET_FLOAT_WORD(j, z);
     i = j & 0x7fffffff;
-    /* SAB: newlib's FLT_UWORD_EXP_MAX/MIN for floats with no infinities or
+    /* STA: newlib's FLT_UWORD_EXP_MAX/MIN for floats with no infinities or
        denormals: 0x43010000 (129) and 0x42fc0000 (126) */
     if (j > 0) {
         if (i > 0x43010000)

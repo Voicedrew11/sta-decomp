@@ -17,7 +17,7 @@
         (d) = sf_u.value;                                                                          \
     } while (0)
 
-/* SAB: macros, not a table: this game's libm build emits no .rodata for
+/* STA: macros, not a table: this game's libm build emits no .rodata for
    these (the code loads every constant as an immediate) */
 #define half ((float)5.0000000000e-01) /* 0x3f000000 */
 #define S1 ((float)-1.6666667163e-01)  /* 0xbe2aaaab */

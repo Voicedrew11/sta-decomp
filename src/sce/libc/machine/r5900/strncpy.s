@@ -1,4 +1,4 @@
-# SAB: this libc's short loops end with the last instruction before the
+# STA: this libc's short loops end with the last instruction before the
 # branch and a nop in its delay slot.
 # libc.a member strncpy.o, assembled from newlib's
 # src/newlib/libc/machine/r5900/strncpy.S.

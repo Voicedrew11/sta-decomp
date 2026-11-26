@@ -1,4 +1,4 @@
-/* libc.a member mlock.o.  SAB: this game's libc locks malloc per thread
+/* libc.a member mlock.o.  STA: this game's libc locks malloc per thread
  * (kfiv-decomp's newlib stub does nothing): a recursive lock on the
  * semaphore libkernl's _InitSys creates (initsys.c's __malloc_sema). */
 #include <reent.h>

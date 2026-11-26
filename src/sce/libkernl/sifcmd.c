@@ -411,7 +411,7 @@ __asm__(".section .text\n"
         "    jr $31\n"
         "    nop\n"
         ".size sceSifWriteBackDCache, . - sceSifWriteBackDCache\n"
-        /* SAB: the dead jr after it, sized apart so it pairs with the
+        /* STA: the dead jr after it, sized apart so it pairs with the
            function splat makes of it (named in symbol_addrs.txt) */
         ".type _sceSifWriteBackDCache_tail, @function\n"
         "_sceSifWriteBackDCache_tail:\n"

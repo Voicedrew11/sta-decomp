@@ -20,7 +20,7 @@ typedef union {
 
 #define SI_TYPE_SIZE 32
 #define __BITS4 (SI_TYPE_SIZE / 4)
-#define __ll_B ((USItype)1 << (SI_TYPE_SIZE / 2)) /* SAB: gcc 2.96's longlong.h */
+#define __ll_B ((USItype)1 << (SI_TYPE_SIZE / 2)) /* STA: gcc 2.96's longlong.h */
 #define __ll_lowpart(t) ((USItype)(t) % __ll_B)
 #define __ll_highpart(t) ((USItype)(t) / __ll_B)
 

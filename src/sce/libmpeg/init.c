@@ -1,5 +1,5 @@
 /* libmpeg.a(init.o): the decoder state resets, the error reporting, the
- * bitstream DMA and the sequence-level header parsers.  SAB: SDK 2.5: every
+ * bitstream DMA and the sequence-level header parsers.  STA: SDK 2.5: every
  * function takes the decoder record, which holds what SDK 2.2 kept in
  * globals, and the member has no data of its own. */
 #define LIBMPEG25
@@ -70,7 +70,7 @@ void _clearEach(MpegSys *p)
 
 void _ErrMessage(char *msg)
 {
-    scePrintf("[MPEG ERROR]%s\n", msg); /* SAB: SDK 2.5 prints through scePrintf */
+    scePrintf("[MPEG ERROR]%s\n", msg); /* STA: SDK 2.5 prints through scePrintf */
 }
 
 void _Error1(MpegSys *p, char *fmt, int val)

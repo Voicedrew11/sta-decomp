@@ -1,5 +1,5 @@
 /* libsdr.a, the EE side of the IOP sound library's remote interface
- * (SAB: not in ICO or kfiv-decomp; written from this game's bytes).  The
+ * (STA: not in ICO or kfiv-decomp; written from this game's bytes).  The
  * archive's member boundaries in this build are not known, so this file is
  * its whole run: the RPC bind, the EE-to-IOP DMA helper, the end-function
  * setter and sceSdRemote, which marshals a libsd call into one RPC. */
@@ -13,7 +13,7 @@
    handlers name (sceSdRemote records the ones its calls install) */
 static char sceSdrVersion[16] = "PsIIlibsdr  2500"; /* derived name */
 static sceSifEndFunc sdr_end_func = 0;              /* derived name */
-/* SAB: scalars, not arrays: ee-gcc gives a .data array eight-byte alignment */
+/* STA: scalars, not arrays: ee-gcc gives a .data array eight-byte alignment */
 static int sdr_unused0 = 0;  /* derived name; no code here reads these four */
 static int sdr_unused1 = 0;  /* derived name */
 static int sdr_unused2 = 0;  /* derived name */

@@ -1,4 +1,4 @@
-/* libc.a member rand.o.  SAB: this newlib's 64-bit generator: the state is
+/* libc.a member rand.o.  STA: this newlib's 64-bit generator: the state is
  * the unsigned long long at 0xA8 of the reentrancy record (newlib's
  * _new._reent._rand_next), stepped by Knuth's MMIX multiplier. */
 #include <stdlib.h>

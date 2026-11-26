@@ -10,7 +10,7 @@
 #define MFC0_STATUS(dst) __asm__ __volatile__("mfc0 %0, $12" : "=r"(dst))
 #define COP0_STATUS_EIE 0x10000
 
-/* SAB: SDK 2.5's intr.o starts with this: whether Status.IE is clear */
+/* STA: SDK 2.5's intr.o starts with this: whether Status.IE is clear */
 int _kIntrDisabled(void) /* derived name */
 {
     int s;

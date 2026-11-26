@@ -1,11 +1,11 @@
 /* libmpeg.a(csc.o): the IPU colour space conversion and its DMA feeders. */
-#define LIBMPEG25 /* SAB: SDK 2.5 */
+#define LIBMPEG25 /* STA: SDK 2.5 */
 #include <libmpeg.h>
 #include <libmpeg_internal.h>
 #include <eeregs.h>
 #include <eekernel.h>
 
-/* SAB: SDK 2.5.  Every function takes the decoder state (MpegSys, grown in
+/* STA: SDK 2.5.  Every function takes the decoder state (MpegSys, grown in
  * 2.5: the handle sits at +0x858), the globals the DMA handlers shared are
  * records on the caller's stack, handed over as AddDmacHandler2's argument,
  * and each DMA kick runs with interrupts off. */

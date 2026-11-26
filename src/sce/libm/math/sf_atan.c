@@ -18,7 +18,7 @@
         (d) = sf_u.value;                                                                          \
     } while (0)
 
-/* SAB: the tables as hex literals: this compiler rounds some of fdlibm's
+/* STA: the tables as hex literals: this compiler rounds some of fdlibm's
    decimal constants a unit away from the retail words */
 static const float atanhi[] = {
     0x1.dac6700000000p-2f, /* 0x3EED6338 */
@@ -57,7 +57,7 @@ float atanf(float x)
 
     GET_FLOAT_WORD(hx, x);
     ix = hx & 0x7fffffff;
-    if (ix >= 0x50800000) { /* SAB: no NaN case: this newlib's floats have none */
+    if (ix >= 0x50800000) { /* STA: no NaN case: this newlib's floats have none */
         if (hx > 0) {
             return atanhi[3] + atanlo[3];
         } else {

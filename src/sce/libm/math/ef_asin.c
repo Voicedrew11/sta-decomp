@@ -5,7 +5,7 @@
 /* Float<->word access, the public-domain fdlibm idiom (netlib's fdlibm,
    math_private.h), defined in this member. */
 
-/* SAB: macros: this game's libm emits no .rodata for these constants (the
+/* STA: macros: this game's libm emits no .rodata for these constants (the
    code loads them as immediates) */
 #define GET_FLOAT_WORD(i, d)                                                                       \
     do {                                                                                           \
@@ -68,7 +68,7 @@ float __ieee754_asinf(float x)
             if (huge + x > one) {
                 return x; /* return x with inexact if x != 0 */
             }
-        } else { /* SAB: this newlib braces the whole computation */
+        } else { /* STA: this newlib braces the whole computation */
             t = x * x;
             p = t * (pS0 + t * (pS1 + t * (pS2 + t * (pS3 + t * (pS4 + t * pS5)))));
             q = one + t * (qS1 + t * (qS2 + t * (qS3 + t * qS4)));

@@ -1,4 +1,4 @@
-/* libc.a member malignr.o (SAB: not in kfiv-decomp): newlib's mallocr.c
+/* libc.a member malignr.o (STA: not in kfiv-decomp): newlib's mallocr.c
  * built with DEFINE_MEMALIGN.  unsigned long and long are 64-bit here, which
  * is where the __umoddi3 call and the 64-bit remainder size come from. */
 #include <reent.h>

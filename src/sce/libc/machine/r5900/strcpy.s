@@ -1,4 +1,4 @@
-# SAB: this libc's short loops end with the last instruction before the
+# STA: this libc's short loops end with the last instruction before the
 # branch and a nop in its delay slot.
 # libc.a member strcpy.o, assembled from newlib's
 # src/newlib/libc/machine/r5900/strcpy.S: it copies a quadword (or a
@@ -9,7 +9,7 @@
     .section .text
     .set    at
     .set    noreorder
-    .align 3 /* SAB: 8-aligned here, as in ICO */
+    .align 3 /* STA: 8-aligned here, as in ICO */
     .globl  strcpy
     .ent    strcpy
 strcpy:

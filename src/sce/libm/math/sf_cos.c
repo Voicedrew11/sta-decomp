@@ -19,7 +19,7 @@
     } while (0)
 
 /* newlib's sf_cos.c defines it and never uses it; the member's .rodata */
-/* SAB: newlib's unused `one` is not in this game's object */
+/* STA: newlib's unused `one` is not in this game's object */
 
 float cosf(float x)
 {
@@ -32,7 +32,7 @@ float cosf(float x)
 
     if (ix <= 0x3f490fd8) {
         return __kernel_cosf(x, 0.0f);
-    } else { /* SAB: this newlib has no Inf/NaN case here */
+    } else { /* STA: this newlib has no Inf/NaN case here */
         n = __ieee754_rem_pio2f(x, y);
         switch (n & 3) {
         case 0:

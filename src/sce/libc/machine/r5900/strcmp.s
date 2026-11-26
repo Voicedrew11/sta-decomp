@@ -3,7 +3,7 @@
     .section .text
     .set noat
     .set noreorder
-    .align 3   # SAB: 8-aligned; this libc is the ee-gcc 2.96 build
+    .align 3   # STA: 8-aligned; this libc is the ee-gcc 2.96 build
     .global strcmp
     .type strcmp, @function
 strcmp:

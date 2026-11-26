@@ -7,7 +7,7 @@
 /* newlib's C locale.  CHAR_MAX in every numeric field is newlib's "not
    available" marker; the three strings are the only ones the member owns. */
 
-/* SAB: this newlib is built without multibyte support: no __mb_cur_max and
+/* STA: this newlib is built without multibyte support: no __mb_cur_max and
    no locale name buffers */
 static const struct lconv lconv = {
     ".", "", "", "", "", "", "", "", "", "", 127, 127, 127, 127, 127, 127, 127, 127,

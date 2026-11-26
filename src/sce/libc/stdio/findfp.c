@@ -13,7 +13,7 @@ void std(Fil *fp, int flags, int file, Reent *data)
     fp->flags = flags;
     fp->file = file;
     fp->bf.base = 0;
-    fp->bf.size = 0; /* SAB: this newlib clears the buffer size too */
+    fp->bf.size = 0; /* STA: this newlib clears the buffer size too */
     fp->lbfsize = 0;
     fp->cookie = fp;
     fp->read = __sread;
@@ -101,7 +101,7 @@ void __sinit(Reent *s)
     std(&s->sf[0], 4, 0, s);
     std(&s->sf[1], 9, 1, s);
     std(&s->sf[2], 10, 2, s);
-    s->glue.next = 0; /* SAB: this newlib's order */
+    s->glue.next = 0; /* STA: this newlib's order */
     s->glue.niobs = 3;
     s->glue.iobs = &s->sf[0];
 }

@@ -1,4 +1,4 @@
-/* libc.a member abs.o (SAB: not in kfiv-decomp; newlib's abs) */
+/* libc.a member abs.o (STA: not in kfiv-decomp; newlib's abs) */
 int abs(int i)
 {
     return (i < 0) ? -i : i;

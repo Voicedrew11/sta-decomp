@@ -11,7 +11,7 @@ static const int init_jk[] = {
     9,
 };
 
-/* SAB: hex literals: this compiler rounds some of the decimal ones a unit
+/* STA: hex literals: this compiler rounds some of the decimal ones a unit
    away from the retail words */
 static const float PIo2[] = {
     0x1.9200000000000p+0f, /* 0x3FC90000 */

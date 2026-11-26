@@ -1,4 +1,4 @@
-/* libkernl.a: InitAlarm and its file-static kernel helpers (SAB: kfiv-decomp
+/* libkernl.a: InitAlarm and its file-static kernel helpers (STA: kfiv-decomp
  * has these in intr.c; SDK 2.5 links them as their own member before
  * libpad, and _InitSys calls InitAlarm.  The member name is not known.) */
 #include <eekernel.h>

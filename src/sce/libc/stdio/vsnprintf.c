@@ -1,4 +1,4 @@
-/* libc.a member vsnprintf.o (SAB: not in kfiv-decomp; newlib's vsnprintf
+/* libc.a member vsnprintf.o (STA: not in kfiv-decomp; newlib's vsnprintf
  * and _vsnprintf_r, a string FILE handed to vfprintf) */
 #include <stdio.h>
 #include <reent.h>

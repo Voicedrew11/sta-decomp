@@ -62,7 +62,7 @@ memcpy:
     sb         $2, 0x0($3)
     addiu      $3, $3, 0x1
     bne        $6, $4, .L5
-    nop        /* SAB: this libc's byte loop: the bump before the branch */
+    nop        /* STA: this libc's byte loop: the bump before the branch */
     .align 2
 .L6:
     jr         $31

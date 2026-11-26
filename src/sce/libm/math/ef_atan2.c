@@ -5,7 +5,7 @@
 /* Float<->word access, the public-domain fdlibm idiom (netlib's fdlibm,
    math_private.h), defined in this member. */
 
-/* SAB: macros: this game's libm emits no .rodata for these constants (the
+/* STA: macros: this game's libm emits no .rodata for these constants (the
    code loads them as immediates) */
 #define GET_FLOAT_WORD(i, d)                                                                       \
     do {                                                                                           \
@@ -32,7 +32,7 @@
 
 #define pi_lo ((float)1.5099578832e-07)
 
-/* SAB: this game's newlib, built for the R5900 FPU: no NaNs or infinities,
+/* STA: this game's newlib, built for the R5900 FPU: no NaNs or infinities,
    and a word below 0x00800000 is a zero */
 float __ieee754_atan2f(float y, float x)
 {

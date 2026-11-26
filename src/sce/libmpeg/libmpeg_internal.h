@@ -110,7 +110,7 @@ typedef struct MpegSys { /* field names derived */
     int ptmState;        /* 0x0F8 1 set, 2 armed, 0 used */
     int frameBuff[3];    /* 0x0FC the three reference frames */
     MpegHeap heap;       /* 0x108 */
-    /* SAB: SDK 2.5 keeps the decoder's former globals here, after the SDK 2.2
+    /* STA: SDK 2.5 keeps the decoder's former globals here, after the SDK 2.2
        record; names are SDK 2.2's globals (mpeg2decode's) where the use is
        the same, the pads are fields no matched code here reads yet */
     int totalFrames;                 /* 0x118 */
@@ -172,7 +172,7 @@ typedef struct MpegSys { /* field names derived */
     long long tagBuf[264];           /* 0x880 _sendDataToIPU's DMA chain, rounded up to a quadword */
 } MpegSys; /* derived name */
 
-/* SAB: the SDK 2.5 record's layout, checked */
+/* STA: the SDK 2.5 record's layout, checked */
 #define MPEG_SYS_AT(f, o) typedef char mpeg_sys_##f[(int)&((MpegSys *)0)->f == (o) ? 1 : -1]
 MPEG_SYS_AT(totalFrames, 0x118);
 MPEG_SYS_AT(sp_dcr, 0x1B0);
@@ -185,20 +185,20 @@ MPEG_SYS_AT(mp, 0x858);
 MPEG_SYS_AT(tagBuf, 0x880);
 typedef char mpeg_sys_size[sizeof(MpegSys) == 0x10C0 ? 1 : -1];
 
-/* SAB: units converted to SDK 2.5 define LIBMPEG25, which gives the SDK 2.5
+/* STA: units converted to SDK 2.5 define LIBMPEG25, which gives the SDK 2.5
    signatures where they changed (most take the decoder record) */
 void _ErrMessage(char *msg);
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _Error(MpegSys *p, char *msg);
 #else
 void _Error(char *msg);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _Error1(MpegSys *p, char *fmt, int val);
 #else
 void _Error1(char *fmt, int val);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 int _alalcAlloc(MpegSys *p, MpegHeap *heap, int size, unsigned int align);
 #else
 int _alalcAlloc(MpegHeap *heap, int size, unsigned int align);
@@ -221,12 +221,12 @@ extern int _cHeight;
 extern int _cWidth;
 extern int _chroma_420_type;
 extern int _chroma_format;
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _clearEach(MpegSys *p);
 #else
 void _clearEach(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _clearOnce(MpegSys *p);
 #else
 void _clearOnce(void);
@@ -263,7 +263,7 @@ void _cpr8(int *im);
 
 #endif
 
-void _csc_storeRefImage(MpegSys *p, int *img); /* SAB: SDK 2.5 */
+void _csc_storeRefImage(MpegSys *p, int *img); /* STA: SDK 2.5 */
 extern int *_curBot;
 extern int *_curFrame;
 extern int *_curTop;
@@ -301,7 +301,7 @@ extern unsigned char _defIQM[64];
 extern unsigned char _defNIQM[64];
 extern int _display_horizontal_size;
 extern int _display_vertical_size;
-void _doCSC2(MpegSys *p, int addr, int n); /* SAB: SDK 2.5 */
+void _doCSC2(MpegSys *p, int addr, int n); /* STA: SDK 2.5 */
 #ifndef LIBMPEG25
 void _doMC(int idx);
 #endif
@@ -400,7 +400,7 @@ extern long long _headerPts;
 extern int _heightMB;
 extern int _horizontal_size;
 
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _initRefImages(int *frame0, int *frame1, int *frame2, int *top0, int *top1, int *top2,
                     int *bot0, int *bot1, int *bot2, int y, int cb, int cr, int width, int height);
 #else
@@ -409,7 +409,7 @@ void _initRefImages(int *frame0, int *frame1, int *frame2, int *top0, int *top1,
 #endif
 
 void _initSeq(sceMpeg *mp);
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _initSeqAgain(MpegSys *p);
 #else
 void _initSeqAgain(void);
@@ -443,7 +443,7 @@ int _isOutSizeOK(int *p);
 
 #endif
 
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _lastFrame(MpegSys *p);
 #else
 void _lastFrame(int frame);
@@ -546,12 +546,12 @@ void _pictureHeader(void);
 
 #endif
 
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _pictureSpatialScalableExtension(MpegSys *p);
 #else
 void _pictureSpatialScalableExtension(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _pictureTemporalScalableExtension(MpegSys *p);
 #else
 void _pictureTemporalScalableExtension(void);
@@ -575,7 +575,7 @@ extern int _refTop1[];
 extern int _refTop2[];
 extern int _repeat_first_field;
 int _sceMpegFlush(sceMpeg *mp);
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _sendDataToIPU(MpegSys *p, int data, int size);
 #else
 void _sendDataToIPU(int data, int size);
@@ -586,27 +586,27 @@ void _sendIpuCommand(unsigned int cmd);
 #endif
 
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _sequenceDisplayExtension(MpegSys *p);
 #else
 void _sequenceDisplayExtension(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _sequenceExtension(MpegSys *p);
 #else
 void _sequenceExtension(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _sequenceHeader(MpegSys *p);
 #else
 void _sequenceHeader(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _sequenceScalableExtension(MpegSys *p);
 #else
 void _sequenceScalableExtension(void);
 #endif
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _setDefaultQM(MpegSys *p, int cmd, unsigned char *qm);
 #else
 void _setDefaultQM(int cmd, unsigned char *qm);
@@ -662,7 +662,7 @@ extern int _totalFrames;
 extern int _trFrameNumber;
 extern int _transfer_characteristics;
 long long _type2id(int type, int ch);
-#ifdef LIBMPEG25 /* SAB: the SDK 2.5 form */
+#ifdef LIBMPEG25 /* STA: the SDK 2.5 form */
 void _unknown_extension(MpegSys *p);
 #else
 void _unknown_extension(void);
@@ -710,7 +710,7 @@ extern int *_zBot;
 extern int *_zFrame;
 extern int *_zTop;
 
-/* SAB: mpc.o SDK 2.5 prototypes (generated) */
+/* STA: mpc.o SDK 2.5 prototypes (generated) */
 #ifdef LIBMPEG25
 int _motionComp0(MpegSys *p, int mba, int inc, int mb_type, int motion_type, int PMV[2][2][2], int mv_field_sel[2][2], int *dmvector);
 void _getAllRefs(MpegSys *p, int x, int y, int mbflags, int motion_type, int PMV[2][2][2], int mv_field_sel[2][2], int *dmvector);

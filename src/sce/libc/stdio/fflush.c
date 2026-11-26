@@ -24,7 +24,7 @@ int fflush(Fil *fp)
         if (fp->data->sdidinit == 0)
             __sinit(fp->data);
     } while (0);
-    /* SAB: this newlib's version: one test, a while loop */
+    /* STA: this newlib's version: one test, a while loop */
     t = fp->flags;
     if ((t & __SWR) == 0 || (p = fp->bf.base) == 0)
         return 0;

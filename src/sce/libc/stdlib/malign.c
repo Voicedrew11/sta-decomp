@@ -1,4 +1,4 @@
-/* libc.a member malign.o (SAB: not in kfiv-decomp): memalign, under the
+/* libc.a member malign.o (STA: not in kfiv-decomp): memalign, under the
  * per-thread malloc lock like this libc's malloc and free */
 #include <reent.h>
 #include <libc_internal.h>

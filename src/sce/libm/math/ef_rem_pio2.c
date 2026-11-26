@@ -135,7 +135,7 @@ int __ieee754_rem_pio2f(float x, float *y)
     /*
      * all other (large) arguments
      */
-    /* SAB: no inf/NaN case: this newlib's floats have none */
+    /* STA: no inf/NaN case: this newlib's floats have none */
     /* set z = scalbn(|x|, ilogb(x) - 7) */
     e0 = (ix >> 23) - 134; /* e0 = ilogb(z) - 7; */
     SET_FLOAT_WORD(z, ix - (e0 << 23));

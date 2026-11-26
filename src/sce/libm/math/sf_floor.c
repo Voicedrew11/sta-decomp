@@ -20,10 +20,10 @@
 
 /* fdlibm's constant: the member's whole .rodata (0x4).  The code loads it as
  * an immediate, so the word is referenced by nothing. */
-/* SAB: a macro: this member has no .rodata */
+/* STA: a macro: this member has no .rodata */
 #define huge ((float)1.0e30)
 
-/* SAB: this newlib is built for the R5900 FPU: no denormals (a word below
+/* STA: this newlib is built for the R5900 FPU: no denormals (a word below
    0x00800000 is a zero) and no infinities (every word is finite) */
 float floorf(float x)
 {

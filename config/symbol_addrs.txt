@@ -507,7 +507,7 @@ sceMcUnformat = 0x001197C0; // type:func
 sceMcGetEntSpace = 0x00119888; // type:func
 
 // libm
-// libm kernels the wrappers call (SAB: identified by their constants)
+// libm kernels the wrappers call (STA: identified by their constants)
 __ieee754_pow = 0x001199A0; // type:func
 __ieee754_acosf = 0x0011AC10; // type:func
 __ieee754_asinf = 0x0011B038; // type:func

@@ -34,7 +34,7 @@
 	KCALL	ResetEE, 1
 	KCALL	SetGsCrt, 2
 	KCALL	RFU003, 3
-	/* SAB: SDK 2.5 gives the public names Exit, LoadExecPS2, ExecPS2 and
+	/* STA: SDK 2.5 gives the public names Exit, LoadExecPS2, ExecPS2 and
 	   ExecOSD to C wrappers that reset the TLB first; the syscalls are
 	   underscored here (derived names). */
 	KCALL	_Exit, 4
@@ -187,7 +187,7 @@
 	KCALL	PSMode, 125
 	KCALL	MachineType, 126
 	KCALL	GetMemorySize, 127
-	/* SAB: SDK 2.5 adds the TLB reset call (derived name) */
+	/* STA: SDK 2.5 adds the TLB reset call (derived name) */
 	KCALL	_InitTLB, 130
 
 	.set	reorder

@@ -1,4 +1,4 @@
-/* libc.a member malloc.o (SAB: not in kfiv-decomp).  This libc's malloc and
+/* libc.a member malloc.o (STA: not in kfiv-decomp).  This libc's malloc and
  * free take the per-thread malloc lock (mlock.c) around the reentrant
  * calls. */
 #include <reent.h>

@@ -1,4 +1,4 @@
-#define LIBMPEG25 /* SAB: SDK 2.5 */
+#define LIBMPEG25 /* STA: SDK 2.5 */
 /* libmpeg.a(mpeg.o): the sceMpeg entry points, the callback dispatch, the
  * arena allocator and the picture loop. */
 #include <libmpeg.h>
@@ -8,7 +8,7 @@
 #include <libipu.h>
 #include <string.h>
 
-/* SAB: SDK 2.5's libmpeg carries no build stamp */
+/* STA: SDK 2.5's libmpeg carries no build stamp */
 
 /* The DMAC and IPU registers are hardware the DMAC itself updates, so every
    access is volatile, except the second write of the enable register at
@@ -35,7 +35,7 @@ int sceMpegCreate(sceMpeg *mp, void *buf, int size)
     MpegSys *p;
     unsigned int n;
 
-    memset(buf, 0, size); /* SAB: SDK 2.5 clears the work area */
+    memset(buf, 0, size); /* STA: SDK 2.5 clears the work area */
     p = (MpegSys *)((((unsigned int)buf + 3) >> 2) << 2);
     n = size - ((char *)p - (char *)buf);
 

@@ -1,4 +1,4 @@
-/* libm.a member w_pow.o (SAB: this game's libm is built with _IEEE_LIBM: the
+/* libm.a member w_pow.o (STA: this game's libm is built with _IEEE_LIBM: the
  * wrapper only calls the kernel) */
 double __ieee754_pow(double, double);
 

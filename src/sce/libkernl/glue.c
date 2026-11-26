@@ -18,7 +18,7 @@ static int tty_opened = 0; /* derived name */
 
 static char *heap_ptr = _end; /* derived name */
 
-/* SAB: SDK 2.5 no longer reopens the tty here */
+/* STA: SDK 2.5 no longer reopens the tty here */
 void sceResetttyinit(void)
 {
     tty_opened = 0;
@@ -26,7 +26,7 @@ void sceResetttyinit(void)
 
 /* VSync polls INTC_STAT (0x1000F000) for the VBLANK bit and clears it: a
    busy-wait on a hardware register, written as a whole-function asm.
-   SAB: SDK 2.5 writes INTC_STAT with interrupts disabled (DIntr/EIntr). */
+   STA: SDK 2.5 writes INTC_STAT with interrupts disabled (DIntr/EIntr). */
 __asm__(".section .text\n"
         "    .set noat\n"
         "    .set noreorder\n"

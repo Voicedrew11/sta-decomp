@@ -29,7 +29,7 @@ float sinf(float x)
 
     if (ix <= 0x3f490fd8) {
         return __kernel_sinf(x, 0.0f, 0);
-    } else { /* SAB: this newlib has no Inf/NaN case here */
+    } else { /* STA: this newlib has no Inf/NaN case here */
         n = __ieee754_rem_pio2f(x, y);
         switch (n & 3) {
         case 0:

@@ -1,4 +1,4 @@
-/* libmpeg.a(var.o).  No code.  SAB: SDK 2.5 keeps the decoder state in the
+/* libmpeg.a(var.o).  No code.  STA: SDK 2.5 keeps the decoder state in the
  * decoder record (MpegSys), so the member holds only the default quantizer
  * matrices.  The default intra matrix is 64-byte aligned for its DMA to the
  * IPU. */

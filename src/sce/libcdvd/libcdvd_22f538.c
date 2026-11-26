@@ -1,7 +1,7 @@
 /* KFIV: not in ICO. libcdvd.a: sceCdBreak and sceCdReadClock (derived names), the two
  * members-worth of code at 0x0022f538 between cdvd015 and cdvd047. This
  * build's archive has no sceCdStatus here (ICO's libcdvd_267388 has one).
- * SAB: this game links sceCdReadClock alone (no sceCdBreak). */
+ * STA: this game links sceCdReadClock alone (no sceCdBreak). */
 #include <eekernel.h>
 #include <stdio.h>
 #include <sifrpc.h>

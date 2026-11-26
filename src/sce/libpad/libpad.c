@@ -44,15 +44,15 @@ static sceSifRpcClientData padClient[2]; /* derived name */
 
 static PadSlot padSlot[2][4]; /* derived name */
 
-static int padCmd[2][4][8] __attribute__((aligned(64))); /* derived name; SAB: 32 bytes a slot in SDK 2.5 */
+static int padCmd[2][4][8] __attribute__((aligned(64))); /* derived name; STA: 32 bytes a slot in SDK 2.5 */
 
 static int padRpcBuf[32] __attribute__((aligned(64))); /* derived name */
 
 /* The IOP send helper, libpad.o's first function (its first string is the
    member's first .rodata entry). */
-/* SAB: SDK 2.5 polls the previous transfer only when there is one, and
+/* STA: SDK 2.5 polls the previous transfer only when there is one, and
    reports whether the command went out */
-/* SAB: SDK 2.5 polls the previous transfer only when there is one, and
+/* STA: SDK 2.5 polls the previous transfer only when there is one, and
    reports whether the command went out */
 int _send_to_iop(int port, int slot)
 {
@@ -511,7 +511,7 @@ int scePadSetActDirect(int port, int slot, unsigned char *act)
     }
     p[2] = 6;
     p[1] = 1;
-    /* SAB: SDK 2.5 reports whether the command went out */
+    /* STA: SDK 2.5 reports whether the command went out */
     if (_send_to_iop(port, slot) != 1) {
         return 0;
     }

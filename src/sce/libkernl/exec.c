@@ -1,4 +1,4 @@
-/* libkernl.a: SDK 2.5's exec wrappers (SAB: not in kfiv-decomp; member and
+/* libkernl.a: SDK 2.5's exec wrappers (STA: not in kfiv-decomp; member and
  * helper names derived).  ExecPS2, LoadExecPS2, Exit and ExecOSD reset the
  * TLB (InitTLB, in tlbfunc.o) before the kernel call, and the exec calls
  * first copy their arguments into kernel memory at _kEntry3 with Copy

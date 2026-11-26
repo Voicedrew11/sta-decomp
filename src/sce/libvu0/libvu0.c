@@ -101,7 +101,7 @@ void sceVu0Normalize(void *dst, void *src)
     VU0_REG(".word 0x4A0503BD");
     VU0_WAIT();
     VU0_REG("vaddq.x $vf5, $vf0, Q");
-    VU0_REG("vnop"); /* SAB: SDK 2.5 adds two vnops before the vdiv */
+    VU0_REG("vnop"); /* STA: SDK 2.5 adds two vnops before the vdiv */
     VU0_REG("vnop");
     VU0_REG("vdiv Q, $vf0w, $vf5x");
     VU0_REG("vsub.xyzw $vf6, $vf0, $vf0");

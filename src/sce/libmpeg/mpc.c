@@ -1,10 +1,10 @@
-#define LIBMPEG25 /* SAB: SDK 2.5 */
+#define LIBMPEG25 /* STA: SDK 2.5 */
 /* libmpeg.a(mpc.o): motion compensation, the macroblock and slice decoder,
  * the IPU command and bit reader layer, the picture-level header parsers and
  * the output path.  The member's .text is 16-aligned by _copyRefImage's
  * `.align 4` before _maxval.
  *
- * SAB: SDK 2.5: every function past the copy kernels takes the decoder record
+ * STA: SDK 2.5: every function past the copy kernels takes the decoder record
  * (MpegSys), which holds SDK 2.2's globals; converted from kfiv-decomp's
  * SDK 2.2 member and fixed function by function against the ROM. */
 #include <libmpeg.h>
@@ -13,7 +13,7 @@
 #include <eekernel.h>
 #include <stdio.h>
 
-/* SAB: SDK 2.5 helpers defined at the end of the member */
+/* STA: SDK 2.5 helpers defined at the end of the member */
 void _sendRefTags(MpegSys *p);
 void _ipuToSpr(int addr, int size);
 
@@ -2029,7 +2029,7 @@ int _sliceB(MpegSys *p)
 {
     p->qscqsc = _nextBit(p, 5);
     if (_nextBit(p, 1) != 0) {
-        _nextBit(p, 1); /* SAB: SDK 2.5 drops intra_slice */
+        _nextBit(p, 1); /* STA: SDK 2.5 drops intra_slice */
         _flushBuf(p, 7);
         _extrainfo(p);
     }
@@ -2091,7 +2091,7 @@ void _pictureHeader(MpegSys *p)
 
 void _extensionAndUserData(MpegSys *p)
 {
-    /* SAB: SDK 2.5's handler table is a local, copied from .rodata */
+    /* STA: SDK 2.5's handler table is a local, copied from .rodata */
     void (*extHandler[11])(MpegSys *) = {_unknown_extension,
         _sequenceExtension,
         _sequenceDisplayExtension,
@@ -2164,27 +2164,27 @@ void _extrainfo(MpegSys *p)
     }
 }
 
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
-/* SAB: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
+/* STA: SDK 2.5 made SDK 2.2's two statics locals, which leaves the wrap
    tracking inert */
 void _updateTempTackData(MpegSys *p, int tr)
 {
@@ -2271,14 +2271,14 @@ void _pictureDisplayExtension(MpegSys *p)
     }
 }
 
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
-/* SAB: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
+/* STA: SDK 2.5 keeps none of the fields */
 void _copyrightExtension(MpegSys *p)
 {
     _nextBit(p, 1); /* copyright_flag */
@@ -2600,7 +2600,7 @@ void _dispRefImage(MpegSys *p, int *img, int frame)
     r->centerOffY[2] = img[0x58 / 4];
     if (_isOutSizeOK(p, img) != 0 && img[0x28 / 4] == 1) {
         if (r->csc != 0) {
-            _csc_storeRefImage(r, img); /* SAB: SDK 2.5 csc */
+            _csc_storeRefImage(r, img); /* STA: SDK 2.5 csc */
         } else {
             _cpr8(p, img);
         }
@@ -2642,7 +2642,7 @@ void _dispRefImageField(MpegSys *p, int *top, int *bot, int frame)
     if (_isOutSizeOK(p, top) != 0 && top[0x28 / 4] == 1 && bot[0x28 / 4] == 1) {
         top[0x10 / 4] = top[0x10 / 4] * 2;
         if (r->csc != 0) {
-            _csc_storeRefImage(r, top); /* SAB: SDK 2.5 csc */
+            _csc_storeRefImage(r, top); /* STA: SDK 2.5 csc */
         } else {
             _cpr8(p, top);
         }
@@ -2651,12 +2651,12 @@ void _dispRefImageField(MpegSys *p, int *top, int *bot, int frame)
     }
 }
 
-/* SAB: SDK 2.5 moved the reference fetch's DMA chain out of _motionComp0:
+/* STA: SDK 2.5 moved the reference fetch's DMA chain out of _motionComp0:
    the chain lives in the member's .bss and channel 9 (to scratchpad) runs it
    with interrupts off */
 static long long sprTagBuf[64]; /* derived name */
 
-/* SAB: TEMPORARY inline asm: retail's instructions for _sendRefTags, which the
+/* STA: TEMPORARY inline asm: retail's instructions for _sendRefTags, which the
    C below reproduces but for its i/tag register choice.  The C, kept for
    the next attempt:
 
@@ -2793,7 +2793,7 @@ __asm__(".section .text\n"
         "    .set reorder\n"
         "    .set at\n");
 
-/* SAB: SDK 2.5: channel 3 (from the IPU) into scratchpad */
+/* STA: SDK 2.5: channel 3 (from the IPU) into scratchpad */
 void _ipuToSpr(int addr, int size) /* derived name */
 {
     int intr = DIntr();

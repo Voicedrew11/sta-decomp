@@ -1,5 +1,5 @@
 /* libkernl.a(tlbfunc.o): SDK 2.5's TLB and exception handler hooks and
- * InitTLBFunctions, which _InitSys calls last (SAB: not in kfiv-decomp; the
+ * InitTLBFunctions, which _InitSys calls last (STA: not in kfiv-decomp; the
  * member and function names are derived, after the kernel calls they
  * install).  Copy, kCopy, GetEntryAddress and setup are kfiv-decomp's
  * intr.c's. */
@@ -263,7 +263,7 @@ int ExpandScratchPad(unsigned int page)
 int _InitTLB(void);
 int InitTLB32MB(void);
 
-/* SAB: SDK 2.5 resets the TLB itself on a 32 MB machine */
+/* STA: SDK 2.5 resets the TLB itself on a 32 MB machine */
 int InitTLB(void)
 {
     if (GetMemorySize() == 0x2000000) {

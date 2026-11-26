@@ -1,6 +1,6 @@
 /* libmpeg.a(pack.o): the PSS demultiplexer and its pack, system and PES
  * header parsers. */
-#define LIBMPEG25 /* SAB: SDK 2.5 */
+#define LIBMPEG25 /* STA: SDK 2.5 */
 #include <libmpeg.h>
 #include <libmpeg_internal.h>
 
@@ -326,7 +326,7 @@ int _system_header(int *bs, PackHeader *pkt)
 
 /* the bit count each combination of the four header flags adds */
 
-/* SAB: SDK 2.5 hands the decoder to _PES_packet for its error report, and the
+/* STA: SDK 2.5 hands the decoder to _PES_packet for its error report, and the
    header-field lengths are a local table, copied from .rodata */
 int _PES_packet(MpegSys *p, int *bs, PesPkt *pkt)
 {

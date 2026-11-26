@@ -1,4 +1,4 @@
-/* libc.a member exit.o (SAB: not in kfiv-decomp; newlib's exit) */
+/* libc.a member exit.o (STA: not in kfiv-decomp; newlib's exit) */
 #include <reent.h>
 #include <libc_internal.h>
 

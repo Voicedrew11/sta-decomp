@@ -1,4 +1,4 @@
-/* libm.a member ef_acos.o (SAB: not in kfiv-decomp; newlib's ef_acos.c, built
+/* libm.a member ef_acos.o (STA: not in kfiv-decomp; newlib's ef_acos.c, built
    for the R5900 FPU like the rest of this libm) */
 #include <math.h>
 #include <math_private.h>
@@ -6,7 +6,7 @@
 /* Float<->word access, the public-domain fdlibm idiom (netlib's fdlibm,
    math_private.h), defined in this member. */
 
-/* SAB: macros: this game's libm emits no .rodata for these constants (the
+/* STA: macros: this game's libm emits no .rodata for these constants (the
    code loads them as immediates) */
 #define GET_FLOAT_WORD(i, d)                                                                       \
     do {                                                                                           \
