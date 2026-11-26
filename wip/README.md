@@ -141,3 +141,15 @@ register and scheduling differences.
 | func_001E3058 | round 2 near-miss: ee-gcc, 5 words: lo+hi in a2 instead of v0, one slt in v1 |
 | func_001E4A18 | round 2 near-miss: ee-gcc, 4 words: first two float loads have f3/f0 swapped |
 | func_001D8AB0 | round 2 near-miss: ~2 insns: missing addu a1,v1,$zero before the unrolled copy, plus a nop |
+| func_001D4170 | round 3 near-miss: ee-gcc memcard save machine, 2 words short; cases 1/2/5/19 differ |
+| func_001DE2D0 | round 3 near-miss: 6 words: lw a2 (Col stack arg) vs lwc1 f12 order before func_001875C0, 3 sites |
+| func_001DB020 | round 3 near-miss: 5 words: register swap in case 0's D_004BAA28 update |
+| func_001D4A78 | round 3 near-miss: ee-gcc, ~24 lines after alignment: case 1 fail path, case 14 scheduling |
+| func_001D7350 | round 3 near-miss: ee-gcc, 23 words short: retail keeps empty switch cases [2,3] and 0x100 in the tree |
+| func_001DDA20 | round 3 near-miss: 3 words: 1 handwritten addi at the switch range check (asm-only), 2 lwc1/lw order |
+| func_001D9FC0 | round 3 near-miss: 15 words: temp register numbers in the 8x32 loop |
+| func_001E2748 | round 3 near-miss: ee-gcc, 7 words: v0/v1 swap after func_001E2D08, bnel vs bne |
+| func_001E54E8 | round 3 near-miss: ee-gcc, 22 words: saved-register choice for k/w/h/h2 |
+| func_001E52D0 | round 3 near-miss: ee-gcc, 6 words: D2_QWC/D2_MADR constants in v0/v1 swapped |
+| func_00174230 | round 3 near-miss: 12 words: only two spill slots differ (h is a temp in retail) |
+| func_001E3178 | round 3 near-miss: ee-gcc, ~70 insns after alignment, 3 short |

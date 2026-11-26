@@ -247,3 +247,41 @@ ee-gcc 2.96:
 Tools:
 - **Jump tables in build/m2c/*.s can be cut short**; read the full table from the exe (file offset = vaddr - 0xFFF80).
 - **An asm function that addresses data through a biased symbol** inside a newly matched C unit's .rodata breaks the link: add the symbol to config/linker_syms.txt.
+
+### More tricks (round 3 of the merged repo: every fresh function above 0x200, 38 of 52 matched)
+
+MWCC:
+- **A register in t0/a3 that nothing sets before a jal** is a hidden extra call argument (e.g. a 5th `sprintf` argument).
+- **A call argument or global the target loads earlier than you do**: read it into a local through `*(volatile s32 *)&G` first. A global load in a `beqz` delay slot at the top of an inlined helper: read it into a local before the `if`.
+- **Globals reloaded after every store through a pointer read from them**: declare them as one struct extern (volatile gets the load order wrong). A store through a global pointer followed by a reload of that pointer: `T *volatile D[]`.
+- **Argument load order differs between calls to the same callee**: move the f32 params first in the prototype (same registers under EABI), or make a param u32 so a stack argument (t0) loads first.
+- **Params get saved registers before locals**: declare params `void *`, copy them into typed locals, permute the copies.
+- **Loop pointer that should be in a saved register**: an out-param inline (`get(&e, j)`) instead of `e = get(j)`. In `a = b = -1;` the rightmost variable gets the first register.
+- **`bne` operands the wrong way round whatever the `==` order**: put one side in a block-local temp. A fresh local for a comparison result fixes a0/a1 swaps.
+- **`beq; beq; b default` for `x == 5 || x == 6`**: `switch (x) { case 5: case 6: ... }`. `||` becomes a range check; separate `if (...) return;` statements keep separate `beq`s.
+- **Clamp with a padded `bnez`**: the ternary `n = (n > K) ? K : n;`. Other clamps only match as two ifs; try both.
+- **8x unrolled byte copy plus 1-byte remainder loop** (`sltiu 0x18` / `sltiu 0x20`): inline `cpy(void *d, void *s, u32 n)` with an `s32 i` counter.
+- **`lui; ori; addu rd,rs,$at`** for a large constant added late is pointer arithmetic (`u8 *p = ...; p + size`). `(s32)o->data + i*sz` hoists the invariant part; `o->data + i*sz` merges it.
+- **Address mask `dsll32 4; dsrl32 4` then a separate `and -16`**: compute `ad = src & 0x0FFFFFFF;` into its own local before an inline that masks `~0xF`.
+- **`addiu v0,sp,X; swc1 f0,0(v0)`** is a whole-struct copy: make both sides `struct { f32 f; }`.
+- **Commutative `mul.s` order for u32->float * float**: inline `mu(u32 x, f32 k) { f32 t = x; return t * k; }`.
+- **`%` operands loaded first but stored last**: write the modulo statement first. `D.a = D.a + D.b` loads in source order; `+=` loads the right-hand side first.
+- **Frame layout**: spilled named locals get 4-byte slots in a 16-byte area at the top of the frame with the param homes; copy-propagated and loop-invariant temps get 16-aligned slots below. An unexplained 16-byte slot means the original variable was a temp; making it an inline parameter makes it one.
+- **Hand-written `addi` at a switch range check, `sync; ei`, inlined VU0 `lqc2/vmula*/sqc2`**: asm-only, skip (func_001CBCD0, func_001DDA20, func_001E8CB0, func_00171BB0).
+
+ee-gcc 2.96:
+- **Struct address rebuilt in every case** (`%hi` kept in an s-reg, `addiu rX,sHI,%lo` per use): use `D_X.field` or `#define t (&D_X)`; a `T *t = &D_X` local pins the full address.
+- **Shared `jal` plus result check jumped to from several cases** is cross-jumping: write the call and check in full in every case.
+- **Register swaps across a big switch**: give each case its own fresh locals; reusing a long-lived variable shifts allocation function-wide. The callee's return type (`void *` vs `void`) changes tail merging.
+- **movz/movn**: `c == 0 ? A : B` vs `c ? B : A` flips them; `k = 2; if (c) k = 0;` gives a `movn` feeding a compare. `n = 0xC; if (!(f & BIT)) n = 0xD;` fixes constant-pair order. Independent constant stores come out in reverse source order.
+- **`(x + K) * 16` is distributed**; write `(x + K) << 4`.
+- **8-byte struct copied via a stack temp with `swc1/swc1/ld/sd`**: `typedef struct { f32 x, y; s32 z[0]; } __attribute__((aligned(8))) V2;`, initialised `{ a, b, {} }`.
+- **Invariant load after the loop guard**: `if (i >= 0) { f = G; do {...} while (...); }`.
+- **Field reloaded where gcc would reuse a load**: read the first use through `*(volatile u64 *)&s->f` and extract with shifts. An unfolded extern array base re-read after a store: `extern volatile s32 D[]`.
+- **Value passed to a short param without extension**: declare the local `s16`.
+- **`andi 0xFF` after a byte store**: read the field again after storing it. Adjacent byte tests `a == 2 && (b & 4)` get merged into one `lw`; nest them for two `lbu`.
+- **Unsolved**: retail switch trees that test ranges with no code behind them (func_001D7350); gcc drops empty cases.
+
+Tools:
+- When the instruction count differs, align your build against retail with difflib on normalized opcodes; chk's positional word count is useless then.
+- chk.sh is not parallel-safe within one agent dir.
