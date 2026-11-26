@@ -1,0 +1,23 @@
+#include "common.h"
+typedef struct { u16 id; u8 pad[0x26]; } X;
+typedef struct { u8 pad[4]; u8 a, b, c; Flags8 f7; u8 pad8[0x100]; f32 t[1][5]; } E;
+typedef struct { u8 pad[0x210]; E *e[1]; } T;
+typedef struct { u8 pad[0x90]; T *x90; u16 x94; } O;
+void func_00163C80(O *, Mtx *);
+void func_001D3810(O *, s32, X *, Mtx *, s32, s32, s32);
+static inline E *ent(T **t, u16 *i) { return (*t)->e[*i]; }
+
+void func_001D21E0(O *o, s32 id) {
+    Mtx m;
+    E *e = *(E **)((s32)o->x90 + 0x210 + (o->x94 << 2));
+    X *x;
+    s32 i;
+
+    if (e->f7.f.b2) {
+        x = (X *)((e->f7.f.b1 ? 4 : 0) * 16 + (e->c * 12 + (e->b * 4 + ((s32)e + e->a * 20))) + 0x108);
+        func_00163C80(o, &m);
+        for (i = 0; i < 4; i++, x++) {
+            if (x->id == id) func_001D3810(o, id, x, &m, 0, 0, 0);
+        }
+    }
+}

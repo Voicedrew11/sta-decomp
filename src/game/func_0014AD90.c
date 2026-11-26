@@ -1,0 +1,18 @@
+#include "m2c.h"
+extern s32 func_0015ED20(void);
+extern f32 func_0011D778(f32);
+extern f32 func_0011DA18(f32);
+extern void func_001029D0(f32 *, f32 *, f32 *);
+
+void func_0014AD90(f32 *a0) {
+    f32 v[4];
+    f32 r = a0[0x50 / 4];
+    f32 h = a0[0x54 / 4];
+    f32 ang = 6.2831855f * (0.000015259022f * (f32)(u32)(func_0015ED20() & 0xFFFF));
+    r *= 0.000015259022f * (f32)(u32)(func_0015ED20() & 0xFFFF);
+    v[0] = r * func_0011D778(ang);
+    v[2] = r * func_0011DA18(ang);
+    v[1] = h * (1.0f - 2.0f * (0.000015259022f * (f32)(u32)(func_0015ED20() & 0xFFFF)));
+    v[3] = 0.0f;
+    func_001029D0(a0, a0, v);
+}

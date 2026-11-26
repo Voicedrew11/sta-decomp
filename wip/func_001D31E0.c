@@ -1,0 +1,121 @@
+#include "common.h"
+typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef struct { u8 pad[4]; u8 n4; u8 n5; u8 n6; B8 f7; } H;
+typedef struct { u8 b[20]; } T20; typedef struct { u8 b[4]; } T4; typedef struct { u8 b[12]; } T12; typedef struct { u8 b[16]; } T16;
+typedef struct { f32 x0; f32 x4; u8 pad8[4]; union { s32 w; struct { B8 c; B8 d; } b; } xC; } B;
+typedef struct { u16 x0; u16 x2; u8 pad[0x24]; } E;
+typedef struct { u8 pad[0xD]; u8 xD; u8 padE[2]; f32 x10; f32 x14; f32 x18; } T;
+typedef struct { u8 pad[0x10]; Vec x10; u8 pad20[0xC]; T *x2C; } A1;
+void func_00163C80(s8 *, Mtx *);
+void func_00102A60(Vec *, void *);
+void func_001D3810(s8 *, s32, E *, Mtx *, s32, A1 *, s32);
+s32 func_0015ED20(void);
+static inline f32 u2f(u32 x) { return x; }
+void func_00102A18(Vec *, Vec *, f32);
+void func_001029D0(void *, Vec *, void *);
+f32 func_00102848(Vec *, Vec *);
+void func_00102870(Vec *, Vec *);
+void func_00145ED0(Vec *, Vec *, Vec *);
+f32 sqrtf(f32);
+
+static inline H *getH(s8 **pb, u16 *pi) {
+    return ((H **)(*pb + 0x210))[*pi];
+}
+static inline B *getB(H *h) {
+    return (B *)(h->n6 * 12 + (h->n5 * 4 + ((u32)h + h->n4 * 20)) + 0x108);
+}
+static inline E *getE(H *h) {
+    return (E *)((h->f7.b1 ? 4 : 0) * 16 + (h->n6 * 12 + (h->n5 * 4 + ((u32)h + h->n4 * 20))) + 0x108);
+}
+
+static inline E *getE2(H *h) {
+    return (E *)((h->f7.b1 ? 4 : 0) * 16 + h->n5 * 4 + h->n4 * 20 + h->n6 * 12 + (u32)h + 0x108);
+}
+static inline void run(s8 *a0, A1 *a1, s8 **pb, u16 *pi, s32 id, s32 i) {
+    s32 j;
+    E *e;
+    Mtx M;
+    e = getE2(getH(pb, pi));
+    for (j = 0; j < 4; j++, e++) {
+        if (e->x2 == i) {
+            func_00163C80(a0, &M);
+            func_00102A60(&M.m[3], a1);
+            M.m[3].w = 1.0f;
+            func_001D3810(a0, id, e, &M, 0, a1, 0);
+        }
+    }
+}
+
+s32 func_001D31E0(s8 *a0, A1 *a1) {
+    Vec U;
+    Vec X;
+    Vec W;
+    Vec Y;
+    Mtx M1;
+    s32 i;
+    s32 r;
+    B *b;
+    s32 j;
+    E *e;
+    u8 m;
+    f32 k;
+    f32 d;
+    s8 **pb;
+    u16 *pi;
+
+    pi = (u16 *)(a0 + 0x94);
+    pb = (s8 **)(a0 + 0x90);
+    r = 0;
+    b = getB(getH(pb, pi));
+    for (i = 0; i < 4; i++, b++) {
+        if (b->xC.w == 0) continue;
+        m = 0;
+        if (b->xC.b.c.b4) m |= 2;
+        if (b->xC.b.c.b5) m |= 4;
+        if (b->xC.b.c.b6) m |= 8;
+        if (b->xC.b.c.b7) m |= 0x10;
+        if (b->xC.b.d.b0) m |= 0x20;
+        if (b->xC.b.d.b1) m |= 0x40;
+        if (b->xC.b.d.b2) m |= 0x80;
+        if (!((1 << (a1->x2C->xD & 7)) & m)) continue;
+        e = getE(getH(pb, pi));
+        for (j = 0; j < 4; j++, e++) {
+            if (e->x2 == i) {
+                func_00163C80(a0, &M1);
+                func_00102A60(&M1.m[3], a1);
+                M1.m[3].w = 1.0f;
+                func_001D3810(a0, 4, e, &M1, 0, a1, 0);
+            }
+        }
+        if (b->x0 != 0.0f) {
+            if (!(b->x0 < 100.0f)) {
+                r = 1;
+            } else if (!(b->x0 <= 100.0f * (1.5259022e-05f * (f32)(u32)(u16)func_0015ED20()))) {
+                r = 1;
+            }
+            if (r) break;
+        }
+        if (0.0f < b->x4) {
+            k = 0.01f * b->x4;
+            func_00102A18(&U, &a1->x10, a1->x10.w * (1.0f + k));
+            U.w = 0.0f;
+            func_001029D0(a0, &U, a0);
+            *(f32 *)(a0 + 0xC) = 1.0f;
+            d = sqrtf(func_00102848((Vec *)(a0 + 0x10), (Vec *)(a0 + 0x10)));
+            func_00102A18(&W, (Vec *)(a0 + 0x10), -1.0f);
+            func_00102870(&W, &W);
+            X.x = a1->x2C->x10;
+            X.y = a1->x2C->x14;
+            X.z = a1->x2C->x18;
+            X.w = 0.0f;
+            func_00145ED0(&X, &W, &Y);
+            func_00102A18((Vec *)(a0 + 0x10), &Y, d * k);
+        }
+    }
+    if (r) {
+        run(a0, a1, pb, pi, 5, i);
+    } else {
+        run(a0, a1, pb, pi, 6, i);
+    }
+    return r;
+}

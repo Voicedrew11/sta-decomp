@@ -1,0 +1,89 @@
+#include "m2c.h"
+typedef struct { u16 key; u16 off; } Ent;
+typedef struct {
+    u8 pad[8];
+    u32 **x8;
+    s32 xC;
+    u8 pad10[0x214 - 0x10];
+    Ent cache[32];
+} S;
+
+s32 func_00166970(S *a0, u16 key) {
+    u32 *p;
+    u16 i;
+    s32 xc;
+    u32 off;
+    u32 *base;
+    u32 w;
+    u16 n;
+    u16 j;
+    s32 lo;
+    u32 hi;
+
+    for (i = 0; i < 32; i++) {
+        if (a0->cache[i].key == key) {
+            off = a0->cache[i].off << 2;
+            for (; i > 0; i--) {
+                a0->cache[i] = a0->cache[i - 1];
+            }
+            a0->cache[0].key = key;
+            a0->cache[0].off = off >> 2;
+            return a0->xC + off;
+        }
+    }
+    base = *a0->x8;
+    xc = a0->xC;
+    p = (u32 *)((u8 *)base + xc);
+    w = *p;
+    if ((w & 0xFFFF0000) == 0xFFFF0000) {
+        n = w & 0xFFFF;
+        p++;
+        for (j = 0; j < n; j++) {
+            if (key == (p[j] >> 16)) {
+                p += n + *(u16 *)&p[j];
+                break;
+            }
+        }
+        if (j == n) return -1;
+    } else {
+        for (;;) {
+            w = *p;
+            lo = w & 0xFFFF;
+            hi = (w & 0xFFFF0000) >> 16;
+            if (hi == 0x190) {
+                if (lo == key) break;
+                if (lo == 0x7FFE) return -1;
+            }
+            p++;
+            switch (hi) {
+            case 0x190:
+            case 0x191:
+            case 0x194:
+            case 0x195:
+            case 0x197:
+                break;
+            case 0x192:
+                p += (lo >> 8) * 5 + 1;
+                break;
+            case 0x196:
+                p += lo;
+                break;
+            case 0x19D:
+                p += lo + 1;
+                break;
+            default:
+                p += lo * 2;
+                break;
+            }
+        }
+    }
+    off = (u8 *)p - (u8 *)base - xc;
+    for (i = 31; i > 0; i--) {
+        if (a0->cache[i - 1].key) {
+            a0->cache[i] = a0->cache[i - 1];
+        }
+    }
+    a0->cache[0].key = key;
+    a0->cache[0].off = off >> 2;
+    return a0->xC + off;
+}
