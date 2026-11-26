@@ -1,4 +1,4 @@
-# libkernl.a: SDK 2.5's hand-written TLB refill and exception trap (SAB:
+# libkernl.a: SDK 2.5's hand-written TLB refill and exception trap (STA:
 # not in kfiv-decomp; the member name and labels are derived).  tlbfunc.o's
 # _kSetTLBRefillFunc points the TLB refill vectors at _kTLBTrap and
 # _kSetExceptionHandler the others at _kExceptionTrap: each saves the

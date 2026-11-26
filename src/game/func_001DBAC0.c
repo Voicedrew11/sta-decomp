@@ -1,6 +1,6 @@
 #include "common.h"
 void FlushCache(s32);
-void func_001205B0(void *, s32);
+void bzero(void *, s32);
 void func_001D85D0(s32, s32, s32);
 s32 func_001D8680(s32 a, s32 b, s32 c, ...);
 typedef struct { s32 x0, x4, x8, xC, x10; s16 x14; u8 p[0xA]; } A;
@@ -82,7 +82,7 @@ s32 func_001DBAC0(void) {
         t++;
     }
     D_004BAA58[0] = 0;
-    func_001205B0(D_004BA2E0, 0x1C);
+    bzero(D_004BA2E0, 0x1C);
     D_00202328 = &D_004BA0E0[1];
     D_00202330 = 0;
     D_0020232C = 0;

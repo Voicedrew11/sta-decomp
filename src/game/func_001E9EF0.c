@@ -2,7 +2,7 @@
 s32 DIntr(void);
 s32 EIntr(void);
 s32 RotateThreadReadyQueue(s32);
-void func_00109D70(void *);
+void sceMpegReset(void *);
 s32 sceMpegGetPicture(void *, u8 *, s32);
 s32 sceMpegIsEnd(void *);
 extern u8 *D_004BDEC0[];
@@ -30,6 +30,6 @@ s32 func_001E9EF0(M *mp) {
         EIntr();
         RotateThreadReadyQueue(1);
     }
-    func_00109D70(mp);
+    sceMpegReset(mp);
     return r;
 }

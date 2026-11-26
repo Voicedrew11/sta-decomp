@@ -6,7 +6,7 @@
 #include <libvu0_internal.h>
 #include <eekernel.h>
 
-/* SAB: SDK 2.5's sections: .data holds the build stamp and dch, .rodata
+/* STA: SDK 2.5's sections: .data holds the build stamp and dch, .rodata
  * (after the timeout message) the four constant tables, and .bss
  * sceDmaCurrentEnv.  sceDmaDebugMode is gone. */
 /* libdma.a's build stamp, exactly sixteen characters with no terminator. */
@@ -23,7 +23,7 @@ DmaChan *dch[10] = {
    .bss, which ld only does for a .bss symbol. */
 DmaEnv sceDmaCurrentEnv __attribute__((section(".bss")));
 
-/* SAB: SDK 2.5's libdma waits through these helpers, which pause a channel
+/* STA: SDK 2.5's libdma waits through these helpers, which pause a channel
    that times out, and maps scratchpad addresses to the DMAC's SPR flag. */
 int sceDmaPause(DmaChan *ch);
 
@@ -259,7 +259,7 @@ int sceDmaWatch(DmaChan *ch, unsigned int addr, int mode, int n)
     return 0;
 }
 
-/* SAB: SDK 2.5 stops a channel with the DMAC's channel enable held */
+/* STA: SDK 2.5 stops a channel with the DMAC's channel enable held */
 int sceDmaPause(DmaChan *ch)
 {
     int intr;

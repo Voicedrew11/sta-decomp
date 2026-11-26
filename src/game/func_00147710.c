@@ -40,7 +40,7 @@ void sceVu0CopyVector(void *, void *);
 void sceVu0ApplyMatrix(Vec *, void *, void *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void func_00146310(O *, Vec *, void *, f32 *, f32 *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 f32 fabsf(f32);
 void sceVu0RotMatrixX(MtxF *, MtxF *, f32);
 void sceVu0RotMatrixY(MtxF *, MtxF *, f32);
@@ -110,7 +110,7 @@ void func_00147710(O *o, f32 dt) {
     c = 0;
     if (D_002022E4 != 0 && D_002022E4->unk518 != 0) c = 1;
     func_00146310(o, (Vec *)&o->xC0.m[2], c ? (void *)(D_002022E4->unk518 + 0x1C0) : (void *)&D_001F2160, &ang, 0);
-    at = func_0011DBC0(o->xC0.m[2][0], o->xC0.m[2][2]);
+    at = atan2f(o->xC0.m[2][0], o->xC0.m[2][2]);
     ang += at;
     if (3.1415927f < fabsf(ang - o->xB4)) {
         if (ang < o->xB4) k = 6.2831855f;
@@ -124,7 +124,7 @@ void func_00147710(O *o, f32 dt) {
     }
     o->xB4 = ang = ang + o->xB4;
     o->xB0 += o->x60 * dt;
-    f = func_0011DBC0(o->xB0, 190.0f);
+    f = atan2f(o->xB0, 190.0f);
     sceVu0RotMatrixX(&m, &D_001F2170, WRAP(f));
     sceVu0RotMatrixY(&m, &m, WRAP(ang));
     sceVu0CopyMatrix(&o->xC0, &m);

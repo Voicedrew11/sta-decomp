@@ -7,10 +7,10 @@ void EIntr(s32, s32);                            /* extern */
 void RemoveDmacHandler(s32, s32);            /* extern */
 void RemoveIntcHandler(s32, s32);            /* extern */
 void TerminateThread(s32);                       /* extern */
-void func_00109C08(s32 *);                   /* extern */
+void sceMpegDelete(s32 *);                   /* extern */
 void DisableIntc(s32);                     /* extern */
 s32 sceSifFreeSysMemory(s32);                             /* extern */
-void func_00116360(s32, s32, s32, s32); /* extern */
+void sceSdRemote(s32, s32, s32, s32); /* extern */
 void printf(s32 *, s32 *, s32);      /* extern */
 s32 sceCdStStop();                                  /* extern */
 void sceClose(s32);                              /* extern */
@@ -52,7 +52,7 @@ void func_001EC3E0(void) {
     *(s32 *)0x1000B410 = 0;
     *(s32 *)0x1000B430 = 0;
     DeleteSema((*D_004BDFC8));
-    func_00109C08(D_004BDF40);
+    sceMpegDelete(D_004BDF40);
     if (sceSifFreeSysMemory((*D_004BDF24)) < 0) {
         printf(D_00201920, D_00201940, 0x407);
     }
@@ -61,8 +61,8 @@ void func_001EC3E0(void) {
     }
     var_16 = 0;
     do {
-        func_00116360(1, 0x8010, var_16 | 0x980, 0);
-        func_00116360(1, 0x8010, var_16 | 0xA80, 0);
+        sceSdRemote(1, 0x8010, var_16 | 0x980, 0);
+        sceSdRemote(1, 0x8010, var_16 | 0xA80, 0);
         var_16 += 1;
     } while (var_16 < 2);
     if ((*D_004BE04C) != 0) {

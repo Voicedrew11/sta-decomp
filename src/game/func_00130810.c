@@ -11,12 +11,12 @@ extern Mtx D_002F16C0;
 extern Vec D_001F2150;
 void sceVu0CopyVector(Vec *, Vec *);
 void sceVu0ApplyMatrix(Vec *, Mtx *, Vec *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011DBD8(f32);
+f32 expf(f32);
 f32 fabsf(f32);
 void sceVu0Normalize(Vec *, Vec *);
-f32 func_0011DBF0(f32, f32);
+f32 powf(f32, f32);
 f32 sqrtf(f32);
 
 void func_00130810(Snd *s) {
@@ -42,7 +42,7 @@ void func_00130810(Snd *s) {
         sceVu0CopyVector(&pos, (Vec *)s->x20);
     }
     sceVu0ApplyMatrix(&v, &D_002F16C0, &pos);
-    ang = func_0011DBC0(v.z, v.x);
+    ang = atan2f(v.z, v.x);
     switch (D_0022EC14[0]) {
     case 0:
         pan = -256.0f;
@@ -106,7 +106,7 @@ void func_00130810(Snd *s) {
         dist = sqrtf(sceVu0InnerProduct(&v, &v));
         if (dist > s->x24) {
             r = dist - s->x24;
-            f = (s->x28 > 0.0f) ? func_0011DBD8(-4.8441868f / s->x28 * r) : 0.0f;
+            f = (s->x28 > 0.0f) ? expf(-4.8441868f / s->x28 * r) : 0.0f;
             s->x8 = s->xA * f;
         } else {
             s->x8 = s->xA;
@@ -147,7 +147,7 @@ void func_00130810(Snd *s) {
         sceVu0ApplyMatrix(&a, &D_002F16C0, &a);
         f = sceVu0InnerProduct(&a, &D_001F2150);
         f = 1.0f - f;
-        s->x8 = s->x8 * func_0011DBF0(0.5f * f, s->x44);
+        s->x8 = s->x8 * powf(0.5f * f, s->x44);
     }
     s->xC = pan;
 }

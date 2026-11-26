@@ -1,4 +1,4 @@
-/* libdev.a: sceDevVif0GetStat (SAB: SDK 2.5 member, not in kfiv-decomp; the name is the
+/* libdev.a: sceDevVif0GetStat (STA: SDK 2.5 member, not in kfiv-decomp; the name is the
    SDK's libdev function the code fits, derived) */
 #include <libdev_internal.h>
 

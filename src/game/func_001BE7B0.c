@@ -49,7 +49,7 @@ void func_001BE510(Actor *);
 s32 func_001BE050(Actor *);
 void func_00159500(s32);
 s32 func_00169B50(s32, s32, s32, s32);
-s32 func_00125538(void);
+s32 rand(void);
 s32 func_001BE390(Actor *);
 void func_001CEAA0(s32);
 static inline void tail(Actor *a0, P *s1, Vec *v) {
@@ -141,7 +141,7 @@ void func_001BE7B0(Actor *a0) {
         s1->f3A0.b15 = 1;
         if (s1->x3AC == 0) {
             func_00169B50(0x1F0, 0, 1, 0);
-            s1->x3AC = func_00125538() % 30 + 30;
+            s1->x3AC = rand() % 30 + 30;
         } else {
             s1->x3AC--;
         }

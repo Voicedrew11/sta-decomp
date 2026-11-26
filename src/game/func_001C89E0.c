@@ -6,7 +6,7 @@ void sceVu0CopyVector(Vec *, s8 *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 func_0013FC10(Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 f32 sqrtf(f32);
 inline s8 *get(void) {
     if (D_002022E4 == NULL) {
@@ -46,7 +46,7 @@ void func_001C89E0(Vec *dir, f32 t) {
     RR->x24 = WRAP(RR->x24);
     y = v.y;
     v.y = 0.0f;
-    w = -func_0011DBC0(y, sqrtf(sceVu0InnerProduct(&v, &v)));
+    w = -atan2f(y, sqrtf(sceVu0InnerProduct(&v, &v)));
     w = WRAP(w);
     RR->x20 = WRAP(RR->x20);
     d = RR->x20 - w;

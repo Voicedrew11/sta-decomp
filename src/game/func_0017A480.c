@@ -5,7 +5,7 @@ void func_00145780(Vec *);
 void func_00140470(char *, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011D778(f32);
+f32 cosf(f32);
 void func_001456B0(Vec *);
 void func_001403D0(char *, Vec *);
 
@@ -31,7 +31,7 @@ s32 func_0017A480(char *a0, f32 *a1, f32 *a2) {
     len = sqrtf(sceVu0InnerProduct(&v80, &v80));
     if (a1) *a1 = len;
     if (len < bc) {
-        c = func_0011D778(1.0471976f);
+        c = cosf(1.0471976f);
         func_001456B0(&v70);
         if (!(len <= 0.0f)) {
             v80.x /= len;
@@ -41,7 +41,7 @@ s32 func_0017A480(char *a0, f32 *a1, f32 *a2) {
         d = sceVu0InnerProduct(&v80, &v70);
         if (a2) *a2 = d;
         if (!(d <= c)) {
-            c = func_0011D778(1.0471976f);
+            c = cosf(1.0471976f);
             v80.x = -v80.x;
             v80.y = -v80.y;
             v80.z = -v80.z;

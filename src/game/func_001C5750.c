@@ -36,7 +36,7 @@ typedef struct {
 extern Mtx D_001F2170;
 f32 func_00173F70(s32, u16);
 s32 func_001D1DD0(u8);
-s32 func_00125538(void);
+s32 rand(void);
 void func_00171B70(Mdl *, u16, f32);
 void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
 void sceVu0CopyMatrix(void *, void *);
@@ -96,10 +96,10 @@ void func_001C5750(Actor *a, f32 dt) {
         }
     }
     if (func_001D1DD0(p->x39C) && p->x3D5 == 4) {
-        r = func_00125538() % 2;
-        p->x3AD = r * -(func_00125538() % 2);
-        r = func_00125538() % 2;
-        p->x3AE = r * -(func_00125538() % 2);
+        r = rand() % 2;
+        p->x3AD = r * -(rand() % 2);
+        r = rand() % 2;
+        p->x3AE = r * -(rand() % 2);
     }
     func_00171B70(p->x28, p->x28->id, p->x28->xC);
     p->x2C->x3F4 += 25.0f;

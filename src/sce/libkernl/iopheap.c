@@ -11,7 +11,7 @@ static int iopheap_bind = -1; /* derived name */
    each on its own 64-byte DMA line */
 static sceSifRpcClientData heapClient __attribute__((aligned(64))); /* derived name */
 static int heapRecv __attribute__((aligned(64)));                   /* derived name */
-/* SAB: SDK 2.5 has one argument block for every call (three words for
+/* STA: SDK 2.5 has one argument block for every call (three words for
    sceSifAllocSysMemory) */
 static int heapArg[3] __attribute__((aligned(64)));                 /* derived name */
 
@@ -50,7 +50,7 @@ int sceSifAllocIopHeap(int size)
     return 0;
 }
 
-/* SAB: new in SDK 2.5 */
+/* STA: new in SDK 2.5 */
 void *sceSifAllocSysMemory(int type, int size, void *addr)
 {
     int ret = iopheap_bind;
@@ -81,7 +81,7 @@ int sceSifFreeIopHeap(int addr)
  * module name copied in at offset 4, and i + 5 bytes sent, so the record is
  * one int followed by a 252-byte name and the sent length is the name length
  * plus the int plus the terminator. */
-/* SAB: new in SDK 2.5 */
+/* STA: new in SDK 2.5 */
 int sceSifFreeSysMemory(int addr)
 {
     return sceSifFreeIopHeap(addr);
@@ -122,7 +122,7 @@ int sceSifLoadIopHeap(char *name, void *addr)
     return -1;
 }
 
-/* SAB: the SDK 2.5 queries (calls 5 to 9) */
+/* STA: the SDK 2.5 queries (calls 5 to 9) */
 unsigned int sceSifQueryMemSize(void)
 {
     if (iopheap_bind < 0)

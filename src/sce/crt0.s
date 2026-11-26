@@ -3,7 +3,7 @@
 # The eight zero bytes before <_start> are crt0.s's pre-entry pad, not a
 # function and carrying no symbol of its own, and are emitted here as data
 # so the run starts at the same address.
-# SAB: SDK 2.5's _start first clears every register, HI/LO (both pipelines),
+# STA: SDK 2.5's _start first clears every register, HI/LO (both pipelines),
 # SA and the FPU, pads the .bss clear loop, and moves registers with `or`.
 # _stack, _stack_size and _heap_size are the link's (config/linker_syms.txt);
 # main is the game's func_0012BF40.

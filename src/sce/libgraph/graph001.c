@@ -34,7 +34,7 @@ void sceGsResetGraph(short mode, short inter, short omode, short ffmd)
     case 1:
         *GS_CSR = 0x100;
         break;
-    case 5: /* SAB: new in SDK 2.5: set the mode without resetting the GS */
+    case 5: /* STA: new in SDK 2.5: set the mode without resetting the GS */
         g = sceGsGetGParam();
         g->inter = inter;
         g->omode = omode;

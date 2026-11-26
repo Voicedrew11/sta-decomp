@@ -111,7 +111,7 @@ int sceMcInit(void)
     return *(int *)mcRdata;
 }
 
-/* SAB: SDK 2.5 adds sceMcEnd here. */
+/* STA: SDK 2.5 adds sceMcEnd here. */
 int sceMcEnd(void)
 {
     if (mcSema >= 0) {
@@ -513,7 +513,7 @@ int sceMcGetInfo(int port, int slot, int *type, int *free, int *format)
     return r;
 }
 
-/* SAB: new in SDK 2.5. */
+/* STA: new in SDK 2.5. */
 int sceMcUdCheckNewCard(void)
 {
     if (sceSifCallRpc(&mcClient, 0x35, 0, mcCmd, 0x30, mcRdata, 4, 0, 0) != 0) {

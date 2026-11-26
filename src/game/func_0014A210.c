@@ -20,8 +20,8 @@ typedef struct {
 extern s8 D_001F2160[];
 extern Mtx D_001F2170;
 u16 func_0015ED20(void);
-f32 func_0011D778(f32);
-f32 func_0011DA18(f32);
+f32 cosf(f32);
+f32 sinf(f32);
 void sceVu0AddVector(void *, void *, Vec *);
 void sceVu0SubVector(Vec *, s8 *, s8 *);
 void func_00146570(Actor *, Vec *);
@@ -48,8 +48,8 @@ void func_0014A210(O *o) {
     yr = o->x54;
     a = 6.2831855f * (1.5259022e-05f * (f32)(u32)func_0015ED20());
     r *= 1.5259022e-05f * (f32)(u32)func_0015ED20();
-    d.x = r * func_0011D778(a);
-    d.z = r * func_0011DA18(a);
+    d.x = r * cosf(a);
+    d.z = r * sinf(a);
     d.y = yr * (1.0f - 2.0f * (1.5259022e-05f * (f32)(u32)func_0015ED20()));
     d.w = 0.0f;
     sceVu0AddVector(o, o, &d);

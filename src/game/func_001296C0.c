@@ -8,7 +8,7 @@ void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
 void sceVu0CameraMatrix(void *, void *, Vec *, Vec *);
 void sceVu0MulMatrix(void *, void *, void *);
 void sceVu0CopyMatrix(void *, void *);
-f32 func_0011DB00(f32);
+f32 tanf(f32);
 extern u64 func_0011F650(f32);
 void func_001294A0(void *m0, void *m1, void *m2, f32 a, f32 b, f32 c, f32 d, f32 e, f32 f, f32 g, f32 h, f32 i, f32 j, f32 k);
 extern f32 D_00201C2C;
@@ -82,7 +82,7 @@ void func_001296C0(void) {
     }
     s = (D_00222A10[0] == 1) ? 0.622222245f : 1.0f;
     fov = 3.1415927f * fov / 360.0f;
-    D_00201C14 = s * (128.0f * (1.0f / func_0011DB00(fov)));
+    D_00201C14 = s * (128.0f * (1.0f / tanf(fov)));
     if (D_00222A10[0] == 1) {
         func_001294A0(&D_00222910, &D_002228D0, &D_00222890, D_00201C14, 1.42857146f, 2.22996521f, 2048.0f, 2048.0f, 650.0f, 564.0f, (f32)D_00201C20, (f32)D_00201C24, D_00201C18, D_00201C1C);
     } else {
@@ -97,7 +97,7 @@ void func_001296C0(void) {
     }
     D_00201E90 = 0.0f;
     s = (D_00222A10[0] == 1) ? 1.24444449f : 1.0f;
-    D_00201C14 = s * (320.0f * (1.0f / func_0011DB00(fov)));
+    D_00201C14 = s * (320.0f * (1.0f / tanf(fov)));
     D_00222A44[0] = 0.933300018f;
     if (D_00222A10[0] == 1) {
         func_001294A0(&D_002229D0, &D_00222990, &D_00222950, D_00201C14, 0.803571403f, 1.0f, 2048.0f, 2048.0f, 1355.0f, 993.0f, (f32)D_00201C20, (f32)D_00201C24, D_00201C18, D_00201C1C);

@@ -1,6 +1,6 @@
 #include "common.h"
-f32 func_0011D778(f32);                             /* extern */
-f32 func_0011DA18(f32);                             /* extern */
+f32 cosf(f32);                             /* extern */
+f32 sinf(f32);                             /* extern */
 extern void *D_002022E4;
 
 /* Warning: Gap in callee-saved word stack region.
@@ -9,7 +9,7 @@ void func_001456B0(void *arg0) {
     f32 temp_f20;
 
     temp_f20 = M2C_FIELD(M2C_FIELD(D_002022E4, void **, 0x518), f32 *, 0x24);
-    M2C_FIELD(arg0, f32 *, 0) = (f32) -func_0011DA18(temp_f20);
+    M2C_FIELD(arg0, f32 *, 0) = (f32) -sinf(temp_f20);
     M2C_FIELD(arg0, s32 *, 4) = 0;
-    M2C_FIELD(arg0, f32 *, 8) = (f32) -func_0011D778(temp_f20);
+    M2C_FIELD(arg0, f32 *, 8) = (f32) -cosf(temp_f20);
 }

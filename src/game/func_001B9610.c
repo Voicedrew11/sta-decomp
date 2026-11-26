@@ -19,7 +19,7 @@ void sceVu0CopyMatrix(MtxF *, void *);
 void sceVu0CopyVector(void *, void *);
 void sceVu0InversMatrix(MtxF *, MtxF *);
 void sceVu0ApplyMatrix(f32 *, MtxF *, f32 *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 f32 fabsf(f32);
 void sceVu0ScaleVector(f32 *, f32 *, f32);
 void sceVu0RotMatrixX(MtxF *, MtxF *, f32);
@@ -61,11 +61,11 @@ s32 func_001B9610(S *a, s32 idx) {
     m.m[3][3] = 1.0f;
     sceVu0InversMatrix(&m, &m);
     sceVu0ApplyMatrix(v130, &m, v120);
-    d = fabsf(func_0011DBC0(-v130[0], -v130[2]));
+    d = fabsf(atan2f(-v130[0], -v130[2]));
     if (!(d <= 3.1415927f * u2f(s4->xC) / 180.0f)) return 0;
     if (!s4->f12.f.b6) {
         sceVu0ScaleVector(v120, v120, -1.0f);
-        d = func_0011DBC0(-v120[0], -v120[2]) - WRAP(p->o[2].y);
+        d = atan2f(-v120[0], -v120[2]) - WRAP(p->o[2].y);
         if (fabsf(WRAP(d)) <= 0.5235988f) return 1;
     } else {
         sceVu0RotMatrixX(&m, &D_001F2170, WRAP(WRAP(p->o[2].x)));

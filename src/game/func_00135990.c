@@ -19,7 +19,7 @@ s32 func_001C9A80(void);
 s32 func_00145620(void);
 s32 func_0013E660(s8 *);
 s32 func_0013E610(s8 *);
-f32 func_0011D778(f32);
+f32 cosf(f32);
 void memset(void *, s32, s32);
 void func_0013D320(s32, Hit *, Vec *, s32, s32);
 void func_00145760(s8 *);
@@ -68,7 +68,7 @@ u8 func_00135990(s8 *a, f32 *pl, f32 *pc, f32 *py) {
         }
     }
     if (r == 0 && func_0013E660(a)) {
-        if (len < mu(p->x0, v12C) && dy < u2f(p->x4) && !(cs <= func_0011D778(3.1415927f * u2f(p->x2) / 180.0f))) {
+        if (len < mu(p->x0, v12C) && dy < u2f(p->x4) && !(cs <= cosf(3.1415927f * u2f(p->x2) / 180.0f))) {
             sceVu0CopyVector(&seg[0], func_00140460(a));
             seg[0].y -= 100.0f;
             seg[0].w = 1.0f;

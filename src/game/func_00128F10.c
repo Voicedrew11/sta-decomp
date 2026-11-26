@@ -1,5 +1,5 @@
 #include "m2c.h"
-s32 func_00122C88(s32, s32);
+s32 memalign(s32, s32);
 void func_001A83A0(s8 *);
 void func_00128E80(s32 *);
 void func_00178D20(void);
@@ -26,7 +26,7 @@ void func_00128F10(void) {
     if (D_00201C00 > 0x06000000) {
         D_00201C00 = 0x06000000;
     }
-    D_00201E80 = func_00122C88(0x80, D_00201C00);
+    D_00201E80 = memalign(0x80, D_00201C00);
     func_00178D20();
     func_00178C00(D_00201E80, (u32)D_00201C00);
     D_00222B78[0] = 0x400000;

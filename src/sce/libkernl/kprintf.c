@@ -136,7 +136,7 @@ void _printf(char *fmt, char *ap)
     float f;
     int intr;
 
-    /* SAB: SDK 2.5 prints with interrupts disabled */
+    /* STA: SDK 2.5 prints with interrupts disabled */
     intr = DIntr();
     s = fmt;
     while (*s) {

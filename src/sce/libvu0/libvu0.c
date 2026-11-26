@@ -101,7 +101,7 @@ void sceVu0Normalize(void *dst, void *src)
     VU0_REG(".word 0x4A0503BD");
     VU0_WAIT();
     VU0_REG("vaddq.x $vf5, $vf0, Q");
-    VU0_REG("vnop"); /* SAB: SDK 2.5 adds two vnops before the vdiv */
+    VU0_REG("vnop"); /* STA: SDK 2.5 adds two vnops before the vdiv */
     VU0_REG("vnop");
     VU0_REG("vdiv Q, $vf0w, $vf5x");
     VU0_REG("vsub.xyzw $vf6, $vf0, $vf0");
@@ -415,6 +415,8 @@ __asm__(".section .text\n"
         "    sub.s $f12, $f0, $f12\n"
         "    daddu $7, $0, $0\n"
         "    .align 3\n"
+        "    .size sceVu0RotMatrixZ, . - sceVu0RotMatrixZ\n"
+        "    .type _RotMatrixZ_02, @function\n"
         "_RotMatrixZ_02:\n"
         "    mfc1  $8, $f12\n"
         "    qmtc2.ni $8, $vf6\n"
@@ -446,7 +448,7 @@ __asm__(".section .text\n"
         "    addi  $4, $4, 0x10\n"
         "    jr    $31\n"
         "    nop\n"
-        "    .size sceVu0RotMatrixZ, . - sceVu0RotMatrixZ\n"
+        "    .size _RotMatrixZ_02, . - _RotMatrixZ_02\n"
         "    nop\n"
         "    .set reorder\n"
         "    .set at\n");
@@ -472,6 +474,8 @@ __asm__(".section .text\n"
         "    sub.s $f12, $f0, $f12\n"
         "    daddu $7, $0, $0\n"
         "    .align 3\n"
+        "    .size sceVu0RotMatrixX, . - sceVu0RotMatrixX\n"
+        "    .type _RotMatrixX_02, @function\n"
         "_RotMatrixX_02:\n"
         "    mfc1  $8, $f12\n"
         "    qmtc2.ni $8, $vf6\n"
@@ -504,7 +508,7 @@ __asm__(".section .text\n"
         "    addi  $4, $4, 0x10\n"
         "    jr    $31\n"
         "    nop\n"
-        "    .size sceVu0RotMatrixX, . - sceVu0RotMatrixX\n"
+        "    .size _RotMatrixX_02, . - _RotMatrixX_02\n"
         "    .set reorder\n"
         "    .set at\n");
 
@@ -529,6 +533,8 @@ __asm__(".section .text\n"
         "    sub.s $f12, $f0, $f12\n"
         "    daddu $7, $0, $0\n"
         "    .align 3\n"
+        "    .size sceVu0RotMatrixY, . - sceVu0RotMatrixY\n"
+        "    .type _RotMatrixY_02, @function\n"
         "_RotMatrixY_02:\n"
         "    mfc1  $8, $f12\n"
         "    qmtc2.ni $8, $vf6\n"
@@ -561,7 +567,7 @@ __asm__(".section .text\n"
         "    addi  $4, $4, 0x10\n"
         "    jr    $31\n"
         "    nop\n"
-        "    .size sceVu0RotMatrixY, . - sceVu0RotMatrixY\n"
+        "    .size _RotMatrixY_02, . - _RotMatrixY_02\n"
         "    .set reorder\n"
         "    .set at\n");
 

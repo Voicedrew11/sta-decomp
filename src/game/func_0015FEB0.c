@@ -23,7 +23,7 @@ typedef struct {
     u8 pad[6];
 } Ent;
 void func_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
-f32 func_0011DBF0(f32, f32);
+f32 powf(f32, f32);
 void func_001D7D08(s32, s32, u32);
 void func_001D7D58(s32, s32, u16);
 extern Ent D_003172E0[];
@@ -76,6 +76,6 @@ void func_0015FEB0(s32 on, f32 dt) {
         if (D_003174E0[0].f.b1 || !D_003174E0[0].f.b0) {
             func_001D7D08(0, 0, 0);
         }
-        func_001D7D08(0, 0, 255.0f * func_0011DBF0(v, 0.5f));
+        func_001D7D08(0, 0, 255.0f * powf(v, 0.5f));
     }
 }

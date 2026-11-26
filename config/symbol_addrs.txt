@@ -340,6 +340,7 @@ sceSifSendCmd = 0x0010E010; // type:func
 isceSifSendCmd = 0x0010E050; // type:func
 _sceSifCmdIntrHdlr = 0x0010E090; // type:func
 sceSifWriteBackDCache = 0x0010E1B8; // type:func
+_sceSifWriteBackDCache_tail = 0x0010E264; // type:func
 sceSifInitRpc = 0x0010E268; // type:func
 sceSifExitRpc = 0x0010E408; // type:func
 _sceRpcGetPacket = 0x0010E430; // type:func
@@ -506,6 +507,15 @@ sceMcUnformat = 0x001197C0; // type:func
 sceMcGetEntSpace = 0x00119888; // type:func
 
 // libm
+// libm kernels the wrappers call (STA: identified by their constants)
+__ieee754_pow = 0x001199A0; // type:func
+__ieee754_acosf = 0x0011AC10; // type:func
+__ieee754_asinf = 0x0011B038; // type:func
+__ieee754_atan2f = 0x0011B3D8; // type:func
+__ieee754_expf = 0x0011B5B8; // type:func
+__ieee754_powf = 0x0011B810; // type:func
+__kernel_tanf = 0x0011CF30; // type:func
+tanf = 0x0011DB00; // type:func
 __kernel_cosf = 0x0011C470; // type:func
 __kernel_rem_pio2f = 0x0011C5C0; // type:func
 __kernel_sinf = 0x0011CE28; // type:func
@@ -598,3 +608,10 @@ __swsetup = 0x001280F8; // type:func
 
 // game functions splat merges (tools/check_split.py)
 func_001DC8D0 = 0x001DC8D0; // type:func
+
+// Constants library code forms from a lui through an or into another register
+// (0x20000000 | addr, the uncached view of a buffer; 0xE0002000), which
+// tools/carve.py's constant tracking does not follow: no addresses.
+ignored_20000050 = 0x20000050; // ignore:True
+ignored_20000140 = 0x20000140; // ignore:True
+ignored_E0002000 = 0xE0002000; // ignore:True

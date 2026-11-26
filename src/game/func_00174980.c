@@ -20,7 +20,7 @@ void func_001543E0(s32, u64);
 void func_001544C0(void);
 void func_00176BC0(s32);
 void func_00155BD0(Buf *);
-f32 func_0011DA18(f32);
+f32 sinf(f32);
 static inline f32 u2f(u32 x) { return x; }
 #define WRAP(x) (((3.1415927f + (x)) - 6.2831855f * (f32)(s32)(0.15915494f * (3.1415927f + (x))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 
@@ -64,10 +64,10 @@ void func_00174980(T *t, s32 flag, M *m, P *p) {
             u1 = sx * (i + 1);
             x1 = ox * (i + 1);
             for (; j < 4; j++) {
-                c0 = func_0011DA18(WRAP(p->x10 + im));
-                c1 = func_0011DA18(WRAP(p->x14 + j % 4));
-                c2 = func_0011DA18(WRAP(p->x10 + i1m));
-                c3 = func_0011DA18(WRAP(p->x14 + (j + 1) % 4));
+                c0 = sinf(WRAP(p->x10 + im));
+                c1 = sinf(WRAP(p->x14 + j % 4));
+                c2 = sinf(WRAP(p->x10 + i1m));
+                c3 = sinf(WRAP(p->x14 + (j + 1) % 4));
                 c0 *= c0;
                 c2 *= c2;
                 c1 *= c1;

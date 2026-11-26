@@ -30,7 +30,7 @@ void strcpy(s8 *, s8 *);
 u32 strlen(s8 *);
 void func_00187A90(T *, s8 *, u64);
 s32 func_00188010(T *, Col);
-u64 func_0011F8C0(f32);
+u64 fptodp(f32);
 void sprintf(s8 *, s8 *, u64);
 extern S D_001F26B0 __attribute__((aligned(16)));
 extern s8 D_0048CE40[];
@@ -126,7 +126,7 @@ void func_00185D70(O *o, s32 a1, u32 mode, C *a3) {
         } else {
             col.w = 0x80808080;
         }
-        sprintf(D_0048CE40, D_001FCAA0, func_0011F8C0(u2f((u16)a3->max) / 10.0f));
+        sprintf(D_0048CE40, D_001FCAA0, fptodp(u2f((u16)a3->max) / 10.0f));
         txt(D_0048CE40, col, o, 2, 0.8f);
         break;
     case 303:
@@ -135,7 +135,7 @@ void func_00185D70(O *o, s32 a1, u32 mode, C *a3) {
         if (a3->hp < 0) a3->hp = 0;
         if (a3->hp > 999) a3->hp = 999;
         col.w = 0x80808080;
-        sprintf(D_0048CE40, D_001FCB38, func_0011F8C0(u2f((u16)a3->hp) / 10.0f));
+        sprintf(D_0048CE40, D_001FCB38, fptodp(u2f((u16)a3->hp) / 10.0f));
         txt(D_0048CE40, col, o, 0, 0.8f);
         break;
     case 304:

@@ -2,7 +2,7 @@
 typedef struct { u8 hp; u8 rem; u8 c; u8 pad1; } T;
 typedef struct { s16 h0; u8 pad[0x7E]; s16 h80[2]; s16 h84; s16 h86; s16 h88; s16 h8A; u8 pad2[0x14]; T t[1]; } X;
 X *func_001C9BA0(void);
-s32 func_00125538(void);
+s32 rand(void);
 s32 func_001CCC10(s16 id, s32 arg1);
 void func_001CCF50(s16 *, s32, s32);
 void func_001CEDC0(s32);
@@ -24,7 +24,7 @@ void func_001CC830(s32 a0, u32 a1, s32 a2, s32 a3) {
 
     x = func_001C9BA0();
     hit = 0;
-    if (a3 == 4) a3 = func_00125538() % 4;
+    if (a3 == 4) a3 = rand() % 4;
     if (a0 * 100 / x->h0 >= 5) m = 3; else m = 1;
     if (a2 == 1) k = 1;
     else if (a2 == 0) k = 2;

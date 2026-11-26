@@ -6,9 +6,9 @@ typedef struct { f32 x, z; } V2;
 R *func_00189050(s32);
 u8 *func_00189020(s32);
 void func_00187B20(s32);
-f32 func_0011D4A8(f32);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 atanf(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 f32 fabsf(f32);
 f32 func_00187770(f32, f32, f32);
 void func_001829B0(Obj *, u8 *, void *, s32);
@@ -47,14 +47,14 @@ void func_00184960(s32 a0, f32 ang) {
         if (dx == 0.0f) {
             a = 0.0f;
         } else {
-            a = func_0011D4A8(dx / dz);
+            a = atanf(dx / dz);
         }
         if (dz < 0.0f) {
             a += 3.141592f;
         }
         r = a + ang;
-        o.x = 108.0f + d * func_0011DA18(r);
-        o.z = 72.0f + d * func_0011D778(r);
+        o.x = 108.0f + d * sinf(r);
+        o.z = 72.0f + d * cosf(r);
         }
         func_001829B0(&o, t + (l->e[i].idx << 3), func_00184CF0, a0);
     }
@@ -71,12 +71,12 @@ void func_00184960(s32 a0, f32 ang) {
     if (!(fabsf(D_002020BC - D_00202090) <= 5.0f)) {
         D_0020208C = 0.0f;
     }
-    func_0011D778(D_00202088);
-    func_0011DA18(D_00202088);
+    cosf(D_00202088);
+    sinf(D_00202088);
     D_00202098 = func_00187770(D_00202098, D_002020B4, 10.0f);
     D_0020209C = func_00187770(D_0020209C, D_002020B0, 10.0f);
-    func_0011D778(3.14f + D_00202088);
-    func_0011DA18(3.14f + D_00202088);
+    cosf(3.14f + D_00202088);
+    sinf(3.14f + D_00202088);
     func_00181420();
     func_001545D0();
     func_001543E0(0x42, 0x44);

@@ -3,7 +3,7 @@
 # pnor, psubb, pand, pcpyud) has no C spelling. The section is only
 # word-aligned.
     .section .text
-    .align 3   # SAB: 8-aligned; this libc is the ee-gcc 2.96 build
+    .align 3   # STA: 8-aligned; this libc is the ee-gcc 2.96 build
     .set noat
     .set noreorder
     .global memchr

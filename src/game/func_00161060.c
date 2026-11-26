@@ -149,7 +149,7 @@ void func_00163A10(Vec *, f32, f32);
 void func_00163C80(O *, Mtx *);
 void func_00163D90(O *, Vec *);
 void func_0015EBB0(Mtx *, Vec *, f32);
-f32 func_0011DBF0(f32, f32);
+f32 powf(f32, f32);
 s32 func_00174230(G *, s32, s32, s32);
 void func_0014D9A0(u16, O *);
 void func_00160370(O *, E *, f32);
@@ -345,7 +345,7 @@ s32 func_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
     sceVu0OuterProduct(&v330, &v330, &v->x10);
     s = 1.5259022e-05f * (f32)(u32)func_0015ED20();
     if (1.0f != w && !(s <= 0.01f)) {
-        s = func_0011DBF0(s, w);
+        s = powf(s, w);
     }
     s *= radB(k);
     func_0015EBB0(&m340, &v330, s);

@@ -7,7 +7,7 @@
     .set noreorder
     .global strcat
     .type strcat, @function
-    .align 3   # SAB: 8-aligned; this libc is the ee-gcc 2.96 build
+    .align 3   # STA: 8-aligned; this libc is the ee-gcc 2.96 build
 strcat:
     addiu  $29, $29, -0x20
     sq     $16, 0x0($29)

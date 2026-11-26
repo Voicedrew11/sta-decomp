@@ -1,6 +1,6 @@
 #include "actor.h"
 extern s32 D_002022E0;
-f32 func_0011DA18(f32);
+f32 sinf(f32);
 void func_001545D0(void);
 void func_001543E0(s32, s32);
 void func_001544C0(void);
@@ -52,7 +52,7 @@ void func_001BC7A0(u32 a0, s32 a1, s32 a2) {
         return;
     }
     amp = (u8)((hi - lo) / 2);
-    amp = (u8)((f32)(lo + (u8)amp) + u2f(amp) * func_0011DA18(6.2831855f * (f32)(a2 % (u8)per) / u2f(per)));
+    amp = (u8)((f32)(lo + (u8)amp) + u2f(amp) * sinf(6.2831855f * (f32)(a2 % (u8)per) / u2f(per)));
     func_001545D0();
     func_001543E0(0x42, 0x44);
     func_001544C0();

@@ -5,7 +5,7 @@ typedef struct {
     s32 x30; s32 x34; s32 x38; s32 x3c; s32 x40;
     s32 buf; s32 size; s32 pos; s32 x50; s32 x54;
 } S;
-s32 func_00116360(s32, s32, s32, ...);
+s32 sceSdRemote(s32, s32, s32, ...);
 s32 func_001EB540(s32, s32, s32, s32, s32, s32, s32, s32);
 
 s32 func_001EB8B0(S *s)
@@ -25,7 +25,7 @@ s32 func_001EB8B0(S *s)
         break;
     case 2:
         b = s->buf;
-        t = func_00116360(1, 0x8100, 0, 0) & 0xFFFFFF;
+        t = sceSdRemote(1, 0x8100, 0, 0) & 0xFFFFFF;
         src = s->size;
         t -= b;
         t = (t + src - s->pos - 0x400) % src;

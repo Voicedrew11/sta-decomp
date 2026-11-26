@@ -4,7 +4,7 @@
 #include <libipu_internal.h>
 #include <eekernel.h>
 
-/* SAB: the two DMA channel control helpers open libipu.o (kfiv-decomp had
+/* STA: the two DMA channel control helpers open libipu.o (kfiv-decomp had
    them at the end of libmpeg's bit.c) */
 void setD3_CHCR(int chcr)
 {

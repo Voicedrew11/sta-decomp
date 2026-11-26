@@ -7,7 +7,7 @@ void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 fabsf(f32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 void func_001B87C0(s8 *, u32, s32, s32, f32, f32);
 void func_00171B70(s8 *, u16, f32);
 void sceVu0CopyVector(s8 *, s8 *);
@@ -71,7 +71,7 @@ void func_001B9F10(Vec *pos, Vec *rot, f32 scale, f32 maxh) {
             range = PI + rot->y;
             w = range < 0.0f ? TWOPI : 0.0f;
             tt = range - TWOPI * (s32)(INV * range);
-            diff = func_0011DBC0(-d.x, -d.z) - (tt + w - PI);
+            diff = atan2f(-d.x, -d.z) - (tt + w - PI);
             if (!(fabsf(WRAP(diff)) <= 1.39626348f)) continue;
             ((BF50 *)(e + 0x50))->v = 1;
             e2 = *(s8 **)(p + 0x180) + (i << 7);

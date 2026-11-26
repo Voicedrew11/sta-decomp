@@ -2,7 +2,7 @@
 typedef struct { s32 x0; u8 p4[0x28]; s32 x2C; s32 x30; s32 x34; s32 x38; s32 x3C; s32 x40; s32 x44; s32 x48; s32 x4C; s32 x50; s32 x54; s32 x58; } S;
 typedef struct { void *src; s32 dst; s32 size; s32 attr; } Dma;
 void FlushCache(s32);
-s32 func_00116360(s32, s32, s32, ...);
+s32 sceSdRemote(s32, s32, s32, ...);
 void memset(void *, s32, s32);
 s32 sceSifAllocIopHeap(s32);
 s32 sceSifDmaStat(s32);
@@ -40,8 +40,8 @@ s32 func_001EBCC0(S *a, s32 a1, s32 a2, s32 a3) {
     while (sceSifDmaStat(id) >= 0) {}
     v = D_004BE0D0[0];
     for (id = 0; id < 2; id++) {
-        func_00116360(1, 0x8010, id | 0x980, v);
-        func_00116360(1, 0x8010, id | 0xA80, v);
+        sceSdRemote(1, 0x8010, id | 0x980, v);
+        sceSdRemote(1, 0x8010, id | 0xA80, v);
     }
     return 1;
 }

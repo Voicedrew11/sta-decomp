@@ -8,7 +8,7 @@ extern M D_004A1050;
 extern S D_001F2A50[] __attribute__((aligned(16)));
 extern s8 D_001FCDC8[];
 void func_00181680(s32, s8 *, s8 *, void *, S *, s32);
-f32 func_0011DA18(f32);
+f32 sinf(f32);
 f32 fabsf(f32);
 G *func_00189020(s32);
 void sprintf(s8 *, s8 *, ...);
@@ -29,9 +29,9 @@ void func_0018D420(s8 *o, s32 sel, u32 id) {
     switch (id) {
     case 500:
         if (sel == D_004A1050.sel) {
-            o[0x2C] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
-            o[0x2D] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
-            o[0x2E] = (s32)(64.0f + fabsf(64.0f * func_0011DA18(D_004A1050.x10)));
+            o[0x2C] = (s32)(64.0f + fabsf(64.0f * sinf(D_004A1050.x10)));
+            o[0x2D] = (s32)(64.0f + fabsf(64.0f * sinf(D_004A1050.x10)));
+            o[0x2E] = (s32)(64.0f + fabsf(64.0f * sinf(D_004A1050.x10)));
         } else {
             o[0x2C] = 0x40;
             o[0x2D] = 0x40;

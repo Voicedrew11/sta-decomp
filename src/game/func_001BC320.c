@@ -5,7 +5,7 @@ f32 sqrtf(f32);
 s32 func_001A9410(void);
 void sceVu0SubVector(Vec *, f32 *, s8 *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 f32 fabsf(f32);
 void func_001BC170(s32 *);
 extern s32 D_001F38C0[];
@@ -28,11 +28,11 @@ void func_001BC320(f32 *a0, s32 a1) {
     sceVu0SubVector(&v, a0, p->o);
     if (!(sqrtf(sceVu0InnerProduct(&v, &v)) <= 400.0f)) return;
     sceVu0SubVector(&v, a0, p->o);
-    t = func_0011DBC0(-v.x, -v.z) - WRAP(*(f32 *)(p->o + 0x24));
+    t = atan2f(-v.x, -v.z) - WRAP(*(f32 *)(p->o + 0x24));
     if (fabsf(WRAP(t)) <= 0.69813174f) {
         y = v.y;
         v.y = 0.0f;
-        t = func_0011DBC0(-y, sqrtf(sceVu0InnerProduct(&v, &v))) - *(f32 *)(p->o + 0x20);
+        t = atan2f(-y, sqrtf(sceVu0InnerProduct(&v, &v))) - *(f32 *)(p->o + 0x20);
         if (fabsf(WRAP(t)) <= 0.69813174f) {
             func_001BC170(&D_001F38C0[a1]);
         }

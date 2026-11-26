@@ -1,4 +1,4 @@
-/* libkernl.a(initsys.o), SDK 2.5 (SAB: rewritten from the retail code;
+/* libkernl.a(initsys.o), SDK 2.5 (STA: rewritten from the retail code;
  * kfiv-decomp's SDK 2.2 member only had setup, InitSysCall and _InitSys).
  * _InitSys now also creates libc's malloc semaphores, finds the kernel's
  * syscall table (FindAddress, syscall 131, over kernel memory for the two

@@ -7,7 +7,7 @@
 # The member starts 4-aligned right after fiprintf.o's 0x34 bytes, so the
 # section is only word-aligned.
     .section .text
-    .align 3   # SAB: 8-aligned; this libc is the ee-gcc 2.96 build
+    .align 3   # STA: 8-aligned; this libc is the ee-gcc 2.96 build
     .set noreorder
     .globl memcmp
     .type memcmp, @function

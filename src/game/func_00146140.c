@@ -1,8 +1,8 @@
 #include "common.h"
 void sceVu0SubVector(Vec *, Vec *, void *);
 void sceVu0Normalize(Vec *, Vec *);
-f32 func_0011DBC0(f32, f32);
-f32 func_0011DBA8(f32);
+f32 atan2f(f32, f32);
+f32 asinf(f32);
 void sceVu0RotMatrixY(s32, void *, f32);
 extern f32 D_001F2150[];
 extern f32 D_001F2154[];
@@ -25,10 +25,10 @@ void func_00146140(s32 arg0, f32 x, f32 z) {
     v.y = 0.0f;
     sceVu0SubVector(&r, &v, D_001F2160);
     sceVu0Normalize(&r, &r);
-    a = func_0011DBC0(D_001F2150[0], D_001F2158[0]);
-    func_0011DBA8(D_001F2154[0]);
-    b = func_0011DBC0(r.x, r.z);
-    func_0011DBA8(r.y);
+    a = atan2f(D_001F2150[0], D_001F2158[0]);
+    asinf(D_001F2154[0]);
+    b = atan2f(r.x, r.z);
+    asinf(r.y);
     d = b - a;
     d = d - 6.2831855f * (s32)(d / 6.2831855f);
     if (d > 3.1415927f) {

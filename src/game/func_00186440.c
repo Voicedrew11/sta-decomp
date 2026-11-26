@@ -5,9 +5,9 @@ typedef struct { u8 pad[0x10]; List *list; } Ctx;
 typedef struct { f32 x, y; } V2;
 Ctx *func_00189050(s32);
 s32 func_00189020(s32);
-f32 func_0011D4A8(f32);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 atanf(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 float sqrtf(float);
 s32 func_001866B0(s32, s32, s32, s32, s32);
 void func_00186990();
@@ -42,14 +42,14 @@ void func_00186440(s32 a0, s32 a1, s32 a2, s32 a3, f32 f) {
         if (dx == 0.0f) {
             ang = 0.0f;
         } else {
-            ang = func_0011D4A8(dx / dy);
+            ang = atanf(dx / dy);
         }
         if (dy < 0.0f) {
             ang += 3.141592f;
         }
         dy = ang + f;
-        el.x2C = -70.0f + dist * func_0011DA18(dy);
-        el.x30 = 276.0f + dist * func_0011D778(dy);
+        el.x2C = -70.0f + dist * sinf(dy);
+        el.x30 = 276.0f + dist * cosf(dy);
         }
         func_001829B0(&el, base + list->e[i].idx * 8, func_00186990, func_001866B0(el.x4, a0, a1, a2, a3));
     }

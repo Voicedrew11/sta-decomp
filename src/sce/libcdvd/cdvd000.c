@@ -14,7 +14,7 @@ typedef struct { /* field names derived */
     unsigned char file[0x24];
     char name[0x100];
     void *addr;
-    int layer; /* SAB: SDK 2.5 */
+    int layer; /* STA: SDK 2.5 */
 } CdSearchReq; /* derived name */
 
 /* The member's .data in link order.  The names the other libcdvd members
@@ -99,7 +99,7 @@ static struct ThreadParam cd_thread_stat;
 
 static struct ThreadParam cb_thread_param;
 
-/* SAB: SDK 2.5's PowerOffCB binds no RPC, and its client record and send
+/* STA: SDK 2.5's PowerOffCB binds no RPC, and its client record and send
    word are gone */
 static CdSearchReq search_req __attribute__((aligned(64))); /* derived name */
 
@@ -344,7 +344,7 @@ void _sceCd_Poff_Intr(void)
     }
 }
 
-/* SAB: SDK 2.5 no longer binds an RPC here: it installs the SIF command
+/* STA: SDK 2.5 no longer binds an RPC here: it installs the SIF command
  * handler with interrupts disabled and marks the callback ready. */
 int PowerOffCB(void)
 {
@@ -372,7 +372,7 @@ typedef struct sceCdlFILE {
 /* The bind block is PowerOffCB's (bound flag cleared in the serve arm); the
    semaphore-handle loads are the per-site volatile accesses described above
    _sceCd_cd_callback. */
-/* SAB: SDK 2.5 searches a given DVD layer; sceCdSearchFile is layer 0 */
+/* STA: SDK 2.5 searches a given DVD layer; sceCdSearchFile is layer 0 */
 int sceCdLayerSearchFile(sceCdlFILE *fp, const char *name, int layer)
 {
     char *req;

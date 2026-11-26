@@ -7,8 +7,8 @@ O *func_00189050(s32);
 s8 *func_00189020(s32);
 void func_00187B20(s32);
 f32 func_00187460(V2 *, V2 *);
-f32 func_0011DA18(f32);
-f32 func_0011D778(f32);
+f32 sinf(f32);
+f32 cosf(f32);
 f32 sqrtf(f32);
 void func_0019CEF0(void);
 void func_001829B0(Ent *, s8 *, void (*)(void), s32);
@@ -29,8 +29,8 @@ void func_0019CCF0(s32 arg, f32 ang) {
         dx = e.x - -70.0f; dy = e.y - 276.0f; d = sqrtf(dx * dx + dy * dy);
         t = func_00187460(&q, &p);
         a = t + ang;
-        e.x = -70.0f + d * func_0011DA18(a);
-        e.y = 276.0f + d * func_0011D778(a);
+        e.x = -70.0f + d * sinf(a);
+        e.y = 276.0f + d * cosf(a);
         }
         func_001829B0(&e, base + l->p[i].idx * 8, func_0019CEF0, arg);
     }

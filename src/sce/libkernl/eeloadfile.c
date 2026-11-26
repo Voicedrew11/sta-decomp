@@ -122,7 +122,7 @@ int _sceSifLoadModuleBuffer(void *addr, int arglen, int args, void *ret)
     return r;
 }
 
-/* SAB: SDK 2.5 adds the module stop/unload/search calls (RPC 7 to 10). */
+/* STA: SDK 2.5 adds the module stop/unload/search calls (RPC 7 to 10). */
 int sceSifStopModule(int modid, int arglen, int args, void *ret)
 {
     SceLfRpcBuf *p;

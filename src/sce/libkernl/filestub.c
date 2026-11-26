@@ -31,7 +31,7 @@ static int q_sema = -1; /* derived name */
    send buffer, receive buffer and reply packet the IOP writes (the handler
    reads the words at +0x10 and +0x14 of it), the iob table, the RPC client,
    the IOP module's version stamp and the command handler's buffer */
-/* SAB: SDK 2.5's sceFsInit sends the reply packet's address from here */
+/* STA: SDK 2.5's sceFsInit sends the reply packet's address from here */
 static void *fsInitArg; /* derived name */
 
 static void *fsIoctlArg; /* derived name */
@@ -111,7 +111,7 @@ static char fsVersion[4]; /* derived name */
 
 static char fsCmdBuf[0x40] __attribute__((aligned(64))); /* derived name */
 
-/* SAB: SDK 2.5's interrupt callback: the function the second command
+/* STA: SDK 2.5's interrupt callback: the function the second command
    handler calls, and its argument */
 typedef struct {            /* field names derived */
     void (*func)(void *);
@@ -291,7 +291,7 @@ void _sceFsSigSema(void)
 
 int sceFsInit(void);
 
-/* SAB: new in SDK 2.5: install the function the IOP's 0x80000013 command
+/* STA: new in SDK 2.5: install the function the IOP's 0x80000013 command
    calls; returns the previous one */
 void *sceFsSetIntrCallback(void (*func)(void *), void *arg) /* derived name */
 {
@@ -448,7 +448,7 @@ int sceOpen(unsigned char *name, int flags, ...)
         ((char *)g)[0x413] = 0;
     }
     idx = iob - (SceIob *)fsIobTab;
-    g[3] = flags & 0x6FFFFFFF; /* SAB: SDK 2.5 keeps bits 29 and 30 */
+    g[3] = flags & 0x6FFFFFFF; /* STA: SDK 2.5 keeps bits 29 and 30 */
     g[4] = mode;
     g[0x414 / 4] = idx;
     buf.maxCount = 1;
@@ -874,7 +874,7 @@ int sceIoctl2(unsigned int fd, int request, void *argp, unsigned int arglen, voi
         return -9;
     }
     if (arglen > 0x400 || buflen > 0x400) {
-        _sceFsSigSema(); /* SAB: SDK 2.5 releases the semaphore here */
+        _sceFsSigSema(); /* STA: SDK 2.5 releases the semaphore here */
         return -0x16;
     }
     if (argp == 0) {
@@ -1134,7 +1134,7 @@ int sceDopen(void *name)
     SceIob *iob;
     int rc;
 
-    /* SAB: SDK 2.5 initializes the library here */
+    /* STA: SDK 2.5 initializes the library here */
     _sceFsWaitS(9);
     if (fs_inited == 0) {
         sceFsInit();
@@ -1631,7 +1631,7 @@ int sceDevctl(unsigned char *name, int cmd, unsigned char *arg, unsigned int arg
         ((char *)g)[0x40B] = 0;
     }
     if (arglen > 0x400 || buflen > 0x400) {
-        _sceFsSigSema(); /* SAB: SDK 2.5 releases the semaphore here */
+        _sceFsSigSema(); /* STA: SDK 2.5 releases the semaphore here */
         return -0x16;
     }
     for (i = 0; i < arglen; i++) {

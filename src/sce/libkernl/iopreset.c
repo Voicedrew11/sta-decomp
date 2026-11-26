@@ -33,7 +33,7 @@ int sceSifResetIop(char *arg, int mode)
     dma.size = sizeof(resetData);
     dma.u.attr = 0x44;
     sceSifWriteBackDCache(&resetData, sizeof(resetData));
-    sceSifSetReg(4, 0x40000); /* SAB: SDK 2.5 */
+    sceSifSetReg(4, 0x40000); /* STA: SDK 2.5 */
     if (sceSifSetDma(&dma, 1) != 0) {
         sceSifSetReg(4, 0x10000);
         sceSifSetReg(4, 0x20000);
@@ -53,7 +53,7 @@ int sceSifIsAliveIop(void)
 int sceSifSyncIop(void)
 {
     if (sceSifGetReg(4) & 0x40000) {
-        sceResetttyinit(); /* SAB: SDK 2.5 no longer clears the bit here */
+        sceResetttyinit(); /* STA: SDK 2.5 no longer clears the bit here */
         return 1;
     }
     return 0;

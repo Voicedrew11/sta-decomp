@@ -4,8 +4,8 @@ void memcpy(void *, void *, s32);
 void func_001DC348(void *);
 void func_001DC398(void *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
-f32 func_0011D778(f32);
-f32 func_0011DA18(f32);
+f32 cosf(f32);
+f32 sinf(f32);
 
 void func_00156450(void *p, u32 col, f32 h) {
     V v180;
@@ -36,15 +36,15 @@ void func_00156450(void *p, u32 col, f32 h) {
     memcpy(&v150, &v180, 0x30);
     func_001DC348(p);
     for (i = 0, a = 0.39269908f; i < 4; i++, a += 0.39269908f) {
-        sn[i] = func_0011DA18(a);
-        cs[i] = func_0011D778(a);
+        sn[i] = sinf(a);
+        cs[i] = cosf(a);
     }
     for (i = 0, a = 0.0f; i < 7; i++, a += 0.8975979f) {
         if (i != 0) {
             memcpy(&v180, &v180.b, 0x10);
         } else {
-            tx = func_0011D778(a);
-            ty = func_0011DA18(a);
+            tx = cosf(a);
+            ty = sinf(a);
             f0.x = tx;
             f0.y = ty;
             f0.z = 0.0f;
@@ -52,8 +52,8 @@ void func_00156450(void *p, u32 col, f32 h) {
             func_001DC398(&v180, &f0);
         }
         b = 0.8975979f + a;
-        tx = func_0011D778(b);
-        ty = func_0011DA18(b);
+        tx = cosf(b);
+        ty = sinf(b);
         e0.x = tx;
         e0.y = ty;
         e0.z = 0.0f;

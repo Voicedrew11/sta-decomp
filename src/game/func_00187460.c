@@ -1,6 +1,6 @@
 #include "common.h"
 
-f32 func_0011D4A8(f32 x);
+f32 atanf(f32 x);
 
 f32 func_00187460(f32 *a, f32 *b)
 {
@@ -10,7 +10,7 @@ f32 func_00187460(f32 *a, f32 *b)
     if (0.0f == dx)
         r = 0.0f;
     else
-        r = func_0011D4A8(dx / dy);
+        r = atanf(dx / dy);
     if (dy < 0.0f)
         r += 3.141592f;
     return r;

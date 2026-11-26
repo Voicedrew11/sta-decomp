@@ -410,8 +410,13 @@ __asm__(".section .text\n"
         ".L00265A380024849C:\n"
         "    jr $31\n"
         "    nop\n"
-        "    jr $31\n"
         ".size sceSifWriteBackDCache, . - sceSifWriteBackDCache\n"
+        /* STA: the dead jr after it, sized apart so it pairs with the
+           function splat makes of it (named in symbol_addrs.txt) */
+        ".type _sceSifWriteBackDCache_tail, @function\n"
+        "_sceSifWriteBackDCache_tail:\n"
+        "    jr $31\n"
+        ".size _sceSifWriteBackDCache_tail, . - _sceSifWriteBackDCache_tail\n"
         "    .set reorder\n"
         "    .set at\n");
 

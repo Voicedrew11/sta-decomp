@@ -14,7 +14,7 @@ s8 *func_001715B0(s32);
 void sceVu0CopyMatrix(V *, void *);
 void sceVu0SubVector(V *, V *, V *);
 f32 sceVu0InnerProduct(V *, V *);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 s32 func_00179F80(Msg *);
 f32 sqrtf(f32);
 static inline s32 send(Msg *msg, s32 a2, s32 k, s32 id, s32 idx, V *q, f32 yaw, f32 b, f32 a, s32 fl) {
@@ -47,8 +47,8 @@ s32 func_001B1A20(Obj *o, s32 idx, s32 a2) {
     yaw = 180.0f * ((t - 6.2831855f * (s32)(0.15915494f * t)) + (t < 0.0f ? 6.2831855f : 0.0f) - 3.1415927f) / 3.1415927f;
     sceVu0CopyMatrix(m, func_001715B0(e->x40) + 0x200);
     sceVu0SubVector(&q, &m[3], &p);
-    { f32 d = sqrtf(sceVu0InnerProduct(&q, &q)); q.w = d; } a = 180.0f * func_0011DBC0(-q.x, -q.z) / 3.1415927f;
-    b = 180.0f * func_0011DBC0(m[2].x, m[2].z) / 3.1415927f;
+    { f32 d = sqrtf(sceVu0InnerProduct(&q, &q)); q.w = d; } a = 180.0f * atan2f(-q.x, -q.z) / 3.1415927f;
+    b = 180.0f * atan2f(m[2].x, m[2].z) / 3.1415927f;
     fl = (D_00317238[0] & 0x2000) != 0;
     r = send(&msg, a2, k, o->id, idx, &q, yaw, b, a, fl);
     } else {

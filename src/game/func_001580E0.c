@@ -22,8 +22,8 @@ void func_001544C0(void);
 void func_00155BD0(void *);
 void func_00153740(void);
 void func_00176AE0(void);
-f32 func_0011D778(f32);
-f32 func_0011DA18(f32);
+f32 cosf(f32);
+f32 sinf(f32);
 extern s32 D_00201F2C;
 extern u64 D_00201F78;
 
@@ -137,8 +137,8 @@ void func_001580E0(P *p) {
                 b.col |= a << 24;
                 for (ang = p->x16; ang < 360; ang += p->x18) {
                     f = 3.1415f * ang / 180.0f;
-                    c = (s32)(i * (p->x14 * func_0011D778(f)));
-                    s = (s32)(i * (p->x14 * func_0011DA18(f)));
+                    c = (s32)(i * (p->x14 * cosf(f)));
+                    s = (s32)(i * (p->x14 * sinf(f)));
                     b.x0 = c + 0x6C00;
                     b.x4 = s + 0x7200;
                     b.x10 = c + 0x9400;

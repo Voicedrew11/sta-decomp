@@ -34,7 +34,7 @@ Actor *func_00146EF0(f32, s8 *, f32, Vec *, f32, s32);
 void func_00146310(s8 *, Vec *, s8 *, f32 *, f32 *);
 void func_00145F40(Actor *, f32 *, s32);
 f32 fabsf(f32);
-f32 func_0011DBC0(f32, f32);
+f32 atan2f(f32, f32);
 void sceVu0CopyVector(void *, void *);
 void sceVu0RotMatrixX(Mtx *, Mtx *, f32);
 void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
@@ -131,7 +131,7 @@ void func_0014B1B0(O *o, f32 kk) {
     o->pos.w = 1.0f;
     o->pos.y += o->v50.y;
     o->xB0 += t * k;
-    t = func_0011DBC0(o->xB0, 190.0f);
+    t = atan2f(o->xB0, 190.0f);
     sceVu0RotMatrixX(&m, &D_001F2170, WRAP(t));
     sceVu0RotMatrixY(WRAP(ang), &m, &m);
     sceVu0CopyMatrix(o->xC0, &m);

@@ -1,4 +1,4 @@
-/* libkernl.a: SDK 2.5's InitOsd member (SAB: not in kfiv-decomp; the member
+/* libkernl.a: SDK 2.5's InitOsd member (STA: not in kfiv-decomp; the member
  * and function names are derived).  When the boot ROM's OSD configuration
  * does not hold a written value in bits 13..15, it installs a 0x7A8-byte
  * kernel patch at 0x80074000. */

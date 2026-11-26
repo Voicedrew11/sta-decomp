@@ -1,6 +1,6 @@
 #include "common.h"
 void sceDevVif0Reset();                            /* extern */
-void func_00116220();                            /* extern */
+void sceSdRemoteInit();                            /* extern */
 void sceDevVu0Pause();                           /* extern */
 void sceDmaReset(s32);                       /* extern */
 void sceGsResetPath();                           /* extern */
@@ -20,5 +20,5 @@ void func_00129400(s32 arg0, s32 arg1, s32 arg2) {
     func_0015AD00((s32 *) arg0, arg1, arg2);
     func_0015C9F0(-0x14CD88B5);
     sceMcInit();
-    func_00116220();
+    sceSdRemoteInit();
 }
