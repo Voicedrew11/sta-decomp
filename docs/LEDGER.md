@@ -154,6 +154,18 @@ Game functions are matched smallest first.
 - **`if (!(p = f()))`** tests the call's $v0 directly; `p = f(); if (!p)`
   copies it to $a0 first (func_0017C620).
 
+- **String literals in .rodata.** CodeWarrior puts literals in .data by
+  default; `#pragma readonly_strings on` moves them to .rodata
+  (func_001ADD30's "CAPS" FOURCC).
+- **Jump table rotated by one entry** (entry 0 points at the last body):
+  case 0 shares the default body, written after the other cases
+  (func_001A1C80's second switch).
+- **Address-ordered global stores.** A run of constant stores to separate
+  globals matched in address order although the retail schedule interleaves
+  them (func_00159340).
+- **ee-gcc `andi 0xFF` on a compare with a stored byte**: declare the u8
+  local it is compared with as `s32` (func_001D7110).
+
 ## Aborted
 
 - func_001DC328, func_001DC338 (lq/sq through $a2), func_001DC388 (lqc2
@@ -218,8 +230,9 @@ Game functions are matched smallest first.
 - func_001303D0 (clamp to 0x7FFF + store + call), func_0013C740,
   func_001E1CC0 (ee-gcc store order): not matched in one try.
 - func_00191C40: not matched in one try.
-- func_001D7290 (ee-gcc pad-record reset loop + scePadInit tail call): loop
-  shape differs; func_001E1CC0, func_001E4080 also failed tools/stmtperm.py.
+- func_001D7290: SOLVED, an ascending `for (i = 0; i < 8; i++)` (gcc turns
+  it into the count-down loop with the right registers; the count-down
+  source swaps them). func_001E1CC0, func_001E4080 failed tools/stmtperm.py.
 - func_00178FD0, func_00179F10 (stack struct init: order of the stores),
   func_0017DC00 (two stack vectors): not matched in one try; candidates for
   tools/stmtperm.py.

@@ -1,3 +1,5 @@
+/* the FOURCC literal lives in .rodata */
+#pragma readonly_strings on
 #include "obj3d.h"
 typedef struct { s32 a; s32 b; s32 c8; s32 c; } H;
 typedef struct { u8 pad[0x10]; H h; } Ch;
@@ -9,7 +11,7 @@ static inline void fix(Obj3D *o) {
     Ch *c;
     if (o->x9C != -1 && o->xA8.f.b0) {
         o->x88 = 0;
-        c = func_0014DCD0(*((s32 **)***(s32 ****)o->x84)[4], "abcdefghijklmnop"[0] | ("abcdefghijklmnop"[1] << 8) | ("abcdefghijklmnop"[2] << 16) | ("abcdefghijklmnop"[3] << 24));
+        c = func_0014DCD0(*((s32 **)***(s32 ****)o->x84)[4], "CAPS"[0] | ("CAPS"[1] << 8) | ("CAPS"[2] << 16) | ("CAPS"[3] << 24));
         if (c != NULL) {
             o->x88 = (s32)DATA((H *)((s32)c + 0x10));
         }
