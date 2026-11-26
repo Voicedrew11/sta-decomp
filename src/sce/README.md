@@ -24,3 +24,18 @@ Every `.c` and `.s` here is a translation unit of the build. `tools/carve.py`
 compiles them, finds where each one sits in the retail ELF and writes the
 splat subsegments, the link order and `config/symbol_addrs.carve.txt` from
 that. A file that does not match the retail bytes as a whole stops it.
+
+## Temporary inline asm (to be removed)
+
+Four functions are retail's instructions in a top-level `__asm__` block until
+their C matches. Each is marked `TODO(STA): TEMPORARY inline asm` with its C
+attempt kept beside it, under `#if 0` or in a comment, for the next attempt.
+`tools/asm2inline.py` generated the blocks. Delete the asm, and the `#if 0`,
+once the C compiles to the same bytes:
+
+| Function | File | What is left |
+| --- | --- | --- |
+| `_vfprintf_r` | `libc/stdio/vfprintf.c` | Retail has nops before case labels and copies `ap` to a register, likely a different compiler for this one function. The asm block also carries the function's `.rodata` (strings and jump table). |
+| `sceGsSetDefDispEnv` | `libgraph/graph003.c` | About 47 words of register and scheduling differences in the display-register arithmetic. |
+| `__ieee754_sqrtf` | `libm/math/ef_sqrt.c` | 8 words of instruction ordering. |
+| `_sendRefTags` | `libmpeg/mpc.c` | gcc allocates `i` and `tag` to each other's registers. |

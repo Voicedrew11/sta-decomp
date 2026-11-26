@@ -3,8 +3,8 @@ typedef struct { f32 x, y, z, w; } Vec;
 f32 sinf(f32);
 f32 acosf(f32);
 u64 fptodp(f32);
-u64 func_0011D200(u64);
-s32 func_001001E0(u64, u64);
+u64 fabs(u64);
+s32 __gtdf2(u64, u64);
 void sceVu0CopyVector(Vec *, Vec *);
 void func_0015DFA0(Vec *out, Vec *a, Vec *b, f32 t) {
     Vec A;
@@ -14,7 +14,7 @@ void func_0015DFA0(Vec *out, Vec *a, Vec *b, f32 t) {
     f32 inv;
     f32 k1;
     f32 k2;
-    if (!func_001001E0(0x3E80000000000000ULL, func_0011D200(fptodp(sinf(a->x * b->x + a->y * b->y + a->z * b->z + a->w * b->w))))) {
+    if (!__gtdf2(0x3E80000000000000ULL, fabs(fptodp(sinf(a->x * b->x + a->y * b->y + a->z * b->z + a->w * b->w))))) {
         sceVu0CopyVector(&A, a);
         sceVu0CopyVector(&B, b);
         pay=&A.y;paz=&A.z;paw=&A.w;pby=&B.y;pbz=&B.z;pbw=&B.w;

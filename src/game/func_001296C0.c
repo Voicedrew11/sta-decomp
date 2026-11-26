@@ -9,7 +9,7 @@ void sceVu0CameraMatrix(void *, void *, Vec *, Vec *);
 void sceVu0MulMatrix(void *, void *, void *);
 void sceVu0CopyMatrix(void *, void *);
 f32 tanf(f32);
-extern u64 func_0011F650(f32);
+extern u64 __fixunssfdi(f32);
 void func_001294A0(void *m0, void *m1, void *m2, f32 a, f32 b, f32 c, f32 d, f32 e, f32 f, f32 g, f32 h, f32 i, f32 j, f32 k);
 extern f32 D_00201C2C;
 extern f32 D_00201EB4;
@@ -106,7 +106,7 @@ void func_001296C0(void) {
         func_001294A0(&D_002229D0, &D_00222990, &D_00222950, D_00201C14, 1.0f, 1.0f, 2048.0f, 2048.0f, 1089.0f, 993.0f, (f32)D_00201C20, (f32)D_00201C24, D_00201C18, D_00201C1C);
     }
     fov = D_00201E90;
-    D_002F1510[0] = D_002F1420[0] = 0x27F0000 | ((u64)func_0011F650(fov) << 32) | ((u64)func_0011F650(448.0f - fov - 1.0f) << 48);
+    D_002F1510[0] = D_002F1420[0] = 0x27F0000 | ((u64)__fixunssfdi(fov) << 32) | ((u64)__fixunssfdi(448.0f - fov - 1.0f) << 48);
     sceVu0CopyMatrix(&D_002F18C0, &D_00222950);
     sceVu0CopyMatrix(&D_002F1900, &D_002229D0);
     sceVu0CopyMatrix(&D_002F1700, &D_00222990);

@@ -6,7 +6,7 @@ Q *func_00154A80(s32);
 void func_00154A70(void);
 void sceVu0CopyVector(void *, void *);
 void func_001545D0(void);
-extern u64 func_0011F650(f32);
+extern u64 __fixunssfdi(f32);
 void func_001543E0(s32, u64);
 void func_00154420(void);
 
@@ -26,10 +26,10 @@ void func_0015B270(void) {
     func_00154A70();
     sceVu0CopyVector(&c, D_0030A2D0 + D_00201F2C * 32 + 0x10);
     func_001545D0();
-    r = func_0011F650(255.0f * c.x);
-    g = func_0011F650(255.0f * c.y);
+    r = __fixunssfdi(255.0f * c.x);
+    g = __fixunssfdi(255.0f * c.y);
     r |= g << 8;
-    b = func_0011F650(255.0f * c.z);
+    b = __fixunssfdi(255.0f * c.z);
     func_001543E0(0x3D, (b << 16) | r);
     func_00154420();
 }

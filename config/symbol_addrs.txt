@@ -615,3 +615,4 @@ func_001DC8D0 = 0x001DC8D0; // type:func
 ignored_20000050 = 0x20000050; // ignore:True
 ignored_20000140 = 0x20000140; // ignore:True
 ignored_E0002000 = 0xE0002000; // ignore:True
+ignored_00200001 = 0x00200001; // ignore:True
