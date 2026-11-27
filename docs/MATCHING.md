@@ -35,9 +35,9 @@ Function names point at examples in `src/`.
 - Bitfield value of an assignment is reused: `o->f88 = o->b1 = 0;` gives the dsll/dsrl extract + unsigned->float conversion of the stored byte.
 - Order of pointer computations from the same base (t, e, s) decides temp registers; try permuting statement order before locals.
 - Re-using an existing local (e.g. `b = idx;` then `b & 0xFFFF`) can shift register allocation in the right direction (permuter-found).
-- Unrolled loops that come out in reverse index order: index with `[7 - i]` in an ascending for-loop (func_0019E090).
-- A condition var read into a local BEFORE an earlier struct copy (`on = p->x8; t = D; if (on)`) gets the load hoisted into the copy sequence (func_001907D0).
-- Accessing a global array directly by index (`D[idx] = i + 1`) instead of through a `u16 *cur = &D[idx]` pointer changed which temps got a2/a3 (func_0015B980).
+- Unrolled loops that come out in reverse index order: index with `[7 - i]` in an ascending for-loop (Status_DrawStats_0_0019E090).
+- A condition var read into a local BEFORE an earlier struct copy (`on = p->x8; t = D; if (on)`) gets the load hoisted into the copy sequence (OptionProc_DrawKeyAssign_1_001907D0).
+- Accessing a global array directly by index (`D[idx] = i + 1`) instead of through a `u16 *cur = &D[idx]` pointer changed which temps got a2/a3 (Light_Add_0_0015B980).
 - `0 > x` gives `slt at,x,zero`; `x < 0` gives bltz and `x <= -1` gives `slti at,x,0`.
 - Float add operand order ignores source order; put the product in a temp first (`t = a*b; r = t + c;`) to get `add.s d,t,c`.
 - A 4-byte colour copied with lwc1/swc1 needs a 4-aligned type: `union { u32 w; struct { u8 r,g,b,a; } c; }` (a plain u8 struct copies bytewise and shifts register allocation).
@@ -72,9 +72,9 @@ Function names point at examples in `src/`.
 - Values passed to u8/u16 params from int locals get andi masks; load them into s32 locals (not u8) to reproduce `lbu` + `andi 0xFF`.
 - A for-loop walking `(&a0->arr)[i]` from the object base becomes an IV on a0 itself: write `((T **)a0)[i + OFF/4]` to get `lw X, OFF(s1)` with s1 = a0 + 4i.
 - `if (a0 != 0 && ...) { body }` (single return path) avoids the bnez/b early-exit shape that `if (...) return;` gives.
-- Unrolled xyz stores: `for (k = 0; k < 3; k++) { pos[k] = (&e->x)[k]; ... }` unrolls with direct sp offsets; written out by hand, MWCC routes non-zero stack offsets through an address register (func_001B5CA0).
+- Unrolled xyz stores: `for (k = 0; k < 3; k++) { pos[k] = (&e->x)[k]; ... }` unrolls with direct sp offsets; written out by hand, MWCC routes non-zero stack offsets through an address register (Map_SpawnSfx_0_001B5CA0).
 - Shared angle-wrap `(ang + π)`: repeat the expression inline (macro-style) instead of a temp; the temp flips `add.s` operand order. Likewise `u = 200.0f; lo = p - u; hi = p + u;` fixes operand order.
-- Float-arg prototype position also moves float-constant `lui` loads: if a `lui` (e.g. 1.0f) lands before/after the wrong instruction, try the f32 param first, middle, or last (func_0018B150 takes it last).
+- Float-arg prototype position also moves float-constant `lui` loads: if a `lui` (e.g. 1.0f) lands before/after the wrong instruction, try the f32 param first, middle, or last (MenuProc_Set_1_0018B150 takes it last).
 - `if ((u8)(x == 0))` gives the `xor`/`sltiu` + `beqz` shape.
 - A second `= {0}` clear in its own nested block (`{ Vec E = {0}; ... }`) gets its own stack slot; an unexplained stack gap often means an array local (`Vec C[2]`).
 - `*(s32 *)w = 0; *w = 0.0f;` lets MWCC drop a store; assign `0.0f` twice to keep both.
@@ -116,68 +116,68 @@ Near-miss round (CodeWarrior unless marked gcc):
 
 ## Floats, sqrt, switches, inline asm
 
-- `c1 0x...4` / `c1 0x...84` in the disassembly is a misdecoded `sqrt.s`. Declare `f32 sqrtf(f32);` (no math.h) and call it: it inlines to `sqrt.s` (with `mula.s/madd.s` when fed `x*x + z*z`). The result is dropped if unused, but a call feeding it stays (dot-product calls with no visible use, func_00133D00). Exact pad nops: `static inline f32 sq(f32 v) { f32 r; asm("sqrt.s %0, %1" : "=f"(r) : "f"(v)); return r; }` (func_00163A10).
+- `c1 0x...4` / `c1 0x...84` in the disassembly is a misdecoded `sqrt.s`. Declare `f32 sqrtf(f32);` (no math.h) and call it: it inlines to `sqrt.s` (with `mula.s/madd.s` when fed `x*x + z*z`). The result is dropped if unused, but a call feeding it stays (dot-product calls with no visible use, Combat_CalcHitAngle_0_00133D00). Exact pad nops: `static inline f32 sq(f32 v) { f32 r; asm("sqrt.s %0, %1" : "=f"(r) : "f"(v)); return r; }` (Fx_RandomInSphere_0_00163A10).
 - Double math goes through the game's own helpers; plain `double` makes MWCC call `fptodp`/`dpadd`, which don't exist. Call `func_0011F8C0` (f32->double), `func_0011DB78` (pow), `func_0011FCF8` (add), `func_00120478` (double->f32) explicitly. Nested helper calls in one expression are evaluated left to right; use a temp to force the order.
-- Float temp/constant order: pre-subtract into locals (`ox = fx - 735.0f; oz = fz - 129.0f; d = sqrtf(ox*ox + oz*oz);`) after loading fields into locals; or move the math into an inline helper with its own locals (func_00184040, func_00185510). `aa = a*a; ... while (d > aa + 0.01f)` beat ~90 permutations (func_00156CE0).
-- `d = call(); d += k; if (d < 0.0f) return 0.0f;` keeps the operand order and returns the zero reg; folded `d = call() + k` flips both (func_0015B720). `r = s / sqrtf(...)` (own local) puts `div.s` in a fresh reg.
+- Float temp/constant order: pre-subtract into locals (`ox = fx - 735.0f; oz = fz - 129.0f; d = sqrtf(ox*ox + oz*oz);`) after loading fields into locals; or move the math into an inline helper with its own locals (Menu_DrawRingA_0_00184040, Menu_DrawRingD_0_00185510). `aa = a*a; ... while (d > aa + 0.01f)` beat ~90 permutations (ScreenFx_DrawDistort_0_00156CE0).
+- `d = call(); d += k; if (d < 0.0f) return 0.0f;` keeps the operand order and returns the zero reg; folded `d = call() + k` flips both (Light_CalcIntensity_0_0015B720). `r = s / sqrtf(...)` (own local) puts `div.s` in a fresh reg.
 - Float abs/clamp with no pad nop: ternary (`y = y < 0.0f ? -y : y;`); an `if` adds the pad. float->u16 with `andi 0xFFFF`: `q = (z < 30000.0f) ? (u16)(u32)z : 30000;`.
-- Constants a target keeps in registers after storing them to a local struct: use the literal again in later math instead of reading the struct back (func_00196070). `3.141592f` = 0x40490FD8, `3.1415925f` = 0x40490FDA.
+- Constants a target keeps in registers after storing them to a local struct: use the literal again in later math instead of reading the struct back (DbChar_DrawRing_0_00196070). `3.141592f` = 0x40490FD8, `3.1415925f` = 0x40490FDA.
 - Two float variables sharing one register in the target: reuse one variable (`dy = ang + f;`).
-- Switch jump tables (`jtbl_` in the asm): `batch.py` links the table and compares it. A table spanning 0..N-1 needs every missing case written as an empty `case X: break;`, or MWCC emits a compare chain (func_001BE510). Fallthrough state machines need an explicit `case N:` label for every state (func_0012ED60).
-- Inline asm works: GCC-style `asm("..." : outs : ins)` and MW-style `asm { sync; L: nop; bc0f L; nop }` (labels are function-scoped, unique per site). VU0 `lqc2/vmul/sqc2` in a `static inline` must be non-volatile with no `"memory"` clobber, or scheduling and saved regs change (func_00145A80).
-- Fields loaded in strict source order against normal scheduling = a `volatile` struct pointer parameter (func_0017C6F0). u8 params reloaded from their home slot (`lbu` from sp): `*(volatile u8 *)&param`.
-- Linear search with lazily reloaded key and a `bne` + `b found` shape = `static inline` helper taking `(s32 *it, K *k)`; declare the iterator in the caller (func_0017C6F0).
-- 4-byte stack struct copied with `lw/sw`: copy the union's `u32` member; whole-union copy gives `lwc1/swc1`. 12-byte `ld`+`lwc1` copy: 8-aligned struct, whole-struct assignment (func_00128D10). Whole-struct copy from a global materializes both addresses (`lq 0(a1)/sq 0(a0)`); member copy folds the address.
+- Switch jump tables (`jtbl_` in the asm): `batch.py` links the table and compares it. A table spanning 0..N-1 needs every missing case written as an empty `case X: break;`, or MWCC emits a compare chain (Player_SpawnStepSfx_0_001BE510). Fallthrough state machines need an explicit `case N:` label for every state (SndBank_LoadStep_1_0012ED60).
+- Inline asm works: GCC-style `asm("..." : outs : ins)` and MW-style `asm { sync; L: nop; bc0f L; nop }` (labels are function-scoped, unique per site). VU0 `lqc2/vmul/sqc2` in a `static inline` must be non-volatile with no `"memory"` clobber, or scheduling and saved regs change (Map_RaycastSegment_0_00145A80).
+- Fields loaded in strict source order against normal scheduling = a `volatile` struct pointer parameter (MapCmd_FadeLight_0_0017C6F0). u8 params reloaded from their home slot (`lbu` from sp): `*(volatile u8 *)&param`.
+- Linear search with lazily reloaded key and a `bne` + `b found` shape = `static inline` helper taking `(s32 *it, K *k)`; declare the iterator in the caller (MapCmd_FadeLight_0_0017C6F0).
+- 4-byte stack struct copied with `lw/sw`: copy the union's `u32` member; whole-union copy gives `lwc1/swc1`. 12-byte `ld`+`lwc1` copy: 8-aligned struct, whole-struct assignment (Game_InitSaveIcon_1_00128D10). Whole-struct copy from a global materializes both addresses (`lq 0(a1)/sq 0(a0)`); member copy folds the address.
 - Float globals that overflow small data at link ("small-data section too large"): `extern f32 D_X[];` and use `D_X[0]`.
 - Callee-saved reg used where a temp is expected: the value may be a compiler temp from right-to-left evaluation of one big expression; writing it with an explicit local gives a t-reg instead.
 - A callee whose `a3` is never set before the call has a 3-arg prototype; a 4th param makes MWCC hoist a bogus `move a3`.
 - `goto cond; body: ...; cond: if (x > K) goto body;` gives the `b cond` loop entry with constants hoisted ahead; `do { f(o); j++; } while (j < (o = **q)->n);` reuses the loop-bottom load as the next call arg.
 - `return a || b;` with `a` read into a local earlier gives `sltu/bnez/sltu` without padding; pointer select without padding: `p = &h[0]; if (c) p = &h[1];`.
-- Long runs of independent bitfield writes: random-search the statement order (keep each byte's writes in sequence), then local swaps from the best; 1500 orders took ~2 min (func_0012BC80).
+- Long runs of independent bitfield writes: random-search the statement order (keep each byte's writes in sequence), then local swaps from the best; 1500 orders took ~2 min (Game_Boot_2_0012BC80).
 - Checker gotcha: the function name is taken from the first `func_X(` line without `;`, so a `#define` calling `func_X()` confuses it; write `(func_X)()`.
 
-- Unrolled `mula.s/madd.s` runs at constant offsets: write each statement out (`d[i] = p[i]*u + q[i]*t`); a for-loop isn't unrolled (func_0017BD70). `neg.s`+`add.s` = literal `(-j + k)`; `k - j` gives `sub.s` (func_001294A0).
-- Float products: name each product temp (`xy = x*y`) and write `t * xy` inline; temps already containing `t` don't match. Declare the product temps before x/y/z (func_0015EBB0).
-- gp-relative globals: declare with a size (`extern u8 D_X[4];`) or as a scalar indexed via `((T *)&D_X)[i]`; `extern T D_X[];` gives lui/absolute addressing. Many globals near one base that overflow small data: one big struct extern (func_00159A60).
-- `andi rN,zero,1` + shifted copies for several bitfield stores = separate `bf = 0;` statements (or one `z = 0` local), not a chained assignment (func_001AEC00, func_0012B600).
-- `daddiu v0,zero,K` returns without a u8 variable: body in `static inline u8 inner()`, real function `return inner(...);` (func_001432F0).
-- Stack-struct stores scheduled around float math: interleave the constant stores between the float->int stores in source (func_0012B600). Bitfield runs that need a saved reg: try natural per-element order before random search (func_00159A60).
-- `dsll` for a shift feeding an s64 param needs `(u64)` on the operand; `(a.b5 ? 2 : 0) | (a.b6 ? 1 : 0)` gives sltu+or (func_0016F280).
+- Unrolled `mula.s/madd.s` runs at constant offsets: write each statement out (`d[i] = p[i]*u + q[i]*t`); a for-loop isn't unrolled (MapCmd_SpawnSfxOnObject_0_0017BD70). `neg.s`+`add.s` = literal `(-j + k)`; `k - j` gives `sub.s` (Mtx_BuildProjection_2_001294A0).
+- Float products: name each product temp (`xy = x*y`) and write `t * xy` inline; temps already containing `t` don't match. Declare the product temps before x/y/z (Mtx_AxisAngle_2_0015EBB0).
+- gp-relative globals: declare with a size (`extern u8 D_X[4];`) or as a scalar indexed via `((T *)&D_X)[i]`; `extern T D_X[];` gives lui/absolute addressing. Many globals near one base that overflow small data: one big struct extern (ScreenFx_Init_1_00159A60).
+- `andi rN,zero,1` + shifted copies for several bitfield stores = separate `bf = 0;` statements (or one `z = 0` local), not a chained assignment (ItemObj_SpawnThrown_0_001AEC00, Frame_RenderLoading_0_0012B600).
+- `daddiu v0,zero,K` returns without a u8 variable: body in `static inline u8 inner()`, real function `return inner(...);` (Enemy_FindWaypointDir_0_001432F0).
+- Stack-struct stores scheduled around float math: interleave the constant stores between the float->int stores in source (Frame_RenderLoading_0_0012B600). Bitfield runs that need a saved reg: try natural per-element order before random search (ScreenFx_Init_1_00159A60).
+- `dsll` for a shift feeding an s64 param needs `(u64)` on the operand; `(a.b5 ? 2 : 0) | (a.b6 ? 1 : 0)` gives sltu+or (Mdl_SetBlendMode_1_0016F280).
 
-- `addi` (not `addiu`) marked "handwritten instruction" at a switch range check: `static inline s32 cls(s32 x) { s32 t; asm("addi %0, %1, -7" : "=r"(t) : "r"(x)); switch ((u32)t) {...} }` (func_001CE7D0; same `addi` in func_001CBC20, func_001CE4B0, func_001D1D50).
-- Compare result kept in v0 (`slti v0` + `bnez v0`): `if (!(x < K)) return NULL;` instead of `x > K-1` (func_001AEE80). Branch with the failure store in the delay slot: write the failure case first, `if (x <= 0) { fail } else { ok }` (func_0017C2A0).
-- Early null-check returns followed by an `andi 0xFF` later = an `s32` param copied into a `u8` local after the checks (func_001B2180). u8 param masked again at each use: plain param in the first use, `(u8)p` cast in later ones (func_00139330).
-- `sd` of -1 built with `pcpyld` = `u64` field. Pointer sum stuck on `addu` order: integer sum with `* 16` instead of `<< 4` (func_001B2F30). Byte pair to u16: inline `u16 mk(u16 lo, u16 hi) { return (u8)lo | ((u8)hi << 8); }` (func_001409A0).
-- Float accumulator that should end in f0: `sum *= g; return sum;`, not `return sum * g;` (func_0015F040). u16 arg `base + expr` in the wrong temp: `base += expr; f(base);` (func_001C6D40).
-- Saved regs can follow statement order rather than declaration order: move the statement that first computes the value (func_00139330).
+- `addi` (not `addiu`) marked "handwritten instruction" at a switch range check: `static inline s32 cls(s32 x) { s32 t; asm("addi %0, %1, -7" : "=r"(t) : "r"(x)); switch ((u32)t) {...} }` (Player_UpdateEquipModel_0_001CE7D0; same `addi` in Inventory_HasItem_0_001CBC20, Player_ApplyEquipVisualB_0_001CE4B0, ItemType_IsWeapon_0_001D1D50).
+- Compare result kept in v0 (`slti v0` + `bnez v0`): `if (!(x < K)) return NULL;` instead of `x > K-1` (ItemObj_SpawnFromMap_0_001AEE80). Branch with the failure store in the delay slot: write the failure case first, `if (x <= 0) { fail } else { ok }` (MapCmd_WaitEvent_0_0017C2A0).
+- Early null-check returns followed by an `andi 0xFF` later = an `s32` param copied into a `u8` local after the checks (MapColl_RayVsObjects_0_001B2180). u8 param masked again at each use: plain param in the first use, `(u8)p` cast in later ones (Combat_UpdateAttack_0_00139330).
+- `sd` of -1 built with `pcpyld` = `u64` field. Pointer sum stuck on `addu` order: integer sum with `* 16` instead of `<< 4` (MapColl_RayCastAll_0_001B2F30). Byte pair to u16: inline `u16 mk(u16 lo, u16 hi) { return (u8)lo | ((u8)hi << 8); }` (EnemyScr_Event2024GetMove_1_001409A0).
+- Float accumulator that should end in f0: `sum *= g; return sum;`, not `return sum * g;` (Noise_Fbm_1_0015F040). u16 arg `base + expr` in the wrong temp: `base += expr; f(base);` (Player_StartSwitchMotion_1_001C6D40).
+- Saved regs can follow statement order rather than declaration order: move the statement that first computes the value (Combat_UpdateAttack_0_00139330).
 
 - Jump table contents (cases that share code): read the table from the exe, file offset = vaddr - 0xFFF80 (`xxd -s $((0x1FDB60-0xFFF80)) -l 32 -e SLPS_252.17`).
-- Static inlines nest only one level; an inline called from an inline is emitted out of line (func_0014BA10).
-- Stack layout: aggregates of <= 8 bytes and scalars always go at the top of the frame; an aggregate at the bottom is > 8 bytes (func_00151E50).
+- Static inlines nest only one level; an inline called from an inline is emitted out of line (FxProc_PullTowardEnemy_0_0014BA10).
+- Stack layout: aggregates of <= 8 bytes and scalars always go at the top of the frame; an aggregate at the bottom is > 8 bytes (Coll_SweepSegmentsInit_1_00151E50).
 - `c ? 1 : 0` always becomes sltu; `li 1; movz` only appears for other constants. `daddiu r,zero,K` for a constant = assignment to a `u16` variable; s32/u32 give `li`.
-- Call result in a u8 compare without an `andi` after the jal: s32 callee/inline, cast at the compare `(u8)f() != 3` (func_001B0450).
+- Call result in a u8 compare without an `andi` after the jal: s32 callee/inline, cast at the compare `(u8)f() != 3` (Map_StreamStart_0_001B0450).
 - A param store before a `= {0}` clear: thin wrapper doing the store, then a `static inline` holding the body (C89 has no mixed declarations).
-- `0 < x` gives `slt at,zero,x` + `beqz`; `x > 0` gives `blez` (func_001D3810). `(base - K)[idx]` instead of `base[idx - K]` fixes addu order (func_0013C0D0).
-- Max of two floats with `bc1t`: `if (!(a <= b)) x = a; else x = b;` (func_00151900). FOURCC from bytes: `D[0] | D[1]<<8 | D[2]<<16 | D[3]<<24` with `extern s8 D[]`.
-- WRAP-style macros repeat their argument: put a call result in a temp first (func_001BC320).
-- Copy float params into locals declared in the target's register order to fix float regalloc (func_001472A0).
+- `0 < x` gives `slt at,zero,x` + `beqz`; `x > 0` gives `blez` (Attack_HandleSfxEvent_1_001D3810). `(base - K)[idx]` instead of `base[idx - K]` fixes addu order (Enemy_AttachEffect_1_0013C0D0).
+- Max of two floats with `bc1t`: `if (!(a <= b)) x = a; else x = b;` (Coll_SweepCapsules_0_00151900). FOURCC from bytes: `D[0] | D[1]<<8 | D[2]<<16 | D[3]<<24` with `extern s8 D[]`.
+- WRAP-style macros repeat their argument: put a call result in a temp first (Hud_AddMarker_0_001BC320).
+- Copy float params into locals declared in the target's register order to fix float regalloc (Proj_FindBestTarget_0_001472A0).
 
-- Stack slots overlapping a live matrix: the original passed its rows (`(Vec *)m.m[2]`); separate locals never share space (func_001C8F90). A static inline used twice gets one stack local per copy; pass a caller-declared scratch pointer to share it (func_001BE050).
+- Stack slots overlapping a live matrix: the original passed its rows (`(Vec *)m.m[2]`); separate locals never share space (Camera_Update_1_001C8F90). A static inline used twice gets one stack local per copy; pass a caller-declared scratch pointer to share it (Player_CheckLadder_0_001BE050).
 - Unexplained 16-byte gap next to a Vec: `Vec c[2]`. Pointer out-params in 16-byte slots: `T *p[4]` (top of frame) or a struct typedef with `aligned(16)` (bottom of frame).
-- Two locals holding copies of one value with swapped saved regs: make one `u32`, the other `s32` (func_0018EDA0). When all s-regs are used, declaration order decides which local spills (func_00165DF0).
-- Global reloaded after a store through a pointer: `*(volatile T *)&D_X` at that one use (func_001A40A0). Element pointer whose fields reload: `volatile B *b` (func_00168A40).
-- u32->float of a call result that must come first: wrap call+conversion in a `static inline f32` (a temp gets copy-propagated) (func_001C73C0).
-- `u8 = (s32)(float expr)` gives cvt.w + sb; a plain assignment adds the unsigned 0x4F000000 path (func_0018C140).
+- Two locals holding copies of one value with swapped saved regs: make one `u32`, the other `s32` (Option_ScreenSetting_1_0018EDA0). When all s-regs are used, declaration order decides which local spills (Script_OpCompare_1_00165DF0).
+- Global reloaded after a store through a pointer: `*(volatile T *)&D_X` at that one use (TitleMenu_Select_1_001A40A0). Element pointer whose fields reload: `volatile B *b` (Sfx_DrawAll_1_00168A40).
+- u32->float of a call result that must come first: wrap call+conversion in a `static inline f32` (a temp gets copy-propagated) (Player_OnHitEnemy_0_001C73C0).
+- `u8 = (s32)(float expr)` gives cvt.w + sb; a plain assignment adds the unsigned 0x4F000000 path (Menu_LerpLayout_0_0018C140).
 
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):
 
-- `D_00201DC0`: pointer to a struct of about 0x7C1C bytes (67 fields seen); slot table at 0x5C00, 0x1C0-byte groups at 0x10E0 (func_001A95A0).
+- `D_00201DC0`: pointer to a struct of about 0x7C1C bytes (67 fields seen); slot table at 0x5C00, 0x1C0-byte groups at 0x10E0 (Inventory_AddItem_1_001A95A0).
 - Done: `D_004AC630`, `D_004AC970`, `D_004AE370` (0xD0-byte objects) are `Obj3D` in `include/obj3d.h`. Several matched files still carry local partial copies; migrate them when touched.
 - `D_0022CBC0`: 63 elements of 0x80 bytes.
 - `D_003407E0`: elements of 0xED0 bytes.
-- `D_0022F080`: struct `{ off, state, n, left, buf }` (func_0012F0F0 near-miss).
+- `D_0022F080`: struct `{ off, state, n, left, buf }` (SndBank_IopTransferB_0_0012F0F0 near-miss).
 - `Actor->unk518`: sub-object; +0x180, +0x190 used.
 
 ## Compiler builds
@@ -206,20 +206,20 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **Force a reload without volatile**: read through a pointer local (`s32 *z = &D[k]; (f32)*z` twice). Angle-wrap that reloads x: use a different lvalue (or `*(volatile f32 *)&x`) inside the `< 0` ternary.
 - **`rsqrt.s`**: inline asm helper `rsqrt.s %0, %1, %2`. 0x3EFAE147 is 0.48999998f (0.7f*0.7f).
 - **12/20-byte local initialised from rodata (`ld`/`lq` + `lwc1`)**: struct copy from an extern with `aligned(8/16)` after the typedef name; a literal initializer goes to .data, which batch.py discards.
-- **FOURCC built from `&D[1..3]` in s-regs with `D[0]` via `lui; lb`** means a string literal; batch.py can't link literals (see wip/func_001ADD30.c).
-- **Relocation against a symbol at address 0** not in the ELF: `(u32)(D_4A0 - 0x4A0)` gives the same bytes (func_00155460).
+- **FOURCC built from `&D[1..3]` in s-regs with `D[0]` via `lui; lb`** means a string literal; batch.py can't link literals (see wip/ItemObj_BindCaps_1_001ADD30.c).
+- **Relocation against a symbol at address 0** not in the ELF: `(u32)(D_4A0 - 0x4A0)` gives the same bytes (Gfx_UploadVu1Program_0_00155460).
 - **`if (flag) {...}` whose `beqz` lands on `b end`**: write `if (!flag) return;`.
 - **Brute-force permutations** of declaration lines or statement groups (`perm.py` in the agent kit): 720 variants take ~1-3 minutes and fixed several functions.
 
 ### More tricks (round X, 0x4A0-0x5D0 functions)
 
-- **A call that reuses a0/t0 or other temps across a jal** means the callee is a `static` function defined earlier in the same file (MWCC tracks the registers it preserves). batch.py can't check that layout yet (wip/func_0013CBC0.c, func_001797E0.c).
+- **A call that reuses a0/t0 or other temps across a jal** means the callee is a `static` function defined earlier in the same file (MWCC tracks the registers it preserves). batch.py can't check that layout yet (wip/Enemy_UpdateMotion_1_0013CBC0.c, Lz_DecompressB_1_001797E0.c).
 - **Non-static functions defined earlier in the same file are auto-inlined at -O4**; code that looks like a known function's body is a static inline copy.
 - **Trailing `move v0,zero` plus v0/v1 swaps mid-function**: the function returns `s32 0`, not void.
 - **Unexplained s-reg swap around `&local.field`**: add an explicit pointer local for it. Gp-relative `&D_X` in an s-reg: `extern T *D_X[2];` and index past the end.
 - **Stuck `addu` operand order on `base + idx*K`**: repeat the expression that computes `base` inside the index expression, or load the table value into an `s32` temp first (`t = D.v[i]; x += t;`).
 - **Switch case blocks follow source case order**; reorder cases to match the target layout. `switch ((s32)u16field)` swaps value/constant registers.
-- **Block layout first**: when diffs start with delay slots/nops, try gotos so an else-path's setup sits after the return (func_0015A470).
+- **Block layout first**: when diffs start with delay slots/nops, try gotos so an else-path's setup sits after the return (File_Read_2_0015A470).
 - **Shared final `return 0;`** gives `beq ... ret0`; inline `return 0` gives `b end; move v0,zero`.
 - **Self-recursive function with arg setup out of order**: permute where the f32 params sit in its own signature.
 - **`while (!(x <= k))` materialises a bool**; `while (x > k)` gives the clean c.le.s loop. Float loop guard: `if (x < 0) do {...} while (x < 0);`.
@@ -238,8 +238,8 @@ matched files, so they are not the game's compiler. Padding differences are fixe
 - **4-byte union `sw` before a call and `lw` before a later one**: pass it by value in the callee prototype.
 - **`x * 1.0f` / `x - 0.0f` kept in the target**: pass the constant through a local or an inline param; literals get folded.
 - **Two identical calls in if/else get merged**: make one argument opaque (`on - on`).
-- **Multi-table switch functions**: MWCC emits one .rodata per switch in code order; some originals have them reversed (wip/func_001A1C80.c, code bytes match).
-- **Static callee earlier in the same file** (temps kept live across the jal): see wip/func_001889E0.c (pair with func_00188910); batch.py can't check it yet.
+- **Multi-table switch functions**: MWCC emits one .rodata per switch in code order; some originals have them reversed (wip/Shop_Update_0_001A1C80.c, code bytes match).
+- **Static callee earlier in the same file** (temps kept live across the jal): see wip/Text_MeasureWidth_2_001889E0.c (pair with Font_FindGlyph_2_00188910); batch.py can't check it yet.
 
 ### More tricks (round 2 of the merged repo: 0x100-0x200 functions, 76 of 83 matched)
 
@@ -258,7 +258,7 @@ MWCC:
 - **Float globals**: operate on the global itself (`D -= 8.0f; if (D > 128.0f)`); temps change the code.
 - **A global reloaded after a store**: declare it volatile.
 - **Busy-wait loops**: `while (!f() != 0) {}`. **The gp value stored in a field** (`addiu rX,$gp,0`): `extern s32 _gp; x = &_gp;`.
-- **Variadic functions** (no stdarg header): `__builtin_args_info(2)` is the count of named int-register args (the unfolded `li 3; slti 8`; args 0 and 1 crash the compiler). va_start: `ap = (char *)__builtin_next_arg(last) - ((__builtin_args_info(2) >= 8) ? 0 : (8 - __builtin_args_info(2)) * 8)`; va_arg: `(ap += 8, *(T *)(ap - 8))`. See src/game/func_001D8680.c.
+- **Variadic functions** (no stdarg header): `__builtin_args_info(2)` is the count of named int-register args (the unfolded `li 3; slti 8`; args 0 and 1 crash the compiler). va_start: `ap = (char *)__builtin_next_arg(last) - ((__builtin_args_info(2) >= 8) ? 0 : (8 - __builtin_args_info(2)) * 8)`; va_arg: `(ap += 8, *(T *)(ap - 8))`. See src/game/SndDrv_CallArgs_2_001D8680.c.
 - **The last switch case falls into the epilogue without a `b`**: end it with `break`, not `return`.
 
 ee-gcc 2.96:
@@ -298,8 +298,8 @@ MWCC:
 - **Commutative `mul.s` order for u32->float * float**: inline `mu(u32 x, f32 k) { f32 t = x; return t * k; }`.
 - **`%` operands loaded first but stored last**: write the modulo statement first. `D.a = D.a + D.b` loads in source order; `+=` loads the right-hand side first.
 - **Frame layout**: spilled named locals get 4-byte slots in a 16-byte area at the top of the frame with the param homes; copy-propagated and loop-invariant temps get 16-aligned slots below. An unexplained 16-byte slot means the original variable was a temp; making it an inline parameter makes it one.
-- **A switch range check using `addi` (not `addiu`)**: the unit was built with mwccps2 3.0b38. Write a plain `switch (x)` with the real case values and add `src/game/func_X.c -O4,p mwcc=mwcps2-3.0b38-030307` to config/game_cflags.txt (try it with `MWCC=mwcps2-3.0b38-030307 tools/match.py diff ...`). b38 is not the default because it reverses some 4-float struct copies (func_00132DB0, func_0017D810, func_0017D960).
-- **`sync; ei` and inlined VU0 `lqc2/vmula*/sqc2`**: asm-only, skip (func_001E8CB0, func_00171BB0; see issue #2).
+- **A switch range check using `addi` (not `addiu`)**: the unit was built with mwccps2 3.0b38. Write a plain `switch (x)` with the real case values and add `src/game/func_X.c -O4,p mwcc=mwcps2-3.0b38-030307` to config/game_cflags.txt (try it with `MWCC=mwcps2-3.0b38-030307 tools/match.py diff ...`). b38 is not the default because it reverses some 4-float struct copies (Combat_CalcDamage_1_00132DB0, MapCmd_TranslateNode_0_0017D810, MapCmd_TranslateNodeRel_0_0017D960).
+- **`sync; ei` and inlined VU0 `lqc2/vmula*/sqc2`**: asm-only, skip (Movie_DisplayHandler_0_001E8CB0, Mdl_Animate_2_00171BB0; see issue #2).
 
 ee-gcc 2.96:
 - **Struct address rebuilt in every case** (`%hi` kept in an s-reg, `addiu rX,sHI,%lo` per use): use `D_X.field` or `#define t (&D_X)`; a `T *t = &D_X` local pins the full address.
@@ -312,7 +312,7 @@ ee-gcc 2.96:
 - **Field reloaded where gcc would reuse a load**: read the first use through `*(volatile u64 *)&s->f` and extract with shifts. An unfolded extern array base re-read after a store: `extern volatile s32 D[]`.
 - **Value passed to a short param without extension**: declare the local `s16`.
 - **`andi 0xFF` after a byte store**: read the field again after storing it. Adjacent byte tests `a == 2 && (b & 4)` get merged into one `lw`; nest them for two `lbu`.
-- **Unsolved**: retail switch trees that test ranges with no code behind them (func_001D7350); gcc drops empty cases.
+- **Unsolved**: retail switch trees that test ranges with no code behind them (Pad_UpdateAll_3_001D7350); gcc drops empty cases.
 
 Tools:
 - When the instruction count differs, align your build against retail with difflib on normalized opcodes; chk's positional word count is useless then.
@@ -322,11 +322,11 @@ Tools:
 
 - **A call that skips an argument reload is a static callee in the same file**
   (MWCC). Merge the callee and its callers into one TU and make the callee
-  `static`. A global definition is not enough (func_0013C740, func_0013CBC0).
+  `static`. A global definition is not enough (Enemy_StartIdleMotion_1_0013C740, Enemy_UpdateMotion_1_0013CBC0).
 - **ee-gcc register swaps next to a call**: try the callee's return type.
-  `void` -> `u64` fixed func_001E52D0.
+  `void` -> `u64` fixed Gs_DrawSpriteDirect_0_001E52D0.
 - **ee-gcc: a `T **p = &G.f` local vs `*(&G.f)`** gives different
-  allocation (func_001E3B48).
+  allocation (Credits_Load_1_001E3B48).
 
 ### Data-only units (src/game/data/, tools/data_to_c.py)
 
@@ -382,7 +382,7 @@ moves them. An object stays in src/game/data/ when:
   units come in the same order in every section.
 
 The last is common. Retail's data is not in the order of the one-function
-files: the tables of func_0018E980..func_00193AF0 sit in reverse function
+files: the tables of Option_DrawFrame_0_0018E980..LoadMenu_DrawSlot_1_00193AF0 sit in reverse function
 order, so that run is one translation unit (with an asm function,
 text_00192110, inside). Its data moves when the unit is merged.
 
@@ -485,5 +485,5 @@ back to its base name, and each `NAME__as_<part>` alias is dropped where the
 unit still matches without it (all at once, then by halves). On the 36
 merged units: 60 types unified, 400 aliases dropped, 244 kept (the parts'
 declarations that really differ). Grouped .bss objects keep their separate
-names until the code indexes them: func_00188F80's six 0x250-byte records
+names until the code indexes them: Menu_ResetTimers_0_00188F80's six 0x250-byte records
 (0x0049F8E0) are noted in its source.

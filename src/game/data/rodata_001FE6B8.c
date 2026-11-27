@@ -1,9 +1,9 @@
 #include "common.h"
 
 /* rodata_001FE6B8: the game's data at 0x001FE6B8..., one object per label. */
-/* used by: func_001D7EC0, func_001D7FD0, func_001D80E0, func_001D8210,
-   func_001D8350, func_001D84F0, func_001D85D0, func_001D8680, func_001D8890,
-   func_001D8960 */
+/* used by: SndDrv_CallRpcSyncWait_2_001D7EC0, SndDrv_CallRpcSyncWaitB_2_001D7FD0, SndDrv_AllocIopBuffer_1_001D80E0, SndDrv_StartThread_1_001D8210,
+   SndDrv_CallWithData_1_001D8350, SndDrv_Call1_1_001D84F0, SndDrv_Call_2_001D85D0, SndDrv_CallArgs_2_001D8680, SndDrv_Bind_2_001D8890,
+   SndDrv_CallRpc_2_001D8960 */
 #pragma explicit_zero_data on
 
 const s32 D_001FE6B8[0x2] = { 0, 0 };

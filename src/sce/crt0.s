@@ -6,7 +6,7 @@
 # STA: SDK 2.5's _start first clears every register, HI/LO (both pipelines),
 # SA and the FPU, pads the .bss clear loop, and moves registers with `or`.
 # _stack, _stack_size and _heap_size are the link's (config/linker_syms.txt);
-# main is the game's func_0012BF40.
+# main is the game's main_3_0012BF40.
 #
 # The module's .bss (0x144): the argument block _start hands main, argc then
 # argv's sixteen pointers and the 256 bytes they point into.
@@ -138,7 +138,7 @@ _start:
     lui $2, %hi(_args)
     addiu $2, $2, %lo(_args)
     lw $4, 0x0($2)
-    jal func_0012BF40
+    jal main_3_0012BF40
     addiu $5, $2, 0x4
     j Exit
     or $4, $2, $0

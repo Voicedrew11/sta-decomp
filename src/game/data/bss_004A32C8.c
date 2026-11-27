@@ -2,13 +2,13 @@
 
 /* bss_004A32C8: the game's .bss from 0x004A32C8, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_0019B590, func_0019DF80, func_0019DF90, func_0019E090,
-   func_0019E2F0, func_0019E400, func_0019EF60, func_0019F050, func_0019F310,
-   func_0019F410, func_0019F690, func_0019F890, func_0019FA00, func_001A03C0,
-   func_001A06B0, func_001A0850, func_001A0B00, func_001A0DB0, func_001A1000,
-   func_001A1380, func_001A13F0, func_001A1460, func_001A1550, func_001A1B40,
-   func_001A1C80, func_001A2DE0, func_001A2EA0, func_001A2FF0, func_001A30E0,
-   func_001A31E0, func_001A32A0, func_001A3380, func_001A35B0,
+/* used by: Hud_HandleInput_0_0019B590, ItemMenu_Reset_0_0019DF80, Status_Draw_0_0019DF90, Status_DrawStats_0_0019E090,
+   PauseMenu_Open_0_0019E2F0, PauseMenu_Update_0_0019E400, Notify_DrawBackground_0_0019EF60, Notify_DrawItemGet_0_0019F050, Notify_DrawItemName_0_0019F310,
+   Notify_DrawItemCount_0_0019F410, Notify_DrawItemCountB_0_0019F690, Notify_DrawGold_0_0019F890, Notify_DrawItemGold_0_0019FA00, Shop_SelectItem_0_001A03C0,
+   Shop_Confirm_0_001A06B0, Shop_BuyQuantity_0_001A0850, Shop_SellQuantity_0_001A0B00, Shop_Repair_0_001A0DB0, Shop_Heal_0_001A1000,
+   ShopProc_BackA_0_001A1380, ShopProc_BackB_0_001A13F0, Shop_Draw_0_001A1460, Shop_DrawStatus_0_001A1550, Shop_Open_1_001A1B40,
+   Shop_Update_0_001A1C80, Shop_ResetPrices_0_001A2DE0, Shop_RecalcPrices_0_001A2EA0, ShopProc_Pos_0_001A2FF0, Storage_Draw_0_001A30E0,
+   Storage_DrawStatus_0_001A31E0, Storage_Open_0_001A32A0, Storage_Update_0_001A3380, Title_LoadGame_0_001A35B0,
    text_0019FD00.s, text_001A1C80.s */
 
 f32 D_004A4370[0x1];

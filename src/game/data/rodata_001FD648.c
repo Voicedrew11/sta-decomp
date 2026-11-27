@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FD648: the game's data at 0x001FD648..., one object per label. */
-/* used by: func_0019E780, func_0019E7C0, func_0019EA60 */
+/* used by: PauseMenu_GetEntry_0_0019E780, Pause_DrawText_2_0019E7C0, GameOverProc_DrawText_0_0019EA60 */
 #pragma explicit_zero_data on
 
 const u8 D_001FD648[0x7] = "OPTION\000";

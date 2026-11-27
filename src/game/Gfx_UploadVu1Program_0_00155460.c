@@ -1,0 +1,68 @@
+#include "m2c.h"
+typedef struct { u8 b0:6; u8 b6:1; u8 b7:1; } B;
+extern u32 D_002F1940[];
+extern u32 D_002F1944[];
+extern s32 D_002F1948[];
+extern u32 D_002F1990[];
+extern u32 D_002F1994[];
+extern u32 D_002F1998[];
+extern u32 D_002F199C[];
+extern u32 D_002F19A0[];
+extern u32 D_002F19A4[];
+extern u32 D_002F19A8[];
+extern u32 D_002F19AC[];
+extern u32 D_00201F54, D_00201F50, D_00201F4C, D_00201F48, D_00201F44, D_00201F40, D_00201F3C, D_00201F38;
+extern s8 D_4A0[], D_4B0[], D_1B90[], D_2710[], D_2770[], D_3C30[], D_3C70[];
+extern s8 D_001F4B80[];
+B *sceDmaGetChan(s32);
+void sceDmaSend(B *, s8 *);
+void FlushCache(s32);
+void Dma_SprCopy_1_001789E0(u32, u32, s32);
+static inline void chain(u32 *p) {
+    s32 i;
+    for (i = 0; i < 0xCC0; i++, p += 8) {
+        ((u128 *)p)[0] = 0;
+        ((u128 *)p)[1] = 0;
+        p[0] = 0x20000000;
+        p[1] = (u32)(p + 8) & 0x0FFFFFFF;
+        p[6] = (u32)p;
+        p[7] = (u32)(p + 8) & 0x0FFFFFFF;
+    }
+    *(u128 *)p = 0x70000000;
+}
+
+void Gfx_UploadVu1Program_0_00155460(u32 buf, u32 size) {
+    s32 i;
+    u32 *p;
+    B *b;
+
+    D_002F1940[0] = buf;
+    D_002F1944[0] = size;
+    D_002F19AC[0] = 0;
+    D_002F1990[0] = 0;
+    D_002F19A4[0] = ((size >> 5) - 0x1982) >> 1;
+    D_002F1994[0] = 0;
+    D_002F1998[0] = 0;
+    D_002F199C[0] = (buf + 0x19820) | 0x20000000;
+    D_002F19A0[0] = (buf + 0x33040 + D_002F19A4[0] * 32) | 0x20000000;
+    D_002F1948[0] = -1;
+    D_002F19A8[0] = D_002F19A0[0];
+    b = sceDmaGetChan(1);
+    b->b6 = 1;
+    sceDmaSend(b, D_001F4B80);
+    while (*(volatile u32 *)0x10009000 & 0x100) {
+    }
+    D_00201F54 = (u32)(D_4A0 - 0x4A0) >> 3; /* original: a symbol at address 0 (D_0); not in the ELF symbol list, same bytes */
+    D_00201F50 = (u32)D_4A0 >> 3;
+    D_00201F4C = (u32)D_4B0 >> 3;
+    D_00201F48 = (u32)D_1B90 >> 3;
+    D_00201F44 = (u32)D_2710 >> 3;
+    D_00201F40 = (u32)D_2770 >> 3;
+    D_00201F3C = (u32)D_3C30 >> 3;
+    D_00201F38 = (u32)D_3C70 >> 3;
+    chain((u32 *)D_002F199C[0]);
+    chain((u32 *)D_002F19A0[0]);
+    FlushCache(0);
+    Dma_SprCopy_1_001789E0((D_002F199C[0] - 0x19820) & 0x0FFFFFFF, D_002F199C[0] & 0x0FFFFFFF, 0x1982);
+    Dma_SprCopy_1_001789E0((D_002F19A0[0] - 0x19820) & 0x0FFFFFFF, D_002F19A0[0] & 0x0FFFFFFF, 0x1982);
+}

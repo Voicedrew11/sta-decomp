@@ -2,15 +2,15 @@
 
 /* bss_004A0B0C: the game's .bss from 0x004A0B0C, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_00188F80, func_00189F00, func_00189F40, func_0018A200,
-   func_0018A320, func_0018A330, func_0018A350, func_0018A410, func_0018A650,
-   func_0018ACA0, func_0018AEB0, func_0018B0C0, func_0018B110, func_0018B180,
-   func_0018B2E0, func_0018B320, func_0018B860, func_0018C4C0, func_0018C590,
-   func_0018C8B0, func_0018CA20, func_0018D060, func_0018D140, func_0018D1F0,
-   func_0018D360, func_0018D420, func_0018D7B0, func_0018DA20, func_0018DFB0,
-   func_0018E0B0, func_0018E450, func_0018E460, func_0018EC40, func_0018EDA0,
-   func_0018F0D0, func_0018F490, func_0018F940, func_0018FFE0, func_001907D0,
-   func_00190A50, func_00190DC0, func_00191110, text_0018B860.s */
+/* used by: Menu_ResetTimers_0_00188F80, Camera_SetShake_0_00189F00, Menu_Draw_1_00189F40, Menu_Update_1_0018A200,
+   Menu_GetMode_1_0018A320, Menu_SetSubMode_0_0018A330, Menu_Open_1_0018A350, Menu_SetParam_0_0018A410, Pause_Update_0_0018A650,
+   Msg_Draw_0_0018ACA0, Msg_Show_1_0018AEB0, Msg_Close_1_0018B0C0, Msg_GetAlpha_0_0018B110, MenuProc_DrawList_0_0018B180,
+   MenuProc_CheckReady_0_0018B2E0, MenuProc_Run_1_0018B320, MenuProc_DrawItemList_0_0018B860, SaveMenu_HandleEvent_0_0018C4C0, SaveMenu_SelectSlot_0_0018C590,
+   SaveMenu_ConfirmOverwrite_0_0018C8B0, SaveMenu_Save_0_0018CA20, SaveMenu_ConfirmLoad_0_0018D060, SaveMenu_Exit_0_0018D140, SaveMenu_DrawFrame_0_0018D1F0,
+   SaveMenu_Open_1_0018D360, SaveMenu_DrawSlot_1_0018D420, SaveMenu_SelectDevice_0_0018D7B0, SaveMenu_Load_0_0018DA20, SaveMenu_CheckCard_0_0018DFB0,
+   SaveMenu_Retry_0_0018E0B0, Menu_RestoreOptions_1_0018E450, Menu_SaveOptions_1_0018E460, Option_QuitGame_0_0018EC40, Option_ScreenSetting_1_0018EDA0,
+   Option_ControllerSetting_1_0018F0D0, Option_SoundSetting_1_0018F490, Option_MainMenu_0_0018F940, Option_Open_0_0018FFE0, OptionProc_DrawKeyAssign_1_001907D0,
+   OptionProc_DrawSound_0_00190A50, OptionProc_DrawScreen_0_00190DC0, OptionProc_DrawController_0_00191110, text_0018B860.s */
 
 s32 D_004A108C[0x1];
 s32 D_004A1088[0x1];

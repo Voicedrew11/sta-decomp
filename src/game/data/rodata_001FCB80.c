@@ -1,8 +1,8 @@
 #include "common.h"
 
 /* rodata_001FCB80: the game's data at 0x001FCB80..., one object per label. */
-/* used by: func_00186990, func_00187B20, func_00188830, func_0018B380,
-   func_0018BCC0 */
+/* used by: MenuProc_DrawStatValue_0_00186990, Menu_DrawBackground_0_00187B20, Font_Load_3_00188830, MenuProc_DrawConfirm_0_0018B380,
+   SaveMenu_DrawSlotInfo_2_0018BCC0 */
 #pragma explicit_zero_data on
 
 const s8 D_001FCB80[0x8] __attribute__((aligned(16))) = "%d\000\000\000\000\000\000";

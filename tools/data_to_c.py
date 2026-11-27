@@ -28,6 +28,9 @@ import struct
 import sys
 from collections import defaultdict
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from names import is_func  # noqa: E402
+
 
 ROOT = Path(__file__).resolve().parent.parent
 LINE = re.compile(r"/\* \w+ ([0-9A-F]{8})(?: ([0-9A-F]+))? \*/\s+\.(word|short|byte)\s+(.*)$")
@@ -428,7 +431,7 @@ def unit_text(src, labels):
            "#pragma explicit_zero_data on", ""]
     ext = []
     for s in sorted(need):
-        if s.startswith("func_"):
+        if is_func(s):
             ext.append(f"void {s}(void);")
         elif s not in own:
             ext.append(f"extern u8 {s}[];")

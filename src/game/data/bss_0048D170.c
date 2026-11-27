@@ -2,8 +2,8 @@
 
 /* bss_0048D170: the game's .bss from 0x0048D170, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_001832D0, func_001833E0, func_00187B20, func_00188830,
-   func_00189EA0, func_00189ED0, text_00188010.s */
+/* used by: Ui_DrawElemAt_0_001832D0, Ui_LoadItemImageSmall_3_001833E0, Menu_DrawBackground_0_00187B20, Font_Load_3_00188830,
+   MenuStack_Pop_1_00189EA0, MenuStack_Push_1_00189ED0, text_00188010.s */
 
 s32 D_00497B60[0x8];
 u8 D_00496B60[0x1000];

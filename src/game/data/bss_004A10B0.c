@@ -2,16 +2,16 @@
 
 /* bss_004A10B0: the game's .bss from 0x004A10B0, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_0018E480, func_0018EAE0, func_0018EC40, func_0018EDA0,
-   func_0018F0D0, func_0018F490, func_0018F940, func_0018FFE0, func_00190A50,
-   func_00190DC0, func_00191110, func_00191420, func_00191820, func_00191C40,
-   func_00191CB0, func_00192900, func_001929C0, func_00192E90, func_00192F70,
-   func_00193070, func_001937E0, func_00193850, func_00193880, func_001939B0,
-   func_00193AF0, func_00193E80, func_00194150, func_001942E0, func_00194440,
-   func_001945B0, func_00194B90, func_00194C20, func_00194D20, func_00195E30,
-   func_00195F70, func_00196940, func_00196E20, func_00196F90, func_001979C0,
-   func_00197B80, func_00197DD0, func_00198160, func_00198570, func_00198BE0,
-   func_00198D80, func_00198F30, func_00199000, text_00196330.s,
+/* used by: Hud_Draw_0_0018E480, Option_Update_2_0018EAE0, Option_QuitGame_0_0018EC40, Option_ScreenSetting_1_0018EDA0,
+   Option_ControllerSetting_1_0018F0D0, Option_SoundSetting_1_0018F490, Option_MainMenu_0_0018F940, Option_Open_0_0018FFE0, OptionProc_DrawSound_0_00190A50,
+   OptionProc_DrawScreen_0_00190DC0, OptionProc_DrawController_0_00191110, OptionProc_DrawMain_0_00191420, Option_LerpLayout_0_00191820, OptionProc_Back_0_00191C40,
+   LoadMenu_DrawList_0_00191CB0, LoadMenu_HandleEvent_0_00192900, LoadMenu_SelectSlot_0_001929C0, LoadMenu_CheckCard_1_00192E90, LoadMenu_ConfirmLoad_0_00192F70,
+   LoadMenu_Load_0_00193070, LoadMenu_Retry_0_001937E0, LoadMenu_SetFromTitle_0_00193850, LoadMenu_DrawFrame_0_00193880, LoadMenu_Open_0_001939B0,
+   LoadMenu_DrawSlot_1_00193AF0, LoadMenu_SelectDevice_0_00193E80, LoadMenu_SelectSlotB_0_00194150, LoadMenu_Format_0_001942E0, LoadMenu_WaitCard_0_00194440,
+   LoadMenu_LoadB_0_001945B0, LoadMenu_BackB_0_00194B90, LoadMenu_CheckCardB_0_00194C20, LoadMenu_RetryB_0_00194D20, DbChar_Draw_0_00195E30,
+   DbChar_DrawStats_1_00195F70, DbChar_Update_0_00196940, DbItem_Draw_0_00196E20, DbItem_DrawStats_0_00196F90, DbItem_Open_0_001979C0,
+   DbItem_Update_0_00197B80, DbItem_ResetLayout_0_00197DD0, DbMap_Draw_0_00198160, DbMapProc_DrawInfo_1_00198570, DbMap_Update_0_00198BE0,
+   DbMap_ResetLayout_0_00198D80, DbMap_GetListName_1_00198F30, DbMap_BuildList_1_00199000, text_00196330.s,
    text_001973F0.s */
 
 f32 D_004A18B8[0x2];

@@ -159,11 +159,11 @@ in C) under every candidate and compares them with the retail bytes:
 | ee-gcc 2.96 `-O2 -G 8` | | 3 |
 | ee-gcc 2.9 `-O2 -G 8` | | 1 |
 
-What separates them: 2.x fills a delay slot differently (func_0013DCE0);
-3.0.1b44 and later schedule loads and stores differently (func_001DF960);
-3.0 to 3.0.3 allocate registers differently (func_0017DC70); only `-O4,p`
-unrolls func_00175C80's loop that way. The gcc modules reload a global
-pointer after every store through it (func_001E2A48), which only
+What separates them: 2.x fills a delay slot differently (Enemy_GetModelData_1_0013DCE0);
+3.0.1b44 and later schedule loads and stores differently (PlayTime_Resume_1_001DF960);
+3.0 to 3.0.3 allocate registers differently (MapCmd_GetObjectVar_0_0017DC70); only `-O4,p`
+unrolls TexAnim_Init_0_00175C80's loop that way. The gcc modules reload a global
+pointer after every store through it (GsText_SetScaleVec_0_001E2A48), which only
 `-fno-strict-aliasing` gives.
 
 b38, b50 and b52 are not told apart. On 46 objects of kfiv-decomp's C, b50
@@ -206,7 +206,7 @@ How well that works, measured (2026-11-24):
   Mc_StepRead, Mc_StepCheck, Mc_StepGetDir, Mc_Update, ...); the other nine
   differ in a few lines. Also shared: the VU0 distance/transform routines
   (inline asm in holyland, so they stay asm here), Display_BuildProjection
-  (func_00178870, now in C, one operation changed), and fragments of KFIV's
+  (Display_BuildProjection_4_00178870, now in C, one operation changed), and fragments of KFIV's
   VU1 microprograms in sta's game data.
 
 So the method is worth running per subsystem, not per function: a large

@@ -8,7 +8,7 @@
 
 typedef struct Actor {
     u8 pad000[0x81];
-    u8 unk81;           /* count; 0 means none (func_0013FB90) */
+    u8 unk81;           /* count; 0 means none (Enemy_GetCollider_0_0013FB90) */
     u8 unk82[0x426];    /* indexed by u8 into the unk51C table; real length unknown */
     s32 unk4A8;
     u16 unk4AC;

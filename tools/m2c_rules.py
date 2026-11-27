@@ -63,11 +63,11 @@ def callee_prototypes(c):
     """m2c_diffs: callers pass narrow loads and casts to narrow parameters
     (u8 getters around 0x143920, s16/s8 wrappers, s64 at 0x17DEA0). Declare
     each called func_ with the argument types and drop the casts."""
-    defined = set(re.findall(r"^[^\s].*\b(func_[0-9A-F]{8})\(.*\) \{$", c, re.M))
-    declared = set(re.findall(r"^[^\s].*\b(func_[0-9A-F]{8})\(.*\);", c, re.M))
+    defined = set(re.findall(r"^[^\s].*\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\(.*\) \{$", c, re.M))
+    declared = set(re.findall(r"^[^\s].*\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\(.*\);", c, re.M))
     protos, narrowed = {}, {}
     out, i = [], 0
-    for m in re.finditer(r"\b(func_[0-9A-F]{8})\(", c):
+    for m in re.finditer(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\(", c):
         name = m.group(1)
         if name in defined or name in declared or m.start() < i:
             continue
@@ -98,7 +98,7 @@ def callee_prototypes(c):
     c = "".join(out)
     # a cast of one of our own arguments: take that argument narrow
     for a, t in narrowed.items():
-        c = re.sub(r"(\bfunc_[0-9A-F]{8}\([^)]*?)\bs32 %s\b" % a, lambda m: m.group(1) + f"{t} {a}", c, count=1)
+        c = re.sub(r"(\b(?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}\([^)]*?)\bs32 %s\b" % a, lambda m: m.group(1) + f"{t} {a}", c, count=1)
     if protos:
         lines = [f"s32 {n}({', '.join(t) if t else 'void'});" for n, t in protos.items()]
         # keep the return type m2c used if the call's value is unused
@@ -260,7 +260,7 @@ def cast_returns(c):
     """LEDGER: a caller that narrows a call's result (`(u8) f()`, an extension
     after the jal) calls a function returning s32 (func_00140DE0,
     func_001442F0); declare those callees so."""
-    names = sorted(set(re.findall(r"\((?:u8|s8|u16|s16)\) (func_[0-9A-F]{8})\(", c)))
+    names = sorted(set(re.findall(r"\((?:u8|s8|u16|s16)\) ((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\(", c)))
     names = [n for n in names if not re.search(r"^[^\s].*\b%s\(" % n, c, re.M)]
     if not names:
         return c

@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FD610: the game's data at 0x001FD610..., one object per label. */
-/* used by: func_0019E780 */
+/* used by: PauseMenu_GetEntry_0_0019E780 */
 #pragma explicit_zero_data on
 
 const u8 D_001FD610[0x5] = "ITEM\000";

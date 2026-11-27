@@ -1,0 +1,40 @@
+#include "m2c.h"
+typedef struct { u8 p : 5; u8 v : 1; } BF;
+extern f32 D_001F2160[];
+s8 *ActorList_Next_2_001A5460(s32 *);
+u32 Enemy_GetCurrentParamIdx_0_0013E110(s8 *);
+void sceVu0AddVector(f32 *, f32 *, f32 *);
+void sceVu0SubVector(f32 *, f32 *, f32 *);
+void sceVu0CopyVector(f32 *, f32 *);
+void Fx_GetWorldMatrix_1_00163C80(s8 *, f32 *);
+void Mtx_LookDir_1_00146020(s8 *, f32, f32, f32);
+
+void FxProc_FollowEnemy_0_001489B0(s8 *a0) {
+    f32 c[4] __attribute__((aligned(16)));
+    f32 b[4] __attribute__((aligned(16)));
+    f32 a[4] __attribute__((aligned(16)));
+    f32 m[16] __attribute__((aligned(16)));
+    s32 it;
+    u16 id;
+    s8 *p;
+
+    it = 0;
+    id = (u32)*(f32 *)(a0 + 0x60);
+    do {
+        p = ActorList_Next_2_001A5460(&it);
+    } while (p != NULL && *(u16 *)p != id);
+    if (p != NULL) {
+        *(f32 *)(a0 + 0xB8) = Enemy_GetCurrentParamIdx_0_0013E110(p);
+    } else {
+        *(f32 *)(a0 + 0xB8) = 0.0f;
+    }
+    sceVu0AddVector(a, p != NULL ? (f32 *)(*(s32 *)(p + 0x518) + 0x90) : D_001F2160, (f32 *)(a0 + 0x50));
+    if (((BF *)(a0 + 0x114))->v) {
+        Fx_GetWorldMatrix_1_00163C80(a0, m);
+        sceVu0CopyVector(b, m + 12);
+    } else {
+        sceVu0CopyVector(b, (f32 *)a0);
+    }
+    sceVu0SubVector(c, a, b);
+    Mtx_LookDir_1_00146020(a0 + 0xC0, c[0], c[1], c[2]);
+}

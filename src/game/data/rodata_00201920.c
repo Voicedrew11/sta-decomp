@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_00201920: the game's data at 0x00201920..., one object per label. */
-/* used by: func_001E88C0, func_001EC3E0 */
+/* used by: MovieFile_Open_3_001E88C0, Movie_Shutdown_1_001EC3E0 */
 #pragma explicit_zero_data on
 
 const s32 D_00201920[0x8] = { 0x53656373, 0x72466669, 0x6f496565, 0x61654870, 0x72452070, 0x20726f72, 0x25207325, 0xa64 };

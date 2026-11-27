@@ -45,7 +45,7 @@ def compare(obj: Path, rom: bytes, verbose: bool) -> dict:
                 masks[(s["sh_info"], r["r_offset"] & ~3)] = MASK.get(r["r_info_type"], 0)
     out = {}
     for sym in e.get_section_by_name(".symtab").iter_symbols():
-        m = re.fullmatch(r"func_([0-9A-F]{8})", sym.name)
+        m = re.fullmatch(r"(?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})", sym.name)
         if not m or sym["st_info"]["type"] != "STT_FUNC":
             continue
         si = sym["st_shndx"]       # CodeWarrior gives each function its own .text
@@ -92,7 +92,7 @@ def ee(gcc: str, flags: str, src: Path, obj: Path) -> bool:
 def defined(src: Path) -> int:
     """Functions a probe file defines (a definition starts in column 0)."""
     return sum(1 for l in src.read_text().splitlines()
-               if re.match(r"[A-Za-z].*\bfunc_[0-9A-F]{8}\(", l) and not l.rstrip().endswith(");"))
+               if re.match(r"[A-Za-z].*\b(?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}\(", l) and not l.rstrip().endswith(");"))
 
 
 def row(label: str, results: dict, total: int) -> None:

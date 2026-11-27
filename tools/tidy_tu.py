@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import merge_tu as MT     # noqa: E402
 
 ROOT = MT.ROOT
-PART_TYPE = re.compile(r"^(\w+?)_(func_[0-9A-F]{8}|text_\w+)$")
+PART_TYPE = re.compile(r"^(\w+?)_((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}|text_\w+)$")
 
 
 def matches(path, text):

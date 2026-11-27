@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_00201A50: the game's data at 0x00201A50..., one object per label. */
-/* used by: func_001EC5E0, func_001EDCC0 */
+/* used by: Movie_Init_1_001EC5E0, Ending_HandleEvent_0_001EDCC0 */
 #pragma explicit_zero_data on
 
 void func_00100000(void);
