@@ -4,7 +4,8 @@ typedef struct { s32 x0; s32 x4; s32 x8; u16 xC; u16 xE; } B;
 typedef struct { s8 x0; s8 x1; s8 x2; s8 x3; } C;
 extern struct { char pad[0x200]; B b[8]; C c[64]; } D_004BA500;
 extern s32 D_004BA4F8[];
-extern s16 D_004BA300[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s16 D_004BA300[0xfc];
 extern s32 D_00202320;
 extern s32 D_00202324;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; } R;

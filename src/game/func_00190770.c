@@ -1,6 +1,10 @@
 #include "common.h"
-
-extern s32 D_001F2B40[];
+extern u8 D_001FCE08[];
+extern u8 D_001FCE18[];
+extern u8 D_001FCE30[];
+extern u8 D_001FCE50[];
+#pragma explicit_zero_data on
+s32 D_001F2B40[0x4] = { (s32)D_001FCE08, (s32)D_001FCE18, (s32)D_001FCE30, (s32)D_001FCE50 };
 
 s32 func_00190770(s32 x)
 {

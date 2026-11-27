@@ -1,5 +1,6 @@
 #include "m2c.h"
-extern s32 D_004A18C0[0x400];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_004A18C0[0x63];
 void *func_001AFC90(void);
 s32 func_0019D510(s32);
 s32 func_00187130(s32, s32);

@@ -11,7 +11,8 @@ void memset(void *, s32, s32);
 void strcpy(s8 *, s8 *);
 void memcpy(void *, void *, s32);
 void func_001E85E0(s32, s32, void *, s8 *, s32);
-extern s8 D_00209700[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s8 D_00209700[0x470];
 extern s8 D_001FAAE8[];
 
 s32 D_001F1AF0[0x10] = { 0, 0, 0, 0, 8, 0x40, 0x20, 0 };

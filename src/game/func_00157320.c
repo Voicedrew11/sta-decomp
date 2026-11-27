@@ -1,4 +1,7 @@
 #include "m2c.h"
+#include "common.h"
+
+/* func_00157320 */
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 extern s32 D_00201F2C;
 extern f32 D_00201E90;
@@ -60,4 +63,11 @@ void func_00157320(s32 a0) {
     } while (i < 0x280);
     func_00154A70();
     func_00176AE0();
+}
+
+/* func_00157620 */
+extern s32 D_002F1AE0[];
+
+s32 *func_00157620(void) {
+    return D_002F1AE0;
 }

@@ -2,7 +2,8 @@
 
 typedef struct { f32 v[8]; } M;
 extern M D_004BA880[5];
-extern M D_004BA900;
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+M D_004BA900;
 s32 func_001D8350(s32 a, s32 b, s32 c, s32 d, s32 e, M *m);
 
 s32 func_001DA720(s32 i)

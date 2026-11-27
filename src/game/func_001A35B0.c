@@ -18,7 +18,8 @@ extern s32 D_004A4364[];
 extern void *D_004A4368[];
 extern s32 D_004A436C[];
 extern f32 D_004A4370[];
-extern s32 D_004A4374[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_004A4374[0x7] __attribute__((aligned(4)));
 extern f32 D_004A4378[];
 s32 func_00180110(void);
 s32 func_001801F0(s32);

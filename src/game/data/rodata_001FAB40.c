@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FAB40: the game's data at 0x001FAB40..., one object per label. */
+/* used by: func_0012BC80, func_0012DA90, text.s, text_0012E3C0.s */
 #pragma explicit_zero_data on
 
 const u8 D_001FAB40[0x18] = "\\TARGET\\STAZ.STZ\000\000\000\000\000\000\000\000";

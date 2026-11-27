@@ -1,0 +1,71 @@
+#include "common.h"
+
+/* bss_004A10B0: the game's .bss from 0x004A10B0, defined from the top down
+   (CodeWarrior writes uninitialised objects in reverse order). */
+/* used by: func_0018E480, func_0018EAE0, func_0018EC40, func_0018EDA0,
+   func_0018F0D0, func_0018F490, func_0018F940, func_0018FFE0, func_00190A50,
+   func_00190DC0, func_00191110, func_00191420, func_00191820, func_00191C40,
+   func_00191CB0, func_00192900, func_001929C0, func_00192E90, func_00192F70,
+   func_00193070, func_001937E0, func_00193850, func_00193880, func_001939B0,
+   func_00193AF0, func_00193E80, func_00194150, func_001942E0, func_00194440,
+   func_001945B0, func_00194B90, func_00194C20, func_00194D20, func_00195E30,
+   func_00195F70, func_00196940, func_00196E20, func_00196F90, func_001979C0,
+   func_00197B80, func_00197DD0, func_00198160, func_00198570, func_00198BE0,
+   func_00198D80, func_00198F30, func_00199000, text_00196330.s,
+   text_001973F0.s */
+
+f32 D_004A18B8[0x2];
+s32 D_004A18B0[0x2];
+u32 D_004A18AC[0x1];
+f32 D_004A18A0[0x3];
+f32 D_004A189C[0x1];
+u8 D_004A1884[0x18] __attribute__((aligned(4))); /* also D_004A1888 */
+s8 D_004A1870[0x14];
+s8 D_004A1770[0x100];
+s32 D_004A1450[0xc8];
+u8 D_004A1440[0x10]; /* also D_004A1444 */
+f32 D_004A143C[0x1];
+s32 D_004A1438[0x1];
+s32 D_004A1434[0x1];
+s32 D_004A1430[0x1];
+u8 D_004A142C[0x4];
+u8 D_004A1420[0xc];
+u8 D_004A141C[0x4];
+u8 D_004A1404[0x18] __attribute__((aligned(4))); /* also D_004A1408 */
+u8 D_004A13F0[0x14];
+s32 D_004A13E0[0x4];
+u8 D_004A13DC[0x4];
+u8 D_004A13D0[0xc];
+u8 D_004A13CC[0x4];
+u8 D_004A13B4[0x18] __attribute__((aligned(4))); /* also D_004A13B8 */
+u8 D_004A13A0[0x14];
+s32 D_004A11A0[0x80];
+s32 D_004A119C[0x1];
+s32 D_004A1198[0x1];
+u8 D_004A1194[0x4];
+f32 D_004A1190[0x1];
+u8 D_004A118C[0x4];
+s32 D_004A1188[0x1];
+s32 D_004A1184[0x1];
+u8 D_004A1180[0x4];
+u8 D_004A1150[0x30]; /* also D_004A1168 */
+u8 D_004A1140[0x10];
+f32 D_004A113C[0x1];
+f32 D_004A1138[0x1];
+s32 D_004A1130[0x2];
+s32 D_004A112C[0x1];
+s32 D_004A1128[0x1];
+s32 D_004A1124[0x1];
+s32 D_004A1120[0x1];
+s32 D_004A10F0[0xc];
+s32 D_004A10E8[0x2];
+s32 D_004A10E4[0x1];
+s32 D_004A10E0[0x1];
+u8 D_004A10DC[0x4];
+f32 D_004A10D8[0x1];
+s32 D_004A10D4[0x1];
+s32 D_004A10D0[0x1];
+u8 D_004A10C8[0x8];
+u8 D_004A10C4[0x4];
+s32 D_004A10C0[0x1];
+f32 D_004A10B0[0x4];

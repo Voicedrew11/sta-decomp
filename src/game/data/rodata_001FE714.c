@@ -1,6 +1,8 @@
 #include "common.h"
 
 /* rodata_001FE714: the game's data at 0x001FE714..., one object per label. */
+/* used by: func_001DD650, func_001DDA20, func_001DE2D0, text_001DDA20.s,
+   text_001DE2D0.s */
 #pragma explicit_zero_data on
 
 const s32 D_001FE714[0x7] __attribute__((aligned(4))) = { 0, 0x48535550, 0x41545320, 0x5452, 0, 0, 0 };

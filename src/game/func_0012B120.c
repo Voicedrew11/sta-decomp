@@ -42,7 +42,8 @@ extern s32 D_00222A30[];
 extern s32 D_00222A34[];
 extern s32 D_00222A38[];
 extern s32 D_00222A3C[];
-extern s8 D_00222A80[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s8 D_00222A80[0x70];
 extern s8 D_00222AF0[];
 extern s8 D_00222B20[];
 extern s32 D_00222B5C[];

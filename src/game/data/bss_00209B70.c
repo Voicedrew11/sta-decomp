@@ -1,0 +1,16 @@
+#include "common.h"
+
+/* bss_00209B70: the game's .bss from 0x00209B70, defined from the top down
+   (CodeWarrior writes uninitialised objects in reverse order). */
+/* used by: func_00128F10, func_0012A070, func_0012A520, func_0012B350,
+   func_0012BC80 */
+
+s32 D_00222748[0x2];
+s32 D_00222744[0x1];
+s32 D_00222740[0x1];
+s32 D_0022273C[0x1];
+s32 D_00222738[0x1];
+s32 D_00222734[0x1];
+s32 D_00222730[0x1];
+u8 D_00222700[0x30];
+u8 D_00209B70[0x18b90];

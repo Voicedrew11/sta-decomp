@@ -174,7 +174,11 @@ def target_text(src: str) -> str:
         text = TARGET_HEAD + "".join(f.read_text() for f in funcs[:-1])
         text += "".join(trimmed(f) for f in funcs[-1:])
     else:
-        text = TARGET_HEAD + "".join(trimmed(f) for f in funcs)
+        # a unit of several functions keeps the fill between them (each
+        # function is a section of its own, at its alignment); only the fill
+        # after the last one is not the C object's
+        text = TARGET_HEAD + "".join(f.read_text() for f in funcs[:-1])
+        text += "".join(trimmed(f) for f in funcs[-1:])
     mwcc = not src.startswith(("src/sce/", "src/game/ee/"))
     for d in datas:
         raw = d.read_text()

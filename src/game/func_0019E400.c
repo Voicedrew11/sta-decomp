@@ -11,7 +11,8 @@ void func_0012F6E0(s32);
 void func_0012C260(void);
 extern s32 D_00202204;
 extern s32 D_00202208;
-extern f32 D_004A32B0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_004A32B0[0x6];
 extern s32 D_004A32C8[];
 extern s32 D_004A32CC[];
 

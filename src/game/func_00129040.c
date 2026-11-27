@@ -29,7 +29,8 @@ extern DBuff D_002F1160;
 extern s32 D_00201F2C;
 extern f32 D_00222850[];
 extern f32 D_001F2170[];
-extern char D_00222750[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+char D_00222750[0x40];
 extern u64 D_00222A60[];
 extern u64 D_00222A68[];
 extern u64 D_00222A70[];

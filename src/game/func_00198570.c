@@ -1,4 +1,12 @@
 #include "common.h"
+#include "m2c.h"
+void func_00198570();
+void func_00198BD0(s32 arg0);
+void func_00198BE0();
+void func_00198D80(void);
+
+/* func_00198570 */
+#define P P_func_00198570
 typedef union {
     u32 w;
     struct { u8 r, g, b, a; } c;
@@ -24,7 +32,7 @@ void sprintf(s8 *, s8 *, ...);
 void strcpy(s8 *, s8 *);
 G *func_001C9BA0(void);
 P *func_00189020(s32);
-s32 func_001AA440(s32);
+s32 func_001AA440(u32);
 u16 func_001AA090(s32);
 u16 func_001A9FF0(s32);
 s32 func_001959E0(s32);
@@ -161,3 +169,125 @@ void func_00198570(A *o, s32 mode, u32 kind) {
         }
     }
 }
+#undef P
+
+/* func_00198BD0 */
+void func_00198BD0(s32 arg0) {
+    func_00198BE0((void *) arg0);
+}
+
+/* func_00198BE0 */
+typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } M;
+extern s32 D_002021A8;
+extern s32 D_004A1450[];
+extern s32 D_004A18B0[];
+extern f32 D_004A18B8[];
+void func_00199000(void);
+void func_00198D80(void);
+void func_001803D0(s32, s32);
+void func_00131600(s32, s32);
+void func_0017F7C0(s32, s32, s32);
+s32 func_0017F470(f32, s32, s32);
+void func_00183970(s32);
+
+void func_00198BE0(M *m) {
+    s32 sel;
+    s32 old;
+    switch (m->x0) {
+    case 0x19:
+        D_004A18B0[0] = 0;
+        func_00199000();
+        func_00198D80();
+        break;
+    case 0x16:
+        old = D_004A18B0[0];
+        sel = old;
+        if (m->x4 & 0x4000) {
+            func_001803D0(-2, -2);
+            func_00131600(0x69, m->xE);
+            m->x8 = 0x18;
+            m->x4 = 0;
+            m->x0 = 0x1A;
+            func_0017F7C0(0, 0, 1);
+            return;
+        }
+        if (m->x4 & 0x10) {
+            sel = old - 1;
+        } else if (m->x4 & 0x40) {
+            sel = old + 1;
+        }
+        if (D_002021A8 != 0) {
+            sel = (sel + D_002021A8) % D_002021A8;
+        }
+        if (func_0017F470(old, 0, 0)) {
+            if (D_004A18B0[0] != sel) {
+                func_00131600(0x66, m->xE);
+            }
+            D_004A18B0[0] = sel;
+        } else {
+            D_004A18B8[0] = 10.0f;
+        }
+        break;
+    }
+    func_00183970(D_004A1450[D_004A18B0[0]] * 10);
+}
+
+/* func_00198D80 */
+#define P P_func_00198D80
+typedef struct { u128 q[2]; } Q2;
+typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef struct { s32 x0; u32 n; } P;
+void func_0017F890(s32, Q2 *, Arg *);
+void func_0017F7C0(s32, s32, s32);
+s32 func_0017F470(f32, s32, s32);
+void func_001803D0(s32, s32);
+P *func_001958E0(void);
+s32 func_001AA440(u32);
+void func_00198F30(void);
+void func_00199110(void);
+extern Q2 D_001F2FC0;
+extern u32 D_002021A4;
+extern s32 D_002021A8;
+extern u32 D_002022B8;
+extern s32 D_004A1450[];
+extern s32 D_004A18B0[];
+
+void func_00198D80(void) {
+    Q2 q;
+    Arg a;
+    P *p;
+    u32 i;
+    u32 j;
+    s32 cnt;
+    s32 found;
+
+    func_001803D0(D_002022B8 / 10, -2);
+    p = func_001958E0();
+    if (p != 0) {
+        cnt = 0;
+        for (i = 1; i < p->n + 1; i++) {
+            found = 0;
+            for (j = 0; j < 10; j++) {
+                if (func_001AA440(j + i * 10)) {
+                    found = 1;
+                }
+            }
+            if (found) {
+                cnt++;
+            }
+        }
+        D_002021A4 = (u32)(cnt * 100) / p->n;
+        q = D_001F2FC0;
+        a.p = (s32)D_004A1450;
+        a.fn = func_00198F30;
+        a.f = -3.0f;
+        a.cb = func_00199110;
+        a.a = 0;
+        a.b = 0;
+        a.n = D_002021A8;
+        func_0017F890(0, &q, &a);
+        func_0017F7C0(0, 1, 1);
+        func_0017F470(D_004A18B0[0], 0, 1);
+    }
+}
+#undef P

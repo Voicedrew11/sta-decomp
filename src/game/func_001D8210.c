@@ -8,7 +8,8 @@ s32 sceSifCheckStatRpc(void *);
 void func_001D8BE0(void);
 extern char D_001FE6C0[];
 extern s32 D_004B9EF0[];
-extern u8 D_004B7EF0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+u8 D_004B7EF0[0x2000];
 extern s32 D_00201E38;
 extern s32 D_00202300;
 extern s32 _gp;

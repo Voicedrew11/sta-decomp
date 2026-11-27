@@ -1,7 +1,8 @@
 #include "common.h"
 extern u8 D_00202028;
 extern u32 D_0020202C;
-extern u16 D_00486100[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+u16 D_00486100[0x400];
 u32 func_00179720(u32 **pp, s32 n);
 static inline u32 gl(u32 **pp, u32 b) {
     if (func_00179720(pp, 1) == 0) return b + 1;

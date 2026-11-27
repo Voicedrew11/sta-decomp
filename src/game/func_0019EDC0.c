@@ -8,7 +8,8 @@ s32 func_00130590(s32, s32, s32);
 void func_0018E470(s32);
 void func_00189ED0(s32);
 void func_0012C320(void);
-extern s8 D_001FD680[];
+#pragma explicit_zero_data on
+const s8 D_001FD680[0x13] = "\\TARGET\\STA_GO.ADX\000";
 extern s32 D_0020220C;
 extern s32 D_00202210;
 extern s32 D_00202214;

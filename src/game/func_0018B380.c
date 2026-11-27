@@ -2,7 +2,8 @@
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef struct { s32 x0; s32 x4; u8 pad8[8]; f32 x10; f32 x14; f32 x18; s32 x1C; } P;
-extern S D_001F29F0 __attribute__((aligned(16)));
+#pragma explicit_zero_data on
+S D_001F29F0 = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f };
 extern s8 D_001FCCF0[];
 extern s8 D_001FCCF8[];
 void func_00181680(s32, s8 *, s8 *, Col *, S *, u32);

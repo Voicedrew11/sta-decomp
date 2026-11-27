@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FCB08: the game's data at 0x001FCB08..., one object per label. */
+/* used by: func_00185740, text_00185740.s */
 #pragma explicit_zero_data on
 
 const char D_001FCB08[0x10] __attribute__((aligned(8))) = "HP %4d/%4d\000\000\000\000\000\000";

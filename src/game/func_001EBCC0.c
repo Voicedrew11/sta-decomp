@@ -7,7 +7,8 @@ void memset(void *, s32, s32);
 s32 sceSifAllocIopHeap(s32);
 s32 sceSifDmaStat(s32);
 s32 sceSifSetDma(Dma *, s32);
-extern s32 D_004BD6C0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_004BD6C0[0x200];
 extern s32 D_004BE0D0[];
 
 s32 func_001EBCC0(S *a, s32 a1, s32 a2, s32 a3) {
