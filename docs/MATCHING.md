@@ -317,3 +317,13 @@ ee-gcc 2.96:
 Tools:
 - When the instruction count differs, align your build against retail with difflib on normalized opcodes; chk's positional word count is useless then.
 - chk.sh is not parallel-safe within one agent dir.
+
+### More tricks (round 4: game-match3)
+
+- **A call that skips an argument reload is a static callee in the same file**
+  (MWCC). Merge the callee and its callers into one TU and make the callee
+  `static`. A global definition is not enough (func_0013C740, func_0013CBC0).
+- **ee-gcc register swaps next to a call**: try the callee's return type.
+  `void` -> `u64` fixed func_001E52D0.
+- **ee-gcc: a `T **p = &G.f` local vs `*(&G.f)`** gives different
+  allocation (func_001E3B48).
