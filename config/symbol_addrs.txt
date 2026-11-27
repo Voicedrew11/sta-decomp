@@ -670,3 +670,4 @@ ignored_00462823 = 0x00462823; // ignore:True
 ignored_00471025 = 0x00471025; // ignore:True
 ignored_00480017 = 0x00480017; // ignore:True
 ignored_00480415 = 0x00480415; // ignore:True
+D_001FDA30 = 0x001FDA30; // type:asciz size:0x5

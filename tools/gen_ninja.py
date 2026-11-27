@@ -175,6 +175,7 @@ def target_text(src: str) -> str:
         text += "".join(trimmed(f) for f in funcs[-1:])
     else:
         text = TARGET_HEAD + "".join(trimmed(f) for f in funcs)
+    mwcc = not src.startswith(("src/sce/", "src/game/ee/"))
     for d in datas:
         raw = d.read_text()
         # ee-gcc keeps the alignment word after a jump table in its .rodata
@@ -185,8 +186,13 @@ def target_text(src: str) -> str:
     for a, b in TARGET_FIXUPS.get(src, []):
         assert a in text, f"{src}: no {a!r} to fix"
         text = text.replace(a, b)
-    if src.startswith("src/sce/"):
+    if not mwcc:
         text = unlabel(text)
+    else:
+        # jlabel makes each jump table target a global symbol, so objdiff
+        # resolves a target table entry to it and not to the function, as it
+        # does for CodeWarrior's (relocated against the function)
+        text = re.sub(r"^(\s*)jlabel (\.L\w+)\s*$", r"\1\2:", text, flags=re.M)
     return text if text.endswith("\n") else text + "\n"
 
 
@@ -250,6 +256,16 @@ def category(src: str) -> str:
     return "sce" if src.startswith("src/sce/") else "game"
 
 
+def is_mwcc(src: str) -> bool:
+    return src.startswith("src/game/") and not src.startswith("src/game/ee/")
+
+
+def objdiff_base(src: str) -> str:
+    """The object objdiff diffs for a C unit (tools/objdiff_base.py for
+    CodeWarrior units: data sections merged and paired by name)."""
+    return f"build/objdiff/{stem(src)}.o" if is_mwcc(src) else obj_for(src)
+
+
 def objdiff_config(srcs: list[str]) -> dict:
     units = []
     for s in srcs:
@@ -260,7 +276,7 @@ def objdiff_config(srcs: list[str]) -> dict:
             unit["target_path"] = obj_for(s)
         elif s.startswith("src/") and s.endswith(".c"):
             unit["target_path"] = f"build/target/{stem(s)}.o"
-            unit["base_path"] = obj_for(s)
+            unit["base_path"] = objdiff_base(s)
             unit["metadata"]["source_path"] = s
         else:
             # hand-written asm: the same object is both target and base
@@ -338,6 +354,13 @@ def main() -> None:
         deps = " ".join(["tools/gen_ninja.py"] + [str(p.relative_to(ROOT)) for p in funcs + datas])
         n.append(f"build {t}: target_src | {deps}")
         n.append(f"build build/target/{stem(s)}.o: as {t} | include/macro.inc")
+    n.append("rule objdiff_base\n"
+             "  command = .venv/bin/python tools/objdiff_base.py $in $out\n"
+             "  description = OBJDIFF $out\n")
+    for s in c_units:
+        if is_mwcc(s):
+            n.append(f"build {objdiff_base(s)}: objdiff_base {obj_for(s)} build/target/{stem(s)}.o"
+                     " | tools/objdiff_base.py")
     # splat's lists of addresses referenced but not defined yet, given to ld
     # as implicit linker scripts
     syms = "config/linker_syms.txt config/undefined_syms_auto.txt config/undefined_funcs_auto.txt"
@@ -353,7 +376,8 @@ def main() -> None:
                 f"config/sta.{VER}.ld.in"]
     n.append(f"build build.ninja build/sta.ld objdiff.json: regen | {' '.join(regen_in)}")
     # objdiff's progress report over every object of the link
-    all_objs = objs + [f"build/target/{stem(s)}.o" for s in c_units]
+    all_objs = objs + [f"build/target/{stem(s)}.o" for s in c_units] \
+        + [objdiff_base(s) for s in c_units if is_mwcc(s)]
     n.append("rule report\n"
              f"  command = {OBJDIFF} report generate -o $out\n"
              "  description = REPORT $out\n")

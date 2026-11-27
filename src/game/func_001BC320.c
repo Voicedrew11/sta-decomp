@@ -8,7 +8,7 @@ f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 atan2f(f32, f32);
 f32 fabsf(f32);
 void func_001BC170(s32 *);
-extern s32 D_001F38C0[];
+s32 D_001F38C0[0xc] = { -0x7fffdfc0, -0x7fffcdce, -0x7fffbfce, -0x7fffd800, -0x7fcdf000, -0x7fd5fff0, -0x80000000, -0x7fbfbfc0, -0x80000000 };
 static inline P *cur(void) {
     if (D_002022E4 == 0) return 0;
     if (D_002022E4->unk518 == 0) return 0;

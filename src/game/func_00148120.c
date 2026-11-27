@@ -1,7 +1,7 @@
 #include "common.h"
 typedef struct { Vec p; Vec v; u8 pad[0x90]; f32 fB0; f32 fB4; f32 fB8; f32 fBC; Mtx m; } O;
 typedef struct { Vec r1; Vec r2; } Ax;
-extern Vec D_001F2000;
+Vec D_001F2000 = { 0.0f, 980.0f };
 extern Mtx D_001F2170;
 extern Vec D_001F2140;
 f32 sceVu0InnerProduct(Vec *, Vec *);
