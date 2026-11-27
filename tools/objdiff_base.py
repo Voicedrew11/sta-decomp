@@ -20,6 +20,7 @@ the same file assemble to relocations against the section symbol; OUT's are
 moved to the section symbol (the function's offset added
 to the stored word, as the relocations are REL), so they pair.
 """
+import re
 import struct
 import subprocess
 import sys
@@ -45,6 +46,11 @@ def data_syms(path: Path) -> dict:
             if sec in DATA and sym.name:
                 out.setdefault((sec, sym["st_value"]), sym.name)
     return out
+
+
+def all_syms(path: Path) -> set:
+    with open(path, "rb") as f:
+        return {s.name for s in ELFFile(f).get_section_by_name(".symtab").iter_symbols() if s.name}
 
 
 def rename(path: Path, names: dict) -> None:
@@ -118,6 +124,12 @@ def main() -> None:
     for key, name in data_syms(out).items():
         if name.startswith("@") and key in want:
             names[name] = want[key]
+    # a merged unit's per-part alias (NAME__as_PART, tools/merge_tu.py) is
+    # NAME to the target
+    for name in all_syms(out):
+        m = re.match(r"^(\w+?)__as_\w+$", name)
+        if m:
+            names[name] = m.group(1)
     if names:
         rename(out, names)
     section_relative(out)

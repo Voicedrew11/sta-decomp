@@ -3,16 +3,28 @@
 
     tools/merge_tu.py src/game/func_A.c ... src/game/func_B.c   [--keep]
 
-The files (in .text order, as tools/infer_tus.py lists a candidate) become
-the first one: their #includes once at the top, then each part in turn.
-Names a part defines for itself (typedefs, statics) and that another part
-defines differently are renamed for that part with #define NAME
-NAME_<func> ... #undef; a typedef or prototype every part spells the same
-is kept once. The other files are deleted (git rm).
+The files (in .text order, as tools/infer_tus.py --files lists a candidate)
+become the first one: their #includes once, every typedef hoisted to the top
+(a name parts spell differently, or one an included header defines
+differently, renamed per part as NAME_<part>, repeated until nothing new
+differs), one prototype per function (its definition's, else the parts'
+unified one), then each part in turn with its own macros #undef'd after it.
 
-Then every function of the merged file must still match
-(tools/match.py diff); if one does not, or the merge does not compile, the
-files are put back and the reason printed, unless --keep.
+A part that declares a function or extern object differently from the
+merged file, or calls one it never declared (implicit int f()), keeps its
+own view as NAME__as_<part>, #define'd over NAME for the part: ld gets
+NAME__as_<part> = NAME (tools/rel_syms.py) and objdiff sees NAME
+(tools/objdiff_base.py), so each part compiles as it did alone.
+
+Then every function of the merged file must match (tools/match.py diff),
+under the parts' config/game_cflags.txt flags (one unit, one compiler: parts
+with different flags are not merged), and the link order must allow it: a
+data-only unit between the parts goes before the merged unit or after it,
+by whether earlier parts have data in its section, and one with the unit's
+data on both sides blocks the merge (tools/move_data.py first). On success
+the other files are deleted (git rm) and config/link_order.jp.txt,
+game_cflags.txt and sta.jp.yaml updated (then rm -rf asm, ./build.sh); on
+failure everything is put back and the reason printed, unless --keep.
 """
 import re
 import subprocess
@@ -20,9 +32,67 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-TYPEDEF = re.compile(r"^typedef\b(?:[^;{}]|\{[^{}]*(?:\{[^{}]*\}[^{}]*)*\})*?\b(\w+)\s*"
-                     r"(?:__attribute__\(\(\w+(?:\([^()]*\))?\)\)\s*)?;[ \t]*\n", re.M)
+class _Typedefs:
+    """Top-level typedefs, braces balanced to any depth: finditer() gives
+    match-like objects (group(0) the declaration with its newline, group(1)
+    the name), sub("", text) removes them."""
+
+    class M:
+        def __init__(self, text, a, b, name):
+            self.string, self._a, self._b, self._name = text, a, b, name
+
+        def group(self, i=0):
+            return self.string[self._a:self._b] if i == 0 else self._name
+
+        def start(self, i=0):
+            return self._a
+
+    def __init__(self, fptr):
+        self.fptr = fptr
+
+    def finditer(self, text):
+        for m in re.finditer(r"^typedef\b", text, re.M):
+            i, depth = m.start(), 0
+            while i < len(text):
+                c = text[i]
+                if c == "{":
+                    depth += 1
+                elif c == "}":
+                    depth -= 1
+                elif c == ";" and depth == 0:
+                    break
+                i += 1
+            decl = text[m.start():i]
+            fp = re.search(r"\(\s*\*\s*(\w+)\s*\)\s*\([^{}]*\)\s*$", decl)
+            if bool(fp) != self.fptr:
+                continue
+            if fp:
+                name = fp.group(1)
+            else:
+                tail = re.sub(r"__attribute__\(\((?:[^()]|\([^()]*\))*\)\)", "", decl[decl.rfind("}") + 1:] if "}" in decl else decl)
+                ids = re.findall(r"\b(\w+)\b\s*(?:\[[^\]]*\]\s*)*$", tail.strip())
+                if not ids:
+                    continue
+                name = ids[-1]
+            end = i + 1
+            nl = re.match(r"[ \t]*\n", text[end:])
+            if nl:
+                end += nl.end()
+            yield self.M(text, m.start(), end, name)
+
+    def sub(self, repl, text):
+        out, last = [], 0
+        for m in self.finditer(text):
+            out.append(text[last:m.start()])
+            out.append(repl)
+            last = m._b
+        out.append(text[last:])
+        return "".join(out)
+
+
+TYPEDEF = _Typedefs(False)
 STATIC = re.compile(r"^static\b[^;{=(]*?\b(\w+)\s*[\[(=;]", re.M)
+FPTYPEDEF = _Typedefs(True)
 INCLUDE = re.compile(r'^#include\s+["<][^">]+[">][ \t]*\n', re.M)
 
 
@@ -32,14 +102,16 @@ def parts(paths):
         text = (ROOT / p).read_text()
         incs = INCLUDE.findall(text)
         body = INCLUDE.sub("", text).strip("\n") + "\n"
+        body = re.sub(r";[ \t]*/\*[^*\n]*\*/[ \t]*\n", ";\n", body)   # m2c's /* extern */
         tds = {m.group(1): m.group(0) for m in TYPEDEF.finditer(body)}
+        tds.update({m.group(1): m.group(0) for m in FPTYPEDEF.finditer(body)})
         sts = set(STATIC.findall(body))
         out.append((p, incs, body, tds, sts))
     return out
 
 
 # top-level only: a declaration starts at column 0 with a type word
-PROTO = re.compile(r"^(?!typedef\b|static\b|return\b|else\b|if\b)(?:extern[ \t]+)?([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(([^;{}()]*)\)[ \t]*;[ \t]*\n", re.M)
+PROTO = re.compile(r"^(?!typedef\b|static\b|return\b|else\b|if\b)(?:extern[ \t]+)?([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(((?:[^;{}()]|\([^;{}()]*\))*)\)[ \t]*;[ \t]*\n", re.M)
 DEFN = re.compile(r"^(?!static\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(func_[0-9A-F]{8})[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
 
 
@@ -131,102 +203,383 @@ def from_definition(name):
     return r, ps
 
 
-def prototypes(paths_bodies, local=frozenset()):
-    """Reconcile function declarations across the parts: a function defined
-    in the merged file is declared with its definition's signature; one
-    declared differently by several parts gets a unified prototype. Returns
-    (bodies, problems)."""
-    defs = {}
-    for body in paths_bodies:
-        for m in DEFN.finditer(body):
-            # the return type with its stars (they may sit by the name)
-            whole = m.group(0)
-            defs[m.group(2)] = (whole[:whole.index(m.group(2))], m.group(3))
-    decls = {}
-    for body in paths_bodies:
-        for m in PROTO.finditer(body):
-            decls.setdefault(m.group(2), set()).add((norm(m.group(1)), ", ".join(param_list(m.group(3)))))
-    want, problems = {}, []
-    for name, sigs in decls.items():
-        if name in defs:
-            r, p = defs[name]
-            words = set(re.findall(r"[A-Za-z_]\w*", p))
-            if words & local and not set(re.findall(r"[A-Za-z_]\w*", r)) & local:
-                want[name] = f"{norm(r)} {name}();\n"     # its types come later
+class _Externs:
+    """Top-level extern object declarations (not functions), braces
+    balanced: `extern struct {...} D;`, `extern s32 (*D[])(T *);`. Match
+    objects give group(0) (with its newline), group(3) the name, start(3)
+    where it is, and key(): the declaration with the name taken out and the
+    first array bound dropped (an incomplete array is compatible)."""
+
+    class M:
+        def __init__(self, text, a, b, name, at, owner):
+            self.string, self._a, self._b, self._name, self._at, self.re = text, a, b, name, at, owner
+
+        def group(self, i=0):
+            return self.string[self._a:self._b] if i == 0 else self._name
+
+        def start(self, i=0):
+            return self._at if i == 3 else self._a
+
+        def key(self):
+            d = self.string[self._a:self._at] + "@" + self.string[self._at + len(self._name):self._b]
+            d = re.sub(r"\s+", " ", d.strip()).replace(" *", "*").replace("* ", "*")
+            d = re.sub(r"@\s*\[[^\]]*\]", "@[]", d)
+            for k, v in ALIAS_T.items():
+                d = re.sub(rf"\b{k}\b", v, d)
+            return d
+
+    def finditer(self, text):
+        for m in re.finditer(r"^extern\b", text, re.M):
+            i, depth = m.start(), 0
+            while i < len(text):
+                c = text[i]
+                if c == "{":
+                    depth += 1
+                elif c == "}":
+                    depth -= 1
+                elif c == ";" and depth == 0:
+                    break
+                i += 1
+            decl = text[m.start():i]
+            flat = re.sub(r"\{.*\}", "{}", decl, flags=re.S)
+            flat = re.sub(r"__attribute__\(\((?:[^()]|\([^()]*\))*\)\)", "", flat)
+            fp = re.search(r"\(\s*\*+\s*(\w+)", flat)
+            if fp:
+                name = fp.group(1)
+            elif re.search(r"\w\s*\(", flat):
+                continue                # a function
             else:
-                want[name] = f"{norm(r)} {name}({p.strip()});\n"
-        elif len(sigs) > 1:
-            u = unify(sigs)
-            if u is None:
-                u = from_definition(name)
-            if u is None:
-                problems.append(f"{name}: declared as " + " / ".join(f"{r} ({p})" for r, p in sorted(sigs)))
-            else:
-                want[name] = f"{u[0]} {name}({', '.join(u[1])});\n"
-    out = []
-    for body in paths_bodies:
-        body = PROTO.sub(lambda m: want.get(m.group(2), m.group(0)), body)
-        out.append(body)
-    return out, problems
+                ids = re.findall(r"\b(\w+)\s*(?:\[[^\]]*\]\s*)*$", flat.strip())
+                if not ids:
+                    continue
+                name = ids[-1]
+            # the name's position: its whole-word occurrence outside braces
+            close = decl.rfind("}")
+            pos = [x.start() for x in re.finditer(rf"\b{name}\b", decl) if x.start() > close]
+            if not pos:
+                continue
+            at = m.start() + (pos[0] if fp else pos[-1])
+            end = i + 1
+            nl = re.match(r"[ \t]*\n", text[end:])
+            if nl:
+                end += nl.end()
+            yield self.M(text, m.start(), end, name, at, self)
+
+    def sub(self, fn, text):
+        out, last = [], 0
+        for m in list(self.finditer(text)):
+            out.append(text[last:m.start()])
+            out.append(fn(m))
+            last = m._b
+        out.append(text[last:])
+        return "".join(out)
+
+
+EXTERN = _Externs()
+DEFN_ANY = re.compile(r"^(?!static\b|typedef\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
+CONTROL = {"if", "while", "for", "switch", "return", "else", "do", "sizeof"}
+
+
+def sig_key(ret, params):
+    return norm(ret), tuple(param_list(params))
+
+
+def decl_text(ret, name, params):
+    ret = norm(ret)
+    return f"{ret} {name}({params.strip()});\n"
+
+
+
+def header_decls(includes):
+    """What the included headers (include/, and theirs) declare: typedef
+    names -> spelling, extern objects and prototypes."""
+    out = {"types": {}, "externs": {}, "protos": {}}
+    todo = [re.search(r'["<]([^">]+)[">]', i).group(1) for i in includes]
+    seen = set()
+    while todo:
+        h = todo.pop()
+        if h in seen or not (ROOT / "include" / h).exists():
+            continue
+        seen.add(h)
+        text = (ROOT / "include" / h).read_text()
+        todo += re.findall(r'^#include\s+["<]([^">]+)[">]', text, re.M)
+        for m in list(TYPEDEF.finditer(text)) + list(FPTYPEDEF.finditer(text)):
+            out["types"][m.group(1)] = re.sub(r"\s+", " ", m.group(0).strip())
+        for m in EXTERN.finditer(text):
+            out["externs"][m.group(3)] = m
+        for m in PROTO.finditer(text):
+            if not m.group(0).startswith("extern"):
+                out["protos"][m.group(2)] = (m.group(0)[:m.start(2) - m.start()], m.group(3))
+    return out
 
 
 def merge(paths):
+    """Typedefs (renamed per part where parts spell one differently) go to
+    the top, then one prototype per function: its definition's, else the
+    unified or first declaration. A part that declares a function or an
+    extern object differently keeps its own view under NAME__as_<part>
+    (#define'd over NAME for the part): ld gets NAME__as_<part> = NAME
+    (tools/rel_syms.py) and objdiff sees NAME (tools/objdiff_base.py), so
+    each part compiles exactly as it did alone."""
     ps = parts(paths)
-    local_all = set()
-    for _, _, _, tds, _ in ps:
-        local_all |= set(tds)
-    bodies, problems = prototypes([b for _, _, b, _, _ in ps], frozenset(local_all))
-    if problems:
-        raise SystemExit("prototypes differ:\n  " + "\n  ".join(problems))
-    ps = [(p, i, b, t, s) for (p, i, _, t, s), b in zip(ps, bodies)]
-    # a function a part calls before the part that defines it: declared
-    # after the includes, when its signature names only types visible there
-    defined = []
-    for _, _, b, _, _ in ps:
-        for m in DEFN.finditer(b):
+    static_count = {}
+    for _, _, _, _, sts in ps:
+        for n in sts:
+            static_count[n] = static_count.get(n, 0) + 1
+    # a typedef spelled differently in two parts is renamed in each; renaming
+    # one can make another that names it differ (List of a renamed Elem), so
+    # until nothing changes
+    hdr = header_decls([i for _, incs, *_ in ps for i in incs])
+    # a part's own typedef of a name an included header defines: dropped when
+    # spelled the same, else renamed for the part
+    rename = []
+    for k, (p, incs, body, tds, sts) in enumerate(ps):
+        ren = set(n for n in sts if static_count[n] > 1)
+        for n, t in tds.items():
+            if n in hdr["types"]:
+                if re.sub(r"\s+", " ", t.strip()) == hdr["types"][n]:
+                    body = body.replace(t, "", 1)
+                else:
+                    ren.add(n)
+        tds = {n: t for n, t in tds.items() if n in ren or n not in hdr["types"]}
+        ps[k] = (p, incs, body, tds, sts)
+        rename.append(ren)
+    while True:
+        bodies, spellings = [], {}
+        for (p, _, body, tds, _), ren in zip(ps, rename):
+            tag = Path(p).stem
+            for n in ren:
+                body = re.sub(rf"\b{n}\b", f"{n}_{tag}", body)
+            bodies.append(body)
+            for n, t in tds.items():
+                if n in ren:
+                    continue
+                t2 = next((x.group(0) for x in list(TYPEDEF.finditer(body)) + list(FPTYPEDEF.finditer(body))
+                           if x.group(1) == n), t)
+                spellings.setdefault(n, set()).add(re.sub(r"\s+", " ", t2.strip()))
+        grew = False
+        for (_, _, _, tds, _), ren in zip(ps, rename):
+            for n in tds:
+                if n not in ren and len(spellings.get(n, ())) > 1:
+                    ren.add(n)
+                    grew = True
+        if not grew:
+            break
+    # hoist typedefs in order, once each
+    hoisted, seen = [], set()
+    for k, body in enumerate(bodies):
+        for m in sorted(list(TYPEDEF.finditer(body)) + list(FPTYPEDEF.finditer(body)), key=lambda m: m.start()):
+            t = m.group(0)
+            key = re.sub(r"\s+", " ", t.strip())
+            if key not in seen:
+                seen.add(key)
+                hoisted.append(t)
+        bodies[k] = FPTYPEDEF.sub("", TYPEDEF.sub("", body))
+    # functions
+    defs = {}
+    for body in bodies:
+        for m in DEFN_ANY.finditer(body):
+            if m.group(2) in CONTROL:
+                continue
             whole = m.group(0)
-            defined.append((m.group(2), norm(whole[:whole.index(m.group(2))]), m.group(3).strip()))
-    local = set()
-    for _, _, _, tds, _ in ps:
-        local |= set(tds)
-    forward = []
-    for name, ret, params in defined:
-        words = set(re.findall(r"[A-Za-z_]\w*", ret + " " + params))
-        if not words & local:
-            forward.append(f"{ret} {name}({params or 'void'});\n")
+            defs[m.group(2)] = (whole[:m.start(2) - m.start()], m.group(3))
+    decls = {}
+    for body in bodies:
+        for m in PROTO.finditer(body):
+            decls.setdefault(m.group(2), []).append((m.group(0)[:m.start(2) - m.start()].replace("extern", ""),
+                                                       m.group(3)))
+    canon = dict(hdr["protos"])
+    for name, (r, pa) in defs.items():
+        canon[name] = (r, pa)
+    for name, sigs in decls.items():
+        if name in canon:
             continue
-        # its parameters name a part's own type: an unprototyped declaration
-        # (compatible with the definition while its parameters are pointers
-        # or ints and its return type is visible here)
-        rwords = set(re.findall(r"[A-Za-z_]\w*", ret))
-        plist = param_list(params)
-        if not rwords & local and all(t.endswith("*") or t in ("s32", "u32") for t in plist):
-            forward.append(f"{ret} {name}();\n")
+        sigs = [x for x in sigs if x[1].strip()] or sigs
+        keys = {sig_key(r, pa) for r, pa in sigs}
+        if len(keys) == 1:
+            canon[name] = sigs[0]
+            continue
+        u = unify([(r, pa) for r, pa in sigs])
+        canon[name] = (u[0], ", ".join(u[1])) if u else sigs[0]
+    protos = [decl_text(r, n, pa) for n, (r, pa) in canon.items()
+              if not (n in defs and re.match(r"\s*static\b", r))]
+    # extern objects: the first declaration is the one; a different one
+    # elsewhere becomes a cast of it
+    ext_first = dict(hdr["externs"])
+    for body in bodies:
+        for m in EXTERN.finditer(body):
+            ext_first.setdefault(m.group(3), m)
+    ext_decls = []
+    for n, m in ext_first.items():
+        if n in hdr["externs"]:
+            continue
+        ext_decls.append(m.group(0))
+
+    def ext_key(m):
+        return m.key()
+
+    out = []
+    for (p, _, orig, _, _), body in zip(ps, bodies):
+        tag = Path(p).stem
+        undef = []
+
+        def alias(m, name):
+            first = name not in undef
+            undef.append(name)
+            k = m.start(3 if m.re is EXTERN else 2) - m.start()
+            decl = m.group(0)[:k] + f"{name}__as_{tag}" + m.group(0)[k + len(name):]
+            return (f"#define {name} {name}__as_{tag}\n" if first else "") + decl
+
+        def fproto(m):
+            name = m.group(2)
+            r = m.group(0)[:m.start(2) - m.start()].replace("extern", "")
+            if sig_key(r, m.group(3)) == sig_key(*canon[name]) or not m.group(3).strip():
+                return ""
+            return alias(m, name)
+        body = PROTO.sub(fproto, body)
+
+        def fext(m):
+            n = m.group(3)
+            if ext_key(m) == ext_key(ext_first[n]):
+                return ""
+            return alias(m, n)
+        body = EXTERN.sub(fext, body)
+        # a call with no declaration in the part: alone it was implicit (int
+        # f()); declared now by another part, it keeps that view
+        own = {m.group(2) for m in PROTO.finditer(orig)} | {m.group(2) for m in DEFN_ANY.finditer(orig)} \
+            | {m.group(3) for m in EXTERN.finditer(orig)} | set(hdr["protos"])
+        implicit = []
+        for name in sorted(set(re.findall(r"\b(func_[0-9A-F]{8}|\w+)\s*\(", body)) & set(canon) - own):
+            if name not in undef:
+                implicit.append(name)
+                undef.append(name)
+        head = "".join(f"#define {n} {n}__as_{tag}\nint {n}__as_{tag}();\n" for n in implicit)
+        body = head + body
+        # the part's own macros end with it; one over an aliased name expands
+        # to the alias itself
+        for m in list(re.finditer(r"^#define[ \t]+(\w+)\b(?!\()[ \t]*(.*)$", body, re.M)):
+            n, val = m.group(1), m.group(2)
+            if val == f"{n}__as_{tag}":
+                continue
+            if n in undef:
+                body = body.replace(f"#define {n} {n}__as_{tag}\n", "", 1)
+                body = re.sub(rf"^#define[ \t]+{n}\b[ \t]*{re.escape(val)}$",
+                              f"#define {n} " + re.sub(rf"\b{n}\b", f"{n}__as_{tag}", val).replace("\\", "\\\\"),
+                              body, count=1, flags=re.M)
+            undef.append(n)
+        tail = "".join(f"#undef {n}\n" for n in dict.fromkeys(undef))
+        out.append(f"/* {tag} */\n" + body.strip("\n") + "\n" + tail)
     includes = []
     for _, incs, *_ in ps:
         for i in incs:
             if i not in includes:
                 includes.append(i)
-    # a typedef spelled the same everywhere it appears is kept once (first
-    # use); one spelled differently in two parts is renamed in each
-    spellings = {}
-    for _, _, _, tds, _ in ps:
-        for n, t in tds.items():
-            spellings.setdefault(n, set()).add(t.strip())
-    seen_td, out = set(), []
-    for p, _, body, tds, sts in ps:
-        tag = Path(p).stem
-        rename = [n for n in tds if len(spellings[n]) > 1]
-        rename += [n for n in sts if sum(n in o[4] for o in ps) > 1]
-        # typedefs already given by an earlier part (same spelling): drop
-        for n, t in tds.items():
-            if n not in rename and n in seen_td:
-                body = body.replace(t, "", 1)
-            seen_td.add(n)
-        head = "".join(f"#define {n} {n}_{tag}\n" for n in rename)
-        tail = "".join(f"#undef {n}\n" for n in rename)
-        out.append(f"/* {tag} */\n" + head + body.strip("\n") + "\n" + tail)
-    return "".join(includes) + "".join(forward) + "\n" + "\n".join(out)
+    return ("".join(includes) + "".join(hoisted) + "".join(ext_decls) + "".join(protos)
+            + "\n" + "\n".join(out))
+
+
+LINK_ORDER = ROOT / "config/link_order.jp.txt"
+
+
+def data_sections(path, text=None):
+    """The data sections a part (its source, or TEXT) has bytes in, compiled
+    afresh: a stale object may already be a merged unit."""
+    import tempfile
+    from elftools.elf.elffile import ELFFile
+    src = ROOT / path
+    tmp_src = None
+    if text is not None:
+        tmp_src = src.with_name("zz_relink_" + src.name)
+        tmp_src.write_text(text)
+        src = tmp_src
+    with tempfile.TemporaryDirectory() as d:
+        o = Path(d) / "part.o"
+        r = subprocess.run(["tools/compile_c.sh", str(src.relative_to(ROOT)), str(o)], cwd=ROOT,
+                           capture_output=True)
+        if tmp_src:
+            tmp_src.unlink()
+        if r.returncode:
+            return set()
+        with open(o, "rb") as f:
+            return {s.name for s in ELFFile(f).iter_sections()
+                    if s.name in (".rodata", ".data", ".bss", ".sdata", ".sbss") and s["sh_size"]}
+
+
+def relink(paths, secs):
+    """config/link_order.jp.txt: the parts become the first one. A data-only
+    unit that sat between parts goes before the merged unit when no part
+    before it has data in its section, else after it (a unit's data is one
+    stretch); None when parts on both sides do (the data is the unit's own:
+    tools/move_data.py first)."""
+    lines = LINK_ORDER.read_text().split("\n")
+    idx = [lines.index(p) for p in paths]
+    lo, hi = min(idx), max(idx)
+    before, after = [], []
+    for k in range(lo, hi + 1):
+        line = lines[k]
+        if line in paths:
+            continue
+        sec = "." + Path(line).name.split("_")[0]
+        early = any(sec in secs.get(p, ()) for p in lines[lo:k] if p in paths)
+        late = any(sec in secs.get(p, ()) for p in lines[k + 1:hi + 1] if p in paths)
+        if early and late:
+            return f"{line} lies inside the unit's {sec}"
+        (after if early else before).append(line)
+    LINK_ORDER.write_text("\n".join(lines[:lo] + before + [paths[0]] + after + lines[hi + 1:]))
+    return None
+
+
+YAML = ROOT / "config/sta.jp.yaml"
+
+
+def resplit(paths):
+    """config/sta.jp.yaml: the parts' c subsegments go (the first one's spans
+    the unit), their data subsegments take the first one's name, and runs of
+    one name collapse. Then rm -rf asm and ./build.sh."""
+    names = {p[len("src/"):-len(".c")] for p in paths[1:]}
+    first = paths[0][len("src/"):-len(".c")]
+    out, prev = [], None
+    for l in YAML.read_text().split("\n"):
+        r = re.match(r"(\s*- \[0x[0-9A-F]+, )(\S+), (\S+)\]$", l)
+        if r and r.group(3) in names:
+            if r.group(2) == "c":
+                continue
+            l = f"{r.group(1)}{r.group(2)}, {first}]"
+        key = (r.group(2), first if r.group(3) in names else r.group(3)) if r else None
+        if key and key == prev and key[0] != "c":
+            continue
+        out.append(l)
+        prev = key
+    YAML.write_text("\n".join(out))
+
+
+CFLAGS = ROOT / "config/game_cflags.txt"
+
+
+def cflags(paths):
+    """config/game_cflags.txt: the parts' flags become the merged unit's (one
+    unit, one compiler). None when the parts have different ones; else the
+    file's old text, to put back."""
+    text = CFLAGS.read_text()
+    lines = text.split("\n")
+    have = {l.split(None, 1)[0]: l.split(None, 1)[1] for l in lines
+            if l.strip() and not l.startswith("#") and len(l.split(None, 1)) == 2}
+    flags = {have.get(p) for p in paths} - {None}
+    if len(flags) > 1:
+        return None
+    if not flags:
+        return text
+    f = flags.pop()
+    out, done = [], False
+    for l in lines:
+        if l.split(None, 1)[:1] and l.split(None, 1)[0] in paths:
+            if not done:
+                out.append(f"{paths[0]} {f}")
+                done = True
+            continue
+        out.append(l)
+    CFLAGS.write_text("\n".join(out))
+    return text
 
 
 def check(path):
@@ -241,6 +594,7 @@ def main():
     paths = [a for a in sys.argv[1:] if a.startswith("src/")]
     keep = "--keep" in sys.argv
     saved = {p: (ROOT / p).read_text() for p in paths}
+    secs = {p: data_sections(p) for p in paths}
     try:
         merged = merge(paths)
     except SystemExit as e:
@@ -250,8 +604,16 @@ def main():
     first.write_text(merged)
     for p in paths[1:]:
         (ROOT / p).unlink()
-    ok, text = check(first)
+    old_cflags = cflags(paths)
+    if old_cflags is None:
+        ok, text = False, "the parts' config/game_cflags.txt flags differ"
+    else:
+        ok, text = check(first)
+    why = relink(paths, secs) if ok or keep else None
+    if why:
+        ok, keep, text = False, False, f"link order: {why}"
     if ok or keep:
+        resplit(paths)
         for p in paths[1:]:
             subprocess.run(["git", "rm", "-q", "--cached", p], cwd=ROOT)
         print(f"{paths[0]}: merged {len(paths)} files" + ("" if ok else " (kept, does not match)"))
@@ -260,8 +622,10 @@ def main():
         return 0
     for p, t in saved.items():
         (ROOT / p).write_text(t)
+    if old_cflags is not None:
+        CFLAGS.write_text(old_cflags)
     print(f"{paths[0]}..{Path(paths[-1]).name}: not merged\n" +
-          "\n".join(l for l in text.splitlines() if re.search(r"differ|rror|Error|failed|#", l))[:2000])
+          "\n".join(l for l in text.splitlines() if re.search(r"differ|rror|Error|failed|link order|flags|#", l))[:2000])
     return 1
 
 

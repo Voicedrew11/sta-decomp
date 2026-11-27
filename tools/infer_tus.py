@@ -48,6 +48,8 @@ def text_units():
         line = line.strip()
         if line.startswith(("src/game/", "asm/text")) and not line.startswith("src/game/data/"):
             a = taddr(line)
+            if a is None and line.startswith("asm/") and out:
+                a = out[-1][0] + 1      # an asm chunk named by no address: right after
             if a is not None and a >= GAME_TEXT:
                 out.append((a, line))
     return sorted(out)
