@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Infer the game's translation units from the order of their data.
 
-    tools/infer_tus.py [--limit 0x4000] [--all]
+    tools/infer_tus.py [--limit 0x4000] [--all | --files | --hints]
 
 mwldps2 laid out each section unit by unit in link order, so every unit's
 data is one stretch, and the stretches come in .text order. Today's game
@@ -20,7 +20,9 @@ and whether it can be merged now: every file CodeWarrior C or an asm chunk
 (merged as INCLUDE_ASM, include/include_asm.h), none ee-gcc (src/game/ee/).
 A blocked candidate is split at its ee-gcc functions into runs, each listed
 as a candidate of its own. An INCLUDE_ASM'd chunk counts as its unit's.
---all prints the blocked ones too.
+--all prints the blocked ones too; --hints prints call-graph hints (a
+function only near units call: likely a static of their file), which are
+not evidence on their own.
 """
 import bisect
 import collections
@@ -76,6 +78,49 @@ def text_units():
     return sorted(out)
 
 
+RODATA = (0x001F8880, 0x00201B80)
+ROM = ROOT / "baserom/jp/sta.rom"
+BASE = 0x00100000
+
+
+def literal(blob):
+    """The bytes of an object CodeWarrior pools per unit: a C string (zero
+    filled to its size) or a float or double constant."""
+    if len(blob) in (4, 8) and any(blob):
+        import math
+        import struct
+        w = struct.unpack_from("<I", blob)[0]
+        if 0x00100000 <= w < 0x004C0000:
+            return False                # a pointer: a named table
+        f = struct.unpack("<f" if len(blob) == 4 else "<d", blob)[0]
+        return math.isfinite(f) and (f == 0 or 1e-6 < abs(f) < 1e7)
+    text = blob.rstrip(b"\0")
+    if not text or len(blob) - len(text) < 1:
+        return False
+    # ASCII and Shift-JIS text (control bytes but tab and newline excluded)
+    return all(b >= 0x20 or b in (9, 10, 13) for b in text)
+
+
+def rodata_ties(sz, alias, limit):
+    """A string or float constant in .rodata used by several units: the
+    compiler pools them per unit and the linker never merges units', so its
+    users are one unit. As steps (lo, hi, ".rodata", object, users)."""
+    rom = ROM.read_bytes()
+    names = [n for n, (a, s) in sz.items() if n.startswith("D_") and RODATA[0] <= a < RODATA[1] and s]
+    us = M.users(set(names), alias)
+    out = []
+    for n in names:
+        units = {unit_of(u) for u in us[n]}
+        ts = sorted(t for t in (taddr(u) for u in units) if t is not None and t >= GAME_TEXT)
+        if len(units) < 2 or len(ts) != len(units) or ts[-1] - ts[0] > limit:
+            continue
+        a, size = sz[n]
+        if not literal(rom[a - BASE:a - BASE + size]):
+            continue
+        out.append((ts[0], ts[-1], ".rodata", n, "shared by " + ", ".join(sorted(Path(u).stem for u in units))))
+    return out
+
+
 def candidates(limit):
     sz = M.sizes()
     alias = M.aliases()
@@ -95,6 +140,7 @@ def candidates(limit):
         for (x, nx), (y, ny) in zip(seq, seq[1:]):
             if y < x and x - y <= limit:
                 steps.append((y, x, sec, nx, ny))
+    steps += rodata_ties(sz, alias, limit)
     steps.sort()
     merged = []
     for lo, hi, *ev in steps:
@@ -111,6 +157,42 @@ def candidates(limit):
     return out
 
 
+def hints(limit):
+    """Call-graph hints: a function every caller of which is a unit within
+    `limit` bytes of code (and not itself) was likely a static of their
+    file. Only reported: CodeWarrior does not make a function static on its
+    own, and a global with near callers is common, so this is no proof."""
+    from elftools.elf.elffile import ELFFile
+    from elftools.elf.relocation import RelocationSection
+    units = text_units()
+    defined, calls = {}, collections.defaultdict(set)   # function -> unit; function -> calling units
+    for _, u in units:
+        o = ROOT / "build" / (u + ".o")
+        if not o.exists():
+            continue
+        with open(o, "rb") as f:
+            e = ELFFile(f)
+            syms = list(e.get_section_by_name(".symtab").iter_symbols())
+            for sy in syms:
+                if sy["st_info"]["type"] == "STT_FUNC" and isinstance(sy["st_shndx"], int):
+                    defined[sy.name] = u
+            for sec in e.iter_sections():
+                if isinstance(sec, RelocationSection) and e.get_section(sec["sh_info"]).name.startswith(".text"):
+                    for r in sec.iter_relocations():
+                        if r["r_info_type"] == 4:       # R_MIPS_26: jal
+                            calls[syms[r["r_info_sym"]].name].add(u)
+    out = []
+    for fn, u in sorted(defined.items(), key=lambda x: taddr(x[1]) or 0):
+        callers = {unit_of(c) for c in calls.get(fn, ())} - {u}
+        t = taddr(u)
+        if not callers or t is None or t < GAME_TEXT:
+            continue
+        ts = [taddr(c) for c in callers]
+        if all(x is not None and abs(x - t) <= limit for x in ts):
+            out.append((fn, u, sorted(callers)))
+    return out
+
+
 def blocked(f):
     """An ee-gcc function cannot share a CodeWarrior unit; an asm chunk can
     (INCLUDE_ASM, include/include_asm.h)."""
@@ -120,6 +202,10 @@ def blocked(f):
 def main():
     limit = int(sys.argv[sys.argv.index("--limit") + 1], 0) if "--limit" in sys.argv else 0x4000
     show_all = "--all" in sys.argv
+    if "--hints" in sys.argv:
+        for fn, u, callers in hints(limit):
+            print(f"{fn} ({Path(u).stem}): called only from {', '.join(Path(c).stem for c in callers)}")
+        return
     ready, waiting = [], []
     for files, ev in candidates(limit):
         if not any(blocked(f) for f in files):
@@ -143,7 +229,7 @@ def main():
         tag = f"  (C run of a unit with {sum(blocked(f) for f in parent)} asm/ee function(s))" if parent else ""
         print(f"{Path(files[0]).stem}..{Path(files[-1]).stem}: {len(files)} files{tag}")
         for sec, a, b in ev[:4]:
-            print(f"    {sec}: {a} before {b}")
+            print(f"    {sec}: {a} {b}" if sec == ".rodata" else f"    {sec}: {a} before {b}")
     print(f"{len(ready)} mergeable candidates, {sum(len(r[0]) for r in ready)} files;"
           f" {len(waiting)} units wait on asm/ee functions", file=sys.stderr)
     if show_all:

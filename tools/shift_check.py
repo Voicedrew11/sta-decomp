@@ -53,7 +53,8 @@ def objects(mapfile):
     from elftools.elf.relocation import RelocationSection
     lines = defaultdict(list)       # (object, section) -> [(start, size)]
     for line in open(mapfile):
-        m = re.match(r"^ (\.text|\.data|\.rodata|\.sdata)\s+0x([0-9a-f]+)\s+0x([0-9a-f]+)\s+(\S+\.o)", line)
+        # .text.iaN: an INCLUDE_ASM unit's code after its Nth chunk (tools/include_asm.py)
+        m = re.match(r"^ (\.text(?:\.ia\d+)?|\.data|\.rodata|\.sdata)\s+0x([0-9a-f]+)\s+0x([0-9a-f]+)\s+(\S+\.o)", line)
         if m and int(m.group(3), 16):
             lines[(m.group(4), m.group(1))].append((int(m.group(2), 16), int(m.group(3), 16)))
     out = []
