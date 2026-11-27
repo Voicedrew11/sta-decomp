@@ -100,6 +100,11 @@ def parts(paths):
     out = []
     for p in paths:
         text = (ROOT / p).read_text()
+        if p.endswith(".s"):
+            # an asm chunk: its retail asm at this point (include/include_asm.h)
+            m = re.search(r"^\s*glabel (\w+)", text, re.M)
+            out.append((p, ['#include "include_asm.h"\n'], f"INCLUDE_ASM({m.group(1)});\n", {}, set()))
+            continue
         incs = INCLUDE.findall(text)
         body = INCLUDE.sub("", text).strip("\n") + "\n"
         body = re.sub(r";[ \t]*/\*[^*\n]*\*/[ \t]*\n", ";\n", body)   # m2c's /* extern */
@@ -421,6 +426,8 @@ def merge(paths):
     out = []
     for (p, _, orig, _, _), body in zip(ps, bodies):
         tag = Path(p).stem
+        while f"__as_{tag}" in body:      # an already merged part has its own
+            tag += "_"
         undef = []
 
         def alias(m, name):
@@ -433,10 +440,20 @@ def merge(paths):
         def fproto(m):
             name = m.group(2)
             r = m.group(0)[:m.start(2) - m.start()].replace("extern", "")
-            if sig_key(r, m.group(3)) == sig_key(*canon[name]) or not m.group(3).strip():
+            if sig_key(r, m.group(3)) == sig_key(*canon[name]):
                 return ""
+            if not m.group(3).strip():
+                # unprototyped: only a function defined in the unit has a
+                # prototype the part did not see (calls before it unchecked)
+                if name not in defs or not canon[name][1].strip():
+                    return ""
             return alias(m, name)
         body = PROTO.sub(fproto, body)
+        # a part defining a name it aliased: the definition is the real name
+        for name in [n for n in dict.fromkeys(undef) if n in defs]:
+            dm = re.search(rf"^(?!static\b)[A-Za-z_][\w \t\*]*?\b{name}[ \t]*\([^;{{}}]*\)\s*\{{", body, re.M)
+            if dm:
+                body = body[:dm.start()] + f"#undef {name}\n" + body[dm.start():]
 
         def fext(m):
             n = m.group(3)
@@ -461,7 +478,7 @@ def merge(paths):
             n, val = m.group(1), m.group(2)
             if val == f"{n}__as_{tag}":
                 continue
-            if n in undef:
+            if "__as_" not in val and f"#define {n} {n}__as_{tag}\n" in body:
                 body = body.replace(f"#define {n} {n}__as_{tag}\n", "", 1)
                 body = re.sub(rf"^#define[ \t]+{n}\b[ \t]*{re.escape(val)}$",
                               f"#define {n} " + re.sub(rf"\b{n}\b", f"{n}__as_{tag}", val).replace("\\", "\\\\"),
@@ -505,6 +522,12 @@ def data_sections(path, text=None):
                     if s.name in (".rodata", ".data", ".bss", ".sdata", ".sbss") and s["sh_size"]}
 
 
+def head(paths):
+    """The merged unit's file: the first C part (a unit may start with an
+    INCLUDE_ASM'd chunk)."""
+    return next(p for p in paths if p.endswith(".c"))
+
+
 def relink(paths, secs):
     """config/link_order.jp.txt: the parts become the first one. A data-only
     unit that sat between parts goes before the merged unit when no part
@@ -525,7 +548,8 @@ def relink(paths, secs):
         if early and late:
             return f"{line} lies inside the unit's {sec}"
         (after if early else before).append(line)
-    LINK_ORDER.write_text("\n".join(lines[:lo] + before + [paths[0]] + after + lines[hi + 1:]))
+    chunks = [p for p in paths if p.endswith(".s")]     # INCLUDE_ASM'd: still linked
+    LINK_ORDER.write_text("\n".join(lines[:lo] + before + [head(paths)] + chunks + after + lines[hi + 1:]))
     return None
 
 
@@ -536,13 +560,18 @@ def resplit(paths):
     """config/sta.jp.yaml: the parts' c subsegments go (the first one's spans
     the unit), their data subsegments take the first one's name, and runs of
     one name collapse. Then rm -rf asm and ./build.sh."""
-    names = {p[len("src/"):-len(".c")] for p in paths[1:]}
-    first = paths[0][len("src/"):-len(".c")]
+    names = {p[len("src/"):-len(".c")] for p in paths if p.endswith(".c") and p != head(paths)}
+    first = head(paths)[len("src/"):-len(".c")]
+    chunks = {Path(p).stem for p in paths if p.endswith(".s")}
     out, prev = [], None
     for l in YAML.read_text().split("\n"):
         r = re.match(r"(\s*- \[0x[0-9A-F]+, )(\S+), (\S+)\]$", l)
         if r and r.group(3) in names:
-            if r.group(2) == "c":
+            # a C part's code goes into the first part's subsegment, except
+            # right after one of the unit's INCLUDE_ASM'd chunks: the unit
+            # resumes there under its own name (splat writes both ranges'
+            # functions to its asm/matchings directory)
+            if r.group(2) == "c" and not (prev and prev[0] == "asm" and prev[1] in chunks):
                 continue
             l = f"{r.group(1)}{r.group(2)}, {first}]"
         key = (r.group(2), first if r.group(3) in names else r.group(3)) if r else None
@@ -564,7 +593,7 @@ def cflags(paths):
     lines = text.split("\n")
     have = {l.split(None, 1)[0]: l.split(None, 1)[1] for l in lines
             if l.strip() and not l.startswith("#") and len(l.split(None, 1)) == 2}
-    flags = {have.get(p) for p in paths} - {None}
+    flags = {have.get(p) for p in paths if p.endswith(".c")} - {None}
     if len(flags) > 1:
         return None
     if not flags:
@@ -574,7 +603,7 @@ def cflags(paths):
     for l in lines:
         if l.split(None, 1)[:1] and l.split(None, 1)[0] in paths:
             if not done:
-                out.append(f"{paths[0]} {f}")
+                out.append(f"{head(paths)} {f}")
                 done = True
             continue
         out.append(l)
@@ -591,19 +620,20 @@ def check(path):
 
 
 def main():
-    paths = [a for a in sys.argv[1:] if a.startswith("src/")]
+    paths = [a for a in sys.argv[1:] if a.startswith(("src/", "asm/"))]
     keep = "--keep" in sys.argv
     saved = {p: (ROOT / p).read_text() for p in paths}
-    secs = {p: data_sections(p) for p in paths}
+    secs = {p: data_sections(p) for p in paths if p.endswith(".c")}
     try:
         merged = merge(paths)
     except SystemExit as e:
         print(f"{paths[0]}..{Path(paths[-1]).name}: not merged ({e})")
         return 1
-    first = ROOT / paths[0]
+    first = ROOT / head(paths)
     first.write_text(merged)
-    for p in paths[1:]:
-        (ROOT / p).unlink()
+    for p in paths:
+        if p.endswith(".c") and p != head(paths):
+            (ROOT / p).unlink()
     old_cflags = cflags(paths)
     if old_cflags is None:
         ok, text = False, "the parts' config/game_cflags.txt flags differ"
@@ -614,14 +644,19 @@ def main():
         ok, keep, text = False, False, f"link order: {why}"
     if ok or keep:
         resplit(paths)
-        for p in paths[1:]:
-            subprocess.run(["git", "rm", "-q", "--cached", p], cwd=ROOT)
-        print(f"{paths[0]}: merged {len(paths)} files" + ("" if ok else " (kept, does not match)"))
+        for p in paths:
+            if p.endswith(".c") and p != head(paths):
+                subprocess.run(["git", "rm", "-q", "--cached", p], cwd=ROOT)
+        # the link script's .text order follows the INCLUDE_ASM markers
+        subprocess.run([str(ROOT / ".venv/bin/python"), "tools/gen_ninja.py"], cwd=ROOT,
+                       capture_output=True)
+        print(f"{head(paths)}: merged {len(paths)} files" + ("" if ok else " (kept, does not match)"))
         if not ok:
             print(text)
         return 0
     for p, t in saved.items():
-        (ROOT / p).write_text(t)
+        if p.endswith(".c"):
+            (ROOT / p).write_text(t)
     if old_cflags is not None:
         CFLAGS.write_text(old_cflags)
     print(f"{paths[0]}..{Path(paths[-1]).name}: not merged\n" +

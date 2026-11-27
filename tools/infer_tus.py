@@ -16,10 +16,11 @@ within --limit bytes of code (a longer one is link noise: commons, a
 library's data; taking them all chains the game into one unit).
 
 Each candidate is printed with its function files, the steps that tie it,
-and whether it can be merged now: every file CodeWarrior C (no asm/, no
-src/game/ee/). A blocked candidate is split at its asm and ee-gcc functions
-into C runs, each listed as a candidate of its own. --all prints the
-blocked ones too.
+and whether it can be merged now: every file CodeWarrior C or an asm chunk
+(merged as INCLUDE_ASM, include/include_asm.h), none ee-gcc (src/game/ee/).
+A blocked candidate is split at its ee-gcc functions into runs, each listed
+as a candidate of its own. An INCLUDE_ASM'd chunk counts as its unit's.
+--all prints the blocked ones too.
 """
 import bisect
 import collections
@@ -41,12 +42,32 @@ def taddr(path):
     return int(m.group(1), 16) if m else None
 
 
+def included():
+    """asm chunk -> the C unit that INCLUDE_ASMs it (include/include_asm.h):
+    the chunk is part of that unit."""
+    import gen_ninja
+    order = [l.strip() for l in (ROOT / "config/link_order.jp.txt").read_text().splitlines() if l.strip()]
+    return {c: u for u, cs in gen_ninja.include_asm_units(order).items() for c in cs}
+
+
+INCLUDED = None
+
+
+def unit_of(path):
+    global INCLUDED
+    if INCLUDED is None:
+        INCLUDED = included()
+    return INCLUDED.get(path, path)
+
+
 def text_units():
-    """[(address, unit path)] of the game's .text units in link order."""
+    """[(address, unit path)] of the game's .text units in link order (an
+    INCLUDE_ASM'd chunk is its unit's)."""
     out = []
     for line in (ROOT / "config/link_order.jp.txt").read_text().splitlines():
         line = line.strip()
-        if line.startswith(("src/game/", "asm/text")) and not line.startswith("src/game/data/"):
+        if line.startswith(("src/game/", "asm/text")) and not line.startswith("src/game/data/") \
+                and unit_of(line) == line:
             a = taddr(line)
             if a is None and line.startswith("asm/") and out:
                 a = out[-1][0] + 1      # an asm chunk named by no address: right after
@@ -68,7 +89,7 @@ def candidates(limit):
         seq = []
         for a, n in sorted((sz[n][0], n) for n in names if lo <= sz[n][0] < hi):
             if len(us[n]) == 1:
-                t = taddr(next(iter(us[n])))
+                t = taddr(unit_of(next(iter(us[n]))))
                 if t is not None and t >= GAME_TEXT:
                     seq.append((t, n))
         for (x, nx), (y, ny) in zip(seq, seq[1:]):
@@ -91,7 +112,9 @@ def candidates(limit):
 
 
 def blocked(f):
-    return f.startswith("asm/") or f.startswith("src/game/ee/") or not f.endswith(".c")
+    """An ee-gcc function cannot share a CodeWarrior unit; an asm chunk can
+    (INCLUDE_ASM, include/include_asm.h)."""
+    return f.startswith("src/game/ee/") or not f.endswith((".c", ".s"))
 
 
 def main():

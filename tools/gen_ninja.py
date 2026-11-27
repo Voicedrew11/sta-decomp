@@ -333,6 +333,46 @@ def objdiff_config(srcs: list[str]) -> dict:
     }
 
 
+USES_ASM = re.compile(r"^\s*INCLUDE_ASM\(\s*(\w+)\s*\)\s*;", re.M)
+
+
+def include_asm_units(srcs: list[str]) -> dict[str, list[str]]:
+    """C unit -> the asm chunks its INCLUDE_ASM markers name, in order
+    (include/include_asm.h): the chunk in the link order whose first label
+    is the name."""
+    first_label = {}
+    for s in srcs:
+        if s.startswith("asm/") and s.endswith(".s") and (ROOT / s).exists():
+            m = re.search(r"^\s*glabel (\w+)", (ROOT / s).read_text(), re.M)
+            if m:
+                first_label[m.group(1)] = s
+    out = {}
+    for s in srcs:
+        if s.startswith("src/game/") and s.endswith(".c") and (ROOT / s).exists():
+            names = USES_ASM.findall((ROOT / s).read_text())
+            if names:
+                missing = [n for n in names if n not in first_label]
+                if missing:
+                    raise SystemExit(f"{s}: INCLUDE_ASM of no asm chunk's first label: {', '.join(missing)}")
+                out[s] = [first_label[n] for n in names]
+    return out
+
+
+def include_asm_text(srcs: list[str], objs: list[str]) -> list[str]:
+    """The .text inputs in link order, an INCLUDE_ASM unit's asm chunks
+    between its sections (unit(.text), chunk(.text), unit(.text.ia1), ...)."""
+    uses = include_asm_units(srcs)
+    taken = {c for cs in uses.values() for c in cs}
+    out = []
+    for s, o in zip(srcs, objs):
+        if s in taken:
+            continue
+        out.append(f"{o}(.text)")
+        for k, c in enumerate(uses.get(s, []), 1):
+            out += [f"{obj_for(c)}(.text)", f"{o}(.text.ia{k})"]
+    return out
+
+
 def main() -> None:
     if sys.argv[1:2] == ["--target"]:
         # the target_src rule (restat): rewrites one target source, and only on
@@ -345,8 +385,10 @@ def main() -> None:
     build = ROOT / "build"
     build.mkdir(exist_ok=True)
     script = (ROOT / f"config/sta.{VER}.ld.in").read_text()
+    text_inputs = include_asm_text(srcs, objs)
     script = re.sub(r"@INPUTS:(\w+)@",
-                    lambda m: "\n        ".join(f"{o}(.{m.group(1)})" for o in objs), script)
+                    lambda m: "\n        ".join(text_inputs if m.group(1) == "text" else
+                                                [f"{o}(.{m.group(1)})" for o in objs]), script)
     (build / "sta.ld").write_text(script)
     # the shift test (tools/shift_check.py): the same link with a pad
     # inserted, so every pointer must move with what it points at
@@ -440,8 +482,10 @@ def main() -> None:
              "  command = .venv/bin/python tools/gen_ninja.py\n"
              "  generator = 1\n"
              "  description = REGEN build.ninja\n")
+    # a unit with INCLUDE_ASM markers lays out the .text (a marker added to
+    # another unit: tools/merge_tu.py reruns this)
     regen_in = ["tools/gen_ninja.py", f"config/link_order.{VER}.txt",
-                f"config/sta.{VER}.ld.in"]
+                f"config/sta.{VER}.ld.in"] + sorted(include_asm_units(srcs))
     n.append(f"build build.ninja build/sta.ld objdiff.json: regen | {' '.join(regen_in)}")
     # objdiff's progress report over every object of the link
     all_objs = objs + [f"build/target/{stem(s)}.o" for s in c_units] \

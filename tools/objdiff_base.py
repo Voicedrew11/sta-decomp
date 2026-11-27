@@ -115,9 +115,49 @@ def section_relative(path: Path) -> None:
     path.write_bytes(data)
 
 
+def unsplit_needed(path: Path) -> bool:
+    with open(path, "rb") as f:
+        return any(s.name.startswith(".text.ia") for s in ELFFile(f).iter_sections())
+
+
+def unsplit(path: Path) -> None:
+    """.text.iaN -> .text; .text.iastub -> a non-allocated .iastub."""
+    data = bytearray(path.read_bytes())
+    with open(path, "rb") as f:
+        elf = ELFFile(f)
+        shoff, es = elf["e_shoff"], elf["e_shentsize"]
+        names = [(i, s.name) for i, s in enumerate(elf.iter_sections())]
+        text_name = next((s["sh_name"] for s in elf.iter_sections() if s.name == ".text"), None)
+        old = elf.get_section(elf["e_shstrndx"]).data()
+        str_hdr = shoff + elf["e_shstrndx"] * es
+    table = bytearray(old)
+    if text_name is None:           # the unit starts with an INCLUDE_ASM'd chunk
+        text_name = len(table)
+        table += b".text\0"
+    stub = len(table)
+    table += b".iastub\0"
+    for i, name in names:
+        hdr = shoff + i * es
+        if name == ".text.iastub":
+            struct.pack_into("<I", data, hdr, stub)
+            struct.pack_into("<I", data, hdr + 8, 0)        # sh_flags: not allocated, not code
+        elif name.startswith(".text.ia"):
+            struct.pack_into("<I", data, hdr, text_name)
+    struct.pack_into("<II", data, str_hdr + 16, len(data), len(table))
+    data += table
+    path.write_bytes(data)
+
+
 def main() -> None:
     base, target, out = map(Path, sys.argv[1:4])
     out.parent.mkdir(parents=True, exist_ok=True)
+    if unsplit_needed(base):
+        # an INCLUDE_ASM unit (tools/include_asm.py): its .text.iaN are .text
+        # again and the marker is no code, so objdiff sees the C functions
+        tmp = out.with_suffix(".unsplit.o")
+        tmp.write_bytes(base.read_bytes())
+        unsplit(tmp)
+        base = tmp
     subprocess.run([str(LD), "-r", "-o", str(out), str(base)], check=True)
     want = data_syms(target)
     names = {}

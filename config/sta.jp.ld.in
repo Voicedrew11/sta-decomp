@@ -29,5 +29,5 @@ SECTIONS
     .bss     ALIGN(0x80) (NOLOAD) : { *(.bss) *(COMMON) *(.scommon) . = ALIGN(0x80); }
     _end = .;
 
-    /DISCARD/ : { *(.reginfo) *(.mwcats) *(.mdebug) *(.pdr) *(.comment) *(.gnu.attributes) *(.MIPS.abiflags) }
+    /DISCARD/ : { *(.text.iastub) *(.reginfo) *(.mwcats) *(.mdebug) *(.pdr) *(.comment) *(.gnu.attributes) *(.MIPS.abiflags) }
 }
