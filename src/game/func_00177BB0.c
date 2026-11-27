@@ -1,12 +1,15 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { s32 x[4]; } H;
 typedef struct { s32 h[3]; s32 size; s8 data[1]; } B;
 typedef struct { u8 b0:3; u8 r:5; } Bits;
 typedef struct {
     u8 p0[0x10]; s32 **x10; u8 p14[8]; s16 prev; s16 next; s16 x20; u8 p22[2]; s32 x24; Bits x28; u8 p29[7];
 } Node;
-typedef struct { u64 key; u8 p8[0x30]; Node *x38; s32 x3C; u8 p40[0x10]; } Ent;
-typedef struct { s32 x0; s32 x4; u32 n; u8 pC[4]; Ent e[1]; } Tbl;
+typedef struct { u64 key; u8 p8[0x30]; Node *x38; s32 x3C; u8 p40[0x10]; } Ent_func_00177BB0;
+typedef struct { s32 x0; s32 x4; u32 n; u8 pC[4]; Ent_func_00177BB0 e[1]; } Tbl;
+typedef struct { void *p; s32 x; } E;
+typedef struct { s32 **a; s32 b; } Ent_func_00178080;
 extern s8 D_001FB908[];
 extern s8 D_001FB909[];
 extern s8 D_001FB90A[];
@@ -23,10 +26,18 @@ extern s16 D_004830C8[];
 extern s16 D_004830CA[];
 extern s16 D_004830CC[];
 extern s16 D_004830CE[];
-H *func_0014DCD0(s32 *, s32);
-Node *func_00175850(s32);
-void func_00176550(Node *, Tbl *, Ent *);
-static inline s32 getsz(s32 *s) {
+extern E D_0047F080[8];
+Node* func_00177BB0(u64 key, s32 **r, s32 off);
+u64 func_00177F80(u8 *s);
+void func_00178030(void *p);
+void func_00178080(s32 **arg0);
+H* func_0014DCD0(s32 *, s32);
+Node* func_00175850(s32);
+void func_00176550(Node *, Tbl *, Ent_func_00177BB0 *);
+s32 toupper(s32);
+
+/* func_00177BB0 */
+static inline s32 getsz_func_00177BB0(s32 *s) {
     H *v;
     B *b;
     if (*s == (D_001FB908[0] | (D_001FB909[0] << 8) | (D_001FB90A[0] << 16) | (D_001FB90B[0] << 24))) {
@@ -71,7 +82,7 @@ static inline Node *unlink(s16 idx) {
     return n;
 }
 Node *func_00177BB0(u64 key, s32 **r, s32 off) {
-    Ent *e;
+    Ent_func_00177BB0 *e;
     Tbl *t;
     u32 i;
     Node *nd;
@@ -79,7 +90,7 @@ Node *func_00177BB0(u64 key, s32 **r, s32 off) {
     s32 n;
     union { u64 d; struct { s32 w; u8 c[4]; } s; } k;
 
-    if (off == -1) off = getsz(*r);
+    if (off == -1) off = getsz_func_00177BB0(*r);
     if (off == -1) return 0;
     t = (Tbl *)((s8 *)*r + off);
     e = t->e;
@@ -113,4 +124,63 @@ Node *func_00177BB0(u64 key, s32 **r, s32 off) {
     return nd;
 }
 
+/* func_00177F80 */
+u64 func_00177F80(u8 *s) {
+    u64 h = 0;
+    u8 *p = s;
+    while (*p) p++;
+    p--;
+    while (*p) {
+        h = ((h << 8) | (h >> 56)) ^ toupper(*p);
+        if (p == s) break;
+        p--;
+    }
+    return h;
+}
 
+/* func_00178030 */
+void func_00178030(void *p)
+{
+    s32 i;
+    if (!p)
+        return;
+    for (i = 0; i < 8; i++) {
+        if (D_0047F080[i].p == p) {
+            D_0047F080[i].p = NULL;
+            return;
+        }
+    }
+}
+
+/* func_00178080 */
+#define D_0047F080 D_0047F080__as_func_00178080
+extern Ent_func_00178080 D_0047F080__as_func_00178080[];
+static inline s32 getsz_func_00178080(s32 *s) {
+    H *v;
+    s8 *p;
+    B *b;
+    if (*s == (D_001FB908[0] | (D_001FB909[0] << 8) | (D_001FB90A[0] << 16) | (D_001FB90B[0] << 24))) {
+        return 0;
+    }
+    v = func_0014DCD0(s, D_00201CB4);
+    if (v != NULL) {
+b = (B *)(v + 1); return ((s32)b->data + ((b->size + 0xF) & ~0xF)) - (s32)s;
+    }
+    return -1;
+}
+
+void func_00178080(s32 **arg0) {
+    s32 n;
+    s32 i;
+    n = getsz_func_00178080(*arg0);
+    if (n != -1) {
+        for (i = 0; i < 8; i++) {
+            if (D_0047F080[i].a == NULL) {
+                D_0047F080[i].a = arg0;
+                D_0047F080[i].b = n;
+                return;
+            }
+        }
+    }
+}
+#undef D_0047F080

@@ -96,6 +96,35 @@ FPTYPEDEF = _Typedefs(True)
 INCLUDE = re.compile(r'^#include\s+["<][^">]+[">][ \t]*\n', re.M)
 
 
+def expand_renames(body):
+    """An earlier merge's `#define NAME NAME_<part>` ... `#undef NAME` span
+    (a type renamed for one part), written out: the typedefs are hoisted
+    out of the span now."""
+    while True:
+        m = re.search(r"^#define[ \t]+(\w+)[ \t]+(\1_\w+)[ \t]*\n", body, re.M)
+        if not m:
+            return body
+        n, v = m.group(1), m.group(2)
+        u = re.compile(rf"^#undef[ \t]+{n}[ \t]*\n", re.M).search(body, m.end())
+        end = u.start() if u else len(body)
+        span = re.sub(rf"\b{n}\b", v, body[m.end():end])
+        body = body[:m.start()] + span + (body[u.end():] if u else "")
+
+
+MULTI = re.compile(r"^extern[ \t]+([A-Za-z_][\w \t]*?)[ \t]+((?:\**[ \t]*\w+[ \t]*(?:\[[^\]\n]*\][ \t]*)*,[ \t]*)+"
+                   r"\**[ \t]*\w+[ \t]*(?:\[[^\]\n]*\][ \t]*)*);[ \t]*\n", re.M)
+
+
+def split_externs(body):
+    """`extern T a[], *b;` -> one declaration per name (and one per line)."""
+    while True:
+        b2 = re.sub(r"^(extern\b[^\n;{}]*;)[ \t]*(?=extern\b)", r"\1\n", body, flags=re.M)
+        if b2 == body:
+            break
+        body = b2
+    return MULTI.sub(lambda m: "".join(f"extern {m.group(1)} {d.strip()};\n" for d in m.group(2).split(",")), body)
+
+
 def parts(paths):
     out = []
     for p in paths:
@@ -107,6 +136,10 @@ def parts(paths):
             continue
         incs = INCLUDE.findall(text)
         body = INCLUDE.sub("", text).strip("\n") + "\n"
+        if p.startswith("src/game/data/") and re.search(r"^#pragma explicit_zero_data on", body, re.M):
+            body += "#pragma explicit_zero_data reset\n"     # the data part's own setting
+        body = expand_renames(body)
+        body = split_externs(body)
         body = re.sub(r";[ \t]*/\*[^*\n]*\*/[ \t]*\n", ";\n", body)   # m2c's /* extern */
         tds = {m.group(1): m.group(0) for m in TYPEDEF.finditer(body)}
         tds.update({m.group(1): m.group(0) for m in FPTYPEDEF.finditer(body)})
@@ -120,7 +153,8 @@ PROTO = re.compile(r"^(?!typedef\b|static\b|return\b|else\b|if\b)(?:extern[ \t]+
 DEFN = re.compile(r"^(?!static\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(func_[0-9A-F]{8})[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
 
 
-ALIAS_T = {"float": "f32", "double": "f64", "int": "s32", "unsigned int": "u32", "char": "s8"}
+# char is not signed char to CodeWarrior (char * and s8 * do not convert)
+ALIAS_T = {"float": "f32", "double": "f64", "int": "s32", "unsigned int": "u32"}
 
 
 def norm(t):
@@ -281,7 +315,7 @@ class _Externs:
 
 
 EXTERN = _Externs()
-DEFN_ANY = re.compile(r"^(?!static\b|typedef\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
+DEFN_ANY = re.compile(r"^(?!static\b|typedef\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(((?:[^;{}()]|\([^;{}()]*\))*)\)\s*\{", re.M)
 CONTROL = {"if", "while", "for", "switch", "return", "else", "do", "sizeof"}
 
 
@@ -318,7 +352,7 @@ def header_decls(includes):
     return out
 
 
-def merge(paths):
+def merge(paths, bss=None):
     """Typedefs (renamed per part where parts spell one differently) go to
     the top, then one prototype per function: its definition's, else the
     unified or first declaration. A part that declares a function or an
@@ -411,12 +445,36 @@ def merge(paths):
     # extern objects: the first declaration is the one; a different one
     # elsewhere becomes a cast of it
     ext_first = dict(hdr["externs"])
+    # the unit's .bss block (tools/absorb_bss.py): the first declaration of
+    # each name it defines; the parts' own definitions leave their bodies
+    block, defined = "", set()
+    if bss:
+        block, removed, _ = bss
+        for line in removed:
+            for k, body in enumerate(bodies):
+                if line + "\n" in body:
+                    bodies[k] = body.replace(line + "\n", "", 1)
+                    break
+            else:
+                raise SystemExit(f"no part defines {line!r}")
+        for line in block.split("\n"):
+            if re.match(r"[A-Za-z_]", line):
+                plain = re.sub(r"\s*__attribute__\(\((?:[^()]|\([^()]*\))*\)\)", "", line.split(";")[0])
+                for m in EXTERN.finditer(f"extern {plain};\n"):
+                    ext_first[m.group(3)] = m
+                    defined.add(m.group(3))
+    # initialised data a data-only part defines (tools/data_to_c.py): every
+    # other part keeps it extern, as alone (a visible const would be folded)
+    data_defined = set()
+    for (p, *_), body in zip(ps, bodies):
+        if p.startswith("src/game/data/"):
+            data_defined |= {m.group(1) for m in re.finditer(r"^(?:static\s+)?const\b[^;=\n]*?\b(D_[0-9A-F]{8})\b", body, re.M)}
     for body in bodies:
         for m in EXTERN.finditer(body):
             ext_first.setdefault(m.group(3), m)
     ext_decls = []
     for n, m in ext_first.items():
-        if n in hdr["externs"]:
+        if n in hdr["externs"] or n in defined or n in data_defined:
             continue
         ext_decls.append(m.group(0))
 
@@ -457,6 +515,8 @@ def merge(paths):
 
         def fext(m):
             n = m.group(3)
+            if n in data_defined:
+                return alias(m, n)
             if ext_key(m) == ext_key(ext_first[n]):
                 return ""
             return alias(m, n)
@@ -492,7 +552,7 @@ def merge(paths):
             if i not in includes:
                 includes.append(i)
     return ("".join(includes) + "".join(hoisted) + "".join(ext_decls) + "".join(protos)
-            + "\n" + "\n".join(out))
+            + "\n" + block + "\n".join(out))
 
 
 LINK_ORDER = ROOT / "config/link_order.jp.txt"
@@ -526,6 +586,24 @@ def head(paths):
     """The merged unit's file: the first C part (a unit may start with an
     INCLUDE_ASM'd chunk)."""
     return next(p for p in paths if p.endswith(".c"))
+
+
+def inside_data(paths, secs):
+    """[(data-only unit, section)] between the parts with the unit's data on
+    both sides: the unit's own data."""
+    lines = LINK_ORDER.read_text().split("\n")
+    idx = [lines.index(p) for p in paths]
+    lo, hi = min(idx), max(idx)
+    out = []
+    for k in range(lo, hi + 1):
+        line = lines[k]
+        if line in paths or not line.startswith("src/game/data/"):
+            continue
+        sec = "." + Path(line).name.split("_")[0]
+        if any(sec in secs.get(p, ()) for p in lines[lo:k] if p in paths) \
+                and any(sec in secs.get(p, ()) for p in lines[k + 1:hi + 1] if p in paths):
+            out.append((line, sec))
+    return out
 
 
 def relink(paths, secs):
@@ -565,16 +643,19 @@ def resplit(paths):
     chunks = {Path(p).stem for p in paths if p.endswith(".s")}
     out, prev = [], None
     for l in YAML.read_text().split("\n"):
+        # `- [0xADDR, type, name]` and `- { start: ..., type: .bss, ..., name: name }`
         r = re.match(r"(\s*- \[0x[0-9A-F]+, )(\S+), (\S+)\]$", l)
-        if r and r.group(3) in names:
+        d = None if r else re.match(r"(\s*- \{.*\btype: )(\S+)(, .*\bname: )(\S+)( \})$", l)
+        typ, name = (r.group(2), r.group(3)) if r else (d.group(2), d.group(4)) if d else (None, None)
+        if name in names:
             # a C part's code goes into the first part's subsegment, except
             # right after one of the unit's INCLUDE_ASM'd chunks: the unit
             # resumes there under its own name (splat writes both ranges'
             # functions to its asm/matchings directory)
-            if r.group(2) == "c" and not (prev and prev[0] == "asm" and prev[1] in chunks):
+            if typ == "c" and not (prev and prev[0] == "asm" and prev[1] in chunks):
                 continue
-            l = f"{r.group(1)}{r.group(2)}, {first}]"
-        key = (r.group(2), first if r.group(3) in names else r.group(3)) if r else None
+            l = f"{r.group(1)}{typ}, {first}]" if r else f"{d.group(1)}{typ}{d.group(3)}{first}{d.group(5)}"
+        key = (typ, first if name in names else name) if typ else None
         if key and key == prev and key[0] != "c":
             continue
         out.append(l)
@@ -629,6 +710,27 @@ def main():
     except SystemExit as e:
         print(f"{paths[0]}..{Path(paths[-1]).name}: not merged ({e})")
         return 1
+    # a .bss data-only unit inside the unit is the unit's own
+    # (tools/absorb_bss.py: defined in it, small runs grouped)
+    inside = inside_data(paths, secs)
+    absorbed, groups = [], []
+    if inside and all(sec in (".rodata", ".data") for _, sec in inside):
+        # initialised data inside the unit: a part of it, at its place
+        order = LINK_ORDER.read_text().split("\n")
+        paths = sorted(paths + [u for u, _ in inside], key=order.index)
+        saved.update({u: (ROOT / u).read_text() for u, _ in inside})
+        secs.update({u: data_sections(u) for u, _ in inside})
+        merged = merge(paths)
+        inside = []
+    if inside and all(sec == ".bss" for _, sec in inside):
+        import absorb_bss
+        try:
+            bss = absorb_bss.absorb(merged, [u for u, _ in inside])
+            merged, groups = merge(paths, bss), bss[2]
+            absorbed = [u for u, _ in inside]
+        except SystemExit as e:
+            print(f"{paths[0]}..{Path(paths[-1]).name}: not merged (.bss: {e})")
+            return 1
     first = ROOT / head(paths)
     first.write_text(merged)
     for p in paths:
@@ -639,6 +741,15 @@ def main():
         ok, text = False, "the parts' config/game_cflags.txt flags differ"
     else:
         ok, text = check(first)
+    if (ok or keep) and absorbed:
+        lines = [l for l in LINK_ORDER.read_text().split("\n") if l not in absorbed]
+        LINK_ORDER.write_text("\n".join(lines))
+        y = YAML.read_text()
+        for u in absorbed:
+            y = y.replace(f"name: {u[len('src/'):-len('.c')]} }}", f"name: {head(paths)[len('src/'):-len('.c')]} }}")
+            subprocess.run(["git", "rm", "-q", u], cwd=ROOT)
+        YAML.write_text(y)
+        absorb_bss.record(groups)
     why = relink(paths, secs) if ok or keep else None
     if why:
         ok, keep, text = False, False, f"link order: {why}"

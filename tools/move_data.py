@@ -77,8 +77,8 @@ def users(names, alias):
         if "/build/src/game/data/" in o or "/build/asm/data/" in o:
             continue    # the data units themselves, and stale asm data objects
         rel = str(Path(o).relative_to(ROOT / "build"))[:-2]
-        if rel.startswith("src/") and not (ROOT / rel).exists():
-            continue    # a stale object of a source merged away or removed
+        if rel.startswith(("src/", "asm/")) and not (ROOT / rel).exists():
+            continue    # a stale object of a source merged away, removed or resplit
         with open(o, "rb") as f:
             for s in ELFFile(f).get_section_by_name(".symtab").iter_symbols():
                 if s["st_shndx"] == "SHN_UNDEF" and s.name:

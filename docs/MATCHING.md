@@ -406,3 +406,57 @@ objdiff unit; objdiff_base.py folds the .text.iaN back into .text.
 (`tools/infer_tus.py --files` lists them), then rm -rf asm and ./build.sh.
 To match the function later, replace the marker by its C and drop the
 chunk from the link order and sta.jp.yaml.
+
+### Shared constants as translation-unit evidence
+
+CodeWarrior pools a unit's string literals and float constants (one copy per
+unit) and mwldps2 never merges two units' copies, so an unnamed `.rodata`
+constant that several functions use puts them in one unit.
+`tools/infer_tus.py` takes such objects as ties next to the backward steps:
+a C string (zero filled to its size), or a 4- or 8-byte value that reads as
+a plausible float or double and not as a pointer, used by more than one unit
+within `--limit` bytes of code. A named `const` global shared across units
+would tie them wrongly; the merged unit's match and the ROM check are the
+test.
+
+Padding does not show where a unit ends. CodeWarrior writes each data
+object to a section of its own, and ld 2.10 places every input section at
+its own alignment only; that link reproduces retail byte for byte, so
+mwldps2 added no padding between objects either. Measured on the known
+multi-function units: in .rodata, a 4-byte gap to a 16-byte boundary is the
+commonest non-zero gap both inside a unit (11 of 39 section pairs) and
+between units (12 of 34), and zero gaps occur in both. The only evidence is
+order (backward steps) and pooling (shared constants).
+
+### A data-only unit inside a merged unit
+
+A data-only unit between the parts, with the unit's data on both sides, is
+the unit's own; `tools/merge_tu.py` takes it in instead of refusing:
+
+- .bss (`tools/absorb_bss.py`): the parts' and the data unit's objects
+  become one block at the top of the unit, highest address first
+  (CodeWarrior writes uninitialised objects in reverse, so the source
+  defined them at the top). An object of 8 bytes or less would be .sbss in a
+  game unit, so in retail it was part of a larger one: a run of them longer
+  than 8 bytes is one object, a shorter one the trailing fields of the
+  object before it (records like `u8 buf[0x204]; s32 a, b, c; s32 d[16];`
+  repeat in bss_0049F8A0). The names inside become fields for ld
+  (config/data_aliases.txt) and symbol_addrs.carve.txt gets the sizes. The
+  block is each name's first declaration; a part that declares one
+  otherwise keeps its view through an alias. The parts use $gp, so the
+  unit had small data: the grouping, not a threshold, explains it.
+- .rodata/.data: the data unit is one more part, at its place among the
+  functions (initialised data is emitted in source order with the literal
+  pools), and every other part keeps its names extern through aliases, as
+  alone, so no visible const is folded.
+
+tools/carve.py does not handle INCLUDE_ASM units' chunks yet (it would give
+a chunk's range to its unit and write the __as_ aliases as names); merges
+edit sta.jp.yaml and symbol_addrs.carve.txt themselves. tools/lib_layout.py
+places INCLUDE_ASM units (`carve.py --check` is clean).
+
+`tools/infer_tus.py --hints` lists functions that only units within
+`--limit` call (from the objects' jal relocations): likely statics of their
+callers' file. They are not evidence on their own (a global with near
+callers is common); use them to choose where to look for pooled constants
+or data order.

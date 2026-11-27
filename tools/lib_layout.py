@@ -85,6 +85,23 @@ def load_retail(path):
     return out
 
 
+def chunk_text(name):
+    """(size, alignment) of the .text of the asm chunk whose first label is
+    `name` (an INCLUDE_ASM marker's), from its built object."""
+    import glob
+    for src in glob.glob(os.path.join(ROOT, "asm", "**", "*.s"), recursive=True):
+        if "/matchings/" in src or "/data/" in src:
+            continue
+        with open(src) as f:
+            m = re.search(r"^\s*glabel (\w+)", f.read(), re.M)
+        if m and m.group(1) == name:
+            o = os.path.join(ROOT, "build", os.path.relpath(src, ROOT) + ".o")
+            with open(o, "rb") as f:
+                t = ELFFile(f).get_section_by_name(".text")
+                return t["sh_size"], max(t["sh_addralign"], 1)
+    raise SystemExit(f"INCLUDE_ASM({name}): no asm chunk starts with it")
+
+
 class Obj:
     def __init__(self, path, unit):
         self.unit = unit
@@ -96,16 +113,30 @@ class Obj:
             self.secs = {}
             self.part = {}      # section index -> (name, offset of that part in the joined section)
             idx = {}
+            # an INCLUDE_ASM unit (tools/include_asm.py): its .text.iaN are
+            # .text, and each marker stands for its asm chunk, bytes unknown
+            # (self.gaps: (offset, size) in the joined .text, masked out)
+            self.gaps = []
+            marks = {sym["st_shndx"]: sym.name[len("__include_asm_"):]
+                     for sym in e.get_section_by_name(".symtab").iter_symbols()
+                     if sym.name.startswith("__include_asm_") and isinstance(sym["st_shndx"], int)}
             for i, s in enumerate(e.iter_sections()):
-                if s.name in SECS and s["sh_size"]:
+                name = ".text" if s.name.startswith(".text.ia") else s.name
+                if name in SECS and s["sh_size"]:
                     data = s.data() if s["sh_type"] != "SHT_NOBITS" else b"\0" * s["sh_size"]
                     align = max(s["sh_addralign"], 1)
-                    first, size, salign, joined = self.secs.get(s.name, (i, 0, 1, b""))
+                    if s.name == ".text.iastub":
+                        size_, align = chunk_text(marks[i])
+                        data = b"\0" * size_
+                    first, size, salign, joined = self.secs.get(name, (i, 0, 1, b""))
                     off = -(-size // align) * align
                     joined = joined + b"\0" * (off - size) + data
-                    self.secs[s.name] = (first, off + len(data), max(salign, align), joined)
-                    self.part[i] = (s.name, off)
-                    idx[i] = s.name
+                    self.secs[name] = (first, off + len(data), max(salign, align), joined)
+                    if s.name == ".text.iastub":
+                        self.gaps.append((off, len(data)))
+                        continue        # the marker's own relocations and symbol are not the chunk's
+                    self.part[i] = (name, off)
+                    idx[i] = name
             symtab = e.get_section_by_name(".symtab")
             syms = list(symtab.iter_symbols())
             # relocations: section name -> list of (offset, type, target section or None,
@@ -145,6 +176,9 @@ class Obj:
         """Per-word masks for `sec`: bits that the linker leaves alone."""
         _, size, _, _ = self.secs[sec]
         m = [0xFFFFFFFF] * (size // 4)
+        if sec == ".text":
+            for off, n in self.gaps:
+                m[off // 4:(off + n) // 4] = [0] * (n // 4)
         for off, typ, *_ in self.relocs[sec]:
             if off // 4 < len(m):
                 m[off // 4] &= {R_26: 0xFC000000, R_HI16: 0xFFFF0000,
@@ -300,7 +334,11 @@ def layout(objdir):
         # name places it, and the byte check below confirms it
         m = re.fullmatch(r"src/game/(?:.*/)?func_([0-9A-F]{8})\.[cs]", o.unit)
         if m:
-            place[(o.unit, ".text")] = (int(m.group(1), 16), "by-name")
+            # the named function's offset in the joined .text (not 0 when the
+            # unit starts with an INCLUDE_ASM'd chunk)
+            fn = f"func_{m.group(1)}"
+            off = next((v for v, n in o.funcs if n == fn), 0)
+            place[(o.unit, ".text")] = (int(m.group(1), 16) - off, "by-name")
             continue
         hits = search(rwords[".text"], words(data), o.mask(".text"))
         hits = [h for h in hits if calls_agree(o, tbase + h * 4, tdata, tbase, syms)]
