@@ -21,23 +21,13 @@ typedef struct {
 typedef struct { u128 q[2]; } Q2;
 typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
 typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_00195460;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195460 e[1]; } Tbl_func_00195460;
+typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195460 e[1]; } Tbl;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } Ev;
 typedef struct { s32 id; char p[0x2C]; } E_func_00195770;
 typedef struct { char p0[4]; u32 n; char p8[8]; E_func_00195770 e[1]; } T_func_00195770;
-typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_001957E0;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_001957E0 e[1]; } Tbl_func_001957E0;
-typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_00195840;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195840 e[1]; } Tbl_func_00195840;
 typedef struct { s32 id; s32 x4; s32 off; } Ent_func_00195900;
 typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195900 e[1]; } Hdr;
-typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_00195970;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195970 e[1]; } Tbl_func_00195970;
 typedef struct { s16 v; s16 id; } E_func_001959E0;
-typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_00195A30;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195A30 e[1]; } Tbl_func_00195A30;
-typedef struct { s32 id; s32 o1; s32 o2; } Ent_func_00195AA0;
-typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_func_00195AA0 e[1]; } Tbl_func_00195AA0;
 typedef struct { s32 id; s32 off; } E_func_00195B10;
 typedef struct { char p0[4]; u32 n; char p8[8]; E_func_00195B10 e[1]; } T_func_00195B10;
 typedef struct { s16 n; s8 v[14]; } E_func_00195B80;
@@ -52,7 +42,7 @@ extern s8 D_001FD268[];
 extern s8 *D_00201D28;
 extern s8 *D_00201D2C;
 extern u8 D_00201D20[4];
-extern Tbl_func_00195460 *D_0020215C;
+extern Tbl *D_0020215C;
 extern u32 D_002022B8;
 extern T_func_00195770 **D_00202168;
 extern s32 *D_00202160;
@@ -77,8 +67,8 @@ void func_00195410(s32 arg0);
 s32 func_00195420(s32 i);
 void func_00195460(Ev *arg0);
 E_func_00195770* func_00195770(s32 id);
-s8* func_001957E0(Tbl_func_001957E0 *t, s32 id);
-s8* func_00195840(Tbl_func_00195840 *t, s32 id);
+s8* func_001957E0(Tbl *t, s32 id);
+s8* func_00195840(Tbl *t, s32 id);
 s32 func_001958A0(void);
 s32 func_001958C0(void);
 s32 func_001958E0(void);
@@ -158,17 +148,13 @@ s32 func_00195420(s32 i)
 }
 
 /* func_00195460 */
-#define func_00195420 func_00195420__as_func_00195460
-void func_00195420__as_func_00195460(void);
-#define func_00195D80 func_00195D80__as_func_00195460
-void func_00195D80__as_func_00195460(void);
-static inline Tbl_func_00195460 *get_func_00195460(void) {
+static inline Tbl *get_func_00195460(void) {
     if (D_0020215C != NULL) {
-        return (Tbl_func_00195460 *)D_0020215C->x0;
+        return (Tbl *)D_0020215C->x0;
     }
     return 0;
 }
-static inline s8 *find1_func_00195460(Tbl_func_00195460 *t, s32 id) {
+static inline s8 *find1_func_00195460(Tbl *t, s32 id) {
     Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
@@ -182,7 +168,7 @@ static inline s8 *find1_func_00195460(Tbl_func_00195460 *t, s32 id) {
     }
     return D_001FD268;
 }
-static inline s8 *find2_func_00195460(Tbl_func_00195460 *t, s32 id) {
+static inline s8 *find2_func_00195460(Tbl *t, s32 id) {
     Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
@@ -202,7 +188,7 @@ void func_00195460(Ev *arg0) {
     Arg a;
     s32 n;
     s32 k;
-    Tbl_func_00195460 *t;
+    Tbl *t;
     u32 id;
 
     if (arg0->x0 == 0x19) {
@@ -257,8 +243,6 @@ void func_00195460(Ev *arg0) {
         }
     }
 }
-#undef func_00195420
-#undef func_00195D80
 
 /* func_00195770 */
 E_func_00195770 *func_00195770(s32 id)
@@ -278,8 +262,8 @@ E_func_00195770 *func_00195770(s32 id)
 }
 
 /* func_001957E0 */
-s8 *func_001957E0(Tbl_func_001957E0 *t, s32 id) {
-    Ent_func_001957E0 *e;
+s8 *func_001957E0(Tbl *t, s32 id) {
+    Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
         return D_001FD268;
@@ -294,10 +278,8 @@ s8 *func_001957E0(Tbl_func_001957E0 *t, s32 id) {
 }
 
 /* func_00195840 */
-#define D_0020215C D_0020215C__as_func_00195840
-extern Tbl_func_00195840 *D_0020215C__as_func_00195840;
-s8 *func_00195840(Tbl_func_00195840 *t, s32 id) {
-    Ent_func_00195840 *e;
+s8 *func_00195840(Tbl *t, s32 id) {
+    Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
         return D_001FD268;
@@ -310,7 +292,6 @@ s8 *func_00195840(Tbl_func_00195840 *t, s32 id) {
     }
     return D_001FD268;
 }
-#undef D_0020215C
 
 /* func_001958A0 */
 s32 func_001958A0(void) {
@@ -341,8 +322,6 @@ s32 func_001958E0(void) {
 #undef D_0020215C
 
 /* func_00195900 */
-#define D_001FD268 D_001FD268__as_func_00195900
-extern s32 D_001FD268__as_func_00195900[];
 static inline s32 get_func_00195900(void) {
     if (D_00202164 != NULL) {
         return *D_00202164;
@@ -360,19 +339,18 @@ s32 *func_00195900(s32 id) {
     }
     return D_001FD268;
 }
-#undef D_001FD268
 
 /* func_00195970 */
 #define D_00202164 D_00202164__as_func_00195970
-extern Tbl_func_00195970 **D_00202164__as_func_00195970;
-static inline Tbl_func_00195970 *get_func_00195970(void) {
+extern Tbl **D_00202164__as_func_00195970;
+static inline Tbl *get_func_00195970(void) {
     if (D_00202164 != NULL) {
         return *D_00202164;
     }
     return 0;
 }
-static inline s8 *find1_func_00195970(Tbl_func_00195970 *t, s32 id) {
-    Ent_func_00195970 *e;
+static inline s8 *find1_func_00195970(Tbl *t, s32 id) {
+    Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
         return D_001FD268;
@@ -394,16 +372,14 @@ s8 *func_00195970(s32 id) {
 s32 func_001959E0(s32 id) { s32 i; E_func_001959E0 *base = *D_0020216C; E_func_001959E0 *e = base; for (i = 0; i < 24; i++, e++) { if (id == e->id) return base[i].v; } return -1; }
 
 /* func_00195A30 */
-#define D_0020215C D_0020215C__as_func_00195A30
-extern Tbl_func_00195A30 *D_0020215C__as_func_00195A30;
-static inline Tbl_func_00195A30 *get_func_00195A30(void) {
+static inline Tbl *get_func_00195A30(void) {
     if (D_0020215C != NULL) {
-        return (Tbl_func_00195A30 *)D_0020215C->x0;
+        return (Tbl *)D_0020215C->x0;
     }
     return 0;
 }
-static inline s8 *find2_func_00195A30(Tbl_func_00195A30 *t, s32 id) {
-    Ent_func_00195A30 *e;
+static inline s8 *find2_func_00195A30(Tbl *t, s32 id) {
+    Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
         return D_001FD268;
@@ -419,19 +395,16 @@ static inline s8 *find2_func_00195A30(Tbl_func_00195A30 *t, s32 id) {
 s8 *func_00195A30(s32 id) {
     return find2_func_00195A30(get_func_00195A30(), id);
 }
-#undef D_0020215C
 
 /* func_00195AA0 */
-#define D_0020215C D_0020215C__as_func_00195AA0
-extern Tbl_func_00195AA0 *D_0020215C__as_func_00195AA0;
-static inline Tbl_func_00195AA0 *get_func_00195AA0(void) {
+static inline Tbl *get_func_00195AA0(void) {
     if (D_0020215C != NULL) {
-        return (Tbl_func_00195AA0 *)D_0020215C->x0;
+        return (Tbl *)D_0020215C->x0;
     }
     return 0;
 }
-static inline s8 *find1_func_00195AA0(Tbl_func_00195AA0 *t, s32 id) {
-    Ent_func_00195AA0 *e;
+static inline s8 *find1_func_00195AA0(Tbl *t, s32 id) {
+    Ent_func_00195460 *e;
     u32 i;
     if (t == 0) {
         return D_001FD268;
@@ -447,11 +420,8 @@ static inline s8 *find1_func_00195AA0(Tbl_func_00195AA0 *t, s32 id) {
 s8 *func_00195AA0(s32 id) {
     return find1_func_00195AA0(get_func_00195AA0(), id);
 }
-#undef D_0020215C
 
 /* func_00195B10 */
-#define D_00202180 D_00202180__as_func_00195B10
-extern T_func_00195B10 **D_00202180__as_func_00195B10;
 
 void *func_00195B10(s32 id)
 {
@@ -467,7 +437,6 @@ void *func_00195B10(s32 id)
     }
     return NULL;
 }
-#undef D_00202180
 
 /* func_00195B80 */
 s8 func_00195B80(s32 i, s32 *p) {
@@ -485,22 +454,10 @@ s16 func_00195BE0(s32 i)
 }
 
 /* func_00195C00 */
-#define D_0020215C D_0020215C__as_func_00195C00
-extern s8 *D_0020215C__as_func_00195C00;
-#define D_00202160 D_00202160__as_func_00195C00
-extern s8 *D_00202160__as_func_00195C00;
-#define D_00202164 D_00202164__as_func_00195C00
-extern s8 *D_00202164__as_func_00195C00;
-#define D_00202168 D_00202168__as_func_00195C00
-extern s8 *D_00202168__as_func_00195C00;
-#define D_0020216C D_0020216C__as_func_00195C00
-extern s8 *D_0020216C__as_func_00195C00;
 #define D_00202174 D_00202174__as_func_00195C00
 extern s32 D_00202174__as_func_00195C00;
 #define D_0020217C D_0020217C__as_func_00195C00
 extern s32 D_0020217C__as_func_00195C00;
-#define D_00202180 D_00202180__as_func_00195C00
-extern s8 *D_00202180__as_func_00195C00;
 
 void func_00195C00(s8 *arg0) {
     u32 sp1C;
@@ -533,14 +490,8 @@ void func_00195C00(s8 *arg0) {
         D_0020217C = *D_00202178;
     }
 }
-#undef D_0020215C
-#undef D_00202160
-#undef D_00202164
-#undef D_00202168
-#undef D_0020216C
 #undef D_00202174
 #undef D_0020217C
-#undef D_00202180
 
 /* func_00195D80 */
 void func_00195D80(s32 i, f32 *a1, f32 *a2) { s32 sp; f32 f; func_0017F840(3, &sp);  if (i >= D_00202154 - 3 && i <= D_00202154 + 3) { f = a2[2] - (f32)i; D_00201D24[i] = f; a1[5] = f; return; } D_00201D24[i] = -5.0f; a1[5] = -5.0f; }

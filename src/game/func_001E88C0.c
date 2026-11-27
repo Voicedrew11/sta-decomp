@@ -3,11 +3,9 @@
 typedef struct { u8 trycount; u8 spindlctrl; u8 datapattern; u8 pad; } RMode;
 typedef struct { s32 w[4]; } Q_func_001E9020;
 typedef struct { u32 x, y, w, h; } R;
-typedef struct { s32 w[4]; } Q_func_001E9190;
 typedef struct { s32 lo, hi, reg, pad; } Q_func_001E92C0;
 typedef struct { char pad[0x38]; u32 w; s32 h; } O_func_001E9420;
 typedef struct { s32 a, b, c, d; } P_func_001E9420;
-typedef struct { s32 w[4]; } Q_func_001E95B0;
 typedef struct { u8 pad[0x30]; s32 x30, x34, x38, x3C, x40, x44; } O_func_001E95B0;
 typedef struct {
     u64 FBP : 9;
@@ -53,9 +51,8 @@ typedef struct { u32 base; u32 tags; s32 n; s32 xC, x10, x14; s32 pad[10]; s32 s
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; u8 pad[0x24]; s32 x40; } S_func_001EAF60;
 typedef struct { u32 base; u32 tags; s32 n; s32 xC, x10, x14, x18, x1C, x20, x24, x28; s32 pad[6]; s32 x44; u64 x48; } S_func_001EB060;
 typedef struct { s32 count; s32 max_count; s32 init_count; s32 wait_threads; u32 attr; u32 option; } SemaParam;
-typedef struct { s64 x0; s64 x8; s32 x10; s32 x14; } E_func_001EB1A0;
 typedef struct { u64 a; u64 b; } T_func_001EB1A0;
-typedef struct { u32 x0; u32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; u8 pad[0x24]; s32 x40; s32 x44; s64 x48; E_func_001EB1A0 *x50; s32 x54; s32 x58; s32 x5C; } O_func_001EB1A0;
+typedef struct { u32 x0; u32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; u8 pad[0x24]; s32 x40; s32 x44; s64 x48; E_func_001EA2E0 *x50; s32 x54; s32 x58; s32 x5C; } O_func_001EB1A0;
 typedef struct { s32 src; s32 dst; s32 size; s32 attr; } Dma_func_001EB540;
 typedef struct {
     s32 state; char pad[0x2C];
@@ -67,9 +64,8 @@ typedef struct { s32 x0; u8 p4[0x28]; s32 x2C; s32 x30; s32 x34; s32 x38; s32 x3
 typedef struct { void *src; s32 dst; s32 size; s32 attr; } Dma_func_001EBCC0;
 typedef struct { s32 x0; u8 pad[0x28]; s32 x2C; s32 x30; s32 x34; s32 x38; s32 x3C; s32 x40; } S_func_001EBE10;
 typedef struct { s32 x0; s32 x4; u8 *x8; s32 xC; } H;
-typedef struct { s64 a; s64 b; s32 pos; s32 len; } E_func_001EC070;
 typedef struct { u8 p0[8]; u8 *src; u32 len; s64 a; s64 b; } P_func_001EC070;
-typedef struct { s32 x0; u8 p4[0x10]; s32 x14; u8 p18[0x28]; s32 sema; u8 p44[4]; s64 tot; E_func_001EC070 *ents; s32 n; s32 cnt; s32 head; } O_func_001EC070;
+typedef struct { s32 x0; u8 p4[0x10]; s32 x14; u8 p18[0x28]; s32 sema; u8 p44[4]; s64 tot; E_func_001EA4D0 *ents; s32 n; s32 cnt; s32 head; } O_func_001EC070;
 typedef struct { s32 status; void *entry; void *stack; s32 stackSize; void *gpReg; s32 initPriority; s32 currentPriority; u32 attr; u32 option; s32 waitType; s32 waitId; s32 wakeupCount; } TP;
 typedef struct { u8 pad[8]; s32 x8; u8 pC[0x4C]; s32 x58; s32 x5C; u8 p60[0x28]; s32 x88; u8 p8C[0x1C]; s32 xA8; } P_func_001ECAB0;
 typedef struct { u8 data[0x50000]; s32 rd; s32 cnt; s32 size; } B_func_001ECAB0;
@@ -143,7 +139,7 @@ extern volatile u32 D_004BE008[];
 extern s32 D_004BE034[];
 s32 func_001E88C0(s32 *a0, char *name);
 Q_func_001E9020* func_001E9020(Q_func_001E9020 *p, R *r, s32 i, s32 j);
-Q_func_001E9190* func_001E9190(Q_func_001E9190 *p, R *r, u32 c);
+Q_func_001E9020* func_001E9190(Q_func_001E9020 *p, R *r, u32 c);
 Q_func_001E92C0* func_001E92C0(Q_func_001E92C0 *p, R *b, R *a);
 void func_001E9420(O_func_001E9420 *o, s32 n);
 void func_001E95B0(O_func_001E95B0 *o, u32 buf, u32 src, s32 i, s32 j);
@@ -165,7 +161,7 @@ s32 func_001EAB10(S_func_001EAB10 *s);
 s32 func_001EAC70(S_func_001EAC70 *f);
 void func_001EAF60(S_func_001EAF60 *s, s32 *a1, s32 *a2, s32 *a3, s32 *a4);
 s32 func_001EB060(S_func_001EB060 *p);
-s32 func_001EB1A0(void *o0, u32 addr0, void *tags0, s32 n, E_func_001EB1A0 *e, s32 cnt);
+s32 func_001EB1A0(void *o0, u32 addr0, void *tags0, s32 n, E_func_001EA2E0 *e, s32 cnt);
 s32 func_001EB540(s32 p1, s32 n1, s32 p2, s32 n2, s32 s1, s32 l1, s32 s2, s32 l2);
 s32 func_001EB8B0(S_func_001EB8B0 *s);
 void func_001EBAB0(S_func_001EBAB0 *s, s32 *a1, s32 *a2, s32 *a3, s32 *a4);
@@ -387,13 +383,13 @@ Q_func_001E9020 *func_001E9020(Q_func_001E9020 *p, R *r, s32 i, s32 j) {
 }
 
 /* func_001E9190 */
-static inline Q_func_001E9190 *put_func_001E9190(Q_func_001E9190 *p, u64 v, s32 r)
+static inline Q_func_001E9020 *put_func_001E9190(Q_func_001E9020 *p, u64 v, s32 r)
 {
     p->w[0] = v & 0xFFFFFFFF; p->w[1] = v >> 32; p->w[2] = r; p->w[3] = 0;
     return p + 1;
 }
 
-Q_func_001E9190 *func_001E9190(Q_func_001E9190 *p, R *r, u32 c)
+Q_func_001E9020 *func_001E9190(Q_func_001E9020 *p, R *r, u32 c)
 {
     p = put_func_001E9190(p, 0x106, 0);
     p = put_func_001E9190(p, (u64)r->x | ((u64)r->y << 16), 5);
@@ -458,19 +454,17 @@ void func_001E9420(O_func_001E9420 *o, s32 n) {
 
 /* func_001E95B0 */
 #define func_001E92C0 func_001E92C0__as_func_001E95B0
-Q_func_001E95B0 *func_001E92C0__as_func_001E95B0(Q_func_001E95B0 *p, R *b, R *a);
-#define func_001E9020 func_001E9020__as_func_001E95B0
-Q_func_001E95B0 *func_001E9020__as_func_001E95B0(Q_func_001E95B0 *p, R *r, s32 i, s32 j);
+Q_func_001E9020 *func_001E92C0__as_func_001E95B0(Q_func_001E9020 *p, R *b, R *a);
 
-static inline Q_func_001E95B0 *dma_func_001E95B0(Q_func_001E95B0 *p, u64 v) { *(u64 *)p = v; return p + 1; }
-static inline Q_func_001E95B0 *tag_func_001E95B0(Q_func_001E95B0 *p, s32 a, s32 b, s32 c, s32 d) { p->w[0] = a; p->w[1] = b; p->w[2] = c; p->w[3] = d; return p + 1; }
-static inline Q_func_001E95B0 *ref(Q_func_001E95B0 *p, u32 addr, s32 n) { *(u64 *)p = ((u64)(u32)((s32)addr & ~0xF) << 32) | 0x30000000 | n; return p + 1; }
-static inline Q_func_001E95B0 *set_func_001E95B0(Q_func_001E95B0 *p, u64 v, s32 r) { p->w[0] = v & 0xFFFFFFFF; p->w[1] = v >> 32; p->w[2] = r; p->w[3] = 0; return p + 1; }
+static inline Q_func_001E9020 *dma_func_001E95B0(Q_func_001E9020 *p, u64 v) { *(u64 *)p = v; return p + 1; }
+static inline Q_func_001E9020 *tag_func_001E95B0(Q_func_001E9020 *p, s32 a, s32 b, s32 c, s32 d) { p->w[0] = a; p->w[1] = b; p->w[2] = c; p->w[3] = d; return p + 1; }
+static inline Q_func_001E9020 *ref(Q_func_001E9020 *p, u32 addr, s32 n) { *(u64 *)p = ((u64)(u32)((s32)addr & ~0xF) << 32) | 0x30000000 | n; return p + 1; }
+static inline Q_func_001E9020 *set_func_001E95B0(Q_func_001E9020 *p, u64 v, s32 r) { p->w[0] = v & 0xFFFFFFFF; p->w[1] = v >> 32; p->w[2] = r; p->w[3] = 0; return p + 1; }
 
 void func_001E95B0(O_func_001E95B0 *o, u32 buf, u32 src, s32 i, s32 j) {
     R a;
     R b;
-    Q_func_001E95B0 *p;
+    Q_func_001E9020 *p;
     s32 tbp;
     s32 tbw;
     s32 ny;
@@ -481,7 +475,7 @@ void func_001E95B0(O_func_001E95B0 *o, u32 buf, u32 src, s32 i, s32 j) {
     u32 ad;
     u64 v;
 
-    p = (Q_func_001E95B0 *)((buf & 0x0FFFFFFF) | 0x20000000);
+    p = (Q_func_001E9020 *)((buf & 0x0FFFFFFF) | 0x20000000);
     ny = o->x40 >> 4;
     nx = o->x44 >> 4;
     w = (o->x38 + 63) / 64 * 64;
@@ -535,12 +529,9 @@ void func_001E95B0(O_func_001E95B0 *o, u32 buf, u32 src, s32 i, s32 j) {
     func_001E9020(p, &a, i, j);
 }
 #undef func_001E92C0
-#undef func_001E9020
 
 /* func_001E9AA0 */
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
-#define sceGsSyncV sceGsSyncV__as_func_001E9AA0
-void sceGsSyncV__as_func_001E9AA0(s32);
 
 static inline u32 *setreg_func_001E9AA0(u32 *p, u64 v, s32 reg) {
     p[0] = v & 0xFFFFFFFF;
@@ -601,7 +592,6 @@ void func_001E9AA0(Env *o, s32 a1, s32 a2, s32 w, s32 h, s32 a5, s32 a6) {
     *(volatile u32 *)0x1000A000 = 0x101;
     sceGsSyncPath(0, 0);
 }
-#undef sceGsSyncV
 
 /* func_001E9DC0 */
 #define func_001EA2E0 func_001EA2E0__as_func_001E9DC0
@@ -630,27 +620,21 @@ s32 func_001E9E10(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 /* func_001E9E40 */
 #define func_001EA750 func_001EA750__as_func_001E9E40
 int func_001EA750__as_func_001E9E40();
-#define D_004BDF88 D_004BDF88__as_func_001E9E40
-extern s32 D_004BDF88__as_func_001E9E40[];
 
 s32 func_001E9E40(void) {
     func_001EA750(D_004BDF88);
     return 1;
 }
-#undef D_004BDF88
 #undef func_001EA750
 
 /* func_001E9E70 */
 #define func_001EAB10 func_001EAB10__as_func_001E9E70
 int func_001EAB10__as_func_001E9E70();
-#define D_004BDF88 D_004BDF88__as_func_001E9E70
-extern s32 D_004BDF88__as_func_001E9E70[];
 
 s32 func_001E9E70(void) {
     func_001EAB10(D_004BDF88);
     return 1;
 }
-#undef D_004BDF88
 #undef func_001EAB10
 
 /* func_001E9EA0 */
@@ -658,10 +642,6 @@ s32 func_001E9E70(void) {
 int func_001EAC70__as_func_001E9EA0();
 #define func_001EB8B0 func_001EB8B0__as_func_001E9EA0
 int func_001EB8B0__as_func_001E9EA0();
-#define RotateThreadReadyQueue RotateThreadReadyQueue__as_func_001E9EA0
-void RotateThreadReadyQueue__as_func_001E9EA0(s32);
-#define D_004BDF88 D_004BDF88__as_func_001E9EA0
-extern s32 D_004BDF88__as_func_001E9EA0[];
 
 s32 func_001E9EA0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     func_001EB8B0(D_004BDEE0, arg1, arg2, arg3);
@@ -669,8 +649,6 @@ s32 func_001E9EA0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     func_001EAC70(D_004BDF88);
     return 1;
 }
-#undef RotateThreadReadyQueue
-#undef D_004BDF88
 #undef func_001EAC70
 #undef func_001EB8B0
 
@@ -705,8 +683,6 @@ s32 func_001E9EF0(M *mp) {
 /* func_001EA060 */
 #define D_004BDECC D_004BDECC__as_func_001EA060
 extern volatile s32 D_004BDECC__as_func_001EA060[];
-#define D_004BDEC8 D_004BDEC8__as_func_001EA060
-extern s32 D_004BDEC8__as_func_001EA060[];
 #define func_001EB060 func_001EB060__as_func_001EA060
 void func_001EB060__as_func_001EA060(void *p);
 #define func_001E9EF0 func_001E9EF0__as_func_001EA060
@@ -725,7 +701,6 @@ void func_001EA060(Obj_func_001EA060 *o)
 #undef func_001EB060
 #undef func_001E9EF0
 #undef D_004BDECC
-#undef D_004BDEC8
 
 /* func_001EA0D0 */
 #define func_001EAF60 func_001EAF60__as_func_001EA0D0
@@ -1089,10 +1064,6 @@ s32 func_001EAC70(S_func_001EAC70 *f) {
 }
 
 /* func_001EAF60 */
-#define WaitSema WaitSema__as_func_001EAF60
-void WaitSema__as_func_001EAF60(s32);
-#define SignalSema SignalSema__as_func_001EAF60
-void SignalSema__as_func_001EAF60(s32);
 void func_001EAF60(S_func_001EAF60 *s, s32 *a1, s32 *a2, s32 *a3, s32 *a4) {
     s32 b, a, r, n;
     WaitSema(s->x40);
@@ -1112,8 +1083,6 @@ void func_001EAF60(S_func_001EAF60 *s, s32 *a1, s32 *a2, s32 *a3, s32 *a4) {
     }
     SignalSema(s->x40);
 }
-#undef WaitSema
-#undef SignalSema
 
 /* func_001EB060 */
 s32 func_001EB060(S_func_001EB060 *p) {
@@ -1143,11 +1112,9 @@ s32 func_001EB060(S_func_001EB060 *p) {
 }
 
 /* func_001EB1A0 */
-#define DIntr DIntr__as_func_001EB1A0
-void DIntr__as_func_001EB1A0(void);
 #define EIntr EIntr__as_func_001EB1A0
 void EIntr__as_func_001EB1A0(s32, s32);
-s32 func_001EB1A0(void *o0, u32 addr0, void *tags0, s32 n, E_func_001EB1A0 *e, s32 cnt) {
+s32 func_001EB1A0(void *o0, u32 addr0, void *tags0, s32 n, E_func_001EA2E0 *e, s32 cnt) {
     u32 t;
     O_func_001EB1A0 *o;
     s32 addr;
@@ -1199,12 +1166,9 @@ s32 func_001EB1A0(void *o0, u32 addr0, void *tags0, s32 n, E_func_001EB1A0 *e, s
     EIntr(a, b);
     return 1;
 }
-#undef DIntr
 #undef EIntr
 
 /* func_001EB540 */
-#define sceSifSetDma sceSifSetDma__as_func_001EB540
-s32 sceSifSetDma__as_func_001EB540(Dma_func_001EB540 *, s32);
 
 static inline void dma_func_001EB540(s32 src, s32 dst, s32 size) {
     Dma_func_001EB540 d;
@@ -1243,7 +1207,6 @@ s32 func_001EB540(s32 p1, s32 n1, s32 p2, s32 n2, s32 s1, s32 l1, s32 s2, s32 l2
     }
     return l1 + l2;
 }
-#undef sceSifSetDma
 
 /* func_001EB8B0 */
 s32 func_001EB8B0(S_func_001EB8B0 *s)
@@ -1347,8 +1310,6 @@ s32 func_001EBB70(s32 *p)
 }
 
 /* func_001EBCC0 */
-#define sceSifSetDma sceSifSetDma__as_func_001EBCC0
-s32 sceSifSetDma__as_func_001EBCC0(Dma_func_001EBCC0 *, s32);
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 
 s32 func_001EBCC0(S_func_001EBCC0 *a, s32 a1, s32 a2, s32 a3) {
@@ -1386,7 +1347,6 @@ s32 func_001EBCC0(S_func_001EBCC0 *a, s32 a1, s32 a2, s32 a3) {
     }
     return 1;
 }
-#undef sceSifSetDma
 
 /* func_001EBE10 */
 #define D_004BDEE0 D_004BDEE0__as_func_001EBE10
@@ -1460,14 +1420,10 @@ s32 func_001EBE10(s32 a0, H *h, u8 *buf0) {
 #undef D_004BDEE0
 
 /* func_001EC070 */
-#define SignalSema SignalSema__as_func_001EC070
-void SignalSema__as_func_001EC070(s32);
-#define WaitSema WaitSema__as_func_001EC070
-void WaitSema__as_func_001EC070(s32);
 #define memcpy memcpy__as_func_001EC070
 void memcpy__as_func_001EC070(s32, s32, s32);
 #define func_001EA4D0 func_001EA4D0__as_func_001EC070
-void func_001EA4D0__as_func_001EC070(s32 *, E_func_001EC070 *);
+void func_001EA4D0__as_func_001EC070(s32 *, E_func_001EA4D0 *);
 #define func_001EAF60 func_001EAF60__as_func_001EC070
 void func_001EAF60__as_func_001EC070(s32 *, s32 *, s32 *, s32 *, s32 *);
 #define D_004BDF88 D_004BDF88__as_func_001EC070
@@ -1488,7 +1444,7 @@ s32 func_001EC070(s32 a0, P_func_001EC070 *p, u8 *buf) {
     s32 b;
     s32 an;
     s32 bn;
-    E_func_001EC070 e;
+    E_func_001EA4D0 e;
 
     src = p->src;
     len = p->len;
@@ -1540,33 +1496,24 @@ s32 func_001EC070(s32 a0, P_func_001EC070 *p, u8 *buf) {
     SignalSema(D_004BDF88.sema);
     return total > 0;
 }
-#undef SignalSema
-#undef WaitSema
 #undef memcpy
 #undef func_001EA4D0
 #undef func_001EAF60
 #undef D_004BDF88
 
 /* func_001EC3C0 */
-#define RotateThreadReadyQueue RotateThreadReadyQueue__as_func_001EC3C0
-void RotateThreadReadyQueue__as_func_001EC3C0(s32);
 
 void func_001EC3C0(void) {
 loop_1:
     RotateThreadReadyQueue(1);
     goto loop_1;
 }
-#undef RotateThreadReadyQueue
 
 /* func_001EC3E0 */
 #define EIntr EIntr__as_func_001EC3E0
 void EIntr__as_func_001EC3E0(s32, s32);
-#define sceSdRemote sceSdRemote__as_func_001EC3E0
-void sceSdRemote__as_func_001EC3E0(s32, s32, s32, s32);
 #define printf printf__as_func_001EC3E0
 void printf__as_func_001EC3E0(s32 *, s32 *, s32);
-#define sceClose sceClose__as_func_001EC3E0
-void sceClose__as_func_001EC3E0(s32);
 #define D_00201920 D_00201920__as_func_001EC3E0
 extern s32 D_00201920__as_func_001EC3E0[];
 #define D_00201940 D_00201940__as_func_001EC3E0
@@ -1621,25 +1568,11 @@ void func_001EC3E0(void) {
     }
 }
 #undef EIntr
-#undef sceSdRemote
 #undef printf
-#undef sceClose
 #undef D_00201920
 #undef D_00201940
 
 /* func_001EC5E0 */
-#define func_001E9DC0 func_001E9DC0__as_func_001EC5E0
-s32 func_001E9DC0__as_func_001EC5E0();
-#define func_001E9E10 func_001E9E10__as_func_001EC5E0
-s32 func_001E9E10__as_func_001EC5E0();
-#define func_001E9EA0 func_001E9EA0__as_func_001EC5E0
-s32 func_001E9EA0__as_func_001EC5E0();
-#define func_001EA060 func_001EA060__as_func_001EC5E0
-void func_001EA060__as_func_001EC5E0();
-#define func_001EBE10 func_001EBE10__as_func_001EC5E0
-s32 func_001EBE10__as_func_001EC5E0();
-#define func_001EC070 func_001EC070__as_func_001EC5E0
-s32 func_001EC070__as_func_001EC5E0();
 #define func_001EBCC0 func_001EBCC0__as_func_001EC5E0
 void func_001EBCC0__as_func_001EC5E0(void *, s32, s32, s32);
 #define func_001EB1A0 func_001EB1A0__as_func_001EC5E0
@@ -1654,12 +1587,6 @@ s32 printf__as_func_001EC5E0(void *, ...);
 extern s32 D_004BDEC0__as_func_001EC5E0[];
 #define D_004BDEC4 D_004BDEC4__as_func_001EC5E0
 extern u8 *volatile D_004BDEC4__as_func_001EC5E0[];
-#define D_004BDEC8 D_004BDEC8__as_func_001EC5E0
-extern s32 D_004BDEC8__as_func_001EC5E0[];
-#define D_004BDF88 D_004BDF88__as_func_001EC5E0
-extern u8 D_004BDF88__as_func_001EC5E0[];
-#define D_004BE04C D_004BE04C__as_func_001EC5E0
-extern u8 D_004BE04C__as_func_001EC5E0[];
 
 void func_001EC5E0(s32 arg0) {
     s32 c;
@@ -1727,12 +1654,6 @@ void func_001EC5E0(s32 arg0) {
     D_004BDFF0[0] = AddDmacHandler(2, func_001E8C50, 0);
     EnableDmac(2);
 }
-#undef func_001E9DC0
-#undef func_001E9E10
-#undef func_001E9EA0
-#undef func_001EA060
-#undef func_001EBE10
-#undef func_001EC070
 #undef func_001EBCC0
 #undef func_001EB1A0
 #undef func_001E95B0
@@ -1740,19 +1661,10 @@ void func_001EC5E0(s32 arg0) {
 #undef printf
 #undef D_004BDEC0
 #undef D_004BDEC4
-#undef D_004BDEC8
-#undef D_004BDF88
-#undef D_004BE04C
 
 /* func_001ECAB0 */
-#define RotateThreadReadyQueue RotateThreadReadyQueue__as_func_001ECAB0
-void RotateThreadReadyQueue__as_func_001ECAB0(s32);
 #define func_001EA0D0 func_001EA0D0__as_func_001ECAB0
 s32 func_001EA0D0__as_func_001ECAB0(P_func_001ECAB0 *);
-#define func_001EBB70 func_001EBB70__as_func_001ECAB0
-void func_001EBB70__as_func_001ECAB0(s32 *);
-#define D_004BD313 D_004BD313__as_func_001ECAB0
-extern s8 D_004BD313__as_func_001ECAB0[];
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 
 static inline s32 notz(s32 x) { return !(x != 0); }
@@ -1862,18 +1774,11 @@ check:
     if (D_00201E70 != 0) func_001EBB70(D_004BDEE0);
     return 1;
 }
-#undef RotateThreadReadyQueue
 #undef func_001EA0D0
-#undef func_001EBB70
-#undef D_004BD313
 
 /* func_001ED070 */
-#define D_004BDF40 D_004BDF40__as_func_001ED070
-extern char D_004BDF40__as_func_001ED070[];
 #define D_004BE038 D_004BE038__as_func_001ED070
 extern s32 D_004BE038__as_func_001ED070[];
-#define D_004BE04C D_004BE04C__as_func_001ED070
-extern char D_004BE04C__as_func_001ED070[];
 #define func_001ECAB0 func_001ECAB0__as_func_001ED070
 s32 func_001ECAB0__as_func_001ED070(void *a, s32 b, void *c, s32 d);
 
@@ -1886,33 +1791,17 @@ s32 func_001ED070(s32 a, s32 b)
     return r;
 }
 #undef func_001ECAB0
-#undef D_004BDF40
 #undef D_004BE038
-#undef D_004BE04C
 
 /* func_001ED0C0 */
 #define func_001E9420 func_001E9420__as_func_001ED0C0
 void func_001E9420__as_func_001ED0C0(u8 *, s32);
 #define func_001E9AA0 func_001E9AA0__as_func_001ED0C0
 void func_001E9AA0__as_func_001ED0C0(u8 *, s32, s32, s32, s32, s32, s32);
-#define memset memset__as_func_001ED0C0
-void memset__as_func_001ED0C0(s32 *, s32, s32);
-#define D_004BD310 D_004BD310__as_func_001ED0C0
-extern s8 D_004BD310__as_func_001ED0C0[];
-#define D_004BD311 D_004BD311__as_func_001ED0C0
-extern s8 D_004BD311__as_func_001ED0C0[];
-#define D_004BD312 D_004BD312__as_func_001ED0C0
-extern s8 D_004BD312__as_func_001ED0C0[];
-#define D_004BD313 D_004BD313__as_func_001ED0C0
-extern s8 D_004BD313__as_func_001ED0C0[];
-#define D_004BD31C D_004BD31C__as_func_001ED0C0
-extern s32 D_004BD31C__as_func_001ED0C0[];
 #define D_004BE02C D_004BE02C__as_func_001ED0C0
 extern s32 D_004BE02C__as_func_001ED0C0[];
 #define D_004BE038 D_004BE038__as_func_001ED0C0
 extern s32 D_004BE038__as_func_001ED0C0[];
-#define D_004BE0D0 D_004BE0D0__as_func_001ED0C0
-extern u32 D_004BE0D0__as_func_001ED0C0[];
 
 static inline s32 al(u32 size) {
     u8 *p = (u8 *)((*D_004BE004 + 0x3F) & ~0x3F);
@@ -1957,12 +1846,5 @@ s32 func_001ED0C0(s32 arg0, u32 arg1, s32 arg2, s32 arg3, u32 arg4, s16 arg5, s1
 }
 #undef func_001E9420
 #undef func_001E9AA0
-#undef memset
-#undef D_004BD310
-#undef D_004BD311
-#undef D_004BD312
-#undef D_004BD313
-#undef D_004BD31C
 #undef D_004BE02C
 #undef D_004BE038
-#undef D_004BE0D0

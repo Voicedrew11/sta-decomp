@@ -26,9 +26,7 @@ typedef struct { s32 x0; s32 x4; u8 pad8[8]; u8 a[0x10]; u8 b[0x10]; } Q;
 typedef struct { u8 pad[0x54]; Q *q54; u8 pad58[4]; Q *q5C; } R_func_001DDA20;
 typedef struct { u8 pad[4]; u16 x4; u8 pad6[4]; u16 xA; u8 padC[0x14]; u16 x20; u8 pad22[0x1A]; u8 x3C; u8 rest[0x53]; } E_func_001DDA20;
 typedef struct { u8 pad[0x10]; u8 p10[0x18]; s32 x28; u8 c[4]; f32 x30, x34, x38, x3C; } O_func_001DDA20;
-typedef struct { u32 idx; s32 f4; u8 pad8[0x24]; f32 x; f32 y; u8 pad34[0xC]; } Ent_func_001DE0D0;
-typedef struct { u32 n; Ent_func_001DE0D0 *p; } L_func_001DE0D0;
-typedef struct { u8 pad[0x4]; L_func_001DE0D0 *l; } O_func_001DE0D0;
+typedef struct { u8 pad[0x4]; L_func_001DD7F0 *l; } O_func_001DE0D0;
 typedef union { u32 w; s8 b[4]; } Col_func_001DE2D0;
 typedef struct { u8 pad0[0x10]; u8 x10[0x18]; s32 x28; u8 x2C[4]; f32 x30; f32 x34; f32 x38; f32 x3C; } O_func_001DE2D0;
 typedef struct { u8 p0[4]; u16 x4; u8 x6; u8 p7[3]; u16 xA; u8 pC[0x14]; u16 x20; u8 p22[0x1A]; u8 x3C; u8 p3D[0x53]; } E_func_001DE2D0;
@@ -38,10 +36,9 @@ typedef struct { u8 p0[0x54]; Rs *x54; u8 p58[4]; Rs *x5C; } G_func_001DE2D0;
 typedef struct { u32 idx; s32 f4; u8 pad8[0x24]; f32 x; f32 y; u8 pad34[0xB]; s8 b3F; } Ent_func_001DEB00;
 typedef struct { u32 n; Ent_func_001DEB00 *p; } L_func_001DEB00;
 typedef struct { L_func_001DEB00 *l; } O_func_001DEB00;
-typedef union { u32 w; u8 b[4]; } Col_func_001DED50;
 typedef struct { s32 x0; s32 x4; u8 pad[8]; s8 x10[0x10]; s8 x20[0x10]; } E_func_001DED50;
 typedef struct { u8 p0[0x34]; E_func_001DED50 *x34; } G_func_001DED50;
-typedef struct { u8 p0[0x10]; s8 x10[0x18]; s32 x28; Col_func_001DED50 c; f32 x30, x34, x38, x3C; } O_func_001DED50;
+typedef struct { u8 p0[0x10]; s8 x10[0x18]; s32 x28; Col_func_001DDA20 c; f32 x30, x34, x38, x3C; } O_func_001DED50;
 extern s32 D_00201E50;
 extern f32 D_002020D4;
 extern f32 D_00202360;
@@ -137,10 +134,6 @@ void func_001DD700(s32 a0, s32 a1) {
 }
 
 /* func_001DD7F0 */
-#define func_001DDA20 func_001DDA20__as_func_001DD7F0
-void func_001DDA20__as_func_001DD7F0(void);
-#define func_001829B0 func_001829B0__as_func_001DD7F0
-void func_001829B0__as_func_001DD7F0(Ent_func_001DD7F0 *, s8 *, void (*)(void), s32);
 
 void func_001DD7F0(s32 arg, s32 arg1, f32 ang) {
     u32 i;
@@ -176,16 +169,12 @@ f32 d, a, t, dx, dy;
         func_001829B0(&e, base + l->p[i].idx * 8, func_001DDA20, arg);
     }
 }
-#undef func_001DDA20
-#undef func_001829B0
 
 /* func_001DDA20 */
 // mwcc=mwcps2-3.0b38-030307
 /* MATCH with mwccps2 3.0b38 (addi range check); case 0x12E: ((volatile O_func_001DDA20 *)o)->x38 fixes lwc1/lw order */
 #define func_00189020 func_00189020__as_func_001DDA20
 R_func_001DDA20 *func_00189020__as_func_001DDA20(s32);
-#define sprintf sprintf__as_func_001DDA20
-s32 sprintf__as_func_001DDA20(s8 *, s8 *, ...);
 
 static inline f32 u2f_func_001DDA20(u32 x) { return x; }
 
@@ -344,21 +333,16 @@ void func_001DDA20(O_func_001DDA20 *o, s32 kind, u32 id, s32 a3) {
     }
 }
 #undef func_00189020
-#undef sprintf
 
 /* func_001DE0D0 */
 #define func_00189050 func_00189050__as_func_001DE0D0
 O_func_001DE0D0 *func_00189050__as_func_001DE0D0(s32);
-#define func_001DE2D0 func_001DE2D0__as_func_001DE0D0
-void func_001DE2D0__as_func_001DE0D0(void);
-#define func_001829B0 func_001829B0__as_func_001DE0D0
-void func_001829B0__as_func_001DE0D0(Ent_func_001DE0D0 *, s8 *, void (*)(void), s32);
 
 void func_001DE0D0(s32 arg, f32 ang) {
     u32 i;
-    L_func_001DE0D0 *l;
+    L_func_001DD7F0 *l;
     s8 *base;
-    Ent_func_001DE0D0 e;
+    Ent_func_001DD7F0 e;
     V2 q;
 f32 d, a, t, dx, dy;
     l = func_00189050(6)->l;
@@ -384,8 +368,6 @@ f32 d, a, t, dx, dy;
     }
 }
 #undef func_00189050
-#undef func_001DE2D0
-#undef func_001829B0
 
 /* rodata_001FE790 */
 /* rodata_001FE790: the game's data at 0x001FE790..., one object per label. */
@@ -399,24 +381,6 @@ const s32 D_001FE7A0[0x4] = { 0x6425, 0, 0, 0 };
 
 /* func_001DE2D0 */
 /* round 3 near-miss: 6 words: lw a2 (Col_func_001DE2D0 stack arg) vs lwc1 f12 order before func_001875C0, 3 sites */
-#define D_00202378 D_00202378__as_func_001DE2D0
-extern u32 D_00202378__as_func_001DE2D0;
-#define D_001FE748 D_001FE748__as_func_001DE2D0
-extern char D_001FE748__as_func_001DE2D0[];
-#define D_001FE750 D_001FE750__as_func_001DE2D0
-extern char D_001FE750__as_func_001DE2D0[];
-#define D_001FE758 D_001FE758__as_func_001DE2D0
-extern char D_001FE758__as_func_001DE2D0[];
-#define D_001FE768 D_001FE768__as_func_001DE2D0
-extern char D_001FE768__as_func_001DE2D0[];
-#define D_001FE790 D_001FE790__as_func_001DE2D0
-extern char D_001FE790__as_func_001DE2D0[];
-#define D_001FE798 D_001FE798__as_func_001DE2D0
-extern char D_001FE798__as_func_001DE2D0[];
-#define D_001FE7A0 D_001FE7A0__as_func_001DE2D0
-extern char D_001FE7A0__as_func_001DE2D0[];
-#define func_00181680 func_00181680__as_func_001DE2D0
-void func_00181680__as_func_001DE2D0(s32, void *, void *, void *, S *, u32);
 #define func_001875C0 func_001875C0__as_func_001DE2D0
 void func_001875C0__as_func_001DE2D0(char *, s32, Col_func_001DE2D0, f32, f32, f32);
 #define func_00189020 func_00189020__as_func_001DE2D0
@@ -425,12 +389,8 @@ G_func_001DE2D0 *func_00189020__as_func_001DE2D0(s32);
 u8 *func_001A97D0__as_func_001DE2D0(s16);
 #define func_001CC3F0 func_001CC3F0__as_func_001DE2D0
 u8 *func_001CC3F0__as_func_001DE2D0(s16);
-#define func_001AFC90 func_001AFC90__as_func_001DE2D0
-E_func_001DE2D0 *func_001AFC90__as_func_001DE2D0(void);
 #define sprintf sprintf__as_func_001DE2D0
 s32 sprintf__as_func_001DE2D0(char *, const char *, ...);
-#define strcpy strcpy__as_func_001DE2D0
-char *strcpy__as_func_001DE2D0(char *, const char *);
 static inline f32 u2f_func_001DE2D0(u32 x) { return x; }
 
 void func_001DE2D0(O_func_001DE2D0 *o, s32 a1, u32 mode, s32 id) {
@@ -619,30 +579,15 @@ void func_001DE2D0(O_func_001DE2D0 *o, s32 a1, u32 mode, s32 id) {
         break;
     }
 }
-#undef func_00181680
 #undef func_001875C0
 #undef func_00189020
 #undef func_001A97D0
 #undef func_001CC3F0
-#undef func_001AFC90
 #undef sprintf
-#undef strcpy
-#undef D_00202378
-#undef D_001FE748
-#undef D_001FE750
-#undef D_001FE758
-#undef D_001FE768
-#undef D_001FE790
-#undef D_001FE798
-#undef D_001FE7A0
 
 /* func_001DEB00 */
 #define func_00189050 func_00189050__as_func_001DEB00
 O_func_001DEB00 *func_00189050__as_func_001DEB00(s32);
-#define func_001DED50 func_001DED50__as_func_001DEB00
-void func_001DED50__as_func_001DEB00(void);
-#define func_001829B0 func_001829B0__as_func_001DEB00
-void func_001829B0__as_func_001DEB00(Ent_func_001DEB00 *, s8 *, void (*)(void), s32);
 
 void func_001DEB00(s32 arg, s32 arg1, f32 ang) {
     u32 i;
@@ -681,8 +626,6 @@ f32 d, a, t, dx, dy;
     }
 }
 #undef func_00189050
-#undef func_001DED50
-#undef func_001829B0
 
 /* rodata_001FE7CC */
 /* rodata_001FE7CC: the game's data at 0x001FE7CC..., one object per label. */
@@ -700,10 +643,6 @@ static const u8 pad_001FE7FF[0x1] __attribute__((aligned(1))) = { 0 };
 #pragma explicit_zero_data reset
 
 /* func_001DED50 */
-#define D_001FE798 D_001FE798__as_func_001DED50
-extern s8 D_001FE798__as_func_001DED50[];
-#define D_001FE7A0 D_001FE7A0__as_func_001DED50
-extern s8 D_001FE7A0__as_func_001DED50[];
 #define D_001FE7D0 D_001FE7D0__as_func_001DED50
 extern s8 D_001FE7D0__as_func_001DED50[];
 #define D_001FE7D8 D_001FE7D8__as_func_001DED50
@@ -716,24 +655,16 @@ extern s8 D_001FE7E8__as_func_001DED50[];
 extern s8 D_001FE7F0__as_func_001DED50[];
 #define D_001FE7F8 D_001FE7F8__as_func_001DED50
 extern s8 D_001FE7F8__as_func_001DED50[];
-#define D_00202378 D_00202378__as_func_001DED50
-extern u32 D_00202378__as_func_001DED50;
-#define D_004BAA70 D_004BAA70__as_func_001DED50
-extern s8 D_004BAA70__as_func_001DED50[];
-#define func_00181680 func_00181680__as_func_001DED50
-void func_00181680__as_func_001DED50(s32, s8 *, s8 *, void *, S *, s32);
 #define func_00189020 func_00189020__as_func_001DED50
 G_func_001DED50 *func_00189020__as_func_001DED50(s32);
 #define func_001875C0 func_001875C0__as_func_001DED50
-void func_001875C0__as_func_001DED50(f32, f32, f32, s8 *, s32, Col_func_001DED50);
+void func_001875C0__as_func_001DED50(f32, f32, f32, s8 *, s32, Col_func_001DDA20);
 #define sprintf sprintf__as_func_001DED50
 void sprintf__as_func_001DED50(s8 *, s8 *, ...);
-#define strcpy strcpy__as_func_001DED50
-void strcpy__as_func_001DED50(s8 *, s8 *);
 
 void func_001DED50(O_func_001DED50 *o, s32 sel, u32 id, u32 n) {
-    Col_func_001DED50 c1;
-    Col_func_001DED50 c2;
+    Col_func_001DDA20 c1;
+    Col_func_001DDA20 c2;
     S t __attribute__((aligned(16)));
     E_func_001DED50 *e;
     s32 k;
@@ -856,18 +787,12 @@ void func_001DED50(O_func_001DED50 *o, s32 sel, u32 id, u32 n) {
         }
     }
 }
-#undef func_00181680
 #undef func_00189020
 #undef func_001875C0
 #undef sprintf
-#undef strcpy
-#undef D_001FE798
-#undef D_001FE7A0
 #undef D_001FE7D0
 #undef D_001FE7D8
 #undef D_001FE7E0
 #undef D_001FE7E8
 #undef D_001FE7F0
 #undef D_001FE7F8
-#undef D_00202378
-#undef D_004BAA70

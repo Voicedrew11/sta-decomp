@@ -450,13 +450,40 @@ the unit's own; `tools/merge_tu.py` takes it in instead of refusing:
   pools), and every other part keeps its names extern through aliases, as
   alone, so no visible const is folded.
 
-tools/carve.py does not handle INCLUDE_ASM units' chunks yet (it would give
-a chunk's range to its unit and write the __as_ aliases as names); merges
-edit sta.jp.yaml and symbol_addrs.carve.txt themselves. tools/lib_layout.py
-places INCLUDE_ASM units (`carve.py --check` is clean).
+tools/carve.py handles INCLUDE_ASM units: lib_layout.py joins their
+.text.iaN and leaves each chunk a masked gap; carve writes the chunk as its
+own asm subsegment (named as any gap) with the unit's c subsegment resuming
+after it, links the chunk right after its unit, and skips the merge aliases
+(`__as_`) and the markers. Its output on a tree merge_tu.py wrote is the same
+but for more `ignored_` constants (the merged units' lui-built numbers).
 
 `tools/infer_tus.py --hints` lists functions that only units within
 `--limit` call (from the objects' jal relocations): likely statics of their
 callers' file. They are not evidence on their own (a global with near
 callers is common); use them to choose where to look for pooled constants
 or data order.
+
+`--hinted` (ties of any distance, inside a span a hint covers) was tried
+and gives nothing trustworthy: at `--limit` 0x8000 and 0x10000 every
+candidate rested on one long data step, one of them across an ee-gcc module
+(no CodeWarrior unit can hold that), and with two ties required none is
+left; at 0x20000 the ties chain 1,367 files into one. Long-distance order
+is link noise here too. Objects a merged unit defines count as that unit's
+users (`with_definers()`): users() sees references only, so a merged unit's
+own data used by one far unit looked owned by it.
+
+Float ties were audited (per function, inside every merged unit): of the
+.rodata literals the game code references, 193 are strings (11 shared by
+several functions) and 2 floats, each used by one function. CodeWarrior
+reaches most float constants through small data or builds them with lui,
+so no merged unit rests on a float tie; the shared-constant evidence is
+strings.
+
+`tools/tidy_tu.py` tidies a merged unit: per-part types that read the same
+once their own types are one become one type, a lone per-part name goes
+back to its base name, and each `NAME__as_<part>` alias is dropped where the
+unit still matches without it (all at once, then by halves). On the 36
+merged units: 60 types unified, 400 aliases dropped, 244 kept (the parts'
+declarations that really differ). Grouped .bss objects keep their separate
+names until the code indexes them: func_00188F80's six 0x250-byte records
+(0x0049F8E0) are noted in its source.

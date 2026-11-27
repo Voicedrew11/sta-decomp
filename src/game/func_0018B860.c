@@ -55,8 +55,6 @@ char* func_00195AA0(s32);
 char* func_00195B10(s32);
 
 /* func_0018B860 */
-#define func_0018BCC0 func_0018BCC0__as_func_0018B860
-void func_0018BCC0__as_func_0018B860();
 
 void func_0018B860(Obj *o) {
     f32 x;
@@ -148,7 +146,6 @@ void func_0018B860(Obj *o) {
     func_00181420();
     func_00182050(0x80);
 }
-#undef func_0018BCC0
 
 /* func_0018BCC0 */
 /* MATCH only with MWCC=mwcps2-3.0b38-030307 (b52 emits addiu at the switch range check) */

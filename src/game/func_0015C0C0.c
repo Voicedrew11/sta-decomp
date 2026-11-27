@@ -139,7 +139,6 @@ void func_0015C6D0(s32 i)
 
 /* func_0015C730 */
 #define D_0030C420 D_0030C420__as_func_0015C730
-#define sceVu0CopyVector sceVu0CopyVector__as_func_0015C730
 
 s32 func_0015C730(s32 idx, Vec *v, u8 c0, u8 c1, u8 c2, u8 c3, u16 h, u8 c4, f32 f0, f32 f1, f32 f2, f32 f3) {
     s32 i;
@@ -173,12 +172,10 @@ found:
     D_0030D0D4[idx]++;
     return id;
 }
-#undef sceVu0CopyVector
 #undef D_0030C420
 
 /* func_0015C8D0 */
 #define D_0030C420 D_0030C420__as_func_0015C8D0
-#define memset memset__as_func_0015C8D0
 
 void func_0015C8D0(void) {
     memset(&D_0030C420, 0, 0xCC0);
@@ -197,5 +194,4 @@ void func_0015C8D0(void) {
     D_0030C420.a = D_0030C420.c;
     D_0030C420.b = D_0030C420.c;
 }
-#undef memset
 #undef D_0030C420

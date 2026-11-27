@@ -52,8 +52,6 @@ s32 func_0013E220(s8 *);
 s8 func_0013E290(s8 *);
 
 /* func_00134620 */
-#define sceVu0SubVector sceVu0SubVector__as_func_00134620
-void sceVu0SubVector__as_func_00134620(Vec *, Vec *, Vec *);
 
 void func_00134620(s8 *a, Vec *pos, Vec *tgt) {
     Vec d;
@@ -118,16 +116,9 @@ void func_00134620(s8 *a, Vec *pos, Vec *tgt) {
         pos->z -= r.z * len;
     }
 }
-#undef sceVu0SubVector
 
 /* func_00134960 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define sceVu0SubVector sceVu0SubVector__as_func_00134960
-void sceVu0SubVector__as_func_00134960(Vec *, Vec *, Vec *);
-#define sceVu0AddVector sceVu0AddVector__as_func_00134960
-void sceVu0AddVector__as_func_00134960(Vec *, Vec *, s8 *);
-#define func_00140440 func_00140440__as_func_00134960
-void func_00140440__as_func_00134960(s8 *, Vec *);
 
 u8 func_00134960(s8 *a) {
     Vec p;
@@ -209,25 +200,8 @@ u8 func_00134960(s8 *a) {
     if (!(dist < 300.0f)) return 0;
     return 1;
 }
-#undef sceVu0SubVector
-#undef sceVu0AddVector
-#undef func_00140440
 
 /* func_00134D70 */
-#define func_0013DCE0 func_0013DCE0__as_func_00134D70
-f32 *func_0013DCE0__as_func_00134D70(s8 *);
-#define func_00140460 func_00140460__as_func_00134D70
-s8 *func_00140460__as_func_00134D70(s8 *);
-#define func_00143840 func_00143840__as_func_00134D70
-s8 *func_00143840__as_func_00134D70(s8 *, u8);
-#define sceVu0AddVector sceVu0AddVector__as_func_00134D70
-void sceVu0AddVector__as_func_00134D70(s8 *, s8 *, s8 *);
-#define func_00140440 func_00140440__as_func_00134D70
-void func_00140440__as_func_00134D70(s8 *, s8 *);
-#define sceVu0SubVector sceVu0SubVector__as_func_00134D70
-void sceVu0SubVector__as_func_00134D70(Vec *, s8 *, s8 *);
-#define func_0013FC10 func_0013FC10__as_func_00134D70
-f32 func_0013FC10__as_func_00134D70(Vec *);
 #define F(o) (*(f32 *)(a0 + (o)))
 
 void func_00134D70(s8 *a0, s32 a1) {
@@ -361,27 +335,8 @@ void func_00134D70(s8 *a0, s32 a1) {
         break;
     }
 }
-#undef func_0013DCE0
-#undef func_00140460
-#undef func_00143840
-#undef sceVu0AddVector
-#undef func_00140440
-#undef sceVu0SubVector
-#undef func_0013FC10
 
 /* func_00135240 */
-#define func_00140460 func_00140460__as_func_00135240
-s8 *func_00140460__as_func_00135240(s8 *);
-#define func_00143840 func_00143840__as_func_00135240
-s8 *func_00143840__as_func_00135240(s8 *, u8);
-#define sceVu0AddVector sceVu0AddVector__as_func_00135240
-void sceVu0AddVector__as_func_00135240(s8 *, s8 *, s8 *);
-#define func_00140440 func_00140440__as_func_00135240
-void func_00140440__as_func_00135240(s8 *, s8 *);
-#define sceVu0SubVector sceVu0SubVector__as_func_00135240
-void sceVu0SubVector__as_func_00135240(V *, s8 *, s8 *);
-#define func_0013FC10 func_0013FC10__as_func_00135240
-f32 func_0013FC10__as_func_00135240(V *);
 
 void func_00135240(s8 *a0, s32 a1) {
     s32 x, y, z;
@@ -452,20 +407,10 @@ void func_00135240(s8 *a0, s32 a1) {
         break;
     }
 }
-#undef func_00140460
-#undef func_00143840
-#undef sceVu0AddVector
-#undef func_00140440
-#undef sceVu0SubVector
-#undef func_0013FC10
 
 /* func_00135490 */
-#define func_00140440 func_00140440__as_func_00135490
-void func_00140440__as_func_00135490(s8 *, s8 *);
 #define func_00145730 func_00145730__as_func_00135490
 Vec *func_00145730__as_func_00135490(void);
-#define sceVu0SubVector sceVu0SubVector__as_func_00135490
-void sceVu0SubVector__as_func_00135490(Vec *, Vec *, Vec *);
 
 u8 func_00135490(s8 *a, f32 *pl, f32 *pc, f32 *py) {
     s32 it;
@@ -584,6 +529,4 @@ u8 func_00135490(s8 *a, f32 *pl, f32 *pc, f32 *py) {
     }
     return func_00135990(a, pl, pc, py);
 }
-#undef func_00140440
 #undef func_00145730
-#undef sceVu0SubVector

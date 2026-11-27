@@ -223,10 +223,6 @@ void func_001A1550(u8 *a0, f32 f) {
 }
 
 /* func_001A1B40 */
-#define D_004A331C D_004A331C__as_func_001A1B40
-extern u32 D_004A331C__as_func_001A1B40[];
-#define func_001A2F20 func_001A2F20__as_func_001A1B40
-void func_001A2F20__as_func_001A1B40(s32);
 #define func_001A1C80 func_001A1C80__as_func_001A1B40
 void func_001A1C80__as_func_001A1B40(s32);
 
@@ -254,13 +250,9 @@ void func_001A1B40(s32 a0) {
     case 6: func_001A03C0(a0); break;
     }
 }
-#undef func_001A2F20
 #undef func_001A1C80
-#undef D_004A331C
 
 /* func_001A1C80 */
-#define func_001A2FF0 func_001A2FF0__as_func_001A1C80
-void func_001A2FF0__as_func_001A1C80(void);
 #define D_004A4340 D_004A4340__as_func_001A1C80
 extern Flags8_6x2 D_004A4340__as_func_001A1C80[];
 
@@ -508,14 +500,9 @@ void func_001A1C80(In *in) {
         D_004A4340[0].f.b4 = 0;
     }
 }
-#undef func_001A2FF0
 #undef D_004A4340
 
 /* func_001A2C00 */
-#define func_001AFC90 func_001AFC90__as_func_001A2C00
-u8 *func_001AFC90__as_func_001A2C00(void);
-#define func_001CC3F0 func_001CC3F0__as_func_001A2C00
-u8 *func_001CC3F0__as_func_001A2C00(s16);
 #define func_001A97D0 func_001A97D0__as_func_001A2C00
 u8 *func_001A97D0__as_func_001A2C00(s16);
 
@@ -561,8 +548,6 @@ void func_001A2C00(s32 a0, s32 a1) {
         }
     }
 }
-#undef func_001AFC90
-#undef func_001CC3F0
 #undef func_001A97D0
 
 /* func_001A2DE0 */

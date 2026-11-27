@@ -16,24 +16,18 @@ typedef struct { u8 r, g, b, a; } Col_func_00183650;
 typedef struct { s32 a; void *b; } Buf_func_00183650;
 typedef struct { u8 b[256]; } Buf_func_00183750;
 typedef struct { u8 a:1; u8 b:1; u8 c:1; } BF_func_00182EF0;
-typedef struct { u8 b[256]; } Buf_func_00183970;
 typedef struct {
     s32 x0;
     s32 x4;
     Flags8 f8;
 } Res;
-typedef struct { u8 b[256]; } Buf_func_00183DC0;
 typedef struct { s32 idx; u8 pad[0x28]; f32 x, z; u8 pad2[0xC]; } Obj;
 typedef struct { u32 n; Obj *e; } L;
 typedef struct { u8 pad[0x14]; L *l; } R_func_00182EF0;
 typedef struct { f32 x, z; } V2_func_00182EF0;
 typedef struct { u8 pad[0xA]; u16 xA; u8 pad2[0x14]; u16 x20; u8 pad3[0x1A]; u8 x3C; u8 pad4[0x53]; } E;
 typedef struct { u8 pad[0x10]; L *l; } R_func_00184960;
-typedef struct { f32 x, z; } V2_func_00184960;
 typedef struct { u8 pad[0x14]; f32 x14; f32 x18; u8 pad1C[0x10]; f32 x2C; f32 x30; u8 pad34[8]; u32 x3C; } G_func_00184CF0;
-typedef struct { u8 pad[0x10]; L *l; } R_func_00184DF0;
-typedef struct { f32 x, z; } V2_func_00184DF0;
-typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef struct {
     u8 pad0[0x10];
     u8 x10[0x18];
@@ -57,23 +51,17 @@ typedef struct { s32 idx; u8 pad[0x28]; f32 x2C; f32 x30; u8 pad34[0xC]; } Elem_
 typedef struct { u32 n; Elem_func_00185510 *e; } List_func_00185510;
 typedef struct { u8 pad[0x18]; List_func_00185510 *list; } Ctx_func_00185510;
 typedef struct { f32 x, y; } V2_func_00185510;
-typedef struct { u8 r, g, b, a; } Col;
 typedef struct { u8 a:3; u8 b:5; } BF_func_001848A0;
 typedef struct { f32 x; f32 y; BF_func_001848A0 f8; u8 pad9[0xB]; f32 x14; u8 pad18[8]; f32 x20; f32 x24; u8 pad28[8]; } T_func_001848A0;
-typedef struct { s32 idx; u8 pad[0x28]; f32 x2C; f32 x30; u8 pad34[0xC]; } Elem_func_00185B40;
-typedef struct { u32 n; Elem_func_00185B40 *e; } List_func_00185B40;
-typedef struct { u8 pad[0x20]; List_func_00185B40 *list; } Ctx_func_00185B40;
-typedef struct { f32 x, y; } V2_func_00185B40;
+typedef struct { u8 pad[0x20]; List_func_00185510 *list; } Ctx_func_00185B40;
 typedef struct { s32 idx; s32 x4; u8 pad[0x24]; f32 x2C; f32 x30; u8 pad34[0xC]; } Elem;
 typedef struct { u32 n; Elem *e; } List;
 typedef struct { u8 pad[0x10]; List *list; } Ctx;
-typedef struct { f32 x, y; } V2_func_00186440;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } C;
-typedef struct { u8 a:3; u8 b:5; } BF_func_00186440;
 typedef struct {
     f32 x0;
     f32 x4;
-    BF_func_00186440 x8;
+    BF_func_001848A0 x8;
     u8 pad9[0xB];
     f32 x14;
     u8 pad18[8];
@@ -91,8 +79,7 @@ typedef struct {
     f32 x38;
     f32 x3C;
 } O_func_00186440;
-typedef struct { u8 pad0[4]; s32 x4; u8 pad8[8]; u8 x10[0x10]; u8 x20[0x10]; } R_func_00186440;
-typedef struct { u8 pad0[0x54]; R_func_00186440 *x54; u8 pad58[4]; R_func_00186440 *x5C; } G;
+typedef struct { u8 pad0[0x54]; R_func_00185030 *x54; u8 pad58[4]; R_func_00185030 *x5C; } G;
 typedef struct { s16 lo; s16 hi; } P;
 extern S_func_00182EF0 D_001F2770[] __attribute__((aligned(16)));
 extern f32 D_002020A4;
@@ -147,7 +134,7 @@ extern s32 D_002020A8__as_func_00183DC0;
 extern s8 *D_0048D0E4__as_func_00183DC0[];
 extern Res *D_002020AC__as_func_00183FF0;
 extern G_func_00184CF0 D_0048D060;
-extern S D_001F2700 __attribute__((aligned(16)));
+extern S_func_00182EF0 D_001F2700 __attribute__((aligned(16)));
 extern f32 D_00202084;
 extern f32 D_002020B0;
 extern f32 D_002020B4;
@@ -155,7 +142,7 @@ extern f32 D_002020B8;
 extern f32 D_002020BC;
 extern f32 D_002020D4;
 extern V D_001F26F0[];
-extern S D_001F26D0 __attribute__((aligned(16)));
+extern S_func_00182EF0 D_001F26D0 __attribute__((aligned(16)));
 extern char D_0048CE40[];
 extern s32 D_0020207C;
 extern s32 D_00202080;
@@ -165,9 +152,9 @@ extern f32 D_00202090;
 extern f32 D_00202094;
 extern f32 D_00202098;
 extern f32 D_0020209C;
-extern S D_001F2630 __attribute__((aligned(16)));
-extern S D_001F2650 __attribute__((aligned(16)));
-extern S D_001F2670 __attribute__((aligned(16)));
+extern S_func_00182EF0 D_001F2630 __attribute__((aligned(16)));
+extern S_func_00182EF0 D_001F2650 __attribute__((aligned(16)));
+extern S_func_00182EF0 D_001F2670 __attribute__((aligned(16)));
 extern s32 D_0048CF40[];
 extern s32 D_0048CFC0[];
 extern s32 D_0048CF80[];
@@ -246,10 +233,10 @@ void func_001543E0(s32, u64);
 void func_001544C0(void);
 u32 strlen(void *);
 void func_00187A90(void *, void *, u64);
-s32 func_00188010(void *, Col);
+s32 func_00188010(void *, Col_func_00183650);
 void func_00185D70(void);
 void func_00184CF0__as_func_00184960(void);
-R_func_00184DF0* func_00189050__as_func_00184DF0(s32);
+R_func_00184960* func_00189050__as_func_00184DF0(s32);
 void func_00185030__as_func_00184DF0(void);
 G_func_00185030* func_00189020__as_func_00185030(s32);
 Ctx_func_00185390* func_00189050__as_func_00185390(s32);
@@ -259,7 +246,7 @@ s32 func_00189020__as_func_00185510(s32);
 void func_001829B0__as_func_00185510(Elem_func_00185510 *, s32, void (*)(), s32);
 Ctx_func_00185B40* func_00189050__as_func_00185B40(s32);
 s32 func_00189020__as_func_00185B40(s32);
-void func_001829B0__as_func_00185B40(Elem_func_00185B40 *, s32, void (*)(), s32);
+void func_001829B0__as_func_00185B40(Elem_func_00185510 *, s32, void (*)(), s32);
 s32 func_001866B0__as_func_00186440(s32, s32, s32, s32, s32);
 G* func_00189020__as_func_00186990(s32);
 
@@ -267,8 +254,6 @@ G* func_00189020__as_func_00186990(s32);
 INCLUDE_ASM(func_00182C10);
 
 /* func_00182EF0 */
-#define func_00181680 func_00181680__as_func_00182EF0
-void func_00181680__as_func_00182EF0(s32, s8 *, s8 *, void *, S_func_00182EF0 *, s32);
 
 /* func_00182EF0 */
 void func_00182EF0(s32 x0, s32 y0, s32 x1, s32 y1, f32 u0, f32 u1, f32 alpha) {
@@ -550,7 +535,7 @@ void func_00183970(s32 arg0) {
         D_00201CDC = -1;
         D_00201CE8 = -1;
         {
-            Buf_func_00183970 s = {0};
+            Buf_func_00183750 s = {0};
         sprintf__as_func_00183970(s.b, D_001FCA10, D_00201CE4);
             D_002020AC = func_001E1570__as_func_00183970(s.b, 0xA);
             D_0048D0F0[0] = 0;
@@ -657,7 +642,7 @@ void func_00183DC0(s32 arg0) {
         D_00201CE0 = -1;
         D_00201CE8 = -1;
         {
-            Buf_func_00183DC0 s = {0};
+            Buf_func_00183750 s = {0};
         sprintf__as_func_00183DC0(s.b, D_001FCA60, D_00201CDC);
             D_002020AC = func_001E1570__as_func_00183DC0(s.b, 0xA);
             D_0048D0F0[0] = 0;
@@ -738,7 +723,6 @@ void func_00184040(s32 a0, f32 ang) {
         func_001829B0(&o, t + (l->e[i].idx << 3), func_00184280, a0);
     }
 }
-#undef func_00181680
 
 /* text_00184280 */
 INCLUDE_ASM(func_00184280);
@@ -754,16 +738,8 @@ extern char D_001FCB28__as_func_001848A0[];
 extern char D_001FCB30__as_func_001848A0[];
 #define func_00189050 func_00189050__as_func_001848A0
 R_func_00184960* func_00189050__as_func_001848A0(s32);
-#define func_00189020 func_00189020__as_func_001848A0
-u8* func_00189020__as_func_001848A0(s32);
-#define func_001832D0 func_001832D0__as_func_001848A0
-void func_001832D0__as_func_001848A0(G_func_00184CF0 *, s32, s32);
-#define func_00181680 func_00181680__as_func_001848A0
-void func_00181680__as_func_001848A0(s32, void *, void *, void *, S *, u32);
 #define func_00182C10 func_00182C10__as_func_001848A0
 void func_00182C10__as_func_001848A0(Elem_func_00185390 *, s32);
-#define func_00183090 func_00183090__as_func_001848A0
-void func_00183090__as_func_001848A0(V *, s32, s32, s32);
 #define sprintf sprintf__as_func_001848A0
 void sprintf__as_func_001848A0(char *, char *, ...);
 
@@ -785,7 +761,7 @@ void func_00184960(s32 a0, f32 ang) {
     for (i = 0; i < l->n; i++) {
         o = l->e[i];
         {
-        V2_func_00184960 c = {0};
+        V2_func_00182EF0 c = {0};
         f32 d, dx, dz, a, r;
         f32 ox, oz;
         f32 fx, fz;
@@ -868,7 +844,7 @@ void func_00184DF0(s32 a0, f32 ang) {
     for (i = 0; i < l->n; i++) {
         o = l->e[i];
         {
-        V2_func_00184DF0 c = {0};
+        V2_func_00182EF0 c = {0};
         f32 d, dx, dz, a, r;
         f32 ox, oz;
         f32 fx, fz;
@@ -895,7 +871,7 @@ void func_00184DF0(s32 a0, f32 ang) {
 }
 
 /* func_00185030 */
-static inline void glow(O_func_001848A0 *o, R_func_00185030 *r, S *buf, u32 mode) {
+static inline void glow(O_func_001848A0 *o, R_func_00185030 *r, S_func_00182EF0 *buf, u32 mode) {
     s32 k;
     buf->x = o->x38;
     buf->y = o->x3C;
@@ -909,7 +885,7 @@ static inline void glow(O_func_001848A0 *o, R_func_00185030 *r, S *buf, u32 mode
 }
 
 void func_00185030(O_func_001848A0 *o, s32 a1, u32 mode, u32 a3) {
-    S buf __attribute__((aligned(16)));
+    S_func_00182EF0 buf __attribute__((aligned(16)));
     R_func_00185030 *r;
     s32 n;
 
@@ -1031,7 +1007,7 @@ void func_00185510(s32 a0, f32 f) {
 }
 
 /* func_00185740 */
-static inline void draw_func_001848A0(char *s, f32 x, f32 y, Col *c) {
+static inline void draw_func_001848A0(char *s, f32 x, f32 y, Col_func_00183650 *c) {
     T_func_001848A0 t;
     if (s) {
         func_00187A90(&t, s, strlen(s));
@@ -1046,15 +1022,15 @@ static inline void draw_func_001848A0(char *s, f32 x, f32 y, Col *c) {
 }
 
 void func_00185740(O_func_001848A0 *o, s32 a1, u32 mode, s16 *a3) {
-    Col c8;
-    Col cb;
-    Col ca;
-    Col c9;
+    Col_func_00183650 c8;
+    Col_func_00183650 cb;
+    Col_func_00183650 ca;
+    Col_func_00183650 c9;
     f32 x;
     f32 y;
     s32 v;
     if (mode < 200) {
-        S buf __attribute__((aligned(16)));
+        S_func_00182EF0 buf __attribute__((aligned(16)));
         buf = D_001F26D0;
         buf.x = o->x30;
         buf.y = o->x34;
@@ -1114,9 +1090,9 @@ void func_00185B30(s32 arg0, s32 arg1) {
 static inline f32 d2d_func_00185B40(f32 x, f32 y, f32 cx, f32 cy) { f32 u = x - cx; f32 v = y - cy; return sqrtf(u * u + v * v); }
 
 void func_00185B40(s32 a0, f32 f) {
-    Elem_func_00185B40 el;
+    Elem_func_00185510 el;
     u32 i;
-    List_func_00185B40 *list;
+    List_func_00185510 *list;
     s32 base;
     f32 dist;
     f32 dx;
@@ -1130,7 +1106,7 @@ void func_00185B40(s32 a0, f32 f) {
     for (i = 0; i < list->n; i++) {
         el = list->e[i];
         {
-        V2_func_00185B40 c = {0};
+        V2_func_00185510 c = {0};
         c.x = -70.0f;
         c.y = 276.0f;
         px = el.x2C;
@@ -1154,11 +1130,7 @@ void func_00185B40(s32 a0, f32 f) {
     }
 }
 #undef func_00189050
-#undef func_00189020
-#undef func_001832D0
-#undef func_00181680
 #undef func_00182C10
-#undef func_00183090
 #undef sprintf
 #undef D_001FCB08
 #undef D_001FCB18
@@ -1182,16 +1154,12 @@ static const u8 pad_001FCB3F[0x1] __attribute__((aligned(1))) = { 0 };
 #pragma explicit_zero_data reset
 
 /* func_00186440_ */
-#define D_0048CE40 D_0048CE40__as_func_00186440_
-extern s8 D_0048CE40__as_func_00186440_[];
 #define func_00189050 func_00189050__as_func_00186440_
 Ctx* func_00189050__as_func_00186440_(s32);
 #define func_00189020 func_00189020__as_func_00186440_
 s32 func_00189020__as_func_00186440_(s32);
 #define func_001829B0 func_001829B0__as_func_00186440_
 void func_001829B0__as_func_00186440_(Elem *, s32, void (*)(), s32);
-#define func_00181680 func_00181680__as_func_00186440_
-void func_00181680__as_func_00186440_(s32, void *, void *, void *, S *, u32);
 #define func_00188010 func_00188010__as_func_00186440_
 s32 func_00188010__as_func_00186440_(void *, C);
 
@@ -1215,7 +1183,7 @@ void func_00186440(s32 a0, s32 a1, s32 a2, s32 a3, f32 f) {
     for (i = 0; i < list->n; i++) {
         el = list->e[i];
         {
-        V2_func_00186440 c = {0};
+        V2_func_00185510 c = {0};
         c.x = -70.0f;
         c.y = 276.0f;
         px = el.x2C;
@@ -1299,7 +1267,7 @@ static inline void draw_func_00186440(f32 x, f32 y, s8 *str, C col, f32 sc) {
 }
 
 void func_00186990(O_func_00186440 *o, s32 id, u32 mode, u32 p) {
-    S buf __attribute__((aligned(16)));
+    S_func_00182EF0 buf __attribute__((aligned(16)));
     C col;
     s32 lo;
     s32 hi;
@@ -1311,7 +1279,7 @@ void func_00186990(O_func_00186440 *o, s32 id, u32 mode, u32 p) {
     hi = (s16)((p >> 16) & 0xFFFF);
     idx = id - 0xBB9;
     if (mode < 100) {
-        S b2 __attribute__((aligned(16)));
+        S_func_00182EF0 b2 __attribute__((aligned(16)));
         b2 = D_001F2650;
         b2.x = o->x30;
         b2.y = o->x34;
@@ -1320,8 +1288,8 @@ void func_00186990(O_func_00186440 *o, s32 id, u32 mode, u32 p) {
     }
     switch (mode) {
     case 100: {
-        S b3 __attribute__((aligned(16)));
-        R_func_00186440 *r;
+        S_func_00182EF0 b3 __attribute__((aligned(16)));
+        R_func_00185030 *r;
         b3 = D_001F2670;
         r = &func_00189020__as_func_00186990(0)->x54[id - 0xBB9];
         col.w = (0x30808080);
@@ -1331,7 +1299,7 @@ void func_00186990(O_func_00186440 *o, s32 id, u32 mode, u32 p) {
         break;
     }
     case 101: {
-        R_func_00186440 *r;
+        R_func_00185030 *r;
         r = &func_00189020__as_func_00186990(0)->x5C[id - 0xBB9];
         col.w = 0x30808080;
         buf.m[0] = 1.1f;
@@ -1389,6 +1357,4 @@ void func_00186990(O_func_00186440 *o, s32 id, u32 mode, u32 p) {
 #undef func_00189050
 #undef func_00189020
 #undef func_001829B0
-#undef func_00181680
 #undef func_00188010
-#undef D_0048CE40

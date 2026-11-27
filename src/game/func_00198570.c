@@ -75,10 +75,6 @@ void func_00199110(void);
 s8* func_00195AA0(s32);
 
 /* func_00198570 */
-#define func_00198570 func_00198570__as_func_00198570
-void func_00198570__as_func_00198570();
-#define func_00198BE0 func_00198BE0__as_func_00198570
-void func_00198BE0__as_func_00198570();
 
 /* func_00198570 */
 static inline f32 u2f(u32 x) { return x; }
@@ -90,7 +86,6 @@ static inline s32 any(u32 k) {
     return 0;
 }
 
-#undef func_00198570
 void func_00198570(A *o, s32 mode, u32 kind) {
     S s __attribute__((aligned(16)));
     Col col;
@@ -203,7 +198,6 @@ void func_00198BD0(s32 arg0) {
 
 /* func_00198BE0 */
 
-#undef func_00198BE0
 void func_00198BE0(M *m) {
     s32 sel;
     s32 old;
@@ -247,8 +241,6 @@ void func_00198BE0(M *m) {
 }
 
 /* func_00198D80 */
-#define func_00198F30 func_00198F30__as_func_00198570
-void func_00198F30__as_func_00198570(void);
 
 void func_00198D80(void) {
     Q2 q;
@@ -290,13 +282,8 @@ void func_00198D80(void) {
 }
 #undef func_00198570
 #undef func_00198BE0
-#undef func_00198F30
 
 /* func_00198F30 */
-#define func_001AA440 func_001AA440__as_func_00198F30
-s32 func_001AA440__as_func_00198F30(s32);
-#define sprintf sprintf__as_func_00198F30
-void sprintf__as_func_00198F30(s8 *, s8 *, s8 *);
 
 s8 *func_00198F30(s32 a) {
     s32 i;
@@ -317,5 +304,3 @@ s8 *func_00198F30(s32 a) {
     }
     return D_001FD3B0;
 }
-#undef func_001AA440
-#undef sprintf

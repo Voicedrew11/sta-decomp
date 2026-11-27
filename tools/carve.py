@@ -155,8 +155,8 @@ def unit_symbols(placed):
     out, clash, statics = {}, [], []
 
     def add(name, addr, func, why, size=0):
-        if name in LINKER_SYMS:
-            return
+        if name in LINKER_SYMS or "__as_" in name or name.startswith("__include_asm_"):
+            return      # merge aliases (ld: tools/rel_syms.py) and INCLUDE_ASM markers
         if name in out and out[name][0] != addr:
             clash.append(f"{name}: {out[name][0]:#x} and {addr:#x} ({why})")
         if name not in out or size:
@@ -168,7 +168,10 @@ def unit_symbols(placed):
         o = Obj(str(path), unit)
         with open(path, "rb") as f:
             e = ELFFile(f)
-            names = {i: s.name for i, s in enumerate(e.iter_sections())}
+            # an INCLUDE_ASM unit's .text.iaN are its .text; the marker is nothing
+            names = {i: (".text" if s.name.startswith(".text.ia") and s.name != ".text.iastub"
+                         else None if s.name == ".text.iastub" else s.name)
+                     for i, s in enumerate(e.iter_sections())}
             symlist = list(e.get_section_by_name(".symtab").iter_symbols())
             starts = {}   # section -> sorted symbol offsets, to size unsized asm labels
             for s in symlist:
@@ -371,6 +374,14 @@ def main():
         print("not placed whole:\n  " + "\n  ".join(problems), file=sys.stderr)
         sys.exit(1)
 
+    # INCLUDE_ASM units (tools/include_asm.py): their chunks' gaps in .text
+    asm_gaps = {}
+    for u in placed:
+        if u.endswith(".c"):
+            o = Obj(str(ROOT / OBJDIR / (u + ".o")), u)
+            if o.gaps:
+                asm_gaps[u] = o.gaps
+
     # per-section order; units must not overlap
     order = {}
     for sec, *_ in SECTIONS:
@@ -445,9 +456,18 @@ def main():
                 sys.exit(1)
             if not (cursor == start and addr == start) and not is_pad(sec, cursor, addr, align):
                 gap(addr)
-            emit(addr, "hasm" if (sec == ".text" and u.endswith(".s")) else c_type,
-                 u[len("src/"):].rsplit(".", 1)[0])
+            uname = u[len("src/"):].rsplit(".", 1)[0]
+            ugaps = asm_gaps.get(u, []) if sec == ".text" else []
+            if not (ugaps and ugaps[0][0] == 0):        # a unit that starts with its chunk
+                emit(addr, "hasm" if (sec == ".text" and u.endswith(".s")) else c_type, uname)
             seq.append(u)
+            # an INCLUDE_ASM unit: each chunk stays its own asm subsegment,
+            # linked right after the unit, and the unit resumes after it
+            for off, n, _ in ugaps:
+                cursor = addr + off
+                gap(addr + off + n)
+                if off + n < size:
+                    emit(addr + off + n, c_type, uname)
             cursor = addr + size
         cross()
         gap(end)

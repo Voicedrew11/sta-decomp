@@ -115,7 +115,7 @@ class Obj:
             idx = {}
             # an INCLUDE_ASM unit (tools/include_asm.py): its .text.iaN are
             # .text, and each marker stands for its asm chunk, bytes unknown
-            # (self.gaps: (offset, size) in the joined .text, masked out)
+            # (self.gaps: (offset, size, marker name) in the joined .text, masked out)
             self.gaps = []
             marks = {sym["st_shndx"]: sym.name[len("__include_asm_"):]
                      for sym in e.get_section_by_name(".symtab").iter_symbols()
@@ -133,7 +133,7 @@ class Obj:
                     joined = joined + b"\0" * (off - size) + data
                     self.secs[name] = (first, off + len(data), max(salign, align), joined)
                     if s.name == ".text.iastub":
-                        self.gaps.append((off, len(data)))
+                        self.gaps.append((off, len(data), marks[i]))
                         continue        # the marker's own relocations and symbol are not the chunk's
                     self.part[i] = (name, off)
                     idx[i] = name
@@ -177,7 +177,7 @@ class Obj:
         _, size, _, _ = self.secs[sec]
         m = [0xFFFFFFFF] * (size // 4)
         if sec == ".text":
-            for off, n in self.gaps:
+            for off, n, _ in self.gaps:
                 m[off // 4:(off + n) // 4] = [0] * (n // 4)
         for off, typ, *_ in self.relocs[sec]:
             if off // 4 < len(m):
