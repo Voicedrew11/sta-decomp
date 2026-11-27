@@ -362,3 +362,6 @@ Also:
   function is C.
 - The end of `.bss` is libc's `errno` (a small common of sbrkr.c) and the
   0x80 alignment of `_end`; the linker script lays them out.
+- The data-only units are part of what makes the image shiftable; see
+  "Shiftable build" in docs/ROADMAP.md and run `ninja shift` after changing
+  them.

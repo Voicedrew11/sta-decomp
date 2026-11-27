@@ -6,7 +6,7 @@
 void func_001A4990(void);
 
 const s32 D_001FD8C8[0x2] = { 0, 0 };
-const char D_001FD8D0[0x20] __attribute__((aligned(8))) = "cdrom0:\\TARGET\\PROLOGUE.PSS;1\000\000\000";
+const char D_001FD8D0[0x1e] __attribute__((aligned(8))) = "cdrom0:\\TARGET\\PROLOGUE.PSS;1\000";
 const s32 jtbl_001FD8F0[0x8] __attribute__((aligned(8))) = { (s32)((u8 *)func_001A4990 + 0x6C0), (s32)((u8 *)func_001A4990 + 0x6A0), (s32)((u8 *)func_001A4990 + 0x6A0), (s32)((u8 *)func_001A4990 + 0x420), (s32)((u8 *)func_001A4990 + 0x6A0), (s32)((u8 *)func_001A4990 + 0x2C8), (s32)((u8 *)func_001A4990 + 0x420), 0 };
 const f32 D_001FD910[0x1] = { 128.0f };
 const f32 D_001FD914[0x1] = { 0.0f };

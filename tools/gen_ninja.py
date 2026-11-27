@@ -344,6 +344,19 @@ def main() -> None:
     script = re.sub(r"@INPUTS:(\w+)@",
                     lambda m: "\n        ".join(f"{o}(.{m.group(1)})" for o in objs), script)
     (build / "sta.ld").write_text(script)
+    # the shift test (tools/shift_check.py): the same link with a pad
+    # inserted, so every pointer must move with what it points at
+    first_game = next(o for s, o in zip(srcs, objs) if s.startswith("src/game/"))
+    shifts = {
+        "data_100": (".data    ALIGN(0x80) : {", ".data    ALIGN(0x80) : {\n        . += 0x100;"),
+        "data_4": (".data    ALIGN(0x80) : {", ".data    ALIGN(0x80) : {\n        . += 0x4;"),
+        "bss_40": (".bss     ALIGN(0x80) (NOLOAD) : {", ".bss     ALIGN(0x80) (NOLOAD) : { . += 0x40;"),
+        "text_100": (f"{first_game}(.text)", f". += 0x100;\n        {first_game}(.text)"),
+    }
+    (build / "shift").mkdir(exist_ok=True)
+    for name, (a, b) in shifts.items():
+        assert a in script, name
+        (build / "shift" / f"{name}.ld").write_text(script.replace(a, b, 1))
 
     c_units = [s for s in srcs if s.startswith("src/") and s.endswith(".c")]
     # one objdiff unit per link-order entry
@@ -394,9 +407,29 @@ def main() -> None:
                      " | tools/objdiff_base.py")
     # splat's lists of addresses referenced but not defined yet, given to ld
     # as implicit linker scripts
+    # (tools/rel_syms.py writes them relative to the objects they lie in, so
+    # they follow when the image shifts)
     syms = "config/linker_syms.txt config/data_aliases.txt config/undefined_syms_auto.txt config/undefined_funcs_auto.txt"
-    n.append(f"build build/sta.elf: ld {' '.join(objs)} | build/sta.ld {syms}\n"
-             f"  syms = {syms}")
+    n.append("rule rel_syms\n"
+             "  command = .venv/bin/python tools/rel_syms.py $out $objs\n"
+             "  description = SYMS $out")
+    n.append(f"build build/rel_syms.ld: rel_syms | {' '.join(objs)} {syms} tools/rel_syms.py\n"
+             f"  objs = {' '.join(objs)}")
+    n.append(f"build build/sta.elf: ld {' '.join(objs)} | build/sta.ld build/rel_syms.ld\n"
+             f"  syms = build/rel_syms.ld")
+    n.append("rule ld_shift\n"
+             f"  command = {LD} -T $script -o $out $in $syms\n"
+             "  description = LD $out")
+    for name in shifts:
+        n.append(f"build build/shift/{name}.elf: ld_shift {' '.join(objs)} | build/shift/{name}.ld build/rel_syms.ld\n"
+                 f"  script = build/shift/{name}.ld\n"
+                 f"  syms = build/rel_syms.ld")
+    n.append("rule shift_check\n"
+             "  command = .venv/bin/python tools/shift_check.py $in\n"
+             "  description = SHIFT CHECK\n"
+             "  pool = console")
+    n.append(f"build shift: shift_check build/sta.elf {' '.join(f'build/shift/{k}.elf' for k in shifts)}"
+             " | tools/shift_check.py")
     n.append("build build/sta.rom: rom build/sta.elf")
     n.append("build build/sta.ok: check build/sta.rom")
     n.append("rule regen\n"

@@ -17,7 +17,7 @@ extern u8 D_004A5A60[];
 extern u8 D_004AA440[];
 extern u8 D_004B4D10[];
 
-f32 D_00201B80 = 0.3333333f;
+f32 D_00201B80 __attribute__((aligned(16))) = 0.3333333f;
 s32 D_00201B84[0x1] = { 0x3d7fffff };
 f32 D_00201B88 = 16.666666f;
 f32 D_00201B8C = 33.333332f;
