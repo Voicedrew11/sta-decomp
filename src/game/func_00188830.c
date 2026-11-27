@@ -1,8 +1,6 @@
+#include "include_asm.h"
 #include "m2c.h"
 typedef struct { u8 pad[0x14]; s32 x14; s32 x18; } Hdr;
-void func_00159DD0(s32, s32, void *, s32 *);
-s32 func_00177F80(void *);
-s32 func_00177AF0(s32, s32);
 extern s32 D_002020C4;
 extern Hdr *D_002020C8;
 extern Hdr **D_002020CC;
@@ -13,7 +11,15 @@ extern s32 D_0048D358[];
 extern u8 D_001FCCC0[];
 extern u8 D_001FCCD0[];
 extern u8 D_001FCCE0[];
+void func_00188830(s32 a0);
+void func_00159DD0(s32, s32, void *, s32 *);
+s32 func_00177F80(void *);
+s32 func_00177AF0(s32, s32);
 
+/* text_00188010 */
+INCLUDE_ASM(func_00188010);
+
+/* func_00188830 */
 void func_00188830(s32 a0) {
     s32 x;
     D_002020C4 = a0;

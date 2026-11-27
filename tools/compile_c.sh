@@ -82,7 +82,12 @@ case "${SRC}" in
         # tools/mwfix.py retypes the .mwcats section, which ld 2.10 cannot read
         MWCIncludes="${ROOT}/include" "${WIBO}" "${MWCC_DIR}/mwccps2.exe" -c -nostdinc \
             ${GAME_CFLAGS:-${UNIT_CFLAGS:--O4,p}} ${INCS} -o "${OUT}" "${SRC}"
-        exec python3 "${ROOT}/tools/mwfix.py" "${OUT}" ;;
+        python3 "${ROOT}/tools/mwfix.py" "${OUT}"
+        # INCLUDE_ASM markers (include/include_asm.h): split the unit's .text
+        if grep -q '^[[:space:]]*INCLUDE_ASM(' "${SRC}"; then
+            exec "${ROOT}/.venv/bin/python" "${ROOT}/tools/include_asm.py" "${OUT}"
+        fi
+        exit 0 ;;
 esac
 
 GNUM=0

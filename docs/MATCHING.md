@@ -387,3 +387,22 @@ order, so that run is one translation unit (with an asm function,
 text_00192110, inside). Its data moves when the unit is merged.
 
 `tools/data_users.py` notes in each data-only unit which code uses it.
+
+### Translation units with asm functions (INCLUDE_ASM)
+
+An asm function inside a translation unit does not wait for its match:
+`INCLUDE_ASM(func_X);` (include/include_asm.h) puts splat's chunk whose
+first label is func_X at that point of the unit's .text. It is no inline
+asm (game code is plain C): it defines an empty marker function, and
+tools/include_asm.py (run by compile_c.sh) renames the marker's section
+`.text.iastub` (discarded) and the sections after the Nth marker
+`.text.iaN`, so gen_ninja.py links `unit(.text) chunk(.text)
+unit(.text.ia1) ...`. The unit's data is one object, in retail order. The
+chunk stays in the link order (and in sta.jp.yaml, with the unit's c
+subsegment resuming after it under the unit's name) and stays its own
+objdiff unit; objdiff_base.py folds the .text.iaN back into .text.
+
+`tools/merge_tu.py` writes the markers for asm chunks in a candidate
+(`tools/infer_tus.py --files` lists them), then rm -rf asm and ./build.sh.
+To match the function later, replace the marker by its C and drop the
+chunk from the link order and sta.jp.yaml.
