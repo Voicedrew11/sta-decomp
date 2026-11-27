@@ -67,6 +67,12 @@ case "${SRC}" in
         # config/game_cflags.txt lists the units built with other flags
         UNIT_CFLAGS="$(awk -v s="${SRC#"${ROOT}"/}" '$1 == s { $1 = ""; print substr($0, 2) }' \
             "${ROOT}/config/game_cflags.txt")"
+        # data-only units (tools/data_to_c.py): small objects stay in .data/.bss
+        # (the .sdata and .sbss units: every object stays small data)
+        case "${SRC#"${ROOT}"/}" in
+            src/game/data/sdata_*|src/game/data/sbss_*) UNIT_CFLAGS="${UNIT_CFLAGS:--O4,p} -sdatathreshold 32767" ;;
+            src/game/data/*) UNIT_CFLAGS="${UNIT_CFLAGS:--O4,p} -sdatathreshold 0" ;;
+        esac
         # a "mwcc=<tools/cc dir>" token picks another CodeWarrior build for the unit
         case " ${UNIT_CFLAGS} " in *" mwcc="*)
             B="${UNIT_CFLAGS##*mwcc=}"; B="${B%% *}"

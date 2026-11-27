@@ -180,7 +180,16 @@ def target_text(src: str) -> str:
         raw = d.read_text()
         # ee-gcc keeps the alignment word after a jump table in its .rodata
         # (the strings after it are 8-aligned); CodeWarrior does not
-        body = trailing_fill(raw if src.startswith("src/sce/") else jtbl_fill(raw))
+        if src.startswith("src/game/data/"):
+            # a data-only unit (tools/data_to_c.py) defines splat's file
+            # byte for byte, its trailing zeros included, up to the commons
+            # ld lays out after it (libc's errno ends the game's .bss)
+            body = re.split(r"^nonmatching errno\b.*$", raw, maxsplit=1, flags=re.M)[0]
+            # a jump table of an asm function: entries as function + offset,
+            # as the C has them (the .L labels are that function's)
+            body = JT_ENTRY.sub(lambda m: jt_entry(int(m.group(1), 16)) or m.group(0), body)
+        else:
+            body = trailing_fill(raw if src.startswith("src/sce/") else jtbl_fill(raw))
         body = body.splitlines(keepends=True)
         text += "".join(l for l in body if l.strip() != '.include "macro.inc"')
     for a, b in TARGET_FIXUPS.get(src, []):
@@ -194,6 +203,28 @@ def target_text(src: str) -> str:
         # does for CodeWarrior's (relocated against the function)
         text = re.sub(r"^(\s*)jlabel (\.L\w+)\s*$", r"\1\2:", text, flags=re.M)
     return text if text.endswith("\n") else text + "\n"
+
+
+JT_ENTRY = re.compile(r"\.word \.L([0-9A-F]{8})\b")
+_FUNC_STARTS: list[tuple[int, str]] = []
+
+
+def jt_entry(addr: int) -> str | None:
+    """`.word FUNC + 0xOFF` for an address inside one of splat's functions."""
+    import bisect
+    if not _FUNC_STARTS:
+        for p in (ROOT / "asm").rglob("*.s"):
+            if "data" in p.parts:
+                continue
+            for m in re.finditer(r"^glabel (\w+)\n(?:.*\n)*?.*?/\* [0-9A-F]+ ([0-9A-F]{8}) ",
+                                 p.read_text(), re.M):
+                _FUNC_STARTS.append((int(m.group(2), 16), m.group(1)))
+        _FUNC_STARTS.sort()
+    i = bisect.bisect_right(_FUNC_STARTS, (addr, "\xff")) - 1
+    if i < 0:
+        return None
+    start, name = _FUNC_STARTS[i]
+    return f".word {name} + 0x{addr - start:X}"
 
 
 # Words splat cannot render as the C object has them, per unit: a pointer
@@ -363,7 +394,7 @@ def main() -> None:
                      " | tools/objdiff_base.py")
     # splat's lists of addresses referenced but not defined yet, given to ld
     # as implicit linker scripts
-    syms = "config/linker_syms.txt config/undefined_syms_auto.txt config/undefined_funcs_auto.txt"
+    syms = "config/linker_syms.txt config/data_aliases.txt config/undefined_syms_auto.txt config/undefined_funcs_auto.txt"
     n.append(f"build build/sta.elf: ld {' '.join(objs)} | build/sta.ld {syms}\n"
              f"  syms = {syms}")
     n.append("build build/sta.rom: rom build/sta.elf")

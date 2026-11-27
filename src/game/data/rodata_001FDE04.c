@@ -1,0 +1,8 @@
+#include "common.h"
+
+/* rodata_001FDE04: the game's data at 0x001FDE04..., one object per label. */
+#pragma explicit_zero_data on
+
+const s32 D_001FDE04[0x3] __attribute__((aligned(4))) = { 0, 0, 0 };
+const s8 D_001FDE10[0x2d] __attribute__((aligned(4))) = "abnormal sfxevent-parameter. in SFX(%d)\012\000\000\000\000\000";
+const u8 pad_001FDE3D[0x3] __attribute__((aligned(1))) = { 0, 0, 0 };

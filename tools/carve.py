@@ -64,27 +64,44 @@ SECTIONS = [
     (".text", "asm", "c", "text", 0x00100000, 0x001EDE80, 8),
     (".data", "data", ".data", "data", 0x001EDE80, 0x001F8880, 4),
     (".rodata", "rodata", ".rodata", "rodata", 0x001F8880, 0x00201B80, 4),
-    (".bss", "bss", ".bss", "bss", 0x00202480, 0x004BE180, 4),
+    # .bss ends at 0x4BE120 for carve: after it come only the commons (libc's
+    # errno, from sbrkr.c) and the end's 0x80 alignment, which ld lays out
+    # (config/sta.jp.ld.in)
+    (".bss", "bss", ".bss", "bss", 0x00202480, 0x004BE120, 4),
 ]
 BSS_ROM = 0x101E80
 
 # The subsegments carve.py does not touch, in ROM order, keyed by the section
 # they follow.
+# .sdata and .sbss are all the game's (the libraries are built with -G 0):
+# each is one unit, the data-only C unit tools/data_to_c.py wrote for it
+# when there is one, else splat's asm.
+SDATA_C = "src/game/data/sdata_00201B80.c"
+SBSS_C = "src/game/data/sbss_00201E80.c"
+_sdata = (ROOT / SDATA_C).exists()
+_sbss = (ROOT / SBSS_C).exists()
 FIXED = {
-    ".rodata": ['      - [0x101B80, sdata, sdata]',
+    ".rodata": ['      - [0x101B80, .sdata, game/data/sdata_00201B80]' if _sdata
+                else '      - [0x101B80, sdata, sdata]',
+                '      - { start: 0x101E80, type: .sbss, vram: 0x00201E80, name: game/data/sbss_00201E80 }'
+                if _sbss else
                 '      - { start: 0x101E80, type: sbss, vram: 0x00201E80, name: sbss }'],
 }
+# the units of the sections carve.py leaves whole
+FIXED_UNITS = [SDATA_C if _sdata else "asm/data/sdata.sdata.s",
+               SBSS_C if _sbss else "asm/data/sbss.sbss.s"]
 GAME_UNITS = ["asm/text.s", "asm/data/data.data.s", "asm/data/rodata.rodata.s",
-              "asm/data/sdata.sdata.s", "asm/data/sbss.sbss.s", "asm/data/bss.bss.s"]
-# the asm units of the sections carve.py leaves whole
-FIXED_UNITS = ["asm/data/sdata.sdata.s", "asm/data/sbss.sbss.s"]
+              *FIXED_UNITS, "asm/data/bss.bss.s"]
 # defined by config/sta.jp.ld.in, not by any unit (_gp is named for splat: the
 # units reference it through %hi/%lo)
-LINKER_SYMS = {"_fbss", "_end", "_stack", "_stack_size", "_heap_size"}
+LINKER_SYMS = {"_fbss", "_end", "_stack", "_stack_size", "_heap_size", "_gp"}
 # and every symbol config/linker_syms.txt gives ld: the link defines them, so
 # splat must not be handed them (a game alias at a library function's address
 # would clash with the function's name)
 LINKER_SYMS |= set(re.findall(r"^(\w+)\s*=", (ROOT / "config/linker_syms.txt").read_text(), re.M))
+# and the field names tools/data_to_c.py gives ld (config/data_aliases.txt)
+if (ROOT / "config/data_aliases.txt").exists():
+    LINKER_SYMS |= set(re.findall(r"^(\w+)\s*=", (ROOT / "config/data_aliases.txt").read_text(), re.M))
 BEGIN = "      # --- tools/carve.py: generated from here ---"
 END = "      # --- tools/carve.py: generated up to here ---"
 

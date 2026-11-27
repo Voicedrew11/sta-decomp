@@ -14,9 +14,10 @@ file order (as the final link lays them out), and with each @-local data
 symbol renamed to the target symbol at the same section offset. The linked
 object (BASE) is untouched; OUT is only for objdiff.
 
-CodeWarrior's jump tables also relocate against the function symbol, where
-the target's .L labels assemble to relocations against the .text section
-symbol; OUT's are moved to the section symbol (the function's offset added
+CodeWarrior's data relocations name the symbol (the function a jump table
+entry is in, the object a pointer points at), where the target's labels in
+the same file assemble to relocations against the section symbol; OUT's are
+moved to the section symbol (the function's offset added
 to the stored word, as the relocations are REL), so they pair.
 """
 import struct
@@ -73,20 +74,15 @@ def rename(path: Path, names: dict) -> None:
 
 
 def section_relative(path: Path) -> None:
-    """Data relocations against a .text symbol -> against the .text section symbol."""
+    """Data relocations against a symbol the object defines -> against that
+    section's symbol (the symbol's value added to the stored word): the
+    target's labels in the same file assemble to section relocations."""
     data = bytearray(path.read_bytes())
     with open(path, "rb") as f:
         elf = ELFFile(f)
-        symtab = elf.get_section_by_name(".symtab")
-        syms = list(symtab.iter_symbols())
-        text = elf.get_section_by_name(".text")
-        if text is None:
-            return
-        tidx = next(i for i, s in enumerate(elf.iter_sections()) if s.name == ".text")
-        secsym = next((i for i, s in enumerate(syms)
-                       if s["st_info"]["type"] == "STT_SECTION" and s["st_shndx"] == tidx), None)
-        if secsym is None:
-            return
+        syms = list(elf.get_section_by_name(".symtab").iter_symbols())
+        secsym = {s["st_shndx"]: i for i, s in enumerate(syms)
+                  if s["st_info"]["type"] == "STT_SECTION" and isinstance(s["st_shndx"], int)}
         for rel in elf.iter_sections():
             if rel["sh_type"] != "SHT_REL":
                 continue
@@ -95,10 +91,12 @@ def section_relative(path: Path) -> None:
                 continue
             for i, r in enumerate(rel.iter_relocations()):
                 s = syms[r["r_info_sym"]]
-                if r["r_info_type"] != 2 or s["st_shndx"] != tidx or r["r_info_sym"] == secsym:
-                    continue    # R_MIPS_32 only
+                shndx = s["st_shndx"]
+                if r["r_info_type"] != 2 or not isinstance(shndx, int) or shndx not in secsym \
+                        or s["st_info"]["type"] == "STT_SECTION":
+                    continue    # R_MIPS_32 against a defined, non-section symbol only
                 o = rel["sh_offset"] + i * rel["sh_entsize"]
-                struct.pack_into("<I", data, o + 4, (secsym << 8) | 2)
+                struct.pack_into("<I", data, o + 4, (secsym[shndx] << 8) | 2)
                 w = target["sh_offset"] + r["r_offset"]
                 v = struct.unpack_from("<I", data, w)[0]
                 struct.pack_into("<I", data, w, (v + s["st_value"]) & 0xFFFFFFFF)

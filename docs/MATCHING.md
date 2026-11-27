@@ -327,3 +327,38 @@ Tools:
   `void` -> `u64` fixed func_001E52D0.
 - **ee-gcc: a `T **p = &G.f` local vs `*(&G.f)`** gives different
   allocation (func_001E3B48).
+
+### Data-only units (src/game/data/, tools/data_to_c.py)
+
+How CodeWarrior lays out data, which is what lets one C unit reproduce a
+stretch of splat's data:
+- Each object gets a section of its own. Initialised objects come out in
+  definition order, uninitialised ones in reverse (a `.bss` unit is written
+  from the top down).
+- An object is aligned by its size: 4 up to 4 bytes, 8 up to 15, 16 beyond.
+  `__attribute__((aligned(N)))` lowers that, down to 1, for objects retail
+  packs tighter.
+- Objects of 8 bytes or less go to `.sdata`/`.sbss`; `-sdatathreshold 0`
+  (added by compile_c.sh for src/game/data/) keeps them in `.data`/`.bss`.
+- An all-zero initialiser goes to `.bss`; `#pragma explicit_zero_data on`
+  keeps it in `.data`.
+- Defining a table in the unit that reads it can change that unit's code
+  (CodeWarrior folds values it can see), so tables nothing owns live in a
+  data-only unit and their readers keep an `extern`.
+
+A `.bss` label at an address CodeWarrior could not start an object of its
+size at is a field of the object before it: data_to_c.py folds it in and
+gives ld its name in config/data_aliases.txt (`D_field = D_object + off`).
+tools/fake_pointers.py first drops the labels splat made from data words
+that only look like pointers.
+
+Also:
+- `.sdata` and `.sbss` are each one data-only unit (`sdata_00201B80.c`,
+  `sbss_00201E80.c`, built with `-sdatathreshold 32767` so every object
+  stays small data); carve.py writes their subsegments.
+- A jump table of a function that is still asm is written as
+  `(s32)((u8 *)func + off)` (the target's `.L` entries are rewritten the
+  same way by gen_ninja.py). Move it into the function's unit once the
+  function is C.
+- The end of `.bss` is libc's `errno` (a small common of sbrkr.c) and the
+  0x80 alignment of `_end`; the linker script lays them out.

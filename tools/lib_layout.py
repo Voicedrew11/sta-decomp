@@ -11,7 +11,9 @@ the path under <objdir> names the unit). For each object:
              carry other names in symbol_addrs is rejected; of several hits,
              the one where the object's functions sit at their symbol_addrs
              addresses wins. A unique hit places it.
-  data       .data/.rodata/.sdata/.sbss/.bss are placed from the relocations
+  data       A data-only game unit (src/game/data/) is placed by the
+             addresses its D_XXXXXXXX globals name. Otherwise
+             .data/.rodata/.sdata/.sbss/.bss are placed from the relocations
              that point into them: a %hi/%lo pair or a .word in the located
              .text/.data gives the absolute address, the object's in-place
              addend gives the offset, and their difference is the section
@@ -125,6 +127,10 @@ class Obj:
             self.datasyms = [(idx[s["st_shndx"]], self.offset_of(s), s.name) for s in syms
                              if s["st_info"]["bind"] == "STB_GLOBAL" and isinstance(s["st_shndx"], int)
                              and idx.get(s["st_shndx"]) in (".data", ".rodata", ".sdata")]
+            # every global in a data section, .bss included: (section, offset, name)
+            self.allsyms = [(idx[s["st_shndx"]], self.offset_of(s), s.name) for s in syms
+                            if s["st_info"]["bind"] == "STB_GLOBAL" and isinstance(s["st_shndx"], int)
+                            and idx.get(s["st_shndx"]) in SECS[1:]]
             self.funcs = sorted((self.offset_of(sym), sym.name) for sym in syms
                                 if sym["st_info"]["type"] == "STT_FUNC" and
                                 idx.get(sym["st_shndx"] if isinstance(sym["st_shndx"], int) else -1) == ".text")
@@ -429,6 +435,28 @@ def layout(objdir):
             if a + size <= hi and hi - (a + size) < max(nxt.secs[".bss"][2], 1):
                 place[(o.unit, ".bss")] = (a, "bss-order")
 
+    def name_pass():
+        """A data-only game unit (src/game/data/): its globals are named by
+        address (D_XXXXXXXX, or a name symbol_addrs.txt gives), which places
+        each section, zero-filled ones included; the bytes are checked below."""
+        for o in objs:
+            if not o.unit.startswith("src/game/data/"):
+                continue
+            for sec in o.secs:
+                bases = set()
+                for s, off, n in o.allsyms:
+                    if s != sec:
+                        continue
+                    m = re.fullmatch(r"D_([0-9A-F]{8})", n)
+                    a = syms[0].get(n, int(m.group(1), 16) if m else None)
+                    if a is not None:
+                        bases.add(a - off)
+                if len(bases) == 1:
+                    place[(o.unit, sec)] = (bases.pop(), "by-name")
+                elif bases:
+                    place[(o.unit, sec)] = (None, "conflict " + "/".join(f"{b:#x}" for b in sorted(bases)))
+
+    name_pass()
     for _ in range(3):
         reloc_pass()
         search_pass()

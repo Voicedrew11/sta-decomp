@@ -213,8 +213,8 @@ src/game/func_0012A070.c
 src/game/func_0012A520.c
 src/game/func_0012AA30.c
 src/game/func_0012AB40.c
-asm/data/data.data.s
-asm/data/rodata.rodata.s
+src/game/data/data_001F1BAC.c
+src/game/data/rodata_001FAAE8.c
 src/game/func_0012AC00.c
 src/game/func_0012B120.c
 src/game/func_0012B350.c
@@ -258,7 +258,8 @@ src/game/func_0012DD10.c
 src/game/func_0012DE00.c
 src/game/func_0012DEE0.c
 src/game/func_0012DF90.c
-asm/data/rodata_001FAB40.rodata.s
+src/game/data/rodata_001FAB40.c
+src/game/data/bss_00209700.c
 asm/text.s
 src/game/func_0012E640.c
 src/game/func_0012E6B0.c
@@ -315,7 +316,7 @@ src/game/func_00132930.c
 asm/text_001329D0.s
 src/game/func_00132A70.c
 src/game/func_00132BA0.c
-asm/data/rodata_001FABB8.rodata.s
+src/game/data/rodata_001FABB8.c
 src/game/func_00132DB0.c
 src/game/func_00133D00.c
 src/game/func_00133FD0.c
@@ -702,7 +703,7 @@ src/game/func_001475F0.c
 src/game/func_001476D0.c
 src/game/func_00147710.c
 src/game/func_00147E90.c
-asm/data/data_001F1C80.data.s
+src/game/data/data_001F1C80.c
 src/game/func_00148120.c
 src/game/func_001484D0.c
 src/game/func_001489B0.c
@@ -963,8 +964,8 @@ asm/text_00164A60.s
 src/game/func_00164BB0.c
 src/game/func_00164CC0.c
 src/game/func_00164CD0.c
-asm/data/data_001F2010.data.s
-asm/data/rodata_001FAD20.rodata.s
+src/game/data/data_001F2010.c
+src/game/data/rodata_001FAD20.c
 src/game/func_00164CE0.c
 src/game/func_00164DC0.c
 src/game/func_00164E80.c
@@ -1148,7 +1149,7 @@ asm/text_001797E0.s
 src/game/func_00179DB0.c
 src/game/func_00179E50.c
 src/game/func_00179F10.c
-asm/data/rodata_001FB8C8.rodata.s
+src/game/data/rodata_001FB8C8.c
 src/game/func_00179F80.c
 src/game/func_0017A480.c
 src/game/func_0017A640.c
@@ -1303,8 +1304,8 @@ src/game/func_00184040.c
 asm/text_00184280.s
 src/game/func_001848A0.c
 src/game/func_00184960.c
-asm/data/data_001F2770.data.s
-asm/data/rodata_001FB980.rodata.s
+src/game/data/data_001F2770.c
+src/game/data/rodata_001FB980.c
 src/game/func_00184CF0.c
 src/game/func_00184DF0.c
 src/game/func_00185030.c
@@ -1315,7 +1316,7 @@ src/game/func_00185B30.c
 src/game/func_00185B40.c
 asm/text_00185D70.s
 src/game/func_00186440.c
-asm/data/rodata_001FCB08.rodata.s
+src/game/data/rodata_001FCB08.c
 src/game/func_001866B0.c
 src/game/func_00186990.c
 src/game/func_00186E70.c
@@ -1382,7 +1383,7 @@ src/game/func_0018B380.c
 src/game/func_0018B820.c
 src/game/func_0018B840.c
 src/game/func_0018B860.c
-asm/data/rodata_001FCB80.rodata.s
+src/game/data/rodata_001FCB80.c
 src/game/func_0018BCC0.c
 src/game/func_0018C140.c
 src/game/func_0018C4C0.c
@@ -1396,7 +1397,7 @@ src/game/func_0018D1F0.c
 src/game/func_0018D360.c
 src/game/func_0018D420.c
 src/game/func_0018D7B0.c
-asm/data/rodata_001FCDC8.rodata.s
+src/game/data/rodata_001FCDC8.c
 src/game/func_0018DA20.c
 src/game/func_0018DFB0.c
 src/game/func_0018E0B0.c
@@ -1409,7 +1410,7 @@ src/game/func_0018E460.c
 src/game/func_0018E470.c
 src/game/func_0018E480.c
 src/game/func_0018E980.c
-asm/data/rodata_001FCE08.rodata.s
+src/game/data/rodata_001FCE08.c
 src/game/func_0018EAE0.c
 src/game/func_0018EC40.c
 src/game/func_0018EDA0.c
@@ -1434,7 +1435,7 @@ src/game/func_00191580.c
 src/game/func_00191820.c
 src/game/func_00191C40.c
 src/game/func_00191CB0.c
-asm/data/rodata_001FD118.rodata.s
+src/game/data/rodata_001FD118.c
 src/game/func_00192110.c
 src/game/func_00192580.c
 src/game/func_00192900.c
@@ -1452,7 +1453,7 @@ src/game/func_00193E80.c
 src/game/func_00194150.c
 src/game/func_001942E0.c
 src/game/func_00194440.c
-asm/data/rodata_001FD208.rodata.s
+src/game/data/rodata_001FD208.c
 src/game/func_001945B0.c
 src/game/func_00194B90.c
 src/game/func_00194C20.c
@@ -1527,8 +1528,8 @@ src/game/func_0019A920.c
 src/game/func_0019B560.c
 src/game/func_0019B590.c
 src/game/func_0019B8D0.c
-asm/data/data_001F2E80.data.s
-asm/data/rodata_001FD230.rodata.s
+src/game/data/data_001F2E80.c
+src/game/data/rodata_001FD230.c
 src/game/func_0019BBE0.c
 src/game/func_0019BFF0.c
 src/game/func_0019C560.c
@@ -1540,7 +1541,7 @@ asm/text_0019CEF0.s
 src/game/func_0019D290.c
 src/game/func_0019D4A0.c
 src/game/func_0019D510.c
-asm/data/rodata_001FD5B0.rodata.s
+src/game/data/rodata_001FD5B0.c
 src/game/func_0019D580.c
 src/game/func_0019DA70.c
 src/game/func_0019DCF0.c
@@ -1575,8 +1576,8 @@ src/game/func_001A1000.c
 src/game/func_001A1380.c
 src/game/func_001A13F0.c
 src/game/func_001A1460.c
-asm/data/data_001F3160.data.s
-asm/data/rodata_001FD610.rodata.s
+src/game/data/data_001F3160.c
+src/game/data/rodata_001FD610.c
 src/game/func_001A1550.c
 src/game/func_001A1B40.c
 src/game/func_001A1C80.c
@@ -1605,8 +1606,8 @@ src/game/func_001A4010.c
 src/game/func_001A4050.c
 src/game/func_001A40A0.c
 src/game/func_001A4420.c
-asm/data/data_001F32A0.data.s
-asm/data/rodata_001FD82C.rodata.s
+src/game/data/data_001F32A0.c
+src/game/data/rodata_001FD82C.c
 src/game/func_001A4570.c
 src/game/func_001A4890.c
 src/game/func_001A4930.c
@@ -1707,7 +1708,7 @@ src/game/func_001AB280.c
 src/game/func_001AB290.c
 src/game/func_001AB2C0.c
 src/game/func_001AB500.c
-asm/data/rodata_001FD8C8.rodata.s
+src/game/data/rodata_001FD8C8.c
 src/game/func_001AB690.c
 src/game/func_001ABB20.c
 src/game/func_001ABCC0.c
@@ -1852,8 +1853,8 @@ src/game/func_001BA680.c
 src/game/func_001BA850.c
 src/game/func_001BAA10.c
 src/game/func_001BAAA0.c
-asm/data/data_001F3850.data.s
-asm/data/rodata_001FDA5C.rodata.s
+src/game/data/data_001F3850.c
+src/game/data/rodata_001FDA5C.c
 src/game/func_001BAB70.c
 src/game/func_001BB320.c
 src/game/func_001BB760.c
@@ -1950,8 +1951,8 @@ src/game/func_001C9E30.c
 src/game/func_001C9EA0.c
 src/game/func_001C9FB0.c
 src/game/func_001C9FF0.c
-asm/data/data_001F38F0.data.s
-asm/data/rodata_001FDC08.rodata.s
+src/game/data/data_001F38F0.c
+src/game/data/rodata_001FDC08.c
 src/game/func_001CA1C0.c
 src/game/func_001CA2B0.c
 src/game/func_001CA2C0.c
@@ -2043,14 +2044,14 @@ src/game/func_001D2C60.c
 asm/text_001D2CB0.s
 src/game/func_001D3810.c
 src/game/func_001D3A90.c
-asm/data/rodata_001FDE04.rodata.s
+src/game/data/rodata_001FDE04.c
 src/game/ee/func_001D3BF0.c
 src/game/ee/func_001D3CE0.c
 src/game/ee/func_001D3DA8.c
 src/game/ee/func_001D3E30.c
 src/game/ee/func_001D3FE8.c
 asm/text_001D4170.s
-asm/data/rodata_001FDE58.rodata.s
+src/game/data/rodata_001FDE58.c
 src/game/ee/func_001D4A78.c
 src/game/ee/func_001D5280.c
 src/game/ee/func_001D58C0.c
@@ -2173,7 +2174,7 @@ src/game/func_001DAC70.c
 src/game/func_001DACB0.c
 src/game/func_001DAEF0.c
 src/game/func_001DAF80.c
-asm/data/rodata_001FE6B8.rodata.s
+src/game/data/rodata_001FE6B8.c
 src/game/func_001DB020.c
 src/game/func_001DB410.c
 src/game/func_001DB4D0.c
@@ -2198,13 +2199,13 @@ src/game/func_001DD510.c
 src/game/func_001DD650.c
 src/game/func_001DD700.c
 src/game/func_001DD7F0.c
-asm/data/rodata_001FE714.rodata.s
+src/game/data/rodata_001FE714.c
 src/game/func_001DDA20.c
 src/game/func_001DE0D0.c
-asm/data/rodata_001FE790.rodata.s
+src/game/data/rodata_001FE790.c
 src/game/func_001DE2D0.c
 src/game/func_001DEB00.c
-asm/data/rodata_001FE7CC.rodata.s
+src/game/data/rodata_001FE7CC.c
 src/game/func_001DED50.c
 src/game/func_001DF360.c
 src/game/func_001DF460.c
@@ -2243,7 +2244,7 @@ src/game/func_001E1570.c
 src/game/func_001E1760.c
 src/game/func_001E1770.c
 src/game/func_001E1810.c
-asm/data/rodata_001FE88C.rodata.s
+src/game/data/rodata_001FE88C.c
 src/game/func_001E19A0.c
 src/game/func_001E1CC0.c
 src/game/func_001E1D20.c
@@ -2342,7 +2343,7 @@ src/game/func_001E6110.c
 src/game/func_001E6170.c
 src/game/func_001E62A0.c
 src/game/func_001E6410.c
-asm/data/rodata_001FE994.rodata.s
+src/game/data/rodata_001FE994.c
 src/game/func_001E64E0.c
 src/game/func_001E72A0.c
 src/game/func_001E7880.c
@@ -2352,7 +2353,7 @@ src/game/func_001E7FA0.c
 src/game/func_001E8290.c
 src/game/func_001E82A0.c
 src/game/func_001E8310.c
-asm/data/rodata_00201840.rodata.s
+src/game/data/rodata_00201840.c
 src/game/func_001E8500.c
 src/game/func_001E85E0.c
 src/game/func_001E8710.c
@@ -2404,7 +2405,6 @@ src/game/func_001ED9A0.c
 src/game/func_001EDAD0.c
 src/game/func_001EDCC0.c
 asm/text_001EDE60.s
-asm/data/rodata_0020186C.rodata.s
-asm/data/sdata.sdata.s
-asm/data/sbss.sbss.s
-asm/data/bss.bss.s
+src/game/data/rodata_0020186C.c
+src/game/data/sdata_00201B80.c
+src/game/data/sbss_00201E80.c
