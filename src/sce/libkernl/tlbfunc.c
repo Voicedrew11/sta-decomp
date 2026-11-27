@@ -128,6 +128,10 @@ static TlbEntry tlb_extended[8] /* derived name */ = {
     {0x007FE000, 0x31800000, 0x0006003F, 0x0007003F},
 };
 
+/* tlbfunc.o's .bss: 0x1018 bytes that no code in the program reaches (the
+   gap between iopreset's and tlbtrap's .bss); unused here as in retail */
+static unsigned char tlb_bss[0x1018]; /* derived name */
+
 static TlbTable tlb_table /* derived name */ = {13, 18, 8, 0, tlb_kernel, tlb_default, tlb_extended};
 
 void *_kSetTLBRefillFunc(void *func) /* derived name */

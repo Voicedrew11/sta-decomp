@@ -616,3 +616,57 @@ ignored_20000050 = 0x20000050; // ignore:True
 ignored_20000140 = 0x20000140; // ignore:True
 ignored_E0002000 = 0xE0002000; // ignore:True
 ignored_00200001 = 0x00200001; // ignore:True
+ignored_20000004 = 0x20000004; // ignore:True
+ignored_80007200 = 0x80007200; // ignore:True
+ignored_80006C00 = 0x80006C00; // ignore:True
+ignored_7FFFFFF8 = 0x7FFFFFF8; // ignore:True
+
+// The end of the program (config/sta.jp.ld.in defines it); glue.c heap_ptr starts there.
+_end = 0x004BE180;
+
+// Statics reached only through their uncached views (0x20000000 | addr),
+// which tools/carve.py does not trace back to them.
+fsSendBuf = 0x00204F80;
+heapRecv = 0x00206340;
+
+// Instruction words in tlbfunc/osd/alarm .data (kernel code copied into
+// place at run time) that splat reads as pointers.
+ignored_00200000 = 0x00200000; // ignore:True
+ignored_003A0824 = 0x003A0824; // ignore:True
+ignored_00400000 = 0x00400000; // ignore:True
+ignored_00400017 = 0x00400017; // ignore:True
+ignored_00400053 = 0x00400053; // ignore:True
+ignored_00400097 = 0x00400097; // ignore:True
+ignored_004000D7 = 0x004000D7; // ignore:True
+ignored_00400117 = 0x00400117; // ignore:True
+ignored_00400157 = 0x00400157; // ignore:True
+ignored_00400197 = 0x00400197; // ignore:True
+ignored_004001D7 = 0x004001D7; // ignore:True
+ignored_00400217 = 0x00400217; // ignore:True
+ignored_00400257 = 0x00400257; // ignore:True
+ignored_00400297 = 0x00400297; // ignore:True
+ignored_004002D7 = 0x004002D7; // ignore:True
+ignored_00400313 = 0x00400313; // ignore:True
+ignored_00400357 = 0x00400357; // ignore:True
+ignored_00400397 = 0x00400397; // ignore:True
+ignored_004003D7 = 0x004003D7; // ignore:True
+ignored_0040202D = 0x0040202D; // ignore:True
+ignored_0040282D = 0x0040282D; // ignore:True
+ignored_0040402D = 0x0040402D; // ignore:True
+ignored_0040F809 = 0x0040F809; // ignore:True
+ignored_00431024 = 0x00431024; // ignore:True
+ignored_0043102B = 0x0043102B; // ignore:True
+ignored_00432021 = 0x00432021; // ignore:True
+ignored_00433021 = 0x00433021; // ignore:True
+ignored_00440017 = 0x00440017; // ignore:True
+ignored_00440415 = 0x00440415; // ignore:True
+ignored_00441018 = 0x00441018; // ignore:True
+ignored_00441024 = 0x00441024; // ignore:True
+ignored_00451021 = 0x00451021; // ignore:True
+ignored_00461024 = 0x00461024; // ignore:True
+ignored_00461823 = 0x00461823; // ignore:True
+ignored_00462821 = 0x00462821; // ignore:True
+ignored_00462823 = 0x00462823; // ignore:True
+ignored_00471025 = 0x00471025; // ignore:True
+ignored_00480017 = 0x00480017; // ignore:True
+ignored_00480415 = 0x00480415; // ignore:True

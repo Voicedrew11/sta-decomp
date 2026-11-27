@@ -9,7 +9,7 @@ void sceFsReset(void);
 s32 *malloc(s32);
 void free(s32 *);
 extern u8 D_001FB770[];
-extern u8 D_4BE180[];
+extern u8 _end[]; /* end of the program, from the linker script */
 void func_00100000(void);
 static inline s32 sub(s32 a, s32 b) { return a - b; }
 static inline s32 top(void) { return (s32)func_00100000 + 0x1000; }
@@ -28,7 +28,7 @@ void func_0015CB50(void) {
     sceSifLoadFileReset();
     sceFsReset();
     func_0015B040(0x200, 1);
-    n = sub(0x2000000, (s32)D_4BE180 + top() + 0x1000) - 0x10;
+    n = sub(0x2000000, (s32)_end + top() + 0x1000) - 0x10;
     p = malloc(n);
     if (p != 0) {
         free(p);

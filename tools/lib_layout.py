@@ -399,11 +399,42 @@ def layout(objdir):
                 if len(hits) == 1:
                     place[(o.unit, sec)] = (hits[0], "order-search")
 
+    def bss_order_pass():
+        """A .bss no relocation reaches (an unused static): it follows the
+        .bss of the unit before it in .text order, at its own alignment, and
+        must then end within the alignment fill before the next unit's."""
+        taddr = {o.unit: place[(o.unit, ".text")][0] for o in objs
+                 if place.get((o.unit, ".text"), (None,))[0] is not None}
+        for o in objs:
+            if o.unit not in taddr or ".bss" not in o.secs:
+                continue
+            if place.get((o.unit, ".bss"), (None,))[0] is not None:
+                continue
+            prev, nxt = None, None
+            for p in objs:
+                pa = place.get((p.unit, ".bss"), (None,))[0]
+                if p.unit not in taddr or pa is None or p is o:
+                    continue
+                if taddr[p.unit] < taddr[o.unit]:
+                    if prev is None or taddr[p.unit] > taddr[prev.unit]:
+                        prev = p
+                elif nxt is None or taddr[p.unit] < taddr[nxt.unit]:
+                    nxt = p
+            if prev is None or nxt is None:
+                continue
+            _, size, align, _ = o.secs[".bss"]
+            a = place[(prev.unit, ".bss")][0] + prev.secs[".bss"][1]
+            a = (a + max(align, 1) - 1) & -max(align, 1)
+            hi = place[(nxt.unit, ".bss")][0]
+            if a + size <= hi and hi - (a + size) < max(nxt.secs[".bss"][2], 1):
+                place[(o.unit, ".bss")] = (a, "bss-order")
+
     for _ in range(3):
         reloc_pass()
         search_pass()
     order_pass()
     reloc_pass()
+    bss_order_pass()
 
     rows = []
     for o in objs:
