@@ -222,6 +222,46 @@ scorers of 100+ tokens.
 - Per function: m2c for a first draft → decomp.me (a "PS2 mwccps2" preset)
   or objdiff → drop into `src/`.
 
+## Shiftable build
+
+The goal is that the image can move: a function that grows, a table that
+gets longer, an object inserted. The link then still produces a working
+program, because every pointer follows what it points at. What makes that
+true now:
+
+- **Sections follow each other.** `config/sta.jp.ld.in` fixes only
+  `.text`'s load address (0x100000); `.data`, `.sdata`, `.sbss` and `.bss`
+  each start 0x80-aligned after the previous one, `_gp` is
+  `ADDR(.sdata) + 0x7FF0` and `_fbss` is `ADDR(.sbss)`.
+- **No absolute in-image symbols.** `tools/rel_syms.py` (build step,
+  `build/rel_syms.ld`) gives ld splat's undefined symbols, `linker_syms.txt`
+  and `data_aliases.txt` as `OWNER + offset`. It drops what an object
+  defines or nothing uses, and keeps sizes, out-of-image addresses and the
+  load address absolute. Biased bases are written by hand in
+  `linker_syms.txt` (`D_001FE918 = D_001FE994 - 0x7C`).
+- **Data is C.** Pointers in `src/game/data/` are relocated `(s32)SYM`
+  initialisers, jump tables of asm functions are function + offset, and
+  folded `.bss` fields are aliases of their object. Each data-only unit is
+  rigid: its first object carries the unit's largest alignment, so its
+  inside does not change with where it lands.
+- **Words that only look like pointers** (packed data, ASCII) are numbers:
+  `tools/fake_pointers.py` lists them as `ignored_` in
+  `config/symbol_addrs.txt`.
+
+`ninja shift` checks it. It links four shifted variants (0x100 and 4 at the
+start of `.data`, 0x40 at the start of `.bss`, 0x100 before the game's
+first `.text`) and `tools/shift_check.py` checks every data word, `jal`
+target and `%hi/%lo` pair that names an image address. Each must name the
+moved address; one that stays put is an error if it comes from asm or a
+relocated word, and is counted as a constant if it is an unrelocated number
+in C source. Run it after changing data or the link. All four variants
+report nothing today.
+
+Not covered yet: the asm that is still asm can hold an address written as
+a number that the check cannot pair (a computed address, a table walked
+with a hand-built base). It shrinks as functions become C, and is the next
+thing to check by hand (or by booting a shifted image).
+
 ## Build notes and gotchas
 
 - splat's asm is assembled with **SCE ee-as 2.10**, not ee-as 2.9: ee-as 2.9

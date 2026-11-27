@@ -1,18 +1,12 @@
 /* Addresses the asm refers to that fall inside a C unit's section, where
- * splat expects the C object to define a symbol and it does not. Given to ld
- * as an implicit linker script with splat's undefined_*_auto.txt. */
+ * splat expects the C object to define a symbol and it does not. tools/
+ * rel_syms.py gives them to ld (with splat's undefined_*_auto.txt) relative
+ * to the object they lie in; an expression here is passed as it is. */
 
-/* mprec.o's _pow5mult (still asm) indexes p05[(k & 3) - 1], so it forms
- * p05 - 4, which is the last word of mktime.o's .rodata. */
-D_001FA7B4 = 0x001FA7B4;
-
-/* func_001E5B18 (still asm, Shift-JIS decoder) reads a halfword table through
- * a biased address that lands inside func_001E2D70's jump table. */
-D_001FE918 = 0x001FE918;
-
-/* A game data table (0x1F5E0C, 0x1F5E2C) holds the value 0x0020635F, which
- * splat reads as a pointer into iopheap.o's .bss padding. */
-D_0020635F = 0x0020635F;
+/* func_001E5B18 (still asm, Shift-JIS decoder) reads the halfword table
+ * D_001FE994 through a biased address (its first index is 0x3E), which lands
+ * inside func_001E2D70's jump table. */
+D_001FE918 = D_001FE994 - 0x7C;
 
 /* crt0's link constants: the main thread's stack top and size, and the heap
  * size (-1: up to the stack). */
@@ -21,11 +15,8 @@ _stack_size = 0x00100000;
 _heap_size = 0xFFFFFFFF;
 
 /* The start of .text, crt0's unnamed pre-entry pad: game code and a game
- * .rodata word use the address (splat's func_00100000). */
-func_00100000 = 0x00100000;
-
-/* The start of .text, crt0's unnamed pre-entry pad: game code and a game
- * .rodata word use the address (splat's func_00100000). */
+ * .rodata word use the address (splat's func_00100000). The load address:
+ * fixed, it does not shift. */
 func_00100000 = 0x00100000;
 
 /* libc's abs: CodeWarrior inlines calls spelled abs, so the game code that
@@ -34,4 +25,4 @@ func_00120570 = 0x00120570;
 
 /* func_00188910 is static in src/game/func_00188910.c (its caller
  * func_001889E0 relies on that); the asm callers still reach it here. */
-func_00188910 = 0x00188910;
+func_00188910 = func_001889E0 - 0xD0;

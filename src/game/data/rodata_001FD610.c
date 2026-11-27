@@ -5,11 +5,11 @@
 
 void func_0019FD00(void);
 
-const u8 D_001FD610[0x8] = "ITEM\000\000\000\000";
+const u8 D_001FD610[0x5] __attribute__((aligned(16))) = "ITEM\000";
 const u8 D_001FD618[0x10] __attribute__((aligned(8))) = "EQUIPMENT\000\000\000\000\000\000\000";
 const u8 D_001FD628[0x10] __attribute__((aligned(8))) = "DATABOOK\000\000\000\000\000\000\000\000";
 const u8 D_001FD638[0x10] __attribute__((aligned(8))) = "LOAD GAME\000\000\000\000\000\000\000";
-const u8 D_001FD648[0x8] = "OPTION\000\000";
+const u8 D_001FD648[0x7] = "OPTION\000";
 const char D_001FD650[0x10] = { -0x7e, 0x6f, -0x7e, 0x60, -0x7e, 0x74, -0x7e, 0x72, -0x7e, 0x64, 0, 0, 0, 0, 0, 0 };
 const char D_001FD660[0x20] = { -0x7e, 0x66, -0x7e, 0x60, -0x7e, 0x6c, -0x7e, 0x64, -0x7f, 0x40, -0x7e, 0x6e, -0x7e, 0x75, -0x7e, 0x64, -0x7e, 0x71, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 const s8 D_001FD680[0x18] = "\\TARGET\\STA_GO.ADX\000\000\000\000\000\000";

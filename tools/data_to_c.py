@@ -308,6 +308,20 @@ def bss_unit(src):
         if m and labels and labels[-1][1] is None:
             labels[-1][1], labels[-1][2] = int(m.group(1), 16), int(m.group(2), 0)
     labels = [l for l in labels if l[1] is not None]
+    # fields folded in by an earlier run are aliases now, not splat labels:
+    # read them back (config/data_aliases.txt), so a rerun folds them again
+    stem0 = f"{'sbss' if '.sbss.' in src else 'bss'}_{labels[0][1]:08X}"
+    at = {l[0]: l[1] for l in labels}
+    if ALIASES.exists():
+        m = re.search(rf"/\* {stem0} \*/\n((?:[^/\n][^\n]*\n)*)", ALIASES.read_text())
+        for a in re.finditer(r"^(\w+) = (\w+) \+ 0x([0-9A-F]+);", m.group(1) if m else "", re.M):
+            if a.group(2) in at and a.group(1) not in at:
+                labels.append([a.group(1), at[a.group(2)] + int(a.group(3), 16), 0])
+        labels.sort(key=lambda l: l[1])
+        for i, l in enumerate(labels):      # sizes run to the next label
+            nxt = labels[i + 1][1] if i + 1 < len(labels) else None
+            if nxt is not None and (l[2] == 0 or l[1] + l[2] > nxt):
+                l[2] = nxt - l[1]
     # _gp is the linker script's (the small data base), not an object's name
     for l in labels:
         if l[0] == "_gp":
@@ -324,8 +338,13 @@ def bss_unit(src):
             objs.append([name, addr, size, []])
     decls = declared_types()
     start = objs[0][1]
+    natural_of = lambda n: 4 if n <= 4 else 8 if n < 16 else 16
+    wants = [min(natural_of(sz), a & -a, start & -start) for _, a, sz, _ in objs]
+    # a rigid unit: the first object carries the largest alignment (see
+    # unit_text)
+    wants[0] = max(wants)
     defs = []
-    for name, addr, size, merged in objs:
+    for (name, addr, size, merged), want in zip(objs, wants):
         d = None
         ds = decls.get(name, set())
         if not merged and len(ds) == 1:
@@ -337,7 +356,6 @@ def bss_unit(src):
                 d = f"{etype} {ptr}{name}[{size // es:#x}]" if has_dim else f"{etype} {ptr}{name}"
         if d is None:
             d = f"u8 {name}[{size:#x}]"
-        want = min(natural(size), addr & -addr, start & -start)
         if want != natural(size):
             d += f" __attribute__((aligned({want})))"
         note = f" /* also {', '.join(n for n, _ in merged)} */" if merged else ""
@@ -383,9 +401,7 @@ def unit_text(src, labels):
         natural = 4 if size <= 4 else 8 if size < 16 else 16
         start = labels[0][1]
         want = min(natural, addr & -addr, start & -start)
-        if want != natural:
-            d = d.replace(" = ", f" __attribute__((aligned({want}))) = ", 1)
-        defs.append(d)
+        defs.append([d, natural, want])
         if trim and k == len(labels) - 1:
             # the unit's stretch ends after the padding, which is no object's:
             # a static of its own keeps it in the unit
@@ -394,6 +410,17 @@ def unit_text(src, labels):
                 at = addr + size
                 defs.append(f"static {'const ' if const else ''}u8 pad_{at:08X}[{pad:#x}]"
                             f" __attribute__((aligned({min(at & -at, 4)}))) = {{ 0 }};")
+    # a rigid unit: its first object carries the largest alignment of any,
+    # so ld starts the unit there and its offsets inside do not depend on
+    # where the unit lands when the image shifts
+    objs = [x for x in defs if isinstance(x, list)]
+    objs[0][2] = max(o[2] for o in objs)
+    for i, x in enumerate(defs):
+        if isinstance(x, list):
+            d, natural, want = x
+            if want != natural:
+                d = d.replace(" = ", f" __attribute__((aligned({want}))) = ", 1)
+            defs[i] = d
     own = {n for n, *_ in labels}
     stem = f"{Path(src).name.split('.')[1]}_{labels[0][1]:08X}"
     out = ['#include "common.h"', "",

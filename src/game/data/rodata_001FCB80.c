@@ -3,7 +3,7 @@
 /* rodata_001FCB80: the game's data at 0x001FCB80..., one object per label. */
 #pragma explicit_zero_data on
 
-const s8 D_001FCB80[0x8] = "%d\000\000\000\000\000\000";
+const s8 D_001FCB80[0x8] __attribute__((aligned(16))) = "%d\000\000\000\000\000\000";
 const s8 D_001FCB88[0x8] = "+%d\000\000\000\000\000";
 const s8 D_001FCB90[0x10] = " \000\000\000\000\000\000\000\000\000\000\000\000\000\000\000";
 const Vec D_001FCBA0[0x9] = { 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 2.0f, 2.0f, 2.0f, 2.0f, 3.2f, 3.2f, 3.2f, 3.2f, 4.6f, 4.6f, 4.6f, 4.6f, 6.2f, 6.2f, 6.2f, 6.2f, 8.0f, 8.0f, 8.0f, 8.0f, 10.0f, 10.0f, 10.0f, 10.0f, 12.0f, 12.0f, 12.0f, 12.0f };
