@@ -1,7 +1,6 @@
-/* round 3 near-miss: ee-gcc, 6 words: D2_QWC/D2_MADR constants in v0/v1 swapped */
 #include "common.h"
 void FlushCache(s32);
-void sceGsSyncPath(s32, s32);
+u64 sceGsSyncPath(s32, s32); /* declared u64: frees v0/v1 so the D2_ stores allocate as retail */
 u32 *func_001E51A8(void *, u16, s32);
 u32 *func_001E51D0(void *, s32, s32, s32, s32, s32, u64);
 u32 *func_001E52A8(void *, s64, s64);

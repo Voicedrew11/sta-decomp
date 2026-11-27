@@ -362,12 +362,6 @@ src/game/func_0013BB70.c
 src/game/func_0013BBC0.c
 src/game/func_0013C0D0.c
 src/game/func_0013C360.c
-src/game/func_0013C420.c
-asm/text_0013C740.s
-src/game/func_0013C7B0.c
-src/game/func_0013C850.c
-src/game/func_0013CA40.c
-asm/text_0013CBC0.s
 src/game/func_0013D1C0.c
 src/game/func_0013D1E0.c
 src/game/func_0013D1F0.c
@@ -2296,7 +2290,7 @@ asm/text_001E3758.s
 src/game/ee/func_001E3790.c
 src/game/ee/func_001E39F8.c
 src/game/ee/func_001E3AF8.c
-asm/text_001E3B48.s
+src/game/ee/func_001E3B48.c
 src/game/ee/func_001E3CA0.c
 src/game/ee/func_001E3DB8.c
 src/game/ee/func_001E3DD0.c
@@ -2325,7 +2319,8 @@ src/game/ee/func_001E51A8.c
 src/game/ee/func_001E51D0.c
 src/game/ee/func_001E52A8.c
 src/game/ee/func_001E52B8.c
-asm/text_001E52D0.s
+src/game/ee/func_001E52D0.c
+asm/text_001E54E8.s
 src/game/ee/func_001E5C60.c
 src/game/ee/func_001E5D78.c
 src/game/ee/func_001E5E40.c

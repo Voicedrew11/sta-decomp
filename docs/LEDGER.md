@@ -166,6 +166,22 @@ Game functions are matched smallest first.
 - **ee-gcc `andi 0xFF` on a compare with a stored byte**: declare the u8
   local it is compared with as `s32` (func_001D7110).
 
+- **A call that skips an argument reload = a static callee in the same file.**
+  CodeWarrior tracks which registers a static function defined earlier in the
+  translation unit leaves alone, and its callers stop reloading them.
+  func_0013C740/func_0013CBC0 (no `$a0` reload after func_0013C360) matched
+  once func_0013C360 through func_0013CBC0 became one file with
+  func_0013C360 static (src/game/func_0013C360.c); a global definition in the
+  same file is not enough.
+
+- **ee-gcc: a callee's return type moves registers around it.** Declaring
+  `sceGsSyncPath` as `u64` instead of `void` freed `$v0`/`$v1` for the
+  following hardware-register stores, so they came out in retail's
+  registers (func_001E52D0, found by the permuter).
+- **ee-gcc: `*(&G.f)` instead of a pointer local.** `u8 **pd = &G.data;
+  *pd + b` was the near-miss; `*(&D_004BC2F0.data) + b` matched
+  (func_001E3B48, found by the permuter).
+
 ## Aborted
 
 - func_001DC328, func_001DC338 (lq/sq through $a2), func_001DC388 (lqc2
