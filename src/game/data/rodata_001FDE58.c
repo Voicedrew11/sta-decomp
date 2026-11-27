@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FDE58: the game's data at 0x001FDE58..., one object per label. */
+/* used by: no code by name (reached through other data) */
 #pragma explicit_zero_data on
 
 void func_001D4170(void);

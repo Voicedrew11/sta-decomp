@@ -26,12 +26,13 @@ extern char D_00201960[];
 extern char D_00201968[];
 extern char D_00201970[];
 extern char D_00201978[];
-extern char D_00201980[];
-extern char D_002019A0[];
-extern char D_002019C0[];
-extern char D_002019F0[];
-extern char D_00201A10[];
-extern char D_00201A30[];
+#pragma explicit_zero_data on
+const char D_00201980[0x20] = "SifAllocIopHeap Error\012\000\000\000\000\000\000\000\000\000\000";
+const char D_002019A0[0x20] = "sceCdStInit Error \012\000\000\000\000\000\000\000\000\000\000\000\000\000";
+const char D_002019C0[0x30] = "Cannot open '%s'(sceCdSearchFile)\012\000\000\000\000\000\000\000\000\000\000\000\000\000\000";
+const char D_002019F0[0x20] = "Cannot open '%s'(sceOpen)\012\000\000\000\000\000\000";
+const char D_00201A10[0x20] = "sceLseek() fails (%s): %d\012\000\000\000\000\000\000";
+const char D_00201A30[0x17] = "sceLseek() fails (%s)\012\000";
 
 s32 func_001E88C0(s32 *a0, char *name) {
     RMode mode;

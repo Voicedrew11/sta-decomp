@@ -21,7 +21,8 @@ void func_00181680(s32, void *, void *, void *, S *, u32);
 void func_001875C0(f32, f32, f32, s8 *, s32, u32);
 void func_00187A20(f32, u8 *, s32);
 G *func_00189020(s32);
-extern S D_001F2590 __attribute__((aligned(16)));
+#pragma explicit_zero_data on
+S D_001F2590 = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f };
 extern s32 D_00201CC8;
 extern s32 D_00201CCC;
 extern s32 *D_00202040;

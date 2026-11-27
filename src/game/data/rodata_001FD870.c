@@ -1,0 +1,9 @@
+#include "common.h"
+
+/* rodata_001FD870: the game's data at 0x001FD870..., one object per label. */
+/* used by: func_001A3C10, func_001A4420, text_001A4420.s */
+#pragma explicit_zero_data on
+
+const char D_001FD870[0x1d] = "cdrom0:\\TARGET\\OPENING.PSS;1\000";
+const s8 D_001FD890[0x1d] = "\\TARGET\\STA_TI.ADX\000\000\000\000\000\000\000\000\000\000\000";
+const u8 pad_001FD8AD[0x3] __attribute__((aligned(1))) = { 0, 0, 0 };

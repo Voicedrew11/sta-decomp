@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FDA5C: the game's data at 0x001FDA5C..., one object per label. */
+/* used by: func_001B7050, func_001B70E0, text_001B6190.s */
 #pragma explicit_zero_data on
 
 const s32 D_001FDA5C[0x1] = { 0 };

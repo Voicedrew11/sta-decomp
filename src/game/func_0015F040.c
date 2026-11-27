@@ -1,7 +1,8 @@
 #include "m2c.h"
 extern s32 D_00316A20[];
 extern f32 D_003139E0[];
-extern f32 D_003139B0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_003139B0[0xc];
 extern s32 D_00201C94;
 extern f32 D_00201C8C;
 extern f32 D_00201C90;

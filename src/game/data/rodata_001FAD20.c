@@ -1,6 +1,8 @@
 #include "common.h"
 
 /* rodata_001FAD20: the game's data at 0x001FAD20..., one object per label. */
+/* used by: func_00142930, func_0014B1B0, func_0014D4A0, func_0014D700,
+   func_0015AD00, func_0015CB50 */
 #pragma explicit_zero_data on
 
 const char D_001FAD20[0x20] = "scr/chrtest_.bin\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000";

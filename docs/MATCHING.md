@@ -365,3 +365,25 @@ Also:
 - The data-only units are part of what makes the image shiftable; see
   "Shiftable build" in docs/ROADMAP.md and run `ninja shift` after changing
   them.
+
+### Moving data into its code (tools/move_data.py)
+
+`tools/move_data.py [--section bss|data|rodata]` lists the data-only
+objects exactly one CodeWarrior unit uses that can move into it; `--apply`
+moves them. An object stays in src/game/data/ when:
+- it is 8 bytes or less (a game unit would put it in .sdata/.sbss and reach
+  it through $gp, which changes the code);
+- the code that uses it is asm or ee-gcc (it waits for that code);
+- the owner declares a type the data cannot be written in (a struct local
+  to the file, a 2-D array, a scalar for an array);
+- defining it in the owner changes the owner's code (CodeWarrior folds
+  initialised values it can see: most .rodata and .data);
+- it breaks the link order: a unit's data is one stretch per section, and
+  units come in the same order in every section.
+
+The last is common. Retail's data is not in the order of the one-function
+files: the tables of func_0018E980..func_00193AF0 sit in reverse function
+order, so that run is one translation unit (with an asm function,
+text_00192110, inside). Its data moves when the unit is merged.
+
+`tools/data_users.py` notes in each data-only unit which code uses it.

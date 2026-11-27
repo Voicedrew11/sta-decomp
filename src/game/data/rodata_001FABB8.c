@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FABB8: the game's data at 0x001FABB8..., one object per label. */
+/* used by: func_00130590, func_00132DB0 */
 #pragma explicit_zero_data on
 
 const u8 D_001FABB8[0x5] = "%s;1\000";

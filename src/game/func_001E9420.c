@@ -1,7 +1,8 @@
 #include "common.h"
 typedef struct { char pad[0x38]; u32 w; s32 h; } O;
 typedef struct { s32 a, b, c, d; } P;
-extern u32 D_004BD380[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+u32 D_004BD380[0x70];
 u32 *func_001E9190(u32 *p, P *s, s32 n);
 void sceGsSyncPath(s32, s32);
 

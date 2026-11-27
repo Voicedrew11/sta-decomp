@@ -4,7 +4,8 @@ extern f32 D_0030C420[];
 extern f32 D_0030C424[];
 extern f32 D_0030C428[];
 extern f32 D_0030C42C[];
-extern f32 D_0030C430[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_0030C430[0x4];
 extern f32 D_0030C434[];
 extern Vec D_0030C3E0;
 extern Vec D_001F2150;

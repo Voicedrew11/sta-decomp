@@ -1,0 +1,48 @@
+#include "common.h"
+
+/* bss_0049F8A0: the game's .bss from 0x0049F8A0, defined from the top down
+   (CodeWarrior writes uninitialised objects in reverse order). */
+/* used by: func_00189020, func_00189050, func_00189080, func_001891C0,
+   func_00189270, func_00189580, func_00189AD0, func_00189F40, func_0018A420,
+   func_0018BCC0, func_0018C590, func_0018DA20, func_00192110, func_00193070,
+   func_00194150, func_001945B0, text_00192110.s */
+
+s32 D_004A0AEC[0x1];
+s32 D_004A0AE8[0x1];
+s32 D_004A0AE0[0x2];
+u8 D_004A0950[0x190]; /* also D_004A095F */
+u8 D_004A0900[0x50];
+u8 D_004A08C8[0x38] __attribute__((aligned(8))); /* also D_004A08CC */
+s32 D_004A08C4[0x1];
+u8 D_004A06C0[0x204];
+s32 D_004A0680[0x10];
+s32 D_004A067C[0x1];
+u32 D_004A0678[0x1];
+s32 D_004A0674[0x1];
+s32 D_004A0470[0x81];
+s32 D_004A0430[0x10];
+s32 D_004A042C[0x1];
+u32 D_004A0428[0x1];
+s32 D_004A0424[0x1];
+s32 D_004A0220[0x81];
+s32 D_004A01E0[0x10];
+s32 D_004A01DC[0x1];
+u32 D_004A01D8[0x1];
+s32 D_004A01D4[0x1];
+u8 D_0049FFD0[0x204];
+s32 D_0049FF90[0x10];
+s32 D_0049FF8C[0x1];
+u32 D_0049FF88[0x1];
+s32 D_0049FF84[0x1];
+u8 D_0049FD80[0x204];
+s32 D_0049FD40[0x10];
+s32 D_0049FD3C[0x1];
+u32 D_0049FD38[0x1];
+s32 D_0049FD34[0x1];
+u8 D_0049FB30[0x204];
+s32 D_0049FAF0[0x10];
+s32 D_0049FAEC[0x1];
+u32 D_0049FAE8[0x1];
+s32 D_0049FAE4[0x1];
+s32 D_0049F8E0[0x81];
+u8 D_0049F8A0[0x40];

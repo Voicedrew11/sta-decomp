@@ -4,7 +4,8 @@ extern f32 D_002020D4;
 extern f32 D_002020D8;
 extern f32 D_00202108;
 extern s32 D_004A0AE0[];
-extern s16 D_004A0AF0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s16 D_004A0AF0[0xe];
 
 void func_0018A420(s32 *a0) {
     switch (*a0) {

@@ -1,5 +1,6 @@
 #include "m2c.h"
-extern u8 D_0048D140[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+u8 D_0048D140[0x30];
 extern u8 D_0048D141[];
 extern u8 D_0048D142[];
 extern u8 D_0048D143[];

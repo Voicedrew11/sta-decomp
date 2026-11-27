@@ -22,7 +22,8 @@ extern s32 D_004A1120[];
 extern Flags8 D_004A1140[];
 extern f32 D_0020213C;
 typedef struct { s32 v[5]; } T5;
-extern T5 D_001F2DC0 __attribute__((aligned(16)));
+#pragma explicit_zero_data on
+T5 D_001F2DC0 = { -1, 0, 0, 0, 0 };
 
 void func_00191CB0(O *o) {
     f32 x;

@@ -15,7 +15,8 @@ extern u8 D_0022EC14[];
 extern u8 D_0022EC15[];
 extern u8 D_0022EC16[];
 extern s32 D_0022EC3C[];
-extern s32 D_0022EC50[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_0022EC50[0xfc];
 void func_001D9F10(void);
 void func_001D9FC0(void);
 s32 func_001D95E0(void);

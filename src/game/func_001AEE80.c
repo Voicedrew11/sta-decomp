@@ -43,7 +43,8 @@ extern Obj *D_00202288;
 extern Ent *D_002022B0;
 extern s16 D_004AC5A0[];
 extern Obj D_004AE370[2][64];
-extern Vec D_001F3810;
+#pragma explicit_zero_data on
+Vec D_001F3810 = { 1.0f, 1.0f, 1.0f, 1.0f };
 void func_001AF4A0(Obj *);
 void func_001B51E0(s32, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);

@@ -1,6 +1,10 @@
 #include "common.h"
 
 /* data_001F2E80: the game's data at 0x001F2E80..., one object per label. */
+/* used by: func_00196940, func_001979C0, func_00197DD0, func_00198570,
+   func_00198D80, func_001997A0, func_00199AD0, func_0019A7E0, func_0019A920,
+   func_0019B8D0, func_0019C6D0, func_0019CB90, func_0019D290,
+   text_00196330.s, text_001973F0.s, text_0019CEF0.s */
 #pragma explicit_zero_data on
 
 extern s32 D_001F2E80[];

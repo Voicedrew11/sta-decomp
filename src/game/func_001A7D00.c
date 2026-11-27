@@ -1,6 +1,6 @@
 #include "common.h"
-
-extern char D_001FD970[];
+#pragma explicit_zero_data on
+const char D_001FD970[0x11] = "chr/c%4.04dm.stm\000";
 s32 sprintf(char *buf, const char *fmt, ...);
 char *strcpy(char *dst, const char *src);
 s32 func_00159D10(char *name);

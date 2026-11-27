@@ -7,12 +7,13 @@ s32 sceCdStSeek(u32);
 s32 sceCdStStart(u32, RMode *);
 s32 sceCdStStop(void);
 s32 sceRead(s32, void *, s32);
-extern char D_00201870[];
-extern char D_00201898[];
-extern char D_002018B0[];
-extern char D_002018D0[];
-extern char D_002018E8[];
-extern char D_00201900[];
+#pragma explicit_zero_data on
+const char D_00201870[0x28] = "sceCdStRead Error count=%d err=%d\012\000\000\000\000\000\000";
+const char D_00201898[0x18] __attribute__((aligned(8))) = "sceCdStStop\012\000\000\000\000\000\000\000\000\000\000\000\000";
+const char D_002018B0[0x20] = "sceCdDiskReady...\012\000\000\000\000\000\000\000\000\000\000\000\000\000\000";
+const char D_002018D0[0x17] = "sceCdStSeek... lsn=%d\012\000";
+const char D_002018E8[0x18] __attribute__((aligned(8))) = "retry...\012\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000";
+const char D_00201900[0x15] = "read error retry %d\012\000";
 
 s32 func_001E8710(s32 *a0, void *buf, s32 size, u32 lsn) {
     u32 err;

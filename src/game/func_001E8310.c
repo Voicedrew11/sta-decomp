@@ -6,7 +6,8 @@ extern char D_00201760[];
 extern char D_00201788[];
 extern char D_00201798[];
 extern char D_002017B8[];
-extern char D_00201840[];
+#pragma explicit_zero_data on
+const char D_00201840[0x9] = "icon.sys\000";
 typedef struct { u8 p0[0x10]; s32 x10; u8 p14[0xC]; u8 name[0x20]; } E;
 typedef struct { s32 x0[8]; s32 n; u8 p24[0x1C]; E e[14]; u8 pad[0x40]; } S;
 extern S D_004BC380[];

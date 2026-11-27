@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* rodata_001FE790: the game's data at 0x001FE790..., one object per label. */
+/* used by: func_001DE2D0, func_001DED50, text_001DE2D0.s */
 #pragma explicit_zero_data on
 
 const char D_001FE790[0x5] __attribute__((aligned(16))) = "/%3d\000";

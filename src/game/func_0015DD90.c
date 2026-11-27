@@ -5,7 +5,8 @@ extern s16 D_0030D588[];
 extern s16 D_0030D60A[];
 extern s16 D_0030D68C[];
 extern s16 D_0030D70E[];
-extern s16 D_0030D790[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s16 D_0030D790[0x108];
 extern s16 D_0030D812[];
 extern s16 D_0030D894[];
 extern s16 D_0030D916[];

@@ -1,6 +1,9 @@
 #include "common.h"
 
 /* data_001F1BAC: the game's data at 0x001F1BAC..., one object per label. */
+/* used by: func_001296C0, func_0012A520, func_0012AC00, func_0012B8E0,
+   func_001395A0, func_0013A720, func_00165150, func_00165400, func_00165770,
+   text_001395A0.s, text_0013A720.s */
 #pragma explicit_zero_data on
 
 s32 D_001F1BAC[0x1] = { 0 };
