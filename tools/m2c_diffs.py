@@ -27,7 +27,7 @@ def norm(text):
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     new = 0
-    for src in sorted((ROOT / "src/game").rglob("func_*.c")):
+    for src in sorted((ROOT / "src/game").rglob("*.c")):
         base = ROOT / "build/m2c" / f"{src.stem}.c"
         out = OUT / f"{src.stem}.diff"
         if out.exists() or not base.exists():

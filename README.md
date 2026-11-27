@@ -63,6 +63,27 @@ cannot produce the report.
 | sce | 100.00% | 867 / 867 | 15 / 189 |
 <!-- progress:end -->
 
+## Function names
+
+Every game function is named `<Name>_<certainty>_<ADDR>`, for example
+`Snd_PlaySe_3_00131600`; `.c` units named after a function follow the same
+scheme. The certainty (0-5) says how sure the name is accurate and
+representative:
+
+| certainty | meaning |
+| ---: | --- |
+| 5 | confirmed (e.g. a 1.000 match against KFIV/holyland's named code) |
+| 4 | strong outside evidence (a close KFIV match) |
+| 3 | clear evidence in the function itself (file-path strings, SDK calls, an unambiguous body) |
+| 2 | well supported by its callees and callers |
+| 1 | subsystem clear, exact role guessed; or a purely mechanical name (`Enemy_Get5B4b5`) |
+| 0 | best guess from shape and callees |
+
+Anything below 5 is up for review, and a certainty can change at any time.
+Names live in `config/game_func_names.txt` (address, name, certainty); after
+editing it, run `tools/apply_names.py` and rebuild. `tools/name_dossier.py
+START END` prints each function's strings, callees and C to help with naming.
+
 ## Adding library units
 
 Put the source under `src/sce/<lib>/` and run `tools/carve.py --check`: it

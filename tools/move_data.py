@@ -39,6 +39,9 @@ import sys
 from pathlib import Path
 
 from elftools.elf.elffile import ELFFile
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from names import is_func  # noqa: E402
+
 
 ROOT = Path(__file__).resolve().parent.parent
 ALIASES = ROOT / "config/data_aliases.txt"
@@ -173,7 +176,7 @@ def plan():
         if good:
             ok.append((own, [x[2] for x in objs_]))
     # in .text order: the longest increasing run of owner addresses
-    key = lambda o: int(re.search(r"func_([0-9A-F]{8})", o).group(1), 16)
+    key = lambda o: int(re.search(r"(?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})", o).group(1), 16)
     ok.sort(key=lambda r: sz[r[1][0]][0])
     tails, prev, idx = [], [None] * len(ok), []
     for i, (own, _) in enumerate(ok):
@@ -411,7 +414,7 @@ def _init_owner_text(own, names, labels, kind, text):
     ext = []
     for s_ in sorted(need):
         if not re.search(rf"\b{s_}\b", text):
-            ext.append(f"void {s_}(void);" if s_.startswith("func_") else f"extern u8 {s_}[];")
+            ext.append(f"void {s_}(void);" if is_func(s_) else f"extern u8 {s_}[];")
     block = "\n".join(ext + [f"#pragma explicit_zero_data on"] + out) + "\n"
     return text[:first] + block + text[first:]
 

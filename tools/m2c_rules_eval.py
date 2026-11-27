@@ -58,7 +58,7 @@ def main():
     ap.add_argument("-j", type=int, default=os.cpu_count())
     a = ap.parse_args()
     jobs = []
-    for raw_p in sorted(OUT.glob("func_*.raw.c")):
+    for raw_p in sorted(OUT.glob("*.raw.c")):
         name = raw_p.name[:-len(".raw.c")]
         body = (OUT / f"{name}.s").read_text()
         n = len(re.findall(r"^\s*/\* [0-9A-F]+ [0-9A-F]{8} ", body, re.M))
@@ -75,7 +75,7 @@ def main():
                                                 (OUT / f"{nm}.s").read_text(), re.M))), sorted(names))):
             raws[name] = sc
         res = list(ex.map(lambda j: (j[0], j[1], score(j[2], j[0], j[3])), jobs))
-    total = len(list(OUT.glob("func_*.raw.c")))
+    total = len(list(OUT.glob("*.raw.c")))
     print(f"{total} functions with an m2c starting point; rules change {len(names)}")
     print(f"{'rule':20s} {'changed':>8s} {'better':>7s} {'worse':>6s} {'words saved':>12s} {'new MATCH':>10s}")
     for rule in ["all"] + [r.__name__ for r in m2c_rules.RULES + m2c_rules.BODY_RULES]:

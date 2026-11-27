@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* data_001F3160: the game's data at 0x001F3160..., one object per label. */
-/* used by: func_0019E2F0, func_0019EA60, func_0019EF60, func_001A1C80,
+/* used by: PauseMenu_Open_0_0019E2F0, GameOverProc_DrawText_0_0019EA60, Notify_DrawBackground_0_0019EF60, Shop_Update_0_001A1C80,
    text_001A1C80.s */
 #pragma explicit_zero_data on
 

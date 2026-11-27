@@ -125,7 +125,7 @@ def substitute(c, src_name, dst_name, src_vals, dst_vals):
 
 def matched():
     out = {}
-    for f in (ROOT / "src/game").rglob("func_*.c"):
+    for f in (ROOT / "src/game").rglob("*.c"):
         out[f.stem] = f
     return out
 

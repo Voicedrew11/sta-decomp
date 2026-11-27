@@ -2,10 +2,10 @@
 
 /* bss_004A1A4C: the game's .bss from 0x004A1A4C, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_00199170, func_00199190, func_00199260, func_001997A0,
-   func_00199AD0, func_0019A1D0, func_0019A6A0, func_0019A840, func_0019A920,
-   func_0019BBE0, func_0019BFF0, func_0019C560, func_0019C6D0, func_0019C9B0,
-   func_0019CB90, func_0019D290, func_0019D580, func_0019DA70, func_0019DE90,
+/* used by: Equip_Reset_0_00199170, Equip_Draw_0_00199190, Equip_DrawStatus_0_00199260, Equip_Open_0_001997A0,
+   Equip_Update_0_00199AD0, Equip_BuildList_0_0019A1D0, EquipProc_Pos_0_0019A6A0, Hud_ClearTimers_0_0019A840, Hud_DrawStatus_1_0019A920,
+   Hud_DrawShortcuts_0_0019BBE0, Hud_UpdateShortcuts_0_0019BFF0, Hud_UpdateWeaponSlots_0_0019C560, ItemMenu_Draw_0_0019C6D0, ItemMenu_DrawStats_0_0019C9B0,
+   ItemMenuProc_DrawGauge_0_0019CB90, ItemMenu_Open_0_0019D290, ItemMenu_Update_0_0019D580, ItemMenu_UseItem_0_0019DA70, ItemMenuProc_Pos_0_0019DE90,
    text_0019BFF0.s, text_0019CEF0.s */
 
 u8 D_004A32AC[0x4];

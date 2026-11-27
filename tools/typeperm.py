@@ -44,7 +44,7 @@ def main():
     base = SLOT.sub(lambda m: f"@T{m.group(1)}@", text)
     keys = sorted(choices)
     combos = list(itertools.islice(itertools.product(*(choices[k] for k in keys)), a.max))
-    func = re.search(r"\b(func_[0-9A-F]{8})\s*\([^;]*\)\s*\{", base)
+    func = re.search(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\s*\([^;]*\)\s*\{", base)
     out = Path(a.o) if a.o else Path(a.template).with_name(f"{func.group(1)}.c")
     tmp = tempfile.mkdtemp(prefix="typeperm")
 

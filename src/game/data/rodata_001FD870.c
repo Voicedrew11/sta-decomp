@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FD870: the game's data at 0x001FD870..., one object per label. */
-/* used by: func_001A3C10, func_001A4420, text_001A4420.s */
+/* used by: Title_PlayOpening_2_001A3C10, TitleMenu_Open_1_001A4420, text_001A4420.s */
 #pragma explicit_zero_data on
 
 const char D_001FD870[0x1d] = "cdrom0:\\TARGET\\OPENING.PSS;1\000";

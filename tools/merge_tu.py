@@ -150,7 +150,7 @@ def parts(paths):
 
 # top-level only: a declaration starts at column 0 with a type word
 PROTO = re.compile(r"^(?!typedef\b|static\b|return\b|else\b|if\b)(?:extern[ \t]+)?([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(\w+)[ \t]*\(((?:[^;{}()]|\([^;{}()]*\))*)\)[ \t]*;[ \t]*\n", re.M)
-DEFN = re.compile(r"^(?!static\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b(func_[0-9A-F]{8})[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
+DEFN = re.compile(r"^(?!static\b)([A-Za-z_][\w \t\*]*?)[ \t\*]*\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})[ \t]*\(([^;{}()]*)\)\s*\{", re.M)
 
 
 # char is not signed char to CodeWarrior (char * and s8 * do not convert)
@@ -526,7 +526,7 @@ def merge(paths, bss=None):
         own = {m.group(2) for m in PROTO.finditer(orig)} | {m.group(2) for m in DEFN_ANY.finditer(orig)} \
             | {m.group(3) for m in EXTERN.finditer(orig)} | set(hdr["protos"])
         implicit = []
-        for name in sorted(set(re.findall(r"\b(func_[0-9A-F]{8}|\w+)\s*\(", body)) & set(canon) - own):
+        for name in sorted(set(re.findall(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}|\w+)\s*\(", body)) & set(canon) - own):
             if name not in undef:
                 implicit.append(name)
                 undef.append(name)

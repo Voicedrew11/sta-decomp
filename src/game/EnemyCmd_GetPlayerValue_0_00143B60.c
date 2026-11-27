@@ -1,0 +1,10 @@
+#include "common.h"
+
+s8 *Script_GetArgPtr_2_00165130(s32 a, s32 b);
+s8 Player_GetFlag521b5_1_00145620(void);
+
+void EnemyCmd_GetPlayerValue_0_00143B60(s32 a)
+{
+    s8 *p = Script_GetArgPtr_2_00165130(a, 0);
+    *p = Player_GetFlag521b5_1_00145620();
+}

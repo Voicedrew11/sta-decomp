@@ -26,6 +26,9 @@ from pathlib import Path
 import rabbitizer
 from elftools.elf.elffile import ELFFile
 from elftools.elf.relocation import RelocationSection
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from names import func_name  # noqa: E402
+
 
 ROOT = Path(__file__).resolve().parent.parent
 ROM = ROOT / "baserom/jp/sta.rom"
@@ -171,7 +174,7 @@ def cmd_diff(src: Path, keep: bool) -> int:
     text = re.sub(r"/\*.*?\*/", "", text, flags=re.S)
     addrs = sorted({int(m.group(1), 16) for l in text.splitlines()
                     if re.match(r"[A-Za-z]", l) and not l.rstrip().endswith(");")
-                    for m in [re.search(r"\bfunc_([0-9A-F]{8})\s*\(", l)] if m})
+                    for m in [re.search(r"\b(?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})\s*\(", l)] if m})
     if not addrs:
         sys.exit(f"{src}: defines no func_XXXXXXXX")
     ee = any(lo <= addrs[0] < hi for lo, hi in EE)
@@ -194,7 +197,7 @@ def cmd_diff(src: Path, keep: bool) -> int:
         syms = {s.name: s for s in e.get_section_by_name(".symtab").iter_symbols()
                 if s["st_info"]["type"] == "STT_FUNC"}
         for a in addrs:
-            name = f"func_{a:08X}"
+            name = func_name(a)
             sym = syms.get(name)
             if sym is None:
                 print(f"{name}: not in the object (inlined or static?)")

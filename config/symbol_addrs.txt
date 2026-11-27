@@ -607,7 +607,7 @@ exponent = 0x00127EE0; // type:func
 __swsetup = 0x001280F8; // type:func
 
 // game functions splat merges (tools/check_split.py)
-func_001DC8D0 = 0x001DC8D0; // type:func
+Vector_Normalize_3_001DC8D0 = 0x001DC8D0; // type:func
 
 // Constants library code forms from a lui through an or into another register
 // (0x20000000 | addr, the uncached view of a buffer; 0xE0002000), which
@@ -721,3 +721,36 @@ ignored_003F003E = 0x003F003E; // ignore:True
 ignored_00444D43 = 0x00444D43; // ignore:True
 ignored_00460040 = 0x00460040; // ignore:True
 ignored_00474E49 = 0x00474E49; // ignore:True
+
+// game function names (config/game_func_names.txt, tools/apply_names.py)
+Fx_UpdateChildrenEx_1_001629E0 = 0x001629E0; // type:func
+Mdl_ClipFrustum_0_0016BD00 = 0x0016BD00; // type:func
+EnemyMgr_ReleaseData_0_001A51E0 = 0x001A51E0; // type:func
+Vu0_CopyQword_3_001DC328 = 0x001DC328; // type:func
+Vu0_CopyQwordB_3_001DC338 = 0x001DC338; // type:func
+Vu0_LoadLightVf5_2_001DC360 = 0x001DC360; // type:func
+Vu0_LoadMatrixVf8_3_001DC370 = 0x001DC370; // type:func
+Vu0_LoadVf12Vf13_2_001DC388 = 0x001DC388; // type:func
+Vu0_ProjectToScreenFog_5_001DC400 = 0x001DC400; // type:func
+Vu0_ProjectToScreen3_5_001DC468 = 0x001DC468; // type:func
+Vu0_ProjectToScreenFog3_5_001DC510 = 0x001DC510; // type:func
+Vu0_LightColor_5_001DC5C0 = 0x001DC5C0; // type:func
+Vu0_LightColor3_2_001DC638 = 0x001DC638; // type:func
+Matrix_Multiply_5_001DC6F8 = 0x001DC6F8; // type:func
+Vector_WeightedSum4_5_001DC770 = 0x001DC770; // type:func
+Vector_Mul_2_001DC7A0 = 0x001DC7A0; // type:func
+Vector_FtoI4_3_001DC7B8 = 0x001DC7B8; // type:func
+Vector_FtoI0_3_001DC7C8 = 0x001DC7C8; // type:func
+Vector_ItoF4_3_001DC7D8 = 0x001DC7D8; // type:func
+Vector_ItoF0_3_001DC7E8 = 0x001DC7E8; // type:func
+Vector_Add3_3_001DC7F8 = 0x001DC7F8; // type:func
+Vector_Add4_3_001DC810 = 0x001DC810; // type:func
+Vector_Sub3_3_001DC828 = 0x001DC828; // type:func
+Vector_Sub4_2_001DC840 = 0x001DC840; // type:func
+Vector_Scale3_4_001DC858 = 0x001DC858; // type:func
+Vector_Scale4_5_001DC870 = 0x001DC870; // type:func
+Vector_Cross_5_001DC888 = 0x001DC888; // type:func
+Vector_ApplyMatrix_3_001DC8A0 = 0x001DC8A0; // type:func
+GsText_EmitGlyph_1_001E3178 = 0x001E3178; // type:func
+GsText_SetVertex_0_001E3758 = 0x001E3758; // type:func
+Game_EndPad_0_001EDE60 = 0x001EDE60; // type:func

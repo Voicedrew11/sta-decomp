@@ -42,7 +42,7 @@ def functions():
     out = {}
     for f in sorted((ROOT / "asm").glob("text*.s")):
         text = f.read_text()
-        for m in re.finditer(r"^nonmatching (func_([0-9A-F]{8})|\w+), (0x[0-9A-F]+)\n(.*?)(?=^nonmatching |\Z)",
+        for m in re.finditer(r"^nonmatching ((?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})|\w+), (0x[0-9A-F]+)\n(.*?)(?=^nonmatching |\Z)",
                              text, re.M | re.S):
             body = m.group(4)
             a = re.search(r"/\* [0-9A-F]+ ([0-9A-F]{8}) ", body)
@@ -115,7 +115,7 @@ def clean(c, body=""):
         return f"{m.group(1)}{m.group(2)} = ({t}) ({m.group(3)});"
     c = re.sub(r"^(\s+)(\w+) = (.+);$", cast, c, flags=re.M)
     # a parameter m2c types s32 but dereferences is a pointer
-    m = re.search(r"^[^\s#].*\bfunc_[0-9A-F]{8}\(([^)]*)\) \{$", c, re.M)
+    m = re.search(r"^[^\s#].*\b(?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}\(([^)]*)\) \{$", c, re.M)
     if m:
         params = m.group(1)
         for a in re.findall(r"\bs32 (arg\d)\b", params):
@@ -123,11 +123,11 @@ def clean(c, body=""):
                 params = re.sub(r"\bs32 %s\b" % a, f"s32 *{a}", params)
         c = c[:m.start(1)] + params + c[m.end(1):]
     # functions used as values (callbacks) need a declaration
-    known = set(re.findall(r"\b(func_[0-9A-F]{8})\(", c))
-    values = sorted(set(re.findall(r"\b(func_[0-9A-F]{8})\b(?!\s*\()", c)) - known)
+    known = set(re.findall(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\(", c))
+    values = sorted(set(re.findall(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\b(?!\s*\()", c)) - known)
     if values:
         c = "".join(f"void {n}();\n" for n in values) + c
-    sig = re.search(r"^((?:[su](?:8|16|32|64)|u8|f32) \*+)func_[0-9A-F]{8}\(", c, re.M)
+    sig = re.search(r"^((?:[su](?:8|16|32|64)|u8|f32) \*+)(?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}\(", c, re.M)
     if sig:
         t = sig.group(1).strip()
         c = re.sub(r"^(\s+)return (?!NULL|0;)(.+);$", lambda m: f"{m.group(1)}return ({t}) ({m.group(2)});", c, flags=re.M)
@@ -172,7 +172,7 @@ def m2c(name, addr, body, tabs, ctx=None):
     return r.returncode, (own_args(r.stdout) if r.returncode == 0 else r.stdout + r.stderr)
 
 
-SIG = re.compile(r"^((?:static )?[A-Za-z_][\w ]*?[\s*]+)(func_[0-9A-F]{8})\((.*)\) \{$", re.M)
+SIG = re.compile(r"^((?:static )?[A-Za-z_][\w ]*?[\s*]+)((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8})\((.*)\) \{$", re.M)
 
 
 def signatures(outputs):
@@ -323,7 +323,7 @@ def permute(name, addr, size, limit=400):
             else:
                 new.append(p)
         return m.group(1) + ", ".join(new) + m.group(3)
-    templ = re.sub(r"^((?:\w+ )+\*?func_[0-9A-F]{8}\()([^()]*)(\)(?: \{|;))", mark, text, flags=re.M)
+    templ = re.sub(r"^((?:\w+ )+\*?(?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}\()([^()]*)(\)(?: \{|;))", mark, text, flags=re.M)
     if not slots or len(slots) > 8:
         return None
     choices = [[t] + [x for x in PERM_TYPES if x != t][:4] for t in slots]

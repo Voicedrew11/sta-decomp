@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FCE08: the game's data at 0x001FCE08..., one object per label. */
-/* used by: func_001907D0 */
+/* used by: OptionProc_DrawKeyAssign_1_001907D0 */
 #pragma explicit_zero_data on
 
 const char D_001FCE08[0xe] = "SOUND SETTING\000";

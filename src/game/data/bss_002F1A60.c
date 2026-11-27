@@ -2,13 +2,13 @@
 
 /* bss_002F1A60: the game's .bss from 0x002F1A60, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: func_00157620, func_00157D50, func_00159160, func_00159310,
-   func_00159340, func_00159400, func_00159500, func_00159590, func_001595C0,
-   func_001595F0, func_00159620, func_00159650, func_00159680, func_00159970,
-   func_0015ABD0, func_0015AD00, func_0015B040, func_0015B110, func_0015B270,
-   func_0015B360, func_0015B720, func_0015B890, func_0015B900, func_0015B980,
-   func_0015BB40, func_0015BCA0, func_0015BDE0, func_0015C0C0, func_0015C620,
-   func_0015C6D0, func_0015C730, func_0015C8D0, text_00157630.s,
+/* used by: Weather_GetState_0_00157620, Weather_Update_0_00157D50, ScreenFx_ProjectPoint_0_00159160, ScreenFx_SetEnabled_0_00159310,
+   ScreenFx_SetFlashParams_0_00159340, ScreenFx_SetFadeTarget_0_00159400, ScreenFx_EnableWeather_0_00159500, ScreenFx_GetParamsA_0_00159590, ScreenFx_GetParamsB_0_001595C0,
+   ScreenFx_SetEnabledB_0_001595F0, ScreenFx_GetParamsC_0_00159620, ScreenFx_GetParamsD_0_00159650, ScreenFx_DrawAll_2_00159680, ScreenFx_Update_1_00159970,
+   Arc_FindByHash_2_0015ABD0, Arc_Mount_2_0015AD00, Cd_Init_2_0015B040, Light_OffsetAll_0_0015B110, Fog_ApplyDefault_0_0015B270,
+   Light_UpdateModel_0_0015B360, Light_CalcIntensity_0_0015B720, LightGroup_Clear_0_0015B890, LightGroup_Get_0_0015B900, Light_Add_0_0015B980,
+   Light_SetAmbient_0_0015BB40, Light_Init_1_0015BCA0, PointLight_CalcIntensity_0_0015BDE0, PointLight_Update_0_0015C0C0, PointLight_OffsetAll_0_0015C620,
+   PointLightGroup_Clear_0_0015C6D0, PointLight_Add_0_0015C730, PointLight_Init_0_0015C8D0, text_00157630.s,
    text_00159340.s, text_0015C8D0.s */
 
 f32 D_0030C42C[0x1];

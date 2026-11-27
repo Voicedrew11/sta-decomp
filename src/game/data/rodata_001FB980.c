@@ -1,8 +1,8 @@
 #include "common.h"
 
 /* rodata_001FB980: the game's data at 0x001FB980..., one object per label. */
-/* used by: func_00181240, func_001833E0, func_00183750, func_00183970,
-   func_00183B90, func_00183DC0, func_00186990, text_00184280.s,
+/* used by: Font_UploadTexture_0_00181240, Ui_LoadItemImageSmall_3_001833E0, Ui_LoadMapSheet_3_00183750, Ui_LoadAreaImage_3_00183970,
+   Ui_LoadCharImage_3_00183B90, Ui_LoadItemImage_3_00183DC0, MenuProc_DrawStatValue_0_00186990, text_00184280.s,
    text_00185D70.s */
 #pragma explicit_zero_data on
 

@@ -217,7 +217,7 @@ def kfiv_funcs(hl: Path):
     srcs = holyland_sources(hl)
     named = {}
     for name, path in srcs.items():
-        m = re.fullmatch(r"func_([0-9A-F]{8})", name)
+        m = re.fullmatch(r"(?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})", name)
         addr = int(m.group(1), 16) if m else by_name.get(name)
         if addr and KFIV_GAME[0] <= addr < end:
             named[addr] = (name, path)

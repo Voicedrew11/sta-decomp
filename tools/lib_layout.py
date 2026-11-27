@@ -332,13 +332,13 @@ def layout(objdir):
         # a game unit is one function named after its address: identical code
         # repeats in the game (four copies of the VU0 distance routine), so the
         # name places it, and the byte check below confirms it
-        m = re.fullmatch(r"src/game/(?:.*/)?func_([0-9A-F]{8})\.[cs]", o.unit)
+        m = re.fullmatch(r"src/game/(?:.*/)?((?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8}))\.[cs]", o.unit)
         if m:
             # the named function's offset in the joined .text (not 0 when the
             # unit starts with an INCLUDE_ASM'd chunk)
-            fn = f"func_{m.group(1)}"
+            fn = m.group(1)
             off = next((v for v, n in o.funcs if n == fn), 0)
-            place[(o.unit, ".text")] = (int(m.group(1), 16) - off, "by-name")
+            place[(o.unit, ".text")] = (int(m.group(2), 16) - off, "by-name")
             continue
         hits = search(rwords[".text"], words(data), o.mask(".text"))
         hits = [h for h in hits if calls_agree(o, tbase + h * 4, tdata, tbase, syms)]

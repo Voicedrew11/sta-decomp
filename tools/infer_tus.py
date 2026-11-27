@@ -145,7 +145,7 @@ def with_definers(us):
     merged unit's own data) is that unit's too."""
     from elftools.elf.elffile import ELFFile
     import glob
-    for o in glob.glob(str(ROOT / "build/src/game/func_*.c.o")):
+    for o in glob.glob(str(ROOT / "build/src/game/*.c.o")):
         src = str(Path(o).relative_to(ROOT / "build"))[:-2]
         if not (ROOT / src).exists():
             continue

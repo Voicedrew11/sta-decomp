@@ -1,0 +1,13 @@
+#include "common.h"
+
+typedef struct {
+    char pad[0x7E];
+    u8 f;
+    char rest[0x141];
+} E;
+extern E D_004B6A00[];
+
+u8 Pad_GetConnected_1_001D7E90(s32 i, s32 j)
+{
+    return D_004B6A00[i * 4 + j].f;
+}
