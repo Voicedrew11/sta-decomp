@@ -20,8 +20,11 @@ SECTIONS
     }
     .sdata   0x00201B80 : { *(.sdata) }
     _fbss = 0x00201E80;
-    .sbss    0x00201E80 (NOLOAD) : { *(.sbss) *(.scommon) }
-    .bss     0x00202480 (NOLOAD) : { *(.bss) *(COMMON) }
+    .sbss    0x00201E80 (NOLOAD) : { *(.sbss) *(EXCLUDE_FILE(*sbrkr.c.o) .scommon) }
+    /* libc's errno (a small common of sbrkr.c, which ld would put in
+       .scommon) follows every object's .bss, as retail has it; the end is
+       0x80-aligned (0x4BE180) */
+    .bss     0x00202480 (NOLOAD) : { *(.bss) *(COMMON) *(.scommon) . = ALIGN(0x80); }
     _end = .;
 
     /DISCARD/ : { *(.reginfo) *(.mwcats) *(.mdebug) *(.pdr) *(.comment) *(.gnu.attributes) *(.MIPS.abiflags) }
