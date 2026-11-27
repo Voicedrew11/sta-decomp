@@ -21,7 +21,9 @@
         (d) = sf_u.value;                                                                          \
     } while (0)
 
-/* the member's .rodata, in declaration order (newlib's `one` is not in it) */
+/* the member's .rodata, in declaration order. newlib's `one` is emitted
+   (unused: the code below builds 1.0f with lui), then the 8-aligned arrays */
+static const float one = 1.0;
 #define one ((float)1.0)
 static const float halF[2] = {0.5, -0.5};
 static const float huge = 1.0e+30;

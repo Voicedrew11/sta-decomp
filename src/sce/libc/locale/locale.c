@@ -7,8 +7,10 @@
 /* newlib's C locale.  CHAR_MAX in every numeric field is newlib's "not
    available" marker; the three strings are the only ones the member owns. */
 
-/* STA: this newlib is built without multibyte support: no __mb_cur_max and
-   no locale name buffers */
+/* STA: this newlib is built without multibyte support: no locale name
+   buffers. MB_CUR_MAX (vfprintf passes it to _mbtowc_r) is still here, the
+   member's only .data, which is 8-aligned like the rest of this libc's. */
+int __mb_cur_max __attribute__((aligned(8))) = 1;
 static const struct lconv lconv = {
     ".", "", "", "", "", "", "", "", "", "", 127, 127, 127, 127, 127, 127, 127, 127,
 };

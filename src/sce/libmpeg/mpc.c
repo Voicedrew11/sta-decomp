@@ -2664,7 +2664,7 @@ void _dispRefImageField(MpegSys *p, int *top, int *bot, int frame)
 /* STA: SDK 2.5 moved the reference fetch's DMA chain out of _motionComp0:
    the chain lives in the member's .bss and channel 9 (to scratchpad) runs it
    with interrupts off */
-static long long sprTagBuf[64]; /* derived name */
+static long long sprTagBuf[64] __attribute__((aligned(64))); /* derived name; DMA tags, cache-line aligned */
 
 /* TODO(STA): TEMPORARY inline asm, to be removed: retail's instructions for
    _sendRefTags, which the

@@ -17,7 +17,7 @@ int kputchar(int c)
 typedef void (*PutcharFn)(int c);
 
 /* deci2Putchar's line buffer and its fill count; kputs sends a full line. */
-static int deci2_count = 0; /* derived name */
+static int deci2_count __attribute__((aligned(8))) = 0; /* derived name; .data 8-aligned in retail */
 
 static char deci2_line[128]; /* derived name */
 

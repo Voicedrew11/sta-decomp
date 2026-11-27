@@ -44,7 +44,6 @@ src/sce/libdev/sceDevVif0GetStat.c
 src/sce/libdev/sceDevVif0GetRegs.c
 src/sce/libdev/sceDevVif0PutFifo.c
 src/sce/libvu0/libvu0.c
-asm/data/bss_002025DC.bss.s
 src/sce/libmpeg/mpc.c
 src/sce/libmpeg/csc.c
 src/sce/libmpeg/bit.c
@@ -62,19 +61,14 @@ src/sce/libkernl/intr.c
 src/sce/libkernl/thread.c
 src/sce/libkernl/deci2.c
 src/sce/libkernl/tty.c
-asm/data/data_001EE19C.data.s
 src/sce/libkernl/kprintf.c
 src/sce/libkernl/sifcmd.c
-asm/data/data_001EE1AC.data.s
 src/sce/libkernl/sifrpc.c
 src/sce/libkernl/filestub.c
-asm/data/data_001EE24C.data.s
 src/sce/libkernl/iopheap.c
-asm/data/data_001EE254.data.s
 src/sce/libkernl/eeloadfile.c
 src/sce/libkernl/iopreset.c
 src/sce/libkernl/tlbfunc.c
-asm/data/bss_00206768.bss.s
 src/sce/libkernl/tlbtrap.s
 src/sce/libkernl/diei.c
 src/sce/libkernl/initsys.c
@@ -94,8 +88,6 @@ src/sce/libm/math/e_sqrt.c
 src/sce/libm/math/ef_acos.c
 src/sce/libm/math/ef_asin.c
 src/sce/libm/math/ef_atan2.c
-asm/data/data_001F1390.data.s
-asm/data/rodata_001F9BD8.rodata.s
 src/sce/libm/math/ef_exp.c
 src/sce/libm/math/ef_pow.c
 src/sce/libm/math/ef_rem_pio2.c
@@ -165,7 +157,7 @@ src/sce/libc/reent/fstatr.c
 src/sce/libc/stdio/fvwrite.c
 src/sce/libc/stdio/fwalk.c
 src/sce/libc/string/index.c
-asm/data/rodata_001FA708.rodata.s
+src/sce/libc/reent/impure.c
 src/sce/libc/locale/locale.c
 src/sce/libc/reent/lseekr.c
 src/sce/libc/stdio/makebuf.c
@@ -291,7 +283,7 @@ src/game/func_0012FC20.c
 src/game/func_00130090.c
 src/game/func_001302A0.c
 src/game/func_001303C0.c
-asm/text_001303D0.s
+src/game/func_001303D0.c
 src/game/func_00130440.c
 src/game/func_001304B0.c
 src/game/func_001304C0.c
@@ -1101,6 +1093,7 @@ src/game/func_00171AF0.c
 src/game/func_00171B30.c
 src/game/func_00171B70.c
 asm/text_00171BB0.s
+src/game/func_00173F70.c
 src/game/func_00173FD0.c
 src/game/func_001741D0.c
 asm/text_00174230.s
@@ -1759,7 +1752,7 @@ src/game/func_001AFBD0.c
 src/game/func_001AFC40.c
 src/game/func_001AFC90.c
 src/game/func_001AFCA0.c
-asm/text_001AFFA0.s
+src/game/func_001AFFA0.c
 src/game/func_001B0020.c
 src/game/func_001B03E0.c
 src/game/func_001B0450.c
@@ -2269,7 +2262,7 @@ src/game/ee/func_001E2018.c
 src/game/ee/func_001E2148.c
 src/game/ee/func_001E21E0.c
 src/game/ee/func_001E23C8.c
-asm/text_001E2430.s
+src/game/ee/func_001E2430.c
 src/game/ee/func_001E24A0.c
 src/game/ee/func_001E2578.c
 src/game/ee/func_001E2610.c

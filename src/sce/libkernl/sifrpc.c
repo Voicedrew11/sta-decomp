@@ -7,7 +7,7 @@
 #include <libkernl_internal.h>
 
 /* sifrpc.o's .data: set once sceSifInitRpc has run, cleared by sceSifExitRpc */
-static int rpc_inited = 0; /* derived name */
+static int rpc_inited __attribute__((aligned(8))) = 0; /* derived name; .data 8-aligned in retail */
 
 /* The words every RPC packet carries after the command header. */
 typedef struct {         /* field names derived */

@@ -144,7 +144,15 @@ def trailing_fill(text: str) -> str:
             zero = False
             break
         size += n
-    if zero and (name == "_end" or (re.fullmatch(r"D_[0-9A-F]{8}", name) and size < 16)):
+    # splat marks a symbol nothing references as a pad; fill before a
+    # 64-aligned unit (the SIF DMA buffers) runs up to 63 bytes
+    pad = start and "unreferenced pad" in lines[start - 1]
+    if zero and (name == "_end" or (re.fullmatch(r"D_[0-9A-F]{8}", name)
+                                    and size < (64 if pad else 16))):
+        if pad:
+            start -= 1
+        if start and lines[start - 1].strip() == "":
+            start -= 1
         if start and lines[start - 1].startswith("nonmatching "):
             start -= 1
         return "".join(lines[:start])
@@ -159,11 +167,55 @@ def target_src(out: str) -> str:
 def target_text(src: str) -> str:
     """One assembly file for a C unit: its functions in address order, then its data."""
     funcs, datas = c_parts(src)
-    text = TARGET_HEAD + "".join(trimmed(f) for f in sorted(funcs, key=vram_of))
+    funcs = sorted(funcs, key=vram_of)
+    if src.startswith("src/sce/"):
+        # ee-gcc 8-aligns every function, so the fill between them is the C
+        # object's too; only the fill after the last one is not
+        text = TARGET_HEAD + "".join(f.read_text() for f in funcs[:-1])
+        text += "".join(trimmed(f) for f in funcs[-1:])
+    else:
+        text = TARGET_HEAD + "".join(trimmed(f) for f in funcs)
     for d in datas:
-        body = trailing_fill(jtbl_fill(d.read_text())).splitlines(keepends=True)
+        raw = d.read_text()
+        # ee-gcc keeps the alignment word after a jump table in its .rodata
+        # (the strings after it are 8-aligned); CodeWarrior does not
+        body = trailing_fill(raw if src.startswith("src/sce/") else jtbl_fill(raw))
+        body = body.splitlines(keepends=True)
         text += "".join(l for l in body if l.strip() != '.include "macro.inc"')
+    for a, b in TARGET_FIXUPS.get(src, []):
+        assert a in text, f"{src}: no {a!r} to fix"
+        text = text.replace(a, b)
+    if src.startswith("src/sce/"):
+        text = unlabel(text)
     return text if text.endswith("\n") else text + "\n"
+
+
+# Words splat cannot render as the C object has them, per unit: a pointer
+# into the middle of a function (splat has no symbol there) and a TLB
+# physical address that happens to equal the entry point's.
+TARGET_FIXUPS = {
+    "src/sce/libkernl/tlbfunc.c": [
+        ("*/ .word 0x00114440", "*/ .word _kTLBTrap + 0x140"),
+        ("*/ .word func_00100000", "*/ .word 0x00100000"),
+    ],
+}
+
+AUTO_DLABEL = re.compile(r"^dlabel ((?:D|jtbl)_[0-9A-F]{8})\b", re.M)
+
+
+def unlabel(text: str) -> str:
+    """Turn splat's invented data names (D_XXXXXXXX, jtbl_XXXXXXXX) into
+    assembler-local .L labels. ee-gcc emits its string literals, constants and
+    jump tables as unnamed .LC/.L data reached through section-relative
+    relocations, so the base object has no symbols there; objdiff pairs data
+    by symbol, and a named target symbol has nothing to pair with."""
+    names = set(AUTO_DLABEL.findall(text))
+    if not names:
+        return text
+    alt = "|".join(sorted(names))
+    text = re.sub(rf"^(?:enddlabel|nonmatching) (?:{alt})\b.*\n", "", text, flags=re.M)
+    text = re.sub(rf"^dlabel ({alt})\b.*$", r".L\1:", text, flags=re.M)
+    return re.sub(rf"(?<![\w.])({alt})\b", r".L\1", text)
 
 
 def write_if_changed(path: Path, text: str) -> None:

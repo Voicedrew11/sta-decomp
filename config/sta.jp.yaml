@@ -334,7 +334,7 @@ segments:
       - [0x030090, c, game/func_00130090]
       - [0x0302A0, c, game/func_001302A0]
       - [0x0303C0, c, game/func_001303C0]
-      - [0x0303D0, asm, text_001303D0]
+      - [0x0303D0, c, game/func_001303D0]
       - [0x030440, c, game/func_00130440]
       - [0x0304B0, c, game/func_001304B0]
       - [0x0304C0, c, game/func_001304C0]
@@ -1142,6 +1142,7 @@ segments:
       - [0x071B30, c, game/func_00171B30]
       - [0x071B70, c, game/func_00171B70]
       - [0x071BB0, asm, text_00171BB0]
+      - [0x073F70, c, game/func_00173F70]
       - [0x073FD0, c, game/func_00173FD0]
       - [0x0741D0, c, game/func_001741D0]
       - [0x074230, asm, text_00174230]
@@ -1787,7 +1788,7 @@ segments:
       - [0x0AFC40, c, game/func_001AFC40]
       - [0x0AFC90, c, game/func_001AFC90]
       - [0x0AFCA0, c, game/func_001AFCA0]
-      - [0x0AFFA0, asm, text_001AFFA0]
+      - [0x0AFFA0, c, game/func_001AFFA0]
       - [0x0B0020, c, game/func_001B0020]
       - [0x0B03E0, c, game/func_001B03E0]
       - [0x0B0450, c, game/func_001B0450]
@@ -2288,7 +2289,7 @@ segments:
       - [0x0E2148, c, game/ee/func_001E2148]
       - [0x0E21E0, c, game/ee/func_001E21E0]
       - [0x0E23C8, c, game/ee/func_001E23C8]
-      - [0x0E2430, asm, text_001E2430]
+      - [0x0E2430, c, game/ee/func_001E2430]
       - [0x0E24A0, c, game/ee/func_001E24A0]
       - [0x0E2578, c, game/ee/func_001E2578]
       - [0x0E2610, c, game/ee/func_001E2610]
@@ -2436,15 +2437,11 @@ segments:
       - [0x0EE180, .data, sce/libkernl/klib]
       - [0x0EE190, .data, sce/libkernl/glue]
       - [0x0EE198, .data, sce/libkernl/thread]
-      - [0x0EE19C, data, data_001EE19C]
       - [0x0EE1A0, .data, sce/libkernl/kprintf]
       - [0x0EE1A8, .data, sce/libkernl/sifcmd]
-      - [0x0EE1AC, data, data_001EE1AC]
       - [0x0EE1B0, .data, sce/libkernl/sifrpc]
       - [0x0EE1B8, .data, sce/libkernl/filestub]
-      - [0x0EE24C, data, data_001EE24C]
       - [0x0EE250, .data, sce/libkernl/iopheap]
-      - [0x0EE254, data, data_001EE254]
       - [0x0EE258, .data, sce/libkernl/eeloadfile]
       - [0x0EE260, .data, sce/libkernl/tlbfunc]
       - [0x0EE8B0, .data, sce/libkernl/initsys]
@@ -2456,7 +2453,8 @@ segments:
       - [0x0EF900, .data, sce/libcdvd/cdvd000]
       - [0x0F1370, .data, sce/libcdvd/cdvd047]
       - [0x0F1378, .data, sce/libmc/libmc]
-      - [0x0F1390, data, data_001F1390]
+      - [0x0F1390, .data, sce/libc/reent/impure]
+      - [0x0F1688, .data, sce/libc/locale/locale]
       - [0x0F1690, .data, sce/libc/stdlib/mallocr]
       - [0x0F1AE8, .data, sce/libc/stdlib/mlock]
       - [0x0F1AF0, data, data]
@@ -2488,8 +2486,7 @@ segments:
       - [0x0F9860, .rodata, sce/libcdvd/cdvd047]
       - [0x0F9980, .rodata, sce/libmc/libmc]
       - [0x0F9A08, .rodata, sce/libm/math/e_pow]
-      - [0x0F9BD8, rodata, rodata_001F9BD8]
-      - [0x0F9BE0, .rodata, sce/libm/math/ef_exp]
+      - [0x0F9BD8, .rodata, sce/libm/math/ef_exp]
       - [0x0F9C20, .rodata, sce/libm/math/ef_pow]
       - [0x0F9CA8, .rodata, sce/libm/math/ef_rem_pio2]
       - [0x0FA068, .rodata, sce/libm/math/kf_rem_pio2]
@@ -2503,7 +2500,7 @@ segments:
       - [0x0FA588, .rodata, sce/libgcc/_thenan_df]
       - [0x0FA5A0, .rodata, sce/libc/ctype/ctype_]
       - [0x0FA6B0, .rodata, sce/libc/stdlib/dtoa]
-      - [0x0FA708, rodata, rodata_001FA708]
+      - [0x0FA708, .rodata, sce/libc/reent/impure]
       - [0x0FA710, .rodata, sce/libc/locale/locale]
       - [0x0FA758, .rodata, sce/libc/time/mktime]
       - [0x0FA7B8, .rodata, sce/libc/stdlib/mprec]
@@ -2613,7 +2610,6 @@ segments:
       - { start: 0x101E80, type: sbss, vram: 0x00201E80, name: sbss }
       - { start: 0x101E80, type: .bss, vram: 0x00202480, name: sce/crt0 }
       - { start: 0x101E80, type: .bss, vram: 0x002025C8, name: sce/libdma/libdma }
-      - { start: 0x101E80, type: bss, vram: 0x002025DC, name: bss_002025DC }
       - { start: 0x101E80, type: .bss, vram: 0x00202600, name: sce/libmpeg/mpc }
       - { start: 0x101E80, type: .bss, vram: 0x00202800, name: sce/libkernl/thread }
       - { start: 0x101E80, type: .bss, vram: 0x00203010, name: sce/libkernl/deci2 }
@@ -2625,7 +2621,7 @@ segments:
       - { start: 0x101E80, type: .bss, vram: 0x00206300, name: sce/libkernl/iopheap }
       - { start: 0x101E80, type: .bss, vram: 0x002064C0, name: sce/libkernl/eeloadfile }
       - { start: 0x101E80, type: .bss, vram: 0x00206700, name: sce/libkernl/iopreset }
-      - { start: 0x101E80, type: bss, vram: 0x00206768, name: bss_00206768 }
+      - { start: 0x101E80, type: .bss, vram: 0x00206768, name: sce/libkernl/tlbfunc }
       - { start: 0x101E80, type: .bss, vram: 0x00207780, name: sce/libkernl/tlbtrap }
       - { start: 0x101E80, type: .bss, vram: 0x002079C0, name: sce/libpad/libpad }
       - { start: 0x101E80, type: .bss, vram: 0x00207C80, name: sce/libsdr/sdr }

@@ -5,7 +5,7 @@
 #include <sifcmd.h>
 
 /* iopheap.o's .data: -1 until sceSifInitIopHeap has bound the server */
-static int iopheap_bind = -1; /* derived name */
+static int iopheap_bind __attribute__((aligned(8))) = -1; /* derived name; .data 8-aligned in retail */
 
 /* the member's .bss: the heap server's client record and the RPC buffers,
    each on its own 64-byte DMA line */
