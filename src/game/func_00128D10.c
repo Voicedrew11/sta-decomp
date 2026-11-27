@@ -1,22 +1,24 @@
 #include "m2c.h"
-typedef struct { s32 a; s32 b; f32 c; } V3 __attribute__((aligned(8)));
+typedef struct { s32 a; s32 b; s32 c; } V3 __attribute__((aligned(8)));
 typedef struct { u8 pad[6]; s16 h6; u8 pad2[2]; s32 w0C; } Z;
 s32 func_0015ABD0(s32);
 s32 func_0015A300(s32);
 s32 func_0015A350(s32);
 void func_0015AB80(s32);
 void func_0015A080(s32, s8 *, s32);
-void sceVu0Normalize(s8 *, s8 *);
+void sceVu0Normalize(void *, void *);
 void memset(void *, s32, s32);
 void strcpy(s8 *, s8 *);
-void memcpy(s8 *, s8 *, s32);
+void memcpy(void *, void *, s32);
 void func_001E85E0(s32, s32, void *, s8 *, s32);
 extern s8 D_00209700[];
-extern V3 D_001F1BA0;
-extern s8 D_001F1B30[];
-extern s8 D_001F1AF0[];
-extern s8 D_001F1B60[];
-extern s8 D_001F1B90[];
+extern s8 D_001FAAE8[];
+
+s32 D_001F1AF0[0x10] = { 0, 0, 0, 0, 8, 0x40, 0x20, 0 };
+f32 D_001F1B30[0xC] = { 0.5f, 0.0f, 0.2f };
+f32 D_001F1B60[0xC] = { 0.2509804f, 0.5019608f, 0.39215687f };
+f32 D_001F1B90[4] = { 0.0627451f, 0.0627451f, 0.0627451f, 0.0f };
+V3 D_001F1BA0 = { (s32)D_001FAAE8, (s32)D_001FAAE8, (s32)D_001FAAE8 };
 extern s8 D_001FAAF8[];
 extern s8 D_001FAB00[];
 
@@ -42,6 +44,6 @@ void func_00128D10(void) {
     memcpy(buf + 0xB0, D_001F1B90, 0x10);
     strcpy(buf + 0x104, (s8 *)v.a);
     strcpy(buf + 0x144, (s8 *)v.b);
-    strcpy(buf + 0x184, (s8 *)*(s32 *)&v.c);
+    strcpy(buf + 0x184, (s8 *)v.c);
     func_001E85E0(0, 0, buf, D_00209700, b);
 }

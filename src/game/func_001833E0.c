@@ -2,7 +2,7 @@
 typedef struct { s32 first; s32 x; u8 b0:1; u8 b1:1; u8 b2:1; } O;
 typedef struct { s32 a; s8 *p; s32 b[2]; f32 f[8]; } Ent;
 typedef struct { u8 b[0x100]; } Buf;
-extern s32 D_001F2740[];
+s32 D_001F2740[0xc] = { -0x1 };
 extern u8 D_001FC9C0[];
 extern u8 D_001FC9D8[];
 extern O *D_0048D110[];

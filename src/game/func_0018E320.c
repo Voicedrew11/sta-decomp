@@ -2,7 +2,7 @@
 typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef union { u32 w; s8 b[4]; } Col;
 extern S D_001F2A70[] __attribute__((aligned(16)));
-extern s8 D_001FCDF0[];
+const s8 D_001FCDF0[0x18] = { -0x7e, 0x6d, -0x7e, 0x6e, -0x7e, 0x76, 0x20, -0x7e, 0x6b, -0x7e, 0x6e, -0x7e, 0x60, -0x7e, 0x63, -0x7e, 0x68, -0x7e, 0x6d, -0x7e, 0x66 };
 extern f32 D_002020D4;
 void func_001875C0(f32, f32, f32, s32, s32, u32);
 void func_00187960(f32, Col *);

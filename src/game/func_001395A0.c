@@ -2,7 +2,7 @@
 typedef struct { u8 pad[0xE]; u16 xE; } E;
 typedef struct { s32 v[12]; } T30;
 typedef struct { u8 pad[0xE]; u16 xE; } E10;
-extern Vec D_001F1C70;
+Vec D_001F1C70 = { 1.0f, 1.0f, 1.0f };
 extern s16 D_001F1C30[];
 extern s16 D_001F1C50[];
 extern s16 D_001F1C60[];
