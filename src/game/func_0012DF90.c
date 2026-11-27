@@ -19,7 +19,6 @@ typedef struct { s32 pad[3]; F f; u8 p[3]; } S_func_0012E810;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s8 data[1]; } H_func_0012E810;
 typedef struct { s32 a; s32 b; s32 c8; s32 c; } H_func_0012E8F0;
 typedef struct { s32 st; s32 p4; s32 p8; Flags8 fC; u8 pD[3]; } S_func_0012E8F0;
-typedef struct { s32 a; s32 b; s32 c8; s32 c; } H_func_0012EA00;
 typedef struct { s32 st; s32 pad[3]; } S_func_0012EA00;
 typedef struct { s32 x0; s32 x4; s32 x8; u16 xC; u16 xE; } B;
 extern Snd_func_0012DF90 *D_00201ED0;
@@ -73,7 +72,7 @@ s32 func_0012E6B0(H_func_0012E6B0 *a);
 void func_0012E730(s32 arg0);
 s32 func_0012E810(H_func_0012E810 *arg0, s32 arg1);
 s32 func_0012E8F0(H_func_0012E8F0 *a0, s32 idx);
-s32 func_0012EA00(H_func_0012EA00 *a0, u32 idx);
+s32 func_0012EA00(H_func_0012E8F0 *a0, u32 idx);
 s32 func_001D8810(void);
 void func_001D8820(void);
 s32 func_001D8890(void);
@@ -219,8 +218,6 @@ INCLUDE_ASM(func_0012E3C0);
 
 /* func_0012E640 */
 extern M2C_UNK D_0022F040__as_func_0012E640[];
-#define D_0022CBC0 D_0022CBC0__as_func_0012E640
-extern Snd_func_0012E640 D_0022CBC0__as_func_0012E640[];
 
 /* func_0012E640 */
 s32 func_0012E640(s8 *arg0, s32 arg1) {
@@ -239,8 +236,6 @@ s32 func_0012E640(s8 *arg0, s32 arg1) {
 }
 
 /* func_0012E6B0 */
-#define func_0012E8F0 func_0012E8F0__as_func_0012E6B0
-#define D_0022F040 D_0022F040__as_func_0012E6B0
 s32 func_0012E6B0(H_func_0012E6B0 *a) {
     u8 *p = (u8 *)&a->x10;
     if (a->xC != 4) return -1;
@@ -250,8 +245,6 @@ s32 func_0012E6B0(H_func_0012E6B0 *a) {
     while (func_0012ED60(p, 0) == 0) {}
     return 0;
 }
-#undef func_0012E8F0
-#undef D_0022F040
 
 /* func_0012E730 */
 void func_0012E730(s32 arg0) {
@@ -346,12 +339,11 @@ s32 func_0012E8F0(H_func_0012E8F0 *a0, s32 idx) {
 
 /* func_0012EA00 */
 #define D_0022F040 D_0022F040__as_func_0012EA00
-#define D_00222BC0 D_00222BC0__as_func_0012EA00
 #define DATA(h) ((u8 *)((s32)(h) + 0x10) + (((h)->c + 15) & ~15))
 
-s32 func_0012EA00(H_func_0012EA00 *a0, u32 idx) {
-    H_func_0012EA00 *s3;
-    H_func_0012EA00 *s2;
+s32 func_0012EA00(H_func_0012E8F0 *a0, u32 idx) {
+    H_func_0012E8F0 *s3;
+    H_func_0012E8F0 *s2;
     s32 ret;
     S_func_0012EA00 *s0;
     s32 x0, x1, x2;
@@ -359,8 +351,8 @@ s32 func_0012EA00(H_func_0012EA00 *a0, u32 idx) {
     u16 v;
 
     s0 = &D_0022F040[idx];
-    s3 = (H_func_0012EA00 *)((u8 *)a0 + a0->a);
-    s2 = (H_func_0012EA00 *)((u8 *)s3 + s3->a);
+    s3 = (H_func_0012E8F0 *)((u8 *)a0 + a0->a);
+    s2 = (H_func_0012E8F0 *)((u8 *)s3 + s3->a);
     x0 = a0->b;
     x1 = s3->b;
     x2 = s2->b;
@@ -433,8 +425,6 @@ s32 func_0012EA00(H_func_0012EA00 *a0, u32 idx) {
     return ret;
 }
 #undef D_0022F040
-#undef D_00222BC0
 #undef D_0022F040
-#undef D_0022CBC0
 #undef func_0012E8F0
 #undef D_00222BC0

@@ -140,12 +140,10 @@ typedef struct {
     f32 x3A4;
 } P_func_001C39D0;
 typedef struct { f32 x0, x4, x8, xC, x10, x14, x18, x1C; } In_func_001C39D0;
-typedef struct { u8 pad0[0x24]; f32 x24; u8 pad28[0x38]; Vec v60; u8 pad70[0x10]; Vec v80; } Q_func_001C3EF0;
-typedef struct { u8 pad0[0x48]; s32 x48; } R_func_001C3EF0;
 typedef struct { u8 pad0[0xC]; u8 c0 : 4; u8 c4 : 4; u8 d0 : 3; u8 d3 : 5; } X_func_001C3EF0;
 typedef struct {
     u8 pad0[0x18];
-    Q_func_001C3EF0 *x18;
+    Q_func_001C39D0 *x18;
     u8 pad1C[0x40 - 0x1C];
     Vec v40;
     Vec v50;
@@ -154,14 +152,13 @@ typedef struct {
     u8 pad158[4];
     X_func_001C3EF0 *x15C;
     u8 pad160[0x390 - 0x160];
-    R_func_001C3EF0 *x390;
+    R_func_001C39D0 *x390;
     u8 pad394[0x39E - 0x394];
     u16 lo : 6; u16 cnt : 6; u16 b12 : 1; u16 hi3 : 3;
     u16 lo7 : 7; u16 f : 6; u16 hi : 3;
     u8 pad3A2[2];
     f32 x3A4;
 } P_func_001C3EF0;
-typedef struct { f32 x0, x4, x8, xC, x10, x14, x18, x1C; } In_func_001C3EF0;
 extern s32 D_002022EC;
 extern s32 **D_002022BC;
 extern s32 D_00201EB0;
@@ -191,7 +188,7 @@ void func_001C2A50(Actor *a);
 void func_001C2DB0(Actor *a, f32 *in);
 void func_001C34F0(s8 *arg0, f32 *a);
 void func_001C39D0(Actor *a, In_func_001C39D0 *in, f32 dt);
-void func_001C3EF0(Actor *a, In_func_001C3EF0 *in, f32 dt);
+void func_001C3EF0(Actor *a, In_func_001C39D0 *in, f32 dt);
 void func_001C0860(Obj3D *, Obj3D *, s32, s32, f32);
 s32 func_001A9D50(s32, u16);
 void func_001A9E10(s32, u16, u8);
@@ -323,8 +320,6 @@ msg.a = k;
 }
 
 /* func_001C0E60 */
-#define func_001C1140 func_001C1140__as_func_001C0E60
-void func_001C1140__as_func_001C0E60(void);
 static inline S_func_001C0E60 *get_func_001C0E60(void) {
     S_func_001C0E60 *r;
     s8 *base;
@@ -416,17 +411,8 @@ void func_001C0E60(Actor *a, Ev *e) {
         }
     }
 }
-#undef func_001C1140
 
 /* func_001C1140 */
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C1140
-void sceVu0CopyVector__as_func_001C1140(f32 *, s8 *);
-#define sceVu0Normalize sceVu0Normalize__as_func_001C1140
-void sceVu0Normalize__as_func_001C1140(f32 *, f32 *);
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C1140
-void sceVu0ScaleVector__as_func_001C1140(f32 *, f32 *, f32);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C1140
-void sceVu0AddVector__as_func_001C1140(f32 *, f32 *, s8 *);
 inline s8 *get(void) {
     if (D_002022E4 == NULL) {
         return NULL;
@@ -483,29 +469,9 @@ s32 func_001C1140(void) {
     }
     return 0;
 }
-#undef sceVu0CopyVector
-#undef sceVu0Normalize
-#undef sceVu0ScaleVector
-#undef sceVu0AddVector
 
 /* func_001C13B0 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define D_004B4D00 D_004B4D00__as_func_001C13B0
-extern Vec D_004B4D00__as_func_001C13B0;
-#define D_004B4CF0 D_004B4CF0__as_func_001C13B0
-extern Vec D_004B4CF0__as_func_001C13B0;
-#define sceVu0RotMatrixX sceVu0RotMatrixX__as_func_001C13B0
-void sceVu0RotMatrixX__as_func_001C13B0(MtxF *, MtxF *, f32);
-#define sceVu0RotMatrixY sceVu0RotMatrixY__as_func_001C13B0
-void sceVu0RotMatrixY__as_func_001C13B0(MtxF *, MtxF *, f32);
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C13B0
-void sceVu0CopyVector__as_func_001C13B0(Vec *, Vec *);
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C13B0
-void sceVu0ScaleVector__as_func_001C13B0(Vec *, Vec *, f32);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C13B0
-void sceVu0AddVector__as_func_001C13B0(Vec *, Vec *, Vec *);
-#define sceVu0Normalize sceVu0Normalize__as_func_001C13B0
-void sceVu0Normalize__as_func_001C13B0(Vec *, Vec *);
 static inline P_func_001C13B0 *cur_func_001C13B0(void) {
     if (D_002022E4 == 0) return 0;
     if (D_002022E4->unk518 == 0) return 0;
@@ -560,22 +526,8 @@ s32 func_001C13B0(void) {
     }
     return 0;
 }
-#undef sceVu0RotMatrixX
-#undef sceVu0RotMatrixY
-#undef sceVu0CopyVector
-#undef sceVu0ScaleVector
-#undef sceVu0AddVector
-#undef sceVu0Normalize
-#undef D_004B4D00
-#undef D_004B4CF0
 
 /* func_001C1900 */
-#define func_001C1A00 func_001C1A00__as_func_001C1900
-void func_001C1A00__as_func_001C1900(s8 *, s8 *);
-#define func_001C2190 func_001C2190__as_func_001C1900
-void func_001C2190__as_func_001C1900(s8 *, s8 *);
-#define func_001C23E0 func_001C23E0__as_func_001C1900
-void func_001C23E0__as_func_001C1900(s8 *, s8 *);
 
 void func_001C1900(s8 *arg0, s8 *arg1) {
     s8 *t;
@@ -605,20 +557,9 @@ void func_001C1900(s8 *arg0, s8 *arg1) {
         }
     }
 }
-#undef func_001C1A00
-#undef func_001C2190
-#undef func_001C23E0
 
 /* func_001C1A00 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define D_001F2170 D_001F2170__as_func_001C1A00
-extern Mtx D_001F2170__as_func_001C1A00;
-#define sceVu0RotMatrixX sceVu0RotMatrixX__as_func_001C1A00
-void sceVu0RotMatrixX__as_func_001C1A00(Mtx *, Mtx *, f32);
-#define sceVu0RotMatrixY sceVu0RotMatrixY__as_func_001C1A00
-void sceVu0RotMatrixY__as_func_001C1A00(Mtx *, Mtx *, f32);
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C1A00
-void sceVu0CopyVector__as_func_001C1A00(Vec *, void *);
 static inline P_func_001C1A00 *cur_func_001C1A00(void) {
     if (D_002022E4 == 0) return 0;
     if (D_002022E4->unk518 == 0) return 0;
@@ -722,16 +663,10 @@ void func_001C1A00(Actor *a0, K *a1) {
     }
     }
 }
-#undef sceVu0RotMatrixX
-#undef sceVu0RotMatrixY
-#undef sceVu0CopyVector
-#undef D_001F2170
 
 /* func_001C2190 */
 #define func_001CBC20 func_001CBC20__as_func_001C2190
 s32 func_001CBC20__as_func_001C2190(s32);
-#define func_001D1E10 func_001D1E10__as_func_001C2190
-R_func_001C2190 *func_001D1E10__as_func_001C2190(void);
 static inline s8 *get_func_001C2190(void) {
     if (D_002022E4 == NULL) {
         return NULL;
@@ -803,11 +738,8 @@ void func_001C2190(Actor *a, Pad *pad) {
     }
 }
 #undef func_001CBC20
-#undef func_001D1E10
 
 /* func_001C23E0 */
-#define D_002022E4 D_002022E4__as_func_001C23E0
-extern Obj *D_002022E4__as_func_001C23E0;
 static inline Sub *getsub(void) {
     Obj *o = D_002022E4;
     if (o == NULL) return NULL;
@@ -864,7 +796,6 @@ void func_001C23E0(Obj *arg0, Arg *arg1) {
         }
     }
 }
-#undef D_002022E4
 
 /* func_001C2640 */
 /* Warning: Gap in callee-saved word stack region.
@@ -908,8 +839,6 @@ f32 func_001C2640(s8 *arg0) {
 }
 
 /* func_001C27C0 */
-#define func_001A9450 func_001A9450__as_func_001C27C0
-s32 func_001A9450__as_func_001C27C0(void);
 static inline f32 spd(A *a) {
     f32 k;
     if (a->q->slow != 0) k = 0.5f; else k = 1.0f;
@@ -953,12 +882,9 @@ void func_001C27C0(s8 *arg0, In_func_001C27C0 *in) {
         a->r->rot += acc * a->dt;
     }
 }
-#undef func_001A9450
 
 /* func_001C2A50 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C2A50
-void sceVu0CopyVector__as_func_001C2A50(Vec *, Vec *);
 
 void func_001C2A50(Actor *a) {
     P_func_001C2A50 *p;
@@ -997,17 +923,8 @@ void func_001C2A50(Actor *a) {
         p->f3A2.f.b2 = 0;
     }
 }
-#undef sceVu0CopyVector
 
 /* func_001C2DB0 */
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C2DB0
-void sceVu0ScaleVector__as_func_001C2DB0(Vec *, Vec *, f32);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C2DB0
-void sceVu0AddVector__as_func_001C2DB0(Vec *, Vec *, Vec *);
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C2DB0
-void sceVu0CopyVector__as_func_001C2DB0(Vec *, Vec *);
-#define func_001C2640 func_001C2640__as_func_001C2DB0
-f32 func_001C2640__as_func_001C2DB0(Actor *);
 
 void func_001C2DB0(Actor *a, f32 *in) {
     Vec v90;
@@ -1105,16 +1022,8 @@ void func_001C2DB0(Actor *a, f32 *in) {
     p->f3A0.h.f = 0;
     p->f39D.lo4 = 0;
 }
-#undef sceVu0ScaleVector
-#undef sceVu0AddVector
-#undef sceVu0CopyVector
-#undef func_001C2640
 
 /* func_001C34F0 */
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C34F0
-void sceVu0ScaleVector__as_func_001C34F0(Vec *, Vec *, f32);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C34F0
-void sceVu0AddVector__as_func_001C34F0(Vec *, Vec *, Vec *);
 static inline f32 mu(f32 a, f32 b) { return a * b; }
 
 void func_001C34F0(s8 *arg0, f32 *a) {
@@ -1185,16 +1094,8 @@ void func_001C34F0(s8 *arg0, f32 *a) {
     }
     s->b39D.b4 = 0;
 }
-#undef sceVu0ScaleVector
-#undef sceVu0AddVector
 
 /* func_001C39D0 */
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C39D0
-void sceVu0CopyVector__as_func_001C39D0(Vec *, Vec *);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C39D0
-void sceVu0AddVector__as_func_001C39D0(Vec *, void *, Vec *);
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C39D0
-void sceVu0ScaleVector__as_func_001C39D0(Vec *, Vec *, f32);
 
 void func_001C39D0(Actor *a, In_func_001C39D0 *in, f32 dt) {
     P_func_001C39D0 *p;
@@ -1261,25 +1162,12 @@ void func_001C39D0(Actor *a, In_func_001C39D0 *in, f32 dt) {
     }
     p->f = 0;
 }
-#undef sceVu0CopyVector
-#undef sceVu0AddVector
-#undef sceVu0ScaleVector
 
 /* func_001C3EF0 */
-#define D_004B4D00 D_004B4D00__as_func_001C3EF0
-extern Vec D_004B4D00__as_func_001C3EF0;
-#define sceVu0CopyVector sceVu0CopyVector__as_func_001C3EF0
-void sceVu0CopyVector__as_func_001C3EF0(Vec *, Vec *);
-#define sceVu0AddVector sceVu0AddVector__as_func_001C3EF0
-void sceVu0AddVector__as_func_001C3EF0(Vec *, Vec *, Vec *);
-#define sceVu0ScaleVector sceVu0ScaleVector__as_func_001C3EF0
-void sceVu0ScaleVector__as_func_001C3EF0(Vec *, Vec *, f32);
-#define sceVu0Normalize sceVu0Normalize__as_func_001C3EF0
-void sceVu0Normalize__as_func_001C3EF0(Vec *, Vec *);
 #define func_001CA4A0 func_001CA4A0__as_func_001C3EF0
 s32 func_001CA4A0__as_func_001C3EF0(u32, s32);
 
-void func_001C3EF0(Actor *a, In_func_001C3EF0 *in, f32 dt) {
+void func_001C3EF0(Actor *a, In_func_001C39D0 *in, f32 dt) {
     Vec c;
     Vec n;
     Vec t0;
@@ -1390,9 +1278,4 @@ void func_001C3EF0(Actor *a, In_func_001C3EF0 *in, f32 dt) {
     }
     p->f = 0;
 }
-#undef sceVu0CopyVector
-#undef sceVu0AddVector
-#undef sceVu0ScaleVector
-#undef sceVu0Normalize
 #undef func_001CA4A0
-#undef D_004B4D00

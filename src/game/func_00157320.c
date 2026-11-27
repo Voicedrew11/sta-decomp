@@ -3,9 +3,7 @@
 #include "include_asm.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s16 x, y; } V_func_00157D50;
-typedef struct { u8 pad[0x140]; V_func_00157D50 pos[2][8][11]; V_func_00157D50 vel[2][8][11]; } W_func_00157D50;
-typedef struct { s16 x, y; } V_func_00157FE0;
-typedef struct { u8 pad[0x140]; V_func_00157FE0 pos[2][8][11]; V_func_00157FE0 vel[2][8][11]; } W_func_00157FE0;
+typedef struct { u8 pad[0x140]; V_func_00157D50 pos[2][8][11]; V_func_00157D50 vel[2][8][11]; } W;
 typedef struct {
     s32 x0, x4, x8, xC, x10, x14, x18, x1C, x20, x24, x28, x2C, x30, x34, x38, x3C, x40;
     s32 col;
@@ -42,7 +40,7 @@ extern s32 D_00201F2C;
 extern f32 D_00201E90;
 extern Q D_001F2050;
 extern s32 D_002F1AE0[];
-extern W_func_00157D50 D_002F19B0;
+extern W D_002F19B0;
 extern f32 D_002F2070[];
 extern u64 D_00201F78;
 extern V_func_00159160 D_001F2040[];
@@ -82,7 +80,7 @@ extern s32 D_002F19CC[];
 extern s32 D_002F19C0[];
 extern s32 D_002F19D8[];
 extern s32 D_002F19DC[];
-extern W_func_00157FE0 D_002F19B0__as_func_00157FE0;
+extern W D_002F19B0__as_func_00157FE0;
 extern struct { unsigned char : 6; unsigned char f : 1; char pad[15]; } D_002F2078__as_func_00159500;
 extern s32 D_002F2070__as_func_00159500[];
 extern struct { unsigned char : 5; unsigned char f : 1; char pad[15]; } D_002F2078__as_func_00159590;
@@ -220,12 +218,9 @@ s32 *func_00157620(void) {
 INCLUDE_ASM(func_00157630);
 
 /* func_00157D50 */
-#define func_00157320 func_00157320__as_func_00157D50
-int func_00157320__as_func_00157D50();
 void func_001543E0__as_func_00157D50(s32, s64);
 
 /* func_00157D50 */
-#define func_00157FE0 func_00157FE0__as_func_00157D50
 
 void func_00157D50(f32 dt) {
     u8 l;
@@ -268,10 +263,8 @@ void func_00157D50(f32 dt) {
         func_00157FE0(1);
     }
 }
-#undef func_00157FE0
 
 /* func_00157FE0 */
-#define D_002F19B0 D_002F19B0__as_func_00157FE0
 
 void func_00157FE0(u8 a0) {
     u8 j;
@@ -291,7 +284,6 @@ void func_00157FE0(u8 a0) {
         }
     }
 }
-#undef D_002F19B0
 
 /* func_001580E0 */
 void func_001580E0(P *p) {
@@ -419,7 +411,6 @@ void func_001580E0(P *p) {
 }
 
 /* func_00158900 */
-#define func_001543E0 func_001543E0__as_func_00158900
 
 void func_00158900(Arg *a0) {
     Buf b;
@@ -477,10 +468,8 @@ void func_00158900(Arg *a0) {
     }
     func_00176AE0();
 }
-#undef func_001543E0
 
 /* func_00158BF0 */
-#define func_001543E0 func_001543E0__as_func_00158BF0
 
 void func_00158BF0(s32 dx, s32 dy) {
     Buf b;
@@ -545,11 +534,8 @@ void func_00158BF0(s32 dx, s32 dy) {
     func_001544C0();
     func_00176AE0();
 }
-#undef func_001543E0
 
 /* func_00158EE0 */
-#define func_001543E0 func_001543E0__as_func_00158EE0
-#define func_00155BD0 func_00155BD0__as_func_00158EE0
 
 void func_00158EE0(f32 *c) {
     S s;
@@ -572,8 +558,6 @@ void func_00158EE0(f32 *c) {
     s.col = ((u32)(255.0f * c[3] / 255.0f) << 24) | ((u32)(255.0f * c[2] / 255.0f) << 16) | ((u32)(255.0f * c[1] / 255.0f) << 8) | (u32)(255.0f * c[0] / 255.0f);
     func_00155BD0(&s);
 }
-#undef func_001543E0
-#undef func_00155BD0
 
 /* func_00159160 */
 void func_00159160(s32 *arg0, s32 *arg1) {
@@ -688,8 +672,6 @@ void func_00159480(void *arg0) {
 
 /* func_00159500 */
 #define D_002F2078 D_002F2078__as_func_00159500
-#define D_002F2070 D_002F2070__as_func_00159500
-#define func_00157FE0 func_00157FE0__as_func_00159500
 
 s32 *func_00159500(s32 on)
 {
@@ -702,9 +684,7 @@ s32 *func_00159500(s32 on)
     D_002F2078.f = v;
     return D_002F1AE0;
 }
-#undef func_00157FE0
 #undef D_002F2078
-#undef D_002F2070
 
 /* func_00159590 */
 #define D_002F2078 D_002F2078__as_func_00159590
@@ -756,20 +736,7 @@ s32 *func_00159650(int v)
 #undef D_002F2078
 
 /* func_00159680 */
-#define func_00158900 func_00158900__as_func_00159680
-#define func_00158BF0 func_00158BF0__as_func_00159680
-#define func_00158EE0 func_00158EE0__as_func_00159680
-#define func_00159160 func_00159160__as_func_00159680
-#define sceVu0CopyVector sceVu0CopyVector__as_func_00159680
-#define func_001580E0 func_001580E0__as_func_00159680
 #define D_002F19B0 D_002F19B0__as_func_00159680
-#define D_002F19C0 D_002F19C0__as_func_00159680
-#define D_002F19CC D_002F19CC__as_func_00159680
-#define D_002F1A60 D_002F1A60__as_func_00159680
-#define D_002F1A80 D_002F1A80__as_func_00159680
-#define D_002F1AA0 D_002F1AA0__as_func_00159680
-#define D_002F1AB0 D_002F1AB0__as_func_00159680
-#define D_002F1AC0 D_002F1AC0__as_func_00159680
 #define D_002F1AD0 D_002F1AD0__as_func_00159680
 #define D_002F2078 D_002F2078__as_func_00159680
 
@@ -840,24 +807,10 @@ void func_00159680(void) {
     func_00156F60();
     func_00155900();
 }
-#undef sceVu0CopyVector
-#undef func_001580E0
 #undef D_002F19B0
-#undef D_002F19C0
-#undef D_002F19CC
-#undef D_002F1A60
-#undef D_002F1A80
-#undef D_002F1AA0
-#undef D_002F1AB0
-#undef D_002F1AC0
 #undef D_002F1AD0
 #undef D_002F2078
-#undef func_00158900
-#undef func_00158BF0
-#undef func_00158EE0
-#undef func_00159160
 #undef func_001543E0
-#undef func_00157320
 #undef D_002F19B0
 #undef func_00155BD0
 #undef sceVu0CopyVector

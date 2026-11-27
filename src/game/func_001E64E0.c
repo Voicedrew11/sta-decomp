@@ -67,12 +67,8 @@ s32 strcmp(const char *, const char *);
 
 /* func_001E64E0 */
 /* func_001E64E0 */
-#define func_001D6958 func_001D6958__as_func_001E64E0
-s32 func_001D6958__as_func_001E64E0(s32, s32, char*, s32, s32, void *);
 #define func_001E8310 func_001E8310__as_func_001E64E0
 void func_001E8310__as_func_001E64E0(s32, void *, void *);
-#define strncmp strncmp__as_func_001E64E0
-s32 strncmp__as_func_001E64E0(const u8 *, const char *, s32);
 
 
 #define FAIL() { D_002023D8 = -1; D_004BC39C[D_002023E4 << 8] = 1; }
@@ -302,7 +298,6 @@ void func_001E64E0(s32 arg0) {
 }
 
 /* func_001E72A0 */
-s32 func_001D6958__as_func_001E64E0(s32, s32, char*, s32, s32, void *);
 void func_001E8310__as_func_001E64E0(s32, void *, void *);
 
 static inline s32 retry(s32 r) {
@@ -422,9 +417,7 @@ void func_001E72A0(s32 arg0) {
         break;
     }
 }
-#undef func_001D6958
 #undef func_001E8310
-#undef strncmp
 
 /* func_001E7880 */
 #define D_004BC380 D_004BC380__as_func_001E7880
@@ -435,10 +428,6 @@ extern s8 D_00201760__as_func_001E7880[];
 extern s8 D_00201770__as_func_001E7880[];
 #define D_004BCB80 D_004BCB80__as_func_001E7880
 extern s8 D_004BCB80__as_func_001E7880[];
-#define D_004BCBC0 D_004BCBC0__as_func_001E7880
-extern s8 D_004BCBC0__as_func_001E7880[];
-#define func_001D6958 func_001D6958__as_func_001E7880
-void func_001D6958__as_func_001E7880(u32, u32, s8 *, s32, s32, s8 *);
 #define sprintf sprintf__as_func_001E7880
 void sprintf__as_func_001E7880(s8 *, s8 *, s8 *);
 
@@ -508,13 +497,11 @@ void func_001E7880(void) {
         break;
     }
 }
-#undef func_001D6958
 #undef sprintf
 #undef D_004BC380
 #undef D_00201760
 #undef D_00201770
 #undef D_004BCB80
-#undef D_004BCBC0
 
 /* func_001E7C10 */
 #define D_004BC380 D_004BC380__as_func_001E7C10
@@ -680,8 +667,6 @@ s32 func_001E82A0(s32 a) {
 }
 
 /* func_001E8310 */
-#define strncmp strncmp__as_func_001E8310
-s32 strncmp__as_func_001E8310(const char *, const char *, s32);
 #pragma explicit_zero_data on
 const char D_00201840[0x9] = "icon.sys\000";
 #define D_004BC380 D_004BC380__as_func_001E8310
@@ -714,5 +699,4 @@ void func_001E8310(s32 idx, s32 *pa, s32 *pb) {
     if (pa != NULL) *pa = a;
     if (pb != NULL) *pb = b;
 }
-#undef strncmp
 #undef D_004BC380

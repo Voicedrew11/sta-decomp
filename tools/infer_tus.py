@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Infer the game's translation units from the order of their data.
 
-    tools/infer_tus.py [--limit 0x4000] [--all | --files | --hints]
+    tools/infer_tus.py [--limit 0x4000] [--hinted] [--all | --files | --hints]
 
 mwldps2 laid out each section unit by unit in link order, so every unit's
 data is one stretch, and the stretches come in .text order. Today's game
@@ -22,7 +22,8 @@ A blocked candidate is split at its ee-gcc functions into runs, each listed
 as a candidate of its own. An INCLUDE_ASM'd chunk counts as its unit's.
 --all prints the blocked ones too; --hints prints call-graph hints (a
 function only near units call: likely a static of their file), which are
-not evidence on their own.
+not evidence on their own. --hinted takes ties of any distance, but only
+inside a span such hints cover (a function and its only callers).
 """
 import bisect
 import collections
@@ -107,7 +108,7 @@ def rodata_ties(sz, alias, limit):
     users are one unit. As steps (lo, hi, ".rodata", object, users)."""
     rom = ROM.read_bytes()
     names = [n for n, (a, s) in sz.items() if n.startswith("D_") and RODATA[0] <= a < RODATA[1] and s]
-    us = M.users(set(names), alias)
+    us = with_definers(M.users(set(names), alias))
     out = []
     for n in names:
         units = {unit_of(u) for u in us[n]}
@@ -121,12 +122,54 @@ def rodata_ties(sz, alias, limit):
     return out
 
 
-def candidates(limit):
+def hinted_spans(limit):
+    """[(lo, hi)] text address spans each covering a call-graph hint (a
+    function and the near units that alone call it), overlapping ones
+    joined."""
+    sp = []
+    for fn, u, callers in hints(limit):
+        ts = [taddr(x) for x in [u] + callers]
+        sp.append((min(ts), max(ts)))
+    sp.sort()
+    out = []
+    for lo, hi in sp:
+        if out and lo <= out[-1][1]:
+            out[-1][1] = max(out[-1][1], hi)
+        else:
+            out.append([lo, hi])
+    return out
+
+
+def with_definers(us):
+    """users() counts references only; an object a code unit defines (a
+    merged unit's own data) is that unit's too."""
+    from elftools.elf.elffile import ELFFile
+    import glob
+    for o in glob.glob(str(ROOT / "build/src/game/func_*.c.o")):
+        src = str(Path(o).relative_to(ROOT / "build"))[:-2]
+        if not (ROOT / src).exists():
+            continue
+        with open(o, "rb") as f:
+            for sy in ELFFile(f).get_section_by_name(".symtab").iter_symbols():
+                if sy.name in us and isinstance(sy["st_shndx"], int) and sy["st_info"]["bind"] == "STB_GLOBAL":
+                    us[sy.name].add(src)
+    return us
+
+
+def candidates(limit, spans=None):
+    """Candidates from ties within `limit`; with `spans` (hinted_spans()),
+    ties of any distance that lie inside one span."""
+    if spans is not None:
+        within = lambda lo, hi: any(a <= lo and hi <= b for a, b in spans)
+        limit_ = 1 << 30
+    else:
+        within, limit_ = (lambda lo, hi: True), limit
+    limit = limit_
     sz = M.sizes()
     alias = M.aliases()
     names = [n for n, (a, s) in sz.items() if n.startswith(("D_", "jtbl_"))
              and any(lo <= a < hi for lo, hi in SECTIONS.values())]
-    us = M.users(set(names), alias)
+    us = with_definers(M.users(set(names), alias))
     units = text_units()
     starts = [a for a, _ in units]
     steps = []      # (lo, hi, section, object before, object after)
@@ -141,6 +184,7 @@ def candidates(limit):
             if y < x and x - y <= limit:
                 steps.append((y, x, sec, nx, ny))
     steps += rodata_ties(sz, alias, limit)
+    steps = [st for st in steps if within(st[0], st[1])]
     steps.sort()
     merged = []
     for lo, hi, *ev in steps:
@@ -151,6 +195,8 @@ def candidates(limit):
             merged.append([lo, hi, [ev]])
     out = []
     for lo, hi, ev in merged:
+        if spans is not None and len(ev) < 2:
+            continue    # one long tie is no evidence: they chain across ee-gcc modules
         i, j = bisect.bisect_left(starts, lo), bisect.bisect_right(starts, hi)
         files = [u for _, u in units[i:j]]
         out.append((files, ev))
@@ -207,7 +253,8 @@ def main():
             print(f"{fn} ({Path(u).stem}): called only from {', '.join(Path(c).stem for c in callers)}")
         return
     ready, waiting = [], []
-    for files, ev in candidates(limit):
+    spans = hinted_spans(limit) if "--hinted" in sys.argv else None
+    for files, ev in candidates(limit, spans):
         if not any(blocked(f) for f in files):
             ready.append((files, ev, None))
             continue

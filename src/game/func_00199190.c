@@ -89,8 +89,6 @@ u16 func_001D10B0(s32);
 void func_0017F840(s32, s32 *);
 
 /* func_00199190 */
-#define func_00199260 func_00199260__as_func_00199190
-void func_00199260__as_func_00199190(u8 *, f32);
 
 void func_00199190(u8 *arg0) {
     func_0018A310(-1);
@@ -106,11 +104,8 @@ void func_00199190(u8 *arg0) {
         func_00199260(arg0, D_00201D5C);
     }
 }
-#undef func_00199260
 
 /* func_00199260 */
-#define func_0019A370 func_0019A370__as_func_00199260
-void func_0019A370__as_func_00199260(H *, H *, H *, H *, s32);
 #define func_0019A500 func_0019A500__as_func_00199260
 void func_0019A500__as_func_00199260(H *, H *, s32 *, s32 *, s32 *, s32, s32, s32);
 
@@ -186,16 +181,9 @@ void func_00199260(O *o, f32 f) {
     func_00185390(f + D_002021B8, 1, D_002021B4, D_004A28C0[0]);
     func_001DF470(f + D_002021B8, D_00201D48);
 }
-#undef func_0019A370
 #undef func_0019A500
 
 /* func_001997A0 */
-#define func_0017F470 func_0017F470__as_func_001997A0
-void func_0017F470__as_func_001997A0(f32, s32, s32);
-#define func_00199AD0 func_00199AD0__as_func_001997A0
-void func_00199AD0__as_func_001997A0(s32 *);
-#define func_0019A6A0 func_0019A6A0__as_func_001997A0
-void func_0019A6A0__as_func_001997A0(void);
 #define D_00201D4C D_00201D4C__as_func_001997A0
 extern s32 **D_00201D4C__as_func_001997A0;
 static inline void setup_func_001997A0(void) {
@@ -261,16 +249,9 @@ void func_001997A0(s32 *arg0) {
         break;
     }
 }
-#undef func_0017F470
-#undef func_00199AD0
-#undef func_0019A6A0
 #undef D_00201D4C
 
 /* func_00199AD0 */
-#define func_0019A6A0 func_0019A6A0__as_func_00199AD0
-void func_0019A6A0__as_func_00199AD0(void);
-#define D_00201D4C D_00201D4C__as_func_00199AD0
-extern s32 **D_00201D4C__as_func_00199AD0;
 static inline void setup_func_00199AD0(void) {
     Q2 q;
     Arg a;
@@ -399,8 +380,6 @@ void func_00199AD0(S *a0) {
         D_002021AC = 0;
     }
 }
-#undef func_0019A6A0
-#undef D_00201D4C
 
 /* func_0019A0D0 */
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
@@ -429,10 +408,6 @@ void func_0019A0D0(s32 arg0) {
 #undef func_001803B0
 
 /* func_0019A1D0 */
-#define func_001CC3F0 func_001CC3F0__as_func_0019A1D0
-P *func_001CC3F0__as_func_0019A1D0(s16);
-#define func_001AFC90 func_001AFC90__as_func_0019A1D0
-E_func_0019A1D0 *func_001AFC90__as_func_0019A1D0(void);
 
 void func_0019A1D0(s32 arg0) {
     s32 i;
@@ -482,8 +457,6 @@ void func_0019A1D0(s32 arg0) {
         D_002021B4++;
     }
 }
-#undef func_001CC3F0
-#undef func_001AFC90
 
 /* func_0019A370 */
 #define func_001AFC90 func_001AFC90__as_func_0019A370

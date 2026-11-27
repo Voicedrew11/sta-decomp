@@ -144,7 +144,6 @@ s32 func_00176FB0__as_func_00176BF0(s16);
 /* func_00175CD0 */
 #define D_004830DC D_004830DC[0]
 #define D_004830DE D_004830DE[0]
-#define func_00176BF0 func_00176BF0__as_func_00175CD0
 
 void func_00175CD0(A *a0) {
     s32 h;
@@ -280,12 +279,10 @@ void func_00175CD0(A *a0) {
     }
     func_00154310(a0->x8);
 }
-#undef func_00176BF0
 #undef D_004830DC
 #undef D_004830DE
 
 /* func_00176350 */
-#define func_00175CD0 func_00175CD0__as_func_00176350
 
 void func_00176350(void) {
     u32 i;
@@ -305,10 +302,8 @@ void func_00176350(void) {
         }
     }
 }
-#undef func_00175CD0
 
 /* func_00176440 */
-#define D_00438A70 D_00438A70__as_func_00176440
 
 void func_00176440(u32 a) {
     u32 v = func_00155A90();
@@ -338,7 +333,6 @@ void func_00176440(u32 a) {
         D_0020200C++;
     }
 }
-#undef D_00438A70
 
 /* func_00176550 */
 #define func_00176710 func_00176710__as_func_00176550
@@ -447,7 +441,6 @@ void func_00176710(Tex0 t0, Tex1_func_00176710 t1) {
 
 /* func_001769C0 */
 #define D_0047F0C0 D_0047F0C0__as_func_001769C0
-#define D_004830DC D_004830DC__as_func_001769C0
 void func_001769C0(void) {
     s32 b;
     D_004830E8[0] = 0;
@@ -461,7 +454,6 @@ void func_001769C0(void) {
     }
 }
 #undef D_0047F0C0
-#undef D_004830DC
 
 /* func_00176A40 */
 #define func_00176350 func_00176350__as_func_00176A40
@@ -474,10 +466,6 @@ void func_00176A40(s32 arg0, s32 arg1) {
 #undef func_00176350
 
 /* func_00176A60 */
-#define D_00202010 D_00202010__as_func_00176A60
-#define D_00438A30 D_00438A30__as_func_00176A60
-#define D_00438A70 D_00438A70__as_func_00176A60
-#define D_0043F080 D_0043F080__as_func_00176A60
 
 void func_00176A60(void) {
     (*D_004830F4) = 0;
@@ -490,24 +478,14 @@ void func_00176A60(void) {
     D_00202010 = 0;
     memset(D_00438A30, 0, 0x33);
 }
-#undef D_00202010
-#undef D_00438A30
-#undef D_00438A70
-#undef D_0043F080
 
 /* func_00176AE0 */
-#define func_001549D0 func_001549D0__as_func_00176AE0
-#define func_00176440 func_00176440__as_func_00176AE0
 void func_00176AE0(void) {
     func_00176440(0);
     func_001549D0();
 }
-#undef func_001549D0
-#undef func_00176440
 
 /* func_00176B10 */
-#define D_004830F4 D_004830F4__as_func_00175CD0
-extern s32 D_004830E8[], D_004830EC[], D_004830F4__as_func_00175CD0[];
 #define func_00176440 func_00176440__as_func_00176B10
 
 void func_00176B10(Obj *o)
@@ -531,14 +509,10 @@ void func_00176B10(Obj *o)
 #undef func_00176440
 
 /* func_00176BC0 */
-#define func_001549D0 func_001549D0__as_func_00176BC0
-#define func_00176B10 func_00176B10__as_func_00176BC0
 void func_00176BC0(s32 arg0) {
     func_00176B10((void *) arg0);
     func_001549D0();
 }
-#undef func_001549D0
-#undef func_00176B10
 
 /* func_00176BF0 */
 #define D_0047F0C0 D_0047F0C0__as_func_00176BF0
@@ -637,7 +611,6 @@ found:
 #undef D_004830D6
 #undef D_004830D8
 #undef D_004830DE
-#undef D_004830F4
 #undef D_004830DC
 #undef D_004830DE
 #undef func_00175CD0
@@ -705,8 +678,6 @@ void func_00177380(s16 i) {
 }
 
 /* func_00177570 */
-#define func_00176FB0 func_00176FB0__as_func_00177380
-s32 func_00176FB0__as_func_00177380(s16);
 
 s16 func_00177570(E30 *p) {
     s16 idx = p - D_004800C0;
@@ -741,7 +712,6 @@ s16 func_00177570(E30 *p) {
     if (p->x22 != -1) func_00176FB0(p->x22);
     return 0;
 }
-#undef func_00176FB0
 #undef D_0047F0C0
 #undef D_004830D0
 

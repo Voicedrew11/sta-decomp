@@ -126,10 +126,6 @@ void func_001A40A0(P *p) {
 }
 
 /* func_001A4420 */
-#define func_001A4050 func_001A4050__as_func_001A4420
-void func_001A4050__as_func_001A4420(void);
-#define D_004A4398 D_004A4398__as_func_001A4420
-extern s32 D_004A4398__as_func_001A4420[];
 #define D_004A43AC D_004A43AC__as_func_001A4420
 extern BF3 D_004A43AC__as_func_001A4420[];
 
@@ -162,6 +158,4 @@ void func_001A4420(s32 *arg0) {
         break;
     }
 }
-#undef func_001A4050
-#undef D_004A4398
 #undef D_004A43AC

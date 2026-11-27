@@ -2,14 +2,12 @@
 typedef struct { s32 x0; s32 x4; s32 x8; u16 xC; u16 xE; } B_func_001DA1D0;
 typedef struct { s8 x0; s8 x1; s8 x2; s8 x3; } C_func_001DA1D0;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; } R;
-typedef struct { s8 x0; s8 x1; s8 x2; s8 x3; } C_func_001DA530;
 typedef struct { s32 v; char pad[12]; } E_func_001DA530;
 typedef struct { s32 x0; s32 x4; s32 x8; u8 xC; u8 p[3]; } B_func_001DA620;
 typedef struct { s8 a; s8 b; s8 c; s8 d; } C_func_001DA620;
 typedef struct { f32 v[8]; } M_func_001DA720;
 typedef struct { s32 v; char pad[0x1C]; } E_func_001DA7D0;
 typedef struct { s32 x0; s32 x4; s16 x8; s16 xA; s32 xC; s32 x10; s16 x14; s16 x16; u8 p[8]; } M_func_001DA840;
-typedef struct { s32 v; char pad[12]; } E_func_001DA8F0;
 typedef struct { s32 a; s32 b; s32 c[2]; } E_func_001DA920;
 typedef struct { char pad[0x200]; E_func_001DA920 e[1]; } T_func_001DA920;
 typedef struct { char p[0x14]; s16 x14; char r[0xA]; } A;
@@ -167,9 +165,9 @@ s32 func_001DA4F0(s32 arg0) {
 
 /* func_001DA530 */
 #define D_004BA500 D_004BA500__as_func_001DA530
-extern struct { char pad[0x280]; C_func_001DA530 c[64]; } D_004BA500__as_func_001DA530;
+extern struct { char pad[0x280]; C_func_001DA1D0 c[64]; } D_004BA500__as_func_001DA530;
 s32 func_001DA530(s32 i) {
-    C_func_001DA530 *c;
+    C_func_001DA1D0 *c;
     if (D_004BAA36[0] == 0) return -1;
     if (i < 0 || i >= 64) return -1;
     c = &D_004BA500.c[i];
@@ -213,8 +211,6 @@ s32 func_001DA620(s32 i, s32 j, u8 x, u8 y, u8 z) {
 
 /* func_001DA720 */
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
-#define func_001D8350 func_001D8350__as_func_001DA720
-s32 func_001D8350__as_func_001DA720(s32 a, s32 b, s32 c, s32 d, s32 e, M_func_001DA720 *m);
 
 s32 func_001DA720(s32 i)
 {
@@ -223,7 +219,6 @@ s32 func_001DA720(s32 i)
     D_004BA900 = D_004BA880[i];
     return func_001D8350(4, 1, 0x20, 4, 0x400800, &D_004BA900);
 }
-#undef func_001D8350
 
 /* func_001DA7D0 */
 #define D_004BA500 D_004BA500__as_func_001DA7D0
@@ -268,17 +263,11 @@ s32 func_001DA840(s32 a0, s16 a1, s16 a2, s16 a3, s16 t0, s32 t1) {
 #undef D_004BA880
 
 /* func_001DA8F0 */
-#define D_004BA70C D_004BA70C__as_func_001DA8F0
-extern E_func_001DA8F0 D_004BA70C__as_func_001DA8F0[];
-#define func_001D8680 func_001D8680__as_func_001DA8F0
-void func_001D8680__as_func_001DA8F0(s32 a, s32 b, s32 c, ...);
 
 void func_001DA8F0(s32 i, s16 b)
 {
     func_001D8680(4, 0, 0x20A00, D_004BA70C[i].v, b);
 }
-#undef func_001D8680
-#undef D_004BA70C
 
 /* func_001DA920 */
 #define D_004BA500 D_004BA500__as_func_001DA920
@@ -314,8 +303,6 @@ s32 func_001DA9A0(s32 j, s32 i) {
 #undef D_004BA500
 
 /* func_001DAA50 */
-#define func_001DB830 func_001DB830__as_func_001DAA50
-int func_001DB830__as_func_001DAA50();
 
 s32 func_001DAA50(void) {
     if (func_001DB830() != 0) {
@@ -324,7 +311,6 @@ s32 func_001DAA50(void) {
     }
     return 1;
 }
-#undef func_001DB830
 
 /* func_001DAA90 */
 #define D_004BA500 D_004BA500__as_func_001DAA90
@@ -473,10 +459,6 @@ s32 func_001DAF80(void)
 
 /* func_001DB020 */
 /* MATCH: extern s32 D_004BAA28[] (read into u32 y) + `y <= x` compare: sltu $at, x in v0 */
-#define D_004BA2E0 D_004BA2E0__as_func_001DB020
-extern u32 D_004BA2E0__as_func_001DB020[];
-#define D_004BA2F8 D_004BA2F8__as_func_001DB020
-extern u32 D_004BA2F8__as_func_001DB020[];
 #define D_004BA500 D_004BA500__as_func_001DB020
 extern Ent D_004BA500__as_func_001DB020[];
 #define D_004BAA28 D_004BAA28__as_func_001DB020
@@ -569,14 +551,10 @@ s32 func_001DB020(s32 arg0, s32 arg1, s32 arg2) {
     FlushCache(0);
     return ret;
 }
-#undef D_004BA2E0
-#undef D_004BA2F8
 #undef D_004BA500
 #undef D_004BAA28
 
 /* func_001DB410 */
-#define D_004BA2E8 D_004BA2E8__as_func_001DB410
-extern s32 D_004BA2E8__as_func_001DB410[];
 
 s32 func_001DB410(void) {
     if ((*D_004BA2EC) != 0) {
@@ -598,4 +576,3 @@ loop_3:
     }
     goto loop_3;
 }
-#undef D_004BA2E8

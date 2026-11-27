@@ -287,14 +287,8 @@ extern u16 D_004A32A0__as_func_0019D290_[];
 void* func_001958A0__as_func_0019D290_(void);
 #define func_001957E0 func_001957E0__as_func_0019D290_
 void* func_001957E0__as_func_0019D290_(void *h, s32 id);
-#define func_001C9BA0 func_001C9BA0__as_func_0019D290_
-void func_001C9BA0__as_func_0019D290_(void);
 
 /* func_0019D290 */
-#define func_0019D580 func_0019D580__as_func_0019D290
-#define func_0019DA70 func_0019DA70__as_func_0019D290
-#define func_0019D510 func_0019D510__as_func_0019D290
-#define func_0019DE90 func_0019DE90__as_func_0019D290
 
 void func_0019D290(s32 *arg0) {
     Q2 q;
@@ -348,10 +342,6 @@ void func_0019D290(s32 *arg0) {
         return;
     }
 }
-#undef func_0019D580
-#undef func_0019DA70
-#undef func_0019D510
-#undef func_0019DE90
 
 /* func_0019D4A0 */
 void *func_0019D4A0(s32 id)
@@ -380,7 +370,6 @@ void *func_0019D510(s32 id)
 }
 
 /* func_0019D580 */
-#define D_004A329C D_004A329C__as_func_0019D580
 
 void func_0019D580(Menu *m) {
     s32 n;
@@ -452,12 +441,9 @@ void func_0019D580(Menu *m) {
     }
     m->buttons = 0;
 }
-#undef D_004A329C
 
 /* func_0019DA70 */
 #define func_0017F470 func_0017F470__as_func_0019DA70
-#define D_004A329C D_004A329C__as_func_0019DA70
-#define D_004A32A0 D_004A32A0__as_func_0019DA70
 
 void func_0019DA70(Menu *m) {
     s32 sel = D_004A3290[0];
@@ -527,8 +513,6 @@ void func_0019DA70(Menu *m) {
     }
 }
 #undef func_0017F470
-#undef D_004A329C
-#undef D_004A32A0
 
 /* func_0019DCF0 */
 static inline s32 is5(s32 id) {
@@ -591,7 +575,6 @@ void func_0019DE90(s32 i, s8 *a1, s8 *a2) {
 }
 #undef func_001958A0
 #undef func_001957E0
-#undef func_001C9BA0
 #undef D_004A329C
 #undef D_004A32A0
 #undef func_0019D580

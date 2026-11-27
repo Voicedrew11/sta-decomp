@@ -412,8 +412,6 @@ void func_00129030(void) {
 
 /* func_00129040 */
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
-#define sceVu0CopyMatrix sceVu0CopyMatrix__as_func_00129040
-void sceVu0CopyMatrix__as_func_00129040(f32 *, f32 *);
 
 void func_00129040(void) {
     sceGsResetGraph(0, 1, 2, 0);
@@ -455,7 +453,6 @@ void func_00129040(void) {
     D_00222A68[0] = D_002F1390.disp[1].display;
     func_00178910(0, 0x4000);
 }
-#undef sceVu0CopyMatrix
 
 /* func_00129400 */
 void func_00129400(s32 arg0, s32 arg1, s32 arg2) {
@@ -518,14 +515,6 @@ void func_001294A0(Mtx_func_001294A0 m0, Mtx_func_001294A0 m1, Mtx_func_001294A0
 
 /* func_001296C0 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define sceVu0MulMatrix sceVu0MulMatrix__as_func_001296C0
-void sceVu0MulMatrix__as_func_001296C0(void *, void *, void *);
-#define func_001294A0 func_001294A0__as_func_001296C0
-void func_001294A0__as_func_001296C0(void *m0, void *m1, void *m2, f32 a, f32 b, f32 c, f32 d, f32 e, f32 f, f32 g, f32 h, f32 i, f32 j, f32 k);
-#define D_001F2170 D_001F2170__as_func_001296C0
-extern Mtx D_001F2170__as_func_001296C0;
-#define D_00222850 D_00222850__as_func_001296C0
-extern Mtx D_00222850__as_func_001296C0;
 
 void func_001296C0(void) {
     VQ a;
@@ -598,10 +587,6 @@ void func_001296C0(void) {
     D_001F1BC4[0] = 32000.0f;
     D_001F1BC8[0] = 0.499999493f;
 }
-#undef sceVu0MulMatrix
-#undef func_001294A0
-#undef D_001F2170
-#undef D_00222850
 
 /* func_00129EE0 */
 void func_00129EE0(S *p) {
@@ -632,8 +617,6 @@ void func_00129EE0(S *p) {
 extern u8 D_002F1800__as_func_0012A070[];
 #define D_002F1840 D_002F1840__as_func_0012A070
 extern u8 D_002F1840__as_func_0012A070[];
-#define D_002022E4 D_002022E4__as_func_0012A070
-extern void *D_002022E4__as_func_0012A070;
 
 void func_0012A070(void) {
     Buf b;
@@ -743,7 +726,6 @@ void func_0012A070(void) {
 }
 #undef D_002F1800
 #undef D_002F1840
-#undef D_002022E4
 
 /* func_0012A520 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
@@ -752,18 +734,8 @@ extern Inner **D_00201E80__as_func_0012A520[2];
 #define C (D_00201E80[2])
 #define D (D_00201E80[3])
 static inline s32 IS_func_0012A520(Inner **p) { if (p != NULL) return ((*p)->f & 1) != 0; else return 0; }
-#define func_0012C7C0 func_0012C7C0__as_func_0012A520
-void func_0012C7C0__as_func_0012A520(void);
-#define sceVu0CameraMatrix sceVu0CameraMatrix__as_func_0012A520
-void sceVu0CameraMatrix__as_func_0012A520(Mtx *, void *, Vec *, Vec *);
-#define sceVu0MulMatrix sceVu0MulMatrix__as_func_0012A520
-void sceVu0MulMatrix__as_func_0012A520(void *, void *, Mtx *);
 #define D_002022E4 D_002022E4__as_func_0012A520
 extern s8 *D_002022E4__as_func_0012A520;
-#define D_00222A10 D_00222A10__as_func_0012A520
-extern u8 D_00222A10__as_func_0012A520[];
-#define D_001F2170 D_001F2170__as_func_0012A520
-extern Mtx D_001F2170__as_func_0012A520;
 #define D_002F1900 D_002F1900__as_func_0012A520
 extern s8 D_002F1900__as_func_0012A520[];
 #define D_002F1700 D_002F1700__as_func_0012A520
@@ -846,13 +818,8 @@ void func_0012A520(f32 dt) {
     }
     if (!D_00222A52[0].f.b3) func_00188F80();
 }
-#undef func_0012C7C0
-#undef sceVu0CameraMatrix
-#undef sceVu0MulMatrix
 #undef D_00201E80
 #undef D_002022E4
-#undef D_00222A10
-#undef D_001F2170
 #undef D_002F1900
 #undef D_002F1700
 #undef D_002F16C0
@@ -860,26 +827,6 @@ void func_0012A520(f32 dt) {
 #undef D
 
 /* func_0012AA30 */
-#define func_00128210 func_00128210__as_func_0012AA30
-int func_00128210__as_func_0012AA30();
-#define func_00128460 func_00128460__as_func_0012AA30
-int func_00128460__as_func_0012AA30();
-#define func_0012AB40 func_0012AB40__as_func_0012AA30
-int func_0012AB40__as_func_0012AA30();
-#define func_001552A0 func_001552A0__as_func_0012AA30
-int func_001552A0__as_func_0012AA30();
-#define func_00155370 func_00155370__as_func_0012AA30
-int func_00155370__as_func_0012AA30();
-#define func_00160300 func_00160300__as_func_0012AA30
-int func_00160300__as_func_0012AA30();
-#define func_00169780 func_00169780__as_func_0012AA30
-int func_00169780__as_func_0012AA30();
-#define func_00169790 func_00169790__as_func_0012AA30
-int func_00169790__as_func_0012AA30();
-#define func_0016AB50 func_0016AB50__as_func_0012AA30
-int func_0016AB50__as_func_0012AA30();
-#define func_001AB280 func_001AB280__as_func_0012AA30
-int func_001AB280__as_func_0012AA30();
 
 void func_0012AA30(void) {
     func_00160300();
@@ -911,24 +858,8 @@ void func_0012AA30(void) {
         break;
     }
 }
-#undef func_00128210
-#undef func_00128460
-#undef func_0012AB40
-#undef func_001552A0
-#undef func_00155370
-#undef func_00160300
-#undef func_00169780
-#undef func_00169790
-#undef func_0016AB50
-#undef func_001AB280
 
 /* func_0012AB40 */
-#define func_00128210 func_00128210__as_func_0012AB40
-void func_00128210__as_func_0012AB40(M2C_UNK *);
-#define D_00222AF0 D_00222AF0__as_func_0012AB40
-extern M2C_UNK D_00222AF0__as_func_0012AB40[];
-#define D_00222B20 D_00222B20__as_func_0012AB40
-extern M2C_UNK D_00222B20__as_func_0012AB40[];
 
 void func_0012AB40(s32 arg0) {
     s32 i;
@@ -947,22 +878,11 @@ void func_0012AB40(s32 arg0) {
         func_00154AF0();
     }
 }
-#undef func_00128210
-#undef D_00222AF0
-#undef D_00222B20
 
 /* func_0012AC00 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define func_00128460 func_00128460__as_func_0012AC00
-void func_00128460__as_func_0012AC00(void *, s32);
-#define sceVu0CameraMatrix sceVu0CameraMatrix__as_func_0012AC00
-void sceVu0CameraMatrix__as_func_0012AC00(Mtx *, void *, Vec *, Vec *);
-#define sceVu0MulMatrix sceVu0MulMatrix__as_func_0012AC00
-void sceVu0MulMatrix__as_func_0012AC00(void *, void *, Mtx *);
 #define IDX ((&D_00201E80)[1])
 #define ARR ((s32 **)(&D_00201E80 + 2))
-#define D_001F2170 D_001F2170__as_func_0012AC00
-extern Mtx D_001F2170__as_func_0012AC00;
 #define D_002F1900 D_002F1900__as_func_0012AC00
 extern s8 D_002F1900__as_func_0012AC00[];
 #define D_002F1700 D_002F1700__as_func_0012AC00
@@ -1081,22 +1001,14 @@ void func_0012AC00(s32 arg0) {
     func_0018A350(0x12);
     func_0019A840();
 }
-#undef func_00128460
-#undef sceVu0CameraMatrix
-#undef sceVu0MulMatrix
-#undef D_001F2170
 #undef D_002F1900
 #undef D_002F1700
 #undef IDX
 #undef ARR
 
 /* func_0012B120 */
-#define func_00129EE0 func_00129EE0__as_func_0012B120
-void func_00129EE0__as_func_0012B120(void *);
 #define func_00128A60 func_00128A60__as_func_0012B120
 void func_00128A60__as_func_0012B120(void *, s32, s32, s32);
-#define func_00128460 func_00128460__as_func_0012B120
-void func_00128460__as_func_0012B120(void *, s32);
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 
 void func_0012B120(s32 arg0) {
@@ -1144,9 +1056,7 @@ void func_0012B120(s32 arg0) {
     func_0012C730(v);
     func_0012DA60(func_001A9460());
 }
-#undef func_00129EE0
 #undef func_00128A60
-#undef func_00128460
 
 /* func_0012B350 */
 #define D_00201E80 D_00201E80__as_func_0012B350
@@ -1158,8 +1068,6 @@ static inline s32 IS_func_0012B350(Inner **p) { if (p != NULL) return ((*p)->f &
 extern u32 D_00201E94__as_func_0012B350;
 #define func_0012B120 func_0012B120__as_func_0012B350
 void func_0012B120__as_func_0012B350(void);
-#define func_00128460 func_00128460__as_func_0012B350
-void func_00128460__as_func_0012B350(void *, s32);
 
 s32 func_0012B350(void) {
     s32 t;
@@ -1199,29 +1107,12 @@ s32 func_0012B350(void) {
     return 0;
 }
 #undef func_0012B120
-#undef func_00128460
 #undef D_00201E80
 #undef D_00201E94
 #undef C
 #undef D
 
 /* func_0012B550 */
-#define func_00128210 func_00128210__as_func_0012B550
-int func_00128210__as_func_0012B550();
-#define func_00128460 func_00128460__as_func_0012B550
-int func_00128460__as_func_0012B550();
-#define func_00153B50 func_00153B50__as_func_0012B550
-int func_00153B50__as_func_0012B550();
-#define func_00154B70 func_00154B70__as_func_0012B550
-int func_00154B70__as_func_0012B550();
-#define func_001552A0 func_001552A0__as_func_0012B550
-int func_001552A0__as_func_0012B550();
-#define func_00155370 func_00155370__as_func_0012B550
-int func_00155370__as_func_0012B550();
-#define D_00222AF0 D_00222AF0__as_func_0012B550
-extern s32 D_00222AF0__as_func_0012B550[];
-#define D_00222B20 D_00222B20__as_func_0012B550
-extern s32 D_00222B20__as_func_0012B550[];
 
 void func_0012B550(void) {
     s32 var_16;
@@ -1243,14 +1134,6 @@ void func_0012B550(void) {
     func_00128460(D_00222B20, -1U);
     func_00128210(D_00222B20);
 }
-#undef D_00222AF0
-#undef D_00222B20
-#undef func_00128210
-#undef func_00128460
-#undef func_00153B50
-#undef func_00154B70
-#undef func_001552A0
-#undef func_00155370
 
 /* func_0012B600 */
 #define D_002F1800 D_002F1800__as_func_0012B600
@@ -1326,16 +1209,6 @@ void func_0012B600(void) {
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 #define func_00128A60 func_00128A60__as_func_0012B8E0
 void func_00128A60__as_func_0012B8E0(void *, s32, s32, s32);
-#define func_00128460 func_00128460__as_func_0012B8E0
-void func_00128460__as_func_0012B8E0(void *, s32);
-#define sceVu0CameraMatrix sceVu0CameraMatrix__as_func_0012B8E0
-void sceVu0CameraMatrix__as_func_0012B8E0(Mtx *, void *, Vec *, Vec *);
-#define sceVu0MulMatrix sceVu0MulMatrix__as_func_0012B8E0
-void sceVu0MulMatrix__as_func_0012B8E0(void *, void *, Mtx *);
-#define D_00222A10 D_00222A10__as_func_0012B8E0
-extern u8 D_00222A10__as_func_0012B8E0[];
-#define D_001F2170 D_001F2170__as_func_0012B8E0
-extern Mtx D_001F2170__as_func_0012B8E0;
 #define D_002F1900 D_002F1900__as_func_0012B8E0
 extern s8 D_002F1900__as_func_0012B8E0[];
 #define D_002F1700 D_002F1700__as_func_0012B8E0
@@ -1401,19 +1274,12 @@ s32 func_0012B8E0(s32 arg0) {
     return 0;
 }
 #undef func_00128A60
-#undef func_00128460
-#undef sceVu0CameraMatrix
-#undef sceVu0MulMatrix
-#undef D_00222A10
-#undef D_001F2170
 #undef D_002F1900
 #undef D_002F1700
 
 /* func_0012BC80 */
 #define D_00222A10 D_00222A10__as_func_0012BC80
 extern G D_00222A10__as_func_0012BC80;
-#define D_00222700 D_00222700__as_func_0012BC80
-extern u8 D_00222700__as_func_0012BC80[];
 #define func_00129400 func_00129400__as_func_0012BC80
 void func_00129400__as_func_0012BC80(void *, s32, s32);
 
@@ -1462,25 +1328,10 @@ void func_0012BC80(void) {
 }
 #undef func_00129400
 #undef D_00222A10
-#undef D_00222700
 
 /* func_0012BF40 */
-#define func_00128210 func_00128210__as_func_0012BF40
-int func_00128210__as_func_0012BF40();
-#define func_00128460 func_00128460__as_func_0012BF40
-int func_00128460__as_func_0012BF40();
-#define func_00128A60 func_00128A60__as_func_0012BF40
-int func_00128A60__as_func_0012BF40();
 #define func_0012B350 func_0012B350__as_func_0012BF40
 int func_0012B350__as_func_0012BF40();
-#define func_0012B8E0 func_0012B8E0__as_func_0012BF40
-int func_0012B8E0__as_func_0012BF40();
-#define func_0012BC80 func_0012BC80__as_func_0012BF40
-int func_0012BC80__as_func_0012BF40();
-#define D_00222AF0 D_00222AF0__as_func_0012BF40
-extern s32 D_00222AF0__as_func_0012BF40[];
-#define D_00222B20 D_00222B20__as_func_0012BF40
-extern s32 D_00222B20__as_func_0012BF40[];
 #define D_00222B5C D_00222B5C__as_func_0012BF40
 extern void *D_00222B5C__as_func_0012BF40[];
 
@@ -1506,12 +1357,5 @@ loop_1:
     D_00201E98 = 0;
     goto loop_1;
 }
-#undef D_00222AF0
-#undef D_00222B20
 #undef D_00222B5C
-#undef func_00128210
-#undef func_00128460
-#undef func_00128A60
 #undef func_0012B350
-#undef func_0012B8E0
-#undef func_0012BC80

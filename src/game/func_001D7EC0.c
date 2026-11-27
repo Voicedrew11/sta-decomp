@@ -333,10 +333,6 @@ out:
 INCLUDE_ASM(func_001D8AB0);
 
 /* func_001D8BE0 */
-#define D_004B7C40 D_004B7C40__as_func_001D8BE0
-extern char D_004B7C40__as_func_001D8BE0[];
-#define D_004B7C90 D_004B7C90__as_func_001D8BE0
-extern char D_004B7C90__as_func_001D8BE0[];
 
 void func_001D8BE0(void)
 {
@@ -345,5 +341,3 @@ void func_001D8BE0(void)
     sceSifRegisterRpc(D_004B7C40, 0x102A, func_001D8AB0, D_004B7840, NULL, NULL, D_004B7C90);
     sceSifRpcLoop(D_004B7C90);
 }
-#undef D_004B7C40
-#undef D_004B7C90
