@@ -1,18 +1,18 @@
 # CodeWarrior flags for game units that the retail build did not compile with
 # the default -O4,p. One unit per line: <source path> <flags>.
 # Without ",p" (optimize for speed) branch targets are not padded to 8 bytes.
-src/game/Enemy_GetPartFlagS_0_0013EC80.c -O4
-src/game/MapCmd_GetItemName_0_0017ECD0.c -O4
-src/game/MapObj_Find_1_001B19A0.c -O4
-src/game/Player_PlayLevelUpSe_0_001C9FB0.c -O4
+src/game/enemy/enemy_flag.c -O4
+src/game/script/map_command_item.c -O4
+src/game/map_object/map_object_find.c -O4
+src/game/player/player_level_up.c -O4
 
 # mwccps2 3.0b38: switch range checks use addi (see tools/compile_c.sh)
-src/game/Ui_DrawGauge_0_00182EF0.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/MenuProc_DrawItemList_0_0018B860.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/LoadMenu_DrawSlotInfo_2_00192110.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Hud_IsHidden_0_0019A790.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Inventory_RemoveOne_1_001CBA60.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Player_GetStat_2_001CD450.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Item_GetStatBlock_0_001D1240.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Menu_DrawHelpText_1_001DD700.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Ui_BeginSprites_1_00181420.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/ui_gauge.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/save_menu_slot.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/load_menu.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/hud_draw.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/item/inventory_item.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/player/player_stats.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/item/item_stat_block.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/shop_menu.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ui/ui_draw.c -O4,p mwcc=mwcps2-3.0b38-030307

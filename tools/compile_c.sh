@@ -70,7 +70,7 @@ case "${SRC}" in
         # data-only units (tools/data_to_c.py): small objects stay in .data/.bss
         # (the .sdata and .sbss units: every object stays small data)
         case "${SRC#"${ROOT}"/}" in
-            src/game/data/sdata_*|src/game/data/sbss_*) UNIT_CFLAGS="${UNIT_CFLAGS:--O4,p} -sdatathreshold 32767" ;;
+            src/game/data/sdata.c|src/game/data/sbss.c) UNIT_CFLAGS="${UNIT_CFLAGS:--O4,p} -sdatathreshold 32767" ;;
             src/game/data/*) UNIT_CFLAGS="${UNIT_CFLAGS:--O4,p} -sdatathreshold 0" ;;
         esac
         # a "mwcc=<tools/cc dir>" token picks another CodeWarrior build for the unit

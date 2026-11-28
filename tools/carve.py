@@ -76,14 +76,14 @@ BSS_ROM = 0x101E80
 # .sdata and .sbss are all the game's (the libraries are built with -G 0):
 # each is one unit, the data-only C unit tools/data_to_c.py wrote for it
 # when there is one, else splat's asm.
-SDATA_C = "src/game/data/sdata_00201B80.c"
-SBSS_C = "src/game/data/sbss_00201E80.c"
+SDATA_C = "src/game/data/sdata.c"
+SBSS_C = "src/game/data/sbss.c"
 _sdata = (ROOT / SDATA_C).exists()
 _sbss = (ROOT / SBSS_C).exists()
 FIXED = {
-    ".rodata": ['      - [0x101B80, .sdata, game/data/sdata_00201B80]' if _sdata
+    ".rodata": ['      - [0x101B80, .sdata, game/data/sdata]' if _sdata
                 else '      - [0x101B80, sdata, sdata]',
-                '      - { start: 0x101E80, type: .sbss, vram: 0x00201E80, name: game/data/sbss_00201E80 }'
+                '      - { start: 0x101E80, type: .sbss, vram: 0x00201E80, name: game/data/sbss }'
                 if _sbss else
                 '      - { start: 0x101E80, type: sbss, vram: 0x00201E80, name: sbss }'],
 }
