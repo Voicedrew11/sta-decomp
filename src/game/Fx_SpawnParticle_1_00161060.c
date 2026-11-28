@@ -1,4 +1,5 @@
 #include "common.h"
+#include "m2c.h"
 typedef struct { u128 a, b, c; } Q3;
 typedef struct {
     Vec r[4];
@@ -62,7 +63,7 @@ typedef struct {
     f32 xF4;
     u8 padF8[4];
     f32 xFC;
-} A;
+} A_Fx_SpawnParticle_1_00161060;
 typedef struct {
     Vec x0;
     Vec x10;
@@ -129,6 +130,17 @@ typedef struct {
     u8 pad2F;
 } __attribute__((aligned(16))) E;
 typedef struct { s32 *x0; u8 pad[0x1C]; } G;
+typedef struct { u8 b[0x14]; } Fr;
+typedef struct {
+    u8 pad0[6];
+    u8 n;
+    u8 pad7[3];
+    u16 fl;
+    u8 v[6][0x10];
+    u8 w[5][8];
+    u8 pad94[4];
+    Fr base[1];
+} A_Fx_EvalTrack_1_00162490;
 extern O *D_00201FC0;
 extern E *D_00201FD0;
 extern u16 D_00201FDC;
@@ -136,6 +148,8 @@ extern s32 D_00201F2C;
 extern G D_0042D7E0;
 extern Vec D_001F2160;
 extern Mtx D_001F2170;
+s32 Fx_SpawnParticle_1_00161060(s32 id0, s32 a1, O *par, M *m, A_Fx_SpawnParticle_1_00161060 *a, H *h, V *v);
+void Fx_EvalTrack_1_00162490(s8 *dst, A_Fx_EvalTrack_1_00162490 *a, f32 t);
 void sceVu0CopyVector(void *, void *);
 void sceVu0AddVector(void *, void *, void *);
 void sceVu0ScaleVector(Vec *, Vec *, f32);
@@ -143,7 +157,6 @@ void sceVu0CopyMatrix(void *, void *);
 void sceVu0ApplyMatrix(void *, void *, void *);
 void sceVu0Normalize(Vec *, Vec *);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
-void Fx_EvalTrack_1_00162490(P80 *, F *, f32);
 u16 Rand_Next_3_0015ED20(void);
 void Fx_RandomInSphere_0_00163A10(Vec *, f32, f32);
 void Fx_GetWorldMatrix_1_00163C80(O *, Mtx *);
@@ -154,6 +167,12 @@ s32 Mdl_CreateInstance_0_00174230(G *, s32, s32, s32);
 void FxTable_CallC_0_0014D9A0(u16, O *);
 void Fx_UpdateEmitter_0_00160370(O *, E *, f32);
 void Attack_TriggerSfxEvent_0_001D21E0(O *, s32);
+void Fx_EvalCurveVec_1_001631E0(s8 *, f32, u8 *, Fr *, Fr *, f32, s32);
+void Fx_EvalCurve_1_00163700(s8 *, f32, u8 *, Fr *, Fr *, f32, s32);
+
+/* Fx_SpawnParticle_1_00161060 */
+#define Fx_EvalTrack_1_00162490 Fx_EvalTrack_1_00162490__as_Fx_SpawnParticle_1_00161060
+void Fx_EvalTrack_1_00162490__as_Fx_SpawnParticle_1_00161060(P80 *, F *, f32);
 static inline f32 u2f(u32 x) { return x; }
 static inline f32 radA(f32 x) { return x ? 0.01745f * x : 0.0f; }
 static inline f32 radB(f32 x) { f32 r = 0.0f; if (x == r) { } else { r = 0.01745f * x; return r; } return r; }
@@ -226,7 +245,7 @@ static inline f32 radB(f32 x) { f32 r = 0.0f; if (x == r) { } else { r = 0.01745
     sceVu0AddVector(o, o, RR); \
 }
 
-s32 Fx_SpawnParticle_1_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v) {
+s32 Fx_SpawnParticle_1_00161060(s32 id0, s32 a1, O *par, M *m, A_Fx_SpawnParticle_1_00161060 *a, H *h, V *v) {
     Vec r1;
     Mtx m3B0;
     Vec r2;
@@ -418,4 +437,49 @@ s32 Fx_SpawnParticle_1_00161060(s32 id0, s32 a1, O *par, M *m, A *a, H *h, V *v)
         Attack_TriggerSfxEvent_0_001D21E0(o, 2);
     }
     return 1;
+}
+#undef Fx_EvalTrack_1_00162490
+
+/* Fx_EvalTrack_1_00162490 */
+void Fx_EvalTrack_1_00162490(s8 *dst, A_Fx_EvalTrack_1_00162490 *a, f32 t) {
+    Fr *base;
+    Fr *fr;
+    u16 fl;
+
+    base = a->base;
+    fl = a->fl;
+    fr = &base[a->n];
+    if (fl & 0x1) {
+        Fx_EvalCurveVec_1_001631E0(dst, t, a->v[0], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x2) {
+        Fx_EvalCurveVec_1_001631E0(dst + 0x10, t, a->v[1], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x4) {
+        Fx_EvalCurveVec_1_001631E0(dst + 0x20, t, a->v[2], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x8) {
+        Fx_EvalCurveVec_1_001631E0(dst + 0x30, t, a->v[3], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x10) {
+        Fx_EvalCurveVec_1_001631E0(dst + 0x40, t, a->v[4], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x20) {
+        Fx_EvalCurveVec_1_001631E0(dst + 0x50, t, a->v[5], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x40) {
+        Fx_EvalCurve_1_00163700(dst + 0x60, t, a->w[0], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x80) {
+        Fx_EvalCurve_1_00163700(dst + 0x64, t, a->w[1], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x100) {
+        Fx_EvalCurve_1_00163700(dst + 0x68, t, a->w[2], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x200) {
+        Fx_EvalCurve_1_00163700(dst + 0x6C, t, a->w[3], base, fr, 0.0f, 0);
+    }
+    if (fl & 0x400) {
+        Fx_EvalCurve_1_00163700(dst + 0x70, t, a->w[4], base, fr, 0.0f, 0);
+    }
 }

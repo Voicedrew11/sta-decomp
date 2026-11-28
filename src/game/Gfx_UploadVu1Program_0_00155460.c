@@ -1,4 +1,5 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { u8 b0:6; u8 b6:1; u8 b7:1; } B;
 extern u32 D_002F1940[];
 extern u32 D_002F1944[];
@@ -11,13 +12,30 @@ extern u32 D_002F19A0[];
 extern u32 D_002F19A4[];
 extern u32 D_002F19A8[];
 extern u32 D_002F19AC[];
-extern u32 D_00201F54, D_00201F50, D_00201F4C, D_00201F48, D_00201F44, D_00201F40, D_00201F3C, D_00201F38;
-extern s8 D_4A0[], D_4B0[], D_1B90[], D_2710[], D_2770[], D_3C30[], D_3C70[];
+extern u32 D_00201F54;
+extern u32 D_00201F50;
+extern u32 D_00201F4C;
+extern u32 D_00201F48;
+extern u32 D_00201F44;
+extern u32 D_00201F40;
+extern u32 D_00201F3C;
+extern u32 D_00201F38;
+extern s8 D_4A0[];
+extern s8 D_4B0[];
+extern s8 D_1B90[];
+extern s8 D_2710[];
+extern s8 D_2770[];
+extern s8 D_3C30[];
+extern s8 D_3C70[];
 extern s8 D_001F4B80[];
-B *sceDmaGetChan(s32);
+void Gfx_UploadVu1Program_0_00155460(u32 buf, u32 size);
+void Gfx_Nop_2_001558F0(void);
+B* sceDmaGetChan(s32);
 void sceDmaSend(B *, s8 *);
 void FlushCache(s32);
 void Dma_SprCopy_1_001789E0(u32, u32, s32);
+
+/* Gfx_UploadVu1Program_0_00155460 */
 static inline void chain(u32 *p) {
     s32 i;
     for (i = 0; i < 0xCC0; i++, p += 8) {
@@ -52,7 +70,7 @@ void Gfx_UploadVu1Program_0_00155460(u32 buf, u32 size) {
     sceDmaSend(b, D_001F4B80);
     while (*(volatile u32 *)0x10009000 & 0x100) {
     }
-    D_00201F54 = (u32)(D_4A0 - 0x4A0) >> 3; /* original: a symbol at address 0 (D_0); not in the ELF symbol list, same bytes */
+    D_00201F54 = (u32)(D_4A0 - 0x4A0) >> 3;
     D_00201F50 = (u32)D_4A0 >> 3;
     D_00201F4C = (u32)D_4B0 >> 3;
     D_00201F48 = (u32)D_1B90 >> 3;
@@ -65,4 +83,9 @@ void Gfx_UploadVu1Program_0_00155460(u32 buf, u32 size) {
     FlushCache(0);
     Dma_SprCopy_1_001789E0((D_002F199C[0] - 0x19820) & 0x0FFFFFFF, D_002F199C[0] & 0x0FFFFFFF, 0x1982);
     Dma_SprCopy_1_001789E0((D_002F19A0[0] - 0x19820) & 0x0FFFFFFF, D_002F19A0[0] & 0x0FFFFFFF, 0x1982);
+}
+
+/* Gfx_Nop_2_001558F0 */
+void Gfx_Nop_2_001558F0(void) {
+
 }

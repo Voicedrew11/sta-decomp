@@ -91,7 +91,7 @@ class _Typedefs:
 
 
 TYPEDEF = _Typedefs(False)
-STATIC = re.compile(r"^static\b[^;{=(]*?\b(\w+)\s*[\[(=;]", re.M)
+STATIC = re.compile(r"^(?:static|inline)\b[^;{=(]*?\b(\w+)\s*[\[(=;]", re.M)
 FPTYPEDEF = _Typedefs(True)
 INCLUDE = re.compile(r'^#include\s+["<][^">]+[">][ \t]*\n', re.M)
 
@@ -387,6 +387,9 @@ def merge(paths, bss=None):
         bodies, spellings = [], {}
         for (p, _, body, tds, _), ren in zip(ps, rename):
             tag = Path(p).stem
+            # an already merged part may hold NAME_<tag> from its own merge
+            while any(re.search(rf"\b{n}_{tag}\b", b) for n in ren for _, _, b, _, _ in ps):
+                tag += "_"
             for n in ren:
                 body = re.sub(rf"\b{n}\b", f"{n}_{tag}", body)
             bodies.append(body)

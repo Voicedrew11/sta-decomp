@@ -38,10 +38,17 @@ typedef struct {
     u8 pad49A[6];
     s32 x4A0;
 } Obj;
-#define DATA(h) ((u8 *)((s32)(h) + 0x10) + (((h)->c + 15) & ~15))
+typedef struct { char pad[0x3C]; unsigned int : 4; unsigned int f : 1; } BF_3C_4_1;
 extern s8 D_001FD960[];
 extern s32 D_00202278;
-void *Pool_Alloc_3_001288C0(s32, s32);
+extern s32 *D_00202280;
+void EnemyData_Parse_0_001A7810(Obj **a0, Src **a1);
+void EnemyData_ParseWrap_0_001A7C60(void **arg0, void **arg1, u32 arg2, s8 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7);
+u8** EnemyData_LoadTextures_0_001A7C70(s32 arg0);
+void* Pool_Alloc_3_001288C0(s32, s32);
+
+/* EnemyData_Parse_0_001A7810 */
+#define DATA(h) ((u8 *)((s32)(h) + 0x10) + (((h)->c + 15) & ~15))
 
 void EnemyData_Parse_0_001A7810(Obj **a0, Src **a1) {
     s32 dbc1;
@@ -123,4 +130,35 @@ void EnemyData_Parse_0_001A7810(Obj **a0, Src **a1) {
     }
     o->x78 = (*a1)->x14;
     o->x7C = n;
+}
+
+/* EnemyData_ParseWrap_0_001A7C60 */
+#define EnemyData_Parse_0_001A7810 EnemyData_Parse_0_001A7810__as_EnemyData_ParseWrap_0_001A7C60
+void EnemyData_Parse_0_001A7810__as_EnemyData_ParseWrap_0_001A7C60(void **arg0, void **arg1, u32 arg2, s8 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7);
+
+void EnemyData_ParseWrap_0_001A7C60(void **arg0, void **arg1, u32 arg2, s8 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7)
+{
+    EnemyData_Parse_0_001A7810(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+}
+#undef EnemyData_Parse_0_001A7810
+
+/* EnemyData_LoadTextures_0_001A7C70 */
+u8 **EnemyData_LoadTextures_0_001A7C70(s32 arg0) {
+    u8 *temp_3;
+    u8 **temp_2;
+    s32 **var_16;
+
+    var_16 = (s32 **) (NULL);
+    temp_2 = (u8 **) (Tex_LoadArchive_0_0016F950(D_00202280, (u8 **) arg0));
+    if (temp_2 == NULL) {
+        return NULL;
+    }
+    temp_3 = (u8 *) (*temp_2);
+    if (((BF_3C_4_1 *)temp_3)->f != 0) {
+        var_16 = (s32 **) (M2C_FIELD(temp_3, s32 ***, 0x10));
+    }
+    if (var_16 != NULL) {
+        Tex_RegisterTtix_0_00178080(var_16);
+    }
+    return (u8 **) (temp_2);
 }

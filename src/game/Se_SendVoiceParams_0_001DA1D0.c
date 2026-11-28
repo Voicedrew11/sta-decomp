@@ -46,6 +46,20 @@ extern s32 D_004BA2EC[];
 extern u32 D_004BA2F4[];
 extern Dma D_004BAA60;
 extern s32 D_004BA2F0[];
+extern struct { char pad[0x200]; B_Se_SendVoiceParams_0_001DA1D0 b[8]; C_Se_SendVoiceParams_0_001DA1D0 c[64]; } D_004BA500__as_Se_SendVoiceParams_0_001DA1D0;
+extern struct { char pad[0x280]; C_Se_SendVoiceParams_0_001DA1D0 c[64]; } D_004BA500__as_Se_StopVoice_0_001DA530;
+extern struct { char pad[0x200]; B_Se_SetVoiceParams_0_001DA620 b[8]; C_Se_SetVoiceParams_0_001DA620 c[64]; } D_004BA500__as_Se_SetVoiceParams_0_001DA620;
+extern struct { char pad[0x380]; E_Se_RegisterBank_0_001DA7D0 e[5]; } D_004BA500__as_Se_RegisterBank_0_001DA7D0;
+extern M_Se_RegisterSfx_0_001DA840 D_004BA880__as_Se_RegisterSfx_0_001DA840[];
+extern T_Se_FreeBank_1_001DA920 D_004BA500__as_Se_FreeBank_1_001DA920;
+extern struct { A a[16]; B_Se_BindBank_0_001DA9A0 b[8]; } D_004BA500__as_Se_BindBank_0_001DA9A0;
+extern struct { char pad[0x200]; E_Se_UploadBank_1_001DAA90 e[8]; } D_004BA500__as_Se_UploadBank_1_001DAA90;
+extern E_Se_SetBankSlot_0_001DAC70 D_004BA500__as_Se_SetBankSlot_0_001DAC70[16];
+extern T_Se_UnloadBank_0_001DACB0 D_004BA500__as_Se_UnloadBank_0_001DACB0;
+extern E_Se_SetChannel_0_001DAEF0 D_004BA500__as_Se_SetChannel_0_001DAEF0[16];
+extern Ent D_004BA500__as_Se_TransferBank_0_001DB020[];
+extern s32 D_004BAA28__as_Se_TransferBank_0_001DB020[];
+extern s32 D_00202330;
 void Se_SendVoiceParams_0_001DA1D0(s32 n0, R *r0);
 void Se_CalcVoiceParam_0_001DA340(s32 *x, s32 *y, s32 k, s32 a, s32 lim);
 s32 Se_IsVoiceActive_1_001DA4F0(s32 arg0);
@@ -66,6 +80,7 @@ s32 Se_SetChannel_0_001DAEF0(s32 v, s32 i, s32 c);
 s32 Se_WaitDma_0_001DAF80(void);
 s32 Se_TransferBank_0_001DB020(s32 arg0, s32 arg1, s32 arg2);
 s32 Se_AllocIopHeap_0_001DB410(void);
+s32 Se_PollTransferB_0_001DB4D0(void);
 void memset(void *, s32, s32);
 s32 SndDrv_CallWithData_1_001D8350(s32, s32, s32, s32, s32, void *);
 s16 Se_VolumeCurveA_0_001DBEA0(s32);
@@ -80,7 +95,9 @@ s32 Se_DmaBegin_1_001DB9B0(s32, s32, u32);
 void SndDrv_Call1_1_001D84F0(s32, s32, s32, s32);
 s32 sceSifDmaStat(u32 id);
 u32 sceSifSetDma(void *, s32);
+void Se_QueueCommand_1_001DBDB0__as_Se_SetVoiceParams_0_001DA620(s32, s32, s32, s32, s32, s32, s32);
 
+/* Se_SendVoiceParams_0_001DA1D0_ */
 /* .bss from 0x004BA300, defined from the top down (CodeWarrior writes
    uninitialised objects in reverse order) */
 M_Se_SetPortVolume_0_001DA720 D_004BA900;
@@ -88,11 +105,9 @@ M_Se_SetPortVolume_0_001DA720 D_004BA880[0x4];
 G D_004BA780[0x40];
 s32 D_004BA700[0x20];
 u8 D_004BA500[0x200];
-s16 D_004BA300[0x100];      /* also D_004BA4F8 */
+s16 D_004BA300[0x100];
 
 /* Se_SendVoiceParams_0_001DA1D0 */
-#define D_004BA500 D_004BA500__as_Se_SendVoiceParams_0_001DA1D0
-extern struct { char pad[0x200]; B_Se_SendVoiceParams_0_001DA1D0 b[8]; C_Se_SendVoiceParams_0_001DA1D0 c[64]; } D_004BA500__as_Se_SendVoiceParams_0_001DA1D0;
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 
 void Se_SendVoiceParams_0_001DA1D0(s32 n0, R *r0)
@@ -106,7 +121,7 @@ void Se_SendVoiceParams_0_001DA1D0(s32 n0, R *r0)
     r = r0;
     n = n0;
     if (n0 > 0) {
-        cb = D_004BA500.c - 0xA0;
+        cb = D_004BA500__as_Se_SendVoiceParams_0_001DA1D0.c - 0xA0;
         do {
             cnt = 0;
             memset(D_004BA300, 0, 0x1FC);
@@ -118,7 +133,7 @@ void Se_SendVoiceParams_0_001DA1D0(s32 n0, R *r0)
                     cnt++;
                     p[0] = D_00202320;
                     p[63] = D_00202324;
-                    p[126] = ((u16)c->x0 << 8) | D_004BA500.b[c->x1].xC;
+                    p[126] = ((u16)c->x0 << 8) | D_004BA500__as_Se_SendVoiceParams_0_001DA1D0.b[c->x1].xC;
                     p[189] = r->xC;
                     D_004BA4F8[0] = cnt;
                     p++;
@@ -132,7 +147,6 @@ void Se_SendVoiceParams_0_001DA1D0(s32 n0, R *r0)
         } while (n > 0);
     }
 }
-#undef D_004BA500
 
 /* Se_CalcVoiceParam_0_001DA340 */
 void Se_CalcVoiceParam_0_001DA340(s32 *x, s32 *y, s32 k, s32 a, s32 lim)
@@ -164,13 +178,11 @@ s32 Se_IsVoiceActive_1_001DA4F0(s32 arg0) {
 }
 
 /* Se_StopVoice_0_001DA530 */
-#define D_004BA500 D_004BA500__as_Se_StopVoice_0_001DA530
-extern struct { char pad[0x280]; C_Se_SendVoiceParams_0_001DA1D0 c[64]; } D_004BA500__as_Se_StopVoice_0_001DA530;
 s32 Se_StopVoice_0_001DA530(s32 i) {
     C_Se_SendVoiceParams_0_001DA1D0 *c;
     if (D_004BAA36[0] == 0) return -1;
     if (i < 0 || i >= 64) return -1;
-    c = &D_004BA500.c[i];
+    c = &D_004BA500__as_Se_StopVoice_0_001DA530.c[i];
     if (c->x2 != -1 && !(0 > c->x1) && c->x1 < 8 && c->x0 >= 0) {
         Se_QueueCommand_1_001DBDB0(2, 2, c->x0, D_004BA70C[c->x1].v);
         c->x2 = -1;
@@ -178,13 +190,8 @@ s32 Se_StopVoice_0_001DA530(s32 i) {
     }
     return 0;
 }
-#undef D_004BA500
 
 /* Se_SetVoiceParams_0_001DA620 */
-#define D_004BA500 D_004BA500__as_Se_SetVoiceParams_0_001DA620
-extern struct { char pad[0x200]; B_Se_SetVoiceParams_0_001DA620 b[8]; C_Se_SetVoiceParams_0_001DA620 c[64]; } D_004BA500__as_Se_SetVoiceParams_0_001DA620;
-#define Se_QueueCommand_1_001DBDB0 Se_QueueCommand_1_001DBDB0__as_Se_SetVoiceParams_0_001DA620
-void Se_QueueCommand_1_001DBDB0__as_Se_SetVoiceParams_0_001DA620(s32, s32, s32, s32, s32, s32, s32);
 s32 Se_SetVoiceParams_0_001DA620(s32 i, s32 j, u8 x, u8 y, u8 z) {
     C_Se_SetVoiceParams_0_001DA620 *c;
     B_Se_SetVoiceParams_0_001DA620 *b;
@@ -192,12 +199,12 @@ s32 Se_SetVoiceParams_0_001DA620(s32 i, s32 j, u8 x, u8 y, u8 z) {
         return -1;
     }
     if (!(0 > i) && i < 0x40 && !(0 > j) && j < 8) {
-        c = &D_004BA500.c[i];
-        b = &D_004BA500.b[j];
+        c = &D_004BA500__as_Se_SetVoiceParams_0_001DA620.c[i];
+        b = &D_004BA500__as_Se_SetVoiceParams_0_001DA620.b[j];
         if (b->x0 == 0) {
             return -1;
         }
-        Se_QueueCommand_1_001DBDB0(1, 5, i, j, x, y, (z << 4) | (b->xC & 0xF));
+        Se_QueueCommand_1_001DBDB0__as_Se_SetVoiceParams_0_001DA620(1, 5, i, j, x, y, (z << 4) | (b->xC & 0xF));
         c->a = -1;
         c->b = j;
         c->c = 0;
@@ -206,8 +213,6 @@ s32 Se_SetVoiceParams_0_001DA620(s32 i, s32 j, u8 x, u8 y, u8 z) {
     }
     return i;
 }
-#undef Se_QueueCommand_1_001DBDB0
-#undef D_004BA500
 
 /* Se_SetPortVolume_0_001DA720 */
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
@@ -221,28 +226,23 @@ s32 Se_SetPortVolume_0_001DA720(s32 i)
 }
 
 /* Se_RegisterBank_0_001DA7D0 */
-#define D_004BA500 D_004BA500__as_Se_RegisterBank_0_001DA7D0
-extern struct { char pad[0x380]; E_Se_RegisterBank_0_001DA7D0 e[5]; } D_004BA500__as_Se_RegisterBank_0_001DA7D0;
 
 s32 Se_RegisterBank_0_001DA7D0(s32 i)
 {
     E_Se_RegisterBank_0_001DA7D0 *e;
     if (i < 0 || i > 4)
         return -1;
-    e = &D_004BA500.e[i];
+    e = &D_004BA500__as_Se_RegisterBank_0_001DA7D0.e[i];
     if (e->v == -1)
         return -1;
     e->v = -1;
     FlushCache(0);
     return 0;
 }
-#undef D_004BA500
 
 /* Se_RegisterSfx_0_001DA840 */
-#define D_004BA880 D_004BA880__as_Se_RegisterSfx_0_001DA840
-extern M_Se_RegisterSfx_0_001DA840 D_004BA880__as_Se_RegisterSfx_0_001DA840[];
 s32 Se_RegisterSfx_0_001DA840(s32 a0, s16 a1, s16 a2, s16 a3, s16 t0, s32 t1) {
-    M_Se_RegisterSfx_0_001DA840 *m = D_004BA880;
+    M_Se_RegisterSfx_0_001DA840 *m = D_004BA880__as_Se_RegisterSfx_0_001DA840;
     s32 i;
     s32 r;
     for (i = 0; i < 4; i++, m++) {
@@ -260,7 +260,6 @@ s32 Se_RegisterSfx_0_001DA840(s32 a0, s16 a1, s16 a2, s16 a3, s16 t0, s32 t1) {
     FlushCache(0);
     return r;
 }
-#undef D_004BA880
 
 /* Se_SetPortParam_0_001DA8F0 */
 
@@ -270,10 +269,8 @@ void Se_SetPortParam_0_001DA8F0(s32 i, s16 b)
 }
 
 /* Se_FreeBank_1_001DA920 */
-#define D_004BA500 D_004BA500__as_Se_FreeBank_1_001DA920
-extern T_Se_FreeBank_1_001DA920 D_004BA500__as_Se_FreeBank_1_001DA920;
 s32 Se_FreeBank_1_001DA920(s32 i) {
-    E_Se_FreeBank_1_001DA920 *e = &D_004BA500.e[i];
+    E_Se_FreeBank_1_001DA920 *e = &D_004BA500__as_Se_FreeBank_1_001DA920.e[i];
     if (e->a != 0) {
         if (sceSifFreeSysMemory(e->a) != 0) return -1;
         e->a = 0; e->b = 0;
@@ -283,24 +280,20 @@ s32 Se_FreeBank_1_001DA920(s32 i) {
     FlushCache(0);
     return 0;
 }
-#undef D_004BA500
 
 /* Se_BindBank_0_001DA9A0 */
-#define D_004BA500 D_004BA500__as_Se_BindBank_0_001DA9A0
-extern struct { A a[16]; B_Se_BindBank_0_001DA9A0 b[8]; } D_004BA500__as_Se_BindBank_0_001DA9A0;
 s32 Se_BindBank_0_001DA9A0(s32 j, s32 i) {
     A *a;
     B_Se_BindBank_0_001DA9A0 *b;
     if (i < 0 || i >= 16) return -1;
     if (j < 0 || j >= 8) return -1;
-    a = &D_004BA500.a[i];
+    a = &D_004BA500__as_Se_BindBank_0_001DA9A0.a[i];
     if (a->x14 < 0 || a->x14 >= 8) return -1;
-    b = &D_004BA500.b[j];
+    b = &D_004BA500__as_Se_BindBank_0_001DA9A0.b[j];
     b->x208 = i;
     b->x20C = a->x14;
     return -(SndDrv_CallArgs_2_001D8680(4, 1, 0x20000, b->x20C, b->x200) != 0);
 }
-#undef D_004BA500
 
 /* Se_PollTransfer_0_001DAA50 */
 
@@ -313,15 +306,13 @@ s32 Se_PollTransfer_0_001DAA50(void) {
 }
 
 /* Se_UploadBank_1_001DAA90 */
-#define D_004BA500 D_004BA500__as_Se_UploadBank_1_001DAA90
-extern struct { char pad[0x200]; E_Se_UploadBank_1_001DAA90 e[8]; } D_004BA500__as_Se_UploadBank_1_001DAA90;
 s32 Se_UploadBank_1_001DAA90(s32 i, s32 b, u32 sz) {
     E_Se_UploadBank_1_001DAA90 *e;
     s32 r;
 
     r = -1;
     if (i < 0 || i >= 8) return -1;
-    e = &D_004BA500.e[i];
+    e = &D_004BA500__as_Se_UploadBank_1_001DAA90.e[i];
     switch (D_0020232C) {
     case 0:
         sz = (sz + 15) & ~15;
@@ -343,7 +334,6 @@ s32 Se_UploadBank_1_001DAA90(s32 i, s32 b, u32 sz) {
     FlushCache(0);
     return r;
 }
-#undef D_004BA500
 
 /* Se_FindFreeBank_0_001DAC30 */
 s32 Se_FindFreeBank_0_001DAC30(void) {
@@ -357,8 +347,6 @@ s32 Se_FindFreeBank_0_001DAC30(void) {
 }
 
 /* Se_SetBankSlot_0_001DAC70 */
-#define D_004BA500 D_004BA500__as_Se_SetBankSlot_0_001DAC70
-extern E_Se_SetBankSlot_0_001DAC70 D_004BA500__as_Se_SetBankSlot_0_001DAC70[16];
 
 s32 Se_SetBankSlot_0_001DAC70(s32 i, s32 v)
 {
@@ -366,15 +354,12 @@ s32 Se_SetBankSlot_0_001DAC70(s32 i, s32 v)
 
     if (i < 0 || i >= 16)
         return -1;
-    e = &D_004BA500[i];
+    e = &D_004BA500__as_Se_SetBankSlot_0_001DAC70[i];
     e->v = v;
     return 0;
 }
-#undef D_004BA500
 
 /* Se_UnloadBank_0_001DACB0 */
-#define D_004BA500 D_004BA500__as_Se_UnloadBank_0_001DACB0
-extern T_Se_UnloadBank_0_001DACB0 D_004BA500__as_Se_UnloadBank_0_001DACB0;
 
 s32 Se_UnloadBank_0_001DACB0(s32 arg0) {
     u32 t;
@@ -390,8 +375,8 @@ s32 Se_UnloadBank_0_001DACB0(s32 arg0) {
         if (g->c != -1) {
             k = g->b;
             if (0 > k) {
-            } else if (k < 8 && D_004BA500.f[k].c == arg0) {
-                D_004BA500.g[k][g->a] = -1;
+            } else if (k < 8 && D_004BA500__as_Se_UnloadBank_0_001DACB0.f[k].c == arg0) {
+                D_004BA500__as_Se_UnloadBank_0_001DACB0.g[k][g->a] = -1;
                 g->c = -1;
                 g->b = -1;
                 g->a = -1;
@@ -401,9 +386,9 @@ s32 Se_UnloadBank_0_001DACB0(s32 arg0) {
     }
     n = 8;
     while (n--) {
-        if (D_004BA500.f[n].c == arg0) D_004BA500.f[n].c = -1;
+        if (D_004BA500__as_Se_UnloadBank_0_001DACB0.f[n].c == arg0) D_004BA500__as_Se_UnloadBank_0_001DACB0.f[n].c = -1;
     }
-    e = &D_004BA500.e[arg0];
+    e = &D_004BA500__as_Se_UnloadBank_0_001DACB0.e[arg0];
     SndDrv_Call1_1_001D84F0(4, 1, 0x10300, e->x14);
     SndDrv_CallArgs_2_001D8680(4, 0, 0x10A00, e->x14, 0);
     if (*D_004BAA28 == e->x8 + e->x10) *D_004BAA28 = e->x8;
@@ -418,7 +403,7 @@ s32 Se_UnloadBank_0_001DACB0(s32 arg0) {
         e->x0 = 0;
     }
     *D_004BAA28 = 0x5010;
-    e = D_004BA500.e;
+    e = D_004BA500__as_Se_UnloadBank_0_001DACB0.e;
     i = 0;
     do {
         t = e->x8;
@@ -429,20 +414,16 @@ s32 Se_UnloadBank_0_001DACB0(s32 arg0) {
     FlushCache(0);
     return 0;
 }
-#undef D_004BA500
 
 /* Se_SetChannel_0_001DAEF0 */
-#define D_004BA500 D_004BA500__as_Se_SetChannel_0_001DAEF0
-extern E_Se_SetChannel_0_001DAEF0 D_004BA500__as_Se_SetChannel_0_001DAEF0[16];
 s32 Se_SetChannel_0_001DAEF0(s32 v, s32 i, s32 c) {
     E_Se_SetChannel_0_001DAEF0 *e;
     if (v < 0 || v >= 16) return -1;
     if (i < 0 || i >= 16) return -1;
-    e = &D_004BA500[i];
+    e = &D_004BA500__as_Se_SetChannel_0_001DAEF0[i];
     e->x14 = v;
     return -(SndDrv_CallArgs_2_001D8680(4, 1, 0x10100, e->x14, e->x8, e->x0, c) != 0);
 }
-#undef D_004BA500
 
 /* Se_WaitDma_0_001DAF80 */
 s32 Se_WaitDma_0_001DAF80(void)
@@ -459,10 +440,6 @@ s32 Se_WaitDma_0_001DAF80(void)
 
 /* Se_TransferBank_0_001DB020 */
 /* MATCH: extern s32 D_004BAA28[] (read into u32 y) + `y <= x` compare: sltu $at, x in v0 */
-#define D_004BA500 D_004BA500__as_Se_TransferBank_0_001DB020
-extern Ent D_004BA500__as_Se_TransferBank_0_001DB020[];
-#define D_004BAA28 D_004BAA28__as_Se_TransferBank_0_001DB020
-extern s32 D_004BAA28__as_Se_TransferBank_0_001DB020[];
 
 s32 Se_TransferBank_0_001DB020(s32 arg0, s32 arg1, s32 arg2) {
     u32 n;
@@ -475,16 +452,16 @@ s32 Se_TransferBank_0_001DB020(s32 arg0, s32 arg1, s32 arg2) {
     ret = -1;
     if (D_004BA2EC[0] == 0) return ret;
     if (arg0 < 0 || arg0 >= 0x10) return -1;
-    p = &D_004BA500[arg0];
+    p = &D_004BA500__as_Se_TransferBank_0_001DB020[arg0];
     switch (D_004BA2E0[0]) {
     case 0:
         arg2 = (arg2 + 0xF) & ~0xF;
         D_004BA2E4[0] = arg2;
         p->x10 += arg2;
-        if (p->x8 == 0) p->x8 = D_004BAA28[0];
+        if (p->x8 == 0) p->x8 = D_004BAA28__as_Se_TransferBank_0_001DB020[0];
         x = p->x8;
-        y = *D_004BAA28;
-        if ((u32)y <= x) { *D_004BAA28 = x; *D_004BAA28 += arg2; } else if (y < x + arg2) *D_004BAA28 = x + arg2;
+        y = *D_004BAA28__as_Se_TransferBank_0_001DB020;
+        if ((u32)y <= x) { *D_004BAA28__as_Se_TransferBank_0_001DB020 = x; *D_004BAA28__as_Se_TransferBank_0_001DB020 += arg2; } else if (y < x + arg2) *D_004BAA28__as_Se_TransferBank_0_001DB020 = x + arg2;
         D_004BA2E8[0] = p->x8;
         if (0x1F8800 - p->x8 >= (u32)arg2) {
             D_004BAA60.data = arg1;
@@ -551,8 +528,6 @@ s32 Se_TransferBank_0_001DB020(s32 arg0, s32 arg1, s32 arg2) {
     FlushCache(0);
     return ret;
 }
-#undef D_004BA500
-#undef D_004BAA28
 
 /* Se_AllocIopHeap_0_001DB410 */
 
@@ -576,3 +551,16 @@ loop_3:
     }
     goto loop_3;
 }
+
+/* Se_PollTransferB_0_001DB4D0 */
+#define Se_DmaStep_1_001DB830 Se_DmaStep_1_001DB830__as_Se_PollTransferB_0_001DB4D0
+int Se_DmaStep_1_001DB830__as_Se_PollTransferB_0_001DB4D0();
+
+s32 Se_PollTransferB_0_001DB4D0(void) {
+    if (Se_DmaStep_1_001DB830() != 0) {
+        D_00202330 = 0;
+        return 0;
+    }
+    return 1;
+}
+#undef Se_DmaStep_1_001DB830

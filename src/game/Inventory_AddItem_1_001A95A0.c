@@ -1,13 +1,19 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { u8 pad0[0x60]; s16 ids[16]; u8 pad80[0x140]; } Grp;
 typedef struct { u8 b0, b1, b2, b3, b4, b5, b6, b7; } Slot;
 typedef struct { u8 pad0[0x10E0]; Grp grp[0x2A]; u8 pad5A60[0x1A0]; Slot slot[0x400]; } W;
 typedef struct { u8 pad0[0xA]; u16 type; u8 padC[0x14]; u16 x20; u8 pad22[0x1A]; u8 x3C; u8 pad3D[2]; u8 x3F; u8 pad40[0x50]; } Item;
-Item *Item_GetTable_1_001AFC90(void);
+typedef struct { char b[8]; } E;
+typedef struct { char pad[0x5C00]; E e[0x400]; } S;
+extern W *D_00201DC0;
+void Inventory_AddItem_1_001A95A0(s16 id, u8 n);
+E* Inventory_GetSlot_1_001A97D0(s16 i);
+Item* Item_GetTable_1_001AFC90(void);
 s32 Inventory_GetFlag_0_001CC060(s16);
 s32 ItemType_IsWeapon_0_001D1D50(u16);
-extern W *D_00201DC0;
 
+/* Inventory_AddItem_1_001A95A0 */
 void Inventory_AddItem_1_001A95A0(s16 id, u8 n) {
     Item *base;
     Slot *slot;
@@ -77,3 +83,9 @@ void Inventory_AddItem_1_001A95A0(s16 id, u8 n) {
         break;
     }
 }
+
+/* Inventory_GetSlot_1_001A97D0 */
+#define D_00201DC0 D_00201DC0__as_Inventory_GetSlot_1_001A97D0
+extern S *D_00201DC0__as_Inventory_GetSlot_1_001A97D0;
+E *Inventory_GetSlot_1_001A97D0(s16 i) { if (0 > i || i >= 0x400) return NULL; return &D_00201DC0->e[i]; }
+#undef D_00201DC0

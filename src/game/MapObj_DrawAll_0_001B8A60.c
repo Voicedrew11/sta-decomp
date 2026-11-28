@@ -36,13 +36,15 @@ typedef struct {
     Big *x188;
 } O;
 extern Big D_0030D0E0;
+void MapObj_DrawAll_0_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel);
+s32 MapObj_IsSame_0_001B8F30(void *arg0, void *arg1);
 void Sfx_SetFlag_0_00167640(void *, s32);
-s8 *Mdl_GetFrameData_0_001715B0(s32 **);
+s8* Mdl_GetFrameData_0_001715B0(s32 **);
 void Map_BuildNodeMatrix_0_001B5B30(Mtx *, A *);
 void Player_GetPosB_0_001C9490(Vec *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0CopyMatrix(B *, Mtx *);
-s8 *Map_FindSfxEntry_0_001B7300(O *, s32);
+s8* Map_FindSfxEntry_0_001B7300(O *, s32);
 void Light_CopyColor_0_0015B6B0(Vec *, s8 *);
 void Fog_SetReg_0_0015B1C0(Vec *, s8 *);
 void Fog_ApplyDefault_0_0015B270(void);
@@ -54,6 +56,7 @@ void Mdl_DrawMeshes_1_0016C7E0(s32 *, s32 *, s8 *, Key);
 void Mdl_DrawMeshesB_1_0016CD80(s32 *, s32 *, s8 *, Key);
 void GsPkt_CloseChain_1_001549D0(void);
 
+/* MapObj_DrawAll_0_001B8A60 */
 void MapObj_DrawAll_0_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel) {
     s32 i;
     s32 *hh;
@@ -145,4 +148,12 @@ void MapObj_DrawAll_0_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16
         o->x8A++;
         GsPkt_CloseChain_1_001549D0();
     }
+}
+
+/* MapObj_IsSame_0_001B8F30 */
+s32 MapObj_IsSame_0_001B8F30(void *arg0, void *arg1) {
+    if ((arg0 == NULL) || (arg1 == NULL)) {
+        return 0;
+    }
+    return M2C_FIELD((M2C_FIELD(arg0, s32 *, 0x170) + (M2C_FIELD(arg1, u16 *, 0x18) << 6)), u8 *, 0x13) & 7;
 }

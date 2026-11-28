@@ -1,5 +1,21 @@
 #include "common.h"
 typedef struct { u8 pad[0x14]; s32 x14; u64 b0:1; u64 b1:1; u64 rest:62; } S22C4;
+extern s32 D_001FE8A0[];
+extern S22C4 *D_002022C4;
+extern s32 D_00222B54[];
+extern s32 D_00270F40[];
+extern s32 D_004BC2D0[];
+extern s32 D_004BC2D4[];
+extern s32 D_004BC2D8[];
+extern s32 D_004BC2DC[];
+extern s32 D_004BC2E0[];
+extern u32 D_004BC2E4[];
+extern u32 D_004BC2E8[];
+void MapSe_LoadTask_1_001E19A0(void);
+void MapSe_Flush_0_001E1CC0(void);
+s32 MapSe_GetState_0_001E1D20(void);
+void MapSe_Request_0_001E1D30(s32 arg0, s32 arg1);
+void MapSe_Init_0_001E1D70(void);
 void FlushCache(s32);
 void memcpy(s32, s32 *, s32);
 void Snd_SetStreamId_0_0012C790(s32);
@@ -17,18 +33,10 @@ s32 Arc_FindByHash_2_0015ABD0(s32);
 void Dma_SprCopy_1_001789E0(s32, s32 *, s32);
 void MapSe_BindBank_0_001E1810(s32, s32);
 void sprintf(s8 *, s32 *, s32);
-extern s32 D_001FE8A0[];
-extern S22C4 *D_002022C4;
-extern s32 D_00222B54[];
-extern s32 D_00270F40[];
-extern s32 D_004BC2D0[];
-extern s32 D_004BC2D4[];
-extern s32 D_004BC2D8[];
-extern s32 D_004BC2DC[];
-extern s32 D_004BC2E0[];
-extern u32 D_004BC2E4[];
-extern u32 D_004BC2E8[];
+void Task_Register_0_0014DB10(void (*)());
+void memset(s32 *, s32, s32);
 
+/* MapSe_LoadTask_1_001E19A0 */
 static inline u32 umin(u32 a, u32 b) { return a > b ? b : a; }
 void MapSe_LoadTask_1_001E19A0(void) {
     s8 buf[256];
@@ -108,4 +116,54 @@ void MapSe_LoadTask_1_001E19A0(void) {
             break;
         }
     }
+}
+
+/* MapSe_Flush_0_001E1CC0 */
+void MapSe_Flush_0_001E1CC0(void) {
+    if ((*D_004BC2E0) != 0) {
+        Task_AddWrap_0_0014DAD0((*D_004BC2E0));
+        (*D_004BC2E0) = 0;
+    }
+    (*D_004BC2D8) = 0;
+    (*D_004BC2E0) = 0;
+    (*D_004BC2D4) = -1;
+    (*D_004BC2D0) = -1;
+    (*D_004BC2DC) = 0;
+}
+
+/* MapSe_GetState_0_001E1D20 */
+s32 MapSe_GetState_0_001E1D20(void) {
+    return D_004BC2DC[0];
+}
+
+/* MapSe_Request_0_001E1D30 */
+void MapSe_Request_0_001E1D30(s32 arg0, s32 arg1) {
+    if ((*D_004BC2D4) != arg0) {
+        if ((*D_004BC2D8) != 0) {
+            if (arg1 != 0) {
+                goto block_4;
+            }
+        } else {
+block_4:
+            (*D_004BC2D0) = arg0;
+            (*D_004BC2D8) = arg1;
+        }
+    }
+}
+
+/* MapSe_Init_0_001E1D70 */
+void MapSe_Init_0_001E1D70(void) {
+    if ((*D_004BC2E0) != 0) {
+        Task_AddWrap_0_0014DAD0((*D_004BC2E0));
+        (*D_004BC2E0) = 0;
+    }
+    (*D_004BC2D8) = 0;
+    (*D_004BC2E0) = 0;
+    (*D_004BC2D4) = -1;
+    (*D_004BC2D0) = -1;
+    (*D_004BC2DC) = 0;
+    Task_Register_0_0014DB10(MapSe_LoadTask_1_001E19A0);
+    memset(D_004BC2D0, 0, 0x20);
+    (*D_004BC2D4) = -1;
+    (*D_004BC2D0) = -1;
 }

@@ -1,12 +1,21 @@
 #include "m2c.h"
 extern s32 D_00316A20[];
 extern f32 D_003139E0[];
-/* .bss, from the top down (CodeWarrior writes it in reverse) */
-f32 D_003139B0[0xc];
 extern s32 D_00201C94;
 extern f32 D_00201C8C;
 extern f32 D_00201C90;
-extern f32 powf(f32, f32);
+extern f32 D_003141F0[][2];
+extern f32 D_00315200[][3];
+f32 Noise_Fbm_1_0015F040(f32 x, f32 p, f32 lac, f32 oct);
+void Noise_Init_2_0015F250(void);
+f32 powf(f32, f32);
+void srand(s32);
+s32 rand(void);
+f32 sqrtf(f32);
+
+/* Noise_Fbm_1_0015F040 */
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_003139B0[0xc];
 
 f32 Noise_Fbm_1_0015F040(f32 x, f32 p, f32 lac, f32 oct) {
     f32 freq;
@@ -44,4 +53,39 @@ f32 Noise_Fbm_1_0015F040(f32 x, f32 p, f32 lac, f32 oct) {
     }
     sum *= D_00201C90;
     return sum;
+}
+
+/* Noise_Init_2_0015F250 */
+void Noise_Init_2_0015F250(void) {
+    s32 i, j, k;
+    f32 s;
+    srand(0);
+    for (i = 0; i < 256; i++) {
+        D_00316A20[i] = i;
+        D_003139E0[i] = (f32)((rand() % 512) - 256) / 256.0f;
+        for (j = 0; j < 2; j++)
+            D_003141F0[i][j] = (f32)((rand() % 512) - 256) / 256.0f;
+        s = 1.0f / sqrtf(D_003141F0[i][0] * D_003141F0[i][0] + D_003141F0[i][1] * D_003141F0[i][1]);
+        D_003141F0[i][0] = D_003141F0[i][0] * s;
+        D_003141F0[i][1] = D_003141F0[i][1] * s;
+        for (j = 0; j < 3; j++)
+            D_00315200[i][j] = (f32)((rand() % 512) - 256) / 256.0f;
+        s = 1.0f / sqrtf(D_00315200[i][0] * D_00315200[i][0] + D_00315200[i][1] * D_00315200[i][1] + D_00315200[i][2] * D_00315200[i][2]);
+        D_00315200[i][0] = D_00315200[i][0] * s;
+        D_00315200[i][1] = D_00315200[i][1] * s;
+        D_00315200[i][2] = D_00315200[i][2] * s;
+    }
+    while (--i) {
+        k = D_00316A20[i];
+        D_00316A20[i] = D_00316A20[j = rand() % 256];
+        D_00316A20[j] = k;
+    }
+    for (i = 0; i < 258; i++) {
+        D_00316A20[256 + i] = D_00316A20[i];
+        D_003139E0[256 + i] = D_003139E0[i];
+        for (j = 0; j < 2; j++)
+            D_003141F0[256 + i][1 - j] = D_003141F0[i][1 - j];
+        for (j = 0; j < 3; j++)
+            D_00315200[256 + i][2 - j] = D_00315200[i][2 - j];
+    }
 }

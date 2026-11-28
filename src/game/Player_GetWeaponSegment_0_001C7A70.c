@@ -1,9 +1,16 @@
 #include "actor.h"
 typedef union { u128 q[2]; f32 f[8]; } M;
+typedef struct { u8 pad[0x30]; f32 x30; } O18;
+typedef struct { u8 pad[0x18]; O18 *x18; } S;
+inline s8* get(void);
+s32 Player_GetWeaponSegment_0_001C7A70(M *out);
+f32 Player_ClampPitch_0_001C7CA0(f32 a);
 s32 Equip_GetSlotItem_1_001CCD90(s32);
 void sceVu0CopyVector(f32 *, s8 *);
 void Seg_Init_1_001502A0(f32, M *, f32 *, f32 *);
 f32 fabsf(f32);
+
+/* Player_GetWeaponSegment_0_001C7A70 */
 #define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
 inline s8 *get(void) {
     if (D_002022E4 == NULL) {
@@ -62,4 +69,27 @@ s32 Player_GetWeaponSegment_0_001C7A70(M *out) {
         }
     }
     return 0;
+}
+
+/* Player_ClampPitch_0_001C7CA0 */
+#define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
+
+f32 Player_ClampPitch_0_001C7CA0(f32 a) {
+    S *s;
+    f32 lim;
+    f32 c;
+    if (D_002022E4 == NULL) {
+        s = NULL;
+    } else if (D_002022E4->unk518 == NULL) {
+        s = NULL;
+    } else {
+        s = (S *)((u8 *)D_002022E4->unk518 + 0x180);
+    }
+    if (s) {
+        lim = fabsf(-1.0471976f);
+        c = fabsf(WRAP(s->x18->x30));
+        if (!(c <= lim)) c = lim;
+        a *= 1.0f + c / lim;
+    }
+    return a;
 }

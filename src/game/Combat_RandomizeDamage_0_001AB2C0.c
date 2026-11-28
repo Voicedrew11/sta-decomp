@@ -1,7 +1,12 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { u16 v[6]; f32 xC; } P;
+s32 Combat_RandomizeDamage_0_001AB2C0(P *a0, u16 *a1, s32 a2);
+s32 Combat_SumResist_0_001AB500(u16 *a, u16 *b);
 s32 Player_GetStat_2_001CD450(s32, u8 *, s32, s32);
 s32 rand(void);
+
+/* Combat_RandomizeDamage_0_001AB2C0 */
 static inline f32 u2f(u32 x) { return x; }
 
 s32 Combat_RandomizeDamage_0_001AB2C0(P *a0, u16 *a1, s32 a2) {
@@ -29,4 +34,20 @@ s32 Combat_RandomizeDamage_0_001AB2C0(P *a0, u16 *a1, s32 a2) {
         if (rand() % 100 < b) r *= 1.5f;
     }
     return r;
+}
+
+/* Combat_SumResist_0_001AB500 */
+s32 Combat_SumResist_0_001AB500(u16 *a, u16 *b) {
+    f32 sum = 0.0f;
+    f32 v;
+    s32 i;
+    for (i = 0; i < 3; i++) {
+        v = (f32)a[i] * (200.0f - (f32)b[i + 1]) / 200.0f;
+        if (v > 0.0f) sum += v;
+    }
+    for (i = 3; i < 6; i++) {
+        v = (f32)a[i] * (200.0f - (f32)b[i + 2]) / 200.0f;
+        if (v > 0.0f) sum += v;
+    }
+    return sum;
 }

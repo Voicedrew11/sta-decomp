@@ -1,7 +1,10 @@
 #include "m2c.h"
+#include "common.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s32 x0; u8 b[4]; } Ent;
 typedef struct { s16 x, y; } Pt;
+typedef struct { u8 b[0x60]; } Buf;
+typedef struct { u128 q[4]; } D40;
 extern s32 D_00202060;
 extern s32 D_00202064;
 extern Ent *D_00202068;
@@ -9,13 +12,25 @@ extern s32 D_00201F3C;
 extern Ent D_004880B0[];
 extern s8 D_004870B0[];
 extern Pt D_004884B0[];
+extern D40 D_001F25F0;
+extern u8 D_001FB980[];
+void Font_DrawDebugText_0_00180F80(void);
+void Font_UploadTexture_0_00181240(void);
+void Font_EmitGlyph_0_00181310(s32 x, s32 y, s8 ch, u8 *col, s32 **pp);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_EndAD_3_00154420(void);
-void *GsPkt_Alloc_3_00154A80(s32);
+void* GsPkt_Alloc_3_00154A80(s32);
 void GsPkt_Commit_1_00154A70(void);
 void GsPkt_CloseChain_1_001549D0(void);
-void Font_EmitGlyph_0_00181310(s16, s16, s8, u8 *, u64 **);
+void sceGsSetDefLoadImage(Buf *, s32, s32, s32, s32, s32, s32, s32);
+void FlushCache(s32);
+void sceGsExecLoadImage(Buf *, void *);
+void sceGsSyncPath(s32, s32);
+
+/* Font_DrawDebugText_0_00180F80 */
+#define Font_EmitGlyph_0_00181310 Font_EmitGlyph_0_00181310__as_Font_DrawDebugText_0_00180F80
+void Font_EmitGlyph_0_00181310__as_Font_DrawDebugText_0_00180F80(s16, s16, s8, u8 *, u64 **);
 static inline s32 cl(s32 n) { if (!(n < 0x20)) return 0x20; return n; }
 
 void Font_DrawDebugText_0_00180F80(void) {
@@ -76,4 +91,50 @@ void Font_DrawDebugText_0_00180F80(void) {
     D_00202060 = 0;
     D_004880B0[0].b[2] = 0x80;
     D_004880B0[0].b[3] = 0x80;
+}
+#undef Font_EmitGlyph_0_00181310
+
+/* Font_UploadTexture_0_00181240 */
+void Font_UploadTexture_0_00181240(void) {
+    Buf a;
+    Buf b;
+    D40 d;
+    sceGsSetDefLoadImage(&a, 0x3020, 1, 0x14, 0, 0, 0x80, 0x40);
+    FlushCache(0);
+    sceGsExecLoadImage(&a, D_001FB980);
+    sceGsSyncPath(0, 0);
+    d = D_001F25F0;
+    sceGsSetDefLoadImage(&b, 0x3032, 1, 0, 0, 0, 8, 2);
+    FlushCache(0);
+    sceGsExecLoadImage(&b, &d);
+    sceGsSyncPath(0, 0);
+}
+
+/* Font_EmitGlyph_0_00181310 */
+void Font_EmitGlyph_0_00181310(s32 x, s32 y, s8 ch, u8 *col, s32 **pp) {
+    s32 *p = *pp;
+    s8 k = ch - 0x21;
+    s32 u = (k % 21) * 6 + 1;
+    s32 v = (k / 21) * 8;
+    p[0] = u * 16 + 8;
+    p[1] = v * 16 + 8;
+    p[2] = 0;
+    p[3] = 0;
+    p[4] = (x + 0x6C0) * 16;
+    p[5] = (y + 0x720) * 16;
+    p[6] = 0x10;
+    p[7] = 0;
+    p[8] = (u + 6) * 16 - 8;
+    p[9] = (v + 8) * 16 - 8;
+    p[10] = 0;
+    p[11] = 0;
+    p[12] = col[0];
+    p[13] = col[1];
+    p[14] = col[2];
+    p[15] = col[3];
+    p[16] = (x + 0x6CA) * 16;
+    p[17] = (y + 0x72A) * 16;
+    p[18] = 0x10;
+    p[19] = 0;
+    *pp = p + 20;
 }

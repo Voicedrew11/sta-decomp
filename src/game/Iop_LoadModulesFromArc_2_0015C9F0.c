@@ -1,17 +1,33 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { s32 next; s32 len; s32 f8; s32 dsz; } Ent;
 typedef struct { s8 *src; s8 *dst; s32 len; s32 z; } Req;
-s8 *Arc_FindByHash_2_0015ABD0(s32);
+extern u8 D_001FB770[];
+extern u8 _end[];
+extern s32 D_00201F90;
+void Iop_LoadModulesFromArc_2_0015C9F0(s32 a0);
+void Iop_Reboot_3_0015CB50(void);
+s8* Arc_FindByHash_2_0015ABD0(s32);
 s32 File_GetSectorOrSize_0_0015A300(s8 *);
-s32 *memalign(s32, s32);
+s32* memalign(s32, s32);
 void File_Close_2_0015AB80(s8 *);
 void Arc_LoadFileTo_1_0015A080(s32, s32 *, s32);
-s8 *sceSifAllocIopHeap(s32);
+s8* sceSifAllocIopHeap(s32);
 void sceSifSetDma(Req *, s32);
 void sceSifLoadModuleBuffer(s8 *, s32, s32);
 void sceSifFreeSysMemory(s8 *);
 void free(s32 *);
+void sceSifInitRpc(s32);
+void Cd_Init_2_0015B040(s32, s32);
+s32 sceSifRebootIop(void *);
+s32 sceSifSyncIop(void);
+void sceSifInitIopHeap(void);
+void sceSifLoadFileReset(void);
+void sceFsReset(void);
+s32* malloc(s32);
+void func_00100000(void);
 
+/* Iop_LoadModulesFromArc_2_0015C9F0 */
 void Iop_LoadModulesFromArc_2_0015C9F0(s32 a0) {
     s32 *buf;
     s32 n;
@@ -49,4 +65,29 @@ void Iop_LoadModulesFromArc_2_0015C9F0(s32 a0) {
         break;
     }
     free(buf);
+}
+
+/* Iop_Reboot_3_0015CB50 */
+static inline s32 sub(s32 a, s32 b) { return a - b; }
+static inline s32 top(void) { return (s32)func_00100000 + 0x1000; }
+static inline s32 add(s32 a, s32 b) { return a + b; }
+
+void Iop_Reboot_3_0015CB50(void) {
+    s32 n;
+    s32 *p;
+    sceSifInitRpc(0);
+    Cd_Init_2_0015B040(0x200, 1);
+    while (!(sceSifRebootIop(D_001FB770) != 0) != 0) {}
+    while (!(sceSifSyncIop() != 0) != 0) {}
+    sceSifInitRpc(0);
+    sceSifInitIopHeap();
+    sceSifLoadFileReset();
+    sceFsReset();
+    Cd_Init_2_0015B040(0x200, 1);
+    n = sub(0x2000000, (s32)_end + top() + 0x1000) - 0x10;
+    p = malloc(n);
+    if (p != 0) {
+        free(p);
+    }
+    D_00201F90 = n;
 }

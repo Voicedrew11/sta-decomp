@@ -1,7 +1,7 @@
 # CodeWarrior flags for game units that the retail build did not compile with
 # the default -O4,p. One unit per line: <source path> <flags>.
 # Without ",p" (optimize for speed) branch targets are not padded to 8 bytes.
-src/game/Enemy_GetMotionFrame_0_0013ECA0.c -O4
+src/game/Enemy_GetPartFlagS_0_0013EC80.c -O4
 src/game/MapCmd_GetItemName_0_0017ECD0.c -O4
 src/game/MapObj_Find_1_001B19A0.c -O4
 src/game/Player_PlayLevelUpSe_0_001C9FB0.c -O4
@@ -10,10 +10,9 @@ src/game/Player_PlayLevelUpSe_0_001C9FB0.c -O4
 src/game/Ui_DrawGauge_0_00182EF0.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/MenuProc_DrawItemList_0_0018B860.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/LoadMenu_DrawSlotInfo_2_00192110.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Hud_UpdateShortcuts_0_0019BFF0.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Inventory_Give_0_001CBCD0.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Player_UpdateEquipModel_0_001CE7D0.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/Player_ApplyEquipVisualB_0_001CE4B0.c -O4,p mwcc=mwcps2-3.0b38-030307
-src/game/ItemType_IsWeapon_0_001D1D50.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/Hud_IsHidden_0_0019A790.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/Inventory_RemoveOne_1_001CBA60.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/Player_ApplyEquipVisualA_0_001CE370.c -O4,p mwcc=mwcps2-3.0b38-030307
+src/game/ItemType_GetCategory_0_001D1CB0.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/Menu_DrawHelpText_1_001DD700.c -O4,p mwcc=mwcps2-3.0b38-030307
 src/game/Ui_BeginSprites_1_00181420.c -O4,p mwcc=mwcps2-3.0b38-030307

@@ -1,15 +1,26 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct { s32 pad[4]; s32 f10[7]; s32 pad2[1]; } St;
+typedef struct { char pad[0x14]; unsigned char : 3; unsigned char f : 1; } BF_14_3_1;
+typedef struct { s32 x0; s32 x4; u8 b8; char p9[3]; u8 bC; } Obj;
+extern s32 D_0020226C;
+extern s32 D_00202268;
+extern s32 D_001FD8D0[];
+extern s32 D_00202270;
+s32 Title_CheckSaveData_1_001A4570(void);
+void Title_PlayPrologue_2_001A4890(void *arg0);
+void Title_StartNewGame_0_001A4930(Obj *o);
 void SaveSys_GetSlotCount_0_001E5E80(St *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 SaveSys_StartWrite_0_001E6170(s32, s8 *, s32);
 s32 SaveSys_GetPort_1_001E8290(void);
 s32 SaveSys_SetPort_1_001E82A0(s32);
-s8 *Save_GetSlotInfo_0_00188FF0(s32);
-extern s32 D_0020226C;
-extern s32 D_00202268;
+s8* Save_GetSlotInfo_0_00188FF0(s32);
+s64 Strm_GetParam_0_001303C0(s32);
+void Game_RequestMode12B_0_0012C0C0(void);
 
+/* Title_CheckSaveData_1_001A4570 */
 s32 Title_CheckSaveData_1_001A4570(void) {
     s32 r = 0;
     St st = {0};
@@ -107,4 +118,32 @@ s32 Title_CheckSaveData_1_001A4570(void) {
         break;
     }
     return r;
+}
+
+/* Title_PlayPrologue_2_001A4890 */
+void Title_PlayPrologue_2_001A4890(void *arg0) {
+    s32 temp_4;
+
+    temp_4 = M2C_FIELD(arg0, s32 *, 0);
+    if ((temp_4 == 0x16) && (D_00202270 != 0) && (((s64) (Strm_GetParam_0_001303C0(temp_4) << 0x30) >> 0x30) <= 0) && (Snd_CountActiveVoices_1_0012C1B0() == 0)) {
+        GsPkt_EndLayer_1_00155900();
+        Movie_Play_2_0017FF70((s32) D_001FD8D0);
+        GsPkt_SetLayer_1_00154700(5, 0);
+        ((BF_14_3_1 *)arg0)->f = 1;
+        D_00202270 = 0;
+    }
+}
+
+/* Title_StartNewGame_0_001A4930 */
+void Title_StartNewGame_0_001A4930(Obj *o)
+{
+    o->bC = 0;
+    if (o->x0 == 25)
+        D_00202270 = 1;
+    if (o->x0 == 22 && !D_00202270) {
+        o->b8 = 18;
+        o->x4 = 0;
+        o->x0 = 31;
+        Game_RequestMode12B_0_0012C0C0();
+    }
 }

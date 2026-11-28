@@ -159,6 +159,8 @@ typedef struct {
     u8 pad3A2[2];
     f32 x3A4;
 } P_Player_UpdateSlide_0_001C3EF0;
+typedef struct { f32 f[12]; u32 x30; u32 x34; } Out;
+typedef struct { u8 pad[0x39C]; u32 lo : 14; u32 m : 4; } S;
 extern s32 D_002022EC;
 extern s32 **D_002022BC;
 extern s32 D_00201EB0;
@@ -173,6 +175,20 @@ extern u8 D_00222A54[];
 extern Vec D_003139A0;
 extern Vec D_001F2140;
 extern f32 D_002022E8;
+extern u16 D_00317230[];
+extern u16 D_00317238[];
+extern f32 D_0031723C[];
+extern f32 D_00317240[];
+extern f32 D_00317244[];
+extern f32 D_00317248[];
+extern f32 D_0031724C[];
+extern f32 D_00317250[];
+extern f32 D_00317254[];
+extern f32 D_00317258[];
+extern f32 D_0031726C[];
+extern f32 D_00317270[];
+extern f32 D_00317274[];
+extern f32 D_00317278[];
 void Player_UpdatePickup_0_001C0A10(Actor *a, P_Player_UpdatePickup_0_001C0A10 *p);
 void Player_HandleAction_0_001C0E60(Actor *a, Ev *e);
 inline s8* get(void);
@@ -189,6 +205,7 @@ void Player_UpdateWalk_1_001C2DB0(Actor *a, f32 *in);
 void Player_UpdateTurn_0_001C34F0(s8 *arg0, f32 *a);
 void Player_UpdateFall_0_001C39D0(Actor *a, In_Player_UpdateFall_0_001C39D0 *in, f32 dt);
 void Player_UpdateSlide_0_001C3EF0(Actor *a, In_Player_UpdateFall_0_001C39D0 *in, f32 dt);
+void Player_MapControls_0_001C4760(Actor *a, Out *o);
 void Player_BlendHandMatrix_0_001C0860(Obj3D *, Obj3D *, s32, s32, f32);
 s32 MapState_GetField_0_001A9D50(s32, u16);
 void MapState_SetField_0_001A9E10(s32, u16, u8);
@@ -251,6 +268,13 @@ s32 func_00120570(s32);
 f32 Lerpf_3_0015DF90(f32, f32, f32);
 void Player_PlayLandSe_0_001CA2C0(void);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
+s32 Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190(s32);
+s32 Player_PlayMoveSe_1_001CA4A0__as_Player_UpdateSlide_0_001C3EF0(u32, s32);
+s32 PlayerData_GetStatusTimer_0_001CE200(s32);
+
+/* Player_UpdatePickup_0_001C0A10 */
+#define PlayerData_GetStatusTimer_0_001CE200 PlayerData_GetStatusTimer_0_001CE200__as_Player_UpdatePickup_0_001C0A10
+int PlayerData_GetStatusTimer_0_001CE200__as_Player_UpdatePickup_0_001C0A10();
 
 /* Player_UpdatePickup_0_001C0A10 */
 void Player_UpdatePickup_0_001C0A10(Actor *a, P_Player_UpdatePickup_0_001C0A10 *p) {
@@ -665,8 +689,6 @@ void Player_HandleAttackInput_0_001C1A00(Actor *a0, K *a1) {
 }
 
 /* Player_HandleMagicInput_1_001C2190 */
-#define Inventory_HasItem_0_001CBC20 Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190
-s32 Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190(s32);
 static inline s8 *get_Player_HandleMagicInput_1_001C2190(void) {
     if (D_002022E4 == NULL) {
         return NULL;
@@ -685,14 +707,14 @@ void Player_HandleMagicInput_1_001C2190(Actor *a, Pad *pad) {
     s = (S_Player_HandleMagicInput_1_001C2190 *)(a->unk518 + 0x180);
     mask = (Option_GetControlType_1_001A9450() < 2) ? 4 : 0x800;
     if (s->m39C == 9) {
-        if (Inventory_HasItem_0_001CBC20(0x12) <= 0) {
+        if (Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190(0x12) <= 0) {
             if (s->m3D5 == 3) {
                 Player_StartMagicMotion_0_001C69A0(5);
             }
             return;
         }
     } else {
-        if (Inventory_HasItem_0_001CBC20(0x13) <= 0) {
+        if (Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190(0x13) <= 0) {
             if (s->m3D5 == 3) {
                 Player_StartMagicMotion_0_001C69A0(5);
             }
@@ -737,7 +759,6 @@ void Player_HandleMagicInput_1_001C2190(Actor *a, Pad *pad) {
         }
     }
 }
-#undef Inventory_HasItem_0_001CBC20
 
 /* Player_HandleWeaponSwitch_1_001C23E0 */
 static inline Sub *getsub(void) {
@@ -1164,8 +1185,6 @@ void Player_UpdateFall_0_001C39D0(Actor *a, In_Player_UpdateFall_0_001C39D0 *in,
 }
 
 /* Player_UpdateSlide_0_001C3EF0 */
-#define Player_PlayMoveSe_1_001CA4A0 Player_PlayMoveSe_1_001CA4A0__as_Player_UpdateSlide_0_001C3EF0
-s32 Player_PlayMoveSe_1_001CA4A0__as_Player_UpdateSlide_0_001C3EF0(u32, s32);
 
 void Player_UpdateSlide_0_001C3EF0(Actor *a, In_Player_UpdateFall_0_001C39D0 *in, f32 dt) {
     Vec c;
@@ -1271,11 +1290,121 @@ void Player_UpdateSlide_0_001C3EF0(Actor *a, In_Player_UpdateFall_0_001C39D0 *in
             if (D_002022E8 > 10000.0f) {
                 D_002022E8 -= 10000.0f;
                 if (fabsf(p->v50.y) > 100.0f) {
-                    Player_PlayMoveSe_1_001CA4A0(k, 1);
+                    Player_PlayMoveSe_1_001CA4A0__as_Player_UpdateSlide_0_001C3EF0(k, 1);
                 }
             }
         }
     }
     p->f = 0;
 }
-#undef Player_PlayMoveSe_1_001CA4A0
+#undef PlayerData_GetStatusTimer_0_001CE200
+
+/* Player_MapControls_0_001C4760 */
+void Player_MapControls_0_001C4760(Actor *a, Out *o) {
+    S *s;
+    u8 r;
+    u16 bt;
+
+    u32 m;
+    f32 v;
+
+    s = (S *)(a->unk518 + 0x180);
+    r = Option_GetControlType_1_001A9450();
+#define CL(x) if ((x) > 1.0f) (x) = 1.0f
+#define AX(g, n, p) v = (g)[0]; if (v < 0.0f) (n) = -v; else if (v > 0.0f) (p) = v
+#define BT(a, b, c, d) bt = *(volatile u16 *)D_00317230; if (bt & 0x400) (a) = 1.0f; else if (bt & 0x800) (b) = 1.0f; \
+    bt = *(volatile u16 *)D_00317230; if (bt & 0x100) (c) = 1.0f; else if (bt & 0x200) (d) = 1.0f
+    switch (r % 6) {
+    case 0:
+        o->f[2] = 7.0f * D_00317254[0];
+        o->f[3] = 7.0f * D_00317258[0];
+        CL(o->f[2]);
+        CL(o->f[3]);
+        AX(D_00317248, o->f[2], o->f[3]);
+        o->f[1] = 5.0f * D_00317250[0];
+        o->f[0] = 5.0f * D_0031724C[0];
+        CL(o->f[1]);
+        CL(o->f[0]);
+        AX(D_00317244, o->f[1], o->f[0]);
+        o->f[4] = D_0031726C[0];
+        o->f[5] = D_00317270[0];
+        o->f[6] = D_00317274[0];
+        o->f[7] = D_00317278[0];
+        AX(D_0031723C, o->f[9], o->f[8]);
+        AX(D_00317240, o->f[10], o->f[11]);
+        break;
+    case 1:
+        o->f[2] = 7.0f * D_00317254[0];
+        o->f[3] = 7.0f * D_00317258[0];
+        CL(o->f[2]);
+        CL(o->f[3]);
+        AX(D_00317248, o->f[2], o->f[3]);
+        o->f[1] = 3.0f * D_0031726C[0];
+        o->f[0] = 3.0f * D_00317270[0];
+        CL(o->f[1]);
+        CL(o->f[0]);
+        o->f[4] = 3.0f * D_00317250[0];
+        o->f[5] = 3.0f * D_0031724C[0];
+        CL(o->f[4]);
+        CL(o->f[5]);
+        AX(D_00317244, o->f[4], o->f[5]);
+        o->f[6] = D_00317274[0];
+        o->f[7] = D_00317278[0];
+        AX(D_0031723C, o->f[9], o->f[8]);
+        AX(D_00317240, o->f[10], o->f[11]);
+        break;
+    case 2:
+    case 3:
+        o->f[2] = 7.0f * D_00317254[0];
+        o->f[3] = 7.0f * D_00317258[0];
+        CL(o->f[2]);
+        CL(o->f[3]);
+        AX(D_00317248, o->f[2], o->f[3]);
+        o->f[1] = 5.0f * D_00317250[0];
+        o->f[0] = 5.0f * D_0031724C[0];
+        CL(o->f[1]);
+        CL(o->f[0]);
+        AX(D_00317244, o->f[1], o->f[0]);
+        AX(D_0031723C, o->f[4], o->f[5]);
+        if (r == 2) {
+            AX(D_00317240, o->f[6], o->f[7]);
+        } else {
+            AX(D_00317240, o->f[7], o->f[6]);
+        }
+        BT(o->f[8], o->f[9], o->f[10], o->f[11]);
+        break;
+    case 4:
+    case 5:
+        o->f[2] = 7.0f * D_00317254[0];
+        o->f[3] = 7.0f * D_00317258[0];
+        CL(o->f[2]);
+        CL(o->f[3]);
+        AX(D_00317248, o->f[2], o->f[3]);
+        AX(D_0031723C, o->f[1], o->f[0]);
+        o->f[4] = 3.0f * D_00317250[0];
+        o->f[5] = 3.0f * D_0031724C[0];
+        CL(o->f[4]);
+        CL(o->f[5]);
+        AX(D_00317244, o->f[4], o->f[5]);
+        if (r == 4) {
+            AX(D_00317240, o->f[6], o->f[7]);
+        } else {
+            AX(D_00317240, o->f[7], o->f[6]);
+        }
+        BT(o->f[8], o->f[9], o->f[10], o->f[11]);
+        break;
+    }
+    o->x30 = D_00317238[0];
+    o->x34 = D_00317230[0];
+    if (PlayerData_GetStatusTimer_0_001CE200(1)) {
+        memset(o, 0, 0x30);
+        m = 0x9000;
+        if (s->m == 0) m |= 0x2000;
+        o->x30 &= ~m;
+        o->x34 &= ~m;
+    }
+    if (PlayerData_GetStatusTimer_0_001CE200(5)) {
+        o->x30 &= ~0x8000;
+        o->x34 &= ~0x8000;
+    }
+}

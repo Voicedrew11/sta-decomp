@@ -1,10 +1,32 @@
 #include "m2c.h"
+#include "common.h"
+#include "actor.h"
+#include "obj3d.h"
 typedef struct {
     s8 on; s8 idx; s8 x2; s8 x3;
     s16 x4; s16 x6; s16 x8; s16 xA; s16 xC; s8 xE; s8 xF;
     u8 p10[0x2C]; s16 x3C; s16 x3E;
     u8 p40[0x2D]; s8 x6D; s8 x6E; u8 p6F[0x11];
 } Snd;
+typedef struct { s32 a; s32 b; s32 c8; s32 c; } H;
+typedef struct Ch {
+    s32 x0;
+    s32 x4;
+    u32 type : 8;
+    u32 off : 24;
+    u16 xC;
+    u16 xE;
+    H h;
+} Ch;
+typedef struct { u8 pad[0x94]; Flags8 f94; } R;
+typedef struct {
+    u8 pad[0x390];
+    R *x390;
+    u8 pad394[0x3C0 - 0x394];
+    Obj3D *x3C0;
+    Obj3D *x3C4;
+} S;
+typedef struct { u8 pad0[0x10]; u8 **x10; } Src;
 extern Snd D_0022CBC0[];
 extern s8 D_0022EBC0[];
 extern u8 D_0022EC20[];
@@ -15,8 +37,32 @@ extern u8 D_0022EC14[];
 extern u8 D_0022EC15[];
 extern u8 D_0022EC16[];
 extern s32 D_0022EC3C[];
-/* .bss, from the top down (CodeWarrior writes it in reverse) */
-s32 D_0022EC50[0xfc];
+extern s8 D_001FAB58[];
+extern s32 D_0022F074[];
+extern s32 D_0022F070[];
+extern s32 D_0022EC44[];
+extern s16 D_0022EC48[];
+extern Flags8 D_0022EC43[];
+extern u8 D_00201ED7;
+extern s32 D_0022F050[];
+extern s32 D_0022EC18[];
+extern Flags8 D_0022EC41[];
+extern s8 D_00201ED5;
+extern u8 D_0022EC17[];
+extern s32 D_0022EC10[];
+extern s32 D_002022B8;
+extern s8 D_00201ED6;
+extern Flags8 D_0022EC42[];
+extern s32 D_0022F060[];
+extern u8 **D_00201EBC;
+extern s8 D_00201ED4;
+void Snd_Update_1_0012D650(void);
+void Snd_SetOutputMode_1_0012DA60(s32 arg0);
+void Snd_StopStream3_0_0012DA80(void);
+s32 Snd_BindMapSe_0_0012DA90(void);
+void Snd_StartStream1_0_0012DD10(s32 a0);
+void Snd_StartStream2_0_0012DE00(void);
+s32 Snd_LoadSystemBank_1_0012DEE0(s32 a);
 void Se_ReadStatus_0_001D9F10(void);
 void Se_UpdateStatus_0_001D9FC0(void);
 s32 Bgm_Poll_0_001D95E0(void);
@@ -34,6 +80,15 @@ void Se_SetPortParam_0_001DA8F0(s32, s16);
 s32 Se_SetPortVolume_0_001DA720(s32);
 void SndEmit_Update_1_0012F6F0(void);
 void Se_FlushQueue_0_001D9E30(void);
+void Se_StopGroup_0_001D9EE0(s32);
+void Pool_Free_2_00128580(s32, u8 **);
+void SndCh_StopGroup_1_0012E730(s32);
+void Arc_LoadFile_2_00159DD0(s32, s32, u8 ***, s32 *);
+s32 SndBank_LoadStam_1_0012E6B0(u8 *);
+
+/* Snd_Update_1_0012D650 */
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_0022EC50[0xfc];
 
 void Snd_Update_1_0012D650(void) {
     s32 i;
@@ -126,4 +181,128 @@ void Snd_Update_1_0012D650(void) {
     }
     if (!D_0022EC15[0]) SndEmit_Update_1_0012F6F0();
     Se_FlushQueue_0_001D9E30();
+}
+
+/* Snd_SetOutputMode_1_0012DA60 */
+#define D_0022EC14 D_0022EC14__as_Snd_SetOutputMode_1_0012DA60
+extern s8 D_0022EC14__as_Snd_SetOutputMode_1_0012DA60[];
+
+void Snd_SetOutputMode_1_0012DA60(s32 arg0) {
+    (*D_0022EC14) = (s8) (arg0 % 3);
+}
+#undef D_0022EC14
+
+/* Snd_StopStream3_0_0012DA80 */
+void Snd_StopStream3_0_0012DA80(void) {
+    Snd_StopStream_1_0012F550(3);
+}
+
+/* Snd_BindMapSe_0_0012DA90 */
+#define DATA(h) ((u8 *)((s32)(h) + 0x10) + (((h)->c + 15) & ~15))
+
+s32 Snd_BindMapSe_0_0012DA90(void) {
+    S *s = (S *)(D_002022E4->unk518 + 0x180);
+    Obj3D *o;
+    Src ****p;
+    u8 *base;
+    Ch *c;
+    s32 cnt;
+    s32 i;
+    s32 j;
+    Ch *d;
+    H *h;
+
+    o = s->x390->f94.f.b0 == 0 ? s->x3C0 : s->x3C4;
+    if (o == NULL || (p = (Src ****)o->x84) == NULL || *p == NULL || **p == NULL || ***p == NULL
+        || (***p)->x10 == NULL || (base = *(***p)->x10) == NULL) {
+        return -1;
+    }
+    switch (*(s32 *)base) {
+    case 0x4D415453:
+        c = (Ch *)(base + ((Ch *)base)->off);
+        cnt = ((Ch *)base)->xE;
+        for (i = 0; i < cnt; i++) {
+            if (c->x0 == (D_001FAB58[0] | (D_001FAB58[1] << 8) | (D_001FAB58[2] << 16) | (D_001FAB58[3] << 24))) {
+                d = (Ch *)((u8 *)c + c->off);
+                for (j = 0; j < c->xE; j++) {
+                    switch (d->x0) {
+                    case 0x61444E53:
+                        h = (H *)d;
+                        if (*(s32 *)(DATA(h) + 4) != 0) {
+                            D_0022F074[0] = (u8 *)d - base;
+                        } else {
+                            D_0022F074[0] = 0;
+                        }
+                        break;
+                    }
+                    d = (Ch *)((u8 *)d + d->x4);
+                }
+                break;
+            }
+            c = (Ch *)((u8 *)c + c->x4);
+        }
+        break;
+    }
+    D_00201ED7 = 0;
+    Se_StopGroup_0_001D9EE0(3);
+    if (D_0022EC43[0].f.b1) {
+        D_0022F070[0] = 0;
+        D_0022EC44[0] = 1;
+        D_0022EC43[0].f.b1 = 0;
+    }
+    D_0022EC48[0] = 1;
+    D_0022EC43[0].f.b0 = 1;
+    D_0022EC43[0].f.b2 = 0;
+    return 0;
+}
+
+/* Snd_StartStream1_0_0012DD10 */
+void Snd_StartStream1_0_0012DD10(s32 a0) {
+    D_00201ED5 = 0;
+    Se_StopGroup_0_001D9EE0(1);
+    if (D_0022EC41[0].f.b1) {
+        D_0022F050[0] = 0;
+        D_0022EC44[0] = 1;
+        D_0022EC41[0].f.b1 = 0;
+    }
+    D_0022EC48[0] = 1;
+    D_0022EC41[0].f.b0 = 1;
+    D_0022EC41[0].f.b2 = 0;
+    D_0022EC18[0] = a0 / 10;
+}
+
+/* Snd_StartStream2_0_0012DE00 */
+void Snd_StartStream2_0_0012DE00(void) {
+    if (D_0022EC17[0] == 0 && D_002022B8 == D_0022EC10[0]) {
+        D_00201ED6 = 0;
+        Se_StopGroup_0_001D9EE0(2);
+        if (D_0022EC42[0].f.b1) {
+            D_0022F060[0] = 0;
+            D_0022EC44[0] = 1;
+            D_0022EC42[0].f.b1 = 0;
+        }
+        D_0022EC48[0] = 1;
+        D_0022EC17[0] = 1;
+        D_0022EC42[0].f.b0 = 1;
+        D_0022EC42[0].f.b2 = 0;
+    }
+}
+
+/* Snd_LoadSystemBank_1_0012DEE0 */
+s32 Snd_LoadSystemBank_1_0012DEE0(s32 a) {
+    s32 sz;
+    u8 *p;
+    D_00201ED4 = 1;
+    SndCh_StopGroup_1_0012E730(0);
+    Arc_LoadFile_2_00159DD0(0xE728760E, a, &D_00201EBC, &sz);
+    p = *D_00201EBC;
+    switch (*(s32 *)p) {
+    case 0x4D415453:
+        if (SndBank_LoadStam_1_0012E6B0(p) == -1) {
+            Pool_Free_2_00128580(a, D_00201EBC);
+            return -1;
+        }
+    }
+    Pool_Free_2_00128580(a, D_00201EBC);
+    return 0;
 }

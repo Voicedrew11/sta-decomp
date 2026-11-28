@@ -2,18 +2,42 @@
 typedef struct { s32 x0; u8 pad[0x3B]; u8 b3F; } E;
 typedef struct { u32 n; E *e; } L;
 typedef struct { u8 pad[0x38]; L *l; } R;
-typedef union { u32 w; s8 b[4]; } Col;
+typedef union { u32 w; s8 b[4]; } Col_Ending_DrawText_0_001ED850;
+typedef struct { s32 x0; s32 x4; s8 x8; } T;
+typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col_Ending_Draw_0_001EDAD0;
+typedef struct { s32 idx; u8 pad[0x3B]; u8 a; } Elem;
+typedef struct { u32 n; Elem *e; } List;
+typedef struct { u8 pad[0x3C]; List *list; } Ctx;
+typedef struct { s32 x0; u8 pad[0x10]; Flags8 f14; } A;
+extern f32 D_00202408;
+extern f32 D_0020240C;
+extern s32 D_00202410;
+extern s32 D_001F27B0[];
+extern s32 D_001F27C0[];
+extern f32 D_00202414;
+extern f32 D_00202418;
+extern s32 D_00201A70[];
+extern f32 D_0020241C;
+extern s32 D_00202420;
+void Ending_DrawText_0_001ED850(void);
+void Ending_Update_0_001ED9A0(T *a);
+void Ending_Draw_0_001EDAD0(void);
+void Ending_HandleEvent_0_001EDCC0(A *a);
 void Ui_DrawElemWrap_1_001829A0(E *, s8 *);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
 void Menu_DrawBackground_0_00187B20(s32);
-s8 *MenuLayout_GetSub_1_00189020(s32);
-R *MenuLayout_Get_1_00189050(s32);
+s8* MenuLayout_GetSub_1_00189020(s32);
+R* MenuLayout_Get_1_00189050(s32);
 s32 Msg_GetText_2_00195B10(s32);
 void Ui_BeginSprites_1_00181420(void);
-extern f32 D_00202408;
+void Ui_DrawSpriteRotated_1_00182080(f32, s32, s32 *, s32 *, Col_Ending_Draw_0_001EDAD0 *, s32);
+void Snd_StopAll_1_0012C320(void);
+void Strm_Stop_2_00130440(void);
+s32 Strm_PlayFile_2_00130590(s32 *, s32, s32);
 
+/* Ending_DrawText_0_001ED850 */
 void Ending_DrawText_0_001ED850(void) {
-    Col col;
+    Col_Ending_DrawText_0_001ED850 col;
     u32 i;
     L *l;
     s8 *base;
@@ -30,4 +54,127 @@ void Ending_DrawText_0_001ED850(void) {
     Text_Draw_2_001875C0(Msg_GetText_2_00195B10(0x190), 1, col.w, 320.0f, 120.0f, 1.0f);
     Menu_DrawBackground_0_00187B20(0);
     Ui_BeginSprites_1_00181420();
+}
+
+/* Ending_Update_0_001ED9A0 */
+void Ending_Update_0_001ED9A0(T *a) {
+    if (a->x0 == 0x19) {
+        D_00202408 = 0.0f;
+        D_0020240C = 0.0f;
+        D_00202410 = 0;
+    }
+    if (a->x0 == 0x16) {
+        switch (D_00202410) {
+        case 0:
+            D_00202408 += 4.0f;
+            if (!(D_00202408 <= 128.0f)) {
+                D_00202408 = 128.0f;
+                D_00202410 = 3;
+            }
+            break;
+        case 1:
+            break;
+        case 3:
+            D_0020240C += 1.0f;
+            if (!(D_0020240C <= 450.0f)) {
+                D_00202410 = 4;
+            }
+            break;
+        case 4:
+            D_00202408 -= 4.0f;
+            if (D_00202408 < 0.0f) {
+                D_00202408 = 0.0f;
+                D_00202410 = 5;
+            }
+            break;
+        case 5:
+            a->x8 = 4;
+            a->x4 = 0;
+            a->x0 = 0x1A;
+            break;
+        }
+    }
+}
+
+/* Ending_Draw_0_001EDAD0 */
+#define MenuLayout_Get_1_00189050 MenuLayout_Get_1_00189050__as_Ending_Draw_0_001EDAD0
+Ctx *MenuLayout_Get_1_00189050__as_Ending_Draw_0_001EDAD0(s32);
+#define MenuLayout_GetSub_1_00189020 MenuLayout_GetSub_1_00189020__as_Ending_Draw_0_001EDAD0
+s32 MenuLayout_GetSub_1_00189020__as_Ending_Draw_0_001EDAD0(s32);
+#define Ui_DrawElemWrap_1_001829A0 Ui_DrawElemWrap_1_001829A0__as_Ending_Draw_0_001EDAD0
+void Ui_DrawElemWrap_1_001829A0__as_Ending_Draw_0_001EDAD0(Elem *, s32);
+#define Text_Draw_2_001875C0 Text_Draw_2_001875C0__as_Ending_Draw_0_001EDAD0
+void Text_Draw_2_001875C0__as_Ending_Draw_0_001EDAD0(s32, s32, Col_Ending_Draw_0_001EDAD0, f32, f32, f32);
+
+void Ending_Draw_0_001EDAD0(void) {
+    Col_Ending_Draw_0_001EDAD0 c2;
+    Col_Ending_Draw_0_001EDAD0 c1;
+    u32 i;
+    List *list;
+    s32 base;
+
+    c2.w = 0;
+    c2.c.a = D_00202414;
+    Ui_DrawSpriteRotated_1_00182080(0.0f, 0, D_001F27B0, D_001F27C0, &c2, 0);
+    Ui_BeginSprites_1_00181420();
+    list = MenuLayout_Get_1_00189050(0)->list;
+    base = MenuLayout_GetSub_1_00189020(0);
+    for (i = 0; i < list->n; i++) {
+        list->e[i].a = 1.95f * D_00202418;
+        Ui_DrawElemWrap_1_001829A0(&list->e[i], base + list->e[i].idx * 8);
+    }
+    c1.w = 0x80808080;
+    c1.c.a = D_00202418;
+    Text_Draw_2_001875C0(Msg_GetText_2_00195B10(0x191), 1, c1, 320.0f, 200.0f, 1.1f);
+}
+#undef MenuLayout_Get_1_00189050
+#undef MenuLayout_GetSub_1_00189020
+#undef Ui_DrawElemWrap_1_001829A0
+#undef Text_Draw_2_001875C0
+
+/* Ending_HandleEvent_0_001EDCC0 */
+void Ending_HandleEvent_0_001EDCC0(A *a) {
+    if (a->x0 == 0x19) {
+        D_00202414 = 0.0f;
+        D_00202418 = 0.0f;
+        D_0020241C = 0.0f;
+        D_00202420 = 0;
+        Snd_StopAll_1_0012C320();
+        Strm_PlayFile_2_00130590(D_00201A70, 0, 0);
+    }
+    if (a->x0 == 0x16) {
+        switch (D_00202420) {
+        case 0:
+            D_00202414 += 4.0f;
+            if (D_00202414 > 128.0f) {
+                D_00202414 = 128.0f;
+                D_00202420 = 1;
+            }
+            break;
+        case 1:
+            D_00202418 += 4.0f;
+            if (D_00202418 > 128.0f) {
+                D_00202418 = 128.0f;
+                D_00202420 = 3;
+            }
+            break;
+        case 3:
+            D_0020241C += 1.0f;
+            if (D_0020241C > 450.0f) {
+                D_00202420 = 4;
+            }
+            break;
+        case 4:
+            D_00202418 -= 4.0f;
+            if (D_00202418 < 0.0f) {
+                D_00202418 = 0.0f;
+                D_00202420 = 5;
+            }
+            break;
+        case 5:
+            Strm_Stop_2_00130440();
+            a->f14.f.b1 = 1;
+            break;
+        }
+    }
 }
