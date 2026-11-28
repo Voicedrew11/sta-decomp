@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/item.h"
+#include "game/save.h"
 typedef struct { s8 pad[0xA]; u16 xA; s8 pad2[0x29 - 0xC]; u8 type; u8 cnt; s8 pad3[0x90 - 0x2B]; } A_Inventory_Consume_0_001CBA80;
 typedef struct { u8 x0, x1, hi, lo; } BE;
 typedef struct { s8 pad[0xA0]; BE e[1]; } B_Inventory_Consume_0_001CBA80;
@@ -18,7 +20,6 @@ typedef struct { char pad[0xA0]; E_Inventory_GetFlag_0_001CC060 e[0x400]; } T_In
 typedef struct { u8 pad[0xA]; u16 xA; u8 pad2[0x2B-0xC]; u8 x2B; u8 pad3[0x90-0x2C]; } E_Inventory_CountItem_0_001CC0C0;
 typedef struct { u8 a,b,c,d; } T4;
 void Inventory_RemoveOne_1_001CBA60(s16 x);
-void Inventory_Consume_0_001CBA80(s16 idx, u8 n);
 s32 Inventory_HasItem_0_001CBC20(s16 i);
 void Inventory_Give_0_001CBCD0(s32 a0);
 s32 Inventory_CanCarry_0_001CBE40(s16 i);
@@ -27,13 +28,11 @@ u8 Inventory_GetFlag_0_001CC060(s16 i);
 s32 Inventory_CountItem_0_001CC0C0(s32 arg0, s32 arg1);
 A_Inventory_Consume_0_001CBA80* Item_GetTable_1_001AFC90(void);
 B_Inventory_Consume_0_001CBA80* PlayerData_Get_2_001C9BA0(void);
-void Inventory_Recount_0_001CCE30(void);
 void Player_RecalcStats_1_001CEDC0(s32);
 void Save_SetItemBit_1_001A9B90(s32);
 void memset(void *, s32, s32);
 s32 Inventory_GetSlotCount_0_001AA6D0(s16);
 s32 Inventory_GetSlotFlag_0_001AA6B0(s16);
-s32 Inventory_FindItem_0_001AA650(s16);
 
 /* Inventory_RemoveOne_1_001CBA60 */
 #define Inventory_ChangeCount_1_001CBED0 Inventory_ChangeCount_1_001CBED0__as_Inventory_RemoveOne_1_001CBA60

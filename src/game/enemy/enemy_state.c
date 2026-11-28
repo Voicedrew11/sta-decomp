@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "common.h"
 #include "actor.h"
+#include "game/enemy.h"
 typedef struct { s32 *p; } P;
 typedef struct { char pad[0x4A8]; P *p; char p1[0xF5]; unsigned char : 3; unsigned char f : 1; char p2[0x170]; u16 h; } Obj;
 typedef struct { char pad[0x120]; unsigned int f : 1; } C_Enemy_IsBusy_0_0013EE40;
@@ -73,7 +74,6 @@ void Enemy_BreakPart_0_0013F210(A_Enemy_BreakPart_0_0013F210 *a, u8 idx, s32 fla
 void EnemyScr_Event2017OnDeath_1_00141260(Actor *, s32);
 void Enemy_DropItems_0_001A5990(Actor *);
 void Player_OnEnemyKilled_1_001CB980(void *);
-void Enemy_InitPartState_1_001A8510(Obj_Enemy_InitPart_1_0013F1B0 *o, u8 i);
 void Enemy_ResetPartAnim_1_001A8670(Obj_Enemy_InitPart_1_0013F1B0 *o, u8 i);
 void Enemy_HidePart_1_001A8B10(A_Enemy_BreakPart_0_0013F210 *, u8);
 void Enemy_ScatterPart_0_001A8700(A_Enemy_BreakPart_0_0013F210 *, u8);

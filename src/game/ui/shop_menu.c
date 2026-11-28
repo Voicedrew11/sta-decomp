@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/item.h"
+#include "game/ui.h"
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } C;
 typedef struct { u8 a:3; u8 c:1; u8 d:1; u8 e:3; } BF_Menu_DrawHelpText_1_001DD700;
 typedef struct {
@@ -47,7 +50,6 @@ typedef struct { u8 pad[0x24]; List *list; } Res;
 typedef union { u32 w; s8 b[4]; } Col;
 typedef struct { u8 pad0[0x10]; u8 x10[0x18]; s32 x28; u8 x2C[4]; f32 x30; f32 x34; f32 x38; f32 x3C; } O;
 extern s32 D_00201E50;
-extern f32 D_002020D4;
 extern f32 D_00202360;
 extern s32 D_00202378;
 extern S D_001F3A90[] __attribute__((aligned(16)));
@@ -88,14 +90,9 @@ extern s8 D_001FE7F0__as_ShopProc_DrawCommand_2_001DED50[];
 extern s8 D_001FE7F8__as_ShopProc_DrawCommand_2_001DED50[];
 extern s32 D_00202358;
 void Menu_DrawHelpText_1_001DD700(s32 a0, s32 a1);
-void ShopMenu_DrawRingA_0_001DD7F0(s32 arg, s32 arg1, f32 ang);
 void ShopProc_DrawItemInfo_0_001DDA20(O_ShopProc_DrawItemInfo_0_001DDA20 *o, s32 kind, u32 id, s32 a3);
-void ShopMenu_DrawRingB_0_001DE0D0(s32 arg, f32 ang);
 void ShopProc_DrawItemStats_0_001DE2D0(O_ShopProc_DrawItemStats_0_001DE2D0 *o, s32 a1, u32 mode, s32 id);
-void ShopMenu_DrawRingC_0_001DEB00(s32 arg, s32 arg1, f32 ang);
 void ShopProc_DrawCommand_2_001DED50(O_ShopProc_DrawCommand_2_001DED50 *o, s32 sel, u32 id, u32 n);
-void Menu_DrawItemDesc_1_001DF360(s32 on, s32 id);
-void Menu_ResetDescScroll_0_001DF460(void);
 void Menu_DrawItemFrame_0_001DF470(s32 a0, f32 f);
 void MenuProc_DrawLabel_0_001DF580(O *o, s32 a1, u32 mode, Col a3);
 u32 strlen(void *);
@@ -112,11 +109,8 @@ f32 sqrtf(f32);
 void Ui_DrawList_1_001829B0(void *, s8*, void (*)(void), s32);
 void Ui_DrawSprite_2_00181680(s32, void*, void*, void*, S*, s32);
 void Ui_DrawWindow_0_00183650(void *);
-void Item_GetDurability_0_001848A0(s32);
-s32 Item_GetStatValue_0_00187130(s32, s32);
 void Text_Draw_2_001875C0(s8 *, s32, Col_ShopProc_DrawItemInfo_0_001DDA20, f32, f32, f32);
 u8* Inventory_GetSlot_1_001A97D0(s32);
-s32 Item_GetCategory_0_001AFBD0(s32);
 E_ShopProc_DrawItemInfo_0_001DDA20* Item_GetTable_1_001AFC90(void);
 u8* Inventory_GetEntry_1_001CC3F0(s32);
 s32 sprintf(void *, void *, ...);

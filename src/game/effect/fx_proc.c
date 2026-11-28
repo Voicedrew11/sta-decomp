@@ -1,6 +1,8 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/effect.h"
+#include "game/map_object.h"
 typedef struct { u8 pad[0x10]; Vec v; u8 p2[0x68]; f32 x88; u8 p3[0x1C]; s32 xA8; u8 p4[0xC]; f32 xB8; } O_FxProc_InitChase_0_001493E0;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:5; } Bits_FxProc_InitChase_0_001493E0;
 typedef struct { u16 x0; u8 pad2[2]; u8 x4; u8 x5; u8 x6; Bits_FxProc_InitChase_0_001493E0 x7; u8 pad8[0x74 - 8]; u8 x74[4]; f32 x78; u8 pad7C[0x108-0x7C]; s32 rows[4][5]; } M_FxProc_InitChase_0_001493E0;
@@ -105,7 +107,7 @@ typedef struct {
     Vec x0; u8 pad10[0x40]; Vec x50; f32 x60; f32 x64; f32 x68; u8 pad6C[0x24];
     P_FxProc_InitChase_0_001493E0 *x90; u8 pad94[0x1C]; f32 xB0; u8 padB4[0x60]; Flags8 x114;
 } O_FxProc_UpdateLight_0_0014A8A0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF8;
+typedef Bits8 BF8;
 typedef struct { u8 pad[0x188]; BF8 x188; } P90;
 typedef struct {
     Vec v0;
@@ -203,7 +205,7 @@ typedef struct {
     u8 padC0[0x54];
     BF x114;
 } Obj_FxProc_PullTowardEnemy_0_0014BA10;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits_FxProc_TrackEnemyBone_0_0014BC90;
+typedef Bits8 Bits_FxProc_TrackEnemyBone_0_0014BC90;
 typedef struct {
     Vec pos;
     u8 pad10[0x54];
@@ -217,7 +219,7 @@ typedef struct {
 typedef struct { u8 b0:1; u8 b1:1; } F;
 typedef struct { u8 pad[4]; f32 x4; u8 pad8[0x58]; f32 x60; u8 pad64[0x24]; f32 x88; u8 pad8c[0x28]; f32 xB4; u8 xB0p[4]; f32 xBC; u8 padc0[0x54]; F x114; } O_FxProc_SpawnTimed_0_0014BE70;
 typedef struct { char pad[0x50]; f32 x, y, z; char p5c[0x64]; f32 m[3][4]; f32 v[4]; } Obj_FxProc_SpawnTimed_0_0014BE70;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits_FxProc_SpawnTimed_0_0014BE70;
+typedef Bits8 Bits_FxProc_SpawnTimed_0_0014BE70;
 typedef struct {
     Vec p;
     u8 pad10[0x40];
@@ -263,7 +265,7 @@ typedef struct {
 } Obj_FxProc_SetDone_0_0014C870;
 typedef struct { u8 pad[0x10]; f32 pos[3]; u8 pad1C[0x14]; f32 rot[3]; f32 rz; u8 pad40[0x20]; f32 range[3]; f32 ang; } O_FxProc_RandomJitter_0_0014C890;
 typedef struct { f32 m[4][4]; } M_FxProc_RandomJitter_0_0014C890_;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits_FxProc_RandomJitter_0_0014C890;
+typedef Bits8 Bits_FxProc_RandomJitter_0_0014C890;
 typedef struct { u8 pad[0x188]; Bits_FxProc_RandomJitter_0_0014C890 f188; } S90_FxProc_RandomJitter_0_0014C890;
 typedef struct { u8 pad[0x20]; f32 x20; u8 pad24[4]; f32 x28; u8 pad2C[0x14]; } Info;
 typedef struct {
@@ -420,9 +422,6 @@ void FxTable_GetEntry_0_0014D8A0(S *a0, u16 i);
 s32 FxTable_CallA_0_0014D8E0(u16 i, s32 v);
 s32 FxTable_CallB_0_0014D940(u16 i, s32 v);
 s32 FxTable_CallC_0_0014D9A0(u16 i, s32 v);
-void FxProc_NopA_2_0014DA00(void);
-void FxProc_NopB_2_0014DA10(void);
-void FxProc_NopC_2_0014DA20(void);
 void FxProc_InitAtOrigin_0_0014DA30(Obj_FxProc_NopA_2_0014DA00 *o);
 u32 Enemy_GetCurrentParamIdx_0_0013E110(void *);
 void sceVu0CopyVector(void *, void *);
@@ -438,8 +437,6 @@ s8* Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 void Sfx_SetPosition_1_00167710(s8*, void *);
 s32 Map_LineTest_1_001470F0(void *, void *, s32, s32, s32, void *);
 void memcpy(void *, void *, s32);
-f32 Vec_Distance_3_00146940(void *, void *);
-void MapObj_PlayAnimWrap_0_001B7CC0(s32, s32);
 s32 Enemy_IsBusy_0_0013EE40(s8 *);
 Src* EnemyType_Get_0_001A8360(s32);
 void memset(void *, s32, s32);
@@ -496,7 +493,6 @@ void Vec_GetYawPitchBetween_1_00146310(s8 *, Vec *, s8 *, f32 *, f32 *);
 f32 fabsf(f32);
 f32 atan2f(f32, f32);
 s32 Map_RaycastCapsule_0_00145D10(O_FxProc_SeekNearestEnemy_0_0014AB80_ *, Vec *, s32, s32, Res *);
-s32 Map_RaycastSegment_0_00145A80(O_FxProc_SeekNearestEnemy_0_0014AB80_ *, Vec *, s32, s32, Res *);
 void Proj_SpawnFromSource_0_00146980(s32, Res *, s32);
 void sceVu0AddVector__as_FxProc_SeekNearestEnemy_0_0014AB80_(f32*, f32*, void *);
 void sceVu0RotMatrixY__as_FxProc_SeekNearestEnemy_0_0014AB80_(f32, M_FxProc_AimAlongGround_0_0014AF10 *, M_FxProc_AimAlongGround_0_0014AF10 *);
@@ -547,7 +543,6 @@ void Proj_SpawnAttack_0_00146A70__as_FxProc_SeekNearestEnemy_0_0014AB80____(s32,
 void Sfx_SetPosition_1_00167710__as_FxProc_SeekNearestEnemy_0_0014AB80____(s8 *, Vec *);
 s8* ActorList_Next_2_001A5460__as_FxProc_SeekNearestEnemy_0_0014AB80____(s32 *);
 f32 sceVu0InnerProduct__as_FxProc_SeekNearestEnemy_0_0014AB80____(f32 *, f32 *);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 void Actor_BuildRotMatrix_0_00146600(void *a, f32 (*m)[4]);
 void sceVu0RotMatrixZ(Mtx *, Mtx *, f32);
 s32 Map_LineTest_1_001470F0__as_FxProc_RandomWander_0_0014C160(Vec *, Vec *, s32, s32, s32, O_FxProc_RandomWander_0_0014C160 *);

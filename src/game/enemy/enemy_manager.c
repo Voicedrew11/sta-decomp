@@ -1,9 +1,8 @@
 #include "m2c.h"
+#include "game/core.h"
+#include "game/data.h"
 typedef struct { volatile s32 v; s8 pad[0x24]; } E;
 void Pool_Free_2_00128580(s32, s32);
-void Task_RunWrap_0_0014DAB0(s32);
-extern s32 D_00201DA8;
-extern s32 D_00202278;
 extern E D_004A43B0[];
 extern E D_004A43B4[];
 extern E D_004A43B8[];

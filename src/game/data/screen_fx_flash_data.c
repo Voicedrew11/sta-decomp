@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/script.h"
 
 /* data_001F2040: the game's data at 0x001F2040..., one object per label. */
 #pragma explicit_zero_data on
@@ -10,15 +11,9 @@ extern u8 D_0031723C[];
 extern u8 D_00486900[];
 extern u8 D_00486940[];
 void ScrCmd_GetArg0_2_00164CC0(void);
-void ScrCmd_Nop_2_00164CD0(void);
 void ScrCmd_GetVar_1_00164CE0(void);
 void ScrCmd_SetVar_1_00164DC0(void);
-void ScrCmd_ResetAllSlots_0_00164E80(void);
-void ScrCmd_NopB_2_00164EC0(void);
-void ScrCmd_NopC_2_00164ED0(void);
 void ScrCmd_SendEvent_1_00164EE0(void);
-void ScrCmd_NopD_2_00164EF0(void);
-void ScrCmd_NopE_2_00164F00(void);
 void MapCmd_SetFlag2034_0_0017A640(void);
 void MapCmd_FadeTo_1_0017A650(void);
 void MapCmd_NotifyEnemies_0_0017A790(void);
@@ -26,8 +21,6 @@ void MapCmd_SetMapVar_0_0017A850(void);
 void MapCmd_GetFlagWord_0_0017A890(void);
 void MapCmd_SetFlagBits_0_0017A920(void);
 void MapCmd_GetPlayerStat_0_0017AA40(void);
-void MapCmd_NopA_2_0017ABB0(void);
-void MapCmd_NopB_2_0017ABC0(void);
 void MapCmd_GetLight_0_0017ABD0(void);
 void MapCmd_SetLight_0_0017ADE0(void);
 void MapCmd_GetGlow_0_0017AF20(void);
@@ -42,7 +35,6 @@ void MapCmd_GetValue_0_0017B7A0(void);
 void MapCmd_ShowObject_0_0017B800(void);
 void MapCmd_HideObject_0_0017B8A0(void);
 void MapCmd_SetObjectNode_0_0017B9E0(void);
-void MapCmd_StartStream_0_0017BA30(void);
 void MapCmd_StopSe_1_0017BA40(void);
 void MapCmd_PlaySeAt_1_0017BA50(void);
 void MapCmd_PlaySeOnObject_0_0017BAC0(void);
@@ -118,7 +110,6 @@ void MapCmd_SetSfxParamB_0_0017E940(void);
 void MapCmd_GetSfxParamB_0_0017EAF0(void);
 void MapCmd_GetItemName_0_0017ECD0(void);
 void MapCmd_GetObjectName_0_0017ED20(void);
-void MapCmd_NopC_2_0017EDB0(void);
 
 f32 D_001F2040[0x4] = { 0.0f, 0.0f, 0.0f, 1.0f };
 f32 D_001F2050[0x4] = { 0.0f, 0.0f, 0.0f, 1.0f };

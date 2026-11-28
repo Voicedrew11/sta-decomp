@@ -1,6 +1,7 @@
 #include "actor.h"
 #include "common.h"
 #include "m2c.h"
+#include "game/entity.h"
 typedef struct { u8 pad[8]; u16 id; u8 pad2[2]; f32 f; } Mdl;
 typedef struct {
     u8 pad[0x18];
@@ -66,7 +67,6 @@ void Actor_Translate_1_0013B960(s8 *arg0, f32 *arg1);
 void Combat_ProcessHitWrap_0_0013BA60(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 u8 Actor_IsFlag1Clear_1_0013BA70(s32 arg0, s32 arg1, S *s);
 u8 Actor_CanTarget_0_0013BA90(s8 *a0, Ent *a1);
-void Actor_UpdateAllVisibility_0_0013BB70(void);
 void EnemyScr_Event2012_1_001419C0(Actor *, f32);
 void Enemy_UpdateMotion_1_0013CBC0(Actor *, f32);
 void Mdl_AnimateWrap_0_00171B70(Mdl *, u16, f32);

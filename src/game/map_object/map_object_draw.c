@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/gfx.h"
 typedef union { u32 w; struct { Flags8 a, b, c, d; } f; } Key;
 typedef struct { u128 q[10]; } Big;
 typedef struct { u8 pad0[0x18]; u16 x18; u8 pad1A[6]; u8 x20; s8 x21; s8 x22; u8 pad23; Flags8 f24; u8 pad25[0xB]; } A;
@@ -47,14 +48,12 @@ void sceVu0CopyMatrix(B *, Mtx *);
 s8* Map_FindSfxEntry_0_001B7300(O *, s32);
 void Light_CopyColor_0_0015B6B0(Vec *, s8 *);
 void Fog_SetReg_0_0015B1C0(Vec *, s8 *);
-void Fog_ApplyDefault_0_0015B270(void);
 void sceVu0CopyVector(Vec *, s32 *);
 void Mtx_ScaleRotation_0_0015CC40(void *, f32);
 void memcpy(void *, void *, s32);
 void Mdl_DrawLitWrap_0_0016B960(s8 *, Big *, Vec *, s8 *, s32, s32);
 void Mdl_DrawMeshes_1_0016C7E0(s32 *, s32 *, s8 *, Key);
 void Mdl_DrawMeshesB_1_0016CD80(s32 *, s32 *, s8 *, Key);
-void GsPkt_CloseChain_1_001549D0(void);
 
 /* MapObj_DrawAll_0_001B8A60 */
 void MapObj_DrawAll_0_001B8A60(O *o, s32 (*cb)(s32 **, Key), u32 m1, u32 m0, s16 sel) {

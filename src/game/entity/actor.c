@@ -2,6 +2,10 @@
 #include "common.h"
 #include "actor.h"
 #include "include_asm.h"
+#include "game/effect.h"
+#include "game/input.h"
+#include "game/math.h"
+#include "game/player.h"
 typedef union { u128 q; Vec v; } QV;
 typedef union { u64 d; struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } b; } F;
 typedef struct { Mtx m; Mtx x40; Mtx x80; u8 padC0[0x70]; u8 x130; u8 x131; u8 pad132[6]; F f; } Bone;
@@ -124,7 +128,6 @@ void sceVu0ScaleVector(Vec *, Vec *, f32);
 void sceVu0CopyVector(void *, void *);
 Vec* Player_GetBody_1_00145770(void);
 f32 Enemy_Get5CC_1_0013E440(s8 *);
-void Mtx_LerpScaled_1_0015E730(Vec *, Vec *, Vec *, f32);
 f32 sqrtf(float);
 void sceVu0CopyMatrix(void *, void *);
 void sceVu0MulMatrix(Bone *, void *, Mtx *);
@@ -149,7 +152,6 @@ void Enemy_CopyPosition_2_00140470(Ent_Combat_TraceWeaponHit_0_00138CA0 *, Vec *
 s32 Coll_CylinderVsSegment_0_0014EC00(Seg_Combat_TraceWeaponHit_0_00138CA0 *, Vec *, f32, f32);
 s8* Enemy_GetPart_1_0013DC70(Ent_Combat_TraceWeaponHit_0_00138CA0 *, u8);
 void Coll_SweepCapsules_0_00151900(Res_Combat_TraceWeaponHit_0_00138CA0 *, s8 *, s8 *, s8 *, s8 *, f32);
-s32 Player_IsBusy_0_001C99A0(void);
 void Player_TakeHit_1_001C7DC0(A2 *);
 s32 Player_TakeHitB_1_001C8070(A2 *, s8 *);
 void Enemy_Set5B0b6_1_0013EB70(void *, s32);
@@ -166,7 +168,6 @@ u8 Player_IsHitTarget_0_001C7320(s8 *);
 Actor* ActorList_GetCount_1_001A5430(void);
 s32 Player_GetWeaponSegment_0_001C7A70(Vec *);
 void Actor_ClosestOnSegment_0_001A58A0(f32, f32 *, f32 *, Vec *, Vec *);
-f32 Player_ClampPitch_0_001C7CA0(f32);
 void Actor_TransformRay_0_001A5790(Vec *, Vec *, s8 *, Vec *, Vec *);
 u8 Enemy_Get5B0b6_1_0013EB90(Actor *);
 void Player_InitAttack_0_001C79B0(f32 *);
@@ -178,9 +179,6 @@ s8 Enemy_Get609_1_0013E260(s8 *);
 s8 Enemy_Get60A_1_0013E270(s8 *);
 void Mtx_Compose_2_00173FD0(Vec *, Vec *, Vec *, Vec *);
 Vec* Player_GetPosition_1_00145730(void);
-void Camera_SetParams_0_001C8F30(f32, f32, f32, f32);
-void Vibe_StartB_0_0015FE20(f32, f32, f32, f32, f32);
-void Vibe_StartA_0_0015FD90(f32, f32, f32, f32, f32);
 void memcpy(void *, void *, s32);
 s8* Attack_SpawnSfx_0_001D1F20(s32, s8 *, s32, f32, u8, E *, s32, s32);
 void Sfx_SetOwner_1_00167600(s8 *, s8 *);
@@ -208,7 +206,6 @@ s32 Enemy_Get5B1b7_1_0013E8E0(Actor*);
 void Enemy_RaycastMapC_0_0013D430(s32, Hit_Actor_ResolveGround_0_0013A720 *, Seg_Actor_ResolveGround_0_0013A720 *, s32, u8);
 void Enemy_Set5B2b5_1_0013E760(Actor *, s32);
 f32 Enemy_GetHeightAboveFloor_0_0013E3C0(Actor *);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 s32 Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 void Sfx_SetTransform_1_001677C0(s32, Mtx *);
 

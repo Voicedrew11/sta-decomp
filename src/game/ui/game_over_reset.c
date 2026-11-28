@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { s32 idx; u8 pad[0x3C]; } Elem;
 typedef struct { u32 n; Elem *e; } List;
 typedef struct { u8 pad[0x34]; List *list; } Ctx;
@@ -22,14 +24,9 @@ typedef struct {
     Col_GameOverProc_DrawText_0_0019EA60 x2C;
     f32 x30, x34, x38, x3C;
 } A;
-extern s32 D_00202210;
 extern s32 D_0020221C;
-extern s32 D_00202214;
-extern s32 D_00202218;
 extern S D_001F31E0 __attribute__((aligned(16)));
 extern char D_001FD660[];
-extern s32 D_0020220C;
-extern f32 D_002020D4;
 void GameOver_Reset_0_0019E8A0(void);
 void GameOver_DrawFrame_0_0019E8B0(Arg *arg0);
 void GameOverProc_DrawText_0_0019EA60(A *o, s32 mode, u32 kind, u32 c);
@@ -37,7 +34,6 @@ Ctx* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(Elem *, s32, void (*)(), s32);
 void Menu_DrawBackground_0_00187B20(s32);
-void Ui_BeginSprites_1_00181420(void);
 void Ui_DrawSprite_2_00181680(s32, f32 *, f32 *, Col_GameOverProc_DrawText_0_0019EA60 *, S *, s32);
 void Text_Draw_2_001875C0(f32, char *, f32, f32, u32, u32);
 char* Msg_GetText_2_00195B10(s32);

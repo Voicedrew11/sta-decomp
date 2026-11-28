@@ -1,11 +1,8 @@
 #include "common.h"
-extern s32 D_00201F20;
+#include "game/core.h"
+#include "game/data.h"
 extern s32 D_002F0F40[];
-void Task_InitWrap_0_0014DAA0(void);
-void Task_RunWrap_0_0014DAB0(s32 arg0);
 void Task_FlushWrap_0_0014DAC0(void);
-void Task_AddWrap_0_0014DAD0(s32 arg0);
-void Task_RemoveWrap_0_0014DAE0(s32 arg0);
 void Task_KillWrap_0_0014DAF0(s32 arg0);
 void Task_SetPriorityWrap_0_0014DB00(s32 arg0, s16 arg1, s32 arg2);
 void Task_Register_0_0014DB10(s32 arg0);

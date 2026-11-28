@@ -1,14 +1,9 @@
 #include "common.h"
+#include "game/sound.h"
 extern u16 D_0020230C;
 void Strm_DrvGetStatus_1_001D8C50(void);
-void Strm_DrvSetParamA_0_001D8C60(s32 arg0);
-void Strm_DrvStop_0_001D8C80(s32 arg0);
-void Strm_DrvSetVolume_1_001D8CA0(s32 a, u16 b, u16 c);
 void Strm_DrvSetMode_1_001D8CC0(u16 d, u16 e);
-s32 Strm_DrvOpen_0_001D8CE0(s32 x, s32 y, s32 z);
 s32 Strm_DrvOpenFile_1_001D8D20(s32 a0, const char *s, s32 a2);
-void Strm_DrvClose_1_001D8DF0(void);
-void Strm_DrvInit_0_001D8E30(void);
 void SndDrv_CallArgs_2_001D8680(s32 a, s32 b, s32 c, ...);
 s32 strlen(const char *);
 s32 SndDrv_CallWithData_1_001D8350(s32, s32, s32, s32, s32, const char *);

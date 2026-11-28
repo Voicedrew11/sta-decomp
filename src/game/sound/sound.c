@@ -1,6 +1,9 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s8 b0; char p1[0xD]; s8 bE; s8 bF; char rest[0x70]; } E_SndCh_StopAllUnlooped_1_0012C210;
 typedef struct { s8 b0; char p1[2]; s8 b3; char p4[0xA]; s8 bE; s8 bF; char p10[0x5E]; s8 b6E; char rest[0x11]; } E_SndCh_ResumePaused_1_0012C260;
 typedef struct { s8 b0; char p1[0xD]; s8 bE; s8 bF; char p10[0x5D]; s8 b6D; char rest[0x12]; } E_SndCh_PauseAll_1_0012C2C0;
@@ -18,78 +21,37 @@ typedef struct {
 extern E_SndCh_StopAllUnlooped_1_0012C210 D_0022CBC0[];
 extern E_SndCh_ResumePaused_1_0012C260 D_0022CBC0__as_SndCh_ResumePaused_1_0012C260[63];
 extern E_SndCh_PauseAll_1_0012C2C0 D_0022CBC0__as_SndCh_PauseAll_1_0012C2C0[63];
-extern u8 D_0022EC20[];
 extern u8 D_00201ED4[4];
 extern s8 D_0022EC17[];
 extern E D_0022CBC0__as_Snd_StopAll_1_0012C320[63];
 extern Snd D_0022CBC0__as_SndCh_OffsetPositions_1_0012C440[];
-extern s8 D_00201ED5;
 extern u32 D_002022B8;
 extern s32 *D_002022BC;
-extern s32 D_00222B54[];
-extern s32 D_0022EC18[];
-extern s32 D_0022EC1C[];
 extern u8 D_0022EC41[];
 extern u8 D_0022EC42[];
 extern s32 D_0022F054[];
 extern s8 D_0022EC15[];
 extern s8 D_0022EBDA[];
-extern u8 D_0022EBD9[];
-extern s32 D_0022EC10[];
 extern s32 D_0022F064[];
 extern Flags8 D_0022EC40[];
-extern Flags8 D_0022EC43[];
-extern s32 D_0022EC44[];
-extern s16 D_0022EC48[];
 extern s16 D_0022EC4A[];
-extern s32 D_0022F074[];
-extern s32 D_0022F084[];
 extern s8 D_0022EBC9[];
 extern s8 D_0022EBCB[];
-extern s8 D_00201ED6;
 extern s8 D_00201ED7;
 extern u8 D_0022EC15__as_Snd_SetAllPortVolume_0_0012C6C0[];
 extern Flags8 D_0022EC41__as_Snd_UpdateBgm_0_0012C7C0[];
 extern Flags8 D_0022EC42__as_Snd_UpdateBgm_0_0012C7C0[];
-void Snd_LoadBankWrap_1_0012C1A0(s32 arg0);
-s32 Snd_CountActiveVoices_1_0012C1B0(void);
-void SndCh_StopAllUnlooped_1_0012C210(void);
-void SndCh_ResumePaused_1_0012C260(void);
-void SndCh_PauseAll_1_0012C2C0(void);
-void Snd_StopAll_1_0012C320(void);
 void Snd_Shutdown_1_0012C380(void);
 u8 Snd_GetStreamFlag_0_0012C400(u32 i);
-void Snd_SetMuteFlag_0_0012C430(void);
-void SndCh_OffsetPositions_1_0012C440(f32 *a);
-s32 Snd_UpdateStreams_0_0012C4D0(void);
-void Snd_SetFlagEC15_0_0012C6B0(void);
-void Snd_SetAllPortVolume_0_0012C6C0(s32 v);
-void Snd_SetSeVolume_1_0012C720(s32 arg0);
-void Snd_SetBgmVolume_1_0012C730(s32 arg0);
-void Snd_SetStreamId_0_0012C790(s32 arg0);
 void Snd_SetStreamParamF064_0_0012C7A0(s32 arg0);
 void Snd_SetStreamParamF054_0_0012C7B0(s32 arg0);
-s32 Snd_UpdateBgm_0_0012C7C0(void);
-s32 Se_IsVoiceActive_1_001DA4F0(s32 i);
-void Snd_RequestStopAll_1_001313A0(void);
-void SndEmit_StopAllB_1_0012F880(void);
 void sceVu0AddVector(f32 *, f32 *, f32 *);
-void MapSe_Request_0_001E1D30(u32, s32);
 void SndBank_UploadIndexed_0_0012E810(s32, s32);
-void Snd_StopStream_1_0012F550(s32);
 void Snd_LoadBank_1_0012E3C0(s32);
 void SndEmit_SpawnFromMap_0_0012F9D0(s32);
-void Se_SetPortParam_0_001DA8F0(s32 i, s16 v);
-s32 Se_PollTransferB_0_001DB4D0(void);
-s32 Se_WaitDma_0_001DAF80(void);
-s32 Se_PollTransfer_0_001DAA50(void);
-void SndCh_StopGroup_1_0012E730(s32);
 s32 SndBank_RegisterSet_0_0012E640(s32, s32);
 s32 SndBank_LoadStep_1_0012ED60(s32, s32);
 s32 SndBank_TransferStep_0_0012EA00(s32, s32);
-u8 Option_GetBgmVolume_1_001A9470(void);
-s32 MapSe_GetState_0_001E1D20(void);
-s32 Bgm_Stop_0_001D9710(void);
 s32 Bgm_DrvGetStatus_0_001D8FA0(void);
 void Snd_SetMasterVolume_1_001313C0(u8);
 

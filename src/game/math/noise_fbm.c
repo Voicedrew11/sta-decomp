@@ -1,12 +1,11 @@
 #include "m2c.h"
-extern s32 D_00316A20[];
-extern f32 D_003139E0[];
+#include "game/data.h"
+#include "game/math.h"
 extern s32 D_00201C94;
 extern f32 D_00201C8C;
 extern f32 D_00201C90;
 extern f32 D_003141F0[][2];
 extern f32 D_00315200[][3];
-f32 Noise_Fbm_1_0015F040(f32 x, f32 p, f32 lac, f32 oct);
 void Noise_Init_2_0015F250(void);
 f32 powf(f32, f32);
 void srand(s32);

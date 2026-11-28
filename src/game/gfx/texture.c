@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "common.h"
 #include "include_asm.h"
+#include "game/gfx.h"
 typedef struct {
     u64 TBP0:14; u64 TBW:6; u64 PSM:6; u64 TW:4; u64 TH:4; u64 TCC:1; u64 TFX:2;
     u64 CBP:14; u64 CPSM:4; u64 CSM:1; u64 CSA:5; u64 CLD:3;
@@ -105,23 +106,15 @@ void Tex_UploadQueued_1_00176350(void);
 void Tex_FlushLayer_0_00176440(u32 a);
 void Tex_SetTex0_1_00176550(s8 *arg0, s32 arg1, s8 *arg2);
 void Tex_CalcVramSize_0_00176710(Tex0 t0, Tex1_Tex_CalcVramSize_0_00176710 t1);
-void Vram_Reset_0_001769C0(void);
 void Tex_UploadQueuedWrap_0_00176A40(s32 arg0, s32 arg1);
-void Tex_BeginFrame_0_00176A60(void);
 void Tex_FlushAll_1_00176AE0(void);
 void Tex_Bind_1_00176B10(Obj *o);
-void Tex_BindFlush_1_00176BC0(s32 arg0);
 u16 Vram_AllocForTex_0_00176BF0(Owner_Vram_AllocForTex_0_00176BF0 *arg0, u16 arg1);
 void Vram_FreeBlock_0_00177380(s16 i);
 s16 Tex_Release_1_00177570(E30 *p);
-void GsPkt_BeginADDirect_1_001542D0(void);
 void GsPkt_AddRegData_1_001541F0(s32, Bbuf);
-void GsPkt_EndADDirect_1_00154230(void);
 u128* GsPkt_AllocDirect_1_001543A0(s32);
-void GsPkt_Nop_2_00154390(void);
 void GsPkt_PushTag_1_00154310(s32);
-void GsPkt_CloseChain_1_001549D0(void);
-u32 GsPkt_GetLayerCount_0_00155A90(void);
 u128* GsPkt_Alloc_3_00154A80(s32);
 s32 Vram_AllocBlock_1_00176FB0(s32);
 void FlushCache(s32);

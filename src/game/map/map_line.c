@@ -1,6 +1,6 @@
 #include "common.h"
+#include "game/effect.h"
 s32 Map_RaycastCapsule_0_00145D10(Vec *, Vec *, s32, s32, Vec *);
-s32 Map_RaycastSegment_0_00145A80(Vec *, Vec *, s32, s32, Vec *);
 void sceVu0SubVector(Vec *, Vec *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);

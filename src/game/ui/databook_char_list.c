@@ -1,11 +1,11 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef union { u32 w; u8 b[4]; } Col;
 extern char D_001FD358[];
 extern s32 *D_00201D3C;
 extern f32 D_00201D40;
-extern s32 D_004A1430[];
-extern f32 D_004A1440[];
 char* DbChar_GetListName_1_00196C50(s32 i);
 void DbCharProc_Pos_0_00196CB0(s32 arg0, void *arg1, void *arg2);
 void DbChar_CalcStatBars_0_00196D10(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4);
@@ -18,8 +18,6 @@ f32 Approachf_3_00187770(f32, f32, f32);
 s32 DbItem_FindA_1_0019D4A0(s32);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
-void DbItem_DrawRing_0_00197130(s32, f32);
-void DbItem_DrawStats_0_00196F90(f32);
 
 /* DbChar_GetListName_1_00196C50 */
 /* DbChar_GetListName_1_00196C50 */

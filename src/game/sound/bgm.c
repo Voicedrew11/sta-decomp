@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct { u8 pad[0xC]; u32 n; u8 pad1[4]; u8 v; s8 pan; u8 pad2[0xA]; s32 off[1]; } Tbl_Bgm_Play_0_001D8FC0;
 typedef struct { u32 n; u8 pad[4]; u8 v; s8 pan; u8 pad2[6]; s32 off[1]; } Ent_Bgm_Play_0_001D8FC0;
 typedef struct { s32 off; u8 v; s8 pan; u8 pad[2]; s32 len; } Rec_Bgm_Play_0_001D8FC0;
@@ -22,17 +24,12 @@ typedef struct { u32 data, addr, size, mode; } Dma;
 extern u8 D_004B9FAC[];
 extern struct { u16 a; u16 b; char pad[12]; } D_004B9FA8;
 extern S_Bgm_Update_0_001D9680 D_004B9FA0;
-extern s32 D_00202310;
 extern E D_004B9F20[4];
-extern s32 D_00202314;
-extern s32 D_00202318;
 extern s32 D_004B9F24[];
 extern s32 D_004B9F44[];
 extern s32 D_004B9F64[];
 extern s32 D_004B9F84[];
 extern s16 D_004B9FAA[];
-extern s32 D_004B9FB0[];
-extern s32 D_004B9FB4[];
 extern s32 D_004B9FA4[];
 extern Dma D_004B9FC0;
 extern s32 D_0020231C;
@@ -40,15 +37,7 @@ void Bgm_DrvGetStatus_0_001D8FA0(void);
 u8 Bgm_GetState_0_001D8FB0(void);
 s32 Bgm_Play_0_001D8FC0(s32 a0, s32 a1, s32 a2, s32 a3, u32 i, u32 j, Out *out);
 s32 Bgm_FindTrack_0_001D9470(Hdr_Bgm_FindTrack_0_001D9470 *a, s32 base, s32 end, u32 i, u32 j, u32 k, s32 *out);
-s32 Bgm_Poll_0_001D95E0(void);
-void Bgm_SetVolume_1_001D9650(u16 a, u16 b);
-s32 Bgm_Update_0_001D9680(void);
-s32 Bgm_Stop_0_001D9710(void);
-s32 Bgm_Resume_0_001D97A0(void);
-s32 Bgm_ApplyVolume_0_001D9820(u16 a, u16 b);
 s32 Bgm_SetTrackParam_0_001D98D0(s32 i, s32 p1, s32 p2, s32 p3, u16 p4, u16 p5);
-void Bgm_UpdateWrap_0_001D9990(void);
-s32 Bgm_Init_0_001D99A0(void);
 void Bgm_Tick_0_001D9A80(void);
 s32 Bgm_DmaChunk_0_001D9BC0(u8 *src, u32 n, u32 dst, s32 idx);
 s32* Bgm_RpcCallback_0_001D9DC0(u32 cmd, s32 *p, s32 unused, s32 *size);

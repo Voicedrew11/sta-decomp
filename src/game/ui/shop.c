@@ -1,5 +1,7 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { u8 pad[0xA]; u16 xA; u8 padC[0x31]; u8 x3D; u8 pad3E[0x52]; } E_Shop_SelectItem_0_001A03C0;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 x9; u8 xA; u8 xB; u8 xC; u8 xD; u8 xE; } Ev;
 typedef struct { u8 p:2; u8 v:1; u8 b3:1; u8 b4:1; } B;
@@ -20,10 +22,8 @@ extern s32 D_004A32E8[];
 extern void *D_004A32EC[];
 extern s32 D_004A32F0[];
 extern s32 D_004A3318[];
-extern s32 D_004A331C[];
 extern s32 D_004A3328[];
 extern B D_004A332C[];
-extern s16 D_004A3312[];
 extern void (*D_004A32EC__as_Shop_Confirm_0_001A06B0[])();
 extern F D_004A332C__as_Shop_Confirm_0_001A06B0[];
 extern void (*D_004A32EC__as_Shop_BuyQuantity_0_001A0850[])();
@@ -52,14 +52,8 @@ R* PlayerData_Get_2_001C9BA0(void);
 void MenuProc_Run_1_0018B320(s32 *);
 void MenuProc_Set_1_0018B150(s32 *, s32, s32, void *, s32, f32);
 void Snd_PlaySe_3_00131600(s32, u8);
-void Notify_DrawItemGet_0_0019F050(void);
-void Notify_DrawItemName_0_0019F310();
-void Notify_DrawItemCount_0_0019F410();
 K_Shop_BuyQuantity_0_001A0850* Inventory_GetSlot_1_001A97D0(s16);
-void Notify_DrawItemCountB_0_0019F690();
-void Notify_DrawGold_0_0019F890();
 s16 PlayerData_GetGold_0_001CBA30(void);
-void Notify_DrawItemGold_0_0019FA00();
 s16* PlayerData_Get_2_001C9BA0__as_Shop_Confirm_0_001A06B0(void);
 void Snd_PlaySe_3_00131600__as_Shop_Confirm_0_001A06B0(s32, s32);
 void MenuProc_Set_1_0018B150__as_Shop_BuyQuantity_0_001A0850(f32, s32 *, s32, s32, void (*)(), s32);

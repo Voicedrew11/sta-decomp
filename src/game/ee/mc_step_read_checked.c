@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/ee.h"
 
 typedef struct {
     s32 type[2][4];
@@ -14,11 +15,7 @@ extern s32 D_004B638C[];
 extern s32 D_004B6390[];
 extern s32 D_004B6394[];
 extern s32 D_004B6398[];
-extern s32 D_004B6474[];
-extern u8 D_004B6478[];
 s32 Mc_StepGetInfo_3_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
-s32 Mc_GetInfoStatus_2_001D3CE0(s32);
-void Mc_SetErrorStatus_4_001D3DA8(s32);
 void *memcpy(void *, void *, s32);
 void memset(void *, s32, s32);
 s32 sceMcOpen(s32, s32, s32, s32);

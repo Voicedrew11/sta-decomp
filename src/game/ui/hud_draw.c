@@ -1,6 +1,11 @@
 #include "common.h"
 #include "actor.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/item.h"
+#include "game/player.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { char p[8]; s32 v; char q[4]; } E_Hud_ClearTimers_0_0019A840;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { s32 x0; s32 x4; u8 pad8[0x24]; f32 x2C; f32 x30; f32 x34; f32 x38; Col x3C; } E_Hud_DrawStatus_1_0019A920;
@@ -10,7 +15,7 @@ typedef struct { s32 x0; P_Hud_DrawStatus_1_0019A920 *p; } T_Hud_DrawStatus_1_00
 typedef struct { u8 pad[8]; f32 x8; u8 padC[4]; } F;
 typedef struct { u8 pad[0x394]; s8 x394; s8 x395; s8 x396; s8 x397; } S;
 typedef struct { s32 state; s32 x4; u8 x8; u8 x9; u8 pad[4]; u8 xE; u8 xF; } P_Hud_HandleInput_0_0019B590;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef Bits8 B8;
 typedef struct { f32 a; f32 t; u8 pad8[4]; B8 f; u8 padD[3]; } T_Hud_UpdateGauges_0_0019B8D0;
 typedef struct { u8 pad[4]; s16 x4; s16 x6; } G;
 typedef struct { u32 w[15]; Col col; } Buf;
@@ -35,19 +40,13 @@ extern s8 D_001FD418[];
 extern s8 D_001FD420[];
 extern f32 D_001F3060[];
 extern f32 D_001F3070[];
-extern s32 D_004A3320[];
 extern s32 D_00201D60;
 extern s32 D_00201D64;
 extern f32 D_002021D0;
-extern f32 D_002020D4;
 extern K D_004A30E0[];
 extern s16 D_001FD3F8[];
-s32 Hud_IsHidden_0_0019A790(void);
 void Hud_Reset_0_0019A7E0(void);
-void Hud_ClearTimers_0_0019A840(void);
-void Hud_DrawMain_0_0019A8B0(void);
 void Hud_DrawStatus_1_0019A920(L *l, T_Hud_DrawStatus_1_0019A920 *t);
-void Hud_Update_1_0019B560(void);
 void Hud_HandleInput_0_0019B590(P_Hud_HandleInput_0_0019B590 *p);
 void Hud_UpdateGauges_0_0019B8D0(void);
 void Hud_DrawShortcuts_0_0019BBE0(Buf *src, s32 a1, s32 key);
@@ -56,28 +55,17 @@ void Hud_UpdateWeaponSlots_0_0019C560(void);
 s32 Menu_GetMode_1_0018A320(void);
 s32* MenuLayout_Get_1_00189050(s32 i);
 void* MenuLayout_GetSub_1_00189020(s32 i);
-void Msg_Draw_0_0018ACA0(void);
-void Ui_BeginSprites_1_00181420(void);
 void Menu_DrawBackground_0_00187B20(s32 a);
 s16* PlayerData_Get_2_001C9BA0(void);
-s32 Player_Exists_3_001C9BF0(void);
 void Ui_DrawElem_1_00182C10(E_Hud_DrawStatus_1_0019A920 *, T_Hud_DrawStatus_1_0019A920 *);
 void Text_Draw_2_001875C0(f32, s8 *, f32, f32, s32, u32);
 void Text_DrawCentered_1_00187680(f32, s8 *, f32, f32, s32, s32, u32);
 f32 Approachf_3_00187770(f32, f32, f32);
 void sprintf(s8 *, s8 *, ...);
 void SndEmit_SetEnabled_0_0012F6E0(s32);
-void SndCh_ResumePaused_1_0012C260(void);
-void Ui_SetScrollSpeed_0_00180F50(f32);
-void SndEmit_StopAllA_1_0012F640(void);
-void SndCh_PauseAll_1_0012C2C0(void);
-void SndCh_StopAllUnlooped_1_0012C210(void);
 void Snd_PlaySe_3_00131600(s32, u8);
-void LoadMenu_SetFromTitle_0_00193850(s32);
-void MenuStack_Push_1_00189ED0(s32);
 s32 Equip_GetSlotItem_1_001CCD90(s32);
 E_Hud_DrawShortcuts_0_0019BBE0* Item_GetTable_1_001AFC90(void);
-s32 Item_GetCategory_0_001AFBD0(s32);
 void Color_Pulse_1_00187960(f32, Col *);
 void Color_Double_0_001878A0(f32, Col *);
 u8* Equip_GetSlotEntry_0_001CCD30(s32);

@@ -1,6 +1,8 @@
 #include "m2c.h"
 #include "common.h"
 #include "actor.h"
+#include "game/core.h"
+#include "game/map.h"
 typedef struct { u8 pad[0x14]; s32 x14; u8 b0:1; u8 b1:1; } G2C4;
 typedef struct { u8 lo:3; u8 f3:3; } BF;
 typedef struct { f32 v[4]; s32 x10; u8 b14; char p15[3]; s32 x18; } Out;
@@ -43,28 +45,21 @@ extern O_Map_GetLightIndex_0_001B0BC0 **D_00201E88__as_Map_GetLightIndex_0_001B0
 extern O_Map_GetLightIndex_0_001B0BC0 **D_00201E8C__as_Map_GetLightIndex_0_001B0BC0;
 extern s32 D_00201E80__as_Map_FindLoaded_0_001B0AE0;
 void Map_StreamUpdate_0_001B0020(void);
-void Map_StreamFlush_1_001B03E0(void);
-void Map_StreamStart_0_001B0450(void);
 s32 Map_StreamGetResult_1_001B0660(Out *o);
 void Map_RequestArea_1_001B06E0(s32 arg0, f32 *arg1, s32 arg2);
-void Map_StreamInit_0_001B07B0(void);
 void MapObj_DropItem_0_001B0880(u16 a0, u16 a1);
 void MapObj_SpawnItem_0_001B0990(s32 a0, s32 a1, s32 a2, s32 a3, s32 t0, u16 id, s32 t2);
 void MapObj_SendEvent_1_001B0A80(void *arg0, s32 arg1);
 s32* Map_FindLoaded_0_001B0AE0(s32 arg0);
 void Map_SetVar_0_001B0B30(s32 arg0, s16 arg1);
-s16 Map_GetLightIndex_0_001B0BC0(s32 id, s32 base);
 u16 Map_GetGlowIndex_0_001B0C70(s32 arg0, s32 arg1);
 void MapObj_SpawnSfx_0_001B0D60(s16 arg0, s16 arg1, s32 arg2, s32 arg3);
 s32 Task_KillWrap_0_0014DAF0(s32);
-void Task_AddWrap_0_0014DAD0(s32);
-void Task_RunWrap_0_0014DAB0(s32);
 void Map_GetFile_2_001B7050(s32, u8 *, s32 *);
 s32 Map_AllocAreaBuf_1_001B70E0(s32);
 s32 Task_SetPriorityWrap_0_0014DB00(u8 *, s32, u8 *);
 s32 Obj_FreeTimer_0_0014DA70(s32);
 void Task_FlushWrap_0_0014DAC0(s32, s32);
-void Task_RemoveWrap_0_0014DAE0(s32);
 void FlushCache(s32);
 void Dma_SprCopy_1_001789E0(u8 *, u8 *, s32);
 void memcpy(u8 *, u8 *, s32);
@@ -72,7 +67,6 @@ s32 Obj_SetTimerEx_0_0014DA90(s32, s32, s32, s32);
 s32 Obj_SetTimer_0_0014DA80(s32, s32);
 void Map_LoadTextures_0_001B6FC0(s32);
 void Map_SetOrigin_1_001B4BD0(s32, void *);
-void Task_InitWrap_0_0014DAA0(void);
 void Map_OnAreaLoadedWrap_1_001B6FB0(s32);
 void sceVu0CopyVector(f32 *v0, f32 *v1);
 void Map_FreeArea_1_001B5640(s32);

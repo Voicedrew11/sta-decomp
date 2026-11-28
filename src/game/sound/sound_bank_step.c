@@ -1,15 +1,11 @@
 #include "m2c.h"
+#include "game/data.h"
 typedef struct { s32 a; s32 b; } H_SndBank_LoadStep_1_0012ED60;
 typedef struct { s32 st; s32 pad[3]; } S;
 typedef struct { s32 a; u32 size; s32 b; s32 c; s8 data[]; } H_SndBank_IopTransferA_0_0012EF40;
 extern S D_0022F040[];
-extern s8 D_0022EBC0[];
-extern s8 D_0022EBC8[];
-extern s32 D_0022F080[];
-extern s32 D_0022F084[];
 extern u32 D_0022F088[];
 extern u32 D_0022F08C[];
-extern u8 D_0022F090[];
 s32 SndBank_LoadStep_1_0012ED60(H_SndBank_LoadStep_1_0012ED60 *a0, u32 idx);
 s32 SndBank_IopTransferA_0_0012EF40(H_SndBank_IopTransferA_0_0012EF40 *arg0, u32 arg1);
 s32 SndBank_IopTransferC_0_0012F3A0(H_SndBank_LoadStep_1_0012ED60 *, u32);

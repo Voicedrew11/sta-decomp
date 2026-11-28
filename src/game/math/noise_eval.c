@@ -1,22 +1,7 @@
 #include "common.h"
 #include "m2c.h"
-typedef struct {
-    u8 idx[4];
-    u8 f4;
-    u8 f5;
-    u8 pad6[2];
-    f32 w1;
-    f32 w2;
-    f32 base;
-    f32 amp;
-    f32 scale;
-    f32 f1C;
-} Noise;
-extern s32 D_00316A20[];
-extern f32 D_003139E0[];
-void Noise_InitWrap_2_0015ED70(void);
-void Noise_Eval_1_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
-f32 Noise_Fbm_1_0015F040(f32, f32, f32, f32);
+#include "game/data.h"
+#include "game/math.h"
 
 /* Noise_InitWrap_2_0015ED70 */
 void Noise_InitWrap_2_0015ED70(void) {

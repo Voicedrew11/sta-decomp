@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/save.h"
 typedef struct { u8 pad0[0x60]; s16 ids[16]; u8 pad80[0x140]; } Grp;
 typedef struct { u8 b0, b1, b2, b3, b4, b5, b6, b7; } Slot;
 typedef struct { u8 pad0[0x10E0]; Grp grp[0x2A]; u8 pad5A60[0x1A0]; Slot slot[0x400]; } W;
@@ -53,31 +54,18 @@ extern Rec_MapState_SetWord_1_001AA5D0 *D_00201DC4__as_MapState_SetWord_1_001AA5
 extern Rec_MapState_GetKillCount_0_001A9FF0 *D_00201DC4__as_MapState_GetKillCount_0_001A9FF0;
 extern S_Inventory_GetSlotFlag_0_001AA6B0 *D_00201DC0__as_Inventory_GetSlotFlag_0_001AA6B0;
 extern S_Inventory_GetSlotCount_0_001AA6D0 *D_00201DC0__as_Inventory_GetSlotCount_0_001AA6D0;
-void Inventory_AddItem_1_001A95A0(s16 id, u8 n);
 E* Inventory_GetSlot_1_001A97D0(s16 i);
 void MapState_OffsetObjects_0_001A9810(s32 k);
 s16 MapState_GetObjectPos_0_001A9900(s32 id, s32 k, Vec *a, Vec *b);
 void MapState_SetObjectPos_0_001A9A20(s32 id, s32 k, s16 h, Vec *a, Vec *b);
 s32 Save_TestItemBit_1_001A9B40(s16 i);
 void Save_SetItemBit_1_001A9B90(s16 i);
-s32 MapState_TestBit_0_001A9BE0(s32 k, s16 b);
-void MapState_SetBit_0_001A9CA0(s32 id, s16 k);
 u32 MapState_GetField_0_001A9D50(s32 id, u16 k);
 void MapState_SetField_0_001A9E10(s32 id, u16 k, u8 v);
 s32 Bestiary_IsSeen_2_001A9EC0(s16 i);
-void Bestiary_SetSeen_1_001A9F10(s16 i);
-s32 Bestiary_IsKilled_1_001A9F60(s16 i);
-void Bestiary_SetKilled_1_001A9FA0(s16 i);
-u16 MapState_GetKillCount_0_001A9FF0(s32 id);
-u16 MapState_GetBestKillRate_0_001AA090(s32 a);
-void MapState_IncVisits_0_001AA130(s32 id);
 s32 MapState_GetCounter_0_001AA1E0(s32 arg0, s16 arg1);
-void MapState_IncCounter_0_001AA2A0(s32 id, s16 k);
-s32 MapState_IsVisited_1_001AA440(s32 k);
-void MapState_SetVisited_0_001AA4C0(s32 id);
 s32 MapState_GetWord_1_001AA540(s32 arg0, s16 arg1);
 void MapState_SetWord_1_001AA5D0(s32 id, s16 k, s32 v);
-s32 Inventory_FindItem_0_001AA650(s16 arg0);
 u8 Inventory_GetSlotFlag_0_001AA6B0(s16 i);
 u8 Inventory_GetSlotCount_0_001AA6D0(s16 i);
 Item* Item_GetTable_1_001AFC90(void);

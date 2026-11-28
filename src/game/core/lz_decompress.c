@@ -1,6 +1,5 @@
 #include "common.h"
-extern u8 D_00202028;
-extern u32 D_0020202C;
+#include "game/data.h"
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 u16 D_00486100[0x400];
 u32 Bits_Read_2_00179720(u32 **pp, s32 n);

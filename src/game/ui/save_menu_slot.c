@@ -1,6 +1,9 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef union { u32 w; u8 c[4]; } Col_MenuProc_DrawItemList_0_0018B860;
 typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[8]; Col_MenuProc_DrawItemList_0_0018B860 c; } Item_MenuProc_DrawItemList_0_0018B860;
 typedef struct { u32 n; Item_MenuProc_DrawItemList_0_0018B860 *items; } List_MenuProc_DrawItemList_0_0018B860;
@@ -51,11 +54,9 @@ typedef struct { u8 pad[0x50]; R r[1]; } S0;
 typedef struct { s32 x0; u32 flags; u8 b8; char p9; u8 bA; char pB[3]; u8 bE; } Obj_MenuProc_BackOnCancel_0_0018D000;
 extern Tbl D_001F2A30 __attribute__((aligned(16)));
 extern f32 D_0020211C;
-extern s32 D_004A0FF0[];
 extern s32 D_004A0FFC[];
 extern f32 D_004A1008[];
 extern f32 D_004A100C[];
-extern Flags8 D_004A1010[];
 extern S D_001F2A10[] __attribute__((aligned(16)));
 extern Slot D_004A0900[];
 extern char D_001FCD00[];
@@ -65,11 +66,7 @@ extern char D_001FCD30[];
 extern char D_001FCD40[];
 extern char D_001FCD58[];
 extern char D_001FCD60[];
-extern s32 D_00202120[2];
 extern u8 D_004A095F[][0xF0];
-extern s32 D_004A0FC0[];
-extern s32 D_004A0FF4[];
-extern s32 D_004A1000[];
 extern s32 D_004A0FF8[];
 void MenuProc_DrawItemList_0_0018B860(Obj_MenuProc_DrawItemList_0_0018B860 *o);
 void SaveMenu_DrawSlotInfo_2_0018BCC0(O_MenuProc_DrawItemList_0_0018B860 *o, s32 unused, u32 id, s32 n);
@@ -82,12 +79,8 @@ void MenuProc_BackOnCancel_0_0018D000(Obj_MenuProc_BackOnCancel_0_0018D000 *o);
 Res_MenuProc_DrawItemList_0_0018B860* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 void Menu_SetFlags_0_0018A310(s32);
-void Ui_BeginSprites_1_00181420(void);
-void Ui_SetAlphaClamped_0_00182050(s32);
 f32 Approachf_3_00187770(f32, f32, f32);
 void Ui_DrawList_1_001829B0(Item_MenuProc_DrawItemList_0_0018B860 *, s8 *, void (*)(), s32);
-void Ui_DrawItemIconEx_0_0017EDC0(s32, s32, s32, s32, s32);
-s32 SaveSys_GetPort_1_001E8290(void);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
 void SaveSys_GetSlotCount_0_001E5E80(void *);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, S *, u32);
@@ -100,7 +93,6 @@ Res_Menu_LerpLayout_0_0018C140* MenuLayout_Get_1_00189050__as_Menu_LerpLayout_0_
 u8 MenuStack_Pop_1_00189EA0(void);
 void MenuProc_Set_1_0018B150(s32 *, s32, s32, void (*)(), s32, f32);
 void MenuProc_Run_1_0018B320(s32 *);
-s32 SaveSys_IsCardReady_0_001E6110();
 void Snd_PlaySe_3_00131600(s32, u8);
 S1* Menu_GetStateBuf_0_00189000(s32);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);

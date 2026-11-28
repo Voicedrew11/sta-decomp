@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/core.h"
+#include "game/effect.h"
+#include "game/collision.h"
 typedef struct { u8 pad0[0x18]; u16 x18; u8 pad1A[0xA]; Flags8_6x2 f24; Flags8 f25; u8 pad26[4]; u16 x2A; u8 pad2C[4]; } A;
 typedef struct { u8 st:2; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F50;
 typedef struct { u8 b0:1; u8 c:2; u8 r:5; } F51;
@@ -41,7 +44,7 @@ typedef struct {
     u8 pad184[0x1D8 - 0x184];
     Flags8 f1D8;
 } O_MapObj_UpdateAll_0_001BAB70;
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } BF8;
+typedef Bits8 BF8;
 typedef struct { u8 v : 2; } BF50;
 typedef struct { u8 p : 1; u8 v : 2; } BF51;
 typedef struct { u8 p : 2; u8 v : 2; } BF24;
@@ -86,7 +89,6 @@ void Trap_UpdateIdle_1_001BA680(O_MapObj_UpdateAll_0_001BAB70 *, s32, f32, f32);
 void Trap_Update_0_001BA3F0(O_MapObj_UpdateAll_0_001BAB70 *, s32, f32, f32);
 s8* Mdl_GetFrameData_0_001715B0(s32 **);
 void Player_GetPos_1_001C9410(Vec *);
-f32 Vec_DistB_3_0015DF50(Vec *, s8 *);
 void MapObj_SetAnimFrame_0_001B87C0(void *, s32, s32, s32, f32, f32);
 void MapState_SetField_0_001A9E10(s32, u16, s32);
 f32 Mdl_GetMotionLength_0_00173F70(K *, u16);
@@ -95,7 +97,6 @@ void Mdl_UpdateBoneMatricesCur_0_00171540(void *, void *);
 void Mdl_RunMotionEvents_0_001717A0(H *, u16, f32, f32, void (*)(void));
 void Trap_Attack_0_001BAA10(void);
 void sceVu0ApplyMatrix(Vec *, s8 *, Vec *);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 void* Sfx_Spawn_2_00169B50(u16, s32, s32, s32);
 void* Sfx_SpawnFromStam_2_00169BD0(u16, s32, u8 *, s32, s32, s32);
 void Sfx_SetTransform_1_001677C0(void *, s8 *);
@@ -107,7 +108,6 @@ void Map_DecodeTransform_0_001B59E0(void *, Vec*, Vec*, Vec*);
 void ItemObj_SpawnFromMap_0_001AEE80(C_MapObj_SpawnContainedItem_0_001BB760 **, s32, Vec *, Vec *, u16);
 void Tex_LoadAnimated_0_0016FB80(s32, s32, s32 **, s32 **, s32 **);
 void Mdl_SetDrawFlag_0_0016F410(s32, s32, s32);
-s32 Frame_IncCounter_1_0015C9E0(void);
 void Mtx_Compose_2_00173FD0(E *, Vec *, Vec *, Vec *);
 M_MapObj_Create_0_001BB8A0** Mdl_CreateInstance_0_00174230(s32, s32, s32, s32);
 

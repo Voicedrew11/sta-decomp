@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/model.h"
 typedef struct { u8 lo : 2; u8 rest : 6; u8 pad[3]; } P_Mdl_SetLayerTex_0_0016B2D0;
 typedef union { u32 w; struct { u8 lo:2; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:3; u8 pad[3]; } f; } F;
 typedef struct M { struct M *x0; u16 p4; u16 n; } M;
@@ -26,8 +29,6 @@ extern s32 D_00202004;
 extern s32 D_00201F2C;
 extern u8 D_002F1840[];
 extern s32 D_00201FF4;
-extern s32 D_00201FF0;
-void Mdl_FlushLayer_0_0016B280(void);
 void Mdl_SetLayerTex_0_0016B2D0(s32 a, P_Mdl_SetLayerTex_0_0016B2D0 p, s32 base, s32 n);
 s32 Mdl_SetLayerForMesh_0_0016B360(H_Mdl_SetLayerForMesh_0_0016B360 *h, F f, s32 a2);
 s32 Mdl_SetLayerSimple_0_0016B480(P_Mdl_SetLayerSimple_0_0016B480 p, s32 b);
@@ -36,20 +37,14 @@ void Mdl_DecodeVerts_0_0016B600(V3 *out, u32 n, s32 mode, H_Mdl_DecodeVerts_0_00
 void Mdl_DecodeVertsScaled_0_0016B730(Vec *out, s32 mode, u16 *hdr, u16 *idx, void *data, f32 scale);
 void Mdl_DrawLitWrap_0_0016B960(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 void Mdl_DrawLit_0_0016B970(O *o, L *m, Vec *v, s8 *a3, s32 t0, s32 t1, s32 t2);
-void GsPkt_CloseChain_1_001549D0(void);
-void GsPkt_EndLayer_1_00155900(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
 void sceVu0AddVector(Vec*, void *, void *);
-void GsPkt_SetLayerTop_0_001548F0(s32);
 void sceVu0CopyVector(Vec*, void *);
 void sceVu0ApplyMatrix(Vec *, void *, Vec *);
-void GsPkt_SetLayerB_0_00154610(s32, s32);
 void sceVu0SubVector(Vec *, void *, Vec *);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0Normalize(Vec *, Vec *);
 void sceVu0ScaleVector(Vec *, void *, f32);
 s32 Glow_FindNear_0_0015DA00(s64, u8, s32 *, Vec *, s32);
-void Glow_DrawList_0_0015D900(s32, s32 *);
 s8* TextColour_Get_1_0015D580(s32);
 Q* GsPkt_Alloc_3_00154A80(s32);
 

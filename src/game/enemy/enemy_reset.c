@@ -29,7 +29,7 @@ typedef struct {
     Vec x130;
 } E_Enemy_ScatterPart_0_001A8700;
 typedef struct { u8 b[0x140]; } N;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F;
+typedef Bits8 F;
 typedef struct { u8 pad[6]; u16 m6; u8 pad8[0x38]; u8 m40[1]; } Mdl;
 typedef struct { u8 pad[0xB0]; Mdl **pB0; } Sub_Enemy_HidePart_1_001A8B10;
 typedef struct { u8 pad[0x2A]; u8 m2A; } Src;

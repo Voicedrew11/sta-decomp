@@ -1,31 +1,26 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s32 state; s32 buttons; u8 next; u8 pad[5]; u8 pad_e; } Menu;
 typedef struct { u8 pad[0x10]; s32 count; u8 pad2[0x14]; f32 base; } Info;
 typedef struct { u8 r, g, b, a; } Col;
 typedef struct { s32 x0; u32 x4; u8 b8; char p9[5]; u8 bE; } Obj;
 extern s32 D_00202204;
-extern s32 D_00202208;
-extern s32 D_004A32C8[];
 extern s32 D_004A32CC[];
 extern u8 D_001FD610[];
 extern u8 D_001FD648[];
 extern char D_001FD650[];
 void PauseMenu_Update_0_0019E400(Menu *m);
 s32 PauseMenu_GetEntry_0_0019E780(s32 i);
-void Pause_DrawText_2_0019E7C0(void);
 void Pause_HandleEvent_0_0019E810(Obj *o);
 void Snd_PlaySe_3_00131600(s32, u8);
-void MenuStack_Push_1_00189ED0(s32);
-void Loading_SetVisible_0_0018E470(s32);
 void UiAnim_Get_1_0017F840(s32, Info **);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(s32, s32, f32);
 void SndEmit_SetEnabled_0_0012F6E0(s32);
-void SndCh_ResumePaused_1_0012C260(void);
 void Text_Draw_2_001875C0(void *p, s32 n, Col c, f32 x, f32 y, f32 s);
-void PlayTime_Pause_1_001DF990(void);
-void PlayTime_Resume_1_001DF960(void);
 
 /* PauseMenu_Update_0_0019E400 */
 /* PauseMenu_Update_0_0019E400 */

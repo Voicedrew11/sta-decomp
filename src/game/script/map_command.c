@@ -1,10 +1,20 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/core.h"
+#include "game/input.h"
+#include "game/map.h"
+#include "game/map_object.h"
+#include "game/player.h"
+#include "game/save.h"
+#include "game/script.h"
+#include "game/enemy.h"
+#include "game/gfx.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s16 id; s16 pad; s32 off; } Ent_MapObj_FindById_0_00179DB0;
 typedef struct { u8 pad[6]; s16 n; u8 pad8[8]; Ent_MapObj_FindById_0_00179DB0 e[1]; } Tbl;
 typedef struct { s32 id; u8 pad[0x160]; Tbl *x164; } Mdl;
-typedef struct { s32 type; s32 a; s32 b; s32 c; f32 x, y, z, w; f32 h; f32 p; f32 r; s32 f; } Msg;
 typedef struct { s32 x0; s32 x4; s32 x8; u8 padC[0x10]; f32 x1C; u8 pad20[0xC]; s32 x2C; } Q_Event_FindEnemyByMotion_0_00179E50;
 typedef struct { u8 pad[0xE]; u16 xE; } E1;
 typedef struct { u8 pad[0x1A]; u16 x1A; } E2;
@@ -134,7 +144,6 @@ extern S_MapCmd_GetEquip_0_0017D130 *D_002022E4__as_MapCmd_GetEquip_0_0017D130_;
 extern Mtx D_001F2170;
 u8* MapObj_FindById_0_00179DB0(s32 id, s32 key);
 s32 Event_FindEnemyByMotion_0_00179E50(s32 arg0, s32 arg1);
-s32 Event_CheckTalk_0_00179F10(void);
 s32 Event_CheckTrigger_0_00179F80(Q_Event_FindEnemyByMotion_0_00179E50 *q);
 s32 Event_IsPlayerFacing_0_0017A480(char *a0, f32 *a1, f32 *a2);
 void MapCmd_SetFlag2034_0_0017A640(void *arg0);
@@ -144,8 +153,6 @@ void MapCmd_SetMapVar_0_0017A850(void *arg0);
 void MapCmd_GetFlagWord_0_0017A890(u8 *o);
 void MapCmd_SetFlagBits_0_0017A920(Arg_MapCmd_SetFlagBits_0_0017A920 *p);
 void MapCmd_GetPlayerStat_0_0017AA40(char *a0);
-void MapCmd_NopA_2_0017ABB0(void);
-void MapCmd_NopB_2_0017ABC0(void);
 void MapCmd_GetLight_0_0017ABD0(Arg_MapCmd_SetFlag2034_0_0017A640_ *a);
 void MapCmd_SetLight_0_0017ADE0(Arg_MapCmd_SetLight_0_0017ADE0 *a);
 void MapCmd_GetGlow_0_0017AF20(s32 *a0);
@@ -161,7 +168,6 @@ void MapCmd_ShowObject_0_0017B800(u8 *arg0);
 void MapCmd_HideObject_0_0017B8A0(Obj_MapCmd_HideObject_0_0017B8A0 *o);
 R_MapCmd_SetLight_0_0017ADE0* MapCmd_FindObjectNode_0_0017B930(s32 a, s32 id);
 void MapCmd_SetObjectNode_0_0017B9E0(volatile A_MapCmd_SetFlag2034_0_0017A640 *arg0);
-void MapCmd_StartStream_0_0017BA30(void);
 void MapCmd_StopSe_1_0017BA40(void *arg0);
 void MapCmd_PlaySeAt_1_0017BA50(Obj_MapCmd_SetFlag2034_0_0017A640 *o);
 void MapCmd_PlaySeOnObject_0_0017BAC0(O *o);
@@ -265,7 +271,6 @@ u8* Script_GetArgPtr_2_00165130(u8 *o, s32 b);
 u32 MapState_GetWord_1_001AA540(u8 a, s16 b);
 void MapState_SetWord_1_001AA5D0(u8, s16, u32);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetPlayerStat_0_0017AA40(char *, s32);
-s16 Map_GetLightIndex_0_001B0BC0(s32, s32);
 f32* LightGroup_Get_0_0015B900(s32);
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_GetLight_0_0017ABD0(Arg_MapCmd_SetFlag2034_0_0017A640_ *, s32);
 s32 Map_GetGlowIndex_0_001B0C70(s32, s32);
@@ -283,10 +288,8 @@ s32 MapObj_Find_1_001B19A0__as_MapCmd_GetObjectState_0_0017B5A0(s32);
 s8* Map_GetFogEntry_0_001B40F0__as_MapCmd_GetObjectState_0_0017B5A0(s32, s32);
 void Map_UpdateFog_0_001B4100__as_MapCmd_GetObjectState_0_0017B5A0(s32);
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_GetObjectState_0_0017B5A0(s8 *, s32);
-u16 MapObj_GetAnimState_0_001B7D80(s32 a, s32 b);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetDoorState_0_0017B730(Obj_MapCmd_SetLight_0_0017ADE0 *o, s32 b);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetValue_0_0017B7A0(s32 a, s32 b);
-s32 MapObj_GetNodeIndex_0_001B7840(s32, s32);
 s32 MapObj_Find_1_001B19A0__as_MapCmd_ShowObject_0_0017B800();
 T* MapObj_Find_1_001B19A0__as_MapCmd_HideObject_0_0017B8A0(s32 a);
 O_MapCmd_FindObjectNode_0_0017B930* MapObj_Find_1_001B19A0__as_MapCmd_FindObjectNode_0_0017B930(s32);
@@ -307,9 +310,7 @@ f32* Map_FindSfxEntry_0_001B7300__as_MapCmd_SpawnSfxOnObjectB_0_0017BF50(s8 *, s
 void* MapObj_Find_1_001B19A0__as_MapCmd_SetObjectAnim_0_0017C150(s32);
 f32* Map_FindSfxEntry_0_001B7300__as_MapCmd_SetObjectAnim_0_0017C150(void *, s32);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetTimer_0_0017C270(s32 a, s32 b);
-void Game_SetBusy_1_0012C030(s32);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_WaitEvent_0_0017C2A0(P_MapCmd_WaitEvent_0_0017C2A0 *, s32);
-void MapObj_SetCamera_0_001B13B0(u32 a, f32 x, f32 y, f32 z, f32 w);
 void MapObj_GetCamera_0_001B1560(s32 a, void *p, void *q, void *r, void *s);
 void* Script_GetArgPtr_2_00165130__as_MapCmd_GetCameraState_0_0017C4B0(Obj_MapCmd_GetCameraState_0_0017C4B0 *o, s32 b);
 void Enemy_CopyRotation_2_00140440(void *, Vec *);
@@ -321,7 +322,6 @@ u8 Game_GetBusy_0_0012C020(void);
 u8 Player_IsActionLocked_0_001C9AE0(void);
 u8* Script_GetArgPtr_2_00165130__as_MapCmd_IsBusy_0_0017CA10(s32 a, s32 b);
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_SetFloat_0_0017CA60(Obj_MapCmd_PlaySeAtXYZ_1_0017BC00_ *o, s32 b);
-void TexAnim_SetScroll_0_001757C0(u32 a, u32 b, f32 x, f32 y);
 void MapObj_SpawnItem_0_001B0990(s32, Vec *, Vec *, Vec *, u16, u16, s32);
 s32 Rand_Next_3_0015ED20(void);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_Random_2_0017CB50(s32 a, s32 b);
@@ -339,7 +339,6 @@ void SndCh_GetPosition_1_00131180__as_MapCmd_PlaySeAtXYZ_1_0017BC00_(s32, P_MapC
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_PlaySeAtXYZ_1_0017BC00_(void *, s32);
 void Player_AddStatus_1_001C88E0(s32 arg0, void * arg1, s32 arg2);
 s32 PlayerData_GetStatusTimer_0_001CE200(s32 v);
-void Player_RollStatusEffect_1_001C8570(u32 *);
 void Player_Warp_0_001C92C0(V *v);
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_GetPlayerPos_1_0017CE80(s32, s32);
 void Player_GetPosB_0_001C9490(void *);
@@ -371,12 +370,8 @@ void Player_GetPosB_0_001C9490__as_MapCmd_SetFlag2034_0_0017A640_(V *v);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetEquip_0_0017D130_(void *, s32);
 void Player_GetPosB_0_001C9490__as_MapCmd_GetEquip_0_0017D130_(f32 *v);
 Obj_MapCmd_SetObjectAlpha_0_0017D3D0* MapObj_Find_1_001B19A0__as_MapCmd_GetEquip_0_0017D130_(s32);
-void Camera_SetParams_0_001C8F30(f32 a, f32 b, f32 c, f32 d);
-void Vibe_StartA_0_0015FD90(f32, f32, f32, f32, f32);
-void Vibe_StartB_0_0015FE20(f32, f32, f32, f32, f32);
 void MapObj_SpawnSfx_0_001B0D60(s16, s16, Vec *, Vec *);
 s32 MapObj_GetCount_0_001B17E0(int *);
-s32 MapObj_GetCountB_0_001B18D0(s32 *v);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_GetObjectVarB_0_0017DCD0(Obj_MapCmd_SetCameraTarget_0_0017DB40 *o, s32 b);
 void MapObj_SetNodeMatrix_0_001B78D0(s32, s32, s32, Mtx *);
 f32* Script_GetArgPtr_2_00165130__as_MapCmd_GetObjectFlag_0_0017DD90(O_MapCmd_GetObjectFlag_0_0017DD90 *, s32);
@@ -391,16 +386,10 @@ s32 Save_TestItemBit_1_001A9B40(s16);
 s32 ItemObj_OffsetAll_0_001AC0F0(s32, u16, Vec *);
 s32 ItemMdl_SetTransform_0_001ABF70(s32, u16, Vec *);
 s32* Script_GetArgPtr_2_00165130__as_MapCmd_SpawnItem_0_0017DF20(Arg_MapCmd_SetFlag2034_0_0017A640___ *, s32);
-void PlayerData_ClearStatus_0_001CE270(s32);
-void Inventory_AddItem_1_001A95A0(s16, u8);
 void Item_ClearNewFlag_0_001A9510(s16);
-void Msg_Close_1_0018B0C0(void);
 void Snd_PlaySe_3_00131600(s32, s32);
-void SndCh_Stop_2_00131440(s32);
-void MapSheet_Open_0_001ED620(s32);
 int* Script_GetArgPtr_2_00165130__as_MapCmd_SetCameraTarget_0_0017DB40_(S_MapCmd_GetObjectVar_0_0017DC70 *, int);
 s32 MapObj_Find_1_001B19A0__as_MapCmd_SetCameraTarget_0_0017DB40_(s32 a);
-void EnemyScr_BroadcastQuery_0_00141380(int, int);
 void MapObj_GetSfxMatrix_0_001B1050(s32, s32, Mtx *);
 void MapObj_SetSfxMatrix_0_001B0EB0(s32, s32, Mtx *);
 void sceVu0RotMatrixZ(f32, Mtx *, Mtx *);

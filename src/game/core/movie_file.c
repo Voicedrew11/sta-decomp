@@ -1,5 +1,6 @@
 #include "common.h"
-typedef struct { u8 trycount; u8 spindlctrl; u8 datapattern; u8 pad; } RMode;
+#include "game/core.h"
+typedef CdRMode RMode;
 s32 printf(const char *, ...);
 s32 sceCdDiskReady(s32);
 s32 sceCdStRead(u32, u32 *, u32, u32 *);

@@ -1,7 +1,10 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { u32 id; s32 x; s32 y; } Ent_DbItem_ResetLayout_0_00197DD0;
 typedef struct { s32 h0; u32 n; s32 h8; s32 hC; Ent_DbItem_ResetLayout_0_00197DD0 e[1]; } Tbl;
 typedef union { u32 w; u8 b[4]; } Col_DbItem_ResetLayout_0_00197DD0;
@@ -31,11 +34,8 @@ typedef struct { u8 pad[0xE]; u8 xE; } G;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } M;
 typedef struct { s32 x0; u32 n; } P_DbMap_ResetLayout_0_00198D80;
 extern Q2 D_001F2F40;
-extern s32 D_00201D38;
 extern s32 D_00201D3C;
 extern u32 D_00202190;
-extern s32 D_00202198;
-extern s32 D_004A1430[];
 extern char D_001FD388[];
 extern s32 *D_00201D3C__as_DbItem_LoadEntry_0_00197F90;
 extern f32 D_00201D44;
@@ -63,9 +63,7 @@ extern f32 D_004A18B8[];
 extern Q2 D_001F2FC0;
 extern u32 D_002022B8;
 extern s8 D_001FD3F0[];
-void DbItem_ResetLayout_0_00197DD0(void);
 char* DbItem_GetListName_1_00197F30(s32 i);
-void DbItem_LoadEntry_0_00197F90(s32 a0);
 void DbItemProc_Pos_0_00198100(s32 arg0, void *arg1, void *arg2);
 void DbMap_Draw_0_00198160(u8 *arg0);
 void DbMap_DrawRing_0_001982A0(s32 arg, f32 ang);
@@ -79,7 +77,6 @@ void DbMapProc_Pos_0_00199110(s32 arg0, void *arg1, void *arg2);
 Tbl* DbItem_GetCount_1_001958A0(void);
 s32 Save_TestItemBit_1_001A9B40(s16);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 char* DbItem_Find_1_0019D510(s32 i);
 u8* Item_GetTable_1_001AFC90(void);
@@ -106,14 +103,9 @@ void Ui_DrawSprite_2_00181680(s32, Vec *, Vec *, Col_DbMapProc_DrawInfo_1_001985
 void sprintf(s8 *, s8 *, ...);
 void strcpy(s8 *, s8 *);
 G* PlayerData_Get_2_001C9BA0(void);
-s32 MapState_IsVisited_1_001AA440(u32);
-u16 MapState_GetBestKillRate_0_001AA090(s32);
-u16 MapState_GetKillCount_0_001A9FF0(s32);
-s32 DbMap_GetKillRate_0_001959E0(s32);
 void Ui_DrawWindow_0_00183650(s8 *);
 void Ui_SetOffset_0_001803D0(s32, s32);
 void Snd_PlaySe_3_00131600(s32, s32);
-void Ui_LoadAreaImage_3_00183970(s32);
 P_DbMap_ResetLayout_0_00198D80* DbMap_GetCount_1_001958E0(void);
 s8* DbMap_GetLocationName_1_00195AA0(s32);
 void UiAnim_SetTarget_1_0017F470__as_DbItem_ResetLayout_0_00197DD0__(f32, s32, s32);

@@ -1,21 +1,12 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/input.h"
+#include "game/ui.h"
 extern s32 D_00201EA0;
-extern s32 D_00201C28;
-extern s32 D_00201E98;
-extern s32 D_00201E9C;
-extern s32 D_00201EA4;
-extern s32 D_00201EA8;
 extern u8 D_00222A53[];
 s32 Game_GetBusy_0_0012C020(void);
-s32 Game_SetBusy_1_0012C030(s32 arg0);
 void Game_RequestTitle_0_0012C040(void);
-void Game_RequestExit_0_0012C070(int out);
-void Game_RequestMode12A_0_0012C0A0(void);
-void Game_RequestMode12B_0_0012C0C0(void);
-s32 Game_IsNotFlag19A790_0_0012C0E0(void);
-s32 Game_TryRequestEvent_0_0012C110(s32 arg0);
-void Vibe_StopAll_1_00160300();
-s32 Hud_IsHidden_0_0019A790(void);
 void Menu_SetSubMode_0_0018A330(s32);
 s64 Player_GetHpS16_0_001C99C0();
 

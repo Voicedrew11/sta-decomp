@@ -1,8 +1,8 @@
 #include "common.h"
+#include "game/gfx.h"
 void Mdl_DestroyInstance_0_001745D0(s32 arg0, s32 **arg1);
 s32 Mdl_InitPool_0_00174620(u8 *o, s32 x);
 void Pool_MarkDead_0_001536F0(s32 x, u8 *p);
-void TexAnim_InitTables_0_001746A0(void);
 
 /* Mdl_DestroyInstance_0_001745D0 */
 void Mdl_DestroyInstance_0_001745D0(s32 arg0, s32 **arg1) {

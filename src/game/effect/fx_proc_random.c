@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/effect.h"
 typedef struct { Vec p; Vec v; u8 pad[0x90]; f32 fB0; f32 fB4; f32 fB8; f32 fBC; Mtx m; } O_FxProc_OrientToVelocity_0_00148120;
 typedef struct { Vec r1; Vec r2; } Ax;
 typedef struct {
@@ -52,7 +53,6 @@ void sceVu0SubVector(f32 *, f32 *, f32 *);
 void sceVu0CopyVector(f32 *, f32 *);
 void Fx_GetWorldMatrix_1_00163C80(void *, void *);
 void Mtx_LookDir_1_00146020(s8 *, f32, f32, f32);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 s8* Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 void Sfx_SetMatrixOrAim_0_00167740(s8 *, u8 *);
 

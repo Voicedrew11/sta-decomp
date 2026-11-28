@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/sound.h"
 typedef struct { s32 x0; s32 h; s32 x8; s32 xC; s32 *x10; s32 x14; s32 x18; char name[0x100]; } E;
 typedef struct { s32 x0; s32 x4; u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 4; } S;
 typedef struct { u8 p0[0x14]; s32 x14; u8 b0 : 1; u8 b1 : 1; u8 b2 : 6; } P;
@@ -18,14 +20,11 @@ extern const s8 D_001FE890[];
 void MapSe_StreamUpdate_0_001E1250(void);
 S* ImageLoader_Request_1_001E1570(const char *name, s32 idx);
 void ImageLoader_SetFlag_0_001E1760(s32 arg0);
-void ImageLoader_Init_0_001E1770(void);
 void MapSe_BindBank_0_001E1810(Ch *a0, s32 a1);
 void* memset(void *p, s32 c, u32 n);
 void memcpy(s32, s32 *, u32);
 s32* Pool_Alloc_3_001288C0(P *, s32);
-void Task_RunWrap_0_0014DAB0(s32);
 void Task_FlushWrap_0_0014DAC0(s32, s32);
-void Task_RemoveWrap_0_0014DAE0(s32);
 s32 Task_KillWrap_0_0014DAF0(s32);
 s32 Task_SetPriorityWrap_0_0014DB00(char *, s32, s32 *);
 s32 File_HashName_3_00159D10(char *);

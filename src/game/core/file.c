@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
 typedef struct { s32 x0; u32 x4; u32 x8; u32 xC; } Inf;
 typedef struct { s32 x0; s32 x4; s32 x8; Inf *pC; volatile u16 flags; u16 mode; s32 fd; u32 size; } F;
 typedef struct { s32 x0; volatile u32 x4; s32 x8; s32 xC; u16 flags; s32 fd; s32 size; } F_File_Read_2_0015A470;
@@ -35,7 +36,6 @@ void File_Close_2_0015AB80(F_File_Close_2_0015AB80 *f);
 F_Arc_FindByHash_2_0015ABD0* Arc_FindByHash_2_0015ABD0(s32 key);
 void Arc_Mount_2_0015AD00(s8 *arg0, s32 arg1, s32 arg2);
 s32 sceClose(s32);
-void Timer_GetTicks_3_001787A0(void);
 void Lz_Decompress_2_00179040(u8 *, u8 *, u32, u32);
 void Lz_DecompressB_1_001797E0(u8 *, u8 *, u32, u32);
 s32 sceIoctl(s32, s32, s32 *);
@@ -53,7 +53,6 @@ void sceCdSearchFile(s32 *, s8 *);
 void sprintf(s8 *, s8 *, s8 *, s8 *, s8 *);
 void strcat(s8 *, s8 *);
 void strcpy(s8 *, s8 *);
-void Cd_Init_2_0015B040(s32, s32);
 
 /* Arc_LoadFileTo_1_0015A080 */
 #define Arc_FindByHash_2_0015ABD0 Arc_FindByHash_2_0015ABD0__as_Arc_LoadFileTo_1_0015A080

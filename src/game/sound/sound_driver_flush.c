@@ -1,18 +1,11 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct { s32 a; s32 b; char pad[0x18]; } E;
 extern volatile s32 D_00202308;
 extern s16 D_0020230C;
 extern E D_004B9F20[4];
-extern s32 D_00202310;
-extern s32 D_00202314;
-extern s32 D_00202318;
 extern s32 D_004B9FA0[];
-extern s32 D_004B9FB0[];
-extern s32 D_004B9FB4[];
-s32 SndDrv_FlushEffects_0_001D8E70(void);
-void SndDrv_SetPortParam_0_001D8EC0(s32 i, s32 a, s32 b);
-void SndDrv_SetReverb_0_001D8F10(s32 a, s32 b, s32 c);
-void SndDrv_AllocBuffer_1_001D8F30(void);
 void FlushCache(s32 mode);
 void SndDrv_CallArgs_2_001D8680(s32 a, s32 b, s32 c, ...);
 void* malloc(u32);

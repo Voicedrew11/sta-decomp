@@ -1,5 +1,7 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/gfx.h"
+#include "game/ui.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_Ui_BeginSprites_1_00181420;
 typedef union { u128 q; u32 w[4]; } Q_Ui_DrawSprite_2_00181680;
 typedef struct { f32 x, y; } P2;
@@ -10,13 +12,9 @@ extern s32 D_00201CD4;
 extern s32 D_00201F3C;
 extern Q_Ui_BeginSprites_1_00181420 D_0048C4B0[];
 extern s32 D_00201CD8;
-void Ui_BeginSprites_1_00181420(void);
 void Ui_DrawSprite_2_00181680(s32 id, f32 *r, f32 *uv, u8 *col, f32 *m, s32 mode);
-void Ui_SetAlphaClamped_0_00182050(s32 v);
 void Ui_DrawSpriteRotated_1_00182080(s32 a0, f32 *r, f32 *uv, u8 *col, f32 ang);
-void Tex_BindFlush_1_00176BC0(s32);
 s32 GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_CloseChain_1_001549D0(void);
 f32 sinf(f32);
 f32 cosf(f32);
 

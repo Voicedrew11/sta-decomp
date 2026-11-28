@@ -1,10 +1,10 @@
 #include "common.h"
+#include "game/data.h"
 
 /* rodata_001FD8C8: the game's data at 0x001FD8C8..., one object per label. */
 /* used by: Title_PlayPrologue_2_001A4890, Enemy_Draw_1_001A5DE0, EnemyData_Parse_0_001A7810, text_001A5DE0.s */
 #pragma explicit_zero_data on
 
-void EnemyMgr_Update_0_001A4990(void);
 
 const s32 D_001FD8C8[0x2] = { 0, 0 };
 const char D_001FD8D0[0x1e] __attribute__((aligned(8))) = "cdrom0:\\TARGET\\PROLOGUE.PSS;1\000";

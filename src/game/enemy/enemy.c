@@ -1,6 +1,7 @@
 #include "actor.h"
 #include "common.h"
 #include "m2c.h"
+#include "game/enemy.h"
 typedef struct { u8 pad[0x120]; Flags8 x120; } C_Enemy_UpdateBlend5CC_0_0013DA20;
 typedef struct { u8 pad[0x190]; C_Enemy_UpdateBlend5CC_0_0013DA20 *x190; } B_Enemy_UpdateBlend5CC_0_0013DA20;
 typedef struct { u8 pad[0x5B8]; f32 a; f32 b; } O;
@@ -204,10 +205,7 @@ typedef struct {
 typedef struct { char pad[0x2D]; unsigned char : 1; unsigned int f : 1; } Ent;
 typedef struct { char pad[0x4B4]; Ent *ents[1]; } Obj_Enemy_Set5B0b1_1_0013EC10_;
 extern u8 D_00222A53[];
-void Enemy_UpdateBlend5CC_0_0013DA20(Actor *a, f32 d);
 void Enemy_UpdateLerp_0_0013DA90(O *o, f32 f);
-void Enemy_UpdateTimer5C0_0_0013DB10(Actor *a, f32 dt);
-void Enemy_UpdateDeath_0_0013DB80(Actor *a, f32 dt);
 s32 Enemy_GetPart_1_0013DC70(void *arg0, s32 arg1);
 s32 Enemy_GetPartValue_1_0013DCA0(S_Enemy_UpdateBlend5CC_0_0013DA20 *s, u8 i);
 u8 Enemy_GetPartFlag_0_0013DCC0(Obj_Enemy_GetPartFlag_0_0013DCC0 *o, u8 i);

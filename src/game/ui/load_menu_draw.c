@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { s32 idx; u8 pad[0x28]; f32 x2C; f32 x30; u8 pad34[8]; Col x3C; } Obj;
 typedef struct { u32 n; Obj *e; } L;
@@ -7,20 +9,10 @@ typedef struct { s32 x0; s32 x4; u8 x8; } O;
 R *MenuLayout_Get_1_00189050(s32);
 u8 *MenuLayout_GetSub_1_00189020(s32);
 void Menu_SetFlags_0_0018A310(s32);
-void Ui_BeginSprites_1_00181420(void);
-void Ui_SetAlphaClamped_0_00182050(s32);
 f32 Approachf_3_00187770(f32, f32, f32);
-void LoadMenu_LerpLayout_0_00192580(f32 *, f32 *, u8 *, f32);
 void Ui_DrawList_1_001829B0(Obj *, u8 *, void *, s32);
 void LoadMenu_DrawSlotInfo_2_00192110(void);
-void Ui_DrawItemIconEx_0_0017EDC0(s32, s32, s32, s32, s32);
 void Menu_DrawBackground_0_00187B20(s32);
-extern f32 D_004A1138[];
-extern s32 D_004A112C[];
-extern f32 D_004A113C[];
-extern s32 D_004A1120[];
-extern Flags8 D_004A1140[];
-extern f32 D_0020213C;
 typedef struct { s32 v[5]; } T5;
 #pragma explicit_zero_data on
 T5 D_001F2DC0 = { -1, 0, 0, 0, 0 };

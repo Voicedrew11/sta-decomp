@@ -2,6 +2,12 @@
 #include "m2c.h"
 #include "obj3d.h"
 #include "actor.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/effect.h"
+#include "game/gfx.h"
+#include "game/item.h"
+#include "game/model.h"
 typedef struct { u8 pad[0x14]; s32 x14; Flags8 f18; } A;
 typedef struct { u8 pad[0x90]; s32 x90; u8 pad2[0x8]; s16 h9C; s16 h9E; u8 pad3[8]; Flags8 fA8; } B;
 typedef struct { u8 a:3; u8 f:3; u8 c:2; } F3b;
@@ -163,16 +169,11 @@ typedef struct {
 typedef struct { u8 pad[8]; u16 x8; u8 padA[0x90 - 0xA]; } Ent_ItemObj_AllocSlot_1_001AE360;
 typedef struct { u8 pad[8]; Obj3D *t[2][16]; } Tbl;
 extern A *D_00202290;
-extern s32 D_0020228C;
 extern B *D_00202288;
-extern s32 D_002022A0;
-extern s32 D_004B4B70[];
-extern s32 D_004B4B74[];
 extern s32 D_004B4B78[];
 extern s32 D_004B4B7C[];
 extern s32 *D_004B4B80[];
 extern s32 *D_004B4B84[];
-extern s32 D_004B4B88[];
 extern F3b D_00222A54[];
 extern s8 D_001FD9D0[];
 extern s8 D_001FD9F0[];
@@ -184,7 +185,6 @@ extern s32 D_00201F2C;
 extern Bone *D_002022B0__as_ItemMdl_SetTransform_0_001ABF70;
 extern Obj D_004AE370__as_ItemMdl_SetTransform_0_001ABF70[2][64];
 extern s8 D_003139A0[];
-extern f32 D_00222850[];
 extern s8 D_0030D0E0[];
 extern O_ItemObj_TestVisible_0_001ACD90 **D_002022BC;
 extern BF D_00222A50[];
@@ -201,7 +201,6 @@ extern Ent_ItemObj_Animate_0_001AD4E0 *D_002022B0__as_ItemObj_Animate_0_001AD4E0
 extern Ent_ItemObj_GetScale_0_001ADBA0 *D_002022B0__as_ItemObj_GetScale_0_001ADBA0;
 extern Ent_ItemObj_GetMatrix_0_001ADC60 *D_002022B0__as_ItemObj_GetMatrix_0_001ADC60;
 extern Ent_ItemObj_AllocSlot_1_001AE360 *D_002022B0__as_ItemObj_AllocSlot_1_001AE360;
-void ItemMdl_Update_0_001AB690(void);
 void* ItemMdl_NextRequest_0_001ABB20(void);
 void ItemMdl_Spawn_0_001ABCC0(Node *o, s32 a1);
 s32 ItemMdl_SetTransform_0_001ABF70(s32 key, s32 arg1, s32 arg2);
@@ -214,21 +213,16 @@ s32 ItemObj_TestVisible_0_001ACD90(O_ItemObj_TestVisible_0_001ACD90 **a0, s16 bi
 void ItemObj_DrawPass_1_001ACEB0(s32 arg0);
 s32 ItemObj_FilterOpaque_0_001ACFE0(void *a, H_ItemObj_FilterOpaque_0_001ACFE0 h);
 s32 ItemObj_FilterTranslucent_0_001AD030(void *a, H_ItemObj_FilterTranslucent_0_001AD030 h);
-void ItemObj_Draw_0_001AD080(void);
 void ItemObj_SetRotation_0_001AD0C0(O_ItemObj_SetRotation_0_001AD0C0 *o, s32 id);
 void ItemObj_SetAnim_0_001AD1C0(Node_ItemObj_SetAnim_0_001AD1C0 *o, s32 a1);
 void ItemObj_SpawnProjectile_0_001AD2C0(s32 a0, s32 a1, s32 a2, E *e, s32 t0, s32 t1);
-void ItemObj_ResetAll_0_001AD390(void);
 void ItemObj_Animate_0_001AD4E0(Node_ItemObj_Animate_0_001AD4E0 *o0, f32 dt);
-void ItemObj_UpdateAll_1_001ADA30(f32 arg0);
 void ItemObj_GetScale_0_001ADBA0(Obj3D *n, Vec *out);
 void ItemObj_GetMatrix_0_001ADC60(Node_ItemObj_GetMatrix_0_001ADC60 *n, Mtx *out);
-void ItemObj_BindCaps_1_001ADD30(void);
 void ItemObj_DropToGround_0_001AE0E0(s32 arg0, Obj_ItemObj_DropToGround_0_001AE0E0 *obj);
 s32 ItemObj_FindGround_0_001AE250(s32 arg0, f32 *pos, f32 *out);
 Obj3D* ItemObj_AllocSlot_1_001AE360(s16 id, u8 side);
 void Pool_Free_2_00128580(A *, s32 *);
-void Task_RunWrap_0_0014DAB0(s32);
 void sprintf(s8 *, s8 *, s32);
 void strcpy(s8 *, s8 *);
 s32 File_HashName_3_00159D10(s8 *);
@@ -243,14 +237,12 @@ u8 Task_KillWrap_0_0014DAF0(s32);
 void FlushCache(s32);
 void Dma_SprCopy_1_001789E0(s32, s8 *, s32);
 void memcpy(s32, s8 *, s32);
-void Task_RemoveWrap_0_0014DAE0(s32);
 s32 Obj_SetTimerEx_0_0014DA90(s32, s32, s32, s32);
 s32 Obj_SetTimer_0_0014DA80(s32, s32);
 s32* Tex_LoadArchive_0_0016F950(s32, s32 *);
 s32 Tex_FindAnim_0_0016FF80(s32);
 M84* Mdl_CreateInstance_0_00174230(s32, s32, s32, s32);
 void Mdl_UpdateBoneMatricesCur_0_00171540(void *, void *);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 s8* Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 void Sfx_SetTransform_1_001677C0(s8 *, void *);
 void sceVu0MulMatrix(void *, void *, void *);
@@ -265,11 +257,9 @@ f32 fabsf(f32);
 void Sfx_SetFlag_0_00167640(s8 *, s32);
 void Sfx_SetOwnerFlag_0_0016B200(s8 *, s32);
 s32 Player_IsCrouching_0_001C9A20(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
 s8* Map_FindSfxEntry_0_001B7300(s8 *, s32);
 void Light_CopyColor_0_0015B6B0(Vec *, s8 *);
 void Fog_SetReg_0_0015B1C0(Vec *, s8 *);
-void Fog_ApplyDefault_0_0015B270(void);
 s8* Mdl_GetFrameData_0_001715B0(void *);
 s8* Player_GetCameraData_0_001C9B40(void);
 void Mtx_ScaleRotation_0_0015CC40(void *, f32);
@@ -277,11 +267,8 @@ void Mdl_DrawLit_0_0016B970(s8 *, void *, s32, s8 *, s32, s32, s32);
 void Mdl_DrawLitWrap_0_0016B960(s8 *, void *, s32, s8 *, s32, s32);
 void Mdl_DrawMeshes_1_0016C7E0(s32, s8 *, s8 *, P);
 void Mdl_DrawMeshesB_1_0016CD80(s32, s8 *, s8 *, P);
-void GsPkt_EndLayer_1_00155900(void);
 void Map_UpdateTexAnim_0_001B40B0(s8 *);
-void GsPkt_CloseChain_1_001549D0(void);
 void Mdl_SetLayerForMesh_0_0016B360(void *a, H_ItemObj_FilterOpaque_0_001ACFE0 h, s32 c);
-void Mdl_FlushLayer_0_0016B280(void);
 void Mdl_SetBoneRotation_0_001710D0(void *, s16, f32, f32, f32);
 void Attack_PlaySe_0_001D1E80(s32, s32, E *, s32, s32);
 s8* Attack_SpawnSfx_0_001D1F20(s32, s32, s32, s32, E *, s32, s32);
@@ -294,7 +281,6 @@ void Mdl_RunMotionEvents_0_001717A0(Anim_ItemObj_Animate_0_001AD4E0 *, u16, f32,
 void Seg_Init_1_001502A0(Vec *, Vec *, Vec *, f32);
 void Sfx_SetColor_0_00167670(s32, Vec *);
 void ItemObj_Free_1_001AF4A0(Obj3D *);
-void ItemObj_SaveState_1_001AE510(void);
 void sceVu0MulVector(Vec *, Vec *, Vec *);
 Ch* Node_FindById_2_0014DCD0(s32, s32);
 void memset(void *, s32, s32);

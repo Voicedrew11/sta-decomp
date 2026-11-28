@@ -2,6 +2,20 @@
 #include "m2c.h"
 #include "common.h"
 #include "obj3d.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/input.h"
+#include "game/item.h"
+#include "game/model.h"
+#include "game/player.h"
+#include "game/save.h"
+#include "game/sound.h"
+#include "game/ui.h"
+#include "game/collision.h"
+#include "game/map.h"
+#include "game/map_object.h"
+#include "game/script.h"
 typedef union { u32 w; Flags8 f; } Col_Player_DrawWeapon_0_001BCFF0;
 typedef struct { Vec p; Vec r; u8 pad[0x40]; Col_Player_DrawWeapon_0_001BCFF0 c; } P_Player_DrawWeapon_0_001BCFF0;
 typedef struct { u8 pad[0x160]; Flags8 f; u8 pad2[3]; s32 h; u8 pad3[8]; } E_Player_DrawWeapon_0_001BCFF0_;
@@ -161,7 +175,7 @@ typedef struct {
     s8 x3D5;
     Flags8 f3D6;
 } S_Player_UpdateHeldItem_0_001BFB70;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
+typedef Bits8 Bits;
 typedef struct {
     u8 pad[0x40];
     u16 x40;
@@ -218,7 +232,6 @@ typedef struct {
 } S_Player_UpdateEquipSounds_0_001BF940_;
 typedef struct { u8 pad[0x9C]; s16 x9C; } R_Player_DrawWeapon_0_001BCFF0;
 typedef struct { u8 pad[0x518]; u8 *x518; } A_Player_UpdateEquipSounds_0_001BF940_;
-typedef struct { s32 type; s32 a; s32 b; s32 c; f32 x, y, z, w; f32 h; f32 p; f32 r; s32 f; } Msg;
 typedef struct {
     u8 pad[0x39C];
     u32 lo:13;
@@ -395,7 +408,7 @@ typedef struct {
     u8 pad158[0x3A2 - 0x158];
     u8 b0:1; u8 b1:7;
 } P_PlayerProc_Collide_0_001C5150;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF;
+typedef Bits8 BF;
 typedef struct {
     u8 pad0[0x18]; s8 *x18; u8 pad1[0x39C - 0x1C]; u8 x39C; u8 pad2[0x3D6 - 0x39D]; BF f;
 } Sub_PlayerProc_Collide_0_001C5150;
@@ -446,7 +459,7 @@ typedef struct {
     Flags8 f3D6;
     union { u8 b; struct { u8 b0:1; u8 b1:2; u8 r:5; } f; } f3D7;
 } Obj_Player_UpdateArmBones_0_001C5DE0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef Bits8 B8;
 typedef struct { u8 b0:1; u8 f1:2; u8 r:5; } B7;
 typedef struct {
     u8 pad[0x3A1]; B8 m3A1; u8 pad2[0x3D5 - 0x3A2]; u8 m3D5; B8 m3D6; B7 m3D7;
@@ -566,8 +579,6 @@ extern f32 D_001F20C8[];
 extern f32 D_001F20D0[];
 extern f32 D_001F20D4[];
 extern f32 D_001F20D8[];
-extern Vec D_001F2070[];
-extern Vec D_001F2100[];
 extern f32 D_001F210C[];
 extern MtxF D_001F2170;
 extern Vec D_004B4CE0[];
@@ -589,10 +600,7 @@ extern s32 D_00201E80__as_Player_CheckCeiling_0_001BE390;
 extern s8 D_001F2170__as_Player_SpawnStepSfx_0_001BE510[];
 extern Vec D_004B4CF0;
 extern Flags8 D_00222A53[];
-extern Flags8 D_00222A52[];
-extern s8 D_00222A11[];
 extern Vec D_003139A0;
-extern f32 D_00222850[];
 extern f32 D_001F2170__as_Player_GetHandMatrix_1_001C0660[];
 extern f32 D_001F2170__as_Player_BlendHandMatrix_0_001C0860[];
 extern s32 D_002022EC;
@@ -608,8 +616,6 @@ extern u16 D_00317230[];
 extern u16 D_00317238[];
 extern f32 D_0031723C[];
 extern f32 D_00317240[];
-extern f32 D_00317244[];
-extern f32 D_00317248[];
 extern f32 D_0031724C[];
 extern f32 D_00317250[];
 extern f32 D_00317254[];
@@ -641,7 +647,6 @@ extern f32 D_001F2170__as_Player_UpdateArmBones_0_001C5DE0_____[];
 extern u8 D_003139A0__as_Player_UpdateArmBones_0_001C5DE0_____[];
 extern s32 D_00201E80__as_Player_UpdateArmBones_0_001C5DE0_____;
 extern u8 D_00222A53__as_Player_UpdateArmBones_0_001C5DE0_____[];
-extern f32 D_00222A40[];
 extern S *D_002022E4__as_Camera_SetPosition_0_001C8EA0;
 extern S *D_002022E4__as_Camera_SetParams_0_001C8F30;
 extern void *D_002022E4__as_Player_Warp_0_001C92C0;
@@ -659,7 +664,6 @@ extern S_Player_IsMoving_0_001C9A80 *D_002022E4__as_Player_IsMoving_0_001C9A80;
 extern S_Player_IsActionLocked_0_001C9AE0 *D_002022E4__as_Player_IsActionLocked_0_001C9AE0;
 extern void *D_002022E4__as_Player_GetBodyState_1_001C9B60;
 extern s32 D_00201E20__as_PlayerData_Get_2_001C9BA0;
-extern s32 D_00202278;
 extern M2C_UNK D_004B4BE0[];
 extern char D_001FDC08[];
 extern char D_001FDC10[];
@@ -728,16 +732,13 @@ s32 Player_TraceAttack_0_001C7850(s8 *a0, s32 a1);
 void Player_InitAttack_0_001C79B0(X_Player_UpdateArmBones_0_001C5DE0__ *x);
 inline s8* get_Player_UpdateArmBones_0_001C5DE0__(void);
 s32 Player_GetWeaponSegment_0_001C7A70(M *out);
-f32 Player_ClampPitch_0_001C7CA0(f32 a);
 s32 Player_TakeHit_1_001C7DC0(X_Player_TakeHit_1_001C7DC0_ *a0);
 s32 Player_TakeHitB_1_001C8070(B_Player_TakeHit_1_001C7DC0_ *a0, A *a1);
 s32 Player_ApplyDamage_2_001C8320(s32 n, s32 a1, s32 a2, s32 a3);
-s32 Player_RollStatusEffect_1_001C8570(u32 *arg0);
 void Player_AddStatus_1_001C88E0(s32 a, u32 b);
 inline s8* get_Camera_LookAt_0_001C89E0(void);
 void Camera_LookAt_0_001C89E0(Vec *dir, f32 t);
 void Camera_SetPosition_0_001C8EA0(f32 *v, f32 f);
-void Camera_SetParams_0_001C8F30(f32 x, f32 y, f32 z, f32 w);
 void Camera_Update_1_001C8F90(void *a0);
 void Player_Warp_0_001C92C0(s32 arg0);
 void Player_SetPosition_0_001C9320(u8 *arg0);
@@ -747,22 +748,17 @@ void Player_GetPosB_0_001C9490(f32 *v);
 void Player_SetPosAndGround_0_001C94F0(f32 *a0);
 void Player_SetStartPos_0_001C9630(f32 *a, f32 *b);
 void Player_LoadStartPos_0_001C96F0(s8 *a0);
-void Player_UpdateFrame_0_001C9830(void);
-s32 Player_IsBusy_0_001C99A0(void);
 s16 Player_GetHpS16_0_001C99C0(void);
 u8 Player_IsCrouching_0_001C9A20(void);
 u32 Player_IsMoving_0_001C9A80(void);
 u32 Player_IsActionLocked_0_001C9AE0(void);
 s32* Player_GetCameraData_0_001C9B40(void);
-s32 Player_GetCameraMode_0_001C9B50(void);
 s32 Player_GetBodyState_1_001C9B60(void);
 s32 PlayerData_Get_2_001C9BA0(void);
 void PlayerData_Load_1_001C9BB0(s32 arg0);
-s32 Player_Exists_3_001C9BF0(void);
 u8 Player_CopyLightPos_0_001C9C00(f32 *v);
 void Player_Destroy_1_001C9C30(void);
 void Player_LoadModel_1_001C9CD0(s8 *a);
-void Player_Respawn_1_001C9E30(void);
 void PlayerData_InitNew_0_001C9EA0(void);
 s8* Mdl_GetFrameData_0_001715B0(void *);
 void Mdl_SetLayerTex_0_0016B2D0(H_Player_DrawWeapon_0_001BCFF0 *, Col_Player_DrawWeapon_0_001BCFF0, s32, s32);
@@ -770,19 +766,15 @@ void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);
 void Mdl_DrawLitWrap_0_0016B960(s8 *, s32, s32, s8 *, s32, s32);
-void Fog_ApplyDefault_0_0015B270(void);
 void Mdl_DrawMeshesC_1_0016D380(s32, H2 *, s8 *, s32, Col_Player_DrawWeapon_0_001BCFF0, s32);
 void Seg_Init_1_001502A0(void *, void *, void *, f32);
 void Sfx_SetColor_0_00167670(s32, M_Player_DrawWeapon_0_001BCFF0 *);
 void Sfx_SetTransform_1_001677C0(s32, s8 *);
-void GsPkt_CloseChain_1_001549D0(void);
-void Mdl_FlushLayer_0_0016B280(void);
 s32 Equip_GetSlotItem_1_001CCD90(s32);
 N* MapObj_FindCollider_0_001B1D00(M_Player_UpdateArea_0_001BD4E0 *, void *);
 void Map_LoadArea_1_001B51F0(M_Player_UpdateArea_0_001BD4E0 *, u8 *, s32);
 M_Player_UpdateArea_0_001BD4E0** Map_FindLoaded_0_001B0AE0(M_Player_UpdateArea_0_001BD4E0 *);
 void MapObj_SendEvent_1_001B0A80(M_Player_UpdateArea_0_001BD4E0 *, s32);
-void MapState_SetVisited_0_001AA4C0(s32);
 f32 Lerpf_3_0015DF90(f32, f32, f32);
 f32* Map_GetFogEntry_0_001B40F0(M_Player_UpdateArea_0_001BD4E0 *, s32);
 void sceVu0InterVector(void *, void *, void *, f32);
@@ -818,37 +810,26 @@ f32 Vec_YawAngle_2_0013FC10(Vec *);
 f32 fabsf(f32);
 void ScreenFx_EnableWeather_0_00159500(s32);
 s32 rand(void);
-void Player_AddExp_0_001CEAA0(s32);
 void sceVu0ApplyMatrix__as_Player_DrawWeapon_0_001BCFF0(Vec *, MtxF *, Vec *);
 void sceVu0CopyVector__as_PlayerProc_UpdateMove_0_001BE7B0(Vec *, Vec *);
 void sceVu0ApplyMatrix__as_PlayerProc_UpdateMove_0_001BE7B0(Vec *, Mtx *, Vec *);
 s32 Sfx_Spawn_2_00169B50__as_PlayerProc_UpdateMove_0_001BE7B0(s32, s32, s32, s32);
 s32 Player_CheckCeiling_0_001BE390__as_PlayerProc_UpdateMove_0_001BE7B0(Actor *);
-void Game_TryRequestEvent_0_0012C110(s32);
 f32 sinf(f32);
 s32 Game_GetBusy_0_0012C020(void);
-void PlayerData_TickStatus_0_001CE2D0(void);
-void Player_UpdateMp_1_001CDF80(void);
-void PlayerData_ResetCounters_0_001CEBA0(void);
-void Player_UpdateRegen_1_001CD6C0(void);
 s32 Player_GetLevelInfo_0_001CD980(s8 *, s8 *);
 void Player_UpdateStatusEffects_0_001C9FF0(void);
 void Player_RecalcStats_1_001CEDC0(s32);
-void Player_RefreshEquipModel_0_001CEA50(s32);
 void Player_ApplyEquipVisualB_0_001CE4B0(S_Player_DrawWeapon_0_001BCFF0 *);
 void Player_ApplyEquipVisualA_0_001CE370(S_Player_DrawWeapon_0_001BCFF0 *);
 s32 ItemType_IsMagic_0_001D1E00(u8);
 s32 ItemType_IsWeapon_0_001D1D50(u8);
-void Hud_ClearTimers_0_0019A840(void);
 void sceVu0CopyVector__as_PlayerProc_Update_0_001BEFA0(Vec *, Vec *);
 s8* Mdl_GetFrameData_0_001715B0__as_PlayerProc_Update_0_001BEFA0(s32);
-s32 Snd_BindMapSe_0_0012DA90(void);
 u8 Item_GetType_0_001CCDE0(s32);
 u8* PlayerData_GetEquipEntry_0_001D1E10(void);
-void Snd_StopStream3_0_0012DA80(void);
 void ItemObj_Free_1_001AF4A0(Obj3D *);
 Obj3D* ItemObj_Spawn_0_001AE7C0(s32);
-s32 ItemType_GetCategory_0_001D1CB0(s32);
 s32 Item_GetType_0_001CCDE0__as_Player_UpdateHeldItem_0_001BFB70(s32);
 E_Player_UpdateEquipSounds_0_001BF940* Item_GetTable_1_001AFC90(void);
 void Equip_DamageWeapon_0_001CC450(u16);
@@ -857,7 +838,6 @@ void Sfx_SetOwner_1_00167600(s8 *, Actor *);
 void Sfx_GetState_0_001672B0(s8*, void *);
 R_Player_DrawWeapon_0_001BCFF0* ItemObj_FindPickTarget_0_001AC3E0(void);
 s32 Inventory_CanCarry_0_001CBE40(s32);
-void Msg_ShowById_1_0018B0E0(s32);
 R_Player_DrawWeapon_0_001BCFF0* Chest_CheckOpen_0_001B9360(void);
 void sceVu0InversMatrix(f32 (*)[4], f32 *);
 void ItemObj_GetScale_0_001ADBA0(s32, f32 *);
@@ -875,34 +855,21 @@ void sceVu0CopyMatrix__as_Player_BlendHandMatrix_0_001C0860(f32 (*)[4], void *);
 void sceVu0MulMatrix__as_Player_BlendHandMatrix_0_001C0860(f32 (*)[4], f32 (*)[4], f32 (*)[4]);
 s32 MapState_GetField_0_001A9D50(s32, u16);
 void MapState_SetField_0_001A9E10(s32, u16, u8);
-void ItemObj_PickUp_0_001AF3F0(Obj3D *);
 s32 Event_CheckTrigger_0_00179F80(Msg *);
 void Inventory_Give_0_001CBCD0(s32);
 void Player_UseItem_1_001CAEF0(s32);
-void Event_CheckTalk_0_00179F10(void);
-void Door_UpdateLocked_0_001B90F0(void);
 void MapColl_ClampIndex_0_001B2160(s32, Res_Player_UpdateEquipSounds_0_001BF940 *, Ray_Player_DrawWeapon_0_001BCFF0 *, s32, s32);
 f32 sceVu0InnerProduct(Vec *, Vec *);
 f32 sqrtf(f32);
 s32 ItemType_IsShield_0_001D1DA0(u8);
 s32 Snd_GetStreamFlag_0_0012C400(s32);
-u8 Option_GetControlType_1_001A9450(void);
 T* Item_GetData_1_001AFC40(s16);
 s16 Inventory_HasItem_0_001CBC20(s16);
-void Player_PlaySwingSe_0_001CA930(void);
-void Inventory_Consume_0_001CBA80(s16, u8);
-void Player_PlayAttackSe_0_001CA6F0(void);
 s32 ItemType_IsGun_0_001D1DD0(u8);
 void Player_CalcAttack_1_001CEBF0(void *, u8*, s8);
 s32 Equip_CheckAmmo_0_001CC250(s32);
-void Player_PlaySeA_1_001CA860(void);
-void Player_PlaySwingSeB_0_001CA940(void);
-void Player_PlayMagicSe_0_001CA870(void);
-void Player_PlaySwitchSe_0_001CA880(s32);
 s32 Option_GetMoveEffect_2_001A9440(void);
 void Player_PlayMoveSe_1_001CA4A0(u8, u8);
-s32 func_00120570(s32);
-void Player_PlayLandSe_0_001CA2C0(void);
 void sceVu0OuterProduct(Vec *, Vec *, Vec *);
 s32 Inventory_HasItem_0_001CBC20__as_Player_HandleMagicInput_1_001C2190(s32);
 s32 Player_PlayMoveSe_1_001CA4A0__as_Player_UpdateSlide_0_001C3EF0(u32, s32);
@@ -938,8 +905,6 @@ void sceVu0ApplyMatrix__as_Player_UpdateEquipSounds_0_001BF940_(f32 *, f32 (*)[4
 void sceVu0InterVector__as_Player_UpdateEquipSounds_0_001BF940_(f32 *, f32 *, f32 *, f32);
 void Seg_Init_1_001502A0__as_Player_UpdateEquipSounds_0_001BF940_(Ray_Player_DrawWeapon_0_001BCFF0 *, f32 *, f32 *, f32);
 s32 MapColl_CapsuleCastAll_1_001B3240__as_Player_UpdateEquipSounds_0_001BF940_(s8 *, Hit *, Vec *, s32, s32);
-f32 Vec_DistXZ_2_0015DEE0(Vec *, void *);
-f32 Vec_DistB_3_0015DF50(Vec *, void *);
 s32 MapColl_SphereCastAll_0_001B34B0(s8 *, Vec *, Vec *, s32, s32);
 s32 MapColl_SphereCast_0_001B2B90(s8 *, Vec *, Vec *, u16, s32, s32);
 void Attack_PlaySe_0_001D1E80(s32, s32, Arg_PlayerProc_Collide_0_001C5150 *, s32, s32);
@@ -949,7 +914,6 @@ void MapObj_SnapToGround_0_001B9F10(void *, s8 *, f32, f32);
 f32 Mdl_GetMotionLength_0_00173F70(s32, u16);
 void Mdl_AnimateWrap_0_00171B70(Mdl *, u16, f32);
 void Mdl_UpdateBoneMatricesCur_0_00171540(Mdl *, Mtx *);
-void Player_PlayNullSe_0_001CA950(void);
 void Player_UpdateEquipModel_0_001CE7D0(P_PlayerProc_Animate_0_001C5750 *, s32);
 void sceVu0CopyVector__as_PlayerProc_Collide_0_001C5150(Vec *, Vec *);
 void sceVu0SubVector__as_Player_DrawWeapon_0_001BCFF0__(Vec *, Vec *, Vec *);
@@ -962,7 +926,6 @@ s32 MapColl_CapsuleCast_1_001B2800__as_PlayerProc_Collide_0_001C5150_(s8 *, Vec 
 void Sfx_SetOwner_1_00167600__as_PlayerProc_Collide_0_001C5150_(s32, Obj_Player_DrawWeapon_0_001BCFF0 *);
 void sceVu0RotMatrixX__as_PlayerProc_Collide_0_001C5150_(Mtx *, Mtx *, f32);
 void sceVu0MulMatrix__as_PlayerProc_Collide_0_001C5150_(Vec *, Mtx *, Vec *);
-void Equip_DamageAmmo_0_001CC5E0(void);
 void ItemObj_SetRotation_0_001AD0C0(s32, s32);
 void ItemObj_SetAnim_0_001AD1C0(s32, s32);
 void Player_StartAttackMotion_1_001C6590__as_Player_UpdateArmBones_0_001C5DE0(s32);
@@ -975,11 +938,9 @@ void Player_SetArmMotion_1_001C7020__as_Player_UpdateArmBones_0_001C5DE0__(f32, 
 s32 Player_GetStat_2_001CD450(s32, void *, s32, s32);
 s32 Enemy_IsDead_1_0013EEE0(A_Player_OnHitEnemy_0_001C73C0 *);
 u32 Enemy_GetMaxHp_2_0013F700(A_Player_OnHitEnemy_0_001C73C0 *);
-void Equip_DamageOnHit_0_001CC6F0(s32, s32);
 void Player_PlayHitEnemySe_0_001CA7B0(s8, s32);
 s32 MapObj_Hit_0_001B85B0(s32, A_Player_OnHitObject_0_001C7730 *);
 u8 MapObj_IsSame_0_001B8F30(s32, s32);
-void Player_PlayHitObjectSe_0_001CA700(s32, s32);
 void Coll_ClosestPointB_0_00150160(Ray_Player_UpdateArmBones_0_001C5DE0 *, s8 *, s8 *);
 s32 MapColl_RayCast_0_001B23E0(s8 *, Res *, Ray_Player_UpdateArmBones_0_001C5DE0 *, u16, s32, s32);
 s32 MapColl_RayCastAll_0_001B2F30(s32, Res *, Ray_Player_UpdateArmBones_0_001C5DE0 *, s32, s32);
@@ -987,17 +948,13 @@ void Player_OnHitObject_0_001C7730__as_Player_TraceAttack_0_001C7850(Res *, s32)
 void sceVu0CopyVector__as_Player_UpdateArmBones_0_001C5DE0___(s8 *, void *);
 void sceVu0CopyVector__as_Player_GetWeaponSegment_0_001C7A70(f32 *, s8 *);
 s32 Combat_SumResist_0_001AB500(void *, void *);
-void Equip_DamageArmor_0_001CC830(s32, u32, s32, s32);
 s32 Combat_SumResist_0_001AB500__as_Player_TakeHit_1_001C7DC0(X_Player_TakeHit_1_001C7DC0_ *, Buf *);
 s32 Combat_SumResist_0_001AB500__as_Player_TakeHitB_1_001C8070(B_Player_TakeHit_1_001C7DC0_ *, u16 *);
 void Equip_DamageArmor_0_001CC830__as_Player_TakeHitB_1_001C8070(s32, u16, s32, s32);
 void Player_RollStatusEffect_1_001C8570__as_Player_TakeHitB_1_001C8070(u32 *);
-void Vibe_StartB_0_0015FE20(f32, f32, f32, f32, f32);
-void Vibe_StartA_0_0015FD90(f32, f32, f32, f32, f32);
 void Player_PlayHurtSe_0_001CA2B0(s32);
 void Player_ApplyDamage_2_001C8320__as_Player_TakeHit_1_001C7DC0_(s32, s32, s32, s32);
 u16 Rand_Next_3_0015ED20(u32);
-s32 Equip_FindSlot_0_001CD2D0(s32);
 s32 Player_GetStat_2_001CD450__as_Player_AddStatus_1_001C88E0(s32, s32, s32, s32);
 void Player_RollStatusEffect_1_001C8570__as_Player_TakeHit_1_001C7DC0__(void *);
 void Player_ApplyDamage_2_001C8320__as_Player_UpdateArmBones_0_001C5DE0____(s32, s32, s32, s32);
@@ -1039,7 +996,6 @@ s32 Tex_Find_1_00177AF0(s32, s32);
 void memset__as_Player_LoadModel_1_001C9CD0(void *, s32, s32);
 s32 Player_RefreshEquipModel_0_001CEA50__as_Player_Warp_0_001C92C0_();
 void sceVu0CopyVector__as_Player_Exists_3_001C9BF0(f32 *v0, f32 *v1);
-void Equip_SetSlot_0_001CCF00(s32, s32);
 void memset__as_PlayerData_InitNew_0_001C9EA0(u8 *, s32, s32);
 
 /* Player_DrawWeapon_0_001BCFF0____ */

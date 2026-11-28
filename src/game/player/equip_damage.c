@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/player.h"
 typedef struct { u8 hp; u8 rem; u8 c; u8 pad1; } T_Equip_DamageWeapon_0_001CC450;
 typedef struct { s16 h0; u8 pad[0x7E]; s16 h80[2]; s16 h84; s16 h86; s16 h88; s16 h8A; s16 h8C; u8 pad2[0x12]; T_Equip_DamageWeapon_0_001CC450 t[1]; } X_Equip_DamageWeapon_0_001CC450;
 typedef struct { u8 pad[0x3F]; u8 b3F; u8 pad2[0x50]; } S_Equip_DamageWeapon_0_001CC450;
@@ -16,9 +17,6 @@ typedef struct { char p[4]; } E;
 typedef struct { char pad[0x80]; s16 idx[10]; char p94[0xC]; E e[1]; } T_Equip_GetSlotEntry_0_001CCD30;
 typedef struct { char pad[0x80]; s16 v[10]; } T_Equip_GetSlotItem_1_001CCD90;
 void Equip_DamageWeapon_0_001CC450(u32 a0);
-void Equip_DamageAmmo_0_001CC5E0(void);
-void Equip_DamageOnHit_0_001CC6F0(s32 a0, s32 a1);
-void Equip_DamageArmor_0_001CC830(s32 a0, u32 a1, s32 a2, s32 a3);
 s32 Equip_GetDurability_1_001CCC10(s16 id, s32 arg1);
 E* Equip_GetSlotEntry_0_001CCD30(s32 i);
 s16 Equip_GetSlotItem_1_001CCD90(s32 i);

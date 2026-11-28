@@ -1,17 +1,7 @@
 #include "common.h"
 #include "actor.h"
-typedef struct {
-    u8 idx[4];
-    u8 f4;
-    u8 f5;
-    u8 pad6[2];
-    f32 w1;
-    f32 w2;
-    f32 base;
-    f32 amp;
-    f32 scale;
-    f32 f1C;
-} Noise;
+#include "game/input.h"
+#include "game/math.h"
 typedef struct {
     f32 f0;
     f32 f4;
@@ -25,13 +15,6 @@ typedef struct {
 } Ent;
 extern s32 D_003172E0[];
 extern Flags8 D_003174E0[];
-void Vibe_StartA_0_0015FD90(f32 fparg0, f32 fparg1, f32 fparg2, f32 fparg3, f32 fparg4);
-void Vibe_StartB_0_0015FE20(f32 fparg0, f32 fparg1, f32 fparg2, f32 fparg3, f32 fparg4);
-void Vibe_Update_1_0015FEB0(s32 on, f32 dt);
-void Vibe_Enable_1_001601C0(s32 on);
-void Vibe_StopAll_1_00160300(void);
-void Vibe_Clear_1_00160350(void);
-void Noise_Eval_1_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
 f32 powf(f32, f32);
 void Pad_SetRumble_3_001D7D08(s32, s32, u32);
 void Pad_SetRumbleLarge_2_001D7D58(s32, s32, u16);

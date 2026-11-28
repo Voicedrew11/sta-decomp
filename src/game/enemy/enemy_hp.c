@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/save.h"
 typedef struct { u8 pad[0x15C]; u16 v; u8 pad2[0x170 - 0x15E]; } E;
 typedef struct { u8 pad[0x20]; u16 max; } M;
 typedef struct { u8 pad[0x4B4]; M *m[26]; E *e; } A_Enemy_AddPartValue_0_0013F5C0;
@@ -38,9 +39,7 @@ void Enemy_Set5B6b5_1_0013F8C0(Obj_Enemy_Set5B6b5_1_0013F8C0 *o, int v);
 s32 Enemy_CheckReachable_0_0013F8E0(Obj_Enemy_CheckReachable_0_0013F8E0 *a);
 u8 Enemy_GetCollider_0_0013FB90(A_Enemy_GetCollider_0_0013FB90 *a0, s32 arg1, s32 *arg2, s32 *arg3);
 u8 Enemy_Get81_1_0013FC00(void *arg0);
-void MapState_IncCounter_0_001AA2A0(s32, s16);
 void MapState_GetCounter_0_001AA1E0(s32, s16);
-void MapState_IncVisits_0_001AA130(s32);
 s32 EnemyScr_Event2021_1_00140E50(Obj_Enemy_CheckReachable_0_0013F8E0 *);
 void Player_GetPos_1_001C9410(Vec *);
 void Player_GetForwardVector_2_001456B0(Vec *);

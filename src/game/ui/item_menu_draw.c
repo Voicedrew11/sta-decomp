@@ -1,6 +1,9 @@
 #include "m2c.h"
 #include "include_asm.h"
 #include "common.h"
+#include "game/player.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef union { u128 q; u32 w[4]; } V;
 typedef union { u32 w; u8 b[4]; } C_ItemMenu_Draw_0_0019C6D0;
 typedef void (*Fn)(void);
@@ -15,7 +18,7 @@ typedef struct { u32 idx; s32 f4; u8 pad8[0x24]; f32 x; f32 y; u8 pad34[0xC]; } 
 typedef struct { u32 n; Ent *p; } L;
 typedef struct { L *l; } O;
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { u8 b0 : 1; } F;
 typedef struct { s32 state; s32 buttons; u8 next; u8 pad[5]; u8 pad_e; } Menu;
 typedef struct { u8 b0:1; } BF;
@@ -60,7 +63,6 @@ void* DbItem_Find_1_0019D510(s32 id);
 void ItemMenu_Update_0_0019D580(Menu *m);
 void ItemMenu_UseItem_0_0019DA70(Menu *m);
 void ItemMenu_BuildList_1_0019DCF0(void);
-s32 ItemMenu_IsUsable_0_0019DE30(s32 i);
 void ItemMenuProc_Pos_0_0019DE90(s32 i, s8 *a1, s8 *a2);
 void Menu_SetFlags_0_0018A310(s32);
 f32 Approachf_3_00187770(f32, f32, f32);
@@ -78,7 +80,6 @@ void MenuProc_DrawStatValue_0_00186990(void);
 s32 PlayerData_Get_2_001C9BA0();
 s32 Menu_CalcStatBar_0_001866B0(s32, s32, s32, s8 *, s32);
 void Ui_DrawSprite_2_00181680(s32, s8 *, s8 *, void *, S *, s32);
-void Ui_DrawGauge_0_00182EF0(s32, s32, s32, s32, f32, f32, f32);
 void sprintf(s8 *, s8 *, s32);
 f32 Vec2_Angle_1_00187460(V2 *, V2 *);
 f32 sinf(f32);
@@ -92,7 +93,6 @@ O* MenuLayout_Get_1_00189050__as_ItemMenu_DrawRing_0_0019CCF0(s32);
 s8* MenuLayout_GetSub_1_00189020__as_ItemMenu_DrawRing_0_0019CCF0(s32);
 void Ui_DrawList_1_001829B0__as_ItemMenu_DrawRing_0_0019CCF0(Ent *, s8 *, void (*)(void), s32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 void UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Ui_LoadItemImage_3_00183DC0(s32);
 void* DbTable_FindB_0_00195840(void *h, s32 id);
@@ -100,10 +100,8 @@ void Snd_PlaySe_3_00131600(s32, u8);
 void Player_OnEnemyKilled_1_001CB980(void *);
 void memset(void *, s32, s32);
 void Player_RecalcStats_1_001CEDC0(s32);
-void Player_RefreshEquipModel_0_001CEA50(s32);
 void Inventory_ChangeCount_1_001CBED0(s16, s32, s32);
 void SndEmit_SetEnabled_0_0012F6E0(s32);
-void SndCh_ResumePaused_1_0012C260(void);
 void Player_UseItem_1_001CAEF0(s16);
 E_ItemMenu_BuildList_1_0019DCF0* Item_GetTable_1_001AFC90(void);
 s32 ItemSort_GetCount_0_00195BE0(s32);

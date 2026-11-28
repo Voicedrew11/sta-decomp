@@ -1,8 +1,11 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/core.h"
 typedef struct { u32 tag; u32 x4; u32 x8; u32 xC; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_ParseOptions_1_001A8B90;
 typedef struct { u8 x0[0x20]; u8 x20[0x30]; u8 x50[0x10]; } Big_Save_ParseOptions_1_001A8B90;
-typedef struct { u32 tag; u32 x4; u32 a:8; u32 b:24; u16 xC; u16 xE; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_WriteOptions_1_001A8CA0;
+typedef SaveRec Rec_Save_WriteOptions_1_001A8CA0;
 typedef struct { Rec_Save_WriteOptions_1_001A8CA0 r0; u8 x20[0x10]; Rec_Save_WriteOptions_1_001A8CA0 r1; u8 pad[0x80]; Rec_Save_WriteOptions_1_001A8CA0 r2; } Big_Save_WriteOptions_1_001A8CA0;
 typedef struct { u8 pad[0x20]; u8 x20[0xE]; u8 x2E; u8 p2F; s16 x30, x32, x34, x36, x38; } D;
 typedef struct { u32 tag; u32 x4; u32 x8; u32 xC; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_ParseOptionsB_0_001A8F00;
@@ -14,7 +17,7 @@ typedef struct {
     u8 x5B60[0x5C00 - 0x5B60];
     u8 x5C00[0x10];
 } Big_Save_ParseOptionsB_0_001A8F00;
-typedef struct { u32 tag; u32 x4; u32 a:8; u32 b:24; u16 xC; u16 xE; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_ParseGame_1_001A9080;
+typedef SaveRec Rec_Save_ParseGame_1_001A9080;
 typedef struct {
     Rec_Save_ParseGame_1_001A9080 r0;
     u8 x20[0x10C0 - 0x20];
@@ -29,27 +32,15 @@ typedef struct {
     Rec_Save_ParseGame_1_001A9080 r5;
 } Big_Save_ParseGame_1_001A9080;
 typedef struct { u8 pad0[8]; u16 x8; u8 xA; u8 xB; u8 pad[0x98 - 0xC]; u8 x98; u8 x99; u8 x9A; u8 x9B; } Src;
-extern s8 D_001FD988[];
 extern Big_Save_ParseOptions_1_001A8B90 *D_00201E00;
-extern s8 D_001FD990[];
-extern s8 D_001FD998[];
 extern D *D_00201DC0;
-extern s8 D_001FD9A0[];
-extern s8 D_001FD9A8[];
-extern s8 D_001FD9B0[];
-extern s8 D_001FD9B8[];
-extern s8 D_001FD9C0[];
 void Save_ParseOptions_1_001A8B90(Rec_Save_ParseOptions_1_001A8B90 *p);
-void Save_WriteOptions_1_001A8CA0(void);
-void Save_ApplyLoaded_0_001A8E30(void);
 void Save_ParseOptionsB_0_001A8F00(Rec_Save_ParseOptionsB_0_001A8F00 *p);
-void Save_ParseGame_1_001A9080(void);
 s32 Save_GetData_1_001A9400(void);
 void memcpy(void *, void *, s32);
 void Player_SetStartPos_0_001C9630(Vec *, Vec *);
 void PlayerData_Load_1_001C9BB0(u8 *);
 void PlayTime_Load_1_001DFAA0(u8 *);
-void PlayTime_Tick_1_001DF9A0(void);
 Src* PlayerData_Get_2_001C9BA0(void);
 void PlayTime_CopyClock_1_001DF930(u8 *);
 

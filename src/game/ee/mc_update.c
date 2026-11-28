@@ -1,8 +1,8 @@
 #include "common.h"
+#include "game/data.h"
 extern struct { char pad[0x88]; s32 state; s32 x8c; } D_004B63B8;
 s32 Mc_StepCheck_4_001D3E30(void);
 s32 Mc_StepGetDir_4_001D3FE8(void);
-s32 Mc_StepWriteChecked_3_001D4170(void);
 s32 Mc_StepReadChecked_3_001D4A78(void);
 s32 Mc_StepWrite_4_001D5280(void);
 s32 Mc_StepCopyFile_4_001D58C0(void);

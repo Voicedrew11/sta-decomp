@@ -1,6 +1,10 @@
 #include "m2c.h"
 #include "common.h"
 #include "obj3d.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/item.h"
+#include "game/save.h"
 typedef struct {
     s8 pad0[0x40];
     f32 v40[4];
@@ -223,15 +227,10 @@ extern s32 D_002022BC;
 extern s16 D_004AC5A4[];
 extern Node *D_004AC5A8[][16];
 extern s16 D_004AC5A0[];
-extern s32 D_0020228C;
-extern s32 D_002022A0;
 extern s32 D_00202290;
 extern s16 D_004AC5A2[];
 extern s16 D_004AC5A6[];
-extern s32 D_004B4B70[];
-extern s32 D_004B4B74[];
 extern s32 D_004B4B80[];
-extern s32 D_004B4B88[];
 extern Obj_ItemObj_SpawnAt_0_001AE620 D_004AC630__as_ItemObj_SpawnAt_0_001AE620[4];
 extern Obj_ItemObj_Spawn_0_001AE7C0 *D_00202288__as_ItemObj_Spawn_0_001AE7C0;
 extern Ent_ItemObj_Spawn_0_001AE7C0 *D_002022B0__as_ItemObj_Spawn_0_001AE7C0;
@@ -262,17 +261,13 @@ Node* ItemObj_Drop_0_001AE900(s32 *owner, s16 id, Vec_ItemObj_Drop_0_001AE900 *a
 Obj_ItemObj_Drop_0_001AE900* ItemObj_SpawnThrown_0_001AEC00(s32 arg0, s16 id, Vec_ItemObj_Drop_0_001AE900 *a, Vec_ItemObj_Drop_0_001AE900 *b, Vec_ItemObj_Drop_0_001AE900 *d);
 Obj_ItemObj_SpawnFromMap_0_001AEE80* ItemObj_SpawnFromMap_0_001AEE80(s32 *arg0, s16 id, Vec_ItemObj_SpawnFromMap_0_001AEE80 *a, Vec_ItemObj_SpawnFromMap_0_001AEE80 *b, s16 arg4);
 Obj_ItemObj_SpawnFromSource_0_001AF150* ItemObj_SpawnFromSource_0_001AF150(s32 arg0, Src *arg1, u16 arg2, Vec *arg3);
-void ItemObj_PickUp_0_001AF3F0(Obj3D *o);
 void ItemObj_Free_1_001AF4A0(O *o);
 void ItemObj_FreeOwned_0_001AF740(s32 *a0);
 void ItemObj_FreeAll_0_001AF840(void);
 void ItemObj_SetPools_0_001AF970(s32 arg0, s32 arg1);
-void ItemObj_Init_0_001AF980(void);
 void ItemObj_ClearTables_1_001AFA20(void);
-s32 Item_GetCategory_0_001AFBD0(s32 arg0);
 E* Item_GetData_1_001AFC40(s16 i);
 s32 Item_GetTable_1_001AFC90(void);
-void Item_LoadTables_0_001AFCA0(s8 *arg0);
 s32 Item_LoadTableB_0_001AFFA0(void *a);
 void sceVu0CopyVector(void *, void *);
 void Mtx_Compose_2_00173FD0(void *, void *, void *, void *);
@@ -283,17 +278,13 @@ void sceVu0SubVector(void *, void *, void *);
 void Map_CopyOrigin_0_001B51E0(s32, void *);
 void* ItemObj_AllocSlot_1_001AE360(s16, u8);
 s32 ItemObj_FindGround_0_001AE250(s32 *, Vec_ItemObj_Drop_0_001AE900 *, f32 *);
-void ItemObj_SaveState_1_001AE510(void);
 void Map_DecodeTransform_0_001B59E0(Src *, Vec *, Vec *, Vec *);
 s32 MapState_GetField_0_001A9D50(u32, u16);
 void MapState_SetField_0_001A9E10(s32, u16, u8);
-void MapState_SetBit_0_001A9CA0(s32, s16);
 void memset(void *, s32, s32);
 void Sfx_Release_1_00167030(s32);
 void Mdl_DestroyInstance_0_001745D0(s32, s8 *);
 void Pool_Free_2_00128580(s32, s32);
-void Task_RunWrap_0_0014DAB0(s32);
-void ItemMdl_Update_0_001AB690();
 void Task_Register_0_0014DB10(void (*)());
 void sceVu0CopyVector__as_ItemObj_SpawnAt_0_001AE620(f32 *, f32 *);
 void Mtx_Compose_2_00173FD0__as_ItemObj_SpawnAt_0_001AE620(Obj_ItemObj_SpawnAt_0_001AE620 *, f32 *, f32 *, s8 *);

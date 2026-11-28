@@ -1,8 +1,8 @@
 #include "common.h"
+#include "game/core.h"
 extern volatile s32 D_00202020;
 extern volatile s32 D_0020201C;
 extern volatile s32 D_00202024;
-void Timer_Update_3_00178760(void);
 
 /* Timer_Update_3_00178760 */
 void Timer_Update_3_00178760(void)

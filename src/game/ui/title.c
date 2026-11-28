@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/core.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef struct { s32 x0; s32 x4; u8 x8; u8 x9; u8 xA; u8 xB; } P_Title_LoadGame_0_001A35B0;
 typedef struct { s32 x0; u32 flags; char p8[2]; u8 bA; char pB[3]; u8 bE; } Obj_Title_LoadGame_0_001A35B0;
 typedef struct { char pad[0x14]; unsigned char : 3; unsigned char f : 1; } BF_14_3_1;
@@ -11,7 +14,7 @@ typedef struct { s32 st; s32 fl; s8 x8; } S;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 r:5; } F;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad[5]; u8 xE; } P_TitleMenu_Update_1_001A4010;
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { u8 p:3; u8 v:1; } BF3;
 typedef struct { u8 p:5; u8 v:1; } BF5;
 typedef struct { s32 pad[4]; s32 f10[7]; s32 pad2[1]; } St;
@@ -59,11 +62,9 @@ void Title_LoadGame_0_001A35B0(P_Title_LoadGame_0_001A35B0 *p);
 void TitleProc_Back_0_001A3B60(Obj_Title_LoadGame_0_001A35B0 *o);
 void Title_PlayOpening_2_001A3C10(void *arg0);
 void Title_ResetOnEvent_0_001A3C70(void *arg0);
-void Title_DrawLogo_0_001A3CC0(void);
 void Title_UpdateWrap_0_001A3EB0(s32 arg0);
 void Title_HandleEvent_0_001A3EC0(S *s);
 void Title_Reset_0_001A3F80(void);
-void Title_Draw_0_001A3FB0(void);
 void TitleMenu_Update_1_001A4010(s32 *arg0);
 s32* TitleMenu_GetLabel_2_001A4050(s32 arg0);
 void TitleMenu_Select_1_001A40A0(P_TitleMenu_Update_1_001A4010 *p);
@@ -71,11 +72,7 @@ void TitleMenu_Open_1_001A4420(s32 *arg0);
 s32 Title_CheckSaveData_1_001A4570(void);
 void Title_PlayPrologue_2_001A4890(void *arg0);
 void Title_StartNewGame_0_001A4930(Obj_Title_CheckSaveData_1_001A4570 *o);
-s32 Movie_Stop_0_00180110(void);
-s32 Movie_Update_0_001801F0(s32);
 s32 SaveSys_SetPort_1_001E82A0(s32);
-s32 SaveSys_GetCardKind_0_001E60C0(s32);
-s32 SaveSys_GetSlotState_0_001E6040(s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 Menu_GetStateBuf_0_00189000(s32);
 void Save_ParseOptions_1_001A8B90(s32);
@@ -90,9 +87,6 @@ void Ui_DrawElem_1_00182C10(Item *, s32);
 s32 Title_Reset_0_001A3F80__as_Title_ResetOnEvent_0_001A3C70();
 s32 Title_HandleEvent_0_001A3EC0__as_Title_UpdateWrap_0_001A3EB0();
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
-void Loading_SetVisible_0_0018E470(s32);
-void MenuStack_Push_1_00189ED0(s32);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
 void Strm_PlayFile_2_00130590(s32, s32, s32);
 s32 TitleMenu_Open_1_001A4420__as_TitleMenu_Update_1_001A4010();
@@ -101,10 +95,8 @@ void SaveSys_SetPort_1_001E82A0__as_Title_LoadGame_0_001A35B0_(s32);
 void SaveSys_GetSlotCount_0_001E5E80(St *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 s32 SaveSys_StartWrite_0_001E6170(s32, s8 *, s32);
-s32 SaveSys_GetPort_1_001E8290(void);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
 s64 Strm_GetParam_0_001303C0(s32);
-void Game_RequestMode12B_0_0012C0C0(void);
 
 /* Title_LoadGame_0_001A35B0__ */
 /* Title_LoadGame_0_001A35B0_ */

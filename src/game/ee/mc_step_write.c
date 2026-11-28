@@ -1,15 +1,13 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/ee.h"
 typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 state; s32 x90; s32 x94; s32 err; s32 retry; s32 name; s32 xA4; u32 size; s32 xAC; s32 xB0; s32 xB4; s32 buf; } T;
 typedef struct { u8 pad[0x10]; u32 fsize; } Tbl;
 extern T D_004B63B8;
 extern Tbl D_004B68C0[];
-extern s32 D_004B6474[];
 extern u32 D_004B639C[];
 extern s32 D_004B63A0[];
-extern s32 D_004B68D0[];
 s32 Mc_StepGetInfo_3_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
-s32 Mc_GetInfoStatus_2_001D3CE0(s32 n);
-void Mc_SetErrorStatus_4_001D3DA8(s32);
 s32 sceMcClose(s32);
 s32 sceMcGetDir(s32, s32, s32, s32, s32, Tbl *);
 s32 sceMcOpen(s32, s32, s32, s32);

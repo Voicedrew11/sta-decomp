@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/ee.h"
 typedef struct { u8 b[8]; } B8;
 typedef struct { u8 b[4]; } C4;
 typedef struct { f32 x, y; s32 z[0]; } __attribute__((aligned(8))) V2;
@@ -9,7 +10,6 @@ extern G D_004BC2F0;
 extern f32 D_004BC360[];
 extern u16 D_00201E68[];
 extern f32 D_00201B90;
-void GsText_SetBuffer_0_001E1E70(s32);
 void GsText_SetQword_0_001E1E80(s32, s64, s64);
 void GsText_Begin_1_001E23C8(void);
 void GsText_End_1_001E2430(void);

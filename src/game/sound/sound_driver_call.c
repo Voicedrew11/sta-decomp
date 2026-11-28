@@ -1,6 +1,7 @@
 #include "common.h"
 #include "include_asm.h"
-typedef struct { s32 status; void *entry; void *stack; s32 stackSize; void *gpReg; s32 initPriority; s32 currentPriority; u32 attr; u32 option; s32 waitType; s32 waitId; s32 wakeupCount; } TP;
+#include "game/core.h"
+typedef ThreadParam TP;
 typedef char *va_list;
 typedef struct { u8 pad[0x24]; void *serve; u8 pad28[0x8]; } CD;
 extern char D_001FE6C0[];

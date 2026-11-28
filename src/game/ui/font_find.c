@@ -1,10 +1,10 @@
 #include "m2c.h"
+#include "game/ui.h"
 typedef struct { u16 lo; u16 hi; u16 idx; } R;
 typedef struct { u8 p[0x14]; u16 w; u8 p16[2]; } G;
 typedef struct { u8 p[0x10]; u16 n; u8 p12[2]; R *r; G *g; } H;
 extern H *D_002020C8;
 extern f32 D_00201CEC;
-u16 *Text_ParseEscape_1_00188AF0(u16 *s, u8 *out);
 static inline f32 u2f(u32 x) { return x; }
 static inline f32 mu(u32 x, f32 k) { f32 f = x; return f * k; }
 

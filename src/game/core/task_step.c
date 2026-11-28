@@ -1,12 +1,12 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
 typedef struct { u8 *base; s32 stride; u32 n; } L;
 extern void (*volatile D_004BAC28[])(u8 *);
 extern u8 *volatile D_004BAC30[];
 extern volatile s32 D_004BAC34[];
 extern volatile u32 D_004BAC38[];
 extern volatile s32 D_004BAC3C[];
-extern s32 D_002023A8;
-extern s32 D_004BAC48[];
 extern u8 D_004BAC4C[];
 extern Flags8 D_004BAC4D[];
 s32 Task_RunAll_1_001DFCB0(u8 *a);
@@ -16,7 +16,6 @@ void Task_SetPriority_0_001E0160(void *arg0, s16 arg1);
 void Task_Add_0_001E0180(u8 *a);
 void Task_Remove_0_001E01F0(u8 *a);
 s32 Task_GetState_0_001E02A0(s8 *p);
-void Task_Init_1_001E03C0();
 
 /* Task_RunAll_1_001DFCB0 */
 static inline void clr_Task_RunAll_1_001DFCB0(u8 *p) {

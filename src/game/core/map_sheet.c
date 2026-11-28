@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/ui.h"
 typedef union { u32 w; u8 b[4]; } Buf;
 typedef struct {
     u8 pad0[0x14];
@@ -16,14 +18,10 @@ extern S_MapSheet_Draw_0_001ED630 D_004BE0E0;
 extern s32 D_001F27B0[];
 extern s32 D_001F27C0[];
 extern f32 D_00202404;
-void MapSheet_Open_0_001ED620(s32 arg0);
-void MapSheet_Draw_0_001ED630(void);
 void MapSheet_Update_0_001ED740(S_MapSheet_Update_0_001ED740 *a);
 void Menu_SetSubMode_0_0018A330(s32);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, void *, void *, void *, s32);
-void Ui_BeginSprites_1_00181420(void);
 void Ui_DrawWindow_0_00183650(void *);
-void Ui_LoadMapSheet_3_00183750(s32);
 
 /* MapSheet_Open_0_001ED620 */
 void MapSheet_Open_0_001ED620(s32 arg0) {

@@ -1,4 +1,6 @@
 #include "m2c.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef union { u128 q; u32 w[4]; } V;
 typedef union { u32 w; u8 b[4]; } C;
 typedef struct { u8 p:2; u8 v:1; } B;
@@ -11,29 +13,19 @@ typedef struct { u8 pad[6]; u8 x6; u8 pad7[0x89]; } E_Notify_DrawItemGold_0_0019
 typedef struct { u8 x0; u8 x1; u8 x2; u8 x3; u8 x4; u8 x5; } Q;
 extern V D_001F3200[];
 extern V D_001F3210[];
-extern s32 D_004A331C[];
 extern s32 D_004A3324[];
 extern s32 D_004A3328[];
 extern B D_004A332C[];
 extern u16 D_004A3310[];
 extern s8 D_001FD698[];
 extern s8 D_001FD6A0[];
-extern s16 D_004A3312[];
 extern s8 D_001FD6A8[];
 void Notify_DrawBackground_0_0019EF60(s8 *arg0);
-void Notify_DrawItemGet_0_0019F050(void);
-void Notify_DrawItemName_0_0019F310(void);
-void Notify_DrawItemCount_0_0019F410(void);
-void Notify_DrawItemCountB_0_0019F690(void);
-void Notify_DrawGold_0_0019F890(void);
-void Notify_DrawItemGold_0_0019FA00(void);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
 void GsPkt_Flush_1_001544C0(void);
-void Ui_BeginSprites_1_00181420(void);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, V *, V *, C *, s32);
 void Text_Draw_2_001875C0(s8 *, s32, u32, f32, f32, f32);
-f32 Msg_GetAlpha_0_0018B110(void);
 s8* Msg_GetText_2_00195B10(s32);
 s8* DbItem_Find_1_0019D510(u16);
 void sprintf(s8 *, s8 *, ...);
@@ -41,7 +33,6 @@ void strcpy(s8 *, s8 *);
 E_Notify_DrawItemGet_0_0019F050* Item_GetTable_1_001AFC90(void);
 u8* Inventory_GetEntry_1_001CC3F0(s16);
 Ent4* Inventory_GetSlot_1_001A97D0(s32);
-void Ui_DrawGauge_0_00182EF0(s32, s32, s32, s32, f32, f32, f32);
 
 /* Notify_DrawBackground_0_0019EF60 */
 void Notify_DrawBackground_0_0019EF60(s8 *arg0) {

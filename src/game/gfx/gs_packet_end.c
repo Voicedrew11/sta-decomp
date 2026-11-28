@@ -1,16 +1,12 @@
 #include "common.h"
 #include "m2c.h"
-extern s32 D_00201F28;
-extern  s32 D_002F1948[];
+#include "game/data.h"
+#include "game/effect.h"
+#include "game/gfx.h"
 extern  s32 D_002F194C[];
 extern s32 D_002F1950[];
 extern s32 D_002F1994[];
 extern  s32 D_002F19A8[];
-void GsPkt_EndLayer_1_00155900(void);
-void GsPkt_EndLayerEx_0_001559C0(s32 a);
-s32 GsPkt_GetLayerCount_0_00155A90(void);
-void GsPkt_CloseChain_1_001549D0(void);
-void Fx_ResetSpriteCount_0_00164320(void);
 
 /* GsPkt_EndLayer_1_00155900 */
 void GsPkt_EndLayer_1_00155900(void) {

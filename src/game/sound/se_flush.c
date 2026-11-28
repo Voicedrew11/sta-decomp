@@ -1,18 +1,10 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct { f32 v[8]; } M;
-extern s32 D_00201E3C;
-extern u8 *D_00202328;
-extern u8 D_004BA0E0[];
-extern s32 D_004BAA24[];
 extern s32 D_004BAA28[];
 extern s32 D_004BA044[];
 extern u8 D_004BA040[];
-void Se_FlushQueue_0_001D9E30(void);
-void Se_SetMode_0_001D9EA0(s32 arg0);
-void Se_SetMasterVolume_0_001D9EC0(s32 arg0);
-void Se_StopGroup_0_001D9EE0(s32 arg0);
-s32 Se_GetFlag_0_001D9F00(void);
-s32 Se_ReadStatus_0_001D9F10(void);
 s32 SndDrv_CallWithData_1_001D8350(s32, s32, s32, s32, s32, void *);
 s32 SndDrv_GetRecvBuffer_1_001D8340(void);
 void Se_ParseVoiceMap_0_001DBD20(s32);

@@ -1,19 +1,16 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/gfx.h"
 typedef struct { u8 b0:6; u8 b6:1; u8 b7:1; } B;
 extern u32 D_002F1940[];
 extern u32 D_002F1944[];
-extern s32 D_002F1948[];
 extern u32 D_002F1990[];
 extern u32 D_002F1994[];
 extern u32 D_002F1998[];
-extern u32 D_002F199C[];
-extern u32 D_002F19A0[];
 extern u32 D_002F19A4[];
 extern u32 D_002F19A8[];
 extern u32 D_002F19AC[];
-extern u32 D_00201F54;
-extern u32 D_00201F50;
 extern u32 D_00201F4C;
 extern u32 D_00201F48;
 extern u32 D_00201F44;
@@ -29,7 +26,6 @@ extern s8 D_3C30[];
 extern s8 D_3C70[];
 extern s8 D_001F4B80[];
 void Gfx_UploadVu1Program_0_00155460(u32 buf, u32 size);
-void Gfx_Nop_2_001558F0(void);
 B* sceDmaGetChan(s32);
 void sceDmaSend(B *, s8 *);
 void FlushCache(s32);

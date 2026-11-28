@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/effect.h"
 typedef union { u128 q[4]; f32 f[16]; s32 w[16]; } M;
 typedef struct { Vec a; Vec b; } Ray;
 typedef struct { Vec p; Vec d; } Seg;
@@ -36,7 +37,6 @@ void sceVu0CopyVector(Vec *, Vec *);
 void Seg_Init_1_001502A0(Ray *, Vec *, Vec *, f32);
 s32 Map_RaycastCapsule_0_00145D10(Vec *, Vec *, u8, s32, M *);
 s32 Map_RaycastNearest_0_00145840(Ray *, u8, s32, M *);
-f32 Vec_Distance_3_00146940(M *, Vec *);
 A_Attack_TraceProjectile_0_001D22E0* ActorList_NextB_0_001A5710(void);
 A_Attack_TraceProjectile_0_001D22E0* ActorList_NextTargetable_0_001A5660(void);
 s32 Actor_CanTarget_0_0013BA90(T_Attack_TraceProjectile_0_001D22E0 *, A_Attack_TraceProjectile_0_001D22E0 *);

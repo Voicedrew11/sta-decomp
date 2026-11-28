@@ -1,5 +1,5 @@
 #include "m2c.h"
-u16* Text_ParseEscape_1_00188AF0(u16 *s, u8 *out);
+#include "game/ui.h"
 u16* Text_ParseColorCode_0_00188D30(u16 *s, u8 *out);
 
 /* Text_ParseEscape_1_00188AF0 */

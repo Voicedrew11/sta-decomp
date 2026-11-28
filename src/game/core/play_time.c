@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/core.h"
 typedef struct { u8 stat, second, minute, hour, pad, day, month, year; } Clk;
 typedef struct { s32 a, b; } Pair;
 typedef struct { s8 a, b; } P;
@@ -13,9 +14,6 @@ s32 PlayTime_Update_1_001DF670(void);
 s32 PlayTime_Diff_2_001DF790(Clk a, Clk b);
 void PlayTime_DiffNow_2_001DF910(void);
 void PlayTime_CopyClock_1_001DF930(Q *p);
-void PlayTime_Resume_1_001DF960(void);
-void PlayTime_Pause_1_001DF990(void);
-s32 PlayTime_Tick_1_001DF9A0(void);
 void PlayTime_Load_1_001DFAA0(Clk *a);
 void PlayTime_Reset_1_001DFBB0(void);
 s32 mktime(struct tm *);

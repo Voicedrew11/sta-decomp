@@ -1,5 +1,6 @@
 #include "common.h"
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } B8;
+#include "game/ui.h"
+typedef Bits8 B8;
 typedef struct { u8 pad[0xC]; s16 xC, xE, x10; u8 pad12[6]; u16 x18; u8 pad1A[0xE]; s16 x28; u8 pad2A[6]; } A;
 typedef struct { u8 pad[0x40]; s32 x40; u8 pad44[0xF]; B8 x53; u8 pad54[0x2C]; } B;
 typedef struct { u8 pad[4]; u16 x4; u8 pad6[0x3A]; } C;
@@ -11,7 +12,6 @@ s32 MapObj_CheckFacing_0_001B9610(O *, s32);
 void MapObj_SetAnimFrame_0_001B87C0(f32, f32, O *, s32, s32, s32);
 void MapState_SetField_0_001A9E10(s32, u16, s32);
 s32 MapState_GetField_0_001A9D50(s32, u16);
-void Msg_ShowById_1_0018B0E0(s32);
 s32 Inventory_CountItem_0_001CC0C0(s32, s32);
 s32 Inventory_CanCarry_0_001CBE40(s32);
 R *ItemObj_SpawnAt_0_001AE620(s16, s8 *, Vec *);

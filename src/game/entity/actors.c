@@ -1,8 +1,9 @@
 #include "actor.h"
+#include "game/enemy.h"
+#include "game/core.h"
 typedef struct { u8 lo:2; u8 rest:6; } B2;
 typedef struct { u8 pad[0x5B3]; B2 f; } A5;
 s32 Game_GetBusy_0_0012C020(void);
-void Game_SetBusy_1_0012C030(s32);
 Actor *ActorList_Next_2_001A5460(s32 *);
 void ActorList_SetCount_1_001A5440(Actor *);
 void Enemy_UpdateModelMatrix_0_001A7E60(Actor *);
@@ -15,9 +16,6 @@ s32 Enemy_Ptr700_1_0013FF90(Actor *);
 void Camera_SetPosition_0_001C8EA0(s32, f32);
 u64 Player_IsActionLocked_0_001C9AE0(void);
 s32 Ent_IsNull0_1_0013EE30(Actor *);
-void Enemy_UpdateDeath_0_0013DB80(Actor *, f32);
-void Enemy_UpdateTimer5C0_0_0013DB10(Actor *, f32);
-void Enemy_UpdateBlend5CC_0_0013DA20(Actor *, f32);
 void Enemy_UpdateTimers_0_0013D8A0(Actor *, f32);
 void Enemy_UpdateFade_0_0013D760(Actor *, f32);
 void Enemy_UpdateLerp_0_0013DA90(Actor *, f32);

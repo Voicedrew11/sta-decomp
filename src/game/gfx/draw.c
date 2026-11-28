@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/gfx.h"
 typedef struct { s32 x, y, z, w; } V4;
 typedef struct {
     V4 xy[4];
@@ -26,13 +27,11 @@ extern s32 D_00201F3C;
 extern f32 D_001F2140[];
 extern f32 D_001F2130[];
 extern Mtx_Draw_ShadowDisc_0_00156920 D_002F1840;
-void Draw_Rect_1_00155AC0(s32 a0, s32 a1, s32 a2, s32 a3, s32 col);
 void Draw_Sprite_1_00155BD0(Src *s);
 void Draw_Prim_1_00155DB0(Tri *t);
 void Draw_SelectionRing_0_00156450(void *p, u32 col, f32 h);
 void Draw_ShadowDisc_0_00156920(S *s);
 Q* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_CloseChain_1_001549D0(void);
 void memcpy(void *, void *, s32);
 void Vu0_LoadMatrixVf1_3_001DC348(void *);
 void Vu0_ProjectToScreen_5_001DC398(void *, Vec *);

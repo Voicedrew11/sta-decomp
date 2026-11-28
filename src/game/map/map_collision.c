@@ -1,8 +1,10 @@
 #include "m2c.h"
 #include "actor.h"
 #include "common.h"
+#include "game/collision.h"
+#include "game/core.h"
+#include "game/script.h"
 typedef struct { f32 x, y, z, w; } V;
-typedef struct { s32 type; s32 a; s32 b; s32 c; f32 x, y, z, w; f32 h; f32 p; f32 r; s32 f; } Msg;
 typedef struct { u8 pad[0x1A]; u16 v; u8 pad2[0x14]; } E30_MapObj_CheckActivate_0_001B1A20;
 typedef struct { u8 pad[0x40]; s32 x40; u8 pad2[0x3C]; } E80_MapObj_CheckActivate_0_001B1A20;
 typedef struct { s32 id; u8 pad[0x6A]; u16 n; u8 pad2[0xC8]; E30_MapObj_CheckActivate_0_001B1A20 *e30; u8 pad3[0x44]; E80_MapObj_CheckActivate_0_001B1A20 *e80; } Obj_MapObj_CheckActivate_0_001B1A20;
@@ -44,8 +46,8 @@ typedef struct {
     u8 pad184[0x54];
     u8 x1D8;
 } O_MapColl_RayVsObjects_0_001B2180;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF_MapColl_RayCast_0_001B23E0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF_MapColl_CapsuleCast_1_001B2800;
+typedef Bits8 BF_MapColl_RayCast_0_001B23E0;
+typedef Bits8 BF_MapColl_CapsuleCast_1_001B2800;
 typedef struct { s8 **pp; u16 x4; u16 x6; } H2;
 typedef struct { H2 *h; } H_MapColl_CapsuleCast_1_001B2800;
 typedef struct { s32 **x0; u16 x4; u16 x6; } HH;
@@ -68,7 +70,6 @@ typedef struct {
 } O_MapColl_SphereCast_0_001B2B90;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:6; } BF_MapColl_RayCastAll_0_001B2F30;
 extern u16 D_00317238[];
-extern Flags8 D_00222A52[];
 extern BF_MapColl_RayCast_0_001B23E0 D_00222A52__as_MapColl_RayCast_0_001B23E0[];
 s32 MapObj_CheckActivate_0_001B1A20(Obj_MapObj_CheckActivate_0_001B1A20 *o, s32 idx, s32 a2);
 s32 MapObj_GetSection_0_001B1CB0(s32 arg0, void *arg1, s32 *arg2);
@@ -94,7 +95,6 @@ s32 Coll_RayVsModel_1_0014FA30(H_MapColl_RayVsObjects_0_001B2180 *, s32 *, Q2 *,
 void memset(void *, s32, s32);
 s32 Coll_SphereVsSphere_0_0014EE10(f32 *, s8 *);
 s32 Coll_RayVsMesh_1_0014DDE0(s32 *, s8 *, s32, f32 *, s8 *, u8, u8);
-s32 Coll_SegmentVsSphere_1_0014EF40(Vec *a, Vec *b, Vec *s, f32 r);
 s32 Coll_CapsuleVsMesh_1_0014E230(s8 *, s8 *, s32, Vec *, Vec *, s8 *, u8, u8);
 f32 Vec_DistSq_3_0015DF20(Vec *, Vec *);
 s32 Coll_SphereVsMesh_1_0014E680(Out *, Ent_MapColl_ClampIndex_0_001B2160 *, s32, Vec *, s8 *, u8, u8);

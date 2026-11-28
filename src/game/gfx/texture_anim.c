@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/gfx.h"
 typedef union { u64 d[2]; u128 q; } T_TexAnim_InitTables_0_001746A0;
 typedef struct {
     s32 x0, x4, x8, xC, x10, x14, x18, x1C;
@@ -74,34 +75,24 @@ extern s32 D_00202008;
 extern T_TexAnim_InitTables_0_001746A0 D_0042D8C0[][2];
 extern T_TexAnim_InitTables_0_001746A0 D_0042DDC0[][2];
 extern Elem D_00437DC0[4];
-void TexAnim_InitTables_0_001746A0(void);
 void TexAnim_DrawFrame_0_00174980(T_TexAnim_DrawFrame_0_00174980 *t, s32 flag, M *m, P *p);
 void TexAnim_Draw_0_00175150(T_TexAnim_Draw_0_00175150 *a0);
 void TexAnim_Update_0_001752A0(void);
 void TexAnim_Build_0_001754C0(Obj *arg0, s32 arg1);
-void TexAnim_SetScroll_0_001757C0(s32 id, s32 k, f32 x, f32 y);
 s32 TexAnim_GetFrame_0_00175850(s32 id);
 void TexAnim_Release_0_001758B0(s32 arg0, s32 arg1);
 void TexAnim_Register_0_001759D0(s32 id, u32 n, void *src, s32 key);
-void TexAnim_Tick_0_00175B10(f32 fparg0);
-void TexAnim_FreeAll_0_00175B40(void);
-void TexAnim_DrawAll_0_00175BB0(void);
-void TexAnim_Init_0_00175C80(void);
 void* memset(void*, s32, s32);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);
-void Tex_BindFlush_1_00176BC0(s32);
 void Draw_Sprite_1_00155BD0(Buf *);
 f32 sinf(f32);
 Tex* Tex_Find_1_00177AF0(u64, s32);
 void Tex_Release_1_00177570(s8 *);
 void memcpy(u8 *, void *, u32);
-void GsPkt_SetLayerRange_0_001547F0(s32, s32);
 s32 Tex_Resident_0_001777C0(u16, void *, void *);
-void GsPkt_CloseChain_1_001549D0(void);
 void Tex_FlushAll_1_00176AE0(void);
-void GsPkt_EndLayer_1_00155900(void);
 
 /* TexAnim_InitTables_0_001746A0 */
 #define SET_PRIM(prim, iip, tme, fge, abe, aa1, fst, ctxt, fix) \

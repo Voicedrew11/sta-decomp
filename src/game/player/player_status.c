@@ -1,10 +1,10 @@
 #include "m2c.h"
+#include "game/input.h"
+#include "game/player.h"
 typedef union { u64 d; u32 w[2]; } T;
 s8 *Player_GetBodyState_1_001C9B60(void);
 s8 *PlayerData_Get_2_001C9BA0(void);
-void Player_PlayStatusSe_0_001CA1C0(s32);
 void Snd_PlaySe_3_00131600(s32, s32);
-void Vibe_StartA_0_0015FD90(f32, f32, f32, f32, f32);
 extern T D_00201E30;
 extern u32 D_00201E94;
 

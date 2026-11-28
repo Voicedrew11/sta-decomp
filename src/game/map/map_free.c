@@ -1,5 +1,11 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
+#include "game/effect.h"
+#include "game/gfx.h"
+#include "game/map.h"
+#include "game/save.h"
+#include "game/sound.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; } F_Map_FreeArea_1_001B5640;
 typedef struct { u8 pad[0x10]; s32 x10; u8 pad14[0x28]; F_Map_FreeArea_1_001B5640 f3C; } M_Map_FreeArea_1_001B5640;
 typedef struct { M_Map_FreeArea_1_001B5640 *m; } O_Map_FreeArea_1_001B5640;
@@ -70,7 +76,6 @@ void Map_SpawnSfx_0_001B5CA0(S_Map_SpawnSfx_0_001B5CA0 *s);
 void Map_SpawnItems_0_001B5FB0(s8 *arg0, s32 arg1);
 void Map_InitObjects_0_001B6130(Obj *o);
 void Pool_Free_2_00128580(s32, void *);
-void Glow_Enable_0_0015DB60(s32);
 void Sfx_Release_1_00167030(s32);
 void Sfx_RegisterList_0_00169D00(void *, s32);
 void Mdl_Free_0_00170250(s32, O_Map_FreeArea_1_001B5640 *);
@@ -81,25 +86,18 @@ void ItemObj_FreeOwned_0_001AF740(S_Map_FreeArea_1_001B5640 **);
 void Map_ResetArea_1_001B4F20(S_Map_FreeArea_1_001B5640 *);
 void Mdl_DestroyInstance_0_001745D0(s32, s32);
 s32 Map_StreamGetResult_1_001B0660(Out *o);
-void Map_StreamFlush_1_001B03E0(void);
 void PointLightGroup_Clear_0_0015C6D0(s32 i);
-void LightGroup_Clear_0_0015B890(s32 i);
-void SndEmit_KillAll_1_0012F920(void);
-void MapSe_Flush_0_001E1CC0(void);
 void Mtx_Compose_2_00173FD0(void *, f32 *, f32 *, f32 *);
 void sceVu0CopyVector(f32*, void *);
 void sceVu0AddVector(f32 *, f32 *, f32 *);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 s8* Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 s8* Sfx_SpawnFromStam_2_00169BD0(s32, s32, void *, s32, s32, s32);
 void Sfx_SetMatrixOrAim_0_00167740(s8 *, void *);
 s16 MapState_GetObjectPos_0_001A9900(s32, u32, f32 *, f32 *);
-s32 MapState_TestBit_0_001A9BE0(s32, s16);
 void ItemObj_SpawnThrown_0_001AEC00(s32, s16, f32 *, f32 *, f32 *);
 s32 ItemObj_SpawnFromSource_0_001AF150(s32, E28 *, u16, f32 *);
 s32 Inventory_CountItem_0_001CC0C0(s16, s32);
 s32 Save_GetByte2E_0_001AA740(void);
-s32 Frame_IncCounter_1_0015C9E0(void);
 
 /* Map_FreeArea_1_001B5640 */
 void Map_FreeArea_1_001B5640(S_Map_FreeArea_1_001B5640 **a0) {

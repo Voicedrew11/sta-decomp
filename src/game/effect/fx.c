@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/effect.h"
 typedef struct O { Mtx m0; u8 p40[0x50]; Mtx *x90; u8 p94[0xC]; u16 xA0; u8 pA2[2]; f32 xA4; u8 pA8[0x18]; Mtx xC0; u8 p100[0x14]; u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 p115[0xB]; } O;
 typedef struct B {
     u8 pad[0x10];
@@ -35,9 +36,7 @@ s32 Fx_GetParentIdx_0_00163C40(void *arg0);
 void Fx_GetWorldMatrix_1_00163C80(O *o, Mtx *out);
 void Fx_GetWorldPos_1_00163D90(B *o, Vec *out);
 s32 Fx_DrawSprites_0_00163FF0(u32 a0, u8 *a1, s32 a2);
-void Fx_ResetSpriteCount_0_00164320(void);
 void Fx_FreeSpriteBuffer_0_00164330(s32 arg0, s32 arg1);
-void Fx_BeginFrame_0_00164350(void);
 void sceVu0CopyMatrix(Mtx *, Mtx *);
 void sceVu0CopyVector(Vec *, Vec *);
 void Mtx_AxisAngle_2_0015EBB0(f32, Mtx *, Vec *);

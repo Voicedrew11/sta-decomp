@@ -1,8 +1,9 @@
 #include "include_asm.h"
 #include "common.h"
 #include "m2c.h"
+#include "game/ui.h"
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { s32 id; s32 o1; s32 o2; } Ent;
 typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent e[1]; } Tbl;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } Ev;
@@ -14,10 +15,8 @@ extern s32 D_0020218C;
 void DbChar_UpdateWrap_0_00196930(s32 arg0);
 void DbChar_Update_0_00196940(Ev *arg0);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Snd_PlaySe_3_00131600(s32, u8);
-void Ui_LoadCharImage_3_00183B90(s32);
 Tbl* DbChar_GetCount_0_001958C0(void);
 s32 Bestiary_IsSeen_2_001A9EC0(s16);
 void DbChar_GetListName_1_00196C50(void);

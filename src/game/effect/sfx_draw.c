@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/gfx.h"
+#include "game/effect.h"
 typedef union { u128 q; u32 w[4]; } Q;
 typedef struct { u8 pad[0x16]; u16 x16; } P3;
 typedef struct { u8 pad[0x188]; u8 b0:1; u8 b1:1; u8 b2:1; u8 pad189[0x180 - 0x189 + 0x10]; } Edummy;
@@ -32,7 +34,6 @@ void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);
 R *Map_GetDefaultLight_0_001B72F0(void);
-f32 Vec_Distance_3_00146940(void *, Vec *);
 void sceVu0CopyVector(Vec *, Vec *);
 Q *GsPkt_Alloc_3_00154A80(s32);
 void GsPkt_Commit_1_00154A70(void);
@@ -43,7 +44,6 @@ void sceVu0MulMatrix(Mtx *, Mtx *, Mtx *);
 void Mdl_UpdateBoneMatricesCur_0_00171540(P3 ***, Mtx *);
 void Mdl_DrawLitWrap_0_0016B960(O *, s32, P3 *, u8 *, s32, s32);
 void Mdl_DrawMeshesB_1_0016CD80(P3 *, P3 ***, O *, u32);
-void GsPkt_CloseChain_1_001549D0(void);
 void Gfx_ResetBlendState_0_00145790(void);
 
 static inline f32 u2f(u32 x) { return x; }

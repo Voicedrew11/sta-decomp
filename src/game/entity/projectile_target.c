@@ -1,6 +1,7 @@
 #include "common.h"
 #include "actor.h"
 #include "m2c.h"
+#include "game/effect.h"
 typedef struct { f32 m[4][4]; } MtxF;
 typedef struct { u8 pad[0x170]; s32 *x170; } S90;
 typedef struct {
@@ -83,7 +84,6 @@ f32 sceVu0InnerProduct(Vec *, Vec *);
 void sceVu0Normalize(Vec *, Vec *);
 f32 fabsf(f32);
 f32 sqrtf(f32);
-f32 Vec_Distance_3_00146940(void *, void *);
 void sceVu0CopyVector(void *, void *);
 void sceVu0ApplyMatrix(void *, void*, void*);
 s32 Actor_GetBoneWorldMatrix_0_001464A0(s32, u8, void *);

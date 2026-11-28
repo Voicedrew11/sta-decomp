@@ -1,5 +1,11 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/save.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { char pad[0x40]; char sub[0x210]; } E_MenuLayout_GetSub_1_00189020;
 typedef struct { char pad[0x250]; } E_MenuLayout_Get_1_00189050;
 typedef struct { s32 pad0; s32 a0; u8 pad8[0x28]; } Item;
@@ -18,7 +24,6 @@ typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; } B_Menu_Draw_1_00
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; } B_Pause_Update_0_0018A650;
 typedef struct { u8 pad[0x14]; B_Pause_Update_0_0018A650 x14; } Arg;
 extern volatile u32 D_004A0B0C[];
-extern f32 D_002020D4;
 extern s32 D_002020E8;
 extern s32 D_002020DC;
 extern u32 D_004A01D8[];
@@ -77,23 +82,17 @@ extern s32 D_00202100;
 extern u16 D_00317230[];
 extern u16 D_00317238[];
 extern u16 D_0031723A[];
-extern f32 D_00317244[];
-extern f32 D_00317248[];
-void Menu_ResetTimers_0_00188F80(void);
 s32* Save_GetSlotInfo_0_00188FF0(void);
 s32* Menu_GetStateBuf_0_00189000(s32 arg0);
 void* MenuLayout_GetSub_1_00189020(s32 i);
 E_MenuLayout_Get_1_00189050* MenuLayout_Get_1_00189050(s32 i);
 void Menu_FreeSystemRes_0_00189080(void);
-void Menu_LoadSystemRes_0_001891C0(void);
 void Menu_FreeRes_0_00189270(void);
-void Menu_LoadTitleRes_0_00189580(void);
 void Menu_LoadLayout_0_00189740(Tbl *t, u64 key);
 void Menu_LoadGameRes_0_00189AD0(s32 *arg0);
 s32 MenuLayout_BindTextures_0_00189D50(A *a, T *t, s32 k);
 void MenuStack_Clear_1_00189E90(void);
 s32 MenuStack_Pop_1_00189EA0(void);
-void MenuStack_Push_1_00189ED0(s32 v);
 void Camera_SetShake_0_00189F00(void *arg0);
 void Menu_Draw_1_00189F40(void);
 void Menu_Update_1_0018A200(void);
@@ -112,43 +111,25 @@ void Tex_Release_1_00177570(s32);
 void Arc_LoadFile_2_00159DD0(s32, s32, s32 *, s32 *);
 void Ui_SetGlobalFlag_0_00182990(s32 *);
 void Msg_SetParam_0_0018AEA0(s32 *);
-void Ui_Nop_2_00180F40(void);
 void ImageLoader_SetFlag_0_001E1760(s32 *);
 s32 Tex_Find_1_00177AF0(u64, s32);
 s32 Tex_FindByHash_1_00177B20(u64);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, void *, void *, void *, s32);
-void Ui_BeginSprites_1_00181420(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
 void GsPkt_Flush_1_001544C0(void);
 void Menu_DrawHelpText_1_001DD700(s32, s8);
 void Menu_DrawBackground_0_00187B20(s32);
-u8 Option_GetSoundMode_0_001A9430(void);
-void ScreenFx_DrawBars_0_00157110(u8);
-void GsPkt_EndLayer_1_00155900(void);
 void Menu_SaveOptions_1_0018E460(void);
-void Strm_Update_1_001304C0(void);
 void Menu_RestoreOptions_1_0018E450(void);
-void Ui_SetAlphaClamped_0_00182050(s32);
-void Msg_Close_1_0018B0C0();
 void Equip_Reset_0_00199170(s32 *);
 void Hud_Reset_0_0019A7E0(s32 *);
 void ItemMenu_Reset_0_0019DF80(s32 *);
 void GameOver_Reset_0_0019E8A0(s32 *);
 void Save_ParseOptions_1_001A8B90(s32);
 void Save_ParseOptionsB_0_001A8F00(s32);
-void Game_RequestMode12A_0_0012C0A0(void);
-void Strm_Stop_2_00130440(void);
-void Game_RequestExit_0_0012C070(s32);
-void Save_InitOptions_1_001AB280(void);
 f32 fabsf(f32);
-void Menu_FadeListA_0_00186E70(f32);
-void Menu_FadeListB_0_00186F20(f32);
-void Menu_FadeListC_0_00186FD0(f32);
-void Menu_FadeListD_0_00187080(f32);
 f32 Approachf_3_00187770(f32, f32, f32);
-s32 Ui_IsImageLoading_0_00183FF0(void);
 
 /* .bss from 0x00497B80, defined from the top down (CodeWarrior writes
    uninitialised objects in reverse order) */

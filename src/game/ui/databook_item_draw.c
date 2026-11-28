@@ -1,28 +1,24 @@
 #include "m2c.h"
 #include "include_asm.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { f32 x, y; } V2;
 typedef struct { u32 idx; s32 f4; u8 pad8[0x24]; f32 x; f32 y; u8 pad34[0xC]; } Ent;
 typedef struct { u32 n; Ent *p; } L;
 typedef struct { u8 pad[0x20]; L *l; } O;
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { s32 state; s32 btn; s8 x8; s8 pad[5]; u8 xE; } P;
-extern s32 D_00201D38;
 extern s32 *D_00201D3C;
-extern s32 D_00202198;
 extern f32 D_0020219C;
 extern f32 D_002021A0;
-extern s32 D_004A1430[];
 extern s32 D_004A1434[];
 extern Q2 D_001F2F40;
 extern s32 D_004A1438[];
 extern f32 D_004A143C[];
-extern f32 D_004A1440[];
 extern Flags8 D_004A1444[];
 extern s32 D_00202194;
-void DbItem_DrawStats_0_00196F90(f32 arg0);
-void DbItem_DrawRing_0_00197130(s32 arg, f32 ang);
 void DbItem_Open_0_001979C0(s32 arg0);
 void DbItem_Update_0_00197B80(P *p);
 void memset(void *, s32, s32);
@@ -42,14 +38,11 @@ f32 sqrtf(f32);
 void DbItemProc_DrawInfo_0_001973F0(void);
 void Ui_DrawList_1_001829B0(Ent *, s8 *, void (*)(void), s32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void DbItem_GetListName_1_00197F30(void);
 void DbItemProc_Pos_0_00198100(void);
-void DbItem_LoadEntry_0_00197F90(s32);
 void Ui_LoadItemImage_3_00183DC0(s32);
 s32 ItemSort_GetEntry_0_00195B80(s32, s32 *);
-void DbItem_ResetLayout_0_00197DD0(void);
 void Snd_PlaySe_3_00131600(s32, u8);
 
 /* DbItem_DrawStats_0_00196F90 */

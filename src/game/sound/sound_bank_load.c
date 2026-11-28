@@ -2,6 +2,8 @@
 #include "include_asm.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct {
     s8 on; s8 idx; s8 x2; s8 x3;
     s16 x4; s16 x6; s16 x8; s16 xA; s16 xC; s8 xE; s8 xF;
@@ -22,41 +24,26 @@ typedef struct { s32 st; s32 p4; s32 p8; Flags8 fC; u8 pD[3]; } S_SndBank_ParseH
 typedef struct { s32 st; s32 pad[3]; } S_SndBank_TransferStep_0_0012EA00;
 typedef struct { s32 x0; s32 x4; s32 x8; u16 xC; u16 xE; } B;
 extern Snd_Snd_Init_2_0012DF90 *D_00201ED0;
-extern f32 D_00201EC0;
-extern f32 D_00201EC4;
 extern s32 D_00222BC0[0x2800];
 extern Snd_Snd_Init_2_0012DF90 D_0022CBC0[64];
 extern Snd_Snd_Init_2_0012DF90 D_0022EB40[];
-extern s8 D_0022EBC0[];
-extern s8 D_0022EBC8[];
 extern s8 D_0022EBD0[];
 extern u8 D_0022EBD8[];
-extern u8 D_0022EBD9[];
 extern u8 D_0022EBDA[];
 extern u32 D_0022EBDC[];
 extern s32 D_0022EBE0[];
 extern Vec D_0022EC00[];
-extern s32 D_0022EC10[];
-extern u8 D_0022EC14[];
 extern u8 D_0022EC15[];
-extern u8 D_0022EC16[];
 extern u8 D_0022EC17[];
-extern s32 D_0022EC18[];
-extern s32 D_0022EC1C[];
-extern u8 D_0022EC20[];
 extern u8 D_0022EC21[];
 extern u8 D_0022EC22[];
-extern s32 D_0022EC3C[];
 extern u8 D_0022EC40[];
 extern s32 D_0022F040[];
 extern s32 D_0022F044[];
 extern s32 D_0022F048[];
 extern Flags8 D_0022F04C[];
-extern s32 D_0022F080[];
-extern s32 D_0022F084[];
 extern s32 D_0022F088[];
 extern s32 D_0022F08C[];
-extern u8 D_0022F090[];
 extern Vec D_003139A0;
 extern s8 D_00222BC1[];
 extern s8 D_00222BC4[];
@@ -69,42 +56,26 @@ extern s8 D_00222BC0__as_SndBank_TransferStep_0_0012EA00[];
 s32 Snd_Init_2_0012DF90(void);
 s32 SndBank_RegisterSet_0_0012E640(s8 *arg0, s32 arg1);
 s32 SndBank_LoadStam_1_0012E6B0(H_SndBank_LoadStam_1_0012E6B0 *a);
-void SndCh_StopGroup_1_0012E730(s32 arg0);
 s32 SndBank_UploadIndexed_0_0012E810(H_SndBank_UploadIndexed_0_0012E810 *arg0, s32 arg1);
 s32 SndBank_ParseHeader_1_0012E8F0(H_SndBank_ParseHeader_1_0012E8F0 *a0, s32 idx);
 s32 SndBank_TransferStep_0_0012EA00(H_SndBank_ParseHeader_1_0012E8F0 *a0, u32 idx);
 s32 SndDrv_IsInitialized_1_001D8810(void);
 void SndDrv_Shutdown_1_001D8820(void);
 s32 SndDrv_Bind_2_001D8890(void);
-void Se_Init_1_001DBAC0(void);
 void sceSdRemoteInit(void);
 s32 sceSdRemote(s32, s32, s32, ...);
-void Se_AllocIopHeap_0_001DB410(void);
-void Se_Start_0_001DB7F0(void);
 void SndDrv_SetParam_0_001D80C0(s32, s32);
-void Se_Stop_0_001DB780(void);
-void Se_SetMasterVolume_0_001D9EC0(s32);
-void Se_SetMode_0_001D9EA0(s32);
-void Se_SendCommand_0_001DB700(s32, s32);
-void SndDrv_FlushEffects_0_001D8E70(void);
-void Bgm_Init_0_001D99A0(void);
-void SndDrv_AllocBuffer_1_001D8F30(void);
 s32 SndDrv_AllocIopBuffer_1_001D80E0(s32);
-void SndDrv_SetPortParam_0_001D8EC0(s32, s32, s32);
-void SndDrv_SetReverb_0_001D8F10(s32, s32, s32);
 void sceVu0CopyVector(Vec *, Vec *);
 void bzero(void *, s32);
-void SndEmit_Init_1_0012FB80(void);
 void SndDrv_CallRpcSyncWaitB_2_001D7FD0(void);
 s32 SndBank_LoadStep_1_0012ED60(u8 *, u32);
-void Se_StopGroup_0_001D9EE0(s32);
 void Se_FreeBank_1_001DA920(s8);
 void Se_UnloadBank_0_001DACB0(s8);
 void FlushCache(s32);
 s32 Bgm_Play_0_001D8FC0(void *, void *, void *, s32, s8, s8, B *);
 void Dma_SprCopy_1_001789E0(void *, s32, s32);
 s32 Bgm_SetTrackParam_0_001D98D0(s32, void *, s32, s32, u16, u16);
-s32 Bgm_ApplyVolume_0_001D9820(u16, u16);
 s32 Bgm_GetState_0_001D8FB0(void);
 s32 SndBank_ParseHeader_1_0012E8F0__as_SndBank_LoadStam_1_0012E6B0(u8 *, s32);
 

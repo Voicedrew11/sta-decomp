@@ -1,8 +1,7 @@
 #include "common.h"
+#include "game/ee.h"
 typedef struct { u64 x0; } A;
 extern A *D_00201E5C;
-void GsText_Kick_1_001E24A0(void);
-void GsText_WaitDma_1_001E3688(void);
 
 s32 GsText_End_1_001E2430(void) {
     s32 *p = (s32 *)D_00201E5C;

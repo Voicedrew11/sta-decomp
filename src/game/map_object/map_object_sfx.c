@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/map_object.h"
 typedef struct { s8 pad[0x1A]; u16 x1A; s8 pad2[0x10]; } Ent_MapObj_GetSfxMatrix_0_001B1050;
 typedef struct { s32 a; s32 b; } Slot_MapObj_GetSfxMatrix_0_001B1050;
 typedef struct {
@@ -40,11 +41,9 @@ extern Obj_MapObj_GetCount_0_001B17E0 **D_002022BC;
 extern X **D_002022BC__as_MapObj_GetCountB_0_001B18D0;
 void MapObj_GetSfxMatrix_0_001B1050(s32 id, s32 key, s32 a2);
 void MapObj_SetSfxFlag_0_001B11F0(s32 id, s32 key, s32 a2);
-s32 MapObj_SetCamera_0_001B13B0(s32 arg0, f32 a, f32 b, f32 c, f32 d);
 s32 MapObj_GetCamera_0_001B1560(s32 id, f32 *a, f32 *b, f32 *c, f32 *d);
 s32 MapObj_SetNodeFlag_0_001B16E0(s32 arg0, s32 arg1, s8 arg2);
 s32 MapObj_GetCount_0_001B17E0(s32 *out);
-s32 MapObj_GetCountB_0_001B18D0(s32 *out);
 void Sfx_GetMatrix_1_001676E0(s32, s32);
 void Sfx_SetFlag_0_00167640(s32, s32);
 

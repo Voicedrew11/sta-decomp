@@ -1,4 +1,5 @@
 #include "m2c.h"
+#include "game/map_object.h"
 typedef struct { s32 type; s32 a; s32 b; s32 c; u8 pad[0x20]; } Msg;
 typedef struct { u8 pad[0x1A]; u16 v; u8 pad2[0x14]; } E30_Door_CheckOpen_0_001B8F70;
 typedef struct { u8 pad[0x53]; u8 f; u8 pad2[0x2C]; } E80_Door_CheckOpen_0_001B8F70;
@@ -10,7 +11,6 @@ typedef struct { s32 id; u8 pad[0x6A]; u16 n; u8 pad2[0xC8]; E30_Door_UpdateLock
 extern s32 D_00201E80;
 extern s8 D_00202030;
 s32 Door_CheckOpen_0_001B8F70(s16 arg0);
-s32 Door_UpdateLocked_0_001B90F0(void);
 void memset(void *, s32, s32);
 s32 Event_CheckTrigger_0_00179F80(Msg *);
 s32 MapObj_CheckFacing_0_001B9610(void *, s32);

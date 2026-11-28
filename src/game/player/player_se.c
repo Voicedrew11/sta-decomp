@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/player.h"
 typedef struct { u8 pad[0x9C]; s16 id; u8 pad2[0xA]; u8 b0:1; u8 b1:1; } O;
 extern s32 D_00201E94;
 extern s8 *D_002022F0;
@@ -10,23 +11,12 @@ extern f32 D_004B5DC0[];
 extern s32 D_002022BC;
 extern u16 D_00317238[];
 extern s32 D_003139A0[];
-s32 Player_PlayStatusSe_0_001CA1C0(u32 arg0);
 void Player_PlayHurtSe_0_001CA2B0(void);
-void Player_PlayLandSe_0_001CA2C0(void);
 s32 Player_PlayStepSe_1_001CA2D0(u32 arg0);
 s32 Player_PlayMoveSe_1_001CA4A0(u32 arg0, s32 arg1);
-void Player_PlayAttackSe_0_001CA6F0(void);
-s32 Player_PlayHitObjectSe_0_001CA700(s32 arg0, s32 arg1);
 s32 Player_PlayHitEnemySe_0_001CA7B0(s32 arg0, s32 arg1);
-void Player_PlaySeA_1_001CA860(void);
-void Player_PlayMagicSe_0_001CA870(void);
-s32 Player_PlaySwitchSe_0_001CA880(s32 arg0);
-void Player_PlaySwingSe_0_001CA930(void);
-void Player_PlaySwingSeB_0_001CA940(void);
-void Player_PlayNullSe_0_001CA950(void);
 s32 Player_ThrowItem_0_001CA960(void);
 s32 Player_HoldItem_0_001CAB20(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-s32 Player_DropItem_0_001CAC30(void);
 s32 Player_PlaceItem_0_001CADF0(s32 arg0, M2C_UNK arg1, M2C_UNK arg2);
 void Player_ReleaseHeldItem_0_001CAE90(void);
 s32 Snd_PlaySe_3_00131600(s32, s32);

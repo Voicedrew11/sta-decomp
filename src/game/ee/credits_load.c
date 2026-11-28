@@ -2,12 +2,12 @@
    p via D_004BC2F0.data, q via *(&D_004BC2F0.data) (permuter find). */
 /* round 2 near-miss: ee-gcc, s1/s2 swap, switch store merging, &g->data in own register */
 #include "common.h"
+#include "game/ee.h"
 typedef struct { u8 pad[4]; f32 rate; u8 *data; u8 pad0C[8]; s32 size; u8 pad18[4]; u8 *t[2][3]; u8 pad34[0x4C]; } G;
 extern G D_004BC2F0;
 extern volatile f32 D_00201B88;
 extern volatile f32 D_00201B8C;
 void *memset(void *, s32, u32);
-void Credits_SetSpeed_0_001E3DB8(u32);
 void Credits_Setup_0_001E3DD8(void);
 s32 Credits_Run_1_001E3EC0(void);
 

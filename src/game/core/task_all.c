@@ -1,11 +1,11 @@
 #include "common.h"
+#include "game/data.h"
 
 typedef struct { u128 q; } Q;
 extern Q D_001F2010;
 extern s32 D_002F0F40[8];
 /* .bss, from the top down (CodeWarrior writes it in reverse) */
 char D_002F0F60[0x1c0];
-extern s32 D_00201F20;
 void Task_SetCallback_1_001E0560(s32 *p, s32 n);
 void Task_Start_1_001E0590(void *p, s32 a, s32 b, Q *q);
 

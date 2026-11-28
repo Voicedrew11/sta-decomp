@@ -1,10 +1,12 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/save.h"
 typedef struct { u8 b0, b1, b2, b3, b4, b5, b6, b7; } Slot;
 typedef struct { u8 pad0[0x2E]; u8 x2E; u8 x2F; u8 pad30[0x5C00 - 0x30]; Slot slot[0x400]; } W;
 typedef struct { u8 x0[0x20]; u8 x20[0x20]; u8 x40[0x20]; u8 x60[0x120]; u8 x180[0x40]; } Rec_Save_InitNewGame_1_001AA760;
 typedef struct { u8 pad0[0xE]; u8 xE; u8 xF; u8 pad10[0xA0 - 0x10]; u32 xA0[0x40]; } Sv;
-typedef struct { u32 tag; u32 x4; u32 a:8; u32 b:24; u16 xC; u16 xE; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_BuildGame_1_001AAAE0;
+typedef SaveRec Rec_Save_BuildGame_1_001AAAE0;
 typedef struct { u8 pad0[0x60]; s16 x60[16]; u8 pad80[0x1C0 - 0x80]; } Grp;
 typedef struct {
     Rec_Save_BuildGame_1_001AAAE0 r0;
@@ -22,26 +24,16 @@ typedef struct {
     u8 pad5C00[0x7C00 - 0x5C00];
     Rec_Save_BuildGame_1_001AAAE0 r5;
 } Big_Save_BuildGame_1_001AAAE0;
-typedef struct { u32 tag; u32 x4; u32 a:8; u32 b:24; u16 xC; u16 xE; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_BuildOptions_1_001AB0A0;
+typedef SaveRec Rec_Save_BuildOptions_1_001AB0A0;
 typedef struct { Rec_Save_BuildOptions_1_001AB0A0 r0; u8 x20[0x10]; Rec_Save_BuildOptions_1_001AB0A0 r1; u8 pad[0x80]; Rec_Save_BuildOptions_1_001AB0A0 r2; } Big_Save_BuildOptions_1_001AB0A0;
 extern void *D_00201DC0;
 extern Rec_Save_InitNewGame_1_001AA760 *D_00201DC4;
-extern s8 D_001FD9A0[];
-extern s8 D_001FD9A8[];
-extern s8 D_001FD9B0[];
-extern s8 D_001FD9B8[];
-extern s8 D_001FD9C0[];
-extern s8 D_001FD988[];
-extern s8 D_001FD990[];
-extern s8 D_001FD998[];
 u8 Save_GetByte2E_0_001AA740(void);
-u8 Save_GetByte2F_0_001AA750(void);
 void Save_InitNewGame_1_001AA760(void);
 void Save_BuildGame_1_001AAAE0(Big_Save_BuildGame_1_001AAAE0 *b);
 void Save_BuildOptions_1_001AB0A0(Big_Save_BuildOptions_1_001AB0A0 *b);
 Sv* PlayerData_Get_2_001C9BA0(void);
 void memset(void *, s32, s32);
-void Inventory_AddItem_1_001A95A0(s16, u8);
 
 /* Save_GetByte2E_0_001AA740 */
 u8 Save_GetByte2E_0_001AA740(void) {

@@ -1,10 +1,11 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
 typedef struct { s32 next; s32 len; s32 f8; s32 dsz; } Ent;
 typedef struct { s8 *src; s8 *dst; s32 len; s32 z; } Req;
 extern u8 D_001FB770[];
 extern u8 _end[];
-extern s32 D_00201F90;
 void Iop_LoadModulesFromArc_2_0015C9F0(s32 a0);
 void Iop_Reboot_3_0015CB50(void);
 s8* Arc_FindByHash_2_0015ABD0(s32);
@@ -18,14 +19,12 @@ void sceSifLoadModuleBuffer(s8 *, s32, s32);
 void sceSifFreeSysMemory(s8 *);
 void free(s32 *);
 void sceSifInitRpc(s32);
-void Cd_Init_2_0015B040(s32, s32);
 s32 sceSifRebootIop(void *);
 s32 sceSifSyncIop(void);
 void sceSifInitIopHeap(void);
 void sceSifLoadFileReset(void);
 void sceFsReset(void);
 s32* malloc(s32);
-void func_00100000(void);
 
 /* Iop_LoadModulesFromArc_2_0015C9F0 */
 void Iop_LoadModulesFromArc_2_0015C9F0(s32 a0) {

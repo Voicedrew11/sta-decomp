@@ -1,6 +1,5 @@
 #include "common.h"
-extern u8 D_00202028;
-extern u32 D_0020202C;
+#include "game/data.h"
 
 u32 Bits_Read_2_00179720(u32 **pp, s32 n) {
     u32 r = 0;

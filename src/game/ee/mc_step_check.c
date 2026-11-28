@@ -1,7 +1,7 @@
 #include "common.h"
+#include "game/ee.h"
 typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 step; s32 x90; s32 x94; s32 err; s32 retry; } T;
 extern T D_004B63B8;
-s32 Mc_GetInfoStatus_2_001D3CE0(s32 n);
 s32 sceMcGetInfo(s32, s32, s32 *, s32 *, s32 *);
 s32 sceMcSync(s32, s32 *, s32 *);
 s32 Mc_StepCheck_4_001D3E30(void) {

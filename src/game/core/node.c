@@ -1,5 +1,6 @@
 #include "m2c.h"
-typedef struct Node { s32 id; s32 size; u32 lo:8; u32 off:24; u16 pad; u16 count; } Node;
+#include "game/core.h"
+typedef ResNode Node;
 
 Node *Node_FindById_2_0014DCD0(Node *n, s32 id) {
     u32 j;

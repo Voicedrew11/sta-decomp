@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s32 x0; u8 pad[0x3B]; u8 b3F; } E;
 typedef struct { u32 n; E *e; } L;
 typedef struct { u8 pad[0x38]; L *l; } R;
@@ -19,9 +21,7 @@ extern f32 D_00202418;
 extern s32 D_00201A70[];
 extern f32 D_0020241C;
 extern s32 D_00202420;
-void Ending_DrawText_0_001ED850(void);
 void Ending_Update_0_001ED9A0(T *a);
-void Ending_Draw_0_001EDAD0(void);
 void Ending_HandleEvent_0_001EDCC0(A *a);
 void Ui_DrawElemWrap_1_001829A0(E *, s8 *);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
@@ -29,10 +29,7 @@ void Menu_DrawBackground_0_00187B20(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 R* MenuLayout_Get_1_00189050(s32);
 s32 Msg_GetText_2_00195B10(s32);
-void Ui_BeginSprites_1_00181420(void);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, s32 *, s32 *, Col_Ending_Draw_0_001EDAD0 *, s32);
-void Snd_StopAll_1_0012C320(void);
-void Strm_Stop_2_00130440(void);
 s32 Strm_PlayFile_2_00130590(s32 *, s32, s32);
 
 /* Ending_DrawText_0_001ED850 */
