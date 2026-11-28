@@ -1,5 +1,7 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/gfx.h"
+#include "game/ui.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s32 x0; u8 b[4]; } Ent;
 typedef struct { s16 x, y; } Pt;
@@ -14,15 +16,12 @@ extern s8 D_004870B0[];
 extern Pt D_004884B0[];
 extern D40 D_001F25F0;
 extern u8 D_001FB980[];
-void Font_DrawDebugText_0_00180F80(void);
-void Font_UploadTexture_0_00181240(void);
 void Font_EmitGlyph_0_00181310(s32 x, s32 y, s8 ch, u8 *col, s32 **pp);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_EndAD_3_00154420(void);
 void* GsPkt_Alloc_3_00154A80(s32);
 void GsPkt_Commit_1_00154A70(void);
-void GsPkt_CloseChain_1_001549D0(void);
 void sceGsSetDefLoadImage(Buf *, s32, s32, s32, s32, s32, s32, s32);
 void FlushCache(s32);
 void sceGsExecLoadImage(Buf *, void *);

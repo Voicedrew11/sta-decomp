@@ -1,7 +1,7 @@
 #include "common.h"
+#include "game/math.h"
 extern f32 D_001F2170[];
 void Mtx_LerpNormalize_1_0015E690(f32 (*m0)[4], f32 (*m1)[4], f32 (*m2)[4], f32 t);
-void Mtx_LerpScaled_1_0015E730(Vec *out, Vec *a, Vec *b, f32 t);
 void Mtx_LerpNormalizeB_1_0015E8C0(Mtx *d, Mtx *a, Mtx *b, f32 t);
 void Mtx_LerpScaledB_1_0015E970(Vec *out, Vec *a, Vec *b, f32 t);
 void Mtx_Lerp_2_0015EB20(f32 (*m0)[4], f32 (*m1)[4], f32 (*m2)[4], f32 t);

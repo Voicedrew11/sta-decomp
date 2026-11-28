@@ -1,7 +1,7 @@
 #include "common.h"
+#include "game/script.h"
 typedef struct { char pad[8]; s32 v; } Obj;
 void MapCmd_GetObjectName_0_0017ED20(Obj *o);
-void MapCmd_NopC_2_0017EDB0(void);
 u8* Script_GetArgPtr_2_00165130(Obj *o, s32 b);
 void* MapObj_FindById_0_00179DB0(s32 a, s32 b);
 s32 Msg_ShowWrap_1_0018AC90(void *p, s32 b);

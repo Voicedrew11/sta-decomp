@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/gfx.h"
+#include "game/map_object.h"
 typedef struct { char p[0x38]; u8 x38; s8 x39; char q[6]; } S_Map_GetDefaultLight_0_001B72F0;
 typedef struct { char p[0x7C]; u16 n; char q[0x168 - 0x7E]; S_Map_GetDefaultLight_0_001B72F0 *s; } O_Map_FindSfxEntry_0_001B7300;
 typedef struct { Vec p; Vec b; Vec c; f32 x30; f32 x34; u8 x38; u8 pad[7]; } E;
@@ -39,7 +41,7 @@ typedef struct { u8 pad[0x18]; u16 x18; u16 x1A; } A;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s32 pad[3]; f32 x1C; s32 pad2[4]; } S_MapObj_GetAnimFrame_1_001B7480;
 typedef struct { u8 b0 : 2; } BF50;
 typedef struct { u8 p : 1; u8 v : 2; } BF51;
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } BF8;
+typedef Bits8 BF8;
 typedef struct { u8 p : 2; u8 v : 2; } BF24;
 extern s32 D_002022C4;
 extern s32 D_002022D0;
@@ -51,21 +53,16 @@ f32 MapObj_GetAnimFrame_1_001B7480(s32 a0, s32 a1, u32 a2);
 f32 MapObj_GetAnimFrameB_1_001B7610(s32 arg0, s32 arg1, M2C_UNK arg2);
 s32 MapObj_GetNodeFlags_0_001B76C0(s32 a0, s32 a1);
 E_MapObj_GetNode_0_001B77A0* MapObj_GetNode_0_001B77A0(s32 a, s32 k);
-s32 MapObj_GetNodeIndex_0_001B7840(s32 a, s32 k);
 void MapObj_SetNodeMatrix_0_001B78D0(s32 arg0, s32 arg1, u32 arg2, s32 arg3);
 void MapObj_SetNodeMatrixB_0_001B7A30(s32 arg0, s32 arg1, void *arg2);
 void MapObj_GetNodeMatrix_0_001B7B30(s32 id, s32 key, void *out);
 void MapObj_StopAnim_1_001B7C10(s32 a, s32 k);
-void MapObj_PlayAnimWrap_0_001B7CC0(s32 arg0, s32 arg1);
 void MapObj_PlayAnim_1_001B7CD0(s32 a, s32 k);
-u16 MapObj_GetAnimState_0_001B7D80(s32 arg0, s32 arg1);
 void MapObj_SetAnimState_0_001B7E80(s32 arg0, s32 arg1, s32 arg2);
 void MapObj_CheckProximity_0_001B7F90(A *a0, s32 *a1, s32 a2, s32 a3);
 void MapObj_StopAnimImpl_0_001B80B0(s32 a0, u32 a1);
 void sceVu0CopyVector(void *, void *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
-void LightGroup_Clear_0_0015B890(s32);
-s32 Light_Add_0_0015B980(s32 idx, Vec *a, Vec *b, Vec *c, f32 f0, f32 f1, f32 f2, f32 f3);
 s8* MapObj_Find_1_001B19A0(s32);
 f32 Mdl_GetMotionLength_0_00173F70(s8 *, u16);
 s8* Mdl_GetFrameData_0_001715B0(void ***);

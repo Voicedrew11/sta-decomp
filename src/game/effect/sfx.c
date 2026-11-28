@@ -1,11 +1,13 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/effect.h"
 typedef struct { char pad[0x188]; unsigned char a : 1; unsigned char : 2; unsigned char c : 1; unsigned char b : 1; } Obj_Sfx_Release_1_00167030;
 typedef struct { u8 t : 3; u8 r : 5; } TB;
 typedef struct { u8 pad[0x10]; TB f; } P_Sfx_Free_1_001670E0;
 typedef struct { u8 pad[0x10]; s32 h; u8 pad2[0x80 - 0x14]; } Sub;
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } B8;
+typedef Bits8 B8;
 typedef struct { u16 lo : 7; u16 n : 8; u16 hi : 1; } H;
 typedef struct {
     u8 pad[0x188];
@@ -41,7 +43,6 @@ extern char D_003407E0[];
 extern s8 D_001F2160[];
 extern f32 D_001F2170[];
 extern s32 D_00201F2C;
-extern u32 D_00201FAC;
 extern B_Sfx_OffsetAll_1_00167850 *D_00201FC0;
 extern CC *D_00201FD0;
 extern u8 D_003406D0[];
@@ -66,7 +67,6 @@ void Sfx_GetMatrix_1_001676E0(void *src, f32 (*dst)[4]);
 void Sfx_SetPosition_1_00167710(s32 arg0);
 void Sfx_SetMatrixOrAim_0_00167740(void *a, void *b);
 void Sfx_SetTransform_1_001677C0(s8 *arg0);
-void Sfx_OffsetAll_1_00167850(f32 *arg0);
 void Tex_Release_1_00177570(s32);
 void Vec_GetYawPitchBetween_1_00146310(f32 *, f32 *, s8 *, f32 *, f32 *);
 f32 fabsf(f32);

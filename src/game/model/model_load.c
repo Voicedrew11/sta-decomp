@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/model.h"
 typedef struct { u8 a:3; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
 typedef struct {
     u8 pad0[0x10];
@@ -115,7 +116,6 @@ void Mdl_ReleaseTexAnims_0_00170E90(O **arg0);
 void Mdl_RegisterTexAnims_0_00170F40(Hdr_Mdl_RegisterTexAnims_0_00170F40 **arg0);
 void Mdl_GetSectionPtrs_1_00171050(u8 *arg0, u8 *arg1);
 void Mdl_SetBoneRotation_0_001710D0(Obj_Mdl_SetBoneRotation_0_001710D0 *obj, s16 a1, f32 a, f32 b, f32 c);
-void Mdl_Nop_2_00171260(void);
 void Mdl_UpdateBoneMatrices_0_00171270(H_Mdl_UpdateBoneMatrices_0_00171270 *h, Mtx *a1, s32 a2);
 void Mdl_UpdateBoneMatricesCur_0_00171540(s32 arg0, s32 arg1);
 Blk* Pool_Alloc_3_001288C0(s32, s32);
@@ -128,7 +128,6 @@ void sceVu0CopyVector(Vec *, Vec *);
 void TexAnim_Release_0_001758B0(u16, s32);
 void TexAnim_Register_0_001759D0(s32, u32, s32, s32 *);
 void sceVu0CopyMatrix(void *, void *);
-void Mdl_Animate_2_00171BB0(s8 *, Obj_Mdl_SetBoneRotation_0_001710D0 *, u8, u8, u16, f32);
 void sceVu0AddVector(void *, void *, void *);
 f32 Mtx_MaxAxisScale_2_00171550(E_Mdl_UpdateBoneMatrices_0_00171270 *);
 void sceVu0MulMatrix(E_Mdl_UpdateBoneMatrices_0_00171270 *, void *, void *);

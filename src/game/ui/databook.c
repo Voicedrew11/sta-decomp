@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/ui.h"
 typedef union {
     u32 w;
     struct { u8 r, g, b, a; } c;
@@ -19,7 +20,7 @@ typedef struct {
     u8 x8;
 } Obj1952B0;
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { s32 id; s32 o1; s32 o2; } Ent_Databook_Update_0_00195460;
 typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent_Databook_Update_0_00195460 e[1]; } Tbl;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } Ev;
@@ -74,13 +75,11 @@ s32 DbChar_GetCount_0_001958C0(void);
 s32 DbMap_GetCount_1_001958E0(void);
 s32* DbChar_FindEntry_0_00195900(s32 id);
 s8* DbChar_GetName_0_00195970(s32 id);
-s32 DbMap_GetKillRate_0_001959E0(s32 id);
 s8* DbMap_GetName_0_00195A30(s32 id);
 s8* DbMap_GetLocationName_1_00195AA0(s32 id);
 void* Msg_GetText_2_00195B10(s32 id);
 s8 ItemSort_GetEntry_0_00195B80(s32 i, s32 *p);
 s16 ItemSort_GetCount_0_00195BE0(s32 i);
-void Databook_LoadRes_3_00195C00(s8 *arg0);
 void DbCharProc_Layout_0_00195D80(s32 i, f32 *a1, f32 *a2);
 void Menu_SetFlags_0_0018A310(s32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
@@ -88,7 +87,6 @@ void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 void Text_Draw_2_001875C0(f32, s32, f32, f32, u32, u32);
 f32 Approachf_3_00187770(f32, f32, f32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Snd_PlaySe_3_00131600(s32, u8);
 s8* File_HashName_3_00159D10(s8 *);

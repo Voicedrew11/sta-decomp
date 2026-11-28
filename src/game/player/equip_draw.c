@@ -1,6 +1,10 @@
 #include "common.h"
 #include "actor.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/item.h"
+#include "game/player.h"
+#include "game/ui.h"
 typedef union { s32 w; Flags8 f; } FW;
 typedef struct { u16 v[8]; } H;
 typedef struct { u8 pad[8]; u8 x8; } O;
@@ -16,26 +20,22 @@ typedef struct { u8 pad[0x14]; f32 x14; } A;
 typedef struct { u8 pad[8]; f32 x8; } B;
 extern f32 D_00201D5C;
 extern FW D_004A28D0[];
-extern s32 D_00201D48;
 extern s32 *D_00201D4C;
 extern f32 D_00201D54;
 extern f32 D_00201D58;
 extern s32 D_002021B4;
 extern f32 D_002021B8;
 extern f32 D_002021BC;
-extern s32 D_004A28C0[];
 extern s32 D_004A28C4[];
 extern Q2 D_001F3040;
 extern s32 D_002021AC;
 extern s32 D_004A28C8[];
 extern f32 D_004A28CC[];
-extern s32 D_002021B0;
 extern f32 *D_00201D50;
 void Equip_Draw_0_00199190(u8 *arg0);
 void Equip_DrawStatus_0_00199260(O *o, f32 f);
 void Equip_Open_0_001997A0(s32 *arg0);
 void Equip_Update_0_00199AD0(S *a0);
-void Equip_SelectBest_0_0019A0D0(s32 arg0);
 void Equip_BuildList_0_0019A1D0(s32 arg0);
 void Equip_CalcStatBars_0_0019A370(u16 *a0, u16 *a1, void *a2, void *a3, s32 t0);
 void Player_CalcStats_0_0019A500(s32 a0, s32 a1, u32 *a2, u32 *a3, u32 *t0, s32 t1, s32 t2, s32 t3);
@@ -45,45 +45,29 @@ f32 Approachf_3_00187770(f32, f32, f32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
 s8* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);
-s32 Player_Exists_3_001C9BF0(void);
 void Menu_DrawStatRing_0_00186440(f32, H *, H *, H *, H *);
-void Menu_SetOffset_0_00185B30(s32, s32);
 void Menu_DrawRingD_0_00185510(f32, s8 *);
 void Menu_DrawRingE_0_00185B40(f32, s8 *);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
-void ShopMenu_DrawRingA_0_001DD7F0(s32, s32, f32);
-void Menu_DrawItemDesc_1_001DF360(s32, s32);
-void Menu_DrawRingC_0_00184DF0(s32, f32);
-void Menu_DrawRingA_0_00184040(s32, f32);
 void Menu_DrawRingB_0_00184960(s8 *, f32);
 s16 Equip_GetSlotItem_1_001CCD90(s32);
 void Menu_DrawItemFrame_0_001DF470(f32, s32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Ui_LoadItemImage_3_00183DC0(s32 *);
 void Ui_LoadItemImageSmall_3_001833E0(s32, s32);
 void Player_RecalcStats_1_001CEDC0(s32);
-void Menu_ResetDescScroll_0_001DF460(void);
 void DbItem_Find_1_0019D510(void);
 void Snd_PlaySe_3_00131600(s32, u8);
 void Ui_SetOffset_0_001803D0(s32, s32);
-void Ui_SetOffsetA_0_001803B0(s32, s32);
 s32 ItemSort_GetEntry_0_00195B80(s32, s32 *);
-s32 Item_GetCategory_0_001AFBD0(s32);
-void Equip_SetSlot_0_001CCF00(s32, s32);
-void Player_RefreshEquipModel_0_001CEA50(s32);
 u8* Inventory_GetEntry_1_001CC3F0(s16);
-void Inventory_Recount_0_001CCE30(void);
 void* Item_GetTable_1_001AFC90(void);
-s32 Item_GetStatValue_0_00187130(s32, s32);
 void memset(void *, s32, s32);
 s32 ItemSort_GetCount_0_00195BE0(s32);
-s32 ItemMenu_IsUsable_0_0019DE30(s32);
 void Equip_Assign_1_001CCF50(Ids *, s32, s16);
 u8* Inventory_GetSlot_1_001A97D0(s16);
 void Player_CalcStatsFor_0_001CF480(s32, s32, s32, s32, Ids *, Col *, s32);
-u32 Stats_CalcWeight_0_001D1170(void);
 u16 Stats_CalcMaxMp_0_001D1110(s32);
 u16 Stats_CalcMaxHp_0_001D10B0(s32);
 void UiAnim_Get_1_0017F840(s32, s32 *);

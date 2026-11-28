@@ -1,4 +1,7 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/ee.h"
+#include "game/save.h"
 typedef struct { u8 p0[0x10]; s32 x10; u8 p14[0xC]; u8 name[0x20]; } E;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; s32 x1C; s32 x20; u8 pad24[0x1C]; s8 x40[0x380]; s32 x3C0; s32 x3C4; u8 q[0x38]; } S_SaveSys_StepScan_1_001E7880;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; s32 x1C; s32 x20; u8 pad[0x39C]; s32 x3C0; s32 x3C4; u8 q[0x38]; } S_SaveSys_StepCheckSpace_0_001E7C10;
@@ -14,14 +17,6 @@ extern char D_002017B8[];
 extern char D_002017C8[];
 extern s32 D_002023B4;
 extern s32 D_002023C0;
-extern s32 D_002023C4;
-extern s32 D_002023C8;
-extern s32 D_002023CC;
-extern s32 D_002023D0;
-extern s32 D_002023D4;
-extern s32 D_002023D8;
-extern s32 D_002023E0;
-extern s32 D_002023E4;
 extern s32 D_004BC380[];
 extern s32 D_004BC384[];
 extern s32 D_004BC388[];
@@ -34,16 +29,12 @@ extern char D_004BCB80[];
 extern u8 D_004BCBC0[];
 extern u8 D_004BCF40[];
 extern s32 D_002023BC;
-extern s32 D_002023E8;
 extern s32 D_004BC390[];
 extern s32 D_004BC744[];
-void SaveSys_StepSave_2_001E64E0(s32 arg0);
-void SaveSys_StepLoad_2_001E72A0(s32 arg0);
 void SaveSys_StepScan_1_001E7880(void);
 void SaveSys_StepCheckSpace_0_001E7C10(void);
 void SaveSys_StepUnformat_1_001E7DF0(void);
 void SaveSys_StepCheckCard_0_001E7FA0(void);
-s32 SaveSys_GetPort_1_001E8290(void);
 s32 SaveSys_SetPort_1_001E82A0(s32 a);
 void SaveSys_ClassifyEntry_2_001E8310(s32 idx, s32 *pa, s32 *pb);
 void Mc_StartFormat_2_001D6910(s32, s32);
@@ -51,7 +42,6 @@ s32 Mc_StartRead_2_001D6958(s32, s32, void *, s32, s32, void *);
 s32 Mc_StartWriteChecked_1_001D69B0(s32, s32, char *, s32, u32);
 void Mc_StartWrite_1_001D6A80(s32, s32, char *, void *, u32);
 void Mc_StartChdir_1_001D6C60(s32, s32, char *);
-s32 Mc_Update_4_001D6D00(void);
 s32 Mc_GetCardStatus_4_001D6E48(s32, s32);
 s32 Mc_GetFreeClusters_3_001D7008(s32, s32);
 s32 Mc_GetResult_1_001D7098(void);

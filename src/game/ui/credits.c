@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s32 idx; u8 pad4[0x3C]; } Item_Credits_DrawFrame_0_001DC900;
 typedef struct { u32 n; Item_Credits_DrawFrame_0_001DC900 *items; } List_Credits_DrawFrame_0_001DC900;
 typedef struct {
@@ -43,19 +46,15 @@ extern f32 D_00201E48;
 extern S D_001F3A10 __attribute__((aligned(16)));
 extern f32 D_00202344;
 extern S D_001F39F0[] __attribute__((aligned(16)));
-extern f32 D_002020D4;
 extern s32 D_00201E4C;
 extern s32 D_001FE730[];
-void Credits_DrawFrame_0_001DC900(void);
 void Credits_Update_0_001DCC30(O *o);
-void Credits_DrawBg_0_001DCE70(void);
 void CreditsProc_DrawText_0_001DCF80(A *o, s32 idx, u32 kind);
 void TitleProc_DrawPushStart_0_001DD510(s8 *a0, s32 a1, s32 a2);
 void Credits_HandleEvent_0_001DD650(s32 *arg0);
 List_Credits_DrawFrame_0_001DC900** MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(void *, s32, void (*)(), s32);
-void Strm_Stop_2_00130440(void);
 void Strm_SetFadeStep_1_001304B0(s32);
 void Snd_PlaySe_3_00131600(s32, u8);
 void Menu_DrawBackground_0_00187B20(s32);
@@ -63,7 +62,6 @@ void Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900(Item_Credits_DrawFr
 List_Credits_DrawBg_0_001DCE70** MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70(s32);
 void Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70(Item_Credits_DrawBg_0_001DCE70 *, s32, void (*)(), s32);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, S*, u32);
-void Ui_BeginSprites_1_00181420(void);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);

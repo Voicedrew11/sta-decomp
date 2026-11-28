@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/gfx.h"
 typedef struct { s32 h; f32 t; f32 d; s32 pad; u8 a[0x10]; u8 b[0x10]; f32 x; f32 y; s32 pad2[2]; } E_GlowFx_Update_0_001E0C10;
 typedef struct { s32 h; f32 x4; f32 x8; char p[0x34]; } E_GlowFx_Stop_0_001E0D30;
 typedef struct { s32 h; char p[0x3C]; } E_GlowFx_StopAll_0_001E0E80;
@@ -10,13 +11,9 @@ extern E_GlowFx_Update_0_001E0C10 D_004BAC50[16];
 extern u8 D_002023AC;
 extern Vec D_001F2160;
 extern Vec D_003139A0;
-void GlowFx_Update_0_001E0C10(f32 dt);
 s32 GlowFx_Stop_0_001E0D30(s32 i, s32 unused, f32 t);
-s32 GlowFx_StopAll_0_001E0E80(void);
 s32 GlowFx_SetParams_0_001E0F30(s32 i, s32 p, s32 q, f32 x, f32 y);
 s32 GlowFx_Start_0_001E1050(void);
-void GlowFx_Init_0_001E1200(void);
-void Glow_Enable_0_0015DB60(s32 h);
 void Glow_SetParams_0_0015D800(s32, u8 *, u8 *, f32, f32);
 void sceVu0CopyVector(void *, s32);
 s32 Glow_Add_0_0015DBF0(s32, Vec *, Vec *, f32, f32);

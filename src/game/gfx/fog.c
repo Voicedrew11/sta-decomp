@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/gfx.h"
 typedef struct {
     Vec x0;
     Vec x10;
@@ -14,14 +16,11 @@ typedef struct {
 typedef struct { Vec v0; Vec a[4]; Vec b[4]; Vec c; } D30;
 extern Mtx D_001F2170;
 extern Vec D_001F2060[];
-extern Vec D_001F2070[];
 extern Vec D_001F2080[];
 extern Vec D_001F20C0[];
-extern Vec D_001F2100[];
 extern Vec D_001F2110[];
 extern D30 D_0030D0E0;
 void Fog_BuildPlanes_0_0015CD30(O *o, Vec *a, Vec *b, Vec *c, Vec *d, Vec *pa, Vec *pb, Vec *pc, Vec *q0, Vec *q1, Vec *q2);
-void Fog_UpdatePlanes_0_0015D300(void);
 void sceVu0RotMatrixZ(f32, Mtx *, Mtx *);
 void sceVu0RotMatrixY(f32, Mtx *, Mtx *);
 void sceVu0CopyVector(Vec *, Vec *);

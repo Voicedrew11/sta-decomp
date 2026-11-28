@@ -1,11 +1,12 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/player.h"
+#include "game/ui.h"
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { u8 pad[8]; u8 x8; } E;
 typedef struct { u16 v[8]; } H;
 typedef struct { f32 v[4]; } F;
 extern f32 D_00201D78;
-extern s32 D_004A32C8[];
 void Status_Draw_0_0019DF90(E *e);
 void Status_DrawStats_0_0019E090(f32 f);
 void Menu_SetFlags_0_0018A310(s32);
@@ -14,10 +15,8 @@ s8* Msg_GetText_2_00195B10(s32);
 void Text_Draw_2_001875C0(s8 *, s32, Col, f32, f32, f32);
 H* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);
-s32 Player_Exists_3_001C9BF0(void);
 void Player_CalcStats_0_0019A500(H *, H *, s32 *, s32 *, s32 *, s32, s32, s32);
 void Menu_DrawStatRing_0_00186440(f32, H *, H *, H *, H *);
-void Menu_SetOffset_0_00185B30(s32, s32);
 void Menu_DrawRingD_0_00185510(f32, H *);
 void Menu_DrawRingE_0_00185B40(f32, s8 *);
 void UiAnim_UpdateAll_1_0017F5C0(void);

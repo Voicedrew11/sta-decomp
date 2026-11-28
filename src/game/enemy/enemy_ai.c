@@ -3,7 +3,7 @@
 #include "actor.h"
 typedef struct { u8 pad[0x613]; u8 b613; f32 f614; u8 pad2[0xA9]; u8 b6C1; } Obj613;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:3; u8 b6:1; u8 b7:1; } F0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F1;
+typedef Bits8 F1;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:2; } F2;
 typedef struct { u8 b0:2; u8 b2:1; u8 b3:1; u8 b4:2; u8 b6:1; u8 b7:1; } F3;
 typedef struct { u8 b0:4; u8 b4:2; u8 b6:1; u8 b7:1; } F5;

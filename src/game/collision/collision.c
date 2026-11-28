@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/collision.h"
 typedef struct { f32 a[4]; f32 b[4]; } R;
 typedef struct { Vec p; Vec q; } Obj_Coll_SweepSegments_1_00150350;
 typedef struct { Obj_Coll_SweepSegments_1_00150350 *a; Obj_Coll_SweepSegments_1_00150350 *b; } Pair_Coll_SweepSegments_1_00150350;
@@ -26,7 +27,6 @@ void sceVu0ScaleVector(void *, void *, f32);
 void sceVu0SubVector(void *, void *, void *);
 void sceVu0AddVector(Vec *, Vec *, Vec *);
 void sceVu0Normalize(Vec *, Vec *);
-f32 Vec_DistB_3_0015DF50(Vec *, Vec *);
 void sceVu0CopyVector(void *, void *);
 f32 sceVu0InnerProduct(void *, void *);
 f32 sqrtf(f32 x);

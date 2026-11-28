@@ -1,6 +1,9 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { s32 x0; s32 x4; u8 pad[0x38]; } E_Hud_Draw_0_0018E480;
 typedef struct { u32 n; E_Hud_Draw_0_0018E480 *arr; } L;
 typedef struct { s32 x0; L *x4; L *x8; L *xC; } R;
@@ -121,12 +124,10 @@ typedef struct {
     f32 x30, x34, x38, x3C;
 } A191110_Option_DrawSliderValue_1_00191580;
 extern s32 D_004A10D4[];
-extern s32 D_004A10D0[];
 extern s32 D_004A10E0[];
 extern s32 D_004A10E4[];
 extern s32 D_004A10E8[];
 extern f32 D_00201D1C;
-extern s32 D_00202130;
 extern Q D_001F2D80[];
 extern Q D_001F2D90[];
 extern s32 D_0020212C;
@@ -134,7 +135,6 @@ extern u8 D_0020212F;
 extern f32 D_004A10D8[];
 extern F_Option_Update_2_0018EAE0 D_004A10DC[];
 extern u8 D_004A1075[];
-extern s32 D_00202128;
 extern s32 D_004A10C0[];
 extern s32 D_004A10C4[];
 extern s32 D_004A10C8[];
@@ -152,7 +152,6 @@ extern s32 D_004A1080[];
 extern s32 D_004A1084[];
 extern s32 D_004A1088[];
 extern s32 D_004A108C[];
-extern f32 D_004A10B0[];
 extern Q2_Option_MainMenu_0_0018F940 D_001F2CE0;
 extern s32 D_001F2CD0[];
 extern f32 D_001F2A90[];
@@ -185,7 +184,6 @@ extern S_OptionProc_DrawSound_0_00190A50 D_001F2C30 __attribute__((aligned(16)))
 extern S191110 D_001F2C10 __attribute__((aligned(16)));
 extern s8 D_001FD118[];
 extern s8 D_001FD120[];
-void Hud_Draw_0_0018E480(void);
 void Option_DrawFrame_0_0018E980(u8 *arg0);
 void Option_Update_2_0018EAE0(O_Option_Update_2_0018EAE0 *arg0);
 void Option_QuitGame_0_0018EC40(Obj18EC40 *o);
@@ -210,7 +208,6 @@ void OptionProc_DrawMain_0_00191420(A_OptionProc_DrawMain_0_00191420 *o, s32 unu
 void Option_DrawSliderValue_1_00191580(A191110_Option_DrawSliderValue_1_00191580 *o, u32 kind, s32 alpha);
 void Menu_SetFlags_0_0018A310(s32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
-void Ui_DrawItemIcon_0_0017F0D0(s32, s32, s32, s32);
 R* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawElem_1_00182C10(E_Hud_Draw_0_0018E480 *, s8 *);
@@ -220,27 +217,16 @@ void Menu_DrawFrame_0_00185390(s32, s32, s32, f32);
 void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0(Item *, s32, void *, s32);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, Q *, Q *, void *, s32);
-void Ui_BeginSprites_1_00181420(void);
 void CreditsProc_DrawText_0_001DCF80(void);
 s8 MenuStack_Pop_1_00189EA0(void);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(s32 arg0, s32 arg1, f32 val);
 void Snd_PlaySe_3_00131600(s32, u8);
-void Snd_StopAll_1_0012C320(void);
-void Snd_SetSeVolume_1_0012C720(s32);
-void Snd_SetFlagEC15_0_0012C6B0(void);
-s32 UiAnim_IsDone_1_0017F3D0(s32);
-s32 Snd_CountActiveVoices_1_0012C1B0(void);
-void Snd_SetBgmVolume_1_0012C730(s32);
-void Snd_SetOutputMode_1_0012DA60(s32);
 void UiAnim_SetColor_0_0017F890(s32, void *, void *);
 void UiAnim_Get_1_0017F840(s32, Info **);
 void MenuProc_Run_1_0018B320(s32 *);
-void Snd_SetAllPortVolume_0_0012C6C0(s32);
 void Strm_SetFadeStep_1_001304B0(s32);
 void MenuProc_Set_1_0018B150(f32, s32 *, s32, s32, void (*)(), s32);
 f32 sinf(f32);
-void Strm_Stop_2_00130440(void);
 void Option_LerpLayout_0_00191820(void);
 void OptionProc_Back_0_00191C40(void);
 u32 strlen(s32);

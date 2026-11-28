@@ -1,5 +1,9 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef union { u128 q; f32 f[4]; } Q;
 typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[0xC]; } Item_Ui_DrawItemIconEx_0_0017EDC0;
 typedef struct { u32 n; Item_Ui_DrawItemIconEx_0_0017EDC0 *items; } List_Ui_DrawItemIconEx_0_0017EDC0;
@@ -56,7 +60,6 @@ extern f32 D_00486988[];
 extern Q D_001F25D0[];
 extern f32 D_00202058;
 extern E_UiAnim_IsDone_1_0017F3D0 D_00486990[];
-extern s8 D_00222AF0[];
 extern s32 D_0020203C;
 extern s32 D_00202048;
 extern s32 D_0020204C;
@@ -77,21 +80,13 @@ extern f32 D_004869B8[];
 extern f32 D_004869D0[];
 extern f32 D_004869D4[];
 extern s32 D_00486990__as_UiAnim_Step_0_00180810[];
-extern f32 D_002020D4;
-void Ui_DrawItemIconEx_0_0017EDC0(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4);
-void Ui_DrawItemIcon_0_0017F0D0(s32 a0, s32 a1, s32 a2, s32 a3);
-s32 UiAnim_IsDone_1_0017F3D0(s32 i);
 s32 UiAnim_SetTarget_1_0017F470(s32 arg0, s32 arg1, f32 val);
 void UiAnim_UpdateAll_1_0017F5C0(void);
 void UiAnim_Bind_1_0017F650(Obj_UiAnim_Bind_1_0017F650 *o, Desc *d);
-void UiAnim_SetVisible_1_0017F7C0(s32 i, s32 on, s32 f);
 void UiAnim_Get_1_0017F840(s32 i, E_UiAnim_Get_1_0017F840 **out);
 void UiAnim_SetColor_0_0017F890(s32 arg0, M8 *a1, M8 *a2);
 void UiAnim_Draw_0_0017F990(Anim *s);
 void Movie_Play_2_0017FF70(s32 arg0);
-s32 Movie_Stop_0_00180110(void);
-s32 Movie_Update_0_001801F0(s32 arg0);
-void Ui_SetOffsetA_0_001803B0(s32 arg0, s32 arg1);
 void Ui_SetOffsetB_0_001803C0(s32 arg0, s32 arg1);
 void Ui_SetOffset_0_001803D0(s32 arg0, s32 arg1);
 void UiProc_DrawIcon_0_001803E0(s8 *o, s32 unused, u32 id, s32 up);
@@ -104,13 +99,7 @@ f32 sinf(f32);
 void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0(Item_Ui_DrawItemIconEx_0_0017EDC0 *, s32, void (*)(), s32);
 f32 fabsf(f32);
-void GsPkt_EndLayer_1_00155900(void);
-void GsPkt_ResetLayer_0_00154AF0(void);
 void Tex_UploadQueuedWrap_0_00176A40(void);
-void Gfx_FlipBuffers_2_00155370(void);
-void Gfx_WaitDraw_1_001552A0(void);
-void Gfx_KickFrame_1_00154B70(void);
-void GsPkt_DrawClearRect_0_00153D80(void);
 s32 Option_GetSeVolume_1_001A9480(void);
 void SndDrv_CallRpcSyncWaitB_2_001D7FD0(void);
 void DisableIntc(s32);
@@ -121,18 +110,13 @@ void Pad_AnyButtonPressed_1_00180F10(void);
 void EnableIntc(s32);
 void Pool_Free_2_00128580(s8 *, s32 *);
 void SndDrv_CallRpcSyncWait_2_001D7EC0(void);
-void Gfx_Nop_2_001558F0(void);
-void Tex_BeginFrame_0_00176A60(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s64);
 void GsPkt_Flush_1_001544C0(void);
 s32 SaveSys_SetPort_1_001E82A0(s32);
-s32 SaveSys_IsCardReady_0_001E6110(void);
 void SaveSys_GetSlotCount_0_001E5E80(St *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
-s32 SaveSys_GetPort_1_001E8290(void);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void*, S*, s32);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, f32 *, s8 *, s32 *, s32);
 List_UiAnim_Draw_0_0017F990** MenuLayout_Get_1_00189050__as_UiAnim_Draw_0_0017F990(s32);

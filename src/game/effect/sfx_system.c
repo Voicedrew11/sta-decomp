@@ -1,5 +1,10 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/effect.h"
+#include "game/gfx.h"
+#include "game/math.h"
 typedef struct Node { s32 id; s32 next; u32 lo:8; u32 child:24; u16 pC; u16 cnt; s32 p10[3]; s32 size; } Node;
 typedef struct { s32 off; s32 p4; s32 p8; s8 c; s8 d; s8 pad[0x72]; } Ent;
 typedef struct { s32 a, b, c, size; } Hdr;
@@ -23,10 +28,8 @@ typedef struct { u16 prev; u16 next; u16 sib; } N;
 typedef struct { u8 pad[0x114]; u8 b0:1; u8 b1:1; u8 b2:1; u8 pad115[0xB]; } O;
 typedef struct { char pad[0x94]; unsigned char : 3; unsigned char f : 1; } T;
 typedef struct { char pad[0x210]; T *t; } Obj;
-extern s32 D_00201CAC;
 extern s32 D_00201CB0;
 extern s16 D_00201CA0;
-extern u32 D_00201FAC;
 extern void *D_00201FC0;
 extern L *D_00201FD4;
 extern s16 D_00201FD8;
@@ -34,35 +37,22 @@ extern s8 D_003139A0[];
 extern s8 D_003406D0[];
 extern E D_003407E0[];
 extern s32 D_00222B64[];
-extern s32 D_00222B84[];
 extern s8 D_0042D850[];
 extern s8 D_0042D7E0[];
 extern s8 *D_00201FD0;
 extern s32 D_00201FE8;
-extern s32 D_00201CA8;
-extern s32 D_0033F6D0[];
 extern u8 D_003406E0[];
-extern u16 D_00201C9C;
-extern u16 D_00201CA4;
 s8 Sfx_BuildNodeTree_0_0016A9D0(s8 *base, Node *n, s8 idx, Ent *tbl);
-void Sfx_ClearAll_1_0016AB50(void);
 s32 Sfx_InitSystem_1_0016AD10(s32 a0, u32 a1, s32 a2);
 void Sfx_LoadSystemStam_1_0016AE30(void);
-void Sfx_ListInsert_0_0016AF40(u16 a0, u16 id, s32 which);
-u16 Sfx_ListAlloc_0_0016B0F0(u16 a0, s32 which);
 void Sfx_SetOwnerFlag_0_0016B200(Obj *o, int v);
-u16 Sfx_GetFreeSlots_1_0016B230(void);
 void sceVu0CopyVector(void *, void *);
 void memset(void *, s32, s32);
 void Sfx_Free_1_001670E0(E *);
-void Sfx_UpdateAll_1_00169400(f32);
-void GlowFx_StopAll_0_001E0E80(void);
 void Pool_Init_2_00128A60(void *, s32, s32, s32);
 s32 Mdl_InitPool_0_00174620(void *, void *);
-void Noise_InitWrap_2_0015ED70(void);
 void CosTable_Init_3_00146C00(void);
 void Arc_LoadFile_2_00159DD0(s32, s8 *, void *, s32 *);
-void GlowFx_Init_0_001E1200(void);
 void Sfx_LoadStam_1_00169D70(Chk **, void *, s32);
 void Tex_RegisterTtix_0_00178080(Chk **);
 u32 Pool_GetBlockUsable_1_00128830(void *p);

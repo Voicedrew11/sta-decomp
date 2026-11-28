@@ -1,12 +1,11 @@
 #include "common.h"
+#include "game/ee.h"
 typedef int TI __attribute__((mode(TI)));
 typedef struct { u64 a; u64 b; } P16;
 typedef struct { u64 fl; u32 x8; s32 *xC; u32 x10; u32 x14; u8 pad18[0x18]; P16 tbl[1]; } G;
 typedef struct { u8 pad[0x18]; u8 b18, b19, b1A, b1B; u8 pad1C[0x64]; s32 x80; } A;
 extern G *D_00201E5C;
 void GsText_EmitTag_0_001E39F8(A *);
-void GsText_Kick_1_001E24A0(void);
-void GsText_WaitDma_1_001E3688(void);
 #define BIT (0x8000ULL << 33)
 
 s32 GsText_EmitQuad_1_001E3790(A *a) {

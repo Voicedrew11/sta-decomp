@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
 typedef struct Node_Pool_Compact_2_00128210 {
     s32 dst;
     s32 src;
@@ -89,8 +90,6 @@ void Pool_Init_2_00128A60(S *a0, E *a1, E *a2, u32 a3);
 void FlushCache(s32, s32, u32);
 void Dma_SprCopy_1_001789E0(s32, s32, u32);
 void memcpy(s32, s32, u32);
-void Dma_SprInit_1_00178D20(void);
-void Dma_SprClear_1_00178C00(s32, u32);
 void memset(s32, s32, s32);
 
 /* Pool_Compact_2_00128210 */

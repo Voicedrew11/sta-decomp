@@ -1,25 +1,15 @@
 #include "common.h"
-extern s32 D_002023D8;
+#include "game/data.h"
+#include "game/ee.h"
+#include "game/save.h"
 extern u32 D_002023DC;
-extern s32 D_002023B8;
-extern s32 D_002023C4;
-extern s32 D_002023C8;
-extern s32 D_002023CC;
-extern s32 D_002023D0;
-extern s32 D_002023D4;
-extern s32 D_002023E0;
-extern s32 D_002023E4;
-extern s32 D_002023E8;
 extern s32 D_004BC380[];
 extern s32 D_004BCBC0[];
 extern s32 D_004BCF40[];
 s32 SaveSys_Update_2_001E8500(void);
 s32 SaveSys_Init_1_001E85E0(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4);
-s32 Mc_Update_4_001D6D00(void);
 void SaveSys_StepCheckSpace_0_001E7C10(s32);
 void SaveSys_StepScan_1_001E7880(s32);
-void SaveSys_StepSave_2_001E64E0(s32);
-void SaveSys_StepLoad_2_001E72A0(s32);
 void SaveSys_StepCheckCard_0_001E7FA0(s32);
 void SaveSys_StepUnformat_1_001E7DF0(s32);
 s32 Mc_Init_3_001D6F80();

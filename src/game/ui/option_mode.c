@@ -1,15 +1,9 @@
 #include "common.h"
+#include "game/ui.h"
 extern u8 *D_00201E10;
-u8 Option_GetSoundMode_0_001A9430(void);
 u8 Option_GetMoveEffect_2_001A9440(void);
-u8 Option_GetControlType_1_001A9450(void);
-u8 Option_GetOutputMode_0_001A9460(void);
-u8 Option_GetBgmVolume_1_001A9470(void);
 u8 Option_GetSeVolume_1_001A9480(void);
-u8 Option_GetByte3_0_001A9490(void);
-u8 Option_GetByte2_0_001A94A0(void);
 void Option_Load_1_001A94B0(s32 arg0);
-void Option_Store_1_001A94E0(void *p);
 void memcpy(s32, s32, s32);
 
 /* Option_GetSoundMode_0_001A9430 */

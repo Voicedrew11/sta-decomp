@@ -1,4 +1,5 @@
 #include "m2c.h"
+#include "game/script.h"
 typedef struct { s32 type; union { s32 i; f32 f; } v; } Val;
 typedef struct { u8 pad[8]; u32 *pc; } Ctx;
 typedef struct { s32 op; Val args[16]; u8 m[16]; u8 pad[0x1C]; } Cmd;
@@ -17,7 +18,6 @@ void Script_OpCompare_1_00165DF0(void *o, Ctx *s);
 s8 Script_Exec_2_00166170(Mgr *o, Slot *s);
 void Script_FetchOperand_2_00165940(void *, Ctx *, u32 *, Val *);
 void Script_OpArith_1_00165A30(Mgr *, Slot *);
-s32 Script_FindLabel_1_00166970(Mgr *, u32);
 void memset(void *, s32, s32);
 
 /* Script_OpCompare_1_00165DF0 */

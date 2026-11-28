@@ -1,7 +1,7 @@
 #include "m2c.h"
+#include "game/ee.h"
 s32 sceMcGetInfo(s32, s32);
 s32 sceMcSync(s32, s32, s32 *);
-extern s32 D_004B6418[][4];
 
 s32 Mc_StepGetInfo_3_001D3BF0(s32 a0, s32 a1, s32 a2, s32 a3, s32 a4, u32 st) {
     s32 v;

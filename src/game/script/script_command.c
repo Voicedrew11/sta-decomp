@@ -1,6 +1,7 @@
 #include "common.h"
 #include "m2c.h"
-typedef union { s8 c; u8 uc; s16 s; u16 us; s32 i; u32 u; f32 f; } Val;
+#include "game/script.h"
+typedef ScrVal Val;
 typedef struct { s32 type; Val v; } Var;
 typedef struct { s32 type; union { s32 i; f32 f; } v; } V;
 typedef struct { char pad[0xD8]; V e[1]; } B;
@@ -10,15 +11,9 @@ typedef struct { char p0[4]; s32 n; char p8[0x28C]; E e[1]; } S;
 extern s8 *D_00201FA8;
 extern S *D_00201FA4;
 void ScrCmd_GetArg0_2_00164CC0(s32 arg0);
-void ScrCmd_Nop_2_00164CD0(void);
 void ScrCmd_GetVar_1_00164CE0(s8 *a0);
 void ScrCmd_SetVar_1_00164DC0(A *a);
-void ScrCmd_ResetAllSlots_0_00164E80(void);
-void ScrCmd_NopB_2_00164EC0(void);
-void ScrCmd_NopC_2_00164ED0(void);
 void ScrCmd_SendEvent_1_00164EE0(void *arg0);
-void ScrCmd_NopD_2_00164EF0(void);
-void ScrCmd_NopE_2_00164F00(void);
 Val* Script_GetArgPtr_2_00165130(s8 *, u8);
 
 /* ScrCmd_GetArg0_2_00164CC0 */

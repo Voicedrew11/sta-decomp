@@ -1,5 +1,5 @@
 #include "common.h"
-u8 *Sjis_DecodeChar_2_001E5B18(u16 *c, u8 *s);
+#include "game/ee.h"
 static inline s32 lead(u8 c) { return (u8)(c + 0x7F) < 0x1F || (u8)(c + 0x20) < 0xB; }
 s32 Sjis_Length_1_001E5D78(u8 *s, s32 n) {
     u8 *lim = (u8 *)-1;

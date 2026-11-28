@@ -1,5 +1,5 @@
 #include "common.h"
-extern s32 D_004B6450[];
+#include "game/data.h"
 void Mc_SetErrorStatus_4_001D3DA8(s32 a) {
     if (a >= 0) D_004B6450[0] = 0;
     else if (a == -2) D_004B6450[0] = 3;

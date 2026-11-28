@@ -1,5 +1,11 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/core.h"
+#include "game/effect.h"
+#include "game/gfx.h"
+#include "game/map.h"
+#include "game/model.h"
+#include "game/sound.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:6; } BF;
 typedef struct { Mtx m; u8 pad[0xF0]; u8 b; u8 pad131[0xF]; } El_Map_GetNodeTransform_0_001B3710;
 typedef struct { u8 pad[0xC0]; El_Map_GetNodeTransform_0_001B3710 el[1]; } B;
@@ -133,7 +139,6 @@ void Map_UpdateEnemySpawns_0_001B43A0(O_Map_UpdateEnemySpawns_0_001B43A0 *o);
 void Map_UpdateBones_0_001B4AF0(S_Map_UpdateBones_0_001B4AF0 *a);
 void Map_UpdateArea_0_001B4B50(u8 *arg0, f32 f);
 void Map_SetOrigin_1_001B4BD0(O_Map_SetOrigin_1_001B4BD0 *o, f32 *v);
-void Map_RecenterWorld_1_001B4CB0(void);
 void Map_ResetArea_1_001B4F20(S_Map_ResetArea_1_001B4F20 *a);
 void Map_CopyOrigin_0_001B51E0(u8 *obj, f32 *v);
 s8* Mdl_GetFrameData_0_001715B0(s32);
@@ -146,22 +151,16 @@ void sceVu0AddVector(Vec *, Vec *, Vec *);
 s8* Map_FindSfxEntry_0_001B7300(O_Map_DrawArea_0_001B37F0 *, s32);
 void Light_CopyColor_0_0015B6B0(Vec *, s8 *);
 void Fog_SetReg_0_0015B1C0(Vec *, s8 *);
-void Fog_ApplyDefault_0_0015B270(void);
 void sceVu0ApplyMatrix(Vec *, f32 *, Vec *);
 void Mdl_DrawLitWrap_0_0016B960(s8 *, Big *, Vec *, f32 *, s32, s32);
 void Mdl_DrawMeshesD_1_0016D830(s32, s32 *, s8 *, s32, Key);
-void GsPkt_CloseChain_1_001549D0(void);
 void MapObj_DrawAll_0_001B8A60(O_Map_DrawArea_0_001B37F0 *, s32 (*)(s32 **, Key), u32, u32, s16);
 void Mdl_SetLayerForMesh_0_0016B360(void *a, H_Map_FilterOpaque_0_001B3F30 h, s32 c);
-void Gfx_SetFogScale_0_001541E0(f32);
-void Mdl_FlushLayer_0_0016B280(void);
 void Fog_BuildPlanes_0_0015CD30(A0 *, Vec *, Vec *, Vec *, Vec *, Vec *, Vec *, Vec *, Vec *, Vec *, Vec *);
 void Sfx_SetFlag_0_00167640(s8 *, s32);
 u32 MapState_GetCounter_0_001AA1E0(s32, s16);
 void Player_GetPos_1_001C9410(Vec *);
 f32 fabsf(f32);
-f32 Vec_DistXZ_2_0015DEE0(Vec *, Vec *);
-s32 Frame_IncCounter_1_0015C9E0(void);
 A_Map_UpdateEnemySpawns_0_001B43A0** EnemyData_Alloc_0_001A7D90(u16);
 void Enemy_SetPartModel_0_001A6FF0(A_Map_UpdateEnemySpawns_0_001B43A0 *, O_Map_UpdateEnemySpawns_0_001B43A0 **, u16);
 s32 Enemy_Get5B2b3_1_0013E830(A_Map_UpdateEnemySpawns_0_001B43A0 *);
@@ -175,12 +174,9 @@ void MapObj_UpdateAll_0_001BAB70(u8 *, f32);
 void sceVu0ScaleVector(f32, f32 *, f32 *);
 void ActorList_TranslateAll_1_001A5CD0(f32 *);
 void ItemObj_UpdateTransforms_0_001AC4A0(f32 *);
-void Sfx_OffsetAll_1_00167850(f32 *);
 void ScreenFx_SetFadeColor_0_00159460(f32 *);
 void Light_OffsetAll_0_0015B110(f32 *);
 void PointLight_OffsetAll_0_0015C620(f32 *);
-void Glow_OffsetAll_0_0015D5A0(f32 *);
-void SndEmit_OffsetPositions_1_0012F7E0(f32 *);
 void Map_GetNodeTransform_0_001B3710__as_Map_DrawArea_0_001B37F0(s32, s8 *, s32, Vec *, f32 *);
 void sceVu0CopyVector__as_Map_DrawArea_0_001B37F0(Vec *, Vec *);
 void Mdl_SetLayerForMesh_0_0016B360__as_Map_FilterTranslucent_0_001B3F80(void *a, H_Map_FilterTranslucent_0_001B3F80 h, s32 c);

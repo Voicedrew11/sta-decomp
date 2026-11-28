@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
 typedef struct {
     Vec v0;
     Vec v10;
@@ -51,8 +52,6 @@ typedef struct { u8 pad[0x124]; s32 h[8]; } Obj;
 typedef struct { u8 pad[0x18]; Obj *objs; s8 *ents; } O;
 extern Mtx D_001F2170;
 extern Vec D_003139A0;
-extern s32 D_00202278;
-extern s32 D_00202280;
 extern T D_004A4570;
 extern u8 *D_00202284;
 extern s32 D_00202284__as_EnemyType_LoadTable_0_001A83A0;

@@ -1,11 +1,11 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/ui.h"
 typedef struct { s32 a; s32 wait; s32 c; char pc[4]; f32 f; char p14[0x18]; } E;
 typedef struct { s32 x0, x4, x8; f32 xC, x10, x14, x18; s32 x1C, x20, x24; u8 c[4]; } P_Hud_RandomizeMarker_0_001BC170;
 typedef struct { u8 pad[0x18]; s8 *o; u8 pad2[0x3A1 - 0x1C]; u8 r:7; u8 b7:1; } P_Hud_AddMarker_0_001BC320;
 extern E D_004B4BE0[2];
-void Hud_ResetMarkers_0_001BC0E0(void);
 void Hud_RandomizeMarker_0_001BC170(u8 *col);
 void Hud_AddMarker_0_001BC320(f32 *a0, s32 a1);
 s32 rand(void);

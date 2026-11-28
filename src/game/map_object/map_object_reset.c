@@ -1,5 +1,6 @@
 #include "m2c.h"
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } BF8;
+#include "common.h"
+typedef Bits8 BF8;
 void Mdl_ResetBones_0_00171610(s8 *, s8 *);
 
 void MapObj_ResetBones_0_001BAAA0(s8 *p) {

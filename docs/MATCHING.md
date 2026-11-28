@@ -169,6 +169,21 @@ Near-miss round (CodeWarrior unless marked gcc):
 - u32->float of a call result that must come first: wrap call+conversion in a `static inline f32` (a temp gets copy-propagated) (Player_OnHitEnemy_0_001C73C0).
 - `u8 = (s32)(float expr)` gives cvt.w + sb; a plain assignment adds the unsigned 0x4F000000 path (Menu_LerpLayout_0_0018C140).
 
+## Game headers
+
+`include/game/<subsystem>.h` holds what `src/game/<subsystem>/` owns: hand-written
+types at the top, then a block `tools/headers.py` generates from the units' own
+declarations (extern objects and prototypes every unit spells the same way, or
+that merge_tu.py's `unify` reconciles for a function with no C definition yet).
+`tools/headers.py report` writes build/headers_report.txt (agree / unify /
+conflict / local-type / single); `tools/headers.py hoist` moves the hoistable
+ones and keeps a unit's change only if its object stays byte-identical, so rerun
+it after matching new code. A declaration that is a matching knob (a prototype
+that differs per caller) shows up as a conflict and stays local.
+
+A struct spelled the same in several units goes into a header once; the unit
+keeps its local name as `typedef Canon Local;` (e.g. `ResNode`, `Bits8`, `UiArg`).
+
 ## Struct candidates
 
 Globals accessed at many offsets across unmatched code, worth a shared header in `include/` (like `actor.h`):

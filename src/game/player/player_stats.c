@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/player.h"
 typedef struct { u8 pad0[0x22]; u8 k[2]; u8 v[2]; u8 pad2[0x90-0x26]; } E_Player_GetStat_2_001CD450;
 typedef struct { s16 x0; s16 x2; s16 x4; s16 x6; } S9BA0;
 typedef struct { u8 pad[0x418]; u16 max; u16 hp; } C;
@@ -58,20 +59,13 @@ typedef struct { u8 pad[4]; u16 x4; u8 pad6[0x1A]; u16 x20; u8 pad22[0x6E]; } E_
 extern u32 D_00201E94;
 extern u8 D_00222A54[];
 s32 Player_GetStat_2_001CD450(s32 a0, u8 *out, s32 a2, s32 a3);
-void Player_UpdateRegen_1_001CD6C0(void);
 s32 Player_GetLevelInfo_0_001CD980(u8 *out, s8 *lv);
 s32 Player_GetWeight_1_001CDEC0(void);
-void Player_UpdateMp_1_001CDF80(void);
 u32 PlayerData_GetStatusTimer_0_001CE200(s32 x);
-void PlayerData_ClearStatus_0_001CE270(s32 i);
-void PlayerData_TickStatus_0_001CE2D0(void);
 void Player_ApplyEquipVisualA_0_001CE370(O_Player_ApplyEquipVisualA_0_001CE370 *arg0);
 void Player_ApplyEquipVisualB_0_001CE4B0(Obj_Player_ApplyEquipVisualB_0_001CE4B0 *a0);
 void Player_UpdateEquipModelA_1_001CE660(O_Player_UpdateEquipModelA_1_001CE660 *arg0, s32 arg1);
 void Player_UpdateEquipModel_0_001CE7D0(Obj_Player_UpdateEquipModel_0_001CE7D0 *a0, s32 a1);
-void Player_RefreshEquipModel_0_001CEA50(s32 arg0);
-void Player_AddExp_0_001CEAA0(s32 d);
-void PlayerData_ResetCounters_0_001CEBA0(void);
 void Player_CalcAttack_1_001CEBF0(u16 *p, s32 a1, s32 a2);
 void Player_RecalcStats_1_001CEDC0(s32 arg);
 void Player_CalcStatsFor_0_001CF480(s32 a, s32 b, s32 c, s32 d, s32 e, s32 f, s32 g);

@@ -1,6 +1,11 @@
 #include "m2c.h"
 #include "actor.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/effect.h"
+#include "game/gfx.h"
+#include "game/sound.h"
+#include "game/core.h"
 typedef struct { u8 t:3; u8 r:5; u8 pad[3]; u8 c0:4; u8 c4:1; u8 c5:3; } S_Sfx_DrawAll_1_00168A40;
 typedef struct { u8 pad[0x10]; S_Sfx_DrawAll_1_00168A40 s; u8 pad2[0x94 - 0x15]; u8 f0:3; u8 f3:1; u8 f4:4; } M_Sfx_DrawAll_1_00168A40;
 typedef struct { u8 d[0x80]; } Sub_Sfx_DrawAll_1_00168A40;
@@ -105,75 +110,53 @@ typedef struct {
     Node_Sfx_ResetTree_0_001698E0 n[1];
 } Tree;
 typedef struct Node_Sfx_SpawnFromStam_2_00169BD0 { s32 id; s32 size; u32 lo:8; u32 off:24; u16 pad; u16 count; s32 x10, x14, x18; } Node_Sfx_SpawnFromStam_2_00169BD0;
-typedef struct Node_Sfx_LoadStam_1_00169D70 { s32 id; s32 size; u32 lo:8; u32 off:24; u16 pad; u16 count; } Node_Sfx_LoadStam_1_00169D70;
+typedef ResNode Node_Sfx_LoadStam_1_00169D70;
 typedef struct { u8 pad[0x22]; s16 x22; } Obj_Sfx_LoadStam_1_00169D70;
 typedef struct { Obj_Sfx_LoadStam_1_00169D70 *obj; } Blk;
 extern u8 D_00201FE0;
 extern s32 D_00201FE4;
 extern s32 D_00201F2C;
-extern u16 D_00201CA4;
 extern B_Sfx_DrawAll_1_00168A40 *D_00201FC0;
 extern L *D_00201FD4;
 extern BF D_00222A50[];
 extern E_Sfx_DrawAll_1_00168A40 D_003407E0[];
 extern E_Sfx_UpdateInstance_0_00168D70 *D_00201FD0;
-extern u16 D_00201FDC;
 extern u8 D_0042D7E0[];
 extern s8 D_001F2160[];
 extern s8 D_001F2170[];
 extern s32 D_00201C98;
 extern S_Sfx_UpdateTransforms_1_00169030 **D_002022BC;
 extern s32 D_00201FB0;
-extern u16 D_00201C9C;
 extern s32 D_0042D850[];
 extern s32 *D_00201FE8;
-extern s32 D_0033F6D0[];
 extern s32 D_003406E0[];
-extern s32 D_00201CA8;
-extern s32 D_00201CAC;
 extern s8 D_001FB8D0[];
 extern const s8 D_001FB8F0[];
 extern s8 D_001FB8F1[];
 extern s8 D_001FB8F2[];
 extern s8 D_001FB8F3[];
 extern s32 D_00201CB8;
-void Sfx_DrawAll_1_00168A40(void);
 s32 Sfx_UpdateInstance_0_00168D70(u16 id, Obj_Sfx_UpdateInstance_0_00168D70 *o, X *x);
 s32 Sfx_UpdateTransforms_1_00169030(f32 f);
-void Sfx_UpdateAll_1_00169400(f32 dt);
-void Sfx_CullFinished_0_00169630(void);
-void Sfx_CompactPool_3_00169780(void);
-void Sfx_PlanCompactPool_3_00169790(void);
 s32 Sfx_UpdateNode_1_001697A0(O *o, f32 dt);
 void Sfx_ResetTree_0_001698E0(Tree *t, Node_Sfx_ResetTree_0_001698E0 *n);
 s32 Sfx_Spawn_2_00169B50(s32 id, s32 a1, s32 a2, s32 a3);
-s32 Sfx_IsLoaded_2_00169BB0(s32 i);
 s32 Sfx_SpawnFromStam_2_00169BD0(s32 id, s32 *a1, s32 a2, s32 a3, s32 a4, s32 a5);
 void Sfx_RegisterList_0_00169D00(s32 *p, u32 n);
 s32 Sfx_LoadStam_1_00169D70(s32 *a0, Blk **a1, u32 n);
 void Sfx_DrawBillboard_0_00168480(E_Sfx_DrawAll_1_00168A40 *, Sub_Sfx_DrawAll_1_00168A40 *, M_Sfx_DrawAll_1_00168A40 *, S_Sfx_DrawAll_1_00168A40 *);
 void Sfx_DrawMesh_0_00167C90(E_Sfx_DrawAll_1_00168A40 *, Sub_Sfx_DrawAll_1_00168A40 *, M_Sfx_DrawAll_1_00168A40 *, S_Sfx_DrawAll_1_00168A40 *);
 void Sfx_SortByDepth_0_001679E0(u16);
-void GsPkt_CloseChain_1_001549D0(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
-void GsPkt_SetLayerB_0_00154610(s32, s32);
-void GsPkt_EndLayer_1_00155900(void);
-void Sfx_ListInsert_0_0016AF40(u16, u16, u32);
 void FxTable_CallA_0_0014D8E0(u16, Obj_Sfx_UpdateInstance_0_00168D70 *);
 void Fx_GetWorldMatrix_1_00163C80(Obj_Sfx_UpdateInstance_0_00168D70 *, f32 *);
 void sceVu0CopyVector(void *, void*);
 void SndCh_SetPositionStatic_1_00131330(s32, f32 *);
-void SndCh_Stop_2_00131440(s32);
-void Attack_TriggerSfxEvent_0_001D21E0(Obj_Sfx_UpdateInstance_0_00168D70 *, s32);
 void Mdl_DestroyInstance_0_001745D0(void *, s8 *);
 void sceVu0CopyMatrix(Mtx *, void *);
 void Camera_Update_1_001C8F90(Mtx *);
 void sceVu0InversMatrix(Mtx *, Mtx *);
 void sceVu0MulMatrix(void *, Mtx *, Mtx *);
 void Sfx_Free_1_001670E0(E_Sfx_UpdateTransforms_1_00169030 *);
-f32 Vec_Distance_3_00146940(Vec *, s8 *);
-s32 Fx_UpdateEmitter_0_00160370(B_Sfx_UpdateAll_1_00169400 *, M3_Sfx_UpdateAll_1_00169400 *, f32);
-void GlowFx_Update_0_001E0C10(f32);
 void Fx_UpdateChildren_1_00162700(O *, f32, s8);
 s32 Sfx_Create_2_00169F40(s32 *, s32, s32, s32, s32, s32, u16);
 Node_Sfx_SpawnFromStam_2_00169BD0* Node_FindById_2_0014DCD0(Node_Sfx_SpawnFromStam_2_00169BD0 *, s32);

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/gfx.h"
 typedef struct { u8 d[0x40]; } E;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q;
 typedef struct { u8 b0:1; } B_Light_UpdateModel_0_0015B360;
@@ -47,15 +48,10 @@ extern M D_0030A310__as_Light_Add_0_0015B980;
 extern M D_0030A350__as_Light_Add_0_0015B980;
 void Light_OffsetAll_0_0015B110(s32 arg0);
 void Fog_SetReg_0_0015B1C0(Q *src, f32 *c);
-void Fog_ApplyDefault_0_0015B270(void);
-void Light_UpdateModel_0_0015B360(void *a0, s32 mask);
 void Light_CopyColor_0_0015B6B0(void *arg0, void *arg1);
 f32 Light_CalcIntensity_0_0015B720(void *a0, u8 *a1);
-void LightGroup_Clear_0_0015B890(s32 i);
 void* LightGroup_Get_0_0015B900(s32 i);
-s32 Light_Add_0_0015B980(s32 idx, Vec *a, Vec *b, Vec *c, f32 f0, f32 f1, f32 f2, f32 f3);
 void Light_SetAmbient_0_0015BB40(Vec *a, Vec *b, f32 f);
-void Light_Init_1_0015BCA0(void);
 void sceVu0AddVector(u8 *, u8 *, s32);
 Q* GsPkt_Alloc_3_00154A80(s32);
 void GsPkt_Commit_1_00154A70(void);

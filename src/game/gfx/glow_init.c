@@ -1,6 +1,6 @@
 #include "m2c.h"
+#include "game/gfx.h"
 extern s32 D_0030D180[];
-extern s32 D_0030D184[];
 extern s16 D_0030D588[];
 extern s16 D_0030D60A[];
 extern s16 D_0030D68C[];

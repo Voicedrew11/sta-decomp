@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/effect.h"
 typedef struct { u128 a, b, c; } Q3;
 typedef struct {
     Vec r[4];
@@ -143,7 +145,6 @@ typedef struct {
 } A_Fx_EvalTrack_1_00162490;
 extern O *D_00201FC0;
 extern E *D_00201FD0;
-extern u16 D_00201FDC;
 extern s32 D_00201F2C;
 extern G D_0042D7E0;
 extern Vec D_001F2160;
@@ -165,8 +166,6 @@ void Mtx_AxisAngle_2_0015EBB0(Mtx *, Vec *, f32);
 f32 powf(f32, f32);
 s32 Mdl_CreateInstance_0_00174230(G *, s32, s32, s32);
 void FxTable_CallC_0_0014D9A0(u16, O *);
-void Fx_UpdateEmitter_0_00160370(O *, E *, f32);
-void Attack_TriggerSfxEvent_0_001D21E0(O *, s32);
 void Fx_EvalCurveVec_1_001631E0(s8 *, f32, u8 *, Fr *, Fr *, f32, s32);
 void Fx_EvalCurve_1_00163700(s8 *, f32, u8 *, Fr *, Fr *, f32, s32);
 

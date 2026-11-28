@@ -1,6 +1,8 @@
 #include "include_asm.h"
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { f32 m[4]; f32 x; f32 y; } S_Ui_DrawGauge_0_00182EF0;
 typedef struct { u8 r; u8 g; u8 b; u8 a; } Col_Ui_DrawGauge_0_00182EF0;
 typedef struct { u8 pad[0x6C]; s8 *p; } O_Ui_DrawCursorB_0_00183090;
@@ -140,7 +142,6 @@ extern f32 D_002020B0;
 extern f32 D_002020B4;
 extern f32 D_002020B8;
 extern f32 D_002020BC;
-extern f32 D_002020D4;
 extern V D_001F26F0[];
 extern S_Ui_DrawGauge_0_00182EF0 D_001F26D0 __attribute__((aligned(16)));
 extern char D_0048CE40[];
@@ -164,26 +165,17 @@ extern s8 D_001FCA88[];
 extern s8 D_001FCB80[];
 extern s8 D_001FCB88[];
 extern s8 D_001FCB90[];
-void Ui_DrawGauge_0_00182EF0(s32 x0, s32 y0, s32 x1, s32 y1, f32 u0, f32 u1, f32 alpha);
 void Ui_DrawCursorB_0_00183090(f32 *arg0, s32 arg1, s32 arg2, s32 arg3);
 void Ui_DrawElemAt_0_001832D0(s8 *arg0, s32 arg1, s32 arg2);
 void Ui_LoadItemImageSmall_3_001833E0(s32 arg0, s32 arg1);
 void Ui_DrawWindow_0_00183650(s8 *arg0);
-void Ui_LoadMapSheet_3_00183750(s32 arg0);
-void Ui_LoadAreaImage_3_00183970(s32 arg0);
-void Ui_LoadCharImage_3_00183B90(s32 id);
 void Ui_LoadItemImage_3_00183DC0(s32 arg0);
-s32 Ui_IsImageLoading_0_00183FF0(void);
-void Menu_DrawRingA_0_00184040(s32 a0, f32 ang);
-s32 Item_GetDurability_0_001848A0(s32 a);
 void Menu_DrawRingB_0_00184960(s32 a0, f32 ang);
 void MenuProc_DrawScrolled_0_00184CF0(s8 *a0, s32 a1, u32 n);
-void Menu_DrawRingC_0_00184DF0(s32 a0, f32 ang);
 void MenuProc_DrawGauge_0_00185030(O_Item_GetDurability_0_001848A0 *o, s32 a1, u32 mode, u32 a3);
 void Menu_DrawFrame_0_00185390(s32 a0, s32 a1, s32 a2, f32 f);
 void Menu_DrawRingD_0_00185510(s32 a0, f32 f);
 void MenuProc_DrawHpMp_1_00185740(O_Item_GetDurability_0_001848A0 *o, s32 a1, u32 mode, s16 *a3);
-void Menu_SetOffset_0_00185B30(s32 arg0, s32 arg1);
 void Menu_DrawRingE_0_00185B40(s32 a0, f32 f);
 void Menu_DrawStatRing_0_00186440(s32 a0, s32 a1, s32 a2, s32 a3, f32 f);
 u32 Menu_CalcStatBar_0_001866B0(s32 a0, u16 *a1, u16 *a2, u16 *a3, u16 *t0);
@@ -227,7 +219,6 @@ u8* MenuLayout_GetSub_1_00189020__as_Menu_DrawRingA_0_00184040(s32);
 E* Item_GetTable_1_001AFC90(void);
 f32 fabsf(f32);
 f32 Approachf_3_00187770(f32, f32, f32);
-void Ui_BeginSprites_1_00181420(void);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);

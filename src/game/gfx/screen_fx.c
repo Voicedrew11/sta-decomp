@@ -25,7 +25,7 @@ typedef struct {
     s16 x8;
     u8 xA, xB;
 } Arg;
-typedef struct { u8 b0 : 1; u8 b1 : 1; u8 b2 : 1; u8 b3 : 1; u8 b4 : 1; u8 b5 : 1; u8 b6 : 1; u8 b7 : 1; } B8;
+typedef Bits8 B8;
 typedef struct {
     s32 x0, x4, x8, xC;
     s32 x10, x14, x18, x1C;

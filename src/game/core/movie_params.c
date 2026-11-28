@@ -1,11 +1,10 @@
 #include "common.h"
+#include "game/data.h"
 void memset(s32 *, s32, s32);        /* extern */
 extern s8 D_004BD310[];
 extern s8 D_004BD311[];
 extern s8 D_004BD312[];
 extern s8 D_004BD313[];
-extern s32 D_004BD314[];
-extern s32 D_004BD318[];
 extern s32 D_004BD31C[];
 
 void Movie_SetParams_0_001ED5D0(s8 arg0, s8 arg1, s8 arg2, s32 arg3) {

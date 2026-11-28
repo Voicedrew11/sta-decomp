@@ -1,5 +1,8 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/player.h"
+#include "game/ui.h"
 typedef union { u32 w; u8 b[4]; } Col;
 typedef union { u128 q[2]; s32 w[8]; f32 f[8]; void *p[8]; } Q2;
 typedef struct { s32 *p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
@@ -9,7 +12,6 @@ extern f32 D_00201D90;
 extern s32 D_004A4350[];
 extern Q2 D_001F32F0;
 extern s32 D_001F32A0[];
-extern s32 D_004A3320[];
 void Storage_Draw_0_001A30E0(u8 *arg0);
 void Storage_DrawStatus_0_001A31E0(f32 f);
 void Storage_Open_0_001A32A0(O *p);
@@ -21,21 +23,15 @@ void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
 s32 Msg_GetText_2_00195B10(s32);
 s8* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);
-s32 Player_Exists_3_001C9BF0(void);
 void Menu_DrawStatRing_0_00186440(f32, s8 *, s8 *, s8 *, s8 *);
-void Menu_SetOffset_0_00185B30(s32, s32);
 void Menu_DrawRingD_0_00185510(f32, s8 *);
 void Menu_DrawRingE_0_00185B40(f32, s8 *);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 void UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Storage_GetEntry_0_001A3560();
-void MenuStack_Push_1_00189ED0(s32);
 void Snd_PlaySe_3_00131600(s32, s32);
-void Shop_ResetPrices_0_001A2DE0(void);
-void Shop_RecalcPrices_0_001A2EA0(void);
 void Storage_DrawStatus_0_001A31E0__as_Storage_Draw_0_001A30E0(u8 *, f32);
 void Storage_Update_0_001A3380__as_Storage_Open_0_001A32A0(O *);
 s32 UiAnim_SetTarget_1_0017F470__as_Storage_Update_0_001A3380(s32, s32, f32);

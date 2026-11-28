@@ -1,12 +1,9 @@
 #include "common.h"
+#include "game/ee.h"
 typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 step; s32 x90; s32 x94; s32 err; s32 retry; s32 name; s32 xa4; u32 size; s32 xac; s32 xb0; u8 *buf; } T;
 extern T D_004B63B8;
 extern s32 D_004B63B4[];
-extern s32 D_004B6474[];
-extern u8 D_004B6478[];
 s32 Mc_StepGetInfo_3_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
-s32 Mc_GetInfoStatus_2_001D3CE0(s32 n);
-void Mc_SetErrorStatus_4_001D3DA8(s32);
 void *memcpy(void *, void *, s32);
 void memset(void *, s32, s32);
 s32 sceMcOpen(s32, s32, s32, s32);

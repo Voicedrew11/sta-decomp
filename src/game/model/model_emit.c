@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/collision.h"
+#include "game/data.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_Mdl_EmitStrip_1_0016DED0;
 typedef union { u32 w; f32 f; struct { u16 p0:7; u16 a:4; u16 b11:1; u16 b12:1; u16 p1:3; u16 hi; } s; } P4;
 typedef struct { u8 lo:3; u8 mid:3; u8 hi:2; } BF_Mdl_EmitStrip_1_0016DED0;
@@ -8,7 +10,7 @@ typedef struct { u8 pad[0x24]; Flags8 f; } A1_Mdl_EmitStrip_1_0016DED0;
 typedef struct { u8 pad[0x100]; u8 m[0x10]; u8 x110[0x28]; Flags8 x138; u8 pad2[7]; } E_Mdl_EmitStrip_1_0016DED0;
 typedef struct { u8 pad[0xB0]; u32 base; u8 pad2[0x200 - 0xB4]; E_Mdl_EmitStrip_1_0016DED0 e[1]; } A2_Mdl_EmitStrip_1_0016DED0;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_Mdl_EmitMeshVu1_1_0016E760;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F_Mdl_EmitMeshVu1_1_0016E760;
+typedef Bits8 F_Mdl_EmitMeshVu1_1_0016E760;
 typedef struct { u16 x0, x2, x4, x6, x8; u8 padA[6]; } E_Mdl_EmitMeshVu1_1_0016E760;
 typedef struct { E_Mdl_EmitMeshVu1_1_0016E760 e; Vec v; } E2;
 typedef struct { u8 pad[0xF]; u8 b0:1; u8 b1:1; } H_Mdl_EmitMeshVu1_1_0016E760;
@@ -43,21 +45,17 @@ typedef struct {
 } A2_Mdl_BindTexture_0_0016F440;
 typedef struct { u8 pad[0x24]; u8 g0:4; u8 g4:1; u8 g5:3; } A1_Mdl_BindTexture_0_0016F440;
 typedef struct { u8 pad[0x10]; s32 x10; u8 pad14[0x18]; s32 x2C; u8 pad30[0xC]; u8 g0:4; u8 g4:1; u8 g5:3; } A0_Mdl_BindTexture_0_0016F440;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF_Mdl_BindTexture_0_0016F440;
+typedef Bits8 BF_Mdl_BindTexture_0_0016F440;
 extern Flags8 D_00222A50[];
 extern Flags8 D_00222A51[];
-extern u32 D_00201F54;
 extern u8 D_001F2110[];
-extern s16 D_00222A18[];
 extern Q_Mdl_EmitMeshVu1_1_0016E760 D_0042DDC0[][2];
 extern Q_Mdl_EmitMeshVu1_1_0016E760 D_0042D8C0[][2];
-extern u32 D_00201F50;
 extern u32 D_00201F4C;
 extern u32 D_00202008;
 extern u8 D_00201CBC[4];
 extern A2_Mdl_BindTexture_0_0016F440 D_00222790[];
 extern s8 D_001FB8F8[];
-extern s32 D_00201FF0;
 void Mdl_EmitStrip_1_0016DED0(A0_Mdl_EmitStrip_1_0016DED0 *a0, A1_Mdl_EmitStrip_1_0016DED0 *a1, A2_Mdl_EmitStrip_1_0016DED0 *a2, P4 a3);
 void Mdl_EmitMeshVu1_1_0016E760(H_Mdl_EmitMeshVu1_1_0016E760 *h, E2 *arr, u8 *verts, u32 n, M_Mdl_EmitMeshVu1_1_0016E760 *mtx, s32 mode, s32 off, u8 *tex, s32 a8, s32 a9, F_Mdl_EmitMeshVu1_1_0016E760 f);
 void Mdl_EmitMeshVu1B_1_0016EB70(P *pp, s8 *a1, Vec *fp, u32 n, M_Mdl_EmitMeshVu1B_1_0016EB70 *mt, s32 mode, s32 off, F4 f);

@@ -1,8 +1,10 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct { u8 pad[0x14]; s32 x14; u64 b0:1; u64 b1:1; u64 rest:62; } S22C4;
 extern s32 D_001FE8A0[];
 extern S22C4 *D_002022C4;
-extern s32 D_00222B54[];
 extern s32 D_00270F40[];
 extern s32 D_004BC2D0[];
 extern s32 D_004BC2D4[];
@@ -12,18 +14,9 @@ extern s32 D_004BC2E0[];
 extern u32 D_004BC2E4[];
 extern u32 D_004BC2E8[];
 void MapSe_LoadTask_1_001E19A0(void);
-void MapSe_Flush_0_001E1CC0(void);
-s32 MapSe_GetState_0_001E1D20(void);
-void MapSe_Request_0_001E1D30(s32 arg0, s32 arg1);
-void MapSe_Init_0_001E1D70(void);
 void FlushCache(s32);
 void memcpy(s32, s32 *, s32);
-void Snd_SetStreamId_0_0012C790(s32);
-void Snd_StartStream1_0_0012DD10(s32);
-void Task_RunWrap_0_0014DAB0(s32);
 void Task_FlushWrap_0_0014DAC0(s32, s32);
-void Task_AddWrap_0_0014DAD0(s32);
-void Task_RemoveWrap_0_0014DAE0(s32);
 s32 Task_KillWrap_0_0014DAF0(s32);
 s32 Task_SetPriorityWrap_0_0014DB00(s8 *, s32, s32 *);
 s32 File_HashName_3_00159D10(s8 *);

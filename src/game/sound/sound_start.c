@@ -2,6 +2,8 @@
 #include "common.h"
 #include "actor.h"
 #include "obj3d.h"
+#include "game/data.h"
+#include "game/sound.h"
 typedef struct {
     s8 on; s8 idx; s8 x2; s8 x3;
     s16 x4; s16 x6; s16 x8; s16 xA; s16 xC; s8 xE; s8 xF;
@@ -28,61 +30,29 @@ typedef struct {
 } S;
 typedef struct { u8 pad0[0x10]; u8 **x10; } Src;
 extern Snd D_0022CBC0[];
-extern s8 D_0022EBC0[];
-extern u8 D_0022EC20[];
 extern s8 D_0022EC21[];
 extern s8 D_0022EC22[];
 extern u8 D_0022EBDA[];
-extern u8 D_0022EC14[];
 extern u8 D_0022EC15[];
-extern u8 D_0022EC16[];
-extern s32 D_0022EC3C[];
 extern s8 D_001FAB58[];
-extern s32 D_0022F074[];
 extern s32 D_0022F070[];
-extern s32 D_0022EC44[];
-extern s16 D_0022EC48[];
-extern Flags8 D_0022EC43[];
 extern u8 D_00201ED7;
 extern s32 D_0022F050[];
-extern s32 D_0022EC18[];
 extern Flags8 D_0022EC41[];
-extern s8 D_00201ED5;
 extern u8 D_0022EC17[];
-extern s32 D_0022EC10[];
 extern s32 D_002022B8;
-extern s8 D_00201ED6;
 extern Flags8 D_0022EC42[];
 extern s32 D_0022F060[];
 extern u8 **D_00201EBC;
 extern s8 D_00201ED4;
-void Snd_Update_1_0012D650(void);
-void Snd_SetOutputMode_1_0012DA60(s32 arg0);
-void Snd_StopStream3_0_0012DA80(void);
-s32 Snd_BindMapSe_0_0012DA90(void);
-void Snd_StartStream1_0_0012DD10(s32 a0);
 void Snd_StartStream2_0_0012DE00(void);
 s32 Snd_LoadSystemBank_1_0012DEE0(s32 a);
-void Se_ReadStatus_0_001D9F10(void);
 void Se_UpdateStatus_0_001D9FC0(void);
-s32 Bgm_Poll_0_001D95E0(void);
-void Bgm_SetVolume_1_001D9650(u16, u16);
-void Bgm_Update_0_001D9680(void);
-void Bgm_UpdateWrap_0_001D9990(void);
-s32 Se_IsVoiceActive_1_001DA4F0(s32);
 s32 Se_SetVoiceParams_0_001DA620(s32, s8, u8, u8, u8);
 void Se_StopVoice_0_001DA530(s32);
 void SndCh_Update3D_2_00130810(Snd *);
 void Se_SendVoiceParams_0_001DA1D0(s32, s32 *);
-void Snd_UpdateStreams_0_0012C4D0(void);
-s32 Se_GetFlag_0_001D9F00(void);
-void Se_SetPortParam_0_001DA8F0(s32, s16);
-s32 Se_SetPortVolume_0_001DA720(s32);
-void SndEmit_Update_1_0012F6F0(void);
-void Se_FlushQueue_0_001D9E30(void);
-void Se_StopGroup_0_001D9EE0(s32);
 void Pool_Free_2_00128580(s32, u8 **);
-void SndCh_StopGroup_1_0012E730(s32);
 void Arc_LoadFile_2_00159DD0(s32, s32, u8 ***, s32 *);
 s32 SndBank_LoadStam_1_0012E6B0(u8 *);
 

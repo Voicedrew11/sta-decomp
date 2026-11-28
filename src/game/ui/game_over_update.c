@@ -1,19 +1,15 @@
 #include "m2c.h"
+#include "game/data.h"
+#include "game/sound.h"
+#include "game/ui.h"
 typedef struct { u8 v:1; } BF0;
 typedef struct { s32 type; s32 pad; s8 st; u8 pad9[5]; u8 eE; u8 padF[5]; BF0 x14; } Arg;
 f32 Approachf_3_00187770(f32, f32, f32);
 void Snd_PlaySe_3_00131600(s32, s32);
 void Strm_SetFadeStep_1_001304B0(s32);
 s32 Strm_PlayFile_2_00130590(s32, s32, s32);
-void Loading_SetVisible_0_0018E470(s32);
-void MenuStack_Push_1_00189ED0(s32);
-void Snd_StopAll_1_0012C320(void);
 #pragma explicit_zero_data on
 const s8 D_001FD680[0x13] = "\\TARGET\\STA_GO.ADX\000";
-extern s32 D_0020220C;
-extern s32 D_00202210;
-extern s32 D_00202214;
-extern s32 D_00202218;
 extern f32 D_0020221C;
 
 void GameOver_Update_2_0019EDC0(Arg *arg0) {

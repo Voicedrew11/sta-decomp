@@ -1,11 +1,11 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/ee.h"
 typedef struct { u64 : 48; u64 b48 : 1; u64 b49 : 1; u64 b50 : 1; u64 : 13; char pad[0x128]; s16 x130; void *x134; } S;
 typedef struct { s32 x0; char pad[0x6C]; s32 x70; s32 x74; f32 x78; f32 x7C; } T;
-extern s32 D_00201E58;
 extern S *D_00201E5C;
 extern T *D_00201E60;
 void *GsText_Alloc_0_001E1E08(s32, s32);
-void GsText_SetFlag_0_001E1EA8(s32);
 void GsText_SetPriority_0_001E2A08(s16);
 void *memset(void *, s32, u32);
 

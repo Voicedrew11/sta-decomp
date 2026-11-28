@@ -1,4 +1,6 @@
 #include "actor.h"
+#include "game/player.h"
+#include "game/ui.h"
 typedef struct { u8 a : 5; u8 m : 2; u8 b7 : 1; } M;
 typedef struct { u8 c[2]; } B2;
 typedef struct {
@@ -24,15 +26,12 @@ extern B2 D_00201E28;
 extern u64 D_002F1420[];
 extern Flags8 D_00222A54[];
 void Hud_DrawWarning_0_001BC7A0(u32 a0, s32 a1, s32 a2);
-void Hud_DrawOverlay_0_001BCB60(void);
 f32 sinf(f32);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
 void GsPkt_Flush_1_001544C0(void);
 void Hud_DrawQuad_1_001BC610(s32, s32, s32, s32, u32, s32, s32);
-u8 Option_GetByte2_0_001A94A0(void);
 void Hud_DrawCompass_0_001BBCC0(void);
-s32 func_00120570(s32);
 s32 PlayerData_GetStatusTimer_0_001CE200(s32);
 
 /* Hud_DrawWarning_0_001BC7A0 */

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/model.h"
 typedef struct { u8 pad[6]; u16 n; u8 p8[0x38]; u8 d[1]; } Hd;
 typedef struct { u8 pad[0xB0]; s32 off; } E_Mdl_GetFrameData_0_001715B0;
 typedef struct { Hd *h; u8 *p; } O_Mdl_GetFrameData_0_001715B0;
@@ -25,7 +26,6 @@ void Mdl_AnimateCur_0_00171AF0(A0 *a, s32 b, s32 c, s32 d);
 void Mdl_AnimateSel_0_00171B30(O_Mdl_AnimateSel_0_00171B30 *obj, u16 a1, s32 sel, f32 f);
 void Mdl_AnimateWrap_0_00171B70(H_Mdl_AnimateWrap_0_00171B70 *h, s32 a, f32 f);
 void sceVu0CopyMatrix(s8 *, s8 *);
-void Mdl_Animate_2_00171BB0(void *, O_Mdl_BlendMotion_0_00171980 *, u8, u8, u16, f32);
 void memcpy(void *, void *, s32);
 void Mtx_Lerp_2_0015EB20(E_Mdl_BlendMotion_0_00171980 *, E_Mdl_BlendMotion_0_00171980 *, E_Mdl_BlendMotion_0_00171980 *, f32);
 

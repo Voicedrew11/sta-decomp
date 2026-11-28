@@ -1,6 +1,9 @@
 #include "common.h"
 #include "m2c.h"
 #include "actor.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef union {
     u32 w;
     struct { u8 r, g, b, a; } c;
@@ -146,13 +149,7 @@ extern s8 D_001FD158[];
 extern s8 D_001FD170[];
 extern s8 D_001FD188[];
 extern s8 D_001FD190[];
-extern f32 D_0020213C;
-extern s32 D_004A1120[];
-extern f32 D_004A1138[];
-extern Flags8 D_004A1140[];
 extern s32 D_004A10F0[];
-extern s32 D_004A112C[];
-extern f32 D_004A113C[];
 extern s32 D_004A1124[];
 extern s32 D_004A1128[];
 extern s32 D_004A1130[];
@@ -160,17 +157,10 @@ extern u8 D_004A0950[];
 extern s32 D_00202140;
 extern struct { unsigned char : 1; unsigned char f : 1; char pad[15]; } D_004A1194;
 extern s32 D_004A1180[];
-extern f32 D_004A118C[];
-extern s32 D_004A1150[];
-extern s32 D_004A1184[];
 extern f32 D_004A1190[];
-extern s32 D_004A1198[];
-extern s32 D_004A119C[];
 extern S_LoadMenu_DrawSlot_1_00193AF0 D_001F2DE0 __attribute__((aligned(16)));
 extern s8 D_001FD208[];
-extern s32 D_004A1188[];
 void LoadMenu_DrawSlotInfo_2_00192110(A_LoadMenu_DrawSlotInfo_2_00192110 *o, s32 unused, u32 kind, s32 idx);
-void LoadMenu_LerpLayout_0_00192580(f32 *a0, f32 *a1, u8 *a2, f32 t);
 void LoadMenu_HandleEvent_0_00192900(A_LoadMenu_HandleEvent_0_00192900 *a);
 void LoadMenu_SelectSlot_0_001929C0(O_LoadMenu_SelectSlot_0_001929C0 *o);
 void LoadMenu_CheckCard_1_00192E90(O_LoadMenu_CheckCard_1_00192E90 *o, s32 a1);
@@ -178,7 +168,6 @@ void LoadMenu_ConfirmLoad_0_00192F70(O_LoadMenu_ConfirmLoad_0_00192F70 *o);
 void LoadMenu_Load_0_00193070(O_LoadMenu_Load_0_00193070 *o);
 void LoadMenu_Back_0_00193780(Obj_LoadMenu_Back_0_00193780 *o);
 void LoadMenu_Retry_0_001937E0(Obj_LoadMenu_Retry_0_001937E0 *o);
-void LoadMenu_SetFromTitle_0_00193850(int v);
 void LoadMenu_DrawFrame_0_00193880(Obj_LoadMenu_DrawFrame_0_00193880 *o);
 void LoadMenu_Open_0_001939B0(Obj1939B0 *o);
 void LoadMenu_DrawSlot_1_00193AF0(A_LoadMenu_DrawSlot_1_00193AF0 *o, s32 idx, u32 kind);
@@ -189,34 +178,24 @@ void LoadMenu_WaitCard_0_00194440(s8 *arg0);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, Col*, void *, u32);
 void Text_Draw_2_001875C0(f32, s8 *, f32, f32, s32, u32);
 void sprintf(s8 *, s8 *, ...);
-s32 SaveSys_GetPort_1_001E8290(void);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
 void SaveSys_GetSlotCount_0_001E5E80(void *);
 s8* DbMap_GetLocationName_1_00195AA0(s32);
 s8* Msg_GetText_2_00195B10(s32);
 Res* MenuLayout_Get_1_00189050(s32);
-s32 Menu_GetCursor_1_0018B820(s32);
 u8 MenuStack_Pop_1_00189EA0(void);
 void MenuProc_Set_1_0018B150(s32 *, s32, s32, void (*)(), s32, f32);
 void MenuProc_Run_1_0018B320(s32 *);
-s32 SaveSys_GetCurSlotState_0_001E6060();
 void Snd_PlaySe_3_00131600(s32, u8);
-s32 SaveSys_IsCardReady_0_001E6110(void);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 SaveSys_StartLoad_0_001E62A0(s32, void *, s32);
 void SaveSys_Update_2_001E8500(void);
-void Save_WriteOptions_1_001A8CA0(void);
-void Save_ParseGame_1_001A9080(void);
 void* Save_GetData_1_001A9400(void);
-void Option_Store_1_001A94E0(void *);
 P_LoadMenu_Load_0_00193070* PlayerData_Get_2_001C9BA0(void);
-void Menu_SetCursor_1_0018B840(s32, s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
-void Ui_SetAlphaClamped_0_00182050(s32);
 void Ui_DrawList_1_001829B0(Item *, s8 *, void (*)(), s32);
 void Menu_DrawBackground_0_00187B20(s32);
-void Ui_BeginSprites_1_00181420(void);
 void LoadMenu_UpdateCardFlags_1_00194D90(s32, s32 *);
 void LoadMenu_RetryB_0_00194D20(s8 *);
 f32 sinf(f32);
@@ -225,7 +204,6 @@ void SaveSys_SetPort_1_001E82A0(s32);
 void LoadMenu_LoadB_0_001945B0();
 void LoadMenu_BackB_0_00194B90();
 void memset(s32, s32, s32);
-void MenuStack_Push_1_00189ED0(s32);
 void Save_BuildOptions_1_001AB0A0(s8 *);
 s32 SaveSys_StartFormat_0_001E6410(s32);
 

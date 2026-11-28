@@ -1,11 +1,11 @@
 #include "m2c.h"
+#include "game/core.h"
 typedef struct { s32 p0; u32 count; u32 skip; u32 total; } Sub;
 typedef struct { s32 f0; s32 p4; s32 p8; Sub *sub; volatile u16 flags; u16 mode; s32 f14; u32 f18; } H;
 H *Arc_FindByHash_2_0015ABD0(s32);
 s8 **Pool_Alloc_3_001288C0(s8 *, u32);
 void sceClose(s32);
 struct H_; void File_Read_2_0015A470(void *, s8 *, u32, s32);
-void Timer_GetTicks_3_001787A0(void);
 void Lz_Decompress_2_00179040(s8 *, s8 *, u32, u32);
 void Lz_DecompressB_1_001797E0(s8 *, s8 *, u32, u32);
 

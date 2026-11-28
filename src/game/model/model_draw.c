@@ -34,7 +34,7 @@ typedef struct {
     Ent_Mdl_DrawMeshesB_1_0016CD80 e[1];
 } O_Mdl_DrawMeshesB_1_0016CD80;
 typedef struct { u8 pad[0x24]; u8 g0:1; u8 g1:1; u8 g2:1; u8 g3:1; u8 g4:2; u8 g6:2; u8 h0:1; } S1;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } BF;
+typedef Bits8 BF;
 typedef struct { s32 x0; s32 x4; u8 p8[8]; } E16;
 typedef struct {
     u8 p0[0x10]; s32 *x10; u8 p14[0x10]; s32 x24; u8 p28[0x14]; Flags8 x3C; u8 p3D[3];

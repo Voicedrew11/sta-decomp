@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawBlurPasses_0_00131970;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawCopy_0_00132190;
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q_ScreenFx_DrawSprite_0_001323C0;
@@ -10,8 +11,6 @@ extern u32 D_00201EF4;
 extern u32 D_00201EF0;
 extern s32 D_00201F2C;
 extern f32 D_00201E90;
-extern u16 D_00201F04;
-extern u16 D_00201F08;
 extern u8 D_00201F0C;
 void ScreenFx_DrawBlurPasses_0_00131970(s32 w, s32 h, f32 *c);
 void ScreenFx_DrawCopy_0_00132190(s32 w, s32 h);

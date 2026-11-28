@@ -1,4 +1,7 @@
 #include "m2c.h"
+#include "game/effect.h"
+#include "common.h"
+#include "game/math.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 rest:5; } Bits;
 typedef struct {
     u16 m0;
@@ -23,21 +26,9 @@ typedef struct { u16 prev; u16 next; u16 sib; } N;
 typedef struct { u8 pad[0x114]; u8 b0:1; u8 b1:1; u8 b2:1; u8 pad115[0xB]; } O;
 typedef struct { u8 pad[0x14]; u8 c0:1; u8 c1:1; u8 c2:1; u8 c3:1; u8 c4:1; u8 pad15[0x2F]; f32 f44; } A;
 typedef struct { u8 pad[8]; u16 x8; u16 xA; } H;
-typedef struct {
-    u8 idx[4];
-    u8 f4;
-    u8 f5;
-    u8 pad6[2];
-    f32 w1;
-    f32 w2;
-    f32 base;
-    f32 amp;
-    f32 scale;
-    f32 f1C;
-} Noise;
 typedef struct { f32 t; f32 v[3]; } Key_Fx_EvalCurveVec_1_001631E0;
 typedef struct { f32 v[3]; u16 xC; u8 xE; u8 xF; } Hdr_Fx_EvalCurveVec_1_001631E0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef Bits8 B8;
 typedef struct { u8 x0; B8 f; u8 pad[2]; f32 x4; f32 x8; f32 xC; f32 x10; } Mod;
 typedef struct { f32 x, y, z; s32 w; } Out;
 typedef struct { f32 t; f32 v; } Key_Fx_EvalCurve_1_00163700;
@@ -50,11 +41,7 @@ void Fx_EvalTrackB_1_00162CE0(s8 *a0, Src *a1, f32 f);
 s32 Fx_SpawnBurst_1_00162F30(s32 p0, s32 n, s32 p2, A *a, s32 p4, H *h, s32 p6);
 void Fx_EvalCurveVec_1_001631E0(Out *out, Hdr_Fx_EvalCurveVec_1_001631E0 *h, Mod *mods, s32 *keys, s32 loop, f32 t, f32 len);
 void Fx_EvalCurve_1_00163700(f32 *out, Hdr_Fx_EvalCurve_1_00163700 *h, Mod *mods, s32 *keys, s32 loop, f32 t, f32 len);
-u16 Sfx_GetFreeSlots_1_0016B230(void);
-u16 Sfx_ListAlloc_0_0016B0F0(u16, s32);
 s32 Fx_SpawnParticle_1_00161060(u16, s32, s32, s32, A *, H *, s32);
-void Sfx_ListInsert_0_0016AF40(u16, u16, s32);
-void Noise_Eval_1_0015ED80(Noise *p, u32 n, f32 *out, f32 x, f32 lo, f32 hi);
 f32 fabsf(f32);
 u16 Rand_Next_3_0015ED20(void);
 

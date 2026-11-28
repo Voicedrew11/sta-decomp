@@ -1,4 +1,5 @@
 #include "m2c.h"
+#include "game/gfx.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawFlash_0_00156AF0;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawDistort_0_00156CE0;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawFade_0_00156F60;
@@ -9,7 +10,6 @@ extern s8 D_00222A10[];
 void ScreenFx_DrawFlash_0_00156AF0(void);
 void ScreenFx_DrawDistort_0_00156CE0(void);
 void ScreenFx_DrawFade_0_00156F60(void);
-void ScreenFx_DrawBars_0_00157110(u8 a0);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_EndAD_3_00154420(void);

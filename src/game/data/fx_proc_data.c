@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/effect.h"
+#include "game/enemy.h"
 
 /* data_001F1C80: the game's data at 0x001F1C80..., one object per label. */
 /* used by: Actor_BuildLookMatrix_0_00136DB0, FxTable_GetEntry_0_0014D8A0, FxTable_CallA_0_0014D8E0, FxTable_CallB_0_0014D940,
@@ -6,8 +8,6 @@
 #pragma explicit_zero_data on
 
 extern u8 D_002704D0[];
-void EnemyCmd_Nop_1_00143890(void);
-void EnemyCmd_Set5B5b7_1_001438A0(void);
 void EnemyCmd_GetFlag_0_001438B0(void);
 void EnemyCmd_GetGlobal_0_001438F0(void);
 void EnemyCmd_Set5B4b6_1_00143920(void);
@@ -32,22 +32,17 @@ void EnemyCmd_GetTargetPos_0_001441B0(void);
 void EnemyCmd_BroadcastMotion_1_001442F0(void);
 void EnemyCmd_Kill_1_00144360(void);
 void EnemyCmd_SetHiddenFlags_0_00144370(void);
-void EnemyCmd_ReturnToTitle_1_001443D0(void);
 void EnemyCmd_Set5B2b6w2_1_001443E0(void);
 void EnemyCmd_Set5B2b2_1_001443F0(void);
 void EnemyCmd_Set5B2b1_1_00144400(void);
 void EnemyCmd_Set5B0b2_1_00144410(void);
 void EnemyCmd_ClampHpFromFlag_1_00144420(void);
 void EnemyCmd_StoreHpToFlag_1_00144490(void);
-void EnemyCmd_Set5B1b4_1_001444E0(void);
 void EnemyCmd_FindSpawnPoint_0_001444F0(void);
-void EnemyCmd_Set5B2b4_1_00144960(void);
 void EnemyCmd_GetPosition_2_00144970(void);
 void EnemyCmd_SpawnEffect_0_00144A00(void);
 void EnemyCmd_StopEffect_0_00144B80(void);
 void EnemyCmd_SpawnEffectB_0_00144BE0(void);
-void EnemyCmd_ResetState_1_00144D50(void);
-void EnemyCmd_Set5B3b3_1_00144D60(void);
 void EnemyCmd_Set5B2b0_1_00144D70(void);
 void EnemyCmd_BroadcastFrame_1_00144D80(void);
 void EnemyCmd_Set5B1b7_1_00144DF0(void);
@@ -55,20 +50,15 @@ void EnemyCmd_Set5B1b6_1_00144E00(void);
 void EnemyCmd_BreakPart_1_00144E10(void);
 void EnemyCmd_Set5B0b0_1_00144E30(void);
 void EnemyCmd_HealPercent_1_00144E40(void);
-void EnemyCmd_Set5B1b5_1_00144EE0(void);
-void EnemyCmd_Set5B1b3_1_00144EF0(void);
 void EnemyCmd_Set5B1b2Notify_0_00144F00(void);
 void EnemyCmd_GetParamIdx_1_00144F60(void);
 void EnemyCmd_Set5B1b1_1_00144FA0(void);
 void EnemyCmd_UpdateParamFlags_1_00144FB0(void);
-void EnemyCmd_RegisterKill_0_00144FC0(void);
-void EnemyCmd_RegisterSeen_0_00145010(void);
 void EnemyCmd_Set5B1b0_1_00145060(void);
 void EnemyCmd_SetGameFlag_2_00145070(void);
 void EnemyCmd_TestGameFlag_2_00145080(void);
 void EnemyCmd_SetDead_1_001450D0(void);
 void EnemyCmd_Set5B0b7_1_001450E0(void);
-void EnemyCmd_KillNow_1_001450F0(void);
 void EnemyCmd_Random_2_00145100(void);
 void EnemyCmd_GetType_1_00145140(void);
 void EnemyCmd_Set5B0b1_1_00145180(void);
@@ -131,9 +121,6 @@ void FxProc_MoveToward_0_0014D310(void);
 void FxProc_InitTowardEnemy_0_0014D410(void);
 void FxProc_SeekEnemyInCone_0_0014D4A0(void);
 void FxProc_InitSeekCone_0_0014D700(void);
-void FxProc_NopA_2_0014DA00(void);
-void FxProc_NopB_2_0014DA10(void);
-void FxProc_NopC_2_0014DA20(void);
 void FxProc_InitAtOrigin_0_0014DA30(void);
 
 s32 D_001F1C80[0x14] = { 0, 0x3f800000, 0, 0, (s32)D_002704D0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

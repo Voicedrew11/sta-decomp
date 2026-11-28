@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/script.h"
 typedef struct { s32 x0; u8 p[0x10]; u32 x14; } S_Script_ResetSlot_1_00164F10;
 typedef struct { f32 v; char pad[8 - sizeof(f32)]; } E_Script_GetResultF32_1_00164F60;
 typedef struct { char pad[0x370]; E_Script_GetResultF32_1_00164F60 e[1][75]; } Obj_Script_GetResultF32_1_00164F60;
@@ -15,7 +16,7 @@ typedef struct { s32 a, b; } E_Script_SetArgU8_1_00165070;
 typedef struct { u8 pad[0x258]; } S_Script_SetArgU8_1_00165070;
 typedef struct { u8 type; u8 pad[3]; s32 val; } Ent;
 typedef struct { u8 pad[0xC]; u16 c; u16 e; } Hdr_Script_ResolveOperand_1_00165150;
-typedef union { s8 c; u8 uc; s16 s; u16 us; s32 i; u32 u; f32 f; } Val;
+typedef ScrVal Val;
 typedef struct { s32 type; Val v; } Var;
 typedef struct { u8 pad[0xC]; u16 c; u16 e; } Hdr_Script_StoreLocal_0_00165260;
 typedef struct { s32 type; union { s32 i; u32 u; f32 f; } v; } Out;

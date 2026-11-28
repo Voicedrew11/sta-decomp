@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/ui.h"
 
 /* data_001F2770: the game's data at 0x001F2770..., one object per label. */
 #pragma explicit_zero_data on
@@ -9,9 +11,7 @@ void MenuProc_DrawItemList_0_0018B860(void);
 void SaveMenu_HandleEvent_0_0018C4C0(void);
 void SaveMenu_DrawFrame_0_0018D1F0(void);
 void SaveMenu_Open_1_0018D360(void);
-void Loading_DrawFrame_0_0018E270(void);
 void Loading_Nop_0_0018E440(void);
-void Hud_Draw_0_0018E480(void);
 void Option_DrawFrame_0_0018E980(void);
 void Option_Update_2_0018EAE0(void);
 void LoadMenu_DrawList_0_00191CB0(void);
@@ -30,13 +30,10 @@ void DbMap_Draw_0_00198160(void);
 void DbMap_UpdateWrap_0_00198BD0(void);
 void Equip_Draw_0_00199190(void);
 void Equip_Open_0_001997A0(void);
-void Hud_DrawMain_0_0019A8B0(void);
-void Hud_Update_1_0019B560(void);
 void ItemMenu_Draw_0_0019C6D0(void);
 void ItemMenu_Open_0_0019D290(void);
 void Status_Draw_0_0019DF90(void);
 void PauseMenu_Open_0_0019E2F0(void);
-void Pause_DrawText_2_0019E7C0(void);
 void Pause_HandleEvent_0_0019E810(void);
 void GameOver_DrawFrame_0_0019E8B0(void);
 void GameOver_Update_2_0019EDC0(void);
@@ -48,20 +45,13 @@ void Title_Nop_2_001A35A0(void);
 void Title_LoadGame_0_001A35B0(void);
 void Title_PlayOpening_2_001A3C10(void);
 void Title_ResetOnEvent_0_001A3C70(void);
-void Title_DrawLogo_0_001A3CC0(void);
 void Title_UpdateWrap_0_001A3EB0(void);
-void Title_Draw_0_001A3FB0(void);
 void TitleMenu_Update_1_001A4010(void);
 void Title_PlayPrologue_2_001A4890(void);
 void Title_StartNewGame_0_001A4930(void);
-void Credits_DrawFrame_0_001DC900(void);
 void Credits_Update_0_001DCC30(void);
-void Credits_DrawBg_0_001DCE70(void);
-void MapSheet_Draw_0_001ED630(void);
 void MapSheet_Update_0_001ED740(void);
-void Ending_DrawText_0_001ED850(void);
 void Ending_Update_0_001ED9A0(void);
-void Ending_Draw_0_001EDAD0(void);
 void Ending_HandleEvent_0_001EDCC0(void);
 
 f32 D_001F2770[0x8] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f };

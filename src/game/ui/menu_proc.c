@@ -1,5 +1,7 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { u32 n; s32 *list; } Lst;
 typedef struct { f32 v[9]; } M;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
@@ -7,19 +9,15 @@ typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef struct { s32 x0; s32 x4; u8 pad8[8]; f32 x10; f32 x14; f32 x18; s32 x1C; } P;
 extern s32 D_004A0F90[];
 extern void (*D_004A0F9C[])(s8 *);
-extern s32 D_004A0FAC[];
 extern void (*D_004A0F98[])(s32);
 extern s8 D_001FCCF0[];
 extern s8 D_001FCCF8[];
 extern M D_004A0F90__as_MenuProc_Run_1_0018B320;
-extern s32 D_00202120[2];
 void MenuProc_Set_1_0018B150(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 fparg0);
 void MenuProc_DrawList_0_0018B180(s8 *arg0);
 void MenuProc_CheckReady_0_0018B2E0(s32 a);
 void MenuProc_Run_1_0018B320(M *m);
 void MenuProc_DrawConfirm_0_0018B380(s8 *a0, s32 a1, u32 a2, P *a3);
-s32 Menu_GetCursor_1_0018B820(s32 i);
-void Menu_SetCursor_1_0018B840(s32 i, s32 v);
 void Ui_DrawList_1_001829B0(s32 *, s32, void (*)(), s32 *);
 s8* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);

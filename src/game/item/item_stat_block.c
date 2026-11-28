@@ -1,11 +1,11 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/item.h"
 typedef struct {
     u8 p0[0xA]; u16 xA; u8 pC[0x14]; u16 x20; u8 p22[0xA]; u16 x2C[8]; u8 x3C; u8 p3D[3];
     union { struct { f32 x40, x44, x48, x4C; } f; u16 h[0x28]; } u;
 } __attribute__((aligned(16))) E;
 void Item_GetStatBlock_0_001D1240(E *d, s16 idx, u8 k);
-s32 ItemType_GetCategory_0_001D1CB0(s32 x);
 s32 ItemType_IsWeapon_0_001D1D50(s32 x);
 s32 ItemType_IsShield_0_001D1DA0(s32 v);
 s32 ItemType_IsGun_0_001D1DD0(s32 v);

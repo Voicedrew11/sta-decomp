@@ -1,5 +1,6 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/player.h"
 typedef struct { u8 pad[0x20]; u16 type; u8 pad22[8]; u8 b[6]; u16 v[6]; f32 f[0x15]; } E_Stats_CalcAttack_0_001CF510;
 typedef struct { u8 pad[0x4A]; u16 v[6]; } E2;
 typedef struct { u16 v[6]; f32 f; } R;
@@ -23,7 +24,6 @@ void Stats_AddWeighted_1_001D0610(A *a, B *b);
 void Stats_CalcBase_0_001D08E0(s16 *out, s32 *st, s16 *a, B4 *b);
 u16 Stats_CalcMaxHp_0_001D10B0(S_Stats_CalcMaxHp_0_001D10B0 *s);
 u16 Stats_CalcMaxMp_0_001D1110(S_Stats_CalcMaxMp_0_001D1110 *s);
-s32 Stats_CalcWeight_0_001D1170(void);
 void memset(void *, s32, s32);
 void Item_GetStatBlock_0_001D1240(void *, s16, u8);
 u8* PlayerData_Get_2_001C9BA0(void);

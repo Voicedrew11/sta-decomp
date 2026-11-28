@@ -1,5 +1,9 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/sound.h"
+#include "game/ee.h"
 typedef struct { char pad[0x14]; unsigned char : 3; unsigned char f : 1; } BF_14_3_1;
 typedef struct { u64 pmode; u64 smode2; u64 dispfb; u64 display; u64 bgcolor; } DispEnv;
 typedef struct { u64 r[16]; } DrawEnv1;
@@ -13,7 +17,6 @@ typedef struct {
 } Clear;
 typedef struct { DispEnv disp[2]; u64 giftag0[2]; DrawEnv1 draw0; Clear clear0; u64 giftag1[2]; DrawEnv1 draw1; Clear clear1; } DBuff;
 extern s32 D_001FD230[];
-extern s8 D_00222AF0[];
 extern s32 *D_00202150;
 extern s32 *D_0020214C;
 extern s32 D_00202148;
@@ -22,19 +25,12 @@ extern s8 D_001FD250[];
 void Ending_PlayMovie_2_00194EE0(void *arg0);
 void Ending_OpenLoadMenu_0_00194F60(void *arg0);
 void Ending_StaffRoll_2_00194FC0(void);
-void GsPkt_EndLayer_1_00155900(void);
-void GsPkt_ResetLayer_0_00154AF0(void);
-void Gfx_FlipBuffers_2_00155370(void);
-void Gfx_WaitDraw_1_001552A0(void);
-void Gfx_KickFrame_1_00154B70(void);
-void GsPkt_DrawClearRect_0_00153D80(void);
 s32 sceGsSyncV(s32);
 void sceGsResetGraph(s32, s32, s32, s32);
 void Arc_LoadFile_2_00159DD0(s32, s8 *, void *, s32 *);
 s32 Credits_InitText_0_001E3AF8(s32);
 s32* Pool_Alloc_3_001288C0(s8 *, s32);
 void Credits_Load_1_001E3B48(s32, s32);
-void Credits_SetSpeed_0_001E3DB8(s32);
 void sceGsSetDefDBuff(DBuff *, s32, s32, s32, s32, s32, s32);
 void FlushCache(s32);
 s32 Strm_PlayFile_2_00130590(s8 *, s32, s32);
@@ -43,11 +39,7 @@ void sceGsSyncPath(s32, s32);
 s32 Credits_Step_0_001E3CA0(void);
 void Strm_SetFadeStep_1_001304B0(s32);
 void sceGsSetHalfOffset(DrawEnv1 *, s32, s32, s16);
-void Strm_Update_1_001304C0(void);
-void Strm_Stop_2_00130440(void);
 void Pool_Free_2_00128580(s8 *, s32 *);
-void Gfx_Nop_2_001558F0(void);
-void GsPkt_SetLayer_1_00154700(s32, s32);
 void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 void GsPkt_Flush_1_001544C0(void);

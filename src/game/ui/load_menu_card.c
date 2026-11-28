@@ -1,17 +1,14 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef struct { s32 v[12]; } Buf;
 typedef struct { u8 b[0xF0]; } Ent;
 typedef struct { s32 x0; s32 x4; s8 x8; s8 x9; s8 xA; s8 xB; s8 xC; s8 xD; u8 xE; } A;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 x9; u8 xA; u8 xB; } Obj;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; } F;
-extern s32 D_004A1150[];
 extern f32 D_004A1168[];
-extern s32 D_004A1184[];
-extern s32 D_004A1188[];
-extern f32 D_004A118C[];
-extern s32 D_004A1198[];
-extern s32 D_004A119C[];
 extern Ent D_004A0900[];
 void LoadMenu_LoadB_0_001945B0(s8 *arg0);
 void LoadMenu_BackB_0_00194B90(A *a);
@@ -22,19 +19,14 @@ void MenuProc_Set_1_0018B150(f32, s32 *, s32, s32, void (*)(s8 *), s32);
 void MenuProc_Run_1_0018B320(s32 *);
 void SaveSys_GetResult_0_001E6080(s32 *);
 void SaveSys_GetSlotCount_0_001E5E80(Buf *);
-s32 SaveSys_GetCurSlotState_0_001E6060(void);
-s32 SaveSys_IsCardReady_0_001E6110(void);
-s32 SaveSys_GetPort_1_001E8290(void);
 void SaveSys_Update_2_001E8500(void);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
-void MenuStack_Push_1_00189ED0(s32);
 void Save_BuildOptions_1_001AB0A0(Ent *);
 void memset(void *, s32, s32);
 void Snd_PlaySe_3_00131600(s32 a, u8 b);
 s8 MenuStack_Pop_1_00189EA0(s32);
-s32 SaveSys_GetCardKind_0_001E60C0(s32);
 
 /* LoadMenu_LoadB_0_001945B0 */
 #define LoadMenu_UpdateCardFlags_1_00194D90 LoadMenu_UpdateCardFlags_1_00194D90__as_LoadMenu_LoadB_0_001945B0

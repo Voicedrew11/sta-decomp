@@ -1,11 +1,10 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/player.h"
 typedef struct { char pad[0x80]; char sub[1]; } T;
 typedef struct { u8 pad[0x20]; u16 x20; u8 pad22[0x6E]; } E_Equip_Assign_1_001CCF50;
 typedef struct { u8 pad0[0xA]; u16 xA; u8 pad1[0x1A]; u8 s[6]; u8 pad2[0x90-0x2C]; } E_Equip_FindSlot_0_001CD2D0;
-void Equip_SetSlot_0_001CCF00(s32 a, s32 b);
 void Equip_Assign_1_001CCF50(s16 *slots, s32 idx, s16 id);
-s32 Equip_FindSlot_0_001CD2D0(s32 a0);
 T* PlayerData_Get_2_001C9BA0(void);
 void Player_RecalcStats_1_001CEDC0(s32 v);
 E_Equip_Assign_1_001CCF50* Item_GetTable_1_001AFC90(void);

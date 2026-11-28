@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/ui.h"
 typedef struct { u8 r, g, b, a; } Col;
 typedef struct { u8 b0:1; } B;
 typedef struct { u8 a:3; u8 b:5; } BF;
@@ -16,14 +17,9 @@ extern BF D_004A0F68[];
 extern s16 D_004A0F6C[];
 extern s32 D_004A0F80[];
 extern s32 D_004A0F84[];
-extern s32 D_004A0FAC[];
 void Msg_ShowWrap_1_0018AC90(s32 arg0, s32 arg1);
-void Msg_Draw_0_0018ACA0(void);
 void Msg_SetParam_0_0018AEA0(s32 arg0);
 s32 Msg_Show_1_0018AEB0(s32 arg0, s32 arg1);
-s32 Msg_Close_1_0018B0C0(void);
-void Msg_ShowById_1_0018B0E0(s32 arg0);
-f32 Msg_GetAlpha_0_0018B110(void);
 void Menu_DrawBackground_0_00187B20(s32);
 s32 Text_Render_2_00188010(void *, Col);
 void strcpy(void *, s32);

@@ -1,15 +1,13 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
 typedef struct { f32 a, b; } P2;
 typedef struct { u8 pad0[0xC]; P2 *xC; s32 x10; f32 x14; } A;
 typedef struct { s32 x0; s32 x4; f32 x8; } B;
 typedef struct { u8 pad0[0x40]; f32 x40; f32 x44; } Info;
 typedef struct { s32 x0; s32 x4; u8 p8[2]; u8 xA; u8 pB[3]; u8 xE; } O;
-extern s32 D_00202128;
 extern s32 D_00202134;
 extern s32 D_00202138;
-extern s32 D_004A10D0[];
-extern f32 D_004A10B0[];
 extern Flags8 D_004A10DC[];
 void Option_LerpLayout_0_00191820(s32 i, A *a, B *b);
 void OptionProc_Back_0_00191C40(O *o);

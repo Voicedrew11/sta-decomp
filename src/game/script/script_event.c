@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/script.h"
 typedef struct { s32 f0; u8 pad4[0xC]; s32 f10; u8 pad14[0x258 - 0x14]; } Slot_Script_RunEvent_2_00166C10;
 typedef struct { s32 h0; u32 count; u8 pad8[0x294 - 8]; Slot_Script_RunEvent_2_00166C10 s[1]; } Mgr_Script_RunEvent_2_00166C10;
 typedef struct { s32 f0; u8 pad4[0xC]; s32 f10; u8 pad14[0x258 - 0x14]; } Slot_Script_RunAll_1_00166CC0;
@@ -41,7 +42,6 @@ void Script_SendEvent_2_00166F80(s32 arg0, s32 arg1, s32 arg2);
 void Script_InitContext_1_00166F90(H **arg0, s32 arg1, s32 arg2, u32 arg3);
 s8 Script_Exec_2_00166170(void *, void *);
 void Script_ResetSlot_1_00164F10(Slot_Script_SendEventImpl_1_00166DA0 *);
-s32 Script_FindLabel_1_00166970(Mgr_Script_SendEventImpl_1_00166DA0 *, u32);
 void memset(void *, s32, s32);
 
 /* Script_RunEvent_2_00166C10 */

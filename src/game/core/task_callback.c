@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/core.h"
+#include "game/data.h"
 typedef struct { u8 *base; s32 stride; u32 n; s32 st; void (**fn)(s32); u32 cnt; u32 cur; u8 fl; Flags8 f; } L;
 typedef struct { f32 x, y, z, w; } V4;
 typedef struct { u16 a:1; u16 b:8; u16 c:1; u16 r:6; } BF;
@@ -8,8 +10,6 @@ typedef struct { u8 x0; u8 x1; u8 p2[6]; s32 x8; u8 pC[2]; u16 xE; s32 x10; s32 
 extern L D_004BAC30;
 extern s32 D_004BAC40[];
 extern s32 D_004BAC44[];
-extern s32 D_004BAC48[];
-extern s32 D_002023A8;
 extern V4 D_004BAC20[];
 extern s32 D_004BAC34[];
 extern s32 D_004BAC38[];
@@ -20,7 +20,6 @@ extern s32 (*D_004BAC24[])(T *, s32);
 extern u8 *D_004BAC30__as_Task_Schedule_1_001E0680[];
 extern u32 D_004BAC38__as_Task_Schedule_1_001E0680[];
 extern s32 (*D_004BAC28__as_Task_Dispatch_0_001E0AB0[])(T *);
-void Task_Init_1_001E03C0(void);
 void Task_SetCallback_1_001E0560(s32 arg0, s32 arg1);
 void Task_Start_1_001E0590(s32 a0, s32 a1, s32 a2, V4 *v);
 void Task_Schedule_1_001E0680(void);

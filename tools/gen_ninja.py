@@ -429,12 +429,14 @@ def main() -> None:
              "  command = .venv/bin/python tools/gen_ninja.py --target $out\n"
              "  restat = 1\n"
              "  description = TARGET $out\n")
+    # no depfiles: every C unit depends on every header, so a header edit rebuilds them
+    hdrs = " ".join(sorted(str(h.relative_to(ROOT)) for h in (ROOT / "include").rglob("*.h")))
     for s, o in zip(srcs, objs):
         # src/ holds C and hand-written asm (assembled per origin by
         # compile_c.sh); asm/ is splat's output
         rule = "cc" if s.startswith("src/") else "as"
         # a change to how units are compiled rebuilds them
-        dep = " | include/macro.inc" if rule == "as" else " | tools/compile_c.sh tools/mwfix.py config/game_cflags.txt"
+        dep = " | include/macro.inc" if rule == "as" else " | tools/compile_c.sh tools/mwfix.py config/game_cflags.txt " + hdrs
         n.append(f"build {o}: {rule} {s}" + dep)
     for s in c_units:
         # the .s is rewritten only when its content changes (restat), so the

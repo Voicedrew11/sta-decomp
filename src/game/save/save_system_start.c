@@ -1,4 +1,6 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/save.h"
 typedef struct { u8 p[0x3C0]; s32 x3C0; s32 x3C4; u8 q[0x38]; } S_SaveSys_GetSlotCount_0_001E5E80;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 pC[3]; s32 x18; s32 x1C; s32 x20; u8 p24[0x1C]; u8 x40[0x3C0]; } S_SaveSys_StartRead_0_001E5F30;
 typedef struct { int a, b, c; char pad[0x400 - 12]; } Rec;
@@ -7,23 +9,13 @@ typedef struct { s32 a; s32 b; char rest[0x3F8]; } E;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 pC[3]; s32 x18; s32 x1C; u8 pad[0x3A0]; s32 x3C0; u8 q[0x3C]; } S_SaveSys_StartWrite_0_001E6170;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 xC; s32 x10; s32 x14; s32 x18; s32 x1C; u8 pad[0x3A0]; s32 x3C0; u8 pad2[0x3C]; } S_SaveSys_StartLoad_0_001E62A0;
 typedef struct { s32 x0; s32 x4; s32 x8; s32 pC[3]; s32 x18; s32 x1C; u8 pad[0x3E0]; } S_SaveSys_StartFormat_0_001E6410;
-extern s32 D_002023B8;
-extern s32 D_002023E4;
 extern S_SaveSys_GetSlotCount_0_001E5E80 D_004BC380[];
-extern s32 D_002023D8;
 extern s32 D_002023DC;
 extern Rec D_004BC394[];
 extern R D_004BC384[];
-extern s32 D_002023CC;
-extern s32 D_002023D0;
-extern s32 D_002023D4;
 s32 SaveSys_GetSlotCount_0_001E5E80(s32 *o);
 s32 SaveSys_StartRead_0_001E5F30(u8 **arg0, s32 *arg1);
-s32 SaveSys_GetSlotState_0_001E6040(int index);
-s32 SaveSys_GetCurSlotState_0_001E6060(void);
 s32 SaveSys_GetResult_0_001E6080(int *third);
-s32 SaveSys_GetCardKind_0_001E60C0(s32 i);
-s32 SaveSys_IsCardReady_0_001E6110(void);
 s32 SaveSys_StartWrite_0_001E6170(s32 arg0, s32 arg1, s32 arg2);
 s32 SaveSys_StartLoad_0_001E62A0(s32 a0, s32 a1, s32 a2);
 s32 SaveSys_StartFormat_0_001E6410(void);

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/effect.h"
 typedef struct { char pad[0x10]; char sub[0x4D0]; } E;
 typedef struct { E e[64]; } B;
 typedef struct { u8 pad0[8]; f32 x8; f32 xC; f32 x10; f32 x14; } LP;
@@ -6,7 +7,6 @@ extern B D_003174F0[2];
 extern Mtx D_002F16C0;
 extern Vec D_0033E500[];
 extern Vec D_003139A0;
-void Lightning_InitAll_1_001643B0(void);
 void Lightning_BuildStrip_0_00164440(LP *P, u32 *out, Vec *L, Vec *dir, Vec *c);
 void Lightning_ResetPoints_0_00164940(void);
 void Lightning_Init_0_00164BB0(void *p);

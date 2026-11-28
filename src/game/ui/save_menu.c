@@ -1,5 +1,8 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef struct { u8 pad0[4]; s32 x4; u8 pad8[2]; u8 xA; u8 padB[3]; u8 xE; } O_SaveMenu_ConfirmLoad_0_0018D060;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9; u8 xA; u8 padB[3]; u8 xE; u8 padF[5]; Flags8 x14; } O_SaveMenu_Exit_0_0018D140;
 typedef struct { u8 b0:1; u8 b1:1; u8 r:6; u8 pad[3]; } E;
@@ -12,21 +15,11 @@ typedef union { u32 w; u8 b[4]; } Col;
 typedef struct { s32 sel; s32 x4; s32 x8; f32 xC; f32 x10; s32 x14; E e[2]; } M_SaveMenu_DrawSlot_1_0018D420;
 typedef struct { u8 p0[0xAC]; s8 *xAC; } G;
 typedef struct { s32 sel; s32 x4; s32 x8; f32 xC; s32 x10; s32 x14; E e[2]; } M_SaveMenu_SelectDevice_0_0018D7B0;
-extern s32 D_004A0FC0[];
-extern s32 D_004A0FF4[];
-extern s32 D_004A1000[];
-extern Flags8 D_004A1010[];
-extern s32 D_004A0FF0[];
-extern s32 D_00202120[2];
 extern M_SaveMenu_DrawFrame_0_0018D1F0 D_004A1050;
-extern s32 D_004A1054[];
 extern s32 D_004A105C[];
 extern f32 D_004A1060[];
-extern s32 D_004A1068[];
-extern s32 D_004A106C[];
 extern S D_001F2A50[] __attribute__((aligned(16)));
 extern s8 D_001FCDC8[];
-extern s32 D_004A1020[];
 void SaveMenu_ConfirmLoad_0_0018D060(O_SaveMenu_ConfirmLoad_0_0018D060 *o);
 void SaveMenu_Exit_0_0018D140(O_SaveMenu_Exit_0_0018D140 *o);
 void SaveMenu_DrawFrame_0_0018D1F0(u8 *a0);
@@ -35,17 +28,13 @@ void SaveMenu_DrawSlot_1_0018D420(s8 *o, s32 sel, u32 id);
 void SaveMenu_SelectDevice_0_0018D7B0(s8 *arg0);
 void MenuProc_Set_1_0018B150(s32 *, s32, s32, void (*)(), s32, f32);
 void MenuProc_Run_1_0018B320(s32 *);
-s32 SaveSys_IsCardReady_0_001E6110();
 void Snd_PlaySe_3_00131600(s32, s32);
 void MenuProc_BackOnCancel_0_0018D000();
-s32 SaveSys_GetPort_1_001E8290(void);
 void Strm_SetFadeStep_1_001304B0(s32);
 List** MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(Item *, s32, void (*)(), s32);
-void Ui_SetAlphaClamped_0_00182050(s32);
 void Menu_DrawBackground_0_00187B20(s32);
-void Ui_BeginSprites_1_00181420(void);
 void SaveMenu_UpdateCardFlags_1_0018E120(s32, s32 *);
 void Ui_DrawSprite_2_00181680(s32, s8 *, s8 *, void *, S *, s32);
 f32 sinf(f32);

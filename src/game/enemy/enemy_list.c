@@ -1,6 +1,12 @@
 #include "m2c.h"
 #include "common.h"
 #include "actor.h"
+#include "game/core.h"
+#include "game/data.h"
+#include "game/effect.h"
+#include "game/enemy.h"
+#include "game/gfx.h"
+#include "game/model.h"
 typedef struct { s32 v; s32 pad[9]; } E;
 typedef struct { u8 pad[0x5A0]; Flags8 f; } A_ActorList_Next_2_001A5460;
 typedef struct { u8 pad[0x5A0]; Flags8 f; } A_ActorList_AllocSlot_0_001A5530;
@@ -65,7 +71,7 @@ typedef struct {
 } O_Enemy_Draw_1_001A5DE0;
 typedef struct { Vec m[2]; } M_Enemy_Draw_1_001A5DE0;
 typedef struct { u8 pad[0x1D8]; u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; } R;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef Bits8 B8;
 typedef struct {
     u16 v0;
     u8 pad2[0x4A6];
@@ -176,7 +182,7 @@ typedef struct {
     u8 pad520[0x60];
     u8 buf[1];
 } O_Enemy_LoadSfx_0_001A71B0;
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
+typedef Bits8 Bits;
 typedef struct { u8 pad[6]; u16 m6; u8 pad8[0x1C]; Bits f24; u8 pad25[0x1B]; u8 m40[1]; } Mdl;
 typedef struct {
     Vec m0;
@@ -275,7 +281,6 @@ typedef struct {
     s32 x4A0;
 } Obj_EnemyData_Parse_0_001A7810;
 typedef struct { char pad[0x3C]; unsigned int : 4; unsigned int f : 1; } BF_3C_4_1;
-extern s32 D_00201DA8;
 extern E D_004A43B0[];
 extern E D_004A43B8[];
 extern s32 D_004A4878[];
@@ -301,15 +306,12 @@ extern f32 D_001FD91C[];
 extern f32 D_001FD950[];
 extern s16 D_004A4774[];
 extern u16 D_004A4776[];
-extern s32 D_00202278;
-extern s32 D_00202280;
 extern Fn D_001F33A0[];
 extern Vec D_001F2120;
 extern s32 D_00201F2C;
 extern B8 D_00222A50__as_Enemies_DrawAll_1_001A6770[];
 extern s8 D_001FD960[];
 extern s32 *D_00202280__as_EnemyData_Parse_0_001A7810;
-void EnemyMgr_Init_0_001A5340(void);
 s32 ActorList_GetCount_1_001A5430(void);
 s32 ActorList_SetCount_1_001A5440(s32 arg0);
 A_ActorList_Next_2_001A5460* ActorList_Next_2_001A5460(s32 *it);
@@ -324,8 +326,6 @@ void Enemy_DropItems_0_001A5990(s8 *a0);
 u8 Enemy_GetAttachMatrix_0_001A5AA0(u16 *flag, Arg *a, Mtx_Enemy_GetAttachMatrix_0_001A5AA0 out);
 void ActorList_TranslateAll_1_001A5CD0(s32 arg0);
 void Enemy_Draw_1_001A5DE0(O_Enemy_Draw_1_001A5DE0 *o);
-void Enemies_DrawAll_1_001A6770(void);
-void Enemies_ResetFlags_0_001A6950(void);
 void Enemy_Destroy_0_001A6A10(P_Enemy_Destroy_0_001A6A10 **a0);
 void Enemy_Despawn_0_001A6C10(A_Enemy_Despawn_0_001A6C10 *a);
 void Enemy_Respawn_1_001A6C90(u8 *arg0);
@@ -337,9 +337,7 @@ void Enemy_Spawn_0_001A7420(A_Enemy_Spawn_0_001A7420 **pp);
 void EnemyData_Parse_0_001A7810(Obj_EnemyData_Parse_0_001A7810 **a0, Src **a1);
 void EnemyData_ParseWrap_0_001A7C60(void **arg0, void **arg1, u32 arg2, s8 arg3, void *arg4, void *arg5, s32 arg6, s32 arg7);
 u8** EnemyData_LoadTextures_0_001A7C70(s32 arg0);
-void Task_RunWrap_0_0014DAB0(s32);
 void Task_Register_0_0014DB10(void (*)());
-void EnemyMgr_Update_0_001A4990();
 void memset(void *, s32, s32);
 u8 Enemy_Get5B2b3_1_0013E830(A_ActorList_Next_2_001A5460 *);
 void sceVu0CopyVector(void *, void*);
@@ -367,7 +365,6 @@ void Mdl_DrawMeshesC_1_0016D380(u16 *, H2 *, s8 *, s32, Col, u8);
 void Seg_Init_1_001502A0(M_Enemy_Draw_1_001A5DE0 *, P_Enemy_Draw_1_001A5DE0 *, Vec *, f32);
 void Sfx_SetColor_0_00167670(s32, M_Enemy_Draw_1_001A5DE0 *);
 void Sfx_SetTransform_1_001677C0(s32, s8 *);
-void GsPkt_CloseChain_1_001549D0(void);
 s32 Enemy_Get5B5mF_1_0013E5E0(O_Enemy_Draw_1_001A5DE0 *);
 f32 Enemy_Get5C4_1_0013E460(O_Enemy_Draw_1_001A5DE0 *);
 u8 Enemy_Get5B5b4w2_1_0013E4E0(O_Enemy_Draw_1_001A5DE0 *);
@@ -378,12 +375,9 @@ void Mtx_LerpRows_0_0015CC80(s8 *, Vec *, f32);
 void Mtx_ScaleRotation_0_0015CC40(s8 *, f32);
 void Player_CopyLightPos_0_001C9C00(Vec *);
 void Mdl_DrawWithOverlay_0_0016C350(u16 *, H2 *, s8 *, Vec *);
-void GsPkt_SetLayerTop_0_001548F0(s32);
 void ScreenFx_Begin_0_001329D0(s32, s32, s32);
-void GsPkt_EndLayer_1_00155900(void);
 s32 Enemy_CanAct_0_0013E2B0(P_Enemies_DrawAll_1_001A6770 *);
 void ScreenFx_Draw_0_00132930(V *);
-void Mdl_FlushLayer_0_0016B280(void);
 void Sfx_Release_1_00167030(s32);
 void Tex_ReleaseList_0_00178030(s32);
 void Mdl_DestroyInstance_0_001745D0(s32, s32);
@@ -391,12 +385,10 @@ void Pool_Free_2_00128580(s32, void *);
 void Sfx_RegisterList_0_00169D00(void *, s32);
 void EnemyMgr_FreeSlot_0_001A5070(P_Enemy_Destroy_0_001A6A10 **);
 void Sfx_ReleaseOwned_0_00167580(A_Enemy_Despawn_0_001A6C10 *);
-void Enemy_InitPartState_1_001A8510(Actor *, u8);
 void Enemy_ResetPartAnim_1_001A8670(Actor *, u8);
 void Script_InitContext_1_00166F90(s32, s32, s32, s32);
 void Mdl_UpdateBoneMatrices_0_00171270(s32, s8 *, s32);
 void Sfx_SetFlag_0_00167640(void *, s32);
-s32 Sfx_IsLoaded_2_00169BB0(s32);
 s32 Sfx_Spawn_2_00169B50(s32, s32, s32, s32);
 s32 Sfx_SpawnFromStam_2_00169BD0(s32, s32, void *, s32, s32, s32);
 void Sfx_LoadStam_1_00169D70(s32, void *, s32);

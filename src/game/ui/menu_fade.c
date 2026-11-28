@@ -1,11 +1,8 @@
 #include "common.h"
+#include "game/ui.h"
 typedef struct { s32 idx; char p4[0x20]; f32 t; char rest[0x18]; } E;
 typedef struct { u32 n; E *e; } L;
 typedef struct { L *l[4]; } G;
-void Menu_FadeListA_0_00186E70(f32 t);
-void Menu_FadeListB_0_00186F20(f32 t);
-void Menu_FadeListC_0_00186FD0(f32 t);
-void Menu_FadeListD_0_00187080(f32 t);
 G* MenuLayout_Get_1_00189050(s32 i);
 u8* MenuLayout_GetSub_1_00189020(s32 i);
 void Ui_DrawElem_1_00182C10(E *e, u8 *p);

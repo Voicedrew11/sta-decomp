@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/collision.h"
 typedef struct { u8 p0[0xC]; f32 r; Vec dir; } Ray;
 typedef struct { s32 off[4]; s32 x10[8]; s32 x30[8]; } Hdr;
 typedef struct { u16 n; u16 pad; s32 off; u8 p8[0x18]; } Item;
@@ -8,8 +9,6 @@ typedef struct { Vec a; Vec b; s32 x20; u16 *x24; Item *x28; Tri *x2C; s32 x30; 
 typedef struct { u8 b[0x20]; } Box;
 typedef struct { Vec v0; Vec v10; u8 pad20[4]; s32 x24; s8 *x28; s8 *x2C; u8 pad30[4]; s32 x34; s32 x38; } Out_Coll_CapsuleVsMesh_1_0014E230;
 typedef f32 FV[4] __attribute__((aligned(16)));
-extern s16 D_00222A18[];
-extern s16 D_00222A16[];
 extern Vec D_003139A0;
 s32 Coll_RayVsMesh_1_0014DDE0(Out_Coll_RayVsMesh_1_0014DDE0 *out, Hdr *h, s32 base, Ray *ray, Mtx *m, u8 mask, u8 flag);
 s32 Coll_CapsuleVsMesh_1_0014E230(Out_Coll_CapsuleVsMesh_1_0014E230 *out, s32 *lst, s32 base, FV o1, FV o2, Mtx *m, u8 mask, u8 flag);

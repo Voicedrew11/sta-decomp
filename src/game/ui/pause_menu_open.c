@@ -1,17 +1,16 @@
 #include "m2c.h"
+#include "game/data.h"
+#include "game/ui.h"
 typedef struct { u128 q[2]; } Q2;
-typedef struct { s32 p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
+typedef UiArg Arg;
 typedef struct { s32 x0; } Ev;
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void PauseMenu_Update_0_0019E400(Ev *);
 void PauseMenu_GetEntry_0_0019E780(void);
 extern Q2 D_001F31C0;
 extern s32 D_001F3160[];
-extern s32 D_004A32C8[];
 extern f32 D_004A32CC[];
-extern s32 D_00202208;
 
 void PauseMenu_Open_0_0019E2F0(Ev *arg0) {
     Q2 q;

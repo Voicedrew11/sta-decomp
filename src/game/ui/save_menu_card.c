@@ -1,5 +1,8 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
+#include "game/save.h"
+#include "game/ui.h"
 typedef struct {
     s32 x0;
     s32 x4;
@@ -14,12 +17,8 @@ typedef struct {
     s32 arr[8];
 } Buf;
 extern u8 D_004A0900[][0xF0];
-extern s32 D_004A1020[];
-extern s32 D_004A1054[];
 extern s32 D_004A1058[];
 extern f32 D_004A105C[];
-extern s32 D_004A1068[];
-extern s32 D_004A106C[];
 void SaveMenu_Load_0_0018DA20(Obj *o);
 void SaveMenu_CheckCard_0_0018DFB0(Obj *o);
 void SaveMenu_Retry_0_0018E0B0(void *arg0);
@@ -30,14 +29,10 @@ void MenuProc_Run_1_0018B320(s32 *);
 void SaveSys_GetSlotCount_0_001E5E80(Buf *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
-s32 SaveSys_IsCardReady_0_001E6110(void);
 s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
-s32 SaveSys_GetPort_1_001E8290(void);
 void SaveSys_Update_2_001E8500(void);
 void Save_BuildOptions_1_001AB0A0(void *);
 void memset(void *, s32, s32);
-void MenuStack_Push_1_00189ED0(s32);
-s32 SaveSys_GetCardKind_0_001E60C0(s32);
 
 /* SaveMenu_Load_0_0018DA20 */
 #define SaveMenu_UpdateCardFlags_1_0018E120 SaveMenu_UpdateCardFlags_1_0018E120__as_SaveMenu_Load_0_0018DA20

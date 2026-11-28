@@ -1,6 +1,6 @@
 #include "common.h"
 #include "m2c.h"
-typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } B8;
+typedef Bits8 B8;
 typedef struct { u16 x0; u16 x2; u16 x4; u16 x6; s32 x8; s32 xC; s32 x10; s32 x14; u16 x18; u16 x1A; } E;
 typedef struct { f32 v[4]; } V4;
 typedef struct { f32 v[8]; } V8;

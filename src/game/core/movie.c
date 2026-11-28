@@ -1,6 +1,8 @@
 #include "common.h"
 #include "include_asm.h"
-typedef struct { u8 trycount; u8 spindlctrl; u8 datapattern; u8 pad; } RMode;
+#include "game/data.h"
+#include "game/core.h"
+typedef CdRMode RMode;
 typedef struct { s32 w[4]; } Q_Movie_BuildUploadPacket_0_001E9020;
 typedef struct { u32 x, y, w, h; } R;
 typedef struct { s32 lo, hi, reg, pad; } Q_Movie_BuildCopyPacket_0_001E92C0;
@@ -66,7 +68,7 @@ typedef struct { s32 x0; u8 pad[0x28]; s32 x2C; s32 x30; s32 x34; s32 x38; s32 x
 typedef struct { s32 x0; s32 x4; u8 *x8; s32 xC; } H;
 typedef struct { u8 p0[8]; u8 *src; u32 len; s64 a; s64 b; } P_MovieCb_VideoStream_0_001EC070;
 typedef struct { s32 x0; u8 p4[0x10]; s32 x14; u8 p18[0x28]; s32 sema; u8 p44[4]; s64 tot; E_MovieVideo_FindTimestamp_0_001EA4D0 *ents; s32 n; s32 cnt; s32 head; } O_MovieCb_VideoStream_0_001EC070;
-typedef struct { s32 status; void *entry; void *stack; s32 stackSize; void *gpReg; s32 initPriority; s32 currentPriority; u32 attr; u32 option; s32 waitType; s32 waitId; s32 wakeupCount; } TP;
+typedef ThreadParam TP;
 typedef struct { u8 pad[8]; s32 x8; u8 pC[0x4C]; s32 x58; s32 x5C; u8 p60[0x28]; s32 x88; u8 p8C[0x1C]; s32 xA8; } P_Movie_ReadLoop_1_001ECAB0;
 typedef struct { u8 data[0x50000]; s32 rd; s32 cnt; s32 size; } B_Movie_ReadLoop_1_001ECAB0;
 typedef struct { s32 x0; s32 x4; s32 x8; } Q_Movie_ReadLoop_1_001ECAB0;
@@ -130,8 +132,6 @@ extern s32 D_004BE030[];
 extern u8 *D_004BE038[];
 extern u8 D_004BE080[];
 extern s32 D_00202400;
-extern s32 D_004BD314[];
-extern s32 D_004BD318[];
 extern s32 D_004BDF34[];
 extern u32 D_004BE000[];
 extern volatile u32 D_004BE004[];

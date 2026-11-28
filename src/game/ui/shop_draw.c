@@ -1,5 +1,9 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
+#include "game/item.h"
+#include "game/player.h"
+#include "game/ui.h"
 typedef struct { u16 v[8]; } H;
 typedef struct { u128 q[2]; } Q2;
 typedef struct { s32 *p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
@@ -10,8 +14,6 @@ typedef struct { u8 x0; } K2;
 typedef struct { u64 a:6; u64 b:2; } BF;
 extern f32 D_00201D8C;
 extern Flags8 D_004A4340[];
-extern s32 D_004A331C[];
-extern s32 D_004A3320[];
 extern s32 D_004A4330[];
 extern s32 D_004A4334[];
 extern s32 *D_00201D7C;
@@ -27,7 +29,6 @@ extern s32 D_00202220;
 extern s32 D_00202230;
 extern s32 D_00202234;
 extern s16 D_004A3310[];
-extern s16 D_004A3312[];
 extern Flags8 D_004A332C[];
 extern s32 D_004A3330[];
 extern f32 D_004A433C[];
@@ -37,28 +38,19 @@ void Shop_DrawStatus_0_001A1550(u8 *a0, f32 f);
 void Shop_Open_1_001A1B40(s32 a0);
 void Shop_Update_0_001A1C80(In *in);
 void Shop_BuildList_0_001A2C00(s32 a0, s32 a1);
-void Shop_ResetPrices_0_001A2DE0(void);
-void Shop_RecalcPrices_0_001A2EA0(void);
 void Shop_LoadIcons_0_001A2F20(u32 a0);
 void ShopProc_Pos_0_001A2FF0(s32 i, s8 *o, s8 *p);
 f32 Approachf_3_00187770(f32, f32, f32);
 void Menu_SetFlags_0_0018A310(s32);
 void UiAnim_UpdateAll_1_0017F5C0(void);
-void Ui_BeginSprites_1_00181420(void);
 void Menu_DrawBackground_0_00187B20(s32);
 void Notify_DrawBackground_0_0019EF60(u8 *);
 H* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);
-s32 Player_Exists_3_001C9BF0(void);
-void ShopMenu_DrawRingA_0_001DD7F0(s32, s32, f32);
-void Menu_DrawItemDesc_1_001DF360(s32, s32);
-void ShopMenu_DrawRingC_0_001DEB00(s32, s32, f32);
 void Menu_DrawRingB_0_00184960(void *, f32);
-void ShopMenu_DrawRingB_0_001DE0D0(s32, f32);
 void Equip_CalcStatBars_0_0019A370(H *, H *, H *, H *, s32);
 void Player_CalcStats_0_0019A500(H *, H *, s32 *, s32 *, s32 *, s32, s32, s32);
 void Menu_DrawStatRing_0_00186440(f32, H *, H *, H *, H *);
-void Menu_SetOffset_0_00185B30(s32, s32);
 void Menu_DrawRingD_0_00185510(f32, H *);
 void Menu_DrawRingE_0_00185B40(f32, s8 *);
 s32 Equip_GetSlotItem_1_001CCD90(s32);
@@ -72,17 +64,10 @@ void Shop_BuyQuantity_0_001A0850(s32);
 void Shop_Confirm_0_001A06B0(s32);
 void Shop_SelectItem_0_001A03C0(s32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
-void UiAnim_SetVisible_1_0017F7C0(s32, s32, s32);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Ui_SetOffset_0_001803D0(s16, s16);
 void Ui_SetOffsetB_0_001803C0(s32 *, s32);
-void Ui_SetOffsetA_0_001803B0(s32, s32);
-void Inventory_Sort_0_0019FD00(void);
-void Inventory_Recount_0_001CCE30(void);
 void Player_RecalcStats_1_001CEDC0(s32);
-void Player_RefreshEquipModel_0_001CEA50(s32);
-void Menu_ResetDescScroll_0_001DF460(void);
-void Equip_SelectBest_0_0019A0D0(s32);
 K* Inventory_GetSlot_1_001A97D0(s16);
 E* Item_GetTable_1_001AFC90(void);
 K2* Inventory_GetEntry_1_001CC3F0(s16);
