@@ -1,9 +1,8 @@
 #include "common.h"
 
 /* rodata_001FD288: the game's data at 0x001FD288..., one object per label. */
-/* used by: Databook_GetTab_0_00195420, DbChar_GetListName_1_00196C50, DbItem_GetListName_1_00197F30, DbMapProc_DrawInfo_1_00198570,
-   DbMap_GetListName_1_00198F30, Hud_DrawStatus_1_0019A920, Hud_UpdateShortcuts_0_0019BFF0, Hud_UpdateWeaponSlots_0_0019C560,
-   text_00196330.s, text_001973F0.s, text_0019BFF0.s */
+/* used by: databook, databook_char_list, databook_item_reset, hud_draw,
+   text_00196330.s, text_001973F0.s */
 #pragma explicit_zero_data on
 
 const u8 D_001FD288[0x5] = "ITEM\000";

@@ -1,6 +1,6 @@
 #include "common.h"
 #include "m2c.h"
-extern f32 D_003139A0[4];
+#include "game/data.h"
 void Quat_ToMatrix_2_0015E180(Mtx *out, Vec *q);
 void Mtx_ToQuat_2_0015E290(f32 *out, f32 (*a)[4]);
 void Quat_FromAxisAngle_2_0015E500(void *arg0, void *arg1, f32 fparg0);
@@ -66,7 +66,7 @@ void Mtx_ToQuat_2_0015E290(f32 *out, f32 (*a)[4]) {
     sceVu0Normalize(m[0], a[0]);
     sceVu0Normalize(m[1], a[1]);
     sceVu0Normalize(m[2], a[2]);
-    sceVu0CopyVector(m[3], D_003139A0);
+    sceVu0CopyVector(m[3], &D_003139A0);
     m[3][3] = 1.0f;
     t = m[0][0] + m[1][1] + m[2][2] + 1.0f;
     if (!(t < 1.0f)) {

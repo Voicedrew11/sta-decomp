@@ -42,7 +42,6 @@ typedef struct { C c[2]; } CC;
 extern char D_003407E0[];
 extern s8 D_001F2160[];
 extern f32 D_001F2170[];
-extern s32 D_00201F2C;
 extern B_Sfx_OffsetAll_1_00167850 *D_00201FC0;
 extern CC *D_00201FD0;
 extern u8 D_003406D0[];

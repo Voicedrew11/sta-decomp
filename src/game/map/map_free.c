@@ -6,6 +6,7 @@
 #include "game/map.h"
 #include "game/save.h"
 #include "game/sound.h"
+#include "game/data.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; } F_Map_FreeArea_1_001B5640;
 typedef struct { u8 pad[0x10]; s32 x10; u8 pad14[0x28]; F_Map_FreeArea_1_001B5640 f3C; } M_Map_FreeArea_1_001B5640;
 typedef struct { M_Map_FreeArea_1_001B5640 *m; } O_Map_FreeArea_1_001B5640;
@@ -64,7 +65,6 @@ typedef struct { s32 v; s32 x; } E_Map_InitObjects_0_001B6130;
 typedef struct { char pad[0x70]; u16 n; char p72[0x1E]; s32 a[7]; char pac[0xD0]; E_Map_InitObjects_0_001B6130 *e; } Obj;
 extern S_Map_FreeArea_1_001B5640 **D_002022BC;
 extern s32 D_002022C4;
-extern s32 D_002022D0;
 extern s32 D_00201E88;
 extern s32 D_00201E8C;
 extern s32 D_002022B8;
@@ -86,7 +86,6 @@ void ItemObj_FreeOwned_0_001AF740(S_Map_FreeArea_1_001B5640 **);
 void Map_ResetArea_1_001B4F20(S_Map_FreeArea_1_001B5640 *);
 void Mdl_DestroyInstance_0_001745D0(s32, s32);
 s32 Map_StreamGetResult_1_001B0660(Out *o);
-void PointLightGroup_Clear_0_0015C6D0(s32 i);
 void Mtx_Compose_2_00173FD0(void *, f32 *, f32 *, f32 *);
 void sceVu0CopyVector(f32*, void *);
 void sceVu0AddVector(f32 *, f32 *, f32 *);

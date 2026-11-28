@@ -1,10 +1,9 @@
 #include "m2c.h"
 #include "game/data.h"
+#include "game/gfx.h"
 typedef union { u128 q; u32 w[4]; } Q;
 void ScreenFx_DrawSprite_0_001323C0(s8 *, u16, u16, s8 *);
 u128 *GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
-void Tex_FlushAll_1_00176AE0(void);
 extern s8 D_33C0[];
 
 void ScreenFx_DrawModelOverlay_0_00132A70(s8 *arg0) {

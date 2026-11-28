@@ -224,7 +224,8 @@ extern s32 D_00201E80;
 extern Vec_ItemObj_Drop_0_001AE900 D_001F3820;
 extern Vec_ItemObj_Drop_0_001AE900 D_001F3830;
 extern s32 D_002022BC;
-extern s16 D_004AC5A4[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s16 D_004AC5A4[0x46] __attribute__((aligned(4)));
 extern Node *D_004AC5A8[][16];
 extern s16 D_004AC5A0[];
 extern s32 D_00202290;

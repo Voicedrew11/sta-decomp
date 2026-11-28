@@ -20,7 +20,6 @@ extern s32 D_004A0F84[];
 void Msg_ShowWrap_1_0018AC90(s32 arg0, s32 arg1);
 void Msg_SetParam_0_0018AEA0(s32 arg0);
 s32 Msg_Show_1_0018AEB0(s32 arg0, s32 arg1);
-void Menu_DrawBackground_0_00187B20(s32);
 s32 Text_Render_2_00188010(void *, Col);
 void strcpy(void *, s32);
 u32 strlen(void *);

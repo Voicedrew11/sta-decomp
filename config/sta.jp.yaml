@@ -772,6 +772,8 @@ segments:
       - [0x0F2010, .data, game/data/task_run_data]
       - [0x0F2020, .data, game/collision/collision_test]
       - [0x0F2040, .data, game/data/screen_fx_flash_data]
+      - [0x0F2300, .data, game/script/script]
+      - [0x0F2340, .data, game/data/screen_fx_flash_data_001F2340]
       - [0x0F2590, .data, game/ui/ui_anim]
       - [0x0F25B0, .data, game/data/ui_global_data]
       - [0x0F2740, .data, game/ui/ui_gauge]
@@ -788,6 +790,7 @@ segments:
       - [0x0F3160, .data, game/data/pause_menu_open_data]
       - [0x0F3280, .data, game/ui/storage_entry]
       - [0x0F32A0, .data, game/data/title_nop_data]
+      - [0x0F37B0, .data, game/save/map_state]
       - [0x0F3810, .data, game/item/item_object_spawn]
       - [0x0F3820, .data, game/data/map_area_load_data]
       - [0x0F3840, .data, game/map_object/map_object]
@@ -855,6 +858,7 @@ segments:
       - [0x0FB7D0, .rodata, game/script/script]
       - [0x0FB890, .rodata, game/script/script_op]
       - [0x0FB8C8, .rodata, game/data/sfx_all_rodata]
+      - [0x0FB913, .rodata, game/gfx/texture_hash]
       - [0x0FB920, .rodata, game/script/map_command]
       - [0x0FB980, .rodata, game/data/ui_gauge_rodata]
       - [0x0FCAB0, .rodata, game/ui/ui_gauge]
@@ -886,11 +890,14 @@ segments:
       - [0x0FD870, .rodata, game/data/title_rodata]
       - [0x0FD8B0, .rodata, game/ui/title]
       - [0x0FD8C8, .rodata, game/data/enemy_list_rodata]
+      - [0x0FD91C, .rodata, game/enemy/enemy_list]
+      - [0x0FD960, .rodata, game/data/enemy_list_rodata_001FD960]
       - [0x0FD970, .rodata, game/enemy/enemy_data]
       - [0x0FD988, .rodata, game/data/save_parse_rodata]
       - [0x0FDA10, .rodata, game/item/item_object]
       - [0x0FDA40, .rodata, game/map/map]
       - [0x0FDA5C, .rodata, game/data/map_area_load_rodata]
+      - [0x0FDA80, .rodata, game/map/map_area_load]
       - [0x0FDAA0, .rodata, game/map_object/map_object_all]
       - [0x0FDAE0, .rodata, game/ui/hud_warning]
       - [0x0FDB00, .rodata, game/player/player]
@@ -909,6 +916,7 @@ segments:
       - [0x0FE4E0, .rodata, game/ee/mc_step_read]
       - [0x0FE680, .rodata, game/ee/mc_update]
       - [0x0FE6B8, .rodata, game/data/sound_driver_call_rodata]
+      - [0x0FE6C0, .rodata, game/sound/sound_driver_call]
       - [0x0FE6F0, .rodata, game/sound/se]
       - [0x0FE714, .rodata, game/data/shop_menu_rodata]
       - [0x0FE770, .rodata, game/ui/shop_menu]
@@ -954,18 +962,27 @@ segments:
       - { start: 0x101E80, type: .bss, vram: 0x00222AF0, name: game/data/sound_bss }
       - { start: 0x101E80, type: .bss, vram: 0x0022EC50, name: game/sound/sound_start }
       - { start: 0x101E80, type: .bss, vram: 0x0022F040, name: game/data/sound_emitter_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x0026F090, name: game/sound/sound_emitter }
+      - { start: 0x101E80, type: .bss, vram: 0x002704D0, name: game/data/sound_emitter_bss_002704D0 }
       - { start: 0x101E80, type: .bss, vram: 0x00270550, name: game/player/player_flag }
       - { start: 0x101E80, type: .bss, vram: 0x00270560, name: game/data/angle_b_bss }
       - { start: 0x101E80, type: .bss, vram: 0x002F0F60, name: game/core/task_all }
       - { start: 0x101E80, type: .bss, vram: 0x002F1120, name: game/data/gs_packet_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x002F1950, name: game/gfx/gs_packet_end }
+      - { start: 0x101E80, type: .bss, vram: 0x002F1990, name: game/data/gs_packet_bss_002F1990 }
       - { start: 0x101E80, type: .bss, vram: 0x002F1A50, name: game/gfx/screen_fx }
       - { start: 0x101E80, type: .bss, vram: 0x002F1A60, name: game/data/screen_fx_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x002F20C4, name: game/core/file }
+      - { start: 0x101E80, type: .bss, vram: 0x0030A0D0, name: game/data/screen_fx_bss_0030A0D0 }
       - { start: 0x101E80, type: .bss, vram: 0x0030C430, name: game/gfx/point_light }
       - { start: 0x101E80, type: .bss, vram: 0x0030C440, name: game/data/point_light_bss }
       - { start: 0x101E80, type: .bss, vram: 0x0030D790, name: game/gfx/glow_init }
       - { start: 0x101E80, type: .bss, vram: 0x0030D9A0, name: game/data/player_bss }
       - { start: 0x101E80, type: .bss, vram: 0x003139B0, name: game/math/noise_fbm }
       - { start: 0x101E80, type: .bss, vram: 0x003139E0, name: game/data/vibration_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x0033E500, name: game/effect/lightning }
+      - { start: 0x101E80, type: .bss, vram: 0x0033F500, name: game/script/script }
+      - { start: 0x101E80, type: .bss, vram: 0x0033F540, name: game/data/vibration_bss_0033F540 }
       - { start: 0x101E80, type: .bss, vram: 0x0042C910, name: game/effect/sfx }
       - { start: 0x101E80, type: .bss, vram: 0x0042D7E0, name: game/data/texture_bss }
       - { start: 0x101E80, type: .bss, vram: 0x00486100, name: game/core/lz_decompress }
@@ -976,20 +993,36 @@ segments:
       - { start: 0x101E80, type: .bss, vram: 0x004A0B0C, name: game/data/option_bss }
       - { start: 0x101E80, type: .bss, vram: 0x004A1090, name: game/ui/option }
       - { start: 0x101E80, type: .bss, vram: 0x004A10B0, name: game/data/load_menu_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x004A10F0, name: game/ui/load_menu }
+      - { start: 0x101E80, type: .bss, vram: 0x004A1120, name: game/data/load_menu_bss_004A1120 }
       - { start: 0x101E80, type: .bss, vram: 0x004A18C0, name: game/player/equip_draw }
       - { start: 0x101E80, type: .bss, vram: 0x004A1A4C, name: game/data/item_menu_draw_bss }
       - { start: 0x101E80, type: .bss, vram: 0x004A32B0, name: game/ui/pause_menu_entry }
       - { start: 0x101E80, type: .bss, vram: 0x004A32C8, name: game/data/shop_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x004A32F0, name: game/ui/shop }
+      - { start: 0x101E80, type: .bss, vram: 0x004A3310, name: game/data/shop_bss_004A3310 }
+      - { start: 0x101E80, type: .bss, vram: 0x004A4350, name: game/ui/storage_draw }
+      - { start: 0x101E80, type: .bss, vram: 0x004A4360, name: game/data/shop_bss_004A4360 }
       - { start: 0x101E80, type: .bss, vram: 0x004A4374, name: game/ui/title }
       - { start: 0x101E80, type: .bss, vram: 0x004A4390, name: game/data/save_byte_bss }
       - { start: 0x101E80, type: .bss, vram: 0x004A4880, name: game/save/save_options }
       - { start: 0x101E80, type: .bss, vram: 0x004A48A0, name: game/data/save_options_bss }
       - { start: 0x101E80, type: .bss, vram: 0x004A4980, name: game/save/save_start }
       - { start: 0x101E80, type: .bss, vram: 0x004A5A60, name: game/data/pad_get_connected_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x004AC5A4, name: game/item/item_object_spawn }
+      - { start: 0x101E80, type: .bss, vram: 0x004AC630, name: game/data/pad_get_connected_bss_004AC630 }
+      - { start: 0x101E80, type: .bss, vram: 0x004B4B98, name: game/map/map }
+      - { start: 0x101E80, type: .bss, vram: 0x004B4BB0, name: game/data/pad_get_connected_bss_004B4BB0 }
+      - { start: 0x101E80, type: .bss, vram: 0x004B5DB0, name: game/player/player_se }
+      - { start: 0x101E80, type: .bss, vram: 0x004B5DD0, name: game/data/pad_get_connected_bss_004B5DD0 }
       - { start: 0x101E80, type: .bss, vram: 0x004B7EF0, name: game/sound/sound_driver_call }
       - { start: 0x101E80, type: .bss, vram: 0x004B9EF0, name: game/data/bgm_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x004BA040, name: game/sound/se_flush }
+      - { start: 0x101E80, type: .bss, vram: 0x004BA0E0, name: game/data/bgm_bss_004BA0E0 }
       - { start: 0x101E80, type: .bss, vram: 0x004BA300, name: game/sound/se }
       - { start: 0x101E80, type: .bss, vram: 0x004BA920, name: game/data/save_system_start_bss }
+      - { start: 0x101E80, type: .bss, vram: 0x004BC3A0, name: game/save/save_system_step }
+      - { start: 0x101E80, type: .bss, vram: 0x004BCBC0, name: game/data/save_system_start_bss_004BCBC0 }
       - { start: 0x101E80, type: .bss, vram: 0x004BD380, name: game/core/movie }
       - { start: 0x101E80, type: .bss, vram: 0x004BDF34, name: game/data/movie_bss }
       # --- tools/carve.py: generated up to here ---

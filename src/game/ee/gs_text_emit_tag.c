@@ -1,9 +1,10 @@
 #include "common.h"
+#include "game/ee.h"
 typedef int TI __attribute__((mode(TI)));
 typedef union { TI q; s32 w[4]; } Q;
 typedef struct { u64 fl; u32 p8; s32 *xC; } G;
 typedef struct { f32 x; f32 y; f32 z; f32 w; s32 x10; s32 x14; s32 x18; s32 x1C; } V;
-extern G *D_00201E5C;
+extern GsTextState *D_00201E5C;
 void GsText_EmitTag_0_001E39F8(V *v) {
     s32 i;
     Q q;

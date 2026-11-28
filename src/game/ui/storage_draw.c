@@ -3,13 +3,15 @@
 #include "game/data.h"
 #include "game/player.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef union { u32 w; u8 b[4]; } Col;
 typedef union { u128 q[2]; s32 w[8]; f32 f[8]; void *p[8]; } Q2;
 typedef struct { s32 *p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
 typedef struct { s32 x0; } O;
 typedef struct { s32 state; s32 input; s8 b8; s8 b9; u8 pad[4]; u8 bE; } S;
 extern f32 D_00201D90;
-extern s32 D_004A4350[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_004A4350[0x4];
 extern Q2 D_001F32F0;
 extern s32 D_001F32A0[];
 void Storage_Draw_0_001A30E0(u8 *arg0);
@@ -17,8 +19,6 @@ void Storage_DrawStatus_0_001A31E0(f32 f);
 void Storage_Open_0_001A32A0(O *p);
 void Storage_Update_0_001A3380(S *arg0);
 void StorageProc_Pos_0_001A3500(s32 arg0, void *arg1, void *arg2);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
 s32 Msg_GetText_2_00195B10(s32);
 s8* PlayerData_Get_2_001C9BA0(void);
@@ -27,7 +27,6 @@ void Menu_DrawStatRing_0_00186440(f32, s8 *, s8 *, s8 *, s8 *);
 void Menu_DrawRingD_0_00185510(f32, s8 *);
 void Menu_DrawRingE_0_00185B40(f32, s8 *);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
 void UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Storage_GetEntry_0_001A3560();

@@ -33,7 +33,6 @@ void GameOverProc_DrawText_0_0019EA60(A *o, s32 mode, u32 kind, u32 c);
 Ctx* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(Elem *, s32, void (*)(), s32);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawSprite_2_00181680(s32, f32 *, f32 *, Col_GameOverProc_DrawText_0_0019EA60 *, S *, s32);
 void Text_Draw_2_001875C0(f32, char *, f32, f32, u32, u32);
 char* Msg_GetText_2_00195B10(s32);

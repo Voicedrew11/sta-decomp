@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F38F0: the game's data at 0x001F38F0..., one object per label. */
+/* used by: credits, se_dma */
 #pragma explicit_zero_data on
 
 s16 D_001F38F0[0x1] __attribute__((aligned(16))) = { 0 };

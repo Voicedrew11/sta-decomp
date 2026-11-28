@@ -8,6 +8,7 @@
 
 s16 Map_GetLightIndex_0_001B0BC0(s32 id, s32 base);
 void Map_RecenterWorld_1_001B4CB0(void);
+void Map_SetupAmbient_0_001B7290(void);
 void Map_StreamFlush_1_001B03E0(void);
 void Map_StreamInit_0_001B07B0(void);
 void Map_StreamStart_0_001B0450(void);

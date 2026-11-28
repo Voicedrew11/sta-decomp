@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "common.h"
 #include "game/data.h"
+#include "game/gfx.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawBlurPasses_0_00131970;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_ScreenFx_DrawCopy_0_00132190;
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q_ScreenFx_DrawSprite_0_001323C0;
@@ -9,8 +10,6 @@ typedef struct { f32 x[4]; f32 f10; f32 f14; f32 f18; f32 f1C; } A3;
 extern u32 D_00201F00;
 extern u32 D_00201EF4;
 extern u32 D_00201EF0;
-extern s32 D_00201F2C;
-extern f32 D_00201E90;
 extern u8 D_00201F0C;
 void ScreenFx_DrawBlurPasses_0_00131970(s32 w, s32 h, f32 *c);
 void ScreenFx_DrawCopy_0_00132190(s32 w, s32 h);
@@ -18,12 +17,8 @@ void ScreenFx_DrawSprite_0_001323C0(A0 *a0, u32 a1, u32 a2, A3 *a3);
 void ScreenFx_DrawLetterbox_0_001325F0(void);
 void ScreenFx_DrawRestore_0_001327B0(void);
 void ScreenFx_Draw_0_00132930(s32 arg0);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_EndAD_3_00154420(void);
 Q_ScreenFx_DrawBlurPasses_0_00131970* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
-void Tex_FlushAll_1_00176AE0(void);
 u64 __fixunssfdi(f32);
 void memset(s32, s32, s32);
 

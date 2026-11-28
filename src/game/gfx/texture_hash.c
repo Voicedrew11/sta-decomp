@@ -18,7 +18,8 @@ extern s8 D_001FB90B[];
 extern s8 D_001FB910[];
 extern s8 D_001FB911[];
 extern s8 D_001FB912[];
-extern s8 D_001FB913[];
+#pragma explicit_zero_data on
+const s8 D_001FB913[0xd] __attribute__((aligned(1))) = { 0x49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 extern s32 D_00201CB4;
 extern Node D_004800C0[];
 extern s16 D_004800DC[];

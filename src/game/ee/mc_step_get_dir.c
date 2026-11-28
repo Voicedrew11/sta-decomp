@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/ee.h"
 
 typedef struct {
     char pad[0x80];
@@ -6,7 +7,6 @@ typedef struct {
     s32 x90; s32 x94; s32 x98; s32 x9c;
     s32 name; s32 xa4; s32 mode; s32 maxent; s32 table;
 } T;
-extern T D_004B63B8;
 s32 sceMcGetDir(s32, s32, s32, s32, s32, s32);
 s32 sceMcSync(s32, s32 *, s32 *);
 
@@ -53,8 +53,8 @@ s32 Mc_StepGetDir_4_001D3FE8(void)
         break;
     default:
         if (sceMcSync(1, 0, &r) != 0) {
-            D_004B63B8.x98 = 100;
-            D_004B63B8.x88 = 0;
+            D_004B63B8.err = 100;
+            D_004B63B8.cmd = 0;
             return -1;
         }
         break;

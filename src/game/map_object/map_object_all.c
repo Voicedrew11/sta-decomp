@@ -3,6 +3,7 @@
 #include "game/core.h"
 #include "game/effect.h"
 #include "game/collision.h"
+#include "game/data.h"
 typedef struct { u8 pad0[0x18]; u16 x18; u8 pad1A[0xA]; Flags8_6x2 f24; Flags8 f25; u8 pad26[4]; u16 x2A; u8 pad2C[4]; } A;
 typedef struct { u8 st:2; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } F50;
 typedef struct { u8 b0:1; u8 c:2; u8 r:5; } F51;
@@ -76,7 +77,6 @@ typedef struct {
     P *x194;
 } O_MapObj_Create_0_001BB8A0;
 extern O_MapObj_UpdateAll_0_001BAB70 *D_002022D4;
-extern s32 D_00201F2C;
 extern C_MapObj_SpawnContainedItem_0_001BB760 **D_00201E80[2];
 void MapObj_UpdateAll_0_001BAB70(O_MapObj_UpdateAll_0_001BAB70 *o, f32 dt);
 void MapObj_InitAnim_1_001BB320(s8 *p, u32 i);

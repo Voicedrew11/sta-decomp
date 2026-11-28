@@ -3,6 +3,7 @@
 #include "game/data.h"
 #include "game/save.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef struct { u128 q[2]; } Q2;
 typedef UiArg Arg;
 typedef struct { u32 id; s32 x; s32 y; } Ent_DbItem_ResetLayout_0_00197DD0;
@@ -85,15 +86,11 @@ s32 ItemSort_GetCount_0_00195BE0(s32);
 void Inventory_GetEntry_1_001CC3F0(s16);
 void DbItem_GetListName_1_00197F30__as_DbItem_ResetLayout_0_00197DD0(void);
 void DbItemProc_Pos_0_00198100__as_DbItem_ResetLayout_0_00197DD0_(void);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 s32 DbMap_GetName_0_00195A30(s32);
 void Text_Draw_2_001875C0(s32, s32, Col_DbItem_ResetLayout_0_00197DD0, f32, f32, f32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 O* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
-void Menu_DrawBackground_0_00187B20(s32);
 f32 Vec2_Angle_1_00187460(V2 *, V2 *);
 f32 sinf(f32);
 f32 cosf(f32);

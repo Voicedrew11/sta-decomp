@@ -145,7 +145,6 @@ typedef struct {
 } A_Fx_EvalTrack_1_00162490;
 extern O *D_00201FC0;
 extern E *D_00201FD0;
-extern s32 D_00201F2C;
 extern G D_0042D7E0;
 extern Vec D_001F2160;
 extern Mtx D_001F2170;

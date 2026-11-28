@@ -2,6 +2,7 @@
 #include "include_asm.h"
 #include "game/data.h"
 #include "game/core.h"
+#include "game/sound.h"
 typedef CdRMode RMode;
 typedef struct { s32 w[4]; } Q_Movie_BuildUploadPacket_0_001E9020;
 typedef struct { u32 x, y, w, h; } R;
@@ -233,7 +234,6 @@ void EnableIntc(s32);
 void sceMpegAddCallback(void *, s32, s32 (*)(), s32);
 void sceMpegAddStrCallback(void *, s32, s32, s32 (*)(), u8 *);
 s32 sceMpegDemuxPssRing(P_Movie_ReadLoop_1_001ECAB0 *, u8 *, s32, B_Movie_ReadLoop_1_001ECAB0 *, s32);
-void SndDrv_SetPan_0_001D87F0(s32, u16, u16);
 s32 MovieFile_Read_3_001E8710(Q_Movie_ReadLoop_1_001ECAB0 *, u8 *, s32, s32);
 s32 sceMpegIsRefBuffEmpty(P_Movie_ReadLoop_1_001ECAB0 *);
 

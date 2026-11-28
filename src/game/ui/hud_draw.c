@@ -6,6 +6,7 @@
 #include "game/player.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef struct { char p[8]; s32 v; char q[4]; } E_Hud_ClearTimers_0_0019A840;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { s32 x0; s32 x4; u8 pad8[0x24]; f32 x2C; f32 x30; f32 x34; f32 x38; Col x3C; } E_Hud_DrawStatus_1_0019A920;
@@ -55,12 +56,10 @@ void Hud_UpdateWeaponSlots_0_0019C560(void);
 s32 Menu_GetMode_1_0018A320(void);
 s32* MenuLayout_Get_1_00189050(s32 i);
 void* MenuLayout_GetSub_1_00189020(s32 i);
-void Menu_DrawBackground_0_00187B20(s32 a);
 s16* PlayerData_Get_2_001C9BA0(void);
 void Ui_DrawElem_1_00182C10(E_Hud_DrawStatus_1_0019A920 *, T_Hud_DrawStatus_1_0019A920 *);
 void Text_Draw_2_001875C0(f32, s8 *, f32, f32, s32, u32);
 void Text_DrawCentered_1_00187680(f32, s8 *, f32, f32, s32, s32, u32);
-f32 Approachf_3_00187770(f32, f32, f32);
 void sprintf(s8 *, s8 *, ...);
 void SndEmit_SetEnabled_0_0012F6E0(s32);
 void Snd_PlaySe_3_00131600(s32, u8);

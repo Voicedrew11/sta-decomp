@@ -1,6 +1,6 @@
 #include "common.h"
+#include "game/ee.h"
 typedef struct { char pad[0x80]; s32 a; s32 b; s32 state; s32 step; char p90[8]; s32 err; s32 retry; } S;
-extern S D_004B63B8;
 s32 sceMcFormat(s32, s32);
 s32 sceMcSync(s32, s32, s32 *);
 

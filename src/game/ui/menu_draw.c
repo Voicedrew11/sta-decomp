@@ -1,14 +1,13 @@
 #include "common.h"
 #include "game/ui.h"
+#include "game/gfx.h"
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col;
 typedef struct { s32 n; f32 f[4]; s16 h[4]; Col col; } E;
 extern s32 D_002020C0;
 extern E D_0048DB60[];
 extern Vec D_001FCBA0[];
 extern Vec D_001FCC30[];
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
-void GsPkt_Flush_1_001544C0(void);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, Vec *, Vec *, Col *, s32);
 
 void Menu_DrawBackground_0_00187B20(s32 mode) {

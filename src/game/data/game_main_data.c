@@ -1,9 +1,7 @@
 #include "common.h"
 
 /* data_001F1BAC: the game's data at 0x001F1BAC..., one object per label. */
-/* used by: Camera_UpdateView_1_001296C0, Frame_UpdateGame_1_0012A520, Loading_Loop_0_0012AC00, Game_RunSubLoop_0_0012B8E0,
-   Combat_UpdateProjectile_0_001395A0, Actor_ResolveGround_0_0013A720, Script_ResolveOperand_1_00165150, Script_LoadLocal_1_00165400, Script_LoadLocalB_1_00165770,
-   text_001395A0.s, text_0013A720.s */
+/* used by: actor, game_main, script */
 #pragma explicit_zero_data on
 
 s32 D_001F1BAC[0x1] = { 0 };

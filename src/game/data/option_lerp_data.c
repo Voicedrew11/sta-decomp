@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F2B50: the game's data at 0x001F2B50..., one object per label. */
+/* used by: load_menu, option */
 #pragma explicit_zero_data on
 
 extern u8 D_001F2A90[];

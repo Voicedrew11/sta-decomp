@@ -1,6 +1,7 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/gfx.h"
+#include "game/data.h"
 typedef struct { u8 d[0x40]; } E;
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q;
 typedef struct { u8 b0:1; } B_Light_UpdateModel_0_0015B360;
@@ -14,7 +15,6 @@ typedef struct { Vec a; Vec b; Vec c; f32 x30; f32 x34; B fl; u8 pad[7]; } Ent_L
 typedef struct { Ent_Light_Add_0_0015B980 sp[4]; Ent_Light_Add_0_0015B980 ents[2][64]; } W_Light_Add_0_0015B980;
 typedef struct { u128 q[4]; } M;
 extern s32 D_0030A2D0[];
-extern s32 D_00201F2C;
 extern Vec D_0030A290;
 extern Vec D_0030A320;
 extern Vec D_0030A330;
@@ -22,7 +22,6 @@ extern Vec D_0030A350;
 extern Vec D_0030A360;
 extern Vec D_0030A370;
 extern Vec D_0030A390;
-extern s8 D_003139A0[];
 extern Vec D_001F2150;
 extern u16 D_0030C3D0[];
 extern u16 D_0030C3D4[];
@@ -54,9 +53,6 @@ void* LightGroup_Get_0_0015B900(s32 i);
 void Light_SetAmbient_0_0015BB40(Vec *a, Vec *b, f32 f);
 void sceVu0AddVector(u8 *, u8 *, s32);
 Q* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
-void GsPkt_BeginAD_3_001545D0(void);
-void GsPkt_EndAD_3_00154420(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
 u64 __fixunssfdi(f32);
 void sceVu0CopyVector(void *, void *);
@@ -171,8 +167,8 @@ void Light_UpdateModel_0_0015B360(void *a0, s32 mask) {
 
     h = (Vec *)((u8 *)&D_0030A2D0 + D_00201F2C * 32);
     h2 = h + 1;
-    sceVu0CopyVector__as_Light_UpdateModel_0_0015B360(&D_0030A360, D_003139A0);
-    sceVu0CopyVector__as_Light_UpdateModel_0_0015B360(&D_0030A370, D_003139A0);
+    sceVu0CopyVector__as_Light_UpdateModel_0_0015B360(&D_0030A360, &D_003139A0);
+    sceVu0CopyVector__as_Light_UpdateModel_0_0015B360(&D_0030A370, &D_003139A0);
     sceVu0CopyMatrix(&D_0030A290, a0);
     sum = Light_CalcIntensity_0_0015B720__as_Light_UpdateModel_0_0015B360(&D_0030A350, &D_0030A390);
     for (i = 0; i < 2; i++) {

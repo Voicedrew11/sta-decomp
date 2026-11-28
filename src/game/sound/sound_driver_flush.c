@@ -7,7 +7,6 @@ extern s16 D_0020230C;
 extern E D_004B9F20[4];
 extern s32 D_004B9FA0[];
 void FlushCache(s32 mode);
-void SndDrv_CallArgs_2_001D8680(s32 a, s32 b, s32 c, ...);
 void* malloc(u32);
 
 /* SndDrv_FlushEffects_0_001D8E70 */

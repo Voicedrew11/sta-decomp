@@ -1,9 +1,7 @@
 #include "common.h"
 #include "game/data.h"
 #include "game/ee.h"
-typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 step; s32 x90; s32 x94; s32 err; s32 retry; s32 name; s32 xa4; u32 size; s32 xac; s32 xb0; u8 *buf; } T;
 typedef struct { u8 p[0x10]; u32 x10; } DE;
-extern T D_004B63B8;
 extern s32 D_004B63A4[];
 extern s32 D_004B63A8[];
 extern s32 D_004B63AC[];
@@ -46,14 +44,14 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
         e = Mc_GetInfoStatus_2_001D3CE0(D_004B63B8.x90);
         D_004B63B8.err = e;
         if (e != 0) {
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             return -10;
         }
         D_004B63B8.step++;
         break;
     case 2:
         if (D_004B63B8.type[i * 4 + j] != 2) {
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             D_004B63B8.err = 0x3D;
             return -4;
         }
@@ -62,7 +60,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
     case 3:
         if (sceMcGetDir(i, j, D_004B63B8.name, 0, 1, D_004B68C0) != 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 100;
                 return -1;
             }
@@ -96,20 +94,20 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
     case 5:
         n = (D_004B68C0[0].x10 + 0x3FF) / 1024 + D_004B63B8.free[i * 4 + j];
         if (D_004B68C0[0].x10 == 0 && n < 3) {
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             D_004B63B8.err = 0x1F;
             return -6;
         }
-        strcpy(buf, D_004B63B8.xa4);
+        strcpy(buf, D_004B63B8.xA4);
         fd = sceOpen(buf, 1);
         D_004B63A4[0] = fd;
         if (fd < 0) {
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             D_004B63B8.err = 0x3D;
             return fd;
         }
-        if (D_004B63B8.xac != 0) {
-            D_004B63AC[0] = D_004B63B8.xac;
+        if (D_004B63B8.xAC != 0) {
+            D_004B63AC[0] = D_004B63B8.xAC;
         } else {
             D_004B63AC[0] = sceLseek(fd, 0, 2);
             sceLseek(D_004B63A4[0], 0, 0);
@@ -117,7 +115,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
         k = D_004B68C0[0].x10 != 0 ? 0 : 2;
         if (n - k < (D_004B63AC[0] + 0x3FF) / 1024) {
             D_004B63B8.err = 0x3D;
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             return -0x65;
         }
         D_004B63B8.step = 8;
@@ -126,7 +124,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
     case 8:
         if (sceMcOpen(i, j, D_004B63B8.name, D_004B68D0[0] == 0 ? 0x203 : 3) != 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 0x3D;
                 return -0xB;
             }
@@ -214,7 +212,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
         if (sceMcSync(1, 0, &r) == 0) break;
         if (r < 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 0x3D;
                 return r;
             }
@@ -223,13 +221,13 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
             break;
         }
         D_004B63B8.err = 0x3E;
-        D_004B63B8.x88 = 0;
+        D_004B63B8.cmd = 0;
         return 1;
     case 100:
         if (D_004B63A4[0] != 0) sceClose(D_004B63A4[0]);
         if (D_004B6474[0] < 0) {
             D_004B63B8.err = 0x3D;
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             return -999;
         }
         D_004B63B8.retry = 0;
@@ -237,7 +235,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
     case 101:
         if (sceMcClose(D_004B6474[0]) != 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 0x3D;
                 return -999;
             }
@@ -249,7 +247,7 @@ s32 Mc_StepCopyFile_4_001D58C0(void) {
     case 102:
         if (sceMcSync(1, 0, &r) == 0) break;
         D_004B63B8.err = 0x3D;
-        D_004B63B8.x88 = 0;
+        D_004B63B8.cmd = 0;
         return -999;
     }
     return 0;

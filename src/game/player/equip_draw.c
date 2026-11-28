@@ -5,6 +5,7 @@
 #include "game/item.h"
 #include "game/player.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef union { s32 w; Flags8 f; } FW;
 typedef struct { u16 v[8]; } H;
 typedef struct { u8 pad[8]; u8 x8; } O;
@@ -40,9 +41,6 @@ void Equip_BuildList_0_0019A1D0(s32 arg0);
 void Equip_CalcStatBars_0_0019A370(u16 *a0, u16 *a1, void *a2, void *a3, s32 t0);
 void Player_CalcStats_0_0019A500(s32 a0, s32 a1, u32 *a2, u32 *a3, u32 *t0, s32 t1, s32 t2, s32 t3);
 void EquipProc_Pos_0_0019A6A0(s32 i, A *a, B *b);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 s8* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);
 void Menu_DrawStatRing_0_00186440(f32, H *, H *, H *, H *);

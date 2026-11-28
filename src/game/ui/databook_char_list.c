@@ -2,6 +2,8 @@
 #include "m2c.h"
 #include "game/data.h"
 #include "game/ui.h"
+#include "game/math.h"
+#include "game/save.h"
 typedef union { u32 w; u8 b[4]; } Col;
 extern char D_001FD358[];
 extern s32 *D_00201D3C;
@@ -10,14 +12,10 @@ char* DbChar_GetListName_1_00196C50(s32 i);
 void DbCharProc_Pos_0_00196CB0(s32 arg0, void *arg1, void *arg2);
 void DbChar_CalcStatBars_0_00196D10(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4);
 void DbItem_Draw_0_00196E20(u8 *arg0);
-s32 Bestiary_IsSeen_2_001A9EC0(s16 i);
 char* DbChar_GetName_0_00195970(s32 i);
 void memset(void *, s32, s32);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 s32 DbItem_FindA_1_0019D4A0(s32);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 
 /* DbChar_GetListName_1_00196C50 */
 /* DbChar_GetListName_1_00196C50 */

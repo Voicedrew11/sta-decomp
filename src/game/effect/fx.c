@@ -1,6 +1,7 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/effect.h"
+#include "game/data.h"
 typedef struct O { Mtx m0; u8 p40[0x50]; Mtx *x90; u8 p94[0xC]; u16 xA0; u8 pA2[2]; f32 xA4; u8 pA8[0x18]; Mtx xC0; u8 p100[0x14]; u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 p115[0xB]; } O;
 typedef struct B {
     u8 pad[0x10];
@@ -27,7 +28,6 @@ typedef union { struct { u32 n[4]; Entry e[2][64]; } a; Raw r[2][64]; } Tbl;
 typedef struct { char pad[0x10]; s32 v; } T;
 extern s32 D_00201FC0;
 extern Tbl D_003174F0;
-extern s32 D_00201F2C;
 extern Entry *D_00201F94;
 extern s32 D_00201F98;
 extern s32 D_00201F9C;

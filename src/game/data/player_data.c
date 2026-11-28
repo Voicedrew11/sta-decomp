@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* data_001F3850: the game's data at 0x001F3850..., one object per label. */
-/* used by: Map_SetupAmbient_0_001B7290, Player_RollStatusEffect_1_001C8570, Player_AddStatus_1_001C88E0 */
+/* used by: map_area_load, player */
 #pragma explicit_zero_data on
 
 f32 D_001F3850[0x4] = { 0.0f, 0.0f, 0.0f, 100.0f };

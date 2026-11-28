@@ -25,11 +25,18 @@ The moved run is written from the top down (CodeWarrior writes uninitialised
 objects in reverse), each object aligned as tools/data_to_c.py aligns them,
 the first carrying the run's largest alignment (a rigid stretch). The
 data-only unit is split around what moved, each remainder a unit of its own
-named by its start (bss_XXXXXXXX.c), and config/data_aliases.txt regrouped
-by the unit each field's object is now in.
+(the unit's file if it starts where the unit did, else <name>_<ADDR>.c), and
+config/data_aliases.txt regrouped by the unit each field's object is now in.
 
-After --apply: tools/match.py diff for every touched owner, then
-tools/carve.py --check, carve.py, rm -rf asm, ./build.sh, ninja shift.
+Data units are found by their header comment (`/* bss_XXXXXXXX: ...`), not
+their file name. A run is kept only where link order can place the owner's
+section (link_fits).
+
+After --apply: tools/match.py diff for every touched owner; add the owner's
+and the remainders' subsegments to config/sta.jp.yaml and the remainders to
+config/link_order.jp.txt (data-only units move to agree with their
+neighbours); rm -rf asm, ./build.sh, ninja shift. tools/carve.py cannot place
+the game units at the moment, so it does not regenerate these.
 """
 import bisect
 import collections
@@ -127,12 +134,59 @@ def type_size(t, ptr, text):
     return None
 
 
+def data_units(kind):
+    """src/game/data units of a section kind (from the header comment
+    `/* <kind>_XXXXXXXX: ...`; the file names are free)."""
+    out = []
+    for p in sorted(glob.glob(str(ROOT / "src/game/data/*.c"))):
+        m = re.search(r"^/\* (bss|data|rodata)_[0-9A-F]{8}\b", Path(p).read_text(), re.M)
+        if m and m.group(1) == kind:
+            out.append(p)
+    return out
+
+
+def unit_start(unit):
+    """The address a data unit's header comment gives."""
+    m = re.search(r"^/\* \w+?_([0-9A-F]{8})\b", (ROOT / unit).read_text(), re.M)
+    return int(m.group(1), 16)
+
+
+def remainder_path(unit, first, start):
+    """Where a remainder of data unit `unit` (which started at `first`)
+    starting at `start` goes: the unit's own file if it starts where the unit
+    did, else <stem>_<ADDR>.c."""
+    u = ROOT / unit
+    stem = re.sub(r"_[0-9A-F]{8}$", "", u.stem)
+    return u if first == start else u.with_name(f"{stem}_{start:08X}.c")
+
+
+def link_fits(sec, own, start, end):
+    """Whether own's `sec` can hold [start, end): in link order it must come
+    after the unit (not a data-only one, which can move) whose subsegment
+    holds the bytes before, and before the one after."""
+    ents = []
+    for l in (ROOT / "config/sta.jp.yaml").read_text().split("\n"):
+        r = re.match(r"\s*- \[0x([0-9A-F]+), (\S+), (\S+)\]$", l)
+        d = None if r else re.match(r"\s*- \{.*type: (\S+), vram: 0x([0-9A-F]+), name: (\S+) \}$", l)
+        if r and r.group(2) == sec:
+            ents.append((int(r.group(1), 16) + 0x100000, r.group(3)))
+        elif d and d.group(1) == sec:
+            ents.append((int(d.group(2), 16), d.group(3)))
+    link = [l.strip() for l in (ROOT / "config/link_order.jp.txt").read_text().split("\n")]
+    pos = {re.sub(r"^src/|\.[cs]$", "", l): i for i, l in enumerate(link)}
+    me = pos[own[len("src/"):-len(".c")]]
+    fixed = [(a, n) for a, n in ents if n in pos and not n.startswith("game/data/") and pos[n] != me]
+    before = [n for a, n in fixed if a < start]
+    after = [n for a, n in fixed if a >= end]
+    return (not before or pos[before[-1]] < me) and (not after or me < pos[after[0]])
+
+
 def plan():
     sz = sizes()
     alias = aliases()
     units = {}      # object name -> data unit path
     lines = {}      # object name -> its definition line
-    for p in sorted(glob.glob(str(ROOT / "src/game/data/bss_*.c"))):
+    for p in data_units("bss"):
         for m in DEF.finditer(Path(p).read_text()):
             units[m.group("name")] = str(Path(p).relative_to(ROOT))
             lines[m.group("name")] = m.group(0)
@@ -160,6 +214,10 @@ def plan():
     for own, objs_ in runs:
         if count[own] != 1 or has_bss(own):
             continue
+        last = objs_[-1][2]
+        if not link_fits(".bss", own, objs_[0][0], sz[last][0] + sz[last][1]):
+            print(f"{own}: its .bss would be out of link order, stays")
+            continue
         text = (ROOT / own).read_text()
         good = True
         for _, a, n in objs_:
@@ -176,7 +234,8 @@ def plan():
         if good:
             ok.append((own, [x[2] for x in objs_]))
     # in .text order: the longest increasing run of owner addresses
-    key = lambda o: int(re.search(r"(?:func|[A-Za-z]\w*?_[0-5])_([0-9A-F]{8})", o).group(1), 16)
+    order = {l.strip(): i for i, l in enumerate((ROOT / "config/link_order.jp.txt").read_text().splitlines())}
+    key = lambda o: order[o]     # link order is .text order
     ok.sort(key=lambda r: sz[r[1][0]][0])
     tails, prev, idx = [], [None] * len(ok), []
     for i, (own, _) in enumerate(ok):
@@ -234,6 +293,7 @@ def write_units(moved, sz, units, lines):
             by_unit[u].append(n)
     for u in {units[n] for n in moved}:
         rest = sorted(by_unit[u], key=lambda n: sz[n][0])
+        first = unit_start(u)
         (ROOT / u).unlink()
         parts, cur = [], []
         for n in rest:
@@ -258,7 +318,7 @@ def write_units(moved, sz, units, lines):
             head = ['#include "common.h"', "",
                     f"/* {stem}: the game's .bss from 0x{start:08X}, defined from the top down",
                     "   (CodeWarrior writes uninitialised objects in reverse order). */", ""]
-            (ROOT / "src/game/data" / f"{stem}.c").write_text("\n".join(head + out[::-1]) + "\n")
+            remainder_path(u, first, start).write_text("\n".join(head + out[::-1]) + "\n")
 
 
 def regroup_aliases(sz):
@@ -290,7 +350,7 @@ def plan_init(kind):
     sz = sizes()
     alias = aliases()
     labels, unit_of = {}, {}
-    for p in sorted(glob.glob(str(ROOT / f"src/game/data/{kind}_*.c"))):
+    for p in data_units(kind):
         asm = ROOT / "asm/data/game/data" / f"{Path(p).stem}.{kind}.s"
         if not asm.exists():
             continue
@@ -318,6 +378,13 @@ def plan_init(kind):
         runs.append(cur)
     count = collections.Counter(o for o, _ in runs)
     runs = [r for r in runs if count[r[0]] == 1 and not has_sec(r[0], SEC[kind])]
+    keep = []
+    for own, names in runs:
+        if link_fits(SEC[kind], own, sz[names[0]][0], sz[names[-1]][0] + sz[names[-1]][1]):
+            keep.append((own, names))
+        else:
+            print(f"{own}: its {SEC[kind]} would be out of link order, stays")
+    runs = keep
     return runs, sz, labels, unit_of
 
 
@@ -456,13 +523,14 @@ def main_init(kind):
     for u in sorted({unit_of[n] for n in moved}):
         asm = labels[next(n for n in moved if unit_of[n] == u)][1]
         labs = data_to_c.parse(asm)
+        first = unit_start(u)
         (ROOT / u).unlink()
         run = []
         for lab in labs + [None]:
             if lab is None or lab[0] in moved:
                 if run:
                     stem, text = data_to_c.unit_text(str(asm), run)
-                    (ROOT / "src/game/data" / f"{stem}.c").write_text(text)
+                    remainder_path(u, first, run[0][1]).write_text(text)
                 run = []
             else:
                 run.append(lab)

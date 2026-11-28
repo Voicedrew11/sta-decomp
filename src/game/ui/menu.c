@@ -6,6 +6,7 @@
 #include "game/save.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef struct { char pad[0x40]; char sub[0x210]; } E_MenuLayout_GetSub_1_00189020;
 typedef struct { char pad[0x250]; } E_MenuLayout_Get_1_00189050;
 typedef struct { s32 pad0; s32 a0; u8 pad8[0x28]; } Item;
@@ -96,7 +97,6 @@ s32 MenuStack_Pop_1_00189EA0(void);
 void Camera_SetShake_0_00189F00(void *arg0);
 void Menu_Draw_1_00189F40(void);
 void Menu_Update_1_0018A200(void);
-void Menu_SetFlags_0_0018A310(s32 arg0);
 u8 Menu_GetMode_1_0018A320(void);
 void Menu_SetSubMode_0_0018A330(s8 arg0);
 void Menu_Open_1_0018A350(s8 arg0);
@@ -115,11 +115,8 @@ void ImageLoader_SetFlag_0_001E1760(s32 *);
 s32 Tex_Find_1_00177AF0(u64, s32);
 s32 Tex_FindByHash_1_00177B20(u64);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, void *, void *, void *, s32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
-void GsPkt_Flush_1_001544C0(void);
 void Menu_DrawHelpText_1_001DD700(s32, s8);
-void Menu_DrawBackground_0_00187B20(s32);
 void Menu_SaveOptions_1_0018E460(void);
 void Menu_RestoreOptions_1_0018E450(void);
 void Equip_Reset_0_00199170(s32 *);
@@ -129,7 +126,6 @@ void GameOver_Reset_0_0019E8A0(s32 *);
 void Save_ParseOptions_1_001A8B90(s32);
 void Save_ParseOptionsB_0_001A8F00(s32);
 f32 fabsf(f32);
-f32 Approachf_3_00187770(f32, f32, f32);
 
 /* .bss from 0x00497B80, defined from the top down (CodeWarrior writes
    uninitialised objects in reverse order) */

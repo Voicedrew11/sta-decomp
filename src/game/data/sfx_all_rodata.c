@@ -1,8 +1,8 @@
 #include "common.h"
 
 /* rodata_001FB8C8: the game's data at 0x001FB8C8..., one object per label. */
-/* used by: Sfx_SpawnFromStam_2_00169BD0, Sfx_LoadStam_1_00169D70, Mdl_BindTexture_0_0016F440, Tex_FindAnim_0_0016FF80,
-   Tex_Lookup_1_00177BB0, Tex_RegisterTtix_0_00178080, text_0016FB80.s, text_00177BB0.s */
+/* used by: model_emit, sfx_all, text_0016FB80.s, texture_find,
+   texture_hash */
 #pragma explicit_zero_data on
 
 const s32 D_001FB8C8[0x2] = { 0, 0 };
@@ -26,4 +26,3 @@ const s8 D_001FB90B[0x5] __attribute__((aligned(1))) = { 0x58, 0, 0, 0, 0 };
 const s8 D_001FB910[0x1] = { 0x54 };
 const s8 D_001FB911[0x1] __attribute__((aligned(1))) = { 0x58 };
 const s8 D_001FB912[0x1] __attribute__((aligned(2))) = { 0x4d };
-const s8 D_001FB913[0xd] __attribute__((aligned(1))) = { 0x49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

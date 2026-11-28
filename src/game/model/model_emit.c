@@ -2,6 +2,7 @@
 #include "m2c.h"
 #include "game/collision.h"
 #include "game/data.h"
+#include "game/gfx.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; } Q_Mdl_EmitStrip_1_0016DED0;
 typedef union { u32 w; f32 f; struct { u16 p0:7; u16 a:4; u16 b11:1; u16 b12:1; u16 p1:3; u16 hi; } s; } P4;
 typedef struct { u8 lo:3; u8 mid:3; u8 hi:2; } BF_Mdl_EmitStrip_1_0016DED0;
@@ -64,13 +65,10 @@ void Mdl_SetBlendMode_1_0016F280(Arg a);
 void Mdl_SetDrawFlag_0_0016F410(Obj_Mdl_SetDrawFlag_0_0016F410 *o, s32 v, int f);
 void Mdl_BindTexture_0_0016F440(A0_Mdl_BindTexture_0_0016F440 *a0, A1_Mdl_BindTexture_0_0016F440 *a1, A2_Mdl_BindTexture_0_0016F440 *a2, s32 a3, F_Mdl_BindTexture_0_0016F440 *f);
 Q_Mdl_EmitStrip_1_0016DED0* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
 void sceVu0CopyVector(void *, void *);
 s32 Gfx_SphereInFrustum_1_00153FA0(Vec *);
 void sceVu0ApplyMatrix(Vec*, void *, Vec*);
 void GsPkt_SetReg_3_001543E0(s32, s64);
-void GsPkt_EndAD_3_00154420(void);
-void GsPkt_BeginAD_3_001545D0(void);
 Tex* Tex_Find_1_00177AF0(u64, s32);
 Tex* Tex_FindByHash_1_00177B20(u64);
 void Tex_Bind_1_00176B10(Tex *);

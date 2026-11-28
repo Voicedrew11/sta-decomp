@@ -4,6 +4,7 @@
 #include "game/data.h"
 #include "game/save.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef union { u32 w; u8 c[4]; } Col_MenuProc_DrawItemList_0_0018B860;
 typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[8]; Col_MenuProc_DrawItemList_0_0018B860 c; } Item_MenuProc_DrawItemList_0_0018B860;
 typedef struct { u32 n; Item_MenuProc_DrawItemList_0_0018B860 *items; } List_MenuProc_DrawItemList_0_0018B860;
@@ -78,8 +79,6 @@ void SaveMenu_Save_0_0018CA20(O_SaveMenu_HandleEvent_0_0018C4C0 *o);
 void MenuProc_BackOnCancel_0_0018D000(Obj_MenuProc_BackOnCancel_0_0018D000 *o);
 Res_MenuProc_DrawItemList_0_0018B860* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 void Ui_DrawList_1_001829B0(Item_MenuProc_DrawItemList_0_0018B860 *, s8 *, void (*)(), s32);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
 void SaveSys_GetSlotCount_0_001E5E80(void *);
@@ -98,7 +97,6 @@ S1* Menu_GetStateBuf_0_00189000(s32);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
-void SaveSys_Update_2_001E8500(void);
 void SaveMenu_ConfirmLoad_0_0018D060();
 void SaveMenu_Exit_0_0018D140();
 void SaveMenu_SelectSlot_0_0018C590__as_SaveMenu_HandleEvent_0_0018C4C0(s32 *);

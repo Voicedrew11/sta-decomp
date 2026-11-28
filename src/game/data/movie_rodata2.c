@@ -2,7 +2,7 @@
 #include "game/core.h"
 
 /* rodata_00201A50: the game's data at 0x00201A50..., one object per label. */
-/* used by: Movie_Init_1_001EC5E0, Ending_HandleEvent_0_001EDCC0 */
+/* used by: ending_draw, movie */
 #pragma explicit_zero_data on
 
 

@@ -12,7 +12,6 @@ void Loading_DrawText_2_0018E320(s8 *a0, s32 a1, s32 a2);
 G* MenuLayout_Get_1_00189050(s32 i);
 u8* MenuLayout_GetSub_1_00189020(s32 i);
 void Ui_DrawList_1_001829B0(E *e, u8 *p, void (*f)(void), s32 d);
-void Menu_DrawBackground_0_00187B20(s32 a);
 void Text_Draw_2_001875C0(f32, f32, f32, s32, s32, u32);
 void Color_Pulse_1_00187960(f32, Col *);
 void Ui_DrawSprite_2_00181680(s32, s8 *, s8 *, void *, S *, s32);

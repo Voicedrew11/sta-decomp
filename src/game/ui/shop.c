@@ -20,7 +20,8 @@ extern s32 D_004A32E0[];
 extern s32 D_004A32E4[];
 extern s32 D_004A32E8[];
 extern void *D_004A32EC[];
-extern s32 D_004A32F0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_004A32F0[0x8];
 extern s32 D_004A3318[];
 extern s32 D_004A3328[];
 extern B D_004A332C[];

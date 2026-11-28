@@ -48,8 +48,6 @@ void Se_ParseVoiceMap_0_001DBD20(u8 *a);
 void Se_QueueCommand_1_001DBDB0(u8 c, s32 n, ...);
 void FlushCache(s32);
 u32 sceSifAllocIopHeap(u32);
-s32 SndDrv_CallArgs_2_001D8680(s32, s32, s32, ...);
-void SndDrv_Call_2_001D85D0(int, int, int);
 s32 SndDrv_Call_2_001D85D0__as_Se_UploadBankB_1_001DB510();
 s32 sceSifDmaStat(u32);
 s32 sceSifSetDma(void *, s32);

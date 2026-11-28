@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F2010: the game's data at 0x001F2010..., one object per label. */
+/* used by: task_all */
 #pragma explicit_zero_data on
 
 void Res_ReleaseHandle_0_0014DC00(void);

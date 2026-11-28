@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/data.h"
 typedef struct { u16 a, b, c, n; u8 pad[0x38]; s8 data[1]; } Hd;
 typedef struct { u8 pad[0x2A]; u8 x2A; } Ent;
 typedef struct { u8 pad[0xB0]; Hd **xB0; } Sub_Enemy_ResetPartAnim_1_001A8670;
@@ -34,8 +35,6 @@ typedef struct { u8 pad[6]; u16 m6; u8 pad8[0x38]; u8 m40[1]; } Mdl;
 typedef struct { u8 pad[0xB0]; Mdl **pB0; } Sub_Enemy_HidePart_1_001A8B10;
 typedef struct { u8 pad[0x2A]; u8 m2A; } Src;
 typedef struct { u8 pad[0x4B4]; Src *m4B4[0x19]; Sub_Enemy_HidePart_1_001A8B10 *m518; } A_Enemy_HidePart_1_001A8B10;
-extern s32 D_00201F2C;
-extern Vec D_003139A0;
 extern Vec D_001F2130;
 extern Vec D_001F2140;
 extern Vec D_001F2150;

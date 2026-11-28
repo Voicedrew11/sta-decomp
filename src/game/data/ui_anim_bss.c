@@ -2,12 +2,8 @@
 
 /* bss_00486900: the game's .bss from 0x00486900, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: Ui_DrawItemIconEx_0_0017EDC0, Ui_DrawItemIcon_0_0017F0D0, UiAnim_IsDone_1_0017F3D0, UiAnim_SetTarget_1_0017F470,
-   UiAnim_UpdateAll_1_0017F5C0, UiAnim_SetVisible_1_0017F7C0, UiAnim_Get_1_0017F840, UiAnim_SetColor_0_0017F890, UiProc_DrawIcon_0_001803E0,
-   UiAnim_Step_0_00180810, Font_DrawDebugText_0_00180F80, Ui_BeginSprites_1_00181420, Ui_DrawSprite_2_00181680, Ui_DrawSpriteRotated_1_00182080,
-   Ui_LoadItemImageSmall_3_001833E0, Ui_DrawWindow_0_00183650, Ui_LoadMapSheet_3_00183750, Ui_LoadAreaImage_3_00183970, Ui_LoadCharImage_3_00183B90,
-   Ui_LoadItemImage_3_00183DC0, MenuProc_DrawScrolled_0_00184CF0, MenuProc_DrawHpMp_1_00185740, MenuProc_DrawStatValue_0_00186990,
-   text_00181420.s, text_00184280.s, text_00185740.s, text_00185D70.s */
+/* used by: font_draw, text_00184280.s, text_00185D70.s, ui_anim, ui_draw,
+   ui_gauge */
 
 void *D_0048D110[0xc];
 u8 D_0048D10C[0x4];

@@ -1,6 +1,6 @@
 #include "common.h"
-typedef struct { union { u64 d; struct { u32 a; u16 b; u16 c; } h; } u; s32 x8; s32 *xC; } S;
-extern S *D_00201E5C;
+#include "game/ee.h"
+extern GsTextState *D_00201E5C;
 #define BIT 0x1000000000000ULL
 void GsText_Kick_1_001E24A0(void) {
     s32 v;

@@ -1,12 +1,12 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/gfx.h"
+#include "game/data.h"
 typedef struct { char pad[0x40]; f32 v[3]; f32 f4c; unsigned char on : 1; char p51[3]; f32 f54; char rest[8]; } E;
 typedef struct { u16 n; u16 idx[64]; } G;
 typedef union { u128 q; u32 w[4]; } Q;
 typedef struct { char pad[0x50]; unsigned char b0 : 1; unsigned char b1 : 1; char pad2[0xF]; } BF;
 extern E D_0030D9A0[256];
-extern s32 D_00201F2C;
 extern s8 D_0030D180[];
 extern s32 D_0030D188[];
 void Glow_GetParams_0_0015D760(s32 arg0, s32 arg1, s32 arg2, f32 *arg3, f32 *arg4);
@@ -15,7 +15,6 @@ s32 Glow_FindNear_0_0015DA00(s64 arg0, s32 arg1, s32 *arg2, f32 *arg3);
 void sceVu0AddVector(f32 *v0, f32 *v1, f32 *v2);
 void sceVu0CopyVector(s8 *, s8 *);
 Q* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
 f32 Vec_DistSq_3_0015DF20(s8 *, f32 *);
 
 /* Glow_OffsetAll_0_0015D5A0 */

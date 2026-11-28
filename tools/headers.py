@@ -4,6 +4,7 @@ include/game/<subsystem>.h.
 
     tools/headers.py report            write build/headers_report.txt
     tools/headers.py hoist [SUB ...]   hoist (all subsystems by default)
+    tools/headers.py hoist --only NAME ...   hoist just these names
 
 A symbol (D_ object or game function) is hoisted when at least two units of
 src/game declare it, every declaration (and the definition, for a function)
@@ -255,7 +256,12 @@ def rewrite(text, names, include_lines):
     return text
 
 
-def hoist(subs):
+def same(a, b):
+    from struct_views import same as sv
+    return sv(a, b)
+
+
+def hoist(subs, only=None):
     files, seen, owner, defkey = inventory()
     types = header_types()
     cls = classify(seen, owner, defkey, types, defsig)
@@ -283,7 +289,7 @@ def hoist(subs):
             if ns:
                 plan[sub].update(ns)
         for n, (s, u) in cls.items():
-            if s in ("agree", "unify") and n not in banned and n not in old:
+            if s in ("agree", "unify") and n not in banned and n not in old and (not only or n in only):
                 sub = home(n, seen, owner)
                 if not subs or sub in subs:
                     plan[sub][n] = u if s == "unify" else spell(seen, n)
@@ -305,7 +311,7 @@ def hoist(subs):
         subprocess.run(["ninja", "-k", "0"] + [str(obj(p).relative_to(ROOT)) for p in changed],
                        cwd=ROOT, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         bad = [p for p in changed
-               if not obj(p).exists() or obj(p).read_bytes() != (snap / obj(p).relative_to(BUILD)).read_bytes()]
+               if not obj(p).exists() or not same(obj(p).read_bytes(), (snap / obj(p).relative_to(BUILD)).read_bytes())]
         print(f"{sum(len(v) for v in plan.values())} hoisted, {len(changed)} units, {len(bad)} differ")
         if not bad:
             break
@@ -332,7 +338,10 @@ def main():
     if sys.argv[1] == "report":
         report()
     else:
-        hoist(set(sys.argv[2:]))
+        if sys.argv[2:3] == ["--only"]:
+            hoist(set(), set(sys.argv[3:]))
+        else:
+            hoist(set(sys.argv[2:]))
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 #include "common.h"
-typedef struct { u8 pad[0x134]; s32 x134; } G;
-extern G *D_00201E5C;
+#include "game/ee.h"
+extern GsTextState *D_00201E5C;
 extern u8 *D_00201E60;
 void vsnprintf(char *, s32, const char *, void *);
 void Sjis_ToWide_2_001E5C60(s32, s32, char *, s32);

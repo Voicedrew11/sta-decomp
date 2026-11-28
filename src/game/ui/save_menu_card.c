@@ -30,7 +30,6 @@ void SaveSys_GetSlotCount_0_001E5E80(Buf *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
-void SaveSys_Update_2_001E8500(void);
 void Save_BuildOptions_1_001AB0A0(void *);
 void memset(void *, s32, s32);
 

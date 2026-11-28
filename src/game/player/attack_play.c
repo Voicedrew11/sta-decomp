@@ -1,6 +1,7 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/effect.h"
+#include "game/data.h"
 typedef struct { u8 pad[6]; u16 m6; u8 pad8[0x38]; u8 m40[1]; } Mdl;
 typedef struct { u8 pad[0xA]; u16 xA; u8 xC; u8 padD; u16 xE; } S;
 typedef struct { u8 pad[0x10]; s32 x10; } M;
@@ -15,7 +16,6 @@ typedef struct { u8 pad[4]; u32 x4; f32 x8; f32 xC; V4 v; V8 m; } Src;
 typedef struct { u8 a; u8 b0:1; u8 b1:1; } W;
 typedef union { u32 w; W f; } WU;
 typedef struct { V4 v; V8 m; WU w; u8 pad[0xC]; } Dst;
-extern s32 D_00201F2C;
 void Attack_PlaySe_0_001D1E80(Mdl *m, u8 id, S *s, f32 *tbl);
 s8* Attack_SpawnSfx_0_001D1F20(A0 *a0, void *a1, s32 a2, u8 a3, E *e, s32 *tbl);
 void sceVu0CopyVector(Vec *, void *);

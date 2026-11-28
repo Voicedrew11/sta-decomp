@@ -2,6 +2,7 @@
 #include "m2c.h"
 #include "game/gfx.h"
 #include "game/map_object.h"
+#include "game/data.h"
 typedef struct { char p[0x38]; u8 x38; s8 x39; char q[6]; } S_Map_GetDefaultLight_0_001B72F0;
 typedef struct { char p[0x7C]; u16 n; char q[0x168 - 0x7E]; S_Map_GetDefaultLight_0_001B72F0 *s; } O_Map_FindSfxEntry_0_001B7300;
 typedef struct { Vec p; Vec b; Vec c; f32 x30; f32 x34; u8 x38; u8 pad[7]; } E;
@@ -44,7 +45,6 @@ typedef struct { u8 p : 1; u8 v : 2; } BF51;
 typedef Bits8 BF8;
 typedef struct { u8 p : 2; u8 v : 2; } BF24;
 extern s32 D_002022C4;
-extern s32 D_002022D0;
 s32* Map_GetDefaultLight_0_001B72F0(void);
 S_Map_GetDefaultLight_0_001B72F0* Map_FindSfxEntry_0_001B7300(O_Map_FindSfxEntry_0_001B7300 *o, s32 id);
 void Map_SetupLights_0_001B7380(O_Map_SetupLights_0_001B7380 *o, s32 idx);

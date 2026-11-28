@@ -72,7 +72,6 @@ void TitleMenu_Open_1_001A4420(s32 *arg0);
 s32 Title_CheckSaveData_1_001A4570(void);
 void Title_PlayPrologue_2_001A4890(void *arg0);
 void Title_StartNewGame_0_001A4930(Obj_Title_CheckSaveData_1_001A4570 *o);
-s32 SaveSys_SetPort_1_001E82A0(s32);
 void SaveSys_GetResult_0_001E6080(s32 *);
 s32 Menu_GetStateBuf_0_00189000(s32);
 void Save_ParseOptions_1_001A8B90(s32);

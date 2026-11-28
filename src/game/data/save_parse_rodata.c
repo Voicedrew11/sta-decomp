@@ -1,8 +1,7 @@
 #include "common.h"
 
 /* rodata_001FD988: the game's data at 0x001FD988..., one object per label. */
-/* used by: Save_ParseOptions_1_001A8B90, Save_WriteOptions_1_001A8CA0, Save_ParseOptionsB_0_001A8F00, Save_ParseGame_1_001A9080,
-   Save_BuildGame_1_001AAAE0, Save_BuildOptions_1_001AB0A0 */
+/* used by: save_byte, save_parse */
 #pragma explicit_zero_data on
 
 const s8 D_001FD988[0x1] __attribute__((aligned(8))) = { 0x45 };

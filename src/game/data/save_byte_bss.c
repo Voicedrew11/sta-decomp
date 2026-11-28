@@ -2,6 +2,8 @@
 
 /* bss_004A4390: the game's .bss from 0x004A4390, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
+/* used by: enemy_list, enemy_manager, enemy_model, text_001A4990.s,
+   text_001A51E0.s, text_001A7D90.s, title */
 
 s32 D_004A4878[0x2];
 u8 D_004A4774[0x104] __attribute__((aligned(4))); /* also D_004A4776 */

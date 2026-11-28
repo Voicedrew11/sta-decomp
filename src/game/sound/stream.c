@@ -4,11 +4,8 @@ extern u16 D_0020230C;
 void Strm_DrvGetStatus_1_001D8C50(void);
 void Strm_DrvSetMode_1_001D8CC0(u16 d, u16 e);
 s32 Strm_DrvOpenFile_1_001D8D20(s32 a0, const char *s, s32 a2);
-void SndDrv_CallArgs_2_001D8680(s32 a, s32 b, s32 c, ...);
 s32 strlen(const char *);
 s32 SndDrv_CallWithData_1_001D8350(s32, s32, s32, s32, s32, const char *);
-s32 SndDrv_Call1_1_001D84F0(s32, s32, s32, s32);
-void SndDrv_Call_2_001D85D0(int, int, int);
 
 /* Strm_DrvGetStatus_1_001D8C50 */
 #define SndDrv_Call_2_001D85D0 SndDrv_Call_2_001D85D0__as_Strm_DrvGetStatus_1_001D8C50

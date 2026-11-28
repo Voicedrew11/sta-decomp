@@ -3,6 +3,7 @@
 #include "actor.h"
 #include "game/effect.h"
 #include "game/map_object.h"
+#include "game/data.h"
 typedef struct { u8 pad[0x10]; Vec v; u8 p2[0x68]; f32 x88; u8 p3[0x1C]; s32 xA8; u8 p4[0xC]; f32 xB8; } O_FxProc_InitChase_0_001493E0;
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:5; } Bits_FxProc_InitChase_0_001493E0;
 typedef struct { u16 x0; u8 pad2[2]; u8 x4; u8 x5; u8 x6; Bits_FxProc_InitChase_0_001493E0 x7; u8 pad8[0x74 - 8]; u8 x74[4]; f32 x78; u8 pad7C[0x108-0x7C]; s32 rows[4][5]; } M_FxProc_InitChase_0_001493E0;
@@ -354,7 +355,6 @@ typedef struct {
 typedef struct { s16 v; } S;
 typedef struct { void (*a)(s32); void (*b)(s32); void (*c)(s32); } E;
 typedef struct { char pad[0xA8]; s32 a8; char pac[4]; f32 v[4]; } Obj_FxProc_NopA_2_0014DA00;
-extern s32 D_003139A0[];
 extern s32 D_00201E80;
 extern f32 D_001F2160[];
 extern Mtx D_001F2170;
@@ -616,7 +616,7 @@ void FxProc_InitChase_0_001493E0(O_FxProc_InitChase_0_001493E0 *o) {
     u16 *e;
     o->xA8 = 0;
     o->x88 = 600.0f;
-    sceVu0CopyVector(&o->v, D_003139A0);
+    sceVu0CopyVector(&o->v, &D_003139A0);
     it = 0;
     do {
         e = ActorList_Next_2_001A5460(&it);

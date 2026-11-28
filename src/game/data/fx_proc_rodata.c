@@ -1,8 +1,7 @@
 #include "common.h"
 
 /* rodata_001FAD20: the game's data at 0x001FAD20..., one object per label. */
-/* used by: EnemyScr_GetScriptPath_3_00142930, FxProc_HomingProjectile_0_0014B1B0, FxProc_SeekEnemyInCone_0_0014D4A0, FxProc_InitSeekCone_0_0014D700,
-   Arc_Mount_2_0015AD00, Iop_Reboot_3_0015CB50 */
+/* used by: enemy_script, file, fx_proc, iop */
 #pragma explicit_zero_data on
 
 const char D_001FAD20[0x20] = "scr/chrtest_.bin\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000";

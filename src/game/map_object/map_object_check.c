@@ -1,5 +1,6 @@
 #include "common.h"
 #include "m2c.h"
+#include "game/data.h"
 typedef struct { f32 m[4][4]; } MtxF;
 typedef struct { f32 a[4]; f32 b[4]; } Ray;
 typedef struct { s32 w[16]; } Res;
@@ -9,7 +10,6 @@ typedef struct { u8 pad[0x40]; s32 x40; u8 pad44[0xC]; u8 x50; u8 pad51; Flags8 
 typedef struct { u8 pad[0x138]; E30 *x138; u8 pad13C[0x34]; E40 *x170; u8 pad174[0xC]; E80 *x180; } S;
 typedef struct { u8 pad[0x18]; Vec *o; } P;
 extern MtxF D_001F2170;
-extern Vec D_003139A0;
 s32 MapObj_CheckFacing_0_001B9610(S *a, s32 idx);
 s32 MapObj_IsActorNear_0_001B9E00(s32 arg0, s32 arg1, f32 r);
 u8* Mdl_GetFrameData_0_001715B0(s32);

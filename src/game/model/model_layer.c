@@ -26,7 +26,6 @@ extern s32 D_00201FF8;
 extern s32 D_00201FFC;
 extern s32 D_00202000;
 extern s32 D_00202004;
-extern s32 D_00201F2C;
 extern u8 D_002F1840[];
 extern s32 D_00201FF4;
 void Mdl_SetLayerTex_0_0016B2D0(s32 a, P_Mdl_SetLayerTex_0_0016B2D0 p, s32 base, s32 n);

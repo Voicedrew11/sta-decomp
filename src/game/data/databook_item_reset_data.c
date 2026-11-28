@@ -1,9 +1,8 @@
 #include "common.h"
 
 /* data_001F2E80: the game's data at 0x001F2E80..., one object per label. */
-/* used by: DbChar_Update_0_00196940, DbItem_Open_0_001979C0, DbItem_ResetLayout_0_00197DD0, DbMapProc_DrawInfo_1_00198570,
-   DbMap_ResetLayout_0_00198D80, Equip_Open_0_001997A0, Equip_Update_0_00199AD0, Hud_Reset_0_0019A7E0, Hud_DrawStatus_1_0019A920,
-   Hud_UpdateGauges_0_0019B8D0, ItemMenu_Draw_0_0019C6D0, ItemMenuProc_DrawGauge_0_0019CB90, ItemMenu_Open_0_0019D290,
+/* used by: databook_char_update_wrap, databook_item_draw,
+   databook_item_reset, equip_draw, hud_draw, item_menu_draw,
    text_00196330.s, text_001973F0.s, text_0019CEF0.s */
 #pragma explicit_zero_data on
 

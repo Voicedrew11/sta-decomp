@@ -1,8 +1,7 @@
 #include "common.h"
 
 /* rodata_001FE714: the game's data at 0x001FE714..., one object per label. */
-/* used by: Credits_HandleEvent_0_001DD650, ShopProc_DrawItemInfo_0_001DDA20, ShopProc_DrawItemStats_0_001DE2D0, text_001DDA20.s,
-   text_001DE2D0.s */
+/* used by: credits, shop_menu */
 #pragma explicit_zero_data on
 
 const s32 D_001FE714[0x7] __attribute__((aligned(4))) = { 0, 0x48535550, 0x41545320, 0x5452, 0, 0, 0 };

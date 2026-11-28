@@ -1,0 +1,10 @@
+#include "common.h"
+
+/* rodata_001FD960: the game's data at 0x001FD960..., one object per label. */
+/* used by: enemy_list */
+#pragma explicit_zero_data on
+
+const s8 D_001FD960[0x1] = { 0x53 };
+const u8 D_001FD961[0x1] __attribute__((aligned(1))) = { 0x54 };
+const u8 D_001FD962[0x1] __attribute__((aligned(2))) = { 0x43 };
+const u8 D_001FD963[0xd] __attribute__((aligned(1))) = { 0x49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };

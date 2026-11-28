@@ -33,7 +33,6 @@ extern s16 D_00201CA0;
 extern void *D_00201FC0;
 extern L *D_00201FD4;
 extern s16 D_00201FD8;
-extern s8 D_003139A0[];
 extern s8 D_003406D0[];
 extern E D_003407E0[];
 extern s32 D_00222B64[];
@@ -103,7 +102,7 @@ void Sfx_ClearAll_1_0016AB50(void) {
     Sfx_UpdateAll_1_00169400(1.0f);
     Sfx_UpdateAll_1_00169400(1.0f);
     GlowFx_StopAll_0_001E0E80();
-    sceVu0CopyVector(D_003406D0, D_003139A0);
+    sceVu0CopyVector(D_003406D0, &D_003139A0);
     memset(D_00201FC0, 0, D_00201FAC * 0x120);
     D_00201FD8 = D_00201FAC;
     for (j = 0; j < D_00201FAC; j++) {

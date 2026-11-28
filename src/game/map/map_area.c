@@ -6,6 +6,7 @@
 #include "game/map.h"
 #include "game/model.h"
 #include "game/sound.h"
+#include "game/data.h"
 typedef struct { u8 b0:1; u8 b1:1; u8 b2:6; } BF;
 typedef struct { Mtx m; u8 pad[0xF0]; u8 b; u8 pad131[0xF]; } El_Map_GetNodeTransform_0_001B3710;
 typedef struct { u8 pad[0xC0]; El_Map_GetNodeTransform_0_001B3710 el[1]; } B;
@@ -112,7 +113,6 @@ typedef struct {
     s32 r[24];
     E_Map_ResetArea_1_001B4F20 *e;
 } S_Map_ResetArea_1_001B4F20;
-extern Vec D_003139A0;
 extern Mtx D_001F2170;
 extern O_Map_DrawArea_0_001B37F0 **D_002022BC;
 extern s32 D_002022B8;

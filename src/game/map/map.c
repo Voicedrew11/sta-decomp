@@ -30,7 +30,8 @@ extern s32 D_004B4BC8[];
 extern s32 D_004B4BCC[];
 extern s32 D_004B4BB8[];
 extern f32 D_004B4B94[];
-extern f32 D_004B4B98[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_004B4B98[0x6] __attribute__((aligned(8)));
 extern s32 D_004B4B9C[];
 extern s32 D_004B4B90__as_Map_StreamStart_0_001B0450[];
 extern struct { f32 v[4]; char p10[0x14]; s32 x24; char p28[8]; s32 h; s32 x34; } D_004B4B90__as_Map_StreamGetResult_1_001B0660;

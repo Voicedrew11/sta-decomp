@@ -1,6 +1,8 @@
 #include "m2c.h"
 #include "common.h"
 #include "include_asm.h"
+#include "game/data.h"
+#include "game/gfx.h"
 typedef union { u128 q; u64 d[2]; u32 w[4]; f32 f[4]; } Q;
 typedef struct { s16 x, y; } V_Weather_Update_0_00157D50;
 typedef struct { u8 pad[0x140]; V_Weather_Update_0_00157D50 pos[2][8][11]; V_Weather_Update_0_00157D50 vel[2][8][11]; } W;
@@ -36,8 +38,6 @@ typedef struct {
     u8 pad4D[3];
 } S;
 typedef union { u128 q; f32 f[4]; } V_ScreenFx_ProjectPoint_0_00159160;
-extern s32 D_00201F2C;
-extern f32 D_00201E90;
 extern Q D_001F2050;
 extern s32 D_002F1AE0[];
 extern W D_002F19B0;
@@ -72,7 +72,6 @@ extern s32 D_002F1AA0[];
 extern s32 D_002F1AB0[];
 extern s32 D_002F1AC0[];
 extern s32 D_002F1AD0[];
-extern f32 D_002F1AD4[];
 extern s16 D_002F1A48[];
 extern s32 D_002F1A80[];
 extern s32 D_002F1A60[];
@@ -107,31 +106,21 @@ void ScreenFx_DrawMotionBlur_0_00158900(Arg *a0);
 void ScreenFx_DrawShift_0_00158BF0(s32 dx, s32 dy);
 void ScreenFx_DrawColorFilter_0_00158EE0(f32 *c);
 void ScreenFx_ProjectPoint_0_00159160(s32 *arg0, s32 *arg1);
-void ScreenFx_SetEnabled_0_00159310(int v);
 void ScreenFx_SetFlashParams_0_00159340(u8 a0, u8 a1, u8 a2, u8 a3, s16 a4, u8 a5);
 void ScreenFx_SetFadeTarget_0_00159400(s32 *arg0, f32 fparg0);
 void ScreenFx_SetFadeColor_0_00159460(s32 arg0);
-void ScreenFx_InitEntry_0_00159480(void *arg0);
 s32* ScreenFx_EnableWeather_0_00159500(s32 on);
 s32* ScreenFx_GetParamsA_0_00159590(int v);
 s32* ScreenFx_GetParamsB_0_001595C0(int v);
-void ScreenFx_SetEnabledB_0_001595F0(int v);
 s32* ScreenFx_GetParamsC_0_00159620(int v);
 s32* ScreenFx_GetParamsD_0_00159650(int v);
-void ScreenFx_DrawAll_2_00159680(void);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_EndAD_3_00154420(void);
 Q* GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
-void Tex_FlushAll_1_00176AE0(void);
 u64 __fixunssfdi(f32);
 void memcpy(V_Weather_Update_0_00157D50 (*)[11], V_Weather_Update_0_00157D50 (*)[11], s32);
 u32 Rand_Next_3_0015ED20(void);
 void memset(void *, s32, s32);
-void GsPkt_Flush_1_001544C0(void);
 void Draw_Sprite_1_00155BD0(void *);
-void GsPkt_BeginFrame_1_00153740(void);
 f32 cosf(f32);
 f32 sinf(f32);
 void sceVu0ApplyMatrix(f32 *, f32 *, f32 *);

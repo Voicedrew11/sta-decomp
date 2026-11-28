@@ -1,6 +1,7 @@
 #include "common.h"
 #include "game/gfx.h"
 #include "game/effect.h"
+#include "game/data.h"
 typedef union { u128 q; u32 w[4]; } Q;
 typedef struct { u8 pad[0x16]; u16 x16; } P3;
 typedef struct { u8 pad[0x188]; u8 b0:1; u8 b1:1; u8 b2:1; u8 pad189[0x180 - 0x189 + 0x10]; } Edummy;
@@ -20,23 +21,18 @@ typedef struct { u8 pad[0x518]; s8 *x518; } Act;
 extern N *D_00201FD0;
 extern B *D_00201FC0;
 extern L *D_00201FD4;
-extern s32 D_00201F2C;
 extern Act *D_002022E4;
 extern s8 D_001F2160[];
 extern Vec D_001F2130;
 extern Vec D_001F2140;
 extern Vec D_001F2150;
-extern Vec D_003139A0;
 O *Mdl_GetFrameData_0_001715B0(P3 ****);
 void sceVu0AddVector(Vec *, P3 *, Vec *);
 void Mdl_SetLayerForBounds_0_0016B500(Vec *, u32, s32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_Flush_1_001544C0(void);
 R *Map_GetDefaultLight_0_001B72F0(void);
 void sceVu0CopyVector(Vec *, Vec *);
 Q *GsPkt_Alloc_3_00154A80(s32);
-void GsPkt_Commit_1_00154A70(void);
 void Mdl_AnimateWrap_0_00171B70(P3 ***, f32, s32);
 void sceVu0UnitMatrix(Mtx *);
 void Fx_GetWorldMatrix_1_00163C80(B *, Mtx *);

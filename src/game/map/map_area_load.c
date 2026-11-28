@@ -1,4 +1,7 @@
 #include "common.h"
+#include "game/data.h"
+#include "game/gfx.h"
+#include "game/map.h"
 typedef struct { f32 x, y, z; s16 rx, ry, rz; u16 sx, sy, sz; s16 x18; s16 x1A; f32 x1C; u8 pad20[2]; u8 x22; u8 pad23[0xD]; } E_Map_OnAreaLoaded_0_001B6800;
 typedef struct { f32 x, y, z, w; f32 x10[3]; f32 x1C; u8 pad20[2]; u8 x22; u8 pad23[0xD]; } E2;
 typedef struct { u8 pad[0x24]; Flags8 f24; } M24;
@@ -43,12 +46,10 @@ typedef struct { char pad[0x3C]; unsigned int : 4; unsigned int f : 1; } BF_3C_4
 typedef struct { Vec p; f32 x10; f32 x14; f32 x18; u8 x1C; u8 x1D; u8 x1E; u8 x1F; u16 x20; u8 x22; u8 p23[0xD]; } E_Map_SetupPointLights_0_001B7190;
 typedef struct { u8 p[0x10]; Vec x10; u8 p20[0x5E]; u16 n; u8 p80[0xEC]; E_Map_SetupPointLights_0_001B7190 *e; } O;
 typedef struct { char p[0x10]; f32 a[4]; f32 b[4]; f32 f; } T;
-extern s32 D_00201F2C;
 extern s32 D_002022C4;
-extern s32 D_002022D0;
 extern Mtx D_001F2170;
-extern Vec D_003139A0;
-extern char D_001FDA80[];
+#pragma explicit_zero_data on
+const char D_001FDA80[0x20] = { 0x6d, 0x61, 0x70, 0x2f, 0x6d, 0x25, 0x34, 0x2e, 0x30, 0x34, 0x64, 0x6d, 0x2e, 0x73, 0x74, 0x6d, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 extern s32 D_002022B4;
 extern f32 D_001F3850[4];
 extern f32 D_001F3860[4];
@@ -59,7 +60,6 @@ void Map_LoadTextures_0_001B6FC0(u8 **arg0);
 void Map_GetFile_2_001B7050(s32 n, char *name, s32 *size);
 s32** Map_AllocAreaBuf_1_001B70E0(s32 n);
 void Map_SetupPointLights_0_001B7190(O *o, s32 a);
-void Map_SetupAmbient_0_001B7290(void);
 s32 Map_FindChunk_0_001B6190(S *, s32, s32);
 void Sfx_LoadStam_1_00169D70(s32 *, void *, s32);
 s32* Pool_Alloc_3_001288C0(s32, s32);
@@ -86,7 +86,6 @@ s32 File_HashName_3_00159D10(char *name);
 s32 Arc_FindByHash_2_0015ABD0(s32 a);
 s32 File_GetSectorOrSize_0_0015A300(s32 h);
 void File_Close_2_0015AB80(s32 h);
-void PointLightGroup_Clear_0_0015C6D0(s32);
 void PointLight_Add_0_0015C730(s32, Vec *, f32, f32, f32, f32, u8, u8, u8, u8, u16, u8);
 T* LightGroup_Get_0_0015B900(s32 i);
 void sceVu0ScaleVector(f32 *v0, f32 *v1, f32 s);

@@ -22,7 +22,8 @@ extern s8 D_001FB748[];
 extern s8 D_001FB750[];
 extern s8 D_001FB758[];
 extern s8 D_001FB760[];
-extern s32 D_002F20C4[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_002F20C4[0x6003] __attribute__((aligned(4)));
 extern F_Arc_Mount_2_0015AD00 *D_00201F80__as_Arc_Mount_2_0015AD00;
 extern s8 D_002F20C0__as_Arc_Mount_2_0015AD00[];
 extern F_Arc_Mount_2_0015AD00 D_0030A0D0__as_Arc_Mount_2_0015AD00[];

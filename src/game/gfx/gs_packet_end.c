@@ -4,7 +4,8 @@
 #include "game/effect.h"
 #include "game/gfx.h"
 extern  s32 D_002F194C[];
-extern s32 D_002F1950[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s32 D_002F1950[0x10];
 extern s32 D_002F1994[];
 extern  s32 D_002F19A8[];
 

@@ -2,8 +2,7 @@
 #include "game/data.h"
 
 /* rodata_001FD698: the game's data at 0x001FD698..., one object per label. */
-/* used by: Notify_DrawItemGet_0_0019F050, Notify_DrawItemCount_0_0019F410, Notify_DrawItemCountB_0_0019F690, Notify_DrawGold_0_0019F890,
-   Notify_DrawItemGold_0_0019FA00 */
+/* used by: notify */
 #pragma explicit_zero_data on
 
 
