@@ -44,6 +44,8 @@ typedef struct { f32 x0; f32 x4; BF_Menu_DrawItemDesc_1_001DF360 x8; u8 p9[5]; s
 typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[0xC]; } Item;
 typedef struct { u32 n; Item *items; } List;
 typedef struct { u8 pad[0x24]; List *list; } Res;
+typedef union { u32 w; s8 b[4]; } Col;
+typedef struct { u8 pad0[0x10]; u8 x10[0x18]; s32 x28; u8 x2C[4]; f32 x30; f32 x34; f32 x38; f32 x3C; } O;
 extern s32 D_00201E50;
 extern f32 D_002020D4;
 extern f32 D_00202360;
@@ -95,6 +97,7 @@ void ShopProc_DrawCommand_2_001DED50(O_ShopProc_DrawCommand_2_001DED50 *o, s32 s
 void Menu_DrawItemDesc_1_001DF360(s32 on, s32 id);
 void Menu_ResetDescScroll_0_001DF460(void);
 void Menu_DrawItemFrame_0_001DF470(s32 a0, f32 f);
+void MenuProc_DrawLabel_0_001DF580(O *o, s32 a1, u32 mode, Col a3);
 u32 strlen(void *);
 void TextParam_Init_1_00187A90(void *, void *, u64);
 s32 Text_Render_2_00188010(void *, C);
@@ -107,7 +110,7 @@ f32 sinf(f32);
 f32 cosf(f32);
 f32 sqrtf(f32);
 void Ui_DrawList_1_001829B0(void *, s8*, void (*)(void), s32);
-void Ui_DrawSprite_2_00181680(s32, void *, void *, void*, S*, s32);
+void Ui_DrawSprite_2_00181680(s32, void*, void*, void*, S*, s32);
 void Ui_DrawWindow_0_00183650(void *);
 void Item_GetDurability_0_001848A0(s32);
 s32 Item_GetStatValue_0_00187130(s32, s32);
@@ -133,7 +136,13 @@ G_ShopProc_DrawCommand_2_001DED50* MenuLayout_GetSub_1_00189020__as_ShopProc_Dra
 void Text_Draw_2_001875C0__as_ShopProc_DrawCommand_2_001DED50(f32, f32, f32, s8 *, s32, Col_ShopProc_DrawItemInfo_0_001DDA20);
 void sprintf__as_ShopProc_DrawCommand_2_001DED50(s8 *, s8 *, ...);
 s8* DbItem_FindA_1_0019D4A0(s32);
-void MenuProc_DrawLabel_0_001DF580();
+Res* MenuLayout_Get_1_00189050__as_Menu_DrawItemFrame_0_001DF470(s32);
+s32 MenuLayout_GetSub_1_00189020__as_Menu_DrawItemFrame_0_001DF470(s32);
+void Ui_DrawList_1_001829B0__as_Menu_DrawItemFrame_0_001DF470(Item *, s32, void (*)(), s32);
+
+/* Menu_DrawHelpText_1_001DD700 */
+#define MenuProc_DrawLabel_0_001DF580 MenuProc_DrawLabel_0_001DF580__as_Menu_DrawHelpText_1_001DD700
+void MenuProc_DrawLabel_0_001DF580__as_Menu_DrawHelpText_1_001DD700();
 
 /* Menu_DrawHelpText_1_001DD700 */
 /* Menu_DrawHelpText_1_001DD700 */
@@ -806,12 +815,6 @@ void Menu_ResetDescScroll_0_001DF460(void) {
 }
 
 /* Menu_DrawItemFrame_0_001DF470 */
-#define MenuLayout_Get_1_00189050 MenuLayout_Get_1_00189050__as_Menu_DrawItemFrame_0_001DF470
-Res *MenuLayout_Get_1_00189050__as_Menu_DrawItemFrame_0_001DF470(s32);
-#define MenuLayout_GetSub_1_00189020 MenuLayout_GetSub_1_00189020__as_Menu_DrawItemFrame_0_001DF470
-s32 MenuLayout_GetSub_1_00189020__as_Menu_DrawItemFrame_0_001DF470(s32);
-#define Ui_DrawList_1_001829B0 Ui_DrawList_1_001829B0__as_Menu_DrawItemFrame_0_001DF470
-void Ui_DrawList_1_001829B0__as_Menu_DrawItemFrame_0_001DF470(Item *, s32, void (*)(), s32);
 
 void Menu_DrawItemFrame_0_001DF470(s32 a0, f32 f) {
     Item it;
@@ -819,14 +822,46 @@ void Menu_DrawItemFrame_0_001DF470(s32 a0, f32 f) {
     List *l;
     s32 base;
 
-    l = MenuLayout_Get_1_00189050(0)->list;
-    base = MenuLayout_GetSub_1_00189020(0);
+    l = MenuLayout_Get_1_00189050__as_Menu_DrawItemFrame_0_001DF470(0)->list;
+    base = MenuLayout_GetSub_1_00189020__as_Menu_DrawItemFrame_0_001DF470(0);
     for (i = 0; i < l->n; i++) {
         it = l->items[i];
         it.f2C -= 80.0f * f;
-        Ui_DrawList_1_001829B0(&it, base + l->items[i].idx * 8, MenuProc_DrawLabel_0_001DF580, a0);
+        Ui_DrawList_1_001829B0__as_Menu_DrawItemFrame_0_001DF470(&it, base + l->items[i].idx * 8, MenuProc_DrawLabel_0_001DF580, a0);
     }
 }
-#undef MenuLayout_Get_1_00189050
-#undef MenuLayout_GetSub_1_00189020
-#undef Ui_DrawList_1_001829B0
+#undef MenuProc_DrawLabel_0_001DF580
+
+/* MenuProc_DrawLabel_0_001DF580 */
+#pragma explicit_zero_data on
+S D_001F3A30 = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f };
+#define Ui_DrawSprite_2_00181680 Ui_DrawSprite_2_00181680__as_MenuProc_DrawLabel_0_001DF580
+void Ui_DrawSprite_2_00181680__as_MenuProc_DrawLabel_0_001DF580(s32, void *, void *, void *, S *, u32);
+#define Text_Draw_2_001875C0 Text_Draw_2_001875C0__as_MenuProc_DrawLabel_0_001DF580
+void Text_Draw_2_001875C0__as_MenuProc_DrawLabel_0_001DF580(f32, f32, f32, s32, s32, Col);
+#define Msg_GetText_2_00195B10 Msg_GetText_2_00195B10__as_MenuProc_DrawLabel_0_001DF580
+s32 Msg_GetText_2_00195B10__as_MenuProc_DrawLabel_0_001DF580(s32);
+void MenuProc_DrawLabel_0_001DF580(O *o, s32 a1, u32 mode, Col a3) {
+    S buf __attribute__((aligned(16)));
+    Col col;
+    s32 id = a3.w;
+    if (mode < 0x2BC) {
+        buf = D_001F3A30;
+        buf.x = o->x30;
+        buf.y = o->x34;
+        Ui_DrawSprite_2_00181680(o->x28, o, o->x10, o->x2C, &buf, mode);
+        return;
+    }
+    switch (mode) {
+    case 0x2BC:
+        if (id == 100) id = 10;
+        col.w = 0x80808080;
+        Text_Draw_2_001875C0(o->x38, o->x3C, 0.8f, Msg_GetText_2_00195B10(id + 0x50), 1, col);
+        break;
+    case 0x2BD:
+        break;
+    }
+}
+#undef Ui_DrawSprite_2_00181680
+#undef Text_Draw_2_001875C0
+#undef Msg_GetText_2_00195B10

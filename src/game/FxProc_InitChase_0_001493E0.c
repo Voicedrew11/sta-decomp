@@ -213,7 +213,7 @@ typedef struct {
     f32 xBC;
     u8 padC0[0x54];
     Bits_FxProc_TrackEnemyBone_0_0014BC90 f114;
-} Obj;
+} Obj_FxProc_InitChase_0_001493E0_;
 typedef struct { u8 b0:1; u8 b1:1; } F;
 typedef struct { u8 pad[4]; f32 x4; u8 pad8[0x58]; f32 x60; u8 pad64[0x24]; f32 x88; u8 pad8c[0x28]; f32 xB4; u8 xB0p[4]; f32 xBC; u8 padc0[0x54]; F x114; } O_FxProc_SpawnTimed_0_0014BE70;
 typedef struct { char pad[0x50]; f32 x, y, z; char p5c[0x64]; f32 m[3][4]; f32 v[4]; } Obj_FxProc_SpawnTimed_0_0014BE70;
@@ -349,6 +349,9 @@ typedef struct {
     u8 padAC[4];
     Vec xB0;
 } O_FxProc_InitSeekCone_0_0014D700;
+typedef struct { s16 v; } S;
+typedef struct { void (*a)(s32); void (*b)(s32); void (*c)(s32); } E;
+typedef struct { char pad[0xA8]; s32 a8; char pac[4]; f32 v[4]; } Obj_FxProc_NopA_2_0014DA00;
 extern s32 D_003139A0[];
 extern s32 D_00201E80;
 extern f32 D_001F2160[];
@@ -369,6 +372,9 @@ extern s8 D_001F2150[];
 extern s8 D_001F2160__as_FxProc_RandomJitter_0_0014C890__[];
 extern s32 D_001F2170__as_FxProc_RandomJitter_0_0014C890__[];
 extern s32 D_002022E4__as_FxProc_InitTowardEnemy_0_0014D410;
+extern s8 D_001F2160__as_FxProc_MoveToward_0_0014D310_[];
+extern u16 D_001F1E60[];
+extern E D_001F1EA0[];
 void FxProc_InitChase_0_001493E0(O_FxProc_InitChase_0_001493E0 *o);
 void FxProc_FireAtTarget_0_001494A0(O_FxProc_FireAtTarget_0_001494A0 *o);
 void FxProc_AreaDamage_0_00149810(O_FxProc_InitChase_0_001493E0_ *o, f32 dt);
@@ -391,7 +397,7 @@ void FxProc_ReleaseChild_0_0014B170(T_FxProc_ReleaseChild_0_0014B170 *arg0);
 void FxProc_HomingProjectile_0_0014B1B0(O_FxProc_SeekNearestEnemy_0_0014AB80_ *o, f32 kk);
 void FxProc_InitHoming_0_0014B9E0(Obj_FxProc_SeekNearestEnemy_0_0014AB80 *o);
 void FxProc_PullTowardEnemy_0_0014BA10(Obj_FxProc_PullTowardEnemy_0_0014BA10 *a0);
-void FxProc_TrackEnemyBone_0_0014BC90(Obj *a);
+void FxProc_TrackEnemyBone_0_0014BC90(Obj_FxProc_InitChase_0_001493E0_ *a);
 void FxProc_SpawnTimed_0_0014BE70(O_FxProc_SpawnTimed_0_0014BE70 *o);
 void FxProc_SnapToGround_0_0014BF60(f32 *o);
 void FxProc_AttachRotated_0_0014C060(Obj_FxProc_SpawnTimed_0_0014BE70 *o);
@@ -410,6 +416,14 @@ void FxProc_MoveToward_0_0014D310(O_FxProc_MoveToward_0_0014D310 *o);
 void FxProc_InitTowardEnemy_0_0014D410(O_FxProc_InitTowardEnemy_0_0014D410 *arg0);
 void FxProc_SeekEnemyInCone_0_0014D4A0(O_FxProc_MoveToward_0_0014D310_ *o);
 void FxProc_InitSeekCone_0_0014D700(O_FxProc_InitSeekCone_0_0014D700 *o);
+void FxTable_GetEntry_0_0014D8A0(S *a0, u16 i);
+s32 FxTable_CallA_0_0014D8E0(u16 i, s32 v);
+s32 FxTable_CallB_0_0014D940(u16 i, s32 v);
+s32 FxTable_CallC_0_0014D9A0(u16 i, s32 v);
+void FxProc_NopA_2_0014DA00(void);
+void FxProc_NopB_2_0014DA10(void);
+void FxProc_NopC_2_0014DA20(void);
+void FxProc_InitAtOrigin_0_0014DA30(Obj_FxProc_NopA_2_0014DA00 *o);
 u32 Enemy_GetCurrentParamIdx_0_0013E110(void *);
 void sceVu0CopyVector(void *, void *);
 u16* ActorList_Next_2_001A5460(s32 *);
@@ -504,7 +518,7 @@ u32 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_SeekNearestEnemy_0_0014AB80__
 void sceVu0SubVector__as_FxProc_SeekNearestEnemy_0_0014AB80___(f32 *, f32 *, f32 *);
 u16* ActorList_Next_2_001A5460__as_FxProc_TrackEnemyBone_0_0014BC90(s32 *);
 u32 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_TrackEnemyBone_0_0014BC90(u16 *);
-void Fx_GetWorldMatrix_1_00163C80__as_FxProc_TrackEnemyBone_0_0014BC90(Obj *, Mtx *);
+void Fx_GetWorldMatrix_1_00163C80__as_FxProc_TrackEnemyBone_0_0014BC90(Obj_FxProc_InitChase_0_001493E0_ *, Mtx *);
 void sceVu0SubVector__as_FxProc_TrackEnemyBone_0_0014BC90(Vec *, Vec *, Vec *);
 u32 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_InitChase_0_001493E0__(u16 *);
 void Fx_GetWorldMatrix_1_00163C80__as_FxProc_InitChase_0_001493E0__(void *, Mtx*);
@@ -572,10 +586,24 @@ void sceVu0SubVector__as_FxProc_SeekEnemyInCone_0_0014D4A0(Vec *, Vec *, void *)
 Vec* Enemy_Ptr6F0_1_0013FFA0__as_FxProc_InitSeekCone_0_0014D700(s8 *);
 void sceVu0CopyVector__as_FxProc_InitSeekCone_0_0014D700(Vec *, Vec *);
 void sceVu0SubVector__as_FxProc_InitSeekCone_0_0014D700(Vec *, Vec *, void *);
-
-/* FxProc_InitChase_0_001493E0___ */
-#define sceVu0Normalize sceVu0Normalize__as_FxProc_InitChase_0_001493E0___
 void sceVu0Normalize__as_FxProc_InitChase_0_001493E0___(f32 *, f32 *);
+void sceVu0SubVector__as_FxProc_MoveToward_0_0014D310_(Vec*, void *, void*);
+f32 sceVu0InnerProduct__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *);
+void sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *);
+void sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *, f32);
+void sceVu0AddVector__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *, Vec *);
+s32 Enemy_Ptr6F0_1_0013FFA0__as_FxProc_MoveToward_0_0014D310_(s32);
+void sceVu0CopyVector__as_FxProc_MoveToward_0_0014D310_(Vec *, s32);
+s8* ActorList_Next_2_001A5460__as_FxProc_MoveToward_0_0014D310_(s32 *);
+u16 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_(s8 *);
+void Fx_GetWorldMatrix_1_00163C80__as_FxProc_MoveToward_0_0014D310_(O_FxProc_MoveToward_0_0014D310_ *, M_FxProc_MoveToward_0_0014D310 *);
+s8* Proj_FindEnemyInCone_0_00146EF0__as_FxProc_MoveToward_0_0014D310_(f32, Vec *, f32, Vec *, f32, s32);
+void Actor_BuildRotMatrix_0_00146600__as_FxProc_MoveToward_0_0014D310_(Actor *, MtxB *);
+void sceVu0ApplyMatrix__as_FxProc_MoveToward_0_0014D310_(Vec *, MtxB *, Vec *);
+
+/* FxProc_InitChase_0_001493E0____ */
+/* FxProc_InitChase_0_001493E0____ */
+/* FxProc_InitChase_0_001493E0___ */
 
 /* FxProc_InitChase_0_001493E0___ */
 /* FxProc_InitChase_0_001493E0__ */
@@ -1373,10 +1401,10 @@ void FxProc_PullTowardEnemy_0_0014BA10(Obj_FxProc_PullTowardEnemy_0_0014BA10 *a0
         bc = a0->xBC;
         sceVu0SubVector__as_FxProc_SeekNearestEnemy_0_0014AB80___(b, c, (f32 *)a0);
         len = sqrtf(sceVu0InnerProduct__as_FxProc_SeekNearestEnemy_0_0014AB80____(a0->v10, a0->v10));
-        sceVu0Normalize(a, b);
+        sceVu0Normalize__as_FxProc_InitChase_0_001493E0___(a, b);
         sceVu0ScaleVector__as_FxProc_PullTowardEnemy_0_0014BA10(a, a, -1.0f * bc);
         sceVu0AddVector__as_FxProc_PullTowardEnemy_0_0014BA10(a0->v10, a0->v10, a);
-        sceVu0Normalize(a0->v10, a0->v10);
+        sceVu0Normalize__as_FxProc_InitChase_0_001493E0___(a0->v10, a0->v10);
         sceVu0ScaleVector__as_FxProc_PullTowardEnemy_0_0014BA10(a0->v10, a0->v10, len);
         a0->xBC -= x60;
     }
@@ -1385,7 +1413,7 @@ void FxProc_PullTowardEnemy_0_0014BA10(Obj_FxProc_PullTowardEnemy_0_0014BA10 *a0
 /* FxProc_TrackEnemyBone_0_0014BC90 */
 static inline f32 u2f_FxProc_TrackEnemyBone_0_0014BC90(u32 x) { return x; }
 
-void FxProc_TrackEnemyBone_0_0014BC90(Obj *a) {
+void FxProc_TrackEnemyBone_0_0014BC90(Obj_FxProc_InitChase_0_001493E0_ *a) {
     s32 it;
     Vec d;
     Vec t;
@@ -1810,37 +1838,8 @@ void FxProc_AimAtBestTarget_0_0014D020(Obj_FxProc_AimAtBestTarget_0_0014D020 *a)
     Mtx_RotateToward_0_00146140__as_FxProc_AimAtBestTarget_0_0014D020(&q, s.x20, s.x28);
     sceVu0CopyMatrix__as_FxProc_RandomJitter_0_0014C890__(&a->xC0, &q);
 }
-#undef sceVu0Normalize
 
 /* FxProc_MoveToward_0_0014D310_ */
-#define D_001F2160 D_001F2160__as_FxProc_MoveToward_0_0014D310_
-extern s8 D_001F2160__as_FxProc_MoveToward_0_0014D310_[];
-#define sceVu0SubVector sceVu0SubVector__as_FxProc_MoveToward_0_0014D310_
-void sceVu0SubVector__as_FxProc_MoveToward_0_0014D310_(Vec*, void *, void*);
-#define sceVu0InnerProduct sceVu0InnerProduct__as_FxProc_MoveToward_0_0014D310_
-f32 sceVu0InnerProduct__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *);
-#define sceVu0Normalize sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_
-void sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *);
-#define sceVu0ScaleVector sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_
-void sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *, f32);
-#define sceVu0AddVector sceVu0AddVector__as_FxProc_MoveToward_0_0014D310_
-void sceVu0AddVector__as_FxProc_MoveToward_0_0014D310_(Vec *, Vec *, Vec *);
-#define Enemy_Ptr6F0_1_0013FFA0 Enemy_Ptr6F0_1_0013FFA0__as_FxProc_MoveToward_0_0014D310_
-s32 Enemy_Ptr6F0_1_0013FFA0__as_FxProc_MoveToward_0_0014D310_(s32);
-#define sceVu0CopyVector sceVu0CopyVector__as_FxProc_MoveToward_0_0014D310_
-void sceVu0CopyVector__as_FxProc_MoveToward_0_0014D310_(Vec *, s32);
-#define ActorList_Next_2_001A5460 ActorList_Next_2_001A5460__as_FxProc_MoveToward_0_0014D310_
-s8* ActorList_Next_2_001A5460__as_FxProc_MoveToward_0_0014D310_(s32 *);
-#define Enemy_GetCurrentParamIdx_0_0013E110 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_
-u16 Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_(s8 *);
-#define Fx_GetWorldMatrix_1_00163C80 Fx_GetWorldMatrix_1_00163C80__as_FxProc_MoveToward_0_0014D310_
-void Fx_GetWorldMatrix_1_00163C80__as_FxProc_MoveToward_0_0014D310_(O_FxProc_MoveToward_0_0014D310_ *, M_FxProc_MoveToward_0_0014D310 *);
-#define Proj_FindEnemyInCone_0_00146EF0 Proj_FindEnemyInCone_0_00146EF0__as_FxProc_MoveToward_0_0014D310_
-s8* Proj_FindEnemyInCone_0_00146EF0__as_FxProc_MoveToward_0_0014D310_(f32, Vec *, f32, Vec *, f32, s32);
-#define Actor_BuildRotMatrix_0_00146600 Actor_BuildRotMatrix_0_00146600__as_FxProc_MoveToward_0_0014D310_
-void Actor_BuildRotMatrix_0_00146600__as_FxProc_MoveToward_0_0014D310_(Actor *, MtxB *);
-#define sceVu0ApplyMatrix sceVu0ApplyMatrix__as_FxProc_MoveToward_0_0014D310_
-void sceVu0ApplyMatrix__as_FxProc_MoveToward_0_0014D310_(Vec *, MtxB *, Vec *);
 
 /* FxProc_MoveToward_0_0014D310_ */
 /* FxProc_MoveToward_0_0014D310_ */
@@ -1858,13 +1857,13 @@ void FxProc_MoveToward_0_0014D310(O_FxProc_MoveToward_0_0014D310 *o) {
 
     d = o->x60;
     r = o->xBC;
-    sceVu0SubVector__as_FxProc_MoveToward_0_0014D310(&t, has_FxProc_MoveToward_0_0014D310() ? D_002022E4->unk518 + 0x1C0 : D_001F2160, o);
-    len = sqrtf(sceVu0InnerProduct(&o->v10, &o->v10));
-    sceVu0Normalize(&u, &t);
-    sceVu0ScaleVector(&u, &u, -1.0f * r);
-    sceVu0AddVector(&o->v10, &o->v10, &u);
-    sceVu0Normalize(&o->v10, &o->v10);
-    sceVu0ScaleVector(&o->v10, &o->v10, len);
+    sceVu0SubVector__as_FxProc_MoveToward_0_0014D310(&t, has_FxProc_MoveToward_0_0014D310() ? D_002022E4->unk518 + 0x1C0 : D_001F2160__as_FxProc_MoveToward_0_0014D310_, o);
+    len = sqrtf(sceVu0InnerProduct__as_FxProc_MoveToward_0_0014D310_(&o->v10, &o->v10));
+    sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(&u, &t);
+    sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(&u, &u, -1.0f * r);
+    sceVu0AddVector__as_FxProc_MoveToward_0_0014D310_(&o->v10, &o->v10, &u);
+    sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(&o->v10, &o->v10);
+    sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(&o->v10, &o->v10, len);
     o->xBC -= d;
 }
 
@@ -1873,7 +1872,7 @@ void FxProc_InitTowardEnemy_0_0014D410(O_FxProc_InitTowardEnemy_0_0014D410 *arg0
     Vec sp30;
     Vec sp20;
     f32 d;
-    sceVu0CopyVector(&sp20, Enemy_Ptr6F0_1_0013FFA0(D_002022E4__as_FxProc_InitTowardEnemy_0_0014D410));
+    sceVu0CopyVector__as_FxProc_MoveToward_0_0014D310_(&sp20, Enemy_Ptr6F0_1_0013FFA0__as_FxProc_MoveToward_0_0014D310_(D_002022E4__as_FxProc_InitTowardEnemy_0_0014D410));
     sceVu0SubVector__as_FxProc_InitTowardEnemy_0_0014D410(&sp30, &sp20, &arg0->v);
     d = sqrtf(sp30.x * sp30.x + sp30.z * sp30.z);
     d = (0.05f - d) / 0.1f; d *= 0.001f; arg0->xBC = d;
@@ -1884,14 +1883,14 @@ static inline s8 *find_FxProc_MoveToward_0_0014D310(s32 *it, K *k) {
     s8 *p;
     u16 kid;
     *it = 0;
-    p = ActorList_Next_2_001A5460(it);
+    p = ActorList_Next_2_001A5460__as_FxProc_MoveToward_0_0014D310_(it);
     if (p != NULL) {
     kid = k->s.id;
     do {
-        if (*(u16 *)p != 0 && Enemy_GetCurrentParamIdx_0_0013E110(p) == kid) {
+        if (*(u16 *)p != 0 && Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_(p) == kid) {
             return p;
         }
-        p = ActorList_Next_2_001A5460(it);
+        p = ActorList_Next_2_001A5460__as_FxProc_MoveToward_0_0014D310_(it);
     } while (p != NULL);
     }
     return NULL;
@@ -1917,11 +1916,11 @@ void FxProc_SeekEnemyInCone_0_0014D4A0(O_FxProc_MoveToward_0_0014D310_ *o) {
         p = find_FxProc_MoveToward_0_0014D310(&it, &k);
     }
     if (p == NULL || (p != NULL && Enemy_IsBusy_0_0013EE40(p) != 0)) {
-        Fx_GetWorldMatrix_1_00163C80(o, &m);
-        p = Proj_FindEnemyInCone_0_00146EF0(D_001FB738[0], &m.b, 1.5707964f, &m.a, 1.5707964f, 1);
+        Fx_GetWorldMatrix_1_00163C80__as_FxProc_MoveToward_0_0014D310_(o, &m);
+        p = Proj_FindEnemyInCone_0_00146EF0__as_FxProc_MoveToward_0_0014D310_(D_001FB738[0], &m.b, 1.5707964f, &m.a, 1.5707964f, 1);
         if (p != NULL) {
             s = o->xB0.w;
-            id = Enemy_GetCurrentParamIdx_0_0013E110(p);
+            id = Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_(p);
             k2.w = o->xA8.w;
             k2.s.id = id;
             k2.s.f2 = id == 0 && k2.s.f2 == 1;
@@ -1940,12 +1939,12 @@ void FxProc_SeekEnemyInCone_0_0014D4A0(O_FxProc_MoveToward_0_0014D310_ *o) {
         h = o->x60;
         t = o->xB0.w;
         sceVu0SubVector__as_FxProc_SeekEnemyInCone_0_0014D4A0(&v60, &b0, o);
-        s = sqrtf(sceVu0InnerProduct(&o->v, &o->v));
-        sceVu0Normalize(&v50, &v60);
-        sceVu0ScaleVector(&v50, &v50, -1.0f * t);
-        sceVu0AddVector(&o->v, &o->v, &v50);
-        sceVu0Normalize(&o->v, &o->v);
-        sceVu0ScaleVector(&o->v, &o->v, s);
+        s = sqrtf(sceVu0InnerProduct__as_FxProc_MoveToward_0_0014D310_(&o->v, &o->v));
+        sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(&v50, &v60);
+        sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(&v50, &v50, -1.0f * t);
+        sceVu0AddVector__as_FxProc_MoveToward_0_0014D310_(&o->v, &o->v, &v50);
+        sceVu0Normalize__as_FxProc_MoveToward_0_0014D310_(&o->v, &o->v);
+        sceVu0ScaleVector__as_FxProc_MoveToward_0_0014D310_(&o->v, &o->v, s);
         o->xB0.w = o->xB0.w - h;
     }
 }
@@ -1971,17 +1970,17 @@ void FxProc_InitSeekCone_0_0014D700(O_FxProc_InitSeekCone_0_0014D700 *o) {
     sceVu0CopyVector__as_FxProc_InitSeekCone_0_0014D700(&b0, &o->x90->b);
     b0.w = 1.0f;
     sceVu0CopyVector__as_FxProc_InitSeekCone_0_0014D700(&a0, &o->x90->a);
-    p = Proj_FindEnemyInCone_0_00146EF0(D_001FB738[0], &b0, 1.5707964f, &a0, 1.5707964f, 1);
+    p = Proj_FindEnemyInCone_0_00146EF0__as_FxProc_MoveToward_0_0014D310_(D_001FB738[0], &b0, 1.5707964f, &a0, 1.5707964f, 1);
     if (p != NULL) {
         sceVu0CopyVector__as_FxProc_InitSeekCone_0_0014D700(&v80, Enemy_Ptr6F0_1_0013FFA0__as_FxProc_InitSeekCone_0_0014D700(p));
         sceVu0SubVector__as_FxProc_InitSeekCone_0_0014D700(&v90, &v80, o);
         t = (0.05f - sqrtf(v90.x * v90.x + v90.z * v90.z)) / 0.1f;
         t *= 0.001f;
-        id = Enemy_GetCurrentParamIdx_0_0013E110(p);
+        id = Enemy_GetCurrentParamIdx_0_0013E110__as_FxProc_MoveToward_0_0014D310_(p);
     } else {
         o->x50.w = 1.0f;
-        Actor_BuildRotMatrix_0_00146600(D_002022E4, &m);
-        sceVu0ApplyMatrix(&o->xB0, &m, &o->x50);
+        Actor_BuildRotMatrix_0_00146600__as_FxProc_MoveToward_0_0014D310_(D_002022E4, &m);
+        sceVu0ApplyMatrix__as_FxProc_MoveToward_0_0014D310_(&o->xB0, &m, &o->x50);
         t = 0.0f;
         id = 0;
     }
@@ -1992,17 +1991,68 @@ void FxProc_InitSeekCone_0_0014D700(O_FxProc_InitSeekCone_0_0014D700 *o) {
     o->xA8.w = k2.w;
     o->xB0.w = t;
 }
-#undef sceVu0SubVector
-#undef sceVu0InnerProduct
-#undef sceVu0Normalize
-#undef sceVu0ScaleVector
-#undef sceVu0AddVector
-#undef Enemy_Ptr6F0_1_0013FFA0
+
+/* FxTable_GetEntry_0_0014D8A0 */
+/* FxTable_GetEntry_0_0014D8A0 */
+void FxTable_GetEntry_0_0014D8A0(S *a0, u16 i) {
+    S t;
+    t.v = D_001F1E60[i];
+    *a0 = t;
+}
+
+/* FxTable_CallA_0_0014D8E0 */
+s32 FxTable_CallA_0_0014D8E0(u16 i, s32 v)
+{
+    if (i >= 29)
+        return 0;
+    D_001F1EA0[i].c(v);
+    return 1;
+}
+
+/* FxTable_CallB_0_0014D940 */
+s32 FxTable_CallB_0_0014D940(u16 i, s32 v)
+{
+    if (i >= 29)
+        return 0;
+    D_001F1EA0[i].b(v);
+    return 1;
+}
+
+/* FxTable_CallC_0_0014D9A0 */
+s32 FxTable_CallC_0_0014D9A0(u16 i, s32 v)
+{
+    if (i >= 29)
+        return 0;
+    D_001F1EA0[i].a(v);
+    return 1;
+}
+
+/* FxProc_NopA_2_0014DA00 */
+#define D_003139A0 D_003139A0__as_FxProc_NopA_2_0014DA00
+extern f32 D_003139A0__as_FxProc_NopA_2_0014DA00[4];
+#define sceVu0CopyVector sceVu0CopyVector__as_FxProc_NopA_2_0014DA00
+void sceVu0CopyVector__as_FxProc_NopA_2_0014DA00(f32 *v0, f32 *v1);
+
+/* FxProc_NopA_2_0014DA00 */
+void FxProc_NopA_2_0014DA00(void) {
+
+}
+
+/* FxProc_NopB_2_0014DA10 */
+void FxProc_NopB_2_0014DA10(void) {
+
+}
+
+/* FxProc_NopC_2_0014DA20 */
+void FxProc_NopC_2_0014DA20(void) {
+
+}
+
+/* FxProc_InitAtOrigin_0_0014DA30 */
+void FxProc_InitAtOrigin_0_0014DA30(Obj_FxProc_NopA_2_0014DA00 *o)
+{
+    sceVu0CopyVector(o->v, D_003139A0);
+    o->a8 = 0;
+}
 #undef sceVu0CopyVector
-#undef ActorList_Next_2_001A5460
-#undef Enemy_GetCurrentParamIdx_0_0013E110
-#undef Fx_GetWorldMatrix_1_00163C80
-#undef Proj_FindEnemyInCone_0_00146EF0
-#undef Actor_BuildRotMatrix_0_00146600
-#undef sceVu0ApplyMatrix
-#undef D_001F2160
+#undef D_003139A0

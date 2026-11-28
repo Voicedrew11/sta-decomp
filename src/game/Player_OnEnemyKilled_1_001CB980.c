@@ -1,7 +1,11 @@
 #include "m2c.h"
+#include "common.h"
+void Player_OnEnemyKilled_1_001CB980(u16 *arg0);
+s64 PlayerData_GetGold_0_001CBA30(void);
 M2C_UNK Player_UpdateEquipModel_0_001CE7D0(s32, M2C_UNK);
 M2C_UNK Player_RecalcStats_1_001CEDC0(M2C_UNK, u16, s32);
 
+/* Player_OnEnemyKilled_1_001CB980 */
 void Player_OnEnemyKilled_1_001CB980(u16 *arg0)
 {
   s32 temp_v0;
@@ -38,4 +42,9 @@ void Player_OnEnemyKilled_1_001CB980(u16 *arg0)
     Player_UpdateEquipModel_0_001CE7D0(temp_v0, 0);
     Player_UpdateEquipModelA_1_001CE660((s8 *) temp_v0, 0);
   }
+}
+
+/* PlayerData_GetGold_0_001CBA30 */
+s64 PlayerData_GetGold_0_001CBA30(void) {
+    return (s64) ((s64) M2C_FIELD(PlayerData_Get_2_001C9BA0(), u8 *, 0xA6) << 0x30) >> 0x30;
 }

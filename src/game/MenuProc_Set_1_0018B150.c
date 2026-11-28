@@ -11,11 +11,15 @@ extern s32 D_004A0FAC[];
 extern void (*D_004A0F98[])(s32);
 extern s8 D_001FCCF0[];
 extern s8 D_001FCCF8[];
+extern M D_004A0F90__as_MenuProc_Run_1_0018B320;
+extern s32 D_00202120[2];
 void MenuProc_Set_1_0018B150(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 fparg0);
 void MenuProc_DrawList_0_0018B180(s8 *arg0);
 void MenuProc_CheckReady_0_0018B2E0(s32 a);
 void MenuProc_Run_1_0018B320(M *m);
 void MenuProc_DrawConfirm_0_0018B380(s8 *a0, s32 a1, u32 a2, P *a3);
+s32 Menu_GetCursor_1_0018B820(s32 i);
+void Menu_SetCursor_1_0018B840(s32 i, s32 v);
 void Ui_DrawList_1_001829B0(s32 *, s32, void (*)(), s32 *);
 s8* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
@@ -25,7 +29,9 @@ void sprintf(s8 *, s8 *, ...);
 s8* Msg_GetText_2_00195B10(s32);
 s32 strlen(s8 *);
 void memcpy(s8 *, s8 *, s32);
+void MenuProc_DrawConfirm_0_0018B380__as_MenuProc_DrawList_0_0018B180();
 
+/* MenuProc_Set_1_0018B150 */
 /* MenuProc_Set_1_0018B150 */
 void MenuProc_Set_1_0018B150(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, f32 fparg0) {
     M2C_FIELD(arg0, s32 *, 0) = arg1;
@@ -39,8 +45,6 @@ void MenuProc_Set_1_0018B150(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 
 /* MenuProc_DrawList_0_0018B180 */
-#define MenuProc_DrawConfirm_0_0018B380 MenuProc_DrawConfirm_0_0018B380__as_MenuProc_DrawList_0_0018B180
-void MenuProc_DrawConfirm_0_0018B380__as_MenuProc_DrawList_0_0018B180();
 
 void MenuProc_DrawList_0_0018B180(s8 *arg0) {
     u32 i;
@@ -73,7 +77,7 @@ void MenuProc_DrawList_0_0018B180(s8 *arg0) {
         off = 0;
         do {
             e = (s32 *)((s8 *)l->list + off);
-            Ui_DrawList_1_001829B0(e, base + *e * 8, MenuProc_DrawConfirm_0_0018B380, d);
+            Ui_DrawList_1_001829B0(e, base + *e * 8, MenuProc_DrawConfirm_0_0018B380__as_MenuProc_DrawList_0_0018B180, d);
             i++;
             off += 0x40;
         } while (i < l->n);
@@ -82,7 +86,6 @@ void MenuProc_DrawList_0_0018B180(s8 *arg0) {
         D_004A0F9C[0](arg0);
     }
 }
-#undef MenuProc_DrawConfirm_0_0018B380
 
 /* MenuProc_CheckReady_0_0018B2E0 */
 void MenuProc_CheckReady_0_0018B2E0(s32 a)
@@ -92,15 +95,12 @@ void MenuProc_CheckReady_0_0018B2E0(s32 a)
 }
 
 /* MenuProc_Run_1_0018B320 */
-#define D_004A0F90 D_004A0F90__as_MenuProc_Run_1_0018B320
-extern M D_004A0F90__as_MenuProc_Run_1_0018B320;
 
 void MenuProc_Run_1_0018B320(M *m)
 {
     if (m)
-        D_004A0F90 = *m;
+        D_004A0F90__as_MenuProc_Run_1_0018B320 = *m;
 }
-#undef D_004A0F90
 
 /* MenuProc_DrawConfirm_0_0018B380 */
 #pragma explicit_zero_data on
@@ -164,4 +164,17 @@ void MenuProc_DrawConfirm_0_0018B380(s8 *a0, s32 a1, u32 a2, P *a3) {
         }
         break;
     }
+}
+
+/* Menu_GetCursor_1_0018B820 */
+/* Menu_GetCursor_1_0018B820 */
+s32 Menu_GetCursor_1_0018B820(s32 i)
+{
+    return D_00202120[i];
+}
+
+/* Menu_SetCursor_1_0018B840 */
+void Menu_SetCursor_1_0018B840(s32 i, s32 v)
+{
+    D_00202120[i] = v;
 }

@@ -506,3 +506,15 @@ Player_UpdateStatusEffects_0_001C9FF0 and Se_UploadBankB_1_001DB510.
 merge_tu.py now makes per-part renames unique when a part is itself a
 merged unit, and renames duplicated non-static `inline` helpers like
 statics.
+
+A looser pass then merged (repeated until nothing changed, ROM checked):
+adjacent units of one prefix family (leading CamelCase word: `Snd`,
+`SndCh`, `SndBank`, `SndEmit`; `Menu`/`MenuProc`; `DbMap`/`DbMapProc`),
+whose names alternate in .text as no two files would; and sandwiches A·X·A,
+a unit of another name between two of one family (`Combat` inside `Enemy`,
+`Seg_Init` inside `Coll`, `Mtx_ToQuat` inside `Quat`), except when X is a
+generic helper (`Vec`, `Mtx2`, `Pad`, `Font`, `Msg`, `Model`). 86 merges,
+574 game units to 467. Failed: the ten boundaries above, plus
+MenuProc_Set_1_0018B150 | MenuProc_DrawItemList_0_0018B860 and
+Player_Warp_0_001C92C0 | Player_PlayLevelUpSe_0_001C9FB0 (earlier parts'
+code changes).

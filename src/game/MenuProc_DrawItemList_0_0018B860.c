@@ -1,23 +1,54 @@
 #include "common.h"
 #include "m2c.h"
+#include "actor.h"
 typedef union { u32 w; u8 c[4]; } Col_MenuProc_DrawItemList_0_0018B860;
-typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[8]; Col_MenuProc_DrawItemList_0_0018B860 c; } Item;
-typedef struct { u32 n; Item *items; } List;
-typedef struct { u8 pad[4]; List *list; } Res;
+typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[8]; Col_MenuProc_DrawItemList_0_0018B860 c; } Item_MenuProc_DrawItemList_0_0018B860;
+typedef struct { u32 n; Item_MenuProc_DrawItemList_0_0018B860 *items; } List_MenuProc_DrawItemList_0_0018B860;
+typedef struct { u8 pad[4]; List_MenuProc_DrawItemList_0_0018B860 *list; } Res_MenuProc_DrawItemList_0_0018B860;
 typedef struct { s32 v[8]; } Tbl;
-typedef struct { s32 x0; s32 x4; u8 x8; } Obj;
+typedef struct { s32 x0; s32 x4; u8 x8; } Obj_MenuProc_DrawItemList_0_0018B860;
 typedef struct { f32 m[4]; f32 x; f32 y; } S;
 typedef union { u32 w; struct { u8 r, g, b, a; } c; } Col_SaveMenu_DrawSlotInfo_2_0018BCC0;
 typedef struct { s16 x0, x2, x4, x6; u16 x8; u8 xA, xB; u8 padC[2]; u8 xE, xF; } Ent;
 typedef struct { u8 pad0[0x50]; Ent e[10]; } Slot;
-typedef struct { s32 a[4]; s32 arr[8]; } Buf;
+typedef struct { s32 a[4]; s32 arr[8]; } Buf_MenuProc_DrawItemList_0_0018B860;
 typedef struct {
     u8 pad0[0x28];
     s32 x28;
     u8 pad2C[3];
     u8 x2F;
     f32 x30, x34, x38, x3C;
-} O;
+} O_MenuProc_DrawItemList_0_0018B860;
+typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[8]; u8 c[4]; } Item_Menu_LerpLayout_0_0018C140;
+typedef struct { u32 n; Item_Menu_LerpLayout_0_0018C140 *items; } List_Menu_LerpLayout_0_0018C140;
+typedef struct { u8 pad[4]; List_Menu_LerpLayout_0_0018C140 *list; } Res_Menu_LerpLayout_0_0018C140;
+typedef struct {
+    s32 x0;
+    s32 x4;
+    u8 x8;
+    u8 pad9;
+    u8 xA;
+    u8 padB[3];
+    u8 xE;
+} Obj18C8B0_SaveMenu_SelectSlot_0_0018C590;
+typedef struct {
+    u8 pad0[0x10];
+    s32 arr[8];
+} Buf18C590;
+typedef struct {
+    u8 pad0[4];
+    s32 x4;
+    u8 pad8[2];
+    u8 xA;
+    u8 padB[3];
+    u8 xE;
+} Obj18C8B0_SaveMenu_ConfirmOverwrite_0_0018C8B0;
+typedef struct { u8 pad0[0xA]; u8 xA; } O_SaveMenu_HandleEvent_0_0018C4C0;
+typedef struct { s32 pad[3]; s32 xC; s32 arr[8]; } Buf_SaveMenu_HandleEvent_0_0018C4C0;
+typedef struct { s16 x0; s16 x2; s16 x4; s16 x6; u8 pad8[4]; s16 xC; u8 xE; u8 xF; } R;
+typedef struct { u8 pad[0x20]; R r; } S1;
+typedef struct { u8 pad[0x50]; R r[1]; } S0;
+typedef struct { s32 x0; u32 flags; u8 b8; char p9; u8 bA; char pB[3]; u8 bE; } Obj_MenuProc_BackOnCancel_0_0018D000;
 extern Tbl D_001F2A30 __attribute__((aligned(16)));
 extern f32 D_0020211C;
 extern s32 D_004A0FF0[];
@@ -34,35 +65,71 @@ extern char D_001FCD30[];
 extern char D_001FCD40[];
 extern char D_001FCD58[];
 extern char D_001FCD60[];
-void MenuProc_DrawItemList_0_0018B860(Obj *o);
-void SaveMenu_DrawSlotInfo_2_0018BCC0(O *o, s32 unused, u32 id, s32 n);
-Res* MenuLayout_Get_1_00189050(s32);
+extern s32 D_00202120[2];
+extern u8 D_004A095F[][0xF0];
+extern s32 D_004A0FC0[];
+extern s32 D_004A0FF4[];
+extern s32 D_004A1000[];
+extern s32 D_004A0FF8[];
+void MenuProc_DrawItemList_0_0018B860(Obj_MenuProc_DrawItemList_0_0018B860 *o);
+void SaveMenu_DrawSlotInfo_2_0018BCC0(O_MenuProc_DrawItemList_0_0018B860 *o, s32 unused, u32 id, s32 n);
+void Menu_LerpLayout_0_0018C140(f32 *a0, f32 *a1, u8 *a2, f32 f);
+void SaveMenu_HandleEvent_0_0018C4C0(s32 *a);
+void SaveMenu_SelectSlot_0_0018C590(Obj18C8B0_SaveMenu_SelectSlot_0_0018C590 *o);
+void SaveMenu_ConfirmOverwrite_0_0018C8B0(Obj18C8B0_SaveMenu_ConfirmOverwrite_0_0018C8B0 *o);
+void SaveMenu_Save_0_0018CA20(O_SaveMenu_HandleEvent_0_0018C4C0 *o);
+void MenuProc_BackOnCancel_0_0018D000(Obj_MenuProc_BackOnCancel_0_0018D000 *o);
+Res_MenuProc_DrawItemList_0_0018B860* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 void Menu_SetFlags_0_0018A310(s32);
 void Ui_BeginSprites_1_00181420(void);
 void Ui_SetAlphaClamped_0_00182050(s32);
 f32 Approachf_3_00187770(f32, f32, f32);
-void Menu_LerpLayout_0_0018C140(f32 *, f32 *, Col_MenuProc_DrawItemList_0_0018B860 *, f32);
-void Ui_DrawList_1_001829B0(Item *, s8 *, void (*)(), s32);
+void Ui_DrawList_1_001829B0(Item_MenuProc_DrawItemList_0_0018B860 *, s8 *, void (*)(), s32);
 void Ui_DrawItemIconEx_0_0017EDC0(s32, s32, s32, s32, s32);
 s32 SaveSys_GetPort_1_001E8290(void);
 s8* Save_GetSlotInfo_0_00188FF0(s32);
-void SaveSys_GetSlotCount_0_001E5E80(Buf *);
+void SaveSys_GetSlotCount_0_001E5E80(void *);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, S *, u32);
 void sprintf(char *, char *, ...);
 void Text_Draw_2_001875C0(f32, f32, f32, char *, s32, u32);
 char* DbMap_GetLocationName_1_00195AA0(s32);
 char* Msg_GetText_2_00195B10(s32);
+void Menu_LerpLayout_0_0018C140__as_MenuProc_DrawItemList_0_0018B860(f32 *, f32 *, Col_MenuProc_DrawItemList_0_0018B860 *, f32);
+Res_Menu_LerpLayout_0_0018C140* MenuLayout_Get_1_00189050__as_Menu_LerpLayout_0_0018C140(s32);
+u8 MenuStack_Pop_1_00189EA0(void);
+void MenuProc_Set_1_0018B150(s32 *, s32, s32, void (*)(), s32, f32);
+void MenuProc_Run_1_0018B320(s32 *);
+s32 SaveSys_IsCardReady_0_001E6110();
+void Snd_PlaySe_3_00131600(s32, u8);
+S1* Menu_GetStateBuf_0_00189000(s32);
+s32 SaveSys_StartRead_0_001E5F30(s32, s32);
+void SaveSys_GetResult_0_001E6080(s32 *);
+s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
+void SaveSys_Update_2_001E8500(void);
+void SaveMenu_ConfirmLoad_0_0018D060();
+void SaveMenu_Exit_0_0018D140();
+void SaveMenu_SelectSlot_0_0018C590__as_SaveMenu_HandleEvent_0_0018C4C0(s32 *);
+void SaveSys_GetSlotCount_0_001E5E80__as_SaveMenu_SelectSlot_0_0018C590(Buf18C590 *);
+void SaveMenu_ConfirmOverwrite_0_0018C8B0__as_SaveMenu_SelectSlot_0_0018C590();
+void SaveMenu_Save_0_0018CA20__as_SaveMenu_ConfirmOverwrite_0_0018C8B0();
+void SaveSys_GetSlotCount_0_001E5E80__as_SaveMenu_Save_0_0018CA20(Buf_SaveMenu_HandleEvent_0_0018C4C0 *);
+
+/* MenuProc_DrawItemList_0_0018B860_ */
+#define SaveSys_GetSlotCount_0_001E5E80 SaveSys_GetSlotCount_0_001E5E80__as_MenuProc_DrawItemList_0_0018B860_
+void SaveSys_GetSlotCount_0_001E5E80__as_MenuProc_DrawItemList_0_0018B860_(Buf_MenuProc_DrawItemList_0_0018B860 *);
 
 /* MenuProc_DrawItemList_0_0018B860 */
 
-void MenuProc_DrawItemList_0_0018B860(Obj *o) {
+/* MenuProc_DrawItemList_0_0018B860 */
+
+void MenuProc_DrawItemList_0_0018B860(Obj_MenuProc_DrawItemList_0_0018B860 *o) {
     f32 x;
     f32 y;
     Col_MenuProc_DrawItemList_0_0018B860 c;
     Tbl tbl __attribute__((aligned(16)));
-    Item it;
-    List *l;
+    Item_MenuProc_DrawItemList_0_0018B860 it;
+    List_MenuProc_DrawItemList_0_0018B860 *l;
     s8 *base;
     s32 off;
     u32 j;
@@ -131,8 +198,8 @@ void MenuProc_DrawItemList_0_0018B860(Obj *o) {
     }
     j = 0;
     if (j < l->n) { off = 0; do {
-        it = *(Item *)((s8 *)l->items + off);
-        Menu_LerpLayout_0_0018C140(&x, &y, &c, D_0020211C + (f32)(s32)j);
+        it = *(Item_MenuProc_DrawItemList_0_0018B860 *)((s8 *)l->items + off);
+        Menu_LerpLayout_0_0018C140__as_MenuProc_DrawItemList_0_0018B860(&x, &y, &c, D_0020211C + (f32)(s32)j);
         it.f2C = x;
         it.f30 = y;
         it.c = c;
@@ -150,12 +217,12 @@ void MenuProc_DrawItemList_0_0018B860(Obj *o) {
 /* SaveMenu_DrawSlotInfo_2_0018BCC0 */
 /* MATCH only with MWCC=mwcps2-3.0b38-030307 (b52 emits addiu at the switch range check) */
 
-void SaveMenu_DrawSlotInfo_2_0018BCC0(O *o, s32 unused, u32 id, s32 n) {
+void SaveMenu_DrawSlotInfo_2_0018BCC0(O_MenuProc_DrawItemList_0_0018B860 *o, s32 unused, u32 id, s32 n) {
     S t __attribute__((aligned(16))) = D_001F2A10[0];
     Ent *e = &D_004A0900[SaveSys_GetPort_1_001E8290()].e[n];
     s32 s0 = Save_GetSlotInfo_0_00188FF0(0)[n];
     char buf[0x100] = {0};
-    Buf b = {0};
+    Buf_MenuProc_DrawItemList_0_0018B860 b = {0};
     Col_SaveMenu_DrawSlotInfo_2_0018BCC0 col;
     u8 f;
     col.w = 0x80808080;
@@ -221,5 +288,277 @@ void SaveMenu_DrawSlotInfo_2_0018BCC0(O *o, s32 unused, u32 id, s32 n) {
             Text_Draw_2_001875C0(o->x38, o->x3C, 0.9f, D_001FCD60, 0, col.w);
             break;
         }
+    }
+}
+
+/* Menu_LerpLayout_0_0018C140 */
+static inline f32 u2f(u32 x) { return x; }
+
+void Menu_LerpLayout_0_0018C140(f32 *a0, f32 *a1, u8 *a2, f32 f) {
+    s32 i;
+    List_Menu_LerpLayout_0_0018C140 *l;
+    Item_Menu_LerpLayout_0_0018C140 A;
+    Item_Menu_LerpLayout_0_0018C140 B;
+    f32 t;
+    f32 u;
+
+    i = f;
+    l = MenuLayout_Get_1_00189050__as_Menu_LerpLayout_0_0018C140(4)->list;
+    A = l->items[i % l->n];
+    B = l->items[(i + 1) % l->n];
+    t = f - i;
+    u = 1.0f - t;
+    *a0 = A.f2C * t + B.f2C * u;
+    *a1 = A.f30 * t + B.f30 * u;
+    a2[0] = (s32)((f32)(u32)A.c[0] * t + (f32)(u32)B.c[0] * u);
+    a2[1] = (s32)((f32)(u32)A.c[1] * t + (f32)(u32)B.c[1] * u);
+    a2[2] = (s32)((f32)(u32)A.c[2] * t + (f32)(u32)B.c[2] * u);
+    a2[3] = (s32)((f32)(u32)A.c[3] * t + (f32)(u32)B.c[3] * u);
+    if (a2[0] == 0x7F) a2[0] = 0x80;
+    if (a2[1] == 0x7F) a2[1] = 0x80;
+    if (a2[2] == 0x7F) a2[2] = 0x80;
+    if (a2[3] == 0x7F) a2[3] = 0x80;
+}
+#undef SaveSys_GetSlotCount_0_001E5E80
+
+/* SaveMenu_HandleEvent_0_0018C4C0_ */
+#define D_004A1008 D_004A1008__as_SaveMenu_HandleEvent_0_0018C4C0_
+extern s32 D_004A1008__as_SaveMenu_HandleEvent_0_0018C4C0_[];
+#define MenuProc_BackOnCancel_0_0018D000 MenuProc_BackOnCancel_0_0018D000__as_SaveMenu_HandleEvent_0_0018C4C0_
+void MenuProc_BackOnCancel_0_0018D000__as_SaveMenu_HandleEvent_0_0018C4C0_();
+
+/* SaveMenu_HandleEvent_0_0018C4C0 */
+
+void SaveMenu_HandleEvent_0_0018C4C0(s32 *a) {
+    switch (a[0]) {
+    case 0x19:
+        D_0020211C = 0.0f;
+        D_004A0FF0[0] = D_00202120[SaveSys_GetPort_1_001E8290()];
+        D_004A1010[0].f.b0 = 1;
+        D_004A1008[0] = 0;
+        D_0020211C = D_004A0FF0[0] + 1;
+        break;
+    case 0x16:
+        if (D_004A1010[0].f.b0) {
+            SaveMenu_SelectSlot_0_0018C590__as_SaveMenu_HandleEvent_0_0018C4C0(a);
+            a[1] = 0;
+        }
+        break;
+    }
+}
+
+/* SaveMenu_SelectSlot_0_0018C590 */
+
+void SaveMenu_SelectSlot_0_0018C590(Obj18C8B0_SaveMenu_SelectSlot_0_0018C590 *o) {
+    Buf18C590 buf = {0};
+    s32 i;
+    s32 fl;
+
+    if (SaveSys_IsCardReady_0_001E6110() != 0) {
+        MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+        MenuProc_Run_1_0018B320(D_004A0FC0);
+        o->xA = 1;
+        D_004A0FF4[0] = 0;
+        D_004A1000[0] = 0;
+        D_004A1010[0].f.b0 = 0;
+    }
+    D_004A1010[0].f.b1 = 1;
+    fl = o->x4;
+    if (fl & 0x10) {
+        D_004A0FF0[0]--;
+        Snd_PlaySe_3_00131600(0x66, o->xE);
+        if (D_004A0FF0[0] < 0) {
+            D_004A100C[0] = 10.0f;
+            D_004A0FFC[0] = 1;
+            D_004A1010[0].f.b0 = 0;
+        }
+    } else if (fl & 0x40) {
+        D_004A0FF0[0]++;
+        Snd_PlaySe_3_00131600(0x66, o->xE);
+        if (D_004A0FF0[0] > 6) {
+            D_004A100C[0] = 10.0f;
+            D_004A0FFC[0] = 3;
+            D_004A1010[0].f.b0 = 0;
+        }
+    } else if (fl & 0x2000) {
+        SaveSys_GetSlotCount_0_001E5E80__as_SaveMenu_SelectSlot_0_0018C590(&buf);
+        i = D_004A0FF0[0];
+        if (buf.arr[i] != 1 || D_004A095F[SaveSys_GetPort_1_001E8290()][i * 0x10] == 0 || Save_GetSlotInfo_0_00188FF0(0)[D_004A0FF0[0]] != 0) {
+            Snd_PlaySe_3_00131600(0x6B, o->xE);
+        } else {
+            Snd_PlaySe_3_00131600(0x67, o->xE);
+            MenuProc_Set_1_0018B150(D_004A0FC0, 0x71, 3, SaveMenu_ConfirmOverwrite_0_0018C8B0__as_SaveMenu_SelectSlot_0_0018C590, 0, 1.0f);
+            MenuProc_Run_1_0018B320(D_004A0FC0);
+            o->xA = 1;
+            D_004A1010[0].f.b0 = 0;
+        }
+    } else if (fl & 0x4000) {
+        o->x8 = MenuStack_Pop_1_00189EA0();
+        o->x4 = 0;
+        o->x0 = 0x1A;
+        Snd_PlaySe_3_00131600(0x69, o->xE);
+    }
+}
+
+/* SaveMenu_ConfirmOverwrite_0_0018C8B0 */
+
+void SaveMenu_ConfirmOverwrite_0_0018C8B0(Obj18C8B0_SaveMenu_ConfirmOverwrite_0_0018C8B0 *o) {
+    if (SaveSys_IsCardReady_0_001E6110() != 0) {
+        MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+        MenuProc_Run_1_0018B320(D_004A0FC0);
+        o->xA = 1;
+        D_004A0FF4[0] = 0;
+        D_004A1000[0] = 0;
+        D_004A1010[0].f.b0 = 0;
+    }
+    if (o->x4 & 0x2000) {
+        MenuProc_Set_1_0018B150(D_004A0FC0, 0x6B, 0, SaveMenu_Save_0_0018CA20__as_SaveMenu_ConfirmOverwrite_0_0018C8B0, 0, 1.0f);
+        MenuProc_Run_1_0018B320(D_004A0FC0);
+        o->xA = 1;
+        D_004A0FF4[0] = 0;
+        D_004A0FF8[0] = 0;
+        D_004A1000[0] = 0;
+        D_004A1010[0].f.b0 = 0;
+        Snd_PlaySe_3_00131600(0x67, o->xE);
+    }
+    if (o->x4 & 0x4000) {
+        D_004A1010[0].f.b0 = 1;
+        o->xA = 2;
+        Snd_PlaySe_3_00131600(0x68, o->xE);
+    }
+}
+
+/* SaveMenu_Save_0_0018CA20 */
+static inline s32 diff(R *a, R *b) {
+    if (a->x4 != b->x4 || a->x6 != b->x6 || a->x0 != b->x0 || a->x2 != b->x2 ||
+        a->xE != b->xE || a->xC != b->xC || a->xF != b->xF) {
+        return 1;
+    }
+    return 0;
+}
+
+void SaveMenu_Save_0_0018CA20(O_SaveMenu_HandleEvent_0_0018C4C0 *o) {
+    Buf_SaveMenu_HandleEvent_0_0018C4C0 buf = {0};
+    S1 *s1;
+    S0 *s0;
+    s32 st;
+
+    SaveSys_GetPort_1_001E8290();
+    s1 = Menu_GetStateBuf_0_00189000(0);
+    s0 = (S0 *)Menu_GetStateBuf_0_00189000(1);
+    if (SaveSys_IsCardReady_0_001E6110() != 0) {
+        MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+        MenuProc_Run_1_0018B320(D_004A0FC0);
+        o->xA = 1;
+        D_004A0FF4[0] = 0;
+        D_004A1000[0] = 0;
+        D_004A1010[0].f.b0 = 0;
+    }
+    D_004A1010[0].f.b1 = 0;
+    switch (D_004A0FF8[0]) {
+    case 0:
+        if (!SaveSys_StartRead_0_001E5F30(0, 0)) {
+            D_004A0FF8[0]++;
+        }
+        break;
+    case 1:
+        SaveSys_GetResult_0_001E6080(&st);
+        if (st == 0) {
+            D_004A0FF8[0]++;
+        }
+        if (st == 1) {
+            MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+            MenuProc_Run_1_0018B320(D_004A0FC0);
+            o->xA = 1;
+            D_004A0FF4[0] = 0;
+            D_004A1000[0] = 0;
+            D_004A1010[0].f.b0 = 0;
+        }
+        break;
+    case 2:
+        SaveSys_GetSlotCount_0_001E5E80__as_SaveMenu_Save_0_0018CA20(&buf);
+        switch (buf.arr[D_004A0FF0[0]]) {
+        case 2:
+            MenuProc_Set_1_0018B150(D_004A0FC0, 0x6C, 2, SaveMenu_ConfirmLoad_0_0018D060, 0, 1.0f);
+            MenuProc_Run_1_0018B320(D_004A0FC0);
+            o->xA = 1;
+            D_004A1010[0].f.b0 = 0;
+            return;
+        case 0:
+            break;
+        case 1:
+            break;
+        }
+        if (buf.xC == 1) {
+            if (!SaveSys_StartWrite_0_001E6170(-1, s0, 0xF0)) {
+                D_004A0FF8[0]++;
+            }
+        } else {
+            D_004A0FF8[0]++;
+            D_004A0FF8[0]++;
+        }
+        break;
+    case 3:
+        do {
+            SaveSys_Update_2_001E8500();
+            SaveSys_GetResult_0_001E6080(&st);
+        } while (st == 2);
+        if (st == 0) {
+            D_004A0FF8[0]++;
+        }
+        if (st == 1) {
+            MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+            MenuProc_Run_1_0018B320(D_004A0FC0);
+            o->xA = 1;
+            D_004A0FF4[0] = 0;
+            D_004A1000[0] = 0;
+            D_004A1010[0].f.b0 = 0;
+        }
+        break;
+    case 4:
+        if (!SaveSys_StartWrite_0_001E6170(D_004A0FF0[0], s1, 0x7C20)) {
+            D_004A0FF8[0]++;
+        }
+        break;
+    case 5:
+        do {
+            SaveSys_Update_2_001E8500();
+            SaveSys_GetResult_0_001E6080(&st);
+        } while (st == 2);
+        if (st == 0) {
+            if (diff(&s0->r[D_004A0FF0[0]], &s1->r)) {
+                MenuProc_Set_1_0018B150(D_004A0FC0, 0x6C, 2, SaveMenu_ConfirmLoad_0_0018D060, 0, 1.0f);
+                MenuProc_Run_1_0018B320(D_004A0FC0);
+                o->xA = 1;
+                D_004A1010[0].f.b0 = 0;
+            } else {
+                MenuProc_Set_1_0018B150(D_004A0FC0, 0x6D, 2, SaveMenu_Exit_0_0018D140, 0, 1.0f);
+                MenuProc_Run_1_0018B320(D_004A0FC0);
+                o->xA = 1;
+            }
+        }
+        if (st == 1) {
+            MenuProc_Set_1_0018B150(D_004A0FC0, 0x79, 2, MenuProc_BackOnCancel_0_0018D000, 0, 1.0f);
+            MenuProc_Run_1_0018B320(D_004A0FC0);
+            o->xA = 1;
+            D_004A0FF4[0] = 0;
+            D_004A1000[0] = 0;
+            D_004A1010[0].f.b0 = 0;
+        }
+        break;
+    }
+}
+#undef MenuProc_BackOnCancel_0_0018D000
+#undef D_004A1008
+
+/* MenuProc_BackOnCancel_0_0018D000 */
+void MenuProc_BackOnCancel_0_0018D000(Obj_MenuProc_BackOnCancel_0_0018D000 *o)
+{
+    if (o->flags & 0x2000) {
+        o->bA = 2;
+        o->b8 = MenuStack_Pop_1_00189EA0();
+        o->flags = 0;
+        o->x0 = 0x1A;
+        Snd_PlaySe_3_00131600(0x67, o->bE);
     }
 }

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "m2c.h"
 typedef struct { s32 idx; u8 pad4[0x3C]; } Item_Credits_DrawFrame_0_001DC900;
 typedef struct { u32 n; Item_Credits_DrawFrame_0_001DC900 *items; } List_Credits_DrawFrame_0_001DC900;
 typedef struct {
@@ -12,6 +13,21 @@ typedef struct {
 } O;
 typedef struct { s32 idx; u8 pad[0x3C]; } Item_Credits_DrawBg_0_001DCE70;
 typedef struct { u32 n; Item_Credits_DrawBg_0_001DCE70 *items; } List_Credits_DrawBg_0_001DCE70;
+typedef union {
+    u32 w;
+    struct { u8 r, g, b, a; } c;
+} Col_CreditsProc_DrawText_0_001DCF80;
+typedef struct { f32 m[4]; f32 x; f32 y; } S;
+typedef struct {
+    f32 v0[4];
+    f32 v10[4];
+    u8 pad20[8];
+    s32 x28;
+    u32 x2C;
+    f32 x30, x34, x38, x3C;
+} A;
+typedef union { u32 w; u8 b[4]; } Col_TitleProc_DrawPushStart_0_001DD510;
+typedef struct { f32 x, y, z, w; } V4;
 extern s16 D_00201E40;
 extern f32 D_00202334;
 extern s16 D_0020233C;
@@ -24,23 +40,48 @@ extern s32 D_00202340;
 extern u8 D_00202348;
 extern f32 D_00201E44;
 extern f32 D_00201E48;
+extern S D_001F3A10 __attribute__((aligned(16)));
+extern f32 D_00202344;
+extern S D_001F39F0[] __attribute__((aligned(16)));
+extern f32 D_002020D4;
+extern s32 D_00201E4C;
+extern s32 D_001FE730[];
 void Credits_DrawFrame_0_001DC900(void);
 void Credits_Update_0_001DCC30(O *o);
 void Credits_DrawBg_0_001DCE70(void);
+void CreditsProc_DrawText_0_001DCF80(A *o, s32 idx, u32 kind);
+void TitleProc_DrawPushStart_0_001DD510(s8 *a0, s32 a1, s32 a2);
+void Credits_HandleEvent_0_001DD650(s32 *arg0);
 List_Credits_DrawFrame_0_001DC900** MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(void *, s32, void (*)(), s32);
-void TitleProc_DrawPushStart_0_001DD510();
 void Strm_Stop_2_00130440(void);
 void Strm_SetFadeStep_1_001304B0(s32);
 void Snd_PlaySe_3_00131600(s32, u8);
-void Credits_HandleEvent_0_001DD650(O *);
-void CreditsProc_DrawText_0_001DCF80();
 void Menu_DrawBackground_0_00187B20(s32);
+void Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900(Item_Credits_DrawFrame_0_001DC900 *, s32, void (*)(), s32);
+List_Credits_DrawBg_0_001DCE70** MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70(s32);
+void Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70(Item_Credits_DrawBg_0_001DCE70 *, s32, void (*)(), s32);
+void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, S*, u32);
+void Ui_BeginSprites_1_00181420(void);
+void GsPkt_BeginAD_3_001545D0(void);
+void GsPkt_SetReg_3_001543E0(s32, u64);
+void GsPkt_Flush_1_001544C0(void);
+s8* Msg_GetText_2_00195B10(s32);
+void Text_DrawScaledH_1_001874F0(f32 x, s16 h, s8 *str, u32 a, Col_CreditsProc_DrawText_0_001DCF80 col, f32 y, f32 sc);
+void Text_Draw_2_001875C0(s32, s32, f32, u32, f32, f32);
+void Color_Pulse_1_00187960(f32, Col_TitleProc_DrawPushStart_0_001DD510 *);
+void TitleProc_DrawPushStart_0_001DD510__as_Credits_DrawFrame_0_001DC900_();
+void CreditsProc_DrawText_0_001DCF80__as_Credits_DrawFrame_0_001DC900_();
+void Strm_PlayFile_2_00130590(s32 *, s32, s32);
+
+/* Credits_DrawFrame_0_001DC900__ */
+#define Credits_HandleEvent_0_001DD650 Credits_HandleEvent_0_001DD650__as_Credits_DrawFrame_0_001DC900__
+void Credits_HandleEvent_0_001DD650__as_Credits_DrawFrame_0_001DC900__(O *);
+
+/* Credits_DrawFrame_0_001DC900_ */
 
 /* Credits_DrawFrame_0_001DC900 */
-#define Ui_DrawList_1_001829B0 Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900
-void Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900(Item_Credits_DrawFrame_0_001DC900 *, s32, void (*)(), s32);
 
 void Credits_DrawFrame_0_001DC900(void) {
     u32 i;
@@ -93,10 +134,9 @@ void Credits_DrawFrame_0_001DC900(void) {
         }
     }
     for (i = 0; i < l->n; i++) {
-        Ui_DrawList_1_001829B0(&l->items[i], base + l->items[i].idx * 8, TitleProc_DrawPushStart_0_001DD510, 0);
+        Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900(&l->items[i], base + l->items[i].idx * 8, TitleProc_DrawPushStart_0_001DD510__as_Credits_DrawFrame_0_001DC900_, 0);
     }
 }
-#undef Ui_DrawList_1_001829B0
 
 /* Credits_Update_0_001DCC30 */
 void Credits_Update_0_001DCC30(O *o) {
@@ -155,10 +195,6 @@ void Credits_Update_0_001DCC30(O *o) {
 }
 
 /* Credits_DrawBg_0_001DCE70 */
-#define MenuLayout_Get_1_00189050 MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70
-List_Credits_DrawBg_0_001DCE70 **MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70(s32);
-#define Ui_DrawList_1_001829B0 Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70
-void Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70(Item_Credits_DrawBg_0_001DCE70 *, s32, void (*)(), s32);
 
 void Credits_DrawBg_0_001DCE70(void) {
     u32 i;
@@ -166,7 +202,7 @@ void Credits_DrawBg_0_001DCE70(void) {
     s32 base;
     Item_Credits_DrawBg_0_001DCE70 *it;
 
-    l = MenuLayout_Get_1_00189050(3)[1];
+    l = MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70(3)[1];
     base = MenuLayout_GetSub_1_00189020(3);
     D_00201E48 += 4.0f;
     if (!(D_00201E48 <= 128.0f)) D_00201E48 = 128.0f;
@@ -174,9 +210,146 @@ void Credits_DrawBg_0_001DCE70(void) {
     if (!(D_00201E44 <= 128.0f)) D_00201E44 = 128.0f;
     for (i = 0; i < l->n; i++) {
         it = &l->items[i];
-        Ui_DrawList_1_001829B0(it, base + it->idx * 8, CreditsProc_DrawText_0_001DCF80, 0);
+        Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70(it, base + it->idx * 8, CreditsProc_DrawText_0_001DCF80__as_Credits_DrawFrame_0_001DC900_, 0);
     }
     Menu_DrawBackground_0_00187B20(0);
 }
-#undef MenuLayout_Get_1_00189050
-#undef Ui_DrawList_1_001829B0
+
+/* CreditsProc_DrawText_0_001DCF80 */
+/* CreditsProc_DrawText_0_001DCF80 */
+
+static inline f32 u2f(u32 x) { return x; }
+static inline f32 mu(u32 x, f32 k) { return x * k / 128.0f; }
+
+void CreditsProc_DrawText_0_001DCF80(A *o, s32 idx, u32 kind) {
+    f32 f;
+    S s __attribute__((aligned(16)));
+    Col_CreditsProc_DrawText_0_001DCF80 col;
+
+    s = D_001F3A10;
+    f = D_00201E44;
+    s.x = o->x30;
+    s.y = o->x34;
+    col.w = 0x80808080;
+    f = f < 0.0f ? 0.0f : f;
+    if (kind < 100) {
+        col.w = o->x2C;
+        col.c.a = mu(col.c.a, f);
+        Ui_DrawSprite_2_00181680(o->x28, o->v0, o->v10, &col, &s, kind);
+        return;
+    }
+    switch (kind) {
+    case 0x65:
+        col.c.a = mu(col.c.a, f);
+        Text_DrawScaledH_1_001874F0(o->x38, -1, Msg_GetText_2_00195B10(0x80), 0, col, o->x3C, 0.75f);
+        return;
+    case 0x64:
+        f = D_00201E48;
+        col.w = o->x2C;
+        f = f < 0.0f ? 0.0f : f;
+        col.c.a = mu(col.c.a, f);
+        Ui_DrawSprite_2_00181680(o->x28, o->v0, o->v10, &col, &s, kind);
+        return;
+    case 0x66:
+        Ui_BeginSprites_1_00181420();
+        GsPkt_BeginAD_3_001545D0();
+        GsPkt_SetReg_3_001543E0(0x42, 0x48);
+        GsPkt_Flush_1_001544C0();
+        col.w = o->x2C;
+        col.c.a = col.c.a * D_0020233C / 127;
+        if (D_00202334 < 30.0f) {
+            col.c.r = col.c.g = col.c.b = 0x80;
+        } else if (D_00202334 <= 60.0f) {
+            col.c.r = col.c.g = col.c.b = 0x80;
+        }
+        if (D_00202340 == 0) {
+            D_00202344 = D_00202344 - (D_00202344 - 32.0f) / 15.0f;
+            col.c.a = D_00202344;
+        } else {
+            D_00202344 = u2f(col.c.a);
+        }
+        col.c.r = 0x96;
+        col.c.g = 0xAA;
+        col.c.b = 0x96;
+        Ui_DrawSprite_2_00181680(o->x28, o->v0, o->v10, &col, &s, kind);
+        Ui_BeginSprites_1_00181420();
+        GsPkt_BeginAD_3_001545D0();
+        GsPkt_SetReg_3_001543E0(0x42, 0x44);
+        GsPkt_Flush_1_001544C0();
+        return;
+    default:
+        col.w = o->x2C;
+        col.c.a = mu(col.c.a, f);
+        Ui_DrawSprite_2_00181680(o->x28, o->v0, o->v10, &col, &s, kind);
+        return;
+    }
+}
+
+/* TitleProc_DrawPushStart_0_001DD510 */
+
+void TitleProc_DrawPushStart_0_001DD510(s8 *a0, s32 a1, s32 a2) {
+    S t __attribute__((aligned(16)));
+    V4 v;
+    Col_TitleProc_DrawPushStart_0_001DD510 col;
+
+    t = D_001F39F0[0];
+    t.x = *(f32 *)(a0 + 0x30);
+    t.y = *(f32 *)(a0 + 0x34);
+    col.w = 0x80808080;
+    switch (a2) {
+    case 0xC8:
+        col.w = *(u32 *)(a0 + 0x2C);
+        col.b[3] = col.b[3] * D_00202356 / 127;
+        v.x = *(f32 *)(a0 + 0x0);
+        v.z = *(f32 *)(a0 + 0x8);
+        v.y = *(f32 *)(a0 + 0x4);
+        v.w = *(f32 *)(a0 + 0xC);
+        Color_Pulse_1_00187960(D_002020D4, &col);
+        Ui_DrawSprite_2_00181680(*(s32 *)(a0 + 0x28), &v, a0 + 0x10, &col, &t, a2);
+        break;
+    case 0xC9:
+        col.b[3] = D_00202356;
+        Text_Draw_2_001875C0(D_00201E4C, 0, *(f32 *)(a0 + 0x38), col.w, *(f32 *)(a0 + 0x3C), 1.0f);
+        break;
+    }
+}
+#undef Credits_HandleEvent_0_001DD650
+
+/* Credits_HandleEvent_0_001DD650 */
+#define D_00201E44 D_00201E44__as_Credits_HandleEvent_0_001DD650
+extern s32 D_00201E44__as_Credits_HandleEvent_0_001DD650;
+#define D_00201E48 D_00201E48__as_Credits_HandleEvent_0_001DD650
+extern s32 D_00201E48__as_Credits_HandleEvent_0_001DD650;
+#define D_00202334 D_00202334__as_Credits_HandleEvent_0_001DD650
+extern s32 D_00202334__as_Credits_HandleEvent_0_001DD650;
+#define D_00202348 D_00202348__as_Credits_HandleEvent_0_001DD650
+extern s8 D_00202348__as_Credits_HandleEvent_0_001DD650;
+
+void Credits_HandleEvent_0_001DD650(s32 *arg0) {
+    switch (*arg0) {
+    case 25:
+        D_00202340 = 1;
+        D_00201E44 = 0xC3000000;
+        D_00201E48 = 0xC3000000;
+        D_00202348 = 5;
+        D_00202334 = 0;
+        D_0020233C = 0;
+        D_00202356 = 0;
+        D_00202354 = 0;
+        D_00202352 = 0;
+        D_00202350 = 0;
+        Strm_PlayFile_2_00130590(D_001FE730, 0, 1);
+        break;
+    case 27:
+    case 0:
+    case 22:
+    case 26:
+    case 28:
+    case 30:
+        break;
+    }
+}
+#undef D_00201E44
+#undef D_00201E48
+#undef D_00202334
+#undef D_00202348

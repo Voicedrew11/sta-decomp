@@ -1,6 +1,5 @@
 #include "common.h"
-#define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + *(volatile f32 *)&(x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
-#define WRAPV(x, y) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (y)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
+#include "m2c.h"
 typedef struct {
     Vec v0;
     Vec v10;
@@ -45,12 +44,39 @@ typedef struct {
     s8 *x518;
     s32 x51C;
 } A;
+typedef struct { u8 pad[0x204]; s16 n; s16 a[0x81]; u8 pad2[2]; } T;
+typedef struct { u16 a, b, c, n; u8 pad[0x38]; s8 data[1]; } Hd;
+typedef struct { u8 pad[0xC]; u8 a:6; u8 en:1; u8 b:1; } Fl;
+typedef struct { u8 pad[0x124]; s32 h[8]; } Obj;
+typedef struct { u8 pad[0x18]; Obj *objs; s8 *ents; } O;
 extern Mtx D_001F2170;
 extern Vec D_003139A0;
-s8 *Mdl_GetFrameData_0_001715B0(s32 *);
+extern s32 D_00202278;
+extern s32 D_00202280;
+extern T D_004A4570;
+extern u8 *D_00202284;
+extern s32 D_00202284__as_EnemyType_LoadTable_0_001A83A0;
+extern s32 D_00201F2C;
+void Enemy_UpdateModelMatrix_0_001A7E60(A *a);
+void ActorList_Init_1_001A82B0(s32 arg0, s32 arg1);
+void* EnemyType_Get_0_001A8360(s32 i);
+s32 EnemyType_LoadTable_0_001A83A0(void *p);
+void Enemy_UpdateSfxTransform_0_001A83E0(s8 *arg0);
+s8* Mdl_GetFrameData_0_001715B0(s32 *);
 void sceVu0CopyVector(Vec *, Vec *);
-void sceVu0CopyMatrix(Mtx *, Mtx *);
+void sceVu0CopyMatrix(void *, void *);
 void sceVu0RotMatrixY(Mtx *, Mtx *, f32);
+void memset(void *, s32, s32);
+void Arc_LoadFile_2_00159DD0(s32 id, void *p, s32 **a, s32 *b);
+void Mtx_Compose_2_00173FD0(void *, s8 *, s8 *, s8 *);
+void sceVu0MulMatrix(void *, void *, void *);
+void Sfx_SetTransform_1_001677C0(s32, void *);
+
+/* Enemy_UpdateModelMatrix_0_001A7E60 */
+#define WRAP(x) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + *(volatile f32 *)&(x)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
+#define WRAPV(x, y) ((((3.1415927f + (x)) - 6.2831855f * (s32)(0.15915494f * (3.1415927f + (x)))) + ((3.1415927f + (y)) < 0.0f ? 6.2831855f : 0.0f)) - 3.1415927f)
+#define sceVu0CopyMatrix sceVu0CopyMatrix__as_Enemy_UpdateModelMatrix_0_001A7E60
+void sceVu0CopyMatrix__as_Enemy_UpdateModelMatrix_0_001A7E60(Mtx *, Mtx *);
 static inline f32 u2f(u32 x) { return x; }
 
 void Enemy_UpdateModelMatrix_0_001A7E60(A *a) {
@@ -96,3 +122,67 @@ void Enemy_UpdateModelMatrix_0_001A7E60(A *a) {
     sceVu0CopyVector(&p->vA0, &D_003139A0);
     p->xF4 = 0;
 }
+#undef sceVu0CopyMatrix
+
+/* ActorList_Init_1_001A82B0 */
+void ActorList_Init_1_001A82B0(s32 arg0, s32 arg1) {
+    u16 i; D_00202278 = arg0; D_00202280 = arg1; memset(&D_004A4570, 0, 0x30C); for (i = 0; i < 0x81; i++) D_004A4570.a[i] = i; D_004A4570.n = 0x81;
+}
+
+/* EnemyType_Get_0_001A8360 */
+#define sceVu0CopyMatrix sceVu0CopyMatrix__as_EnemyType_Get_0_001A8360
+void sceVu0CopyMatrix__as_EnemyType_Get_0_001A8360(void *, s8 *);
+
+/* EnemyType_Get_0_001A8360 */
+/* EnemyType_Get_0_001A8360 */
+void *EnemyType_Get_0_001A8360(s32 i) { if (i < 0 || i > 0xFF) return NULL; if (!D_00202284) return NULL; return (u8 *)(i * 64) + (s32)D_00202284 + 16; }
+
+/* EnemyType_LoadTable_0_001A83A0 */
+
+s32 EnemyType_LoadTable_0_001A83A0(void *p)
+{
+    s32 b;
+    s32 *a;
+    Arc_LoadFile_2_00159DD0(0x3F114AF, p, &a, &b);
+    D_00202284__as_EnemyType_LoadTable_0_001A83A0 = *a;
+    return 0;
+}
+
+/* Enemy_UpdateSfxTransform_0_001A83E0 */
+void Enemy_UpdateSfxTransform_0_001A83E0(s8 *arg0) {
+    f32 mtx[16] __attribute__((aligned(16)));
+    f32 tmp[16] __attribute__((aligned(16)));
+    s8 *v;
+    s32 i;
+    s8 *e;
+    s32 off;
+    s32 off4;
+    s8 *base;
+    O *o;
+    Hd *h;
+    if (arg0 != NULL) {
+        base = M2C_FIELD(arg0, s8 **, 0x518);
+        o = (O *)(base + 0x180);
+        if (M2C_FIELD(base, Fl **, 0x19C)->en) {
+            h = *M2C_FIELD(base, Hd ***, 0xB0);
+            i = 0;
+            off = 0;
+            off4 = 0;
+            v = (s8 *)((s32)h->data + D_00201F2C * (h->n * 0x140 + 0x200));
+            do {
+                s8 *t = o->ents + off;
+                e = t + 0x2B0;
+                if (M2C_FIELD(t, u16 *, 0x2E0) != 0) {
+                    sceVu0CopyMatrix(mtx, v + (M2C_FIELD(e, u8 *, 0x32) + 1) * 0x140 + 0xC0);
+                    Mtx_Compose_2_00173FD0(tmp, e, e + 0x10, e + 0x20);
+                    sceVu0MulMatrix(mtx, mtx, tmp);
+                    Sfx_SetTransform_1_001677C0(M2C_FIELD((s8 *)o->objs + off4, s32 *, 0x124), mtx);
+                }
+                i++;
+                off += 0x40;
+                off4 += 4;
+            } while (i < 8);
+        }
+    }
+}
+#undef sceVu0CopyMatrix

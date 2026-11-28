@@ -1,10 +1,19 @@
 #include "m2c.h"
+#include "common.h"
 typedef struct {
     u8 p0[0xA]; u16 xA; u8 pC[0x14]; u16 x20; u8 p22[0xA]; u16 x2C[8]; u8 x3C; u8 p3D[3];
     union { struct { f32 x40, x44, x48, x4C; } f; u16 h[0x28]; } u;
 } __attribute__((aligned(16))) E;
-E *Item_GetTable_1_001AFC90(void);
+void Item_GetStatBlock_0_001D1240(E *d, s16 idx, u8 k);
+s32 ItemType_GetCategory_0_001D1CB0(s32 x);
+s32 ItemType_IsWeapon_0_001D1D50(s32 x);
+s32 ItemType_IsShield_0_001D1DA0(s32 v);
+s32 ItemType_IsGun_0_001D1DD0(s32 v);
+s32 ItemType_IsMagic_0_001D1E00(s32 arg0);
+E* Item_GetTable_1_001AFC90(void);
 void memset(void *, s32, s32);
+
+/* Item_GetStatBlock_0_001D1240 */
 static inline u16 sc(u16 v, u8 k, u8 n) {
     s32 b;
     if (n == 0) return 0;
@@ -49,4 +58,31 @@ void Item_GetStatBlock_0_001D1240(E *d, s16 idx, u8 k) {
             d->x2C[7] = sc(d->x2C[7], k, d->x3C);
         }
     }
+}
+
+/* ItemType_GetCategory_0_001D1CB0 */
+/* ItemType_GetCategory_0_001D1CB0 */
+s32 ItemType_GetCategory_0_001D1CB0(s32 x) { switch (x) { case 2: case 4: case 6: case 9: case 11: case 12: case 13: case 15: case 16: case 17: case 18: case 19: return 1; } return 0; }
+
+/* ItemType_IsWeapon_0_001D1D50 */
+/* MATCH only with MWCC=mwcps2-3.0b38-030307 (b52 emits addiu at the switch range check) */
+s32 ItemType_IsWeapon_0_001D1D50(s32 x) {
+    switch (x) {
+    case 7: case 8: case 10: case 11: case 12: case 13: case 14: case 15: case 16: case 17: case 18:
+        return 1;
+    case 9: case 19:
+        return 2;
+    }
+    return 0;
+}
+
+/* ItemType_IsShield_0_001D1DA0 */
+s32 ItemType_IsShield_0_001D1DA0(s32 v) { if (v == 9 || v == 19) return 1; return 0; }
+
+/* ItemType_IsGun_0_001D1DD0 */
+s32 ItemType_IsGun_0_001D1DD0(s32 v) { if (v == 15 || v == 16) return 1; return 0; }
+
+/* ItemType_IsMagic_0_001D1E00 */
+s32 ItemType_IsMagic_0_001D1E00(s32 arg0) {
+    return arg0 == 0xC;
 }
