@@ -23,6 +23,6 @@ func_00100000 = 0x00100000;
  * calls the function keeps its address name. */
 func_00120570 = 0x00120570;
 
-/* Font_FindGlyph_2_00188910 is static in src/game/Font_FindGlyph_2_00188910.c (its caller
+/* Font_FindGlyph_2_00188910 is static in src/game/ui/font_find.c (its caller
  * Text_MeasureWidth_2_001889E0 relies on that); the asm callers still reach it here. */
 Font_FindGlyph_2_00188910 = Text_MeasureWidth_2_001889E0 - 0xD0;
