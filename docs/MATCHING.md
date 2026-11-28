@@ -487,3 +487,22 @@ merged units: 60 types unified, 400 aliases dropped, 244 kept (the parts'
 declarations that really differ). Grouped .bss objects keep their separate
 names until the code indexes them: Menu_ResetTimers_0_00188F80's six 0x250-byte records
 (0x0049F8E0) are noted in its source.
+
+### Merging by function name
+
+With no data ties left (`tools/infer_tus.py` finds 0 candidates), adjacent
+units whose functions share a name prefix (`Pool_*`, `Snd_*`, `MapCmd_*`,
+...) were merged with `tools/merge_tu.py`, one run at a time, extending the
+unit pairwise where a whole run would not merge, and skipping INCLUDE_ASM
+units. This is naming evidence, not data evidence: every merged unit
+matches and the ROM checks, but a boundary between two prefixes is not
+proven. Ten same-prefix boundaries stay split because adding the next part
+changes earlier parts' code or clashes on a declaration: before
+Enemy_GetPartFlagS_0_0013EC80, Enemy_GetMotionId_0_0013ED20,
+Arc_LoadFileTo_1_0015A080, MapCmd_GetItemName_0_0017ECD0,
+MapCmd_GetObjectName_0_0017ED20, MapObj_Find_1_001B19A0,
+MapObj_CheckActivate_0_001B1A20, PlayerProc_Update_0_001BEFA0,
+Player_UpdateStatusEffects_0_001C9FF0 and Se_UploadBankB_1_001DB510.
+merge_tu.py now makes per-part renames unique when a part is itself a
+merged unit, and renames duplicated non-static `inline` helpers like
+statics.

@@ -284,9 +284,6 @@ src/game/data/data_001F1C80.c
 src/game/FxProc_OrientToVelocity_0_00148120.c
 asm/text_00148D00.s
 src/game/FxProc_InitChase_0_001493E0.c
-src/game/FxProc_SeekNearestEnemy_0_0014AB80.c
-src/game/FxProc_SpawnTimed_0_0014BE70.c
-src/game/FxProc_MoveToward_0_0014D310.c
 src/game/FxTable_GetEntry_0_0014D8A0.c
 src/game/FxProc_NopA_2_0014DA00.c
 src/game/Obj_FreeTimer_0_0014DA70.c
@@ -623,17 +620,8 @@ src/game/Player_DrawWeapon_0_001BCFF0.c
 src/game/PlayerProc_UpdateMove_0_001BE7B0.c
 src/game/PlayerProc_Update_0_001BEFA0.c
 src/game/Player_UpdateEquipSounds_0_001BF940.c
-src/game/Player_UpdatePickup_0_001C0A10.c
 src/game/PlayerProc_Collide_0_001C5150.c
 src/game/Player_UpdateArmBones_0_001C5DE0.c
-src/game/Player_UpdateMagicState_0_001C6250.c
-src/game/Player_UpdateSwitchState_0_001C6470.c
-src/game/Player_StartAttackMotion_1_001C6590.c
-src/game/Player_StartMagicMotion_0_001C69A0.c
-src/game/Player_StartSwitchMotion_1_001C6D40.c
-src/game/Player_OnHitEnemy_0_001C73C0.c
-src/game/Player_GetWeaponSegment_0_001C7A70.c
-src/game/Player_TakeHit_1_001C7DC0.c
 src/game/Camera_LookAt_0_001C89E0.c
 src/game/Player_Warp_0_001C92C0.c
 src/game/PlayerData_Get_2_001C9BA0.c

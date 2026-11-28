@@ -384,12 +384,13 @@ def merge(paths, bss=None):
         ps[k] = (p, incs, body, tds, sts)
         rename.append(ren)
     while True:
-        bodies, spellings = [], {}
+        bodies, spellings, tags = [], {}, []
         for (p, _, body, tds, _), ren in zip(ps, rename):
             tag = Path(p).stem
             # an already merged part may hold NAME_<tag> from its own merge
             while any(re.search(rf"\b{n}_{tag}\b", b) for n in ren for _, _, b, _, _ in ps):
                 tag += "_"
+            tags.append(tag)
             for n in ren:
                 body = re.sub(rf"\b{n}\b", f"{n}_{tag}", body)
             bodies.append(body)
@@ -485,7 +486,7 @@ def merge(paths, bss=None):
         return m.key()
 
     out = []
-    for (p, _, orig, _, _), body in zip(ps, bodies):
+    for k, ((p, _, orig, _, _), body) in enumerate(zip(ps, bodies)):
         tag = Path(p).stem
         while f"__as_{tag}" in body:      # an already merged part has its own
             tag += "_"
@@ -528,6 +529,7 @@ def merge(paths, bss=None):
         # f()); declared now by another part, it keeps that view
         own = {m.group(2) for m in PROTO.finditer(orig)} | {m.group(2) for m in DEFN_ANY.finditer(orig)} \
             | {m.group(3) for m in EXTERN.finditer(orig)} | set(hdr["protos"])
+        own |= {f"{n}_{tags[k]}" for n in rename[k] if n in own}   # renamed statics/inlines
         implicit = []
         for name in sorted(set(re.findall(r"\b((?:func|[A-Za-z]\w*?_[0-5])_[0-9A-F]{8}|\w+)\s*\(", body)) & set(canon) - own):
             if name not in undef:
