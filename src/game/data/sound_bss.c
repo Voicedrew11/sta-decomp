@@ -2,6 +2,9 @@
 
 /* bss_00222AF0: the game's .bss from 0x00222AF0, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
+/* used by: ending_play, game_main, map_se_load, memory, sfx_system, sound,
+   sound_bank_load, sound_bank_step, sound_emitter, sound_start, text.s,
+   text_0012F0F0.s, ui_anim */
 
 u8 D_0022EC48[0x8]; /* also D_0022EC4A */
 s32 D_0022EC44[0x1];

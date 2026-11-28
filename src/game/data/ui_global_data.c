@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F25B0: the game's data at 0x001F25B0..., one object per label. */
+/* used by: font_draw, text_00184280.s, text_00185D70.s, ui_anim, ui_gauge */
 #pragma explicit_zero_data on
 
 extern u8 D_001FC980[];

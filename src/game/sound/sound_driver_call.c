@@ -1,10 +1,12 @@
 #include "common.h"
 #include "include_asm.h"
 #include "game/core.h"
+#include "game/sound.h"
 typedef ThreadParam TP;
 typedef char *va_list;
 typedef struct { u8 pad[0x24]; void *serve; u8 pad28[0x8]; } CD;
-extern char D_001FE6C0[];
+#pragma explicit_zero_data on
+const char D_001FE6C0[0x30] = { 0x3c, 0x43, 0x61, 0x6c, 0x6c, 0x52, 0x70, 0x63, 0x53, 0x79, 0x6e, 0x63, 0x57, 0x61, 0x69, 0x74, 0x3e, 0x20, 0x73, 0x63, 0x65, 0x53, 0x69, 0x66, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x53, 0x74, 0x61, 0x74, 0x52, 0x70, 0x63, 0x28, 0x29, 0x20, 0x3d, 0x3d, 0x20, 0x31, 0xa, 0, 0, 0, 0 };
 extern s32 D_004B9EF0[];
 extern u8 D_004B7A40[];
 extern u8 D_004B7CB0[];
@@ -22,21 +24,9 @@ extern u8 D_004B9EF0__as_SndDrv_CallArgs_2_001D8680[];
 extern CD D_004B9EF0__as_SndDrv_Bind_2_001D8890;
 extern s32 D_004B7A40__as_SndDrv_CallRpc_2_001D8960[];
 extern char D_004B7840[];
-void SndDrv_CallRpcSyncWait_2_001D7EC0(void);
-void SndDrv_CallRpcSyncWaitB_2_001D7FD0(void);
-void SndDrv_SetParam_0_001D80C0(s32 d, s32 e);
-s32 SndDrv_AllocIopBuffer_1_001D80E0(s32 size);
-s32 SndDrv_StartThread_1_001D8210(void);
 void SndDrv_SetCallback_1_001D8320(int index, int value);
 s32* SndDrv_GetRecvBuffer_1_001D8340(void);
 s32 SndDrv_CallWithData_1_001D8350(s32 a, s32 b, s32 c, s32 d, s32 e, void *src);
-s32 SndDrv_Call1_1_001D84F0(s32 a, s32 b, s32 c, s32 d);
-s32 SndDrv_Call_2_001D85D0(s32 a0, s32 a1, s32 a2);
-s32 SndDrv_CallArgs_2_001D8680(s32 a, s32 b, s32 c, ...);
-void SndDrv_SetPan_0_001D87F0(s32 a, u16 b, u16 c);
-s32 SndDrv_IsInitialized_1_001D8810(void);
-s32 SndDrv_Shutdown_1_001D8820(void);
-s32 SndDrv_Bind_2_001D8890(void);
 s32 SndDrv_CallRpc_2_001D8960(s32 a, s32 b, s32 c, s32 d, u32 e);
 void SndDrv_RpcServerThread_1_001D8BE0(void);
 s32 printf(const char*, ...);

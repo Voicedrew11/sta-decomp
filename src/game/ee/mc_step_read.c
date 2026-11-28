@@ -1,7 +1,5 @@
 #include "common.h"
 #include "game/ee.h"
-typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 step; s32 x90; s32 x94; s32 err; s32 retry; s32 name; s32 xa4; u32 size; s32 xac; s32 xb0; u8 *buf; } T;
-extern T D_004B63B8;
 extern s32 D_004B63B4[];
 s32 Mc_StepGetInfo_3_001D3BF0(s32, s32, s32 *, s32 *, s32 *, s32);
 void *memcpy(void *, void *, s32);
@@ -29,7 +27,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
         e = Mc_GetInfoStatus_2_001D3CE0(D_004B63B8.x90);
         D_004B63B8.err = e;
         if (e != 0) {
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             return -10;
         }
         if (D_004B63B8.type[i * 4 + j] != 2) {
@@ -57,7 +55,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
                 if (D_004B63B8.err == 100) D_004B63B8.err = 0x47;
                 D_004B63B8.step = 100;
                 D_004B63B8.x90 = -1;
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 return r;
             }
             D_004B63B8.retry++;
@@ -113,7 +111,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
     case 8:
         if (sceMcClose(D_004B6474[0]) != 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 0x47;
                 return -1;
             }
@@ -124,7 +122,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
         break;
     case 9:
         if (sceMcSync(1, 0, &r) == 0) break;
-        D_004B63B8.x88 = 0;
+        D_004B63B8.cmd = 0;
         if (r < 0) {
             if (D_004B63B8.retry == 2) {
                 D_004B63B8.err = 0x47;
@@ -139,7 +137,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
     case 100:
         if (D_004B6474[0] < 0) {
             D_004B63B8.err = 0x47;
-            D_004B63B8.x88 = 0;
+            D_004B63B8.cmd = 0;
             return D_004B63B8.x90;
         }
         D_004B63B8.retry = 0;
@@ -148,7 +146,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
     case 101:
         if (sceMcClose(D_004B6474[0]) != 0) {
             if (D_004B63B8.retry == 2) {
-                D_004B63B8.x88 = 0;
+                D_004B63B8.cmd = 0;
                 D_004B63B8.err = 0x47;
             }
             D_004B63B8.retry++;
@@ -159,7 +157,7 @@ s32 Mc_StepRead_4_001D5F88(void) {
     case 102:
         if (sceMcSync(1, 0, &r) == 0) break;
         D_004B63B8.err = 0x47;
-        D_004B63B8.x88 = 0;
+        D_004B63B8.cmd = 0;
         return -100;
     }
     return 0;

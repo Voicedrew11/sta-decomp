@@ -1,7 +1,6 @@
 #include "common.h"
 #include "game/ee.h"
 typedef struct { s32 type[8]; s32 free[8]; s32 format[8]; s32 res[8]; s32 port; s32 slot; s32 x88; s32 step; s32 x90; s32 x94; s32 err; s32 retry; } T;
-extern T D_004B63B8;
 s32 sceMcGetInfo(s32, s32, s32 *, s32 *, s32 *);
 s32 sceMcSync(s32, s32 *, s32 *);
 s32 Mc_StepCheck_4_001D3E30(void) {
@@ -47,7 +46,7 @@ s32 Mc_StepCheck_4_001D3E30(void) {
     default:
         if (sceMcSync(1, 0, &r) == 0) break;
         D_004B63B8.err = 100;
-        D_004B63B8.x88 = 0;
+        D_004B63B8.cmd = 0;
         return -10;
     }
     return 0;

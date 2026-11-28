@@ -111,10 +111,11 @@ extern u32 D_0022F08C[];
 extern u8 D_00201ED4[4];
 extern Flags8 D_0022EC40[];
 extern s32 D_0022F040[];
-extern E_SndEmit_StopAllA_1_0012F640 D_0026F0D0[64];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+E_SndEmit_StopAllA_1_0012F640 D_0026F0D0[0x40];
+f32 D_0026F090[0x10];
 extern s8 D_00201C38;
 extern s32 D_00201ED8;
-extern f32 D_0026F090[];
 extern f32 D_002F16C0[];
 extern f32 D_001F2160[4];
 extern u8 D_00201C38__as_SndEmit_Update_1_0012F6F0;
@@ -201,14 +202,12 @@ void sceVu0AddVector__as_SndEmit_OffsetPositions_1_0012F7E0(f32 *v0, f32 *v1, f3
 void sceVu0CopyVector__as_SndEmit_SpawnFromMap_0_0012F9D0(Vec *, Vec *);
 void sceVu0AddVector__as_SndEmit_SpawnFromMap_0_0012F9D0(Vec *, Vec *, Vec *);
 void sceVu0CopyVector__as_SndEmit_Init_1_0012FB80(f32 *v0, f32 *v1);
-void SndDrv_CallRpcSyncWait_2_001D7EC0(void);
 s32 Strm_DrvGetStatus_1_001D8C50(void);
 s32 Strm_DrvSetMode_1_001D8CC0(s32, s32);
 s32 sceCdSearchFile(void *, void *);
 s32 sceCdGetError(void);
 void memset(void *, s32, s32);
 void sprintf(void *, void *, s32);
-void SndDrv_CallRpcSyncWaitB_2_001D7FD0(void);
 void Strm_DrvOpenFile_1_001D8D20(s32, void *, s32);
 f32 atan2f(f32, f32);
 void sceVu0Normalize(Vec *, Vec *);

@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "game/data.h"
 #include "game/ui.h"
+#include "game/gfx.h"
 typedef union { u128 q; u32 w[4]; } V;
 typedef union { u32 w; u8 b[4]; } C;
 typedef struct { u8 p:2; u8 v:1; } B;
@@ -21,9 +22,7 @@ extern s8 D_001FD698[];
 extern s8 D_001FD6A0[];
 extern s8 D_001FD6A8[];
 void Notify_DrawBackground_0_0019EF60(s8 *arg0);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s32);
-void GsPkt_Flush_1_001544C0(void);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, V *, V *, C *, s32);
 void Text_Draw_2_001875C0(s8 *, s32, u32, f32, f32, f32);
 s8* Msg_GetText_2_00195B10(s32);

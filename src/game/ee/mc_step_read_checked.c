@@ -1,16 +1,6 @@
 #include "common.h"
 #include "game/ee.h"
 
-typedef struct {
-    s32 type[2][4];
-    s32 free[2][4];
-    s32 format[2][4];
-    char pad60[0x20];
-    s32 port; s32 slot; s32 x88; s32 state;
-    s32 x90; s32 x94; s32 x98; s32 x9c;
-    s32 name; s32 xa4; u32 xa8; s32 xac; s32 xb0; s32 xb4;
-} T;
-extern T D_004B63B8;
 extern s32 D_004B638C[];
 extern s32 D_004B6390[];
 extern s32 D_004B6394[];
@@ -39,89 +29,89 @@ s32 Mc_StepReadChecked_3_001D4A78(void)
     s32 a;
     s32 x;
 
-    switch (t->state) {
+    switch (t->step) {
     case 0:
         D_004B6474[0] = -1;
-        t->state++;
-        t->x9c = 0;
+        t->step++;
+        t->retry = 0;
         D_004B638C[0] = 0;
     case 1:
-        v = Mc_StepGetInfo_3_001D3BF0(port, slot, &t->type[port][slot], &t->free[port][slot], &t->format[port][slot], t->x90);
+        v = Mc_StepGetInfo_3_001D3BF0(port, slot, &t->type[(port) * 4 + (slot)], &t->free[(port) * 4 + (slot)], &t->format[(port) * 4 + (slot)], t->x90);
         t->x90 = v;
         if (v > 0) break;
         v = Mc_GetInfoStatus_2_001D3CE0(v);
-        t->x98 = v;
+        t->err = v;
         if (v != 0) {
-            t->x88 = 0;
+            t->cmd = 0;
             return -10;
         }
-        if (t->type[port][slot] != 2) {
-            if (t->type[port][slot] == 3) t->x98 = 1;
-            else t->x98 = 1;
-            t->x88 = 0;
+        if (t->type[(port) * 4 + (slot)] != 2) {
+            if (t->type[(port) * 4 + (slot)] == 3) t->err = 1;
+            else t->err = 1;
+            t->cmd = 0;
             return -10;
         }
-        t->x9c = 0;
-        t->state++;
+        t->retry = 0;
+        t->step++;
         break;
     case 2:
         if (sceMcOpen(port, slot, t->name, 1) != 0) {
-            if (t->x9c == 2) {
-                t->x88 = 0;
-                t->x98 = 0x47;
+            if (t->retry == 2) {
+                t->cmd = 0;
+                t->err = 0x47;
                 return -10;
             }
-            t->x9c++;
+            t->retry++;
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 3:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
+                if (t->retry == 2) {
                     Mc_SetErrorStatus_4_001D3DA8(r);
-                    if (t->x98 == 100) {
-                        t->x98 = 0x47;
+                    if (t->err == 100) {
+                        t->err = 0x47;
                     }
-                    t->x88 = 0;
+                    t->cmd = 0;
                     return r;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
                 D_004B6474[0] = r;
-                t->x9c = 0;
-                t->state++;
+                t->retry = 0;
+                t->step++;
             }
         }
         break;
     case 4:
         v = sceMcRead(D_004B6474[0], D_004B6390, 4);
         if (v != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
-                t->state = 100;
+            if (t->retry == 2) {
+                t->err = 0x47;
+                t->step = 100;
             } else {
-                t->x9c++;
+                t->retry++;
             }
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 5:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    t->x98 = 0x47;
-                    t->state = 100;
+                if (t->retry == 2) {
+                    t->err = 0x47;
+                    t->step = 100;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
-                t->state++;
+                t->step++;
             }
         }
         break;
@@ -134,70 +124,70 @@ s32 Mc_StepReadChecked_3_001D4A78(void)
         }
         a = (D_004B6398[0] + 0x1F) & ~0x1F;
         d = D_004B6398[0] - 1;
-        t->state++;
+        t->step++;
         D_004B6398[0] = a;
         D_004B6394[0] = d - a + 0x20;
-        t->x9c = 0;
+        t->retry = 0;
         break;
     case 7:
         v = sceMcSeek(D_004B6474[0], D_004B6398[0] - 0x20, 0);
         if (v != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
-                t->state = 100;
+            if (t->retry == 2) {
+                t->err = 0x47;
+                t->step = 100;
             } else {
-                t->x9c++;
+                t->retry++;
             }
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 8:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    t->x98 = 0x47;
-                    t->state = 100;
+                if (t->retry == 2) {
+                    t->err = 0x47;
+                    t->step = 100;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
-                t->x9c = 0;
-                t->state++;
+                t->retry = 0;
+                t->step++;
             }
         }
         break;
     case 9:
         v = sceMcRead(D_004B6474[0], D_004B6478, 0x20);
         if (v != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
-                t->state = 100;
+            if (t->retry == 2) {
+                t->err = 0x47;
+                t->step = 100;
             } else {
-                t->x9c++;
+                t->retry++;
             }
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 10:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    t->x98 = 0x47;
-                    t->state = 100;
+                if (t->retry == 2) {
+                    t->err = 0x47;
+                    t->step = 100;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
                 if (D_004B6478[D_004B6394[0]] != 1) {
-                    t->x98 = 0x47;
-                    t->state = 100;
+                    t->err = 0x47;
+                    t->step = 100;
                 } else {
-                    t->x9c = 0;
-                    t->state++;
+                    t->retry = 0;
+                    t->step++;
                 }
             }
         }
@@ -205,30 +195,30 @@ s32 Mc_StepReadChecked_3_001D4A78(void)
     case 11:
         v = sceMcSeek(D_004B6474[0], 4, 0);
         if (v != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
-                t->state = 100;
+            if (t->retry == 2) {
+                t->err = 0x47;
+                t->step = 100;
             } else {
-                t->x9c++;
+                t->retry++;
             }
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 12:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    t->x98 = 0x47;
-                    t->state = 100;
+                if (t->retry == 2) {
+                    t->err = 0x47;
+                    t->step = 100;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
-                t->state++;
+                t->step++;
                 memset(D_004B6478, 0, 0x400);
-                t->x9c = 0;
+                t->retry = 0;
             }
         }
         break;
@@ -236,28 +226,28 @@ s32 Mc_StepReadChecked_3_001D4A78(void)
         len = D_004B638C[0] == 0 ? 0x3FC : 0x400;
         v = sceMcRead(D_004B6474[0], D_004B6478, len);
         if (v != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
-                t->state = 100;
+            if (t->retry == 2) {
+                t->err = 0x47;
+                t->step = 100;
             } else {
-                t->x9c++;
+                t->retry++;
             }
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 14:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    if (r == -2) t->x98 = 3;
-                    else if (r < -10) t->x98 = 1;
-                    else t->x98 = 0x47;
+                if (t->retry == 2) {
+                    if (r == -2) t->err = 3;
+                    else if (r < -10) t->err = 1;
+                    else t->err = 0x47;
                     t->x90 = r;
-                    t->state = 100;
+                    t->step = 100;
                 } else {
-                    t->x9c++;
-                    t->state--;
+                    t->retry++;
+                    t->step--;
                 }
             } else {
                 max = D_004B638C[0] ? 0x3FF : 0x3FB;
@@ -269,85 +259,85 @@ s32 Mc_StepReadChecked_3_001D4A78(void)
                         sum += ~D_004B6478[i];
                     }
                     if (sum == D_004B6478[len]) {
-                        if (t->xa8 < (u32)D_004B6390[0]) {
-                            len = t->xa8 - D_004B638C[0];
+                        if (t->size < (u32)D_004B6390[0]) {
+                            len = t->size - D_004B638C[0];
                         } else {
                             len = D_004B6390[0] - D_004B638C[0];
                         }
                         if (max < len) len = max;
-                        memcpy((void *)(t->xb4 + D_004B638C[0]), D_004B6478, len);
+                        memcpy((void *)(t->buf + D_004B638C[0]), D_004B6478, len);
                         if (len < max) {
-                            t->state++;
+                            t->step++;
                             break;
                         }
                     } else {
                         t->x90 = -399;
-                        t->x98 = 0x47;
-                        t->state = 100;
+                        t->err = 0x47;
+                        t->step = 100;
                         break;
                     }
                 }
                 D_004B638C[0] += len;
-                t->x9c = 0;
-                t->state--;
+                t->retry = 0;
+                t->step--;
             }
         }
         break;
     case 15:
-        t->x9c = 0;
-        t->state++;
+        t->retry = 0;
+        t->step++;
         break;
     case 16:
         if (sceMcClose(D_004B6474[0]) != 0) {
-            if (t->x9c == 2) {
-                t->x88 = 0;
-                t->x98 = 0x47;
+            if (t->retry == 2) {
+                t->cmd = 0;
+                t->err = 0x47;
                 return -100;
             }
-            t->x9c++;
+            t->retry++;
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 17:
         if (sceMcSync(1, 0, &r) != 0) {
             if (r < 0) {
-                if (t->x9c == 2) {
-                    t->x88 = 0;
-                    t->x98 = 0x47;
+                if (t->retry == 2) {
+                    t->cmd = 0;
+                    t->err = 0x47;
                     return r;
                 }
-                t->x9c++;
-                t->state--;
+                t->retry++;
+                t->step--;
             } else {
-                t->x98 = 0x48;
-                t->x88 = 0;
+                t->err = 0x48;
+                t->cmd = 0;
                 return 1;
             }
         }
         break;
     case 100:
         if (D_004B6474[0] < 0) {
-            t->x88 = 0;
+            t->cmd = 0;
             return -100;
         }
-        t->x9c = 0;
-        t->state++;
+        t->retry = 0;
+        t->step++;
         break;
     case 101:
         if (sceMcClose(D_004B6474[0]) != 0) {
-            if (t->x9c == 2) {
-                t->x98 = 0x47;
+            if (t->retry == 2) {
+                t->err = 0x47;
                 return -1;
             }
-            t->x9c++;
+            t->retry++;
         } else {
-            t->state++;
+            t->step++;
         }
         break;
     case 102:
         if (sceMcSync(1, 0, &r) != 0) {
-            t->x88 = 0;
+            t->cmd = 0;
             return -200;
         }
         break;

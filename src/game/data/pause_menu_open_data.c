@@ -1,8 +1,7 @@
 #include "common.h"
 
 /* data_001F3160: the game's data at 0x001F3160..., one object per label. */
-/* used by: PauseMenu_Open_0_0019E2F0, GameOverProc_DrawText_0_0019EA60, Notify_DrawBackground_0_0019EF60, Shop_Update_0_001A1C80,
-   text_001A1C80.s */
+/* used by: game_over_reset, notify, pause_menu_open, shop_draw */
 #pragma explicit_zero_data on
 
 extern s32 D_001F3180[];

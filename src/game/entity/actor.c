@@ -6,6 +6,7 @@
 #include "game/input.h"
 #include "game/math.h"
 #include "game/player.h"
+#include "game/data.h"
 typedef union { u128 q; Vec v; } QV;
 typedef union { u64 d; struct { u8 b0:1; u8 b1:1; u8 b2:1; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } b; } F;
 typedef struct { Mtx m; Mtx x40; Mtx x80; u8 padC0[0x70]; u8 x130; u8 x131; u8 pad132[6]; F f; } Bone;
@@ -92,7 +93,6 @@ typedef struct {
 typedef struct { f32 f; u8 pe[316]; } El_Actor_ResolveGround_0_0013A720;
 typedef struct { u8 pd[564]; El_Actor_ResolveGround_0_0013A720 e[4]; } Tb;
 extern QV D_001F1C80;
-extern s32 D_00201F2C;
 extern Mtx D_001F2170;
 extern f32 D_00222A48[];
 extern s32 D_00201E80;

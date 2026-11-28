@@ -1,16 +1,17 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/player.h"
+#include "game/data.h"
 typedef struct { u8 pad[0x9C]; s16 id; u8 pad2[0xA]; u8 b0:1; u8 b1:1; } O;
 extern s32 D_00201E94;
 extern s8 *D_002022F0;
 extern s32 D_002022F4;
 extern s32 D_002022F8;
-extern f32 D_004B5DB0[];
-extern f32 D_004B5DC0[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+f32 D_004B5DC0[0x4];
+f32 D_004B5DB0[0x4];
 extern s32 D_002022BC;
 extern u16 D_00317238[];
-extern s32 D_003139A0[];
 void Player_PlayHurtSe_0_001CA2B0(void);
 s32 Player_PlayStepSe_1_001CA2D0(u32 arg0);
 s32 Player_PlayMoveSe_1_001CA4A0(u32 arg0, s32 arg1);
@@ -437,8 +438,8 @@ void Player_ReleaseHeldItem_0_001CAE90(void) {
     D_002022F0 = NULL;
     D_002022F4 = 0;
     D_002022F8 = 0;
-    sceVu0CopyVector(D_004B5DB0, D_003139A0);
-    sceVu0CopyVector(D_004B5DC0, D_003139A0);
+    sceVu0CopyVector(D_004B5DB0, &D_003139A0);
+    sceVu0CopyVector(D_004B5DC0, &D_003139A0);
 }
 #undef sceVu0CopyVector
 #undef D_002022F0

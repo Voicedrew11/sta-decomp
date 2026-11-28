@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/gfx.h"
+#include "game/data.h"
 typedef struct { s32 h; f32 t; f32 d; s32 pad; u8 a[0x10]; u8 b[0x10]; f32 x; f32 y; s32 pad2[2]; } E_GlowFx_Update_0_001E0C10;
 typedef struct { s32 h; f32 x4; f32 x8; char p[0x34]; } E_GlowFx_Stop_0_001E0D30;
 typedef struct { s32 h; char p[0x3C]; } E_GlowFx_StopAll_0_001E0E80;
@@ -10,7 +11,6 @@ typedef struct { s32 v; char pad[0x3C]; } E_GlowFx_Init_0_001E1200;
 extern E_GlowFx_Update_0_001E0C10 D_004BAC50[16];
 extern u8 D_002023AC;
 extern Vec D_001F2160;
-extern Vec D_003139A0;
 s32 GlowFx_Stop_0_001E0D30(s32 i, s32 unused, f32 t);
 s32 GlowFx_SetParams_0_001E0F30(s32 i, s32 p, s32 q, f32 x, f32 y);
 s32 GlowFx_Start_0_001E1050(void);

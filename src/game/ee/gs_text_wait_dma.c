@@ -1,6 +1,6 @@
 #include "common.h"
-typedef struct { u8 pad[8]; s32 x8; } G;
-extern G *D_00201E5C;
+#include "game/ee.h"
+extern GsTextState *D_00201E5C;
 void FlushCache(s32);
 #define D2_CHCR ((volatile int *)0x1000A000)
 #define D2_MADR ((volatile int *)0x1000A010)

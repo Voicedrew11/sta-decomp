@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FAAE8: the game's data at 0x001FAAE8..., one object per label. */
-/* used by: Game_InitSaveIcon_1_00128D10 */
+/* used by: game_save */
 #pragma explicit_zero_data on
 
 const s8 D_001FAAE8[0xe] = "sta_abyss.ico\000";

@@ -1,6 +1,7 @@
 #include "actor.h"
 #include "m2c.h"
 #include "common.h"
+#include "game/data.h"
 typedef struct { u8 id; u8 spd; u16 x : 5; u16 y : 5; } Rec;
 typedef struct { u8 pad[8]; u32 id; f32 f; u8 pad10[0xC]; f32 x1C; } Mdl;
 typedef struct {
@@ -56,7 +57,6 @@ typedef struct { u8 pad[0x24]; s32 hit; } Res_Enemy_RaycastMapB_0_0013D320;
 typedef struct { u8 pad[0x6E]; u16 n; } Obj_Enemy_RaycastMapB_0_0013D320;
 typedef struct { u128 a; u128 b; } Ray_Enemy_RaycastMapC_0_0013D430;
 typedef struct { s32 w[16]; } Res_Enemy_RaycastMapC_0_0013D430;
-extern s8 D_003139A0[];
 void Enemy_AttachEffect_1_0013C0D0(Actor *a, u8 slot, s16 id, s8 dx, s8 dy, u8 flags);
 void Enemy_SelectMotion_0_0013C420(A_0013C420 *a, u8 kind, s16 v, s32 a3);
 s32 Enemy_StartIdleMotion_1_0013C740(O_0013C740 *o);
@@ -154,7 +154,7 @@ void Enemy_AttachEffect_1_0013C0D0(Actor *a, u8 slot, s16 id, s8 dx, s8 dy, u8 f
         }
     }
     Mdl_SetBoneRotation_0_001710D0(s->p28, s->p20[i].id, scale * (u2f_Enemy_AttachEffect_1_0013C0D0(s->p20[i].spd) * 0.0078125f), x, y);
-    sceVu0CopyVector(s->p18 + 0xA0, D_003139A0);
+    sceVu0CopyVector(s->p18 + 0xA0, &D_003139A0);
 }
 #undef sceVu0CopyVector
 

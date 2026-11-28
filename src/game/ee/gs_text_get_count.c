@@ -1,6 +1,7 @@
 #include "common.h"
-extern void *D_00201E5C;
+#include "game/ee.h"
+extern GsTextState *D_00201E5C;
 
 s32 GsText_GetCount_0_001E2008(void) {
-    return M2C_FIELD(D_00201E5C, s32 *, 0x24);
+    return D_00201E5C->x24;
 }

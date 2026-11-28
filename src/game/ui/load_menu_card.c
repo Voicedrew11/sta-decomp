@@ -19,7 +19,6 @@ void MenuProc_Set_1_0018B150(f32, s32 *, s32, s32, void (*)(s8 *), s32);
 void MenuProc_Run_1_0018B320(s32 *);
 void SaveSys_GetResult_0_001E6080(s32 *);
 void SaveSys_GetSlotCount_0_001E5E80(Buf *);
-void SaveSys_Update_2_001E8500(void);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 s32 SaveSys_StartWrite_0_001E6170(s32, void *, s32);
 s8* Save_GetSlotInfo_0_00188FF0(s32);

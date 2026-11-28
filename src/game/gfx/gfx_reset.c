@@ -1,9 +1,7 @@
 #include "common.h"
+#include "game/gfx.h"
 
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32 reg, u64 v);
-void GsPkt_EndAD_3_00154420(void);
-void Tex_FlushAll_1_00176AE0(void);
 
 void Gfx_ResetBlendState_0_00145790(void)
 {

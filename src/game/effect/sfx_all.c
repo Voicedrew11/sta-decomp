@@ -115,7 +115,6 @@ typedef struct { u8 pad[0x22]; s16 x22; } Obj_Sfx_LoadStam_1_00169D70;
 typedef struct { Obj_Sfx_LoadStam_1_00169D70 *obj; } Blk;
 extern u8 D_00201FE0;
 extern s32 D_00201FE4;
-extern s32 D_00201F2C;
 extern B_Sfx_DrawAll_1_00168A40 *D_00201FC0;
 extern L *D_00201FD4;
 extern BF D_00222A50[];

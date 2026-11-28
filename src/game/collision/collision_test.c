@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/collision.h"
+#include "game/data.h"
 typedef struct { u8 b0:1; u8 b1:1; } B2;
 typedef struct { u8 pad[4]; B2 f; u8 pad5[3]; } Sel;
 typedef struct { u8 pad[0x178]; Sel *sel; } Ctx;
@@ -13,7 +14,6 @@ typedef struct { u8 p0[0xC]; f32 r; u8 p10[0xC]; f32 w; } Ray;
 typedef struct { u8 pad[0xE]; s16 hE; Vec v10; Vec v20; } S1;
 typedef struct { Vec v0; Vec v10; s32 x20; s32 x24; s32 x28; S1 *x2C; u8 pad30[0xC]; s32 x3C; } H_Coll_TestCellTriangles_1_00152700;
 typedef struct { f32 v[3]; } F3 __attribute__((aligned(8)));
-extern s32 D_00201F2C;
 extern s32 D_00201E94;
 void Coll_QueryMapCells_0_001520E0(Vec *o, A0 *a, Ray *ray, u8 mask, s32 mode, s32 *pcnt, s32 x6, s32 x7, Ctx *ctx, s32 skip);
 s32 Coll_TestCellTriangles_1_00152700(H_Coll_TestCellTriangles_1_00152700 *h, s32 **pp, Vec *s3, s32 a3, s32 *cnt, s32 max, H_Coll_TestCellTriangles_1_00152700 **cur, Vec *out, Vec *out1, Vec *tri,

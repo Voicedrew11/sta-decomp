@@ -1,6 +1,8 @@
 #include "common.h"
 
 /* data_001F3A50: the game's data at 0x001F3A50..., one object per label. */
+/* used by: credits_interp_color, credits_interp_rect, gfx_upload, shop_menu,
+   text_001E54E8.s */
 #pragma explicit_zero_data on
 
 extern u8 D_001FE994[];

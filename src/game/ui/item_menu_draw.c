@@ -4,6 +4,7 @@
 #include "game/player.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef union { u128 q; u32 w[4]; } V;
 typedef union { u32 w; u8 b[4]; } C_ItemMenu_Draw_0_0019C6D0;
 typedef void (*Fn)(void);
@@ -64,17 +65,13 @@ void ItemMenu_Update_0_0019D580(Menu *m);
 void ItemMenu_UseItem_0_0019DA70(Menu *m);
 void ItemMenu_BuildList_1_0019DCF0(void);
 void ItemMenuProc_Pos_0_0019DE90(s32 i, s8 *a1, s8 *a2);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, V *, V *, C_ItemMenu_Draw_0_0019C6D0 *, s32);
 s32 DbItem_GetCount_1_001958A0(void);
 s32 DbTable_FindA_0_001957E0(s32, s32);
 s8* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0(void *, s32, void (*)(), s32);
 void MenuProc_DrawStatValue_0_00186990(void);
 s32 PlayerData_Get_2_001C9BA0();

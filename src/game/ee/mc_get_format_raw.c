@@ -1,6 +1,7 @@
-extern int D_004B63B8[][4];
+#include "common.h"
+#include "game/ee.h"
 
 int Mc_GetFormatRaw_0_001D7078(int a, int b)
 {
-    return D_004B63B8[a][b];
+    return D_004B63B8.type[a * 4 + b];
 }

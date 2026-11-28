@@ -302,13 +302,13 @@ extern Vec D_001F37A0;
 extern f32 D_001FD910[];
 extern f32 D_001FD914[];
 extern f32 D_001FD918[];
-extern f32 D_001FD91C[];
-extern f32 D_001FD950[];
+#pragma explicit_zero_data on
+const f32 D_001FD91C[0xd] __attribute__((aligned(4))) = { 100.0f, 0.0f, 0.0f, 0.0f, 100.0f, 128.0f, 128.0f, 128.0f, 100.0f, 128.0f, 128.0f, 0.0f, 100.0f };
+const f32 D_001FD950[0x4] __attribute__((aligned(4))) = { 0.3f, 0.4f, 0.3f, 0.3f };
 extern s16 D_004A4774[];
 extern u16 D_004A4776[];
 extern Fn D_001F33A0[];
 extern Vec D_001F2120;
-extern s32 D_00201F2C;
 extern B8 D_00222A50__as_Enemies_DrawAll_1_001A6770[];
 extern s8 D_001FD960[];
 extern s32 *D_00202280__as_EnemyData_Parse_0_001A7810;

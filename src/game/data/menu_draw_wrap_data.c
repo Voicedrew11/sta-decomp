@@ -3,6 +3,8 @@
 #include "game/ui.h"
 
 /* data_001F2770: the game's data at 0x001F2770..., one object per label. */
+/* used by: ending_draw, item_menu_draw, map_sheet, menu, text_00182C10.s,
+   ui_gauge */
 #pragma explicit_zero_data on
 
 void MenuProc_DrawList_0_0018B180(void);

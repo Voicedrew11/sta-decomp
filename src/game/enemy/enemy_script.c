@@ -552,7 +552,6 @@ void Enemy_Set5B1b2_1_0013EA20(void *, int);
 s16 Enemy_GetCurrentParamIdx_0_0013E110(void *p);
 void Enemy_Set5B1b1_1_0013EA50(void *arg0, u8 arg1);
 void Enemy_UpdateParamFlags_0_0013F760(void *arg0, u8 arg1);
-void Bestiary_IsSeen_2_001A9EC0(s16 i);
 void Enemy_Set5B1b0_1_0013EB10(void *arg0, u8 arg1);
 void GameFlag_SetBit_2_0013D5C0(u8 arg0, u8 arg1);
 s8 GameFlag_TestBit_2_0013D630(u8 a, u8 b);

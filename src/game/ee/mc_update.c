@@ -1,6 +1,6 @@
 #include "common.h"
 #include "game/data.h"
-extern struct { char pad[0x88]; s32 state; s32 x8c; } D_004B63B8;
+#include "game/ee.h"
 s32 Mc_StepCheck_4_001D3E30(void);
 s32 Mc_StepGetDir_4_001D3FE8(void);
 s32 Mc_StepReadChecked_3_001D4A78(void);
@@ -15,7 +15,7 @@ s32 Mc_StepFindFile_5_001D67A8(void);
 s32 Mc_Update_4_001D6D00(void) {
     s32 r = -1;
     s32 s;
-    switch (D_004B63B8.state) {
+    switch (D_004B63B8.cmd) {
     case 3: r = Mc_StepCheck_4_001D3E30(); break;
     case 4: r = Mc_StepGetDir_4_001D3FE8(); break;
     case 5: r = Mc_StepWriteChecked_3_001D4170(); break;
@@ -31,16 +31,16 @@ s32 Mc_Update_4_001D6D00(void) {
     case 1:
     case 2: r = -1; break;
     }    if (r < 0) {
-        r = -D_004B63B8.state;
-        D_004B63B8.x8c = 0;
-        D_004B63B8.state = 0;
+        r = -D_004B63B8.cmd;
+        D_004B63B8.step = 0;
+        D_004B63B8.cmd = 0;
         s = -100;
         if (r != 0) s = r;
         return s;
     }    if (r > 0) {
-        D_004B63B8.state = 0;
-        D_004B63B8.x8c = 0;
+        D_004B63B8.cmd = 0;
+        D_004B63B8.step = 0;
         return 0;
     }
-    return D_004B63B8.state;
+    return D_004B63B8.cmd;
 }

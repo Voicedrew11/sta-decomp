@@ -2,16 +2,9 @@
 
 /* bss_0042D7E0: the game's .bss from 0x0042D7E0, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: Fx_SpawnParticle_1_00161060, Sfx_UpdateInstance_0_00168D70, Sfx_CompactPool_3_00169780, Sfx_PlanCompactPool_3_00169790,
-   Sfx_RegisterList_0_00169D00, Sfx_LoadStam_1_00169D70, Sfx_InitSystem_1_0016AD10, Sfx_GetFreeSlots_1_0016B230, Mdl_EmitMeshVu1_1_0016E760,
-   Mdl_EmitMeshVu1B_1_0016EB70, Mdl_EmitPolys_1_0016EF70, Mdl_Relocate_1_00170380, TexAnim_InitTables_0_001746A0, TexAnim_Update_0_001752A0,
-   TexAnim_SetScroll_0_001757C0, TexAnim_GetFrame_0_00175850, TexAnim_Release_0_001758B0, TexAnim_Register_0_001759D0, TexAnim_FreeAll_0_00175B40,
-   TexAnim_DrawAll_0_00175BB0, TexAnim_Init_0_00175C80, Tex_Upload_0_00175CD0, Tex_UploadQueued_1_00176350, Tex_FlushLayer_0_00176440,
-   Tex_SetTex0_1_00176550, Tex_CalcVramSize_0_00176710, Vram_Reset_0_001769C0, Tex_UploadQueuedWrap_0_00176A40, Tex_BeginFrame_0_00176A60,
-   Tex_Bind_1_00176B10, Vram_AllocForTex_0_00176BF0, Vram_FreeBlock_0_00177380, Tex_Release_1_00177570, Tex_FindByHash_1_00177B20,
-   Tex_Lookup_1_00177BB0, Tex_ReleaseList_0_00178030, Tex_RegisterTtix_0_00178080, Vram_Init_0_001781A0, Dma_ClearBuffer_1_00178DB0,
-   text_0016EF70.s, text_00176FB0.s, text_001777C0.s, text_00177BB0.s,
-   text_001789E0.s */
+/* used by: dma, fx_spawn, model_emit, model_load, sfx_all, sfx_system,
+   text_00176FB0.s, text_001777C0.s, text_001789E0.s, texture, texture_anim,
+   texture_hash, vram_init */
 
 u8 D_00483100[0x3000]; /* also D_004860FE */
 u8 D_004830F0[0x10]; /* also D_004830F4 */

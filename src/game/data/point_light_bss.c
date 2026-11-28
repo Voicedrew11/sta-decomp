@@ -2,10 +2,8 @@
 
 /* bss_0030C440: the game's .bss from 0x0030C440, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: PointLight_Update_0_0015C0C0, PointLightGroup_Clear_0_0015C6D0, PointLight_Add_0_0015C730, Fog_UpdatePlanes_0_0015D300,
-   Glow_Reset_0_0015D650, Glow_FindNear_0_0015DA00, Glow_Enable_0_0015DB60, Glow_Init_0_0015DD90, Enemy_Draw_1_001A5DE0,
-   ItemObj_DrawAll_0_001AC820, Map_DrawArea_0_001B37F0, MapObj_DrawAll_0_001B8A60, Player_UpdateArea_0_001BD4E0,
-   text_0015C8D0.s, text_0015DBF0.s, text_001A5DE0.s */
+/* used by: enemy_list, fog, glow, glow_init, item_object, map_area,
+   map_object_draw, player, point_light, text_0015DBF0.s */
 
 u8 D_0030D588[0x208] __attribute__((aligned(8))); /* also D_0030D58A, D_0030D60A, D_0030D68C, D_0030D70E */
 u8 D_0030D184[0x404] __attribute__((aligned(4))); /* also D_0030D188 */

@@ -1,4 +1,5 @@
 #include "common.h"
+#include "game/data.h"
 typedef struct { Mtx m; u8 pad[0x100]; } Bone;
 typedef struct { u8 pad[6]; u16 h6; } Hdr;
 typedef struct { u8 pad[0x1A8]; Hdr *x1A8; } Sub_Actor_GetBoneWorldMatrix_0_001464A0;
@@ -9,7 +10,6 @@ typedef struct { u8 pad[0x18]; P *p; } Sub_Actor_BuildRotMatrix_0_00146600;
 typedef struct { u8 pad[0x518]; u8 *x518; } A_Actor_BuildRotMatrix_0_00146600;
 typedef struct { u8 pad[0x1A8]; Hdr *x1A8; } Sub_Actor_GetBone_0_001468F0;
 typedef struct { u8 pad[0x518]; Sub_Actor_GetBone_0_001468F0 *x518; } A_Actor_GetBone_0_001468F0;
-extern s32 D_00201F2C;
 extern Mtx D_001F2170;
 s32 Actor_GetBoneWorldMatrix_0_001464A0(A_Actor_GetBoneWorldMatrix_0_001464A0 *a, u8 idx, Mtx *out);
 void Actor_GetDirNormalized_0_00146570(void *a, f32 *v);

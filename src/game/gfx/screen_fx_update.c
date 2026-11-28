@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "actor.h"
 #include "game/gfx.h"
+#include "game/data.h"
 typedef struct { u8 lo:3; u8 :1; u8 hi:3; u8 :1; } B8;
 typedef struct {
     s32 x0;
@@ -36,16 +37,13 @@ extern M2C_UNK D_002F1AA0[];
 extern M2C_UNK D_002F1AB0[];
 extern M2C_UNK D_002F1AC0[];
 extern f32 D_002F1AD0[];
-extern f32 D_002F1AD4[];
 extern u8 D_002F2078[];
 extern G D_002F19B0;
-extern Vec D_003139A0;
 extern B8 D_00201F78[8];
 M2C_UNK sceVu0InterVector(f32, M2C_UNK *, M2C_UNK *, M2C_UNK *);
 M2C_UNK sceVu0CopyVector(void *, void *);
 M2C_UNK Weather_Update_0_00157D50(f32);
 void memset(void *, s32, s32);
-void ScreenFx_InitEntry_0_00159480(void *);
 void Weather_RespawnParticle_0_00157FE0(s32);
 
 /* ScreenFx_Update_1_00159970 */

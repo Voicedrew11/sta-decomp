@@ -6,7 +6,6 @@ extern u32 D_002023DC;
 extern s32 D_004BC380[];
 extern s32 D_004BCBC0[];
 extern s32 D_004BCF40[];
-s32 SaveSys_Update_2_001E8500(void);
 s32 SaveSys_Init_1_001E85E0(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4);
 void SaveSys_StepCheckSpace_0_001E7C10(s32);
 void SaveSys_StepScan_1_001E7880(s32);

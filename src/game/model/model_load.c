@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "common.h"
 #include "game/model.h"
+#include "game/data.h"
 typedef struct { u8 a:3; u8 b3:1; u8 b4:1; u8 b5:1; u8 b6:1; u8 b7:1; } Bits;
 typedef struct {
     u8 pad0[0x10];
@@ -108,7 +109,6 @@ extern s32 * volatile D_0042D8AC[];
 extern E8 * volatile D_0042D8B0[];
 extern volatile s32 D_0042D8B4[];
 extern volatile s32 D_0042D8B8[];
-extern s32 D_00201F2C;
 Blk* Mdl_LoadChunk_0_00170000(s32 *a0, s32 a1, Hdr_Mdl_LoadChunk_0_00170000 *hdr);
 void Mdl_Free_0_00170250(s32 *a0, H_Mdl_Free_0_00170250 **a1);
 s32 Mdl_Relocate_1_00170380(Ch *c, Obj_Mdl_Relocate_1_00170380 *o);

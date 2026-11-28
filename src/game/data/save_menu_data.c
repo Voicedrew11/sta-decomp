@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F2A10: the game's data at 0x001F2A10..., one object per label. */
+/* used by: loading_draw, option, save_menu, save_menu_slot */
 #pragma explicit_zero_data on
 
 f32 D_001F2A10[0x8] = { 1.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f };

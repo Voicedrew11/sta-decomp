@@ -4,6 +4,7 @@
 #include "game/data.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/gfx.h"
 typedef struct { s32 x0; s32 x4; u8 pad[0x38]; } E_Hud_Draw_0_0018E480;
 typedef struct { u32 n; E_Hud_Draw_0_0018E480 *arr; } L;
 typedef struct { s32 x0; L *x4; L *x8; L *xC; } R;
@@ -206,15 +207,12 @@ void OptionProc_DrawScreen_0_00190DC0(A191110_OptionProc_DrawScreen_0_00190DC0 *
 void OptionProc_DrawController_0_00191110(A191110_OptionProc_DrawScreen_0_00190DC0 *o, s32 unused, u32 kind, B191110 *b);
 void OptionProc_DrawMain_0_00191420(A_OptionProc_DrawMain_0_00191420 *o, s32 unused, u32 kind, B *b);
 void Option_DrawSliderValue_1_00191580(A191110_Option_DrawSliderValue_1_00191580 *o, u32 kind, s32 alpha);
-void Menu_SetFlags_0_0018A310(s32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 R* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawElem_1_00182C10(E_Hud_Draw_0_0018E480 *, s8 *);
 s8* Msg_GetText_2_00195B10(s32);
 void Text_Draw_2_001875C0(f32, f32, f32, s8 *, s32, u32);
 void Menu_DrawFrame_0_00185390(s32, s32, s32, f32);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0(Item *, s32, void *, s32);
 void Ui_DrawSpriteRotated_1_00182080(s32, f32, Q *, Q *, void *, s32);
 void CreditsProc_DrawText_0_001DCF80(void);
@@ -232,9 +230,7 @@ void OptionProc_Back_0_00191C40(void);
 u32 strlen(s32);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, void *, s32);
 void Text_DrawScaledH_1_001874F0(f32, f32, f32, s32, s32, s32, u32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s64);
-void GsPkt_Flush_1_001544C0(void);
 void sprintf(s8 *, s8 *, ...);
 
 /* Hud_Draw_0_0018E480 */

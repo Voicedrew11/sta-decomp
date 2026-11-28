@@ -25,7 +25,6 @@ void Ending_Update_0_001ED9A0(T *a);
 void Ending_HandleEvent_0_001EDCC0(A *a);
 void Ui_DrawElemWrap_1_001829A0(E *, s8 *);
 void Text_Draw_2_001875C0(s32, s32, u32, f32, f32, f32);
-void Menu_DrawBackground_0_00187B20(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 R* MenuLayout_Get_1_00189050(s32);
 s32 Msg_GetText_2_00195B10(s32);

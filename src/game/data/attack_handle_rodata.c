@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FDE04: the game's data at 0x001FDE04..., one object per label. */
-/* used by: Attack_HandleSfxEvent_1_001D3810 */
+/* used by: attack_handle */
 #pragma explicit_zero_data on
 
 const s32 D_001FDE04[0x3] __attribute__((aligned(4))) = { 0, 0, 0 };

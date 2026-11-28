@@ -1,6 +1,7 @@
 #include "common.h"
 
 /* data_001F2DE0: the game's data at 0x001F2DE0..., one object per label. */
+/* used by: databook, load_menu */
 #pragma explicit_zero_data on
 
 extern s32 D_001F2E00[];

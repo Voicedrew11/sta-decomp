@@ -1,5 +1,6 @@
 #include "common.h"
 #include "game/gfx.h"
+#include "game/data.h"
 typedef struct { Vec a; f32 x10; f32 x14; f32 x18; u8 b1C; u8 b1D; u8 b1E; u8 b1F; u16 h20; u8 b22; } Ent_PointLight_CalcIntensity_0_0015BDE0;
 typedef struct { u8 pad[0x23]; u8 on; u8 pad2[0xC]; } E_PointLight_Update_0_0015C0C0;
 typedef struct {
@@ -37,14 +38,12 @@ extern Vec D_0030C3E0;
 extern Vec D_001F2150;
 extern C D_0030C48C[];
 extern u16 D_0030D0D4[];
-extern Vec D_003139A0;
 extern u8 D_0030C420__as_PointLight_OffsetAll_0_0015C620[];
 extern E_PointLightGroup_Clear_0_0015C6D0 D_0030C420__as_PointLightGroup_Clear_0_0015C6D0[];
 extern W D_0030C420__as_PointLight_Add_0_0015C730;
 extern Big D_0030C420__as_PointLight_Init_0_0015C8D0;
 f32 PointLight_CalcIntensity_0_0015BDE0(Ent_PointLight_CalcIntensity_0_0015BDE0 *e);
 void PointLight_OffsetAll_0_0015C620(void *arg0);
-void PointLightGroup_Clear_0_0015C6D0(s32 i);
 s32 PointLight_Add_0_0015C730(s32 idx, Vec *v, u8 c0, u8 c1, u8 c2, u8 c3, u16 h, u8 c4, f32 f0, f32 f1, f32 f2, f32 f3);
 void sceVu0CopyVector(void *, void *);
 void sceVu0ApplyMatrix(Vec *, Vec *, Vec *);

@@ -3,6 +3,7 @@
 #include "game/data.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/gfx.h"
 typedef struct { s32 idx; u8 pad4[0x3C]; } Item_Credits_DrawFrame_0_001DC900;
 typedef struct { u32 n; Item_Credits_DrawFrame_0_001DC900 *items; } List_Credits_DrawFrame_0_001DC900;
 typedef struct {
@@ -57,14 +58,11 @@ s32 MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawList_1_001829B0(void *, s32, void (*)(), s32);
 void Strm_SetFadeStep_1_001304B0(s32);
 void Snd_PlaySe_3_00131600(s32, u8);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0__as_Credits_DrawFrame_0_001DC900(Item_Credits_DrawFrame_0_001DC900 *, s32, void (*)(), s32);
 List_Credits_DrawBg_0_001DCE70** MenuLayout_Get_1_00189050__as_Credits_DrawBg_0_001DCE70(s32);
 void Ui_DrawList_1_001829B0__as_Credits_DrawBg_0_001DCE70(Item_Credits_DrawBg_0_001DCE70 *, s32, void (*)(), s32);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void *, S*, u32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_Flush_1_001544C0(void);
 s8* Msg_GetText_2_00195B10(s32);
 void Text_DrawScaledH_1_001874F0(f32 x, s16 h, s8 *str, u32 a, Col_CreditsProc_DrawText_0_001DCF80 col, f32 y, f32 sc);
 void Text_Draw_2_001875C0(s32, s32, f32, u32, f32, f32);

@@ -2,8 +2,7 @@
 
 /* bss_00209B70: the game's .bss from 0x00209B70, defined from the top down
    (CodeWarrior writes uninitialised objects in reverse order). */
-/* used by: Mem_Init_2_00128F10, Frame_RenderGame_1_0012A070, Frame_UpdateGame_1_0012A520, Game_MainLoop_2_0012B350,
-   Game_Boot_2_0012BC80 */
+/* used by: game_main */
 
 s32 D_00222748[0x2];
 s32 D_00222744[0x1];

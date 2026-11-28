@@ -1,7 +1,7 @@
 #include "common.h"
 
 /* rodata_001FE88C: the game's data at 0x001FE88C..., one object per label. */
-/* used by: MapSe_BindBank_0_001E1810 */
+/* used by: map_se_stream */
 #pragma explicit_zero_data on
 
 const s32 D_001FE88C[0x1] = { 0 };

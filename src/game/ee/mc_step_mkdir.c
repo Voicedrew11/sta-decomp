@@ -1,8 +1,8 @@
 #include "common.h"
+#include "game/ee.h"
 s32 sceMcMkdir(s32, s32, s32);
 s32 sceMcSync(s32, s32, s32 *);
 typedef struct { char pad[0x80]; s32 a; s32 b; s32 x88; s32 state; s32 p90[2]; s32 x98; s32 retry; s32 xa0; } MC;
-extern MC D_004B63B8;
 
 s32 Mc_StepMkdir_5_001D6688(void)
 {

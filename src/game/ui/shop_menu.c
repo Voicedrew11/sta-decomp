@@ -98,7 +98,6 @@ void MenuProc_DrawLabel_0_001DF580(O *o, s32 a1, u32 mode, Col a3);
 u32 strlen(void *);
 void TextParam_Init_1_00187A90(void *, void *, u64);
 s32 Text_Render_2_00188010(void *, C);
-void Menu_DrawBackground_0_00187B20(s32);
 s8* Msg_GetText_2_00195B10(s32);
 O_ShopMenu_DrawRingA_0_001DD7F0* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);

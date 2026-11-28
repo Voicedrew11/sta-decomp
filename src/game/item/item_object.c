@@ -181,10 +181,8 @@ extern s8 D_00270F40[];
 extern s32 D_004AD670[];
 extern s32 D_004B1770[];
 extern Ent *D_002022B0;
-extern s32 D_00201F2C;
 extern Bone *D_002022B0__as_ItemMdl_SetTransform_0_001ABF70;
 extern Obj D_004AE370__as_ItemMdl_SetTransform_0_001ABF70[2][64];
-extern s8 D_003139A0[];
 extern s8 D_0030D0E0[];
 extern O_ItemObj_TestVisible_0_001ACD90 **D_002022BC;
 extern BF D_00222A50[];
@@ -616,7 +614,7 @@ s32 ItemObj_OffsetAll_0_001AC0F0(s32 arg0, u16 arg1, s32 arg2) {
     s32 j;
     Obj3D *row;
 
-    sceVu0CopyVector(arg2, D_003139A0);
+    sceVu0CopyVector(arg2, &D_003139A0);
     if (arg1 == 0) {
         return 0;
     }

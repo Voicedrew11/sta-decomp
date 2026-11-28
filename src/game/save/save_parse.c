@@ -7,7 +7,6 @@ typedef struct { u32 tag; u32 x4; u32 x8; u32 xC; u32 x10; u32 x14; u32 x18; u32
 typedef struct { u8 x0[0x20]; u8 x20[0x30]; u8 x50[0x10]; } Big_Save_ParseOptions_1_001A8B90;
 typedef SaveRec Rec_Save_WriteOptions_1_001A8CA0;
 typedef struct { Rec_Save_WriteOptions_1_001A8CA0 r0; u8 x20[0x10]; Rec_Save_WriteOptions_1_001A8CA0 r1; u8 pad[0x80]; Rec_Save_WriteOptions_1_001A8CA0 r2; } Big_Save_WriteOptions_1_001A8CA0;
-typedef struct { u8 pad[0x20]; u8 x20[0xE]; u8 x2E; u8 p2F; s16 x30, x32, x34, x36, x38; } D;
 typedef struct { u32 tag; u32 x4; u32 x8; u32 xC; u32 x10; u32 x14; u32 x18; u32 x1C; } Rec_Save_ParseOptionsB_0_001A8F00;
 typedef struct {
     u8 x0[0x20];
@@ -33,7 +32,7 @@ typedef struct {
 } Big_Save_ParseGame_1_001A9080;
 typedef struct { u8 pad0[8]; u16 x8; u8 xA; u8 xB; u8 pad[0x98 - 0xC]; u8 x98; u8 x99; u8 x9A; u8 x9B; } Src;
 extern Big_Save_ParseOptions_1_001A8B90 *D_00201E00;
-extern D *D_00201DC0;
+extern PlayerData *D_00201DC0;
 void Save_ParseOptions_1_001A8B90(Rec_Save_ParseOptions_1_001A8B90 *p);
 void Save_ParseOptionsB_0_001A8F00(Rec_Save_ParseOptionsB_0_001A8F00 *p);
 s32 Save_GetData_1_001A9400(void);

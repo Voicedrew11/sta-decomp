@@ -40,9 +40,7 @@ s32 Credits_Step_0_001E3CA0(void);
 void Strm_SetFadeStep_1_001304B0(s32);
 void sceGsSetHalfOffset(DrawEnv1 *, s32, s32, s16);
 void Pool_Free_2_00128580(s8 *, s32 *);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_Flush_1_001544C0(void);
 
 /* Ending_PlayMovie_2_00194EE0 */
 #define Ending_StaffRoll_2_00194FC0 Ending_StaffRoll_2_00194FC0__as_Ending_PlayMovie_2_00194EE0

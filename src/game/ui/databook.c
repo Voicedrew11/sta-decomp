@@ -1,6 +1,7 @@
 #include "m2c.h"
 #include "common.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef union {
     u32 w;
     struct { u8 r, g, b, a; } c;
@@ -81,11 +82,8 @@ void* Msg_GetText_2_00195B10(s32 id);
 s8 ItemSort_GetEntry_0_00195B80(s32 i, s32 *p);
 s16 ItemSort_GetCount_0_00195BE0(s32 i);
 void DbCharProc_Layout_0_00195D80(s32 i, f32 *a1, f32 *a2);
-void Menu_SetFlags_0_0018A310(s32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 void Text_Draw_2_001875C0(f32, s32, f32, f32, u32, u32);
-f32 Approachf_3_00187770(f32, f32, f32);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Snd_PlaySe_3_00131600(s32, u8);

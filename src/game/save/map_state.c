@@ -1,9 +1,9 @@
 #include "m2c.h"
 #include "common.h"
 #include "game/save.h"
-typedef struct { u8 pad0[0x60]; s16 ids[16]; u8 pad80[0x140]; } Grp;
-typedef struct { u8 b0, b1, b2, b3, b4, b5, b6, b7; } Slot;
-typedef struct { u8 pad0[0x10E0]; Grp grp[0x2A]; u8 pad5A60[0x1A0]; Slot slot[0x400]; } W;
+#include "game/data.h"
+typedef AreaRec Grp;
+typedef InvSlot Slot;
 typedef struct { u8 pad0[0xA]; u16 type; u8 padC[0x14]; u16 x20; u8 pad22[0x1A]; u8 x3C; u8 pad3D[2]; u8 x3F; u8 pad40[0x50]; } Item;
 typedef struct { char b[8]; } E;
 typedef struct { char pad[0x5C00]; E e[0x400]; } S;
@@ -31,11 +31,11 @@ typedef struct { u8 b; char pad[7]; } E_Inventory_GetSlotFlag_0_001AA6B0;
 typedef struct { char pad[0x5C04]; E_Inventory_GetSlotFlag_0_001AA6B0 e[1]; } S_Inventory_GetSlotFlag_0_001AA6B0;
 typedef struct { char p0[2]; u8 b2; char p3[2]; u8 b5; char p6[2]; } E_Inventory_GetSlotCount_0_001AA6D0;
 typedef struct { char pad[0x5C00]; E_Inventory_GetSlotCount_0_001AA6D0 e[1]; } S_Inventory_GetSlotCount_0_001AA6D0;
-extern W *D_00201DC0;
+extern PlayerData *D_00201DC0;
 extern S *D_00201DC0__as_Inventory_GetSlot_1_001A97D0;
 extern G_MapState_OffsetObjects_0_001A9810 *D_00201DC4;
-extern s16 D_001F37B0[];
-extern Vec D_003139A0;
+#pragma explicit_zero_data on
+s16 D_001F37B0[0x30] = { 0xa, 0xb, 0xc, 0xd, 0x16, 0x21, 0x28, 0x29, 0x2a, 0x2b, 0x32, 0x33, 0x34, 0x35, 0x3c, 0x3d, 0x3e, 0x3f, 0x40, 0x46, 0x47, 0x50, 0x51, 0x52, 0x53, 0x5a, 0x5b, 0x5c, 0x64, 0x65, 0x6e, 0x6f, 0x70, 0x78, 0x79, 0x7a, 0x7b, 0x82, 0x83, 0x84, 0x8c, 0x96, 0, 0, 0, 0, 0, 0 };
 extern Rec *D_00201DC4__as_MapState_GetObjectPos_0_001A9900;
 extern Rec *D_00201DC4__as_MapState_SetObjectPos_0_001A9A20;
 extern Rec_MapState_SetBit_0_001A9CA0 *D_00201DC4__as_MapState_SetBit_0_001A9CA0;
@@ -62,7 +62,6 @@ s32 Save_TestItemBit_1_001A9B40(s16 i);
 void Save_SetItemBit_1_001A9B90(s16 i);
 u32 MapState_GetField_0_001A9D50(s32 id, u16 k);
 void MapState_SetField_0_001A9E10(s32 id, u16 k, u8 v);
-s32 Bestiary_IsSeen_2_001A9EC0(s16 i);
 s32 MapState_GetCounter_0_001AA1E0(s32 arg0, s16 arg1);
 s32 MapState_GetWord_1_001AA540(s32 arg0, s16 arg1);
 void MapState_SetWord_1_001AA5D0(s32 id, s16 k, s32 v);

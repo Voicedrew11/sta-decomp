@@ -2,23 +2,21 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/ui.h"
+#include "game/data.h"
+#include "game/save.h"
 typedef struct { u128 q[2]; } Q2;
 typedef UiArg Arg;
 typedef struct { s32 id; s32 o1; s32 o2; } Ent;
 typedef struct { s32 x0; u32 n; s32 x8; s32 xC; Ent e[1]; } Tbl;
 typedef struct { s32 x0; s32 x4; u8 x8; u8 pad9[5]; u8 xE; } Ev;
 extern Q2 D_001F2EC0;
-extern s32 D_004A11A0[];
-extern s32 D_004A13E0[];
 extern u32 D_00202184;
-extern s32 D_0020218C;
 void DbChar_UpdateWrap_0_00196930(s32 arg0);
 void DbChar_Update_0_00196940(Ev *arg0);
 void UiAnim_SetColor_0_0017F890(s32, Q2 *, Arg *);
 s32 UiAnim_SetTarget_1_0017F470(f32, s32, s32);
 void Snd_PlaySe_3_00131600(s32, u8);
 Tbl* DbChar_GetCount_0_001958C0(void);
-s32 Bestiary_IsSeen_2_001A9EC0(s16);
 void DbChar_GetListName_1_00196C50(void);
 void DbCharProc_Pos_0_00196CB0(void);
 

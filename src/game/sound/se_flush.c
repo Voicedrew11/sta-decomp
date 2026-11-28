@@ -4,7 +4,8 @@
 typedef struct { f32 v[8]; } M;
 extern s32 D_004BAA28[];
 extern s32 D_004BA044[];
-extern u8 D_004BA040[];
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+u8 D_004BA040[0xa0];
 s32 SndDrv_CallWithData_1_001D8350(s32, s32, s32, s32, s32, void *);
 s32 SndDrv_GetRecvBuffer_1_001D8340(void);
 void Se_ParseVoiceMap_0_001DBD20(s32);

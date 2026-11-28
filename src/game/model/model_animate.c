@@ -1,6 +1,7 @@
 #include "common.h"
 #include "m2c.h"
 #include "game/model.h"
+#include "game/data.h"
 typedef struct { u8 pad[6]; u16 n; u8 p8[0x38]; u8 d[1]; } Hd;
 typedef struct { u8 pad[0xB0]; s32 off; } E_Mdl_GetFrameData_0_001715B0;
 typedef struct { Hd *h; u8 *p; } O_Mdl_GetFrameData_0_001715B0;
@@ -16,7 +17,6 @@ typedef struct { s8 pad[6]; u16 n; s8 pad2[0x38]; s8 data[1]; } O_Mdl_BlendMotio
 typedef struct { u8 pad[6]; u16 x6; } A0;
 typedef struct { s8 pad[4]; u8 x4; u8 p5; u16 n; s8 pad2[0x38]; s8 data[1]; } O_Mdl_AnimateSel_0_00171B30;
 typedef struct { char p[4]; u8 b4; char p5; u16 h6; } H_Mdl_AnimateWrap_0_00171B70;
-extern s32 D_00201F2C;
 E_Mdl_GetFrameData_0_001715B0* Mdl_GetFrameData_0_001715B0(O_Mdl_GetFrameData_0_001715B0 *o);
 inline s8* get(H_Mdl_ResetBones_0_00171610 *h, s32 sel);
 void Mdl_ResetBones_0_00171610(H_Mdl_ResetBones_0_00171610 *h);

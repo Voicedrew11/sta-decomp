@@ -4,6 +4,7 @@
 #include "game/gfx.h"
 #include "game/save.h"
 #include "game/ui.h"
+#include "game/sound.h"
 typedef union { u128 q; f32 f[4]; } Q;
 typedef struct { s32 idx; u8 pad4[0x28]; f32 f2C; f32 f30; u8 pad34[0xC]; } Item_Ui_DrawItemIconEx_0_0017EDC0;
 typedef struct { u32 n; Item_Ui_DrawItemIconEx_0_0017EDC0 *items; } List_Ui_DrawItemIconEx_0_0017EDC0;
@@ -81,7 +82,6 @@ extern f32 D_004869D0[];
 extern f32 D_004869D4[];
 extern s32 D_00486990__as_UiAnim_Step_0_00180810[];
 s32 UiAnim_SetTarget_1_0017F470(s32 arg0, s32 arg1, f32 val);
-void UiAnim_UpdateAll_1_0017F5C0(void);
 void UiAnim_Bind_1_0017F650(Obj_UiAnim_Bind_1_0017F650 *o, Desc *d);
 void UiAnim_Get_1_0017F840(s32 i, E_UiAnim_Get_1_0017F840 **out);
 void UiAnim_SetColor_0_0017F890(s32 arg0, M8 *a1, M8 *a2);
@@ -96,12 +96,10 @@ void UiProc_DrawText_0_00180CA0(O_UiProc_DrawText_0_00180CA0 *o, s32 a1, u32 mod
 Res_Ui_DrawItemIconEx_0_0017EDC0* MenuLayout_Get_1_00189050(s32);
 s32 MenuLayout_GetSub_1_00189020(s32);
 f32 sinf(f32);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawList_1_001829B0(Item_Ui_DrawItemIconEx_0_0017EDC0 *, s32, void (*)(), s32);
 f32 fabsf(f32);
 void Tex_UploadQueuedWrap_0_00176A40(void);
 s32 Option_GetSeVolume_1_001A9480(void);
-void SndDrv_CallRpcSyncWaitB_2_001D7FD0(void);
 void DisableIntc(s32);
 s32* Pool_Alloc_3_001288C0(s8 *, u32);
 void Movie_SetParams_0_001ED5D0(s32, s32, s32, s32);
@@ -109,11 +107,7 @@ void Movie_Start_2_001ED0C0(s32, s32, s32, void (*)(void), s32, s32, s32, s32);
 void Pad_AnyButtonPressed_1_00180F10(void);
 void EnableIntc(s32);
 void Pool_Free_2_00128580(s8 *, s32 *);
-void SndDrv_CallRpcSyncWait_2_001D7EC0(void);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, s64);
-void GsPkt_Flush_1_001544C0(void);
-s32 SaveSys_SetPort_1_001E82A0(s32);
 void SaveSys_GetSlotCount_0_001E5E80(St *);
 s32 SaveSys_StartRead_0_001E5F30(s32, s32);
 void SaveSys_GetResult_0_001E6080(s32 *);

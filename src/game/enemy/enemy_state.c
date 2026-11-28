@@ -2,6 +2,7 @@
 #include "common.h"
 #include "actor.h"
 #include "game/enemy.h"
+#include "game/data.h"
 typedef struct { s32 *p; } P;
 typedef struct { char pad[0x4A8]; P *p; char p1[0xF5]; unsigned char : 3; unsigned char f : 1; char p2[0x170]; u16 h; } Obj;
 typedef struct { char pad[0x120]; unsigned int f : 1; } C_Enemy_IsBusy_0_0013EE40;
@@ -53,7 +54,6 @@ typedef struct {
     u8 pad60A[0xB0];
     s16 x6BA;
 } A_Enemy_BreakPart_0_0013F210;
-extern s32 D_00201F2C;
 s32 Enemy_GetMotionId_0_0013ED20(s8 *arg0);
 s32 Enemy_GetTargetHandle_0_0013EDE0(Obj *o);
 s32 Ent_IsNull0_1_0013EE30(u16 *arg0);

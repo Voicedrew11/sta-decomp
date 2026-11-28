@@ -1,5 +1,9 @@
 #include "m2c.h"
 #include "common.h"
+#include "game/ui.h"
+#include "game/math.h"
+#include "game/data.h"
+#include "game/save.h"
 typedef union { u32 w; u8 b[4]; } Col;
 typedef struct { f32 v[4]; } H;
 typedef struct { u8 pad[4]; u16 x4; } R;
@@ -8,19 +12,12 @@ typedef struct { u32 idx; s32 f4; u8 pad8[0x24]; f32 x; f32 y; u8 pad34[0xC]; } 
 typedef struct { u32 n; Ent *p; } L;
 typedef struct { u8 pad[0x24]; L *l; } O;
 extern f32 D_00201D34;
-extern s32 D_004A11A0[];
-extern s32 D_004A13E0[];
 extern s32 D_00202188;
-extern s32 D_0020218C;
 void DbChar_Draw_0_00195E30(u8 *arg0);
 void DbChar_DrawStats_1_00195F70(f32 f);
 void DbChar_DrawRing_0_00196070(s32 arg, f32 ang);
-void Menu_SetFlags_0_0018A310(s32);
-f32 Approachf_3_00187770(f32, f32, f32);
 s32 DbChar_FindEntry_0_00195900(s32);
 void Text_Draw_2_001875C0(s32, s32, Col, f32, f32, f32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
-s32 Bestiary_IsSeen_2_001A9EC0(s16);
 void memset(void *, s32, s32);
 void Menu_DrawFrame_0_00185390(f32, s32, s32, s32);
 void Menu_DrawStatRing_0_00186440(f32, H *, H *, H *, H *);
@@ -28,7 +25,6 @@ R* DbChar_Find_0_00195770(s32);
 void DbChar_CalcStatBars_0_00196D10(H *, H *, H *, H *, R *);
 O* MenuLayout_Get_1_00189050(s32);
 s8* MenuLayout_GetSub_1_00189020(s32);
-void Menu_DrawBackground_0_00187B20(s32);
 f32 Vec2_Angle_1_00187460(V2 *, V2 *);
 f32 sinf(f32);
 f32 cosf(f32);

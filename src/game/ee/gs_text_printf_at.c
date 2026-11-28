@@ -1,9 +1,9 @@
 #include "common.h"
+#include "game/ee.h"
 void vsnprintf(char *, s32, const char *, void *);
 void Sjis_ToWide_2_001E5C60(s32, s32, char *, s32);
 void GsText_DrawString_2_001E2748(f32 *, s32);
-typedef struct { char pad[0x134]; s32 x134; } G;
-extern G *D_00201E5C;
+extern GsTextState *D_00201E5C;
 extern f32 *D_00201E60;
 void GsText_PrintfAt_1_001E2650(f32 *a, const char *fmt, ...) {
     char buf[0x200];

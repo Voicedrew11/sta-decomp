@@ -2,9 +2,9 @@
 #include "game/data.h"
 #include "game/sound.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef struct { u8 v:1; } BF0;
 typedef struct { s32 type; s32 pad; s8 st; u8 pad9[5]; u8 eE; u8 padF[5]; BF0 x14; } Arg;
-f32 Approachf_3_00187770(f32, f32, f32);
 void Snd_PlaySe_3_00131600(s32, s32);
 void Strm_SetFadeStep_1_001304B0(s32);
 s32 Strm_PlayFile_2_00130590(s32, s32, s32);

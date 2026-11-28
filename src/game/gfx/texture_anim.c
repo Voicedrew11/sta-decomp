@@ -83,16 +83,13 @@ s32 TexAnim_GetFrame_0_00175850(s32 id);
 void TexAnim_Release_0_001758B0(s32 arg0, s32 arg1);
 void TexAnim_Register_0_001759D0(s32 id, u32 n, void *src, s32 key);
 void* memset(void*, s32, s32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_Flush_1_001544C0(void);
 void Draw_Sprite_1_00155BD0(Buf *);
 f32 sinf(f32);
 Tex* Tex_Find_1_00177AF0(u64, s32);
 void Tex_Release_1_00177570(s8 *);
 void memcpy(u8 *, void *, u32);
 s32 Tex_Resident_0_001777C0(u16, void *, void *);
-void Tex_FlushAll_1_00176AE0(void);
 
 /* TexAnim_InitTables_0_001746A0 */
 #define SET_PRIM(prim, iip, tme, fge, abe, aa1, fst, ctxt, fix) \

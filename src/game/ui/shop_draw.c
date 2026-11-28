@@ -4,6 +4,7 @@
 #include "game/item.h"
 #include "game/player.h"
 #include "game/ui.h"
+#include "game/math.h"
 typedef struct { u16 v[8]; } H;
 typedef struct { u128 q[2]; } Q2;
 typedef struct { s32 *p; s32 n; f32 f; void *fn; s32 a; s32 b; void *cb; } Arg;
@@ -40,10 +41,6 @@ void Shop_Update_0_001A1C80(In *in);
 void Shop_BuildList_0_001A2C00(s32 a0, s32 a1);
 void Shop_LoadIcons_0_001A2F20(u32 a0);
 void ShopProc_Pos_0_001A2FF0(s32 i, s8 *o, s8 *p);
-f32 Approachf_3_00187770(f32, f32, f32);
-void Menu_SetFlags_0_0018A310(s32);
-void UiAnim_UpdateAll_1_0017F5C0(void);
-void Menu_DrawBackground_0_00187B20(s32);
 void Notify_DrawBackground_0_0019EF60(u8 *);
 H* PlayerData_Get_2_001C9BA0(void);
 s8* Player_GetBodyState_1_001C9B60(void);

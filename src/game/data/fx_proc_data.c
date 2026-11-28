@@ -3,8 +3,7 @@
 #include "game/enemy.h"
 
 /* data_001F1C80: the game's data at 0x001F1C80..., one object per label. */
-/* used by: Actor_BuildLookMatrix_0_00136DB0, FxTable_GetEntry_0_0014D8A0, FxTable_CallA_0_0014D8E0, FxTable_CallB_0_0014D940,
-   FxTable_CallC_0_0014D9A0, Script_Exec_2_00166170, text_00136DB0.s */
+/* used by: actor, fx_proc, script_op */
 #pragma explicit_zero_data on
 
 extern u8 D_002704D0[];

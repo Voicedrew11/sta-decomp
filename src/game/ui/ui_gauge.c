@@ -3,6 +3,8 @@
 #include "common.h"
 #include "game/data.h"
 #include "game/ui.h"
+#include "game/gfx.h"
+#include "game/math.h"
 typedef struct { f32 m[4]; f32 x; f32 y; } S_Ui_DrawGauge_0_00182EF0;
 typedef struct { u8 r; u8 g; u8 b; u8 a; } Col_Ui_DrawGauge_0_00182EF0;
 typedef struct { u8 pad[0x6C]; s8 *p; } O_Ui_DrawCursorB_0_00183090;
@@ -184,7 +186,6 @@ f32 sinf(f32);
 s8* MenuLayout_GetSub_1_00189020(s32);
 void Ui_DrawSprite_2_00181680(s32, void *, void *, void*, void *, s32);
 void Ui_DrawSpriteRotated_1_00182080(f32, s32, f32 *, s8 *, s32 *, s32);
-void Menu_DrawBackground_0_00187B20(s32);
 void Ui_DrawElem_1_00182C10(s8*, void *);
 void sprintf(void *, void *, s32);
 O_Ui_LoadItemImageSmall_3_001833E0* ImageLoader_Request_1_001E1570(void *, s32);
@@ -218,10 +219,7 @@ s32 Tex_Find_1_00177AF0__as_Ui_LoadItemImage_3_00183DC0(s32, s32);
 u8* MenuLayout_GetSub_1_00189020__as_Menu_DrawRingA_0_00184040(s32);
 E* Item_GetTable_1_001AFC90(void);
 f32 fabsf(f32);
-f32 Approachf_3_00187770(f32, f32, f32);
-void GsPkt_BeginAD_3_001545D0(void);
 void GsPkt_SetReg_3_001543E0(s32, u64);
-void GsPkt_Flush_1_001544C0(void);
 u32 strlen(void *);
 void TextParam_Init_1_00187A90(void *, void *, u64);
 s32 Text_Render_2_00188010(void *, Col_Ui_DrawWindow_0_00183650);

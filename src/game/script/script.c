@@ -24,8 +24,11 @@ typedef struct { u8 pad[0xC]; u16 xC; u16 xE; } Hdr_Script_LoadStack_0_001655C0;
 extern s32 D_00201FA4;
 extern void *D_00201FA8;
 extern s8 * D_001F1C50[];
-extern s8 * D_001F2300[];
-extern s8 * D_0033F500[];
+void ScrCmd_NopE_2_00164F00(void);
+#pragma explicit_zero_data on
+s8 *D_001F2300[0x10] = { (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00, (s8 *)ScrCmd_NopE_2_00164F00 };
+/* .bss, from the top down (CodeWarrior writes it in reverse) */
+s8 *D_0033F500[0x10];
 void Script_ResetSlot_1_00164F10(S_Script_ResetSlot_1_00164F10 *a);
 f32 Script_GetResultF32_1_00164F60(Obj_Script_GetResultF32_1_00164F60 *o, u8 i, u8 j);
 s8 Script_GetResultS8_1_00164F90(Obj_Script_GetResultS8_1_00164F90 *o, u8 i, u8 j);
